@@ -1,0 +1,49 @@
+spark启动：spark-shell --master local[2]
+
+spark实现wc：
+val file = sc.textFile("file:///home/hadoop/data/hello.txt")
+val a = file.flatMap(line => line.split(" "))
+val b = a.map(word => (word,1))
+Array((hadoop,1), (welcome,1), (hadoop,1), (hdfs,1), (mapreduce,1), (hadoop,1), (hdfs,1))
+
+val c = b.reduceByKey(_ + _)
+	Array((mapreduce,1), (welcome,1), (hadoop,3), (hdfs,2))
+
+
+sc.textFile("file:///home/hadoop/data/hello.txt").flatMap(line => line.split(" ")).map(word => (word,1)).reduceByKey(_ + _).collect
+
+
+
+Flink运行
+./bin/flink run ./examples/batch/WordCount.jar \
+--input file:///home/hadoop/data/hello.txt --output file:///home/hadoop/tmp/flink_wc_output
+
+
+
+
+
+
+Beam运行：
+#direct方式运行
+mvn compile exec:java -Dexec.mainClass=org.apache.beam.examples.WordCount \
+-Dexec.args="--inputFile=/home/hadoop/data/hello.txt --output=counts" \
+-Pdirect-runner
+
+#spark方式运行
+mvn compile exec:java -Dexec.mainClass=org.apache.beam.examples.WordCount \
+-Dexec.args="--runner=SparkRunner --inputFile=/home/hadoop/data/hello.txt --output=counts" -Pspark-runner
+
+
+#flink方式运行
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,219 @@
+HDFS架构
+
+1 Master(NameNode/NN)  带 N个Slaves(DataNode/DN)
+HDFS/YARN/HBase
+
+1个文件会被拆分成多个Block
+blocksize：128M （为了负载均衡，要是储存太大会受网络的限制
+130M ==> 2个Block： 128M 和 2M
+
+NN：
+1）负责客户端请求的响应
+2）负责元数据（文件的名称、副本系数、Block存放的DN）的管理
+
+DN：
+1）存储用户的文件对应的数据块(Block)
+2）要定期向NN发送心跳信息，汇报本身及其所有的block信息，健康状况
+
+A typical deployment has a dedicated machine that runs only the NameNode software. 
+Each of the other machines in the cluster runs one instance of the DataNode software.
+The architecture does not preclude running multiple DataNodes on the same machine 
+but in a real deployment that is rarely the case.
+
+NameNode + N个DataNode
+建议：NN和DN是部署在不同的节点上
+
+
+replication factor：副本系数、副本因子
+
+All blocks in a file except the last block are the same size
+
+
+
+
+
+Hadoop1.x时：
+MapReduce：Master/Slave架构，1个JobTracker带多个TaskTracker
+
+JobTracker： 负责资源管理和作业调度
+TaskTracker：
+	定期向JT汇报本节点的健康状况、资源使用情况、作业执行情况；
+	接收来自JT的命令：启动任务/杀死任务
+
+YARN：不同计算框架可以共享同一个HDFS集群上的数据，享受整体的资源调度
+
+XXX on YARN的好处：
+	与其他计算框架共享集群资源，按资源需要分配，进而提高集群资源的利用率
+XXX: Spark/MapReduce/Storm/Flink
+
+
+YARN架构：
+1）ResourceManager: RM
+	整个集群同一时间提供服务的RM只有一个，负责集群资源的统一管理和调度
+	处理客户端的请求： 提交一个作业、杀死一个作业
+	监控我们的NM，一旦某个NM挂了，那么该NM上运行的任务需要告诉我们的AM来如何进行处理
+
+2) NodeManager: NM
+	整个集群中有多个，负责自己本身节点资源管理和使用
+	定时向RM汇报本节点的资源使用情况
+	接收并处理来自RM的各种命令：启动Container
+	处理来自AM的命令
+	单个节点的资源管理
+
+3) ApplicationMaster: AM
+	每个应用程序对应一个：MR、Spark，负责应用程序的管理
+	为应用程序向RM申请资源（core、memory），分配给内部task
+	需要与NM通信：启动/停止task，task是运行在container里面，AM也是运行在container里面
+
+4) Container
+	封装了CPU、Memory等资源的一个容器
+	是一个任务运行环境的抽象
+
+5) Client
+	提交作业
+	查询作业的运行进度
+	杀死作业
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hadoop伪分布式安装步骤
+1）jdk安装
+	解压：tar -zxvf jdk-7u79-linux-x64.tar.gz -C ~/app
+	添加到系统环境变量： ~/.bash_profile
+		export JAVA_HOME=/home/hadoop/app/jdk1.7.0_79
+		export PATH=$JAVA_HOME/bin:$PATH
+	使得环境变量生效： source ~/.bash_profile
+	验证java是否配置成功： java -v
+
+2）安装ssh
+	sudo yum install ssh
+	ssh-keygen -t rsa
+	cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys	
+
+3）下载并解压hadoop
+	下载：直接去cdh网站下载
+	解压：tar -zxvf hadoop-2.6.0-cdh5.7.0.tar.gz -C ~/app
+
+4）hadoop配置文件的修改(hadoop_home/etc/hadoop)
+	hadoop-env.sh
+		export JAVA_HOME=/home/hadoop/app/jdk1.7.0_79
+
+	core-site.xml
+		<property>
+	        <name>fs.defaultFS</name>
+	        <value>hdfs://hadoop000:8020</value>
+	    </property>
+
+	    <property>
+	        <name>hadoop.tmp.dir</name>
+	        <value>/home/hadoop/app/tmp</value>
+	    </property>
+
+	hdfs-site.xml
+		<property>
+	        <name>dfs.replication</name>
+	        <value>1</value>
+	    </property>
+
+	slaves    
+
+5）启动hdfs
+	格式化文件系统（仅第一次执行即可，不要重复执行）：hdfs/hadoop namenode -format
+	启动hdfs: sbin/start-dfs.sh
+	验证是否启动成功：
+		jps
+			DataNode
+			SecondaryNameNode
+			NameNode
+
+		浏览器访问方式： http://hadoop000:50070
+
+6）停止hdfs
+	sbin/stop-dfs.sh 
+
+
+
+Hadoop shell的基本使用
+hdfs dfs
+hadoop fs
+
+
+
+Java API操作HDFS文件
+文件	1	311585484	hdfs://hadoop000:8020/hadoop-2.6.0-cdh5.7.0.tar.gz
+文件夹	0	0	hdfs://hadoop000:8020/hdfsapi
+文件	1	49	hdfs://hadoop000:8020/hello.txt
+文件	1	40762	hdfs://hadoop000:8020/install.log
+
+问题：我们已经在hdfs-site.xml中设置了副本系数为1，为什么此时查询文件看到的3呢？
+ 如果你是通过hdfs shell的方式put的上去的那么，才采用默认的副本系数1
+ 如果我们是java api上传上去的，在本地我们并没有手工设置副本系数，所以否则采用的是hadoop自己的副本系数
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
