@@ -23,7 +23,20 @@
        - [多种Python虚拟环境的安装](/md/Django笔记/多种Python虚拟环境的安装.md)
    - electron
        - [electron开发初步——开发一个音乐播放软件](/md/electron/electron开发初步——开发一个音乐播放软件.md)
-
+   - git
+     - [git命令笔记](/md/git/git命令笔记.md)
+   
+   - linux
+       - [Linux常用命令](/md/linux/Linux常用命令.md)
+       - [快速创建linux虚拟机](/md/linux/快速创建linux虚拟机.md)
+       - [Linux基础知识和命令](/md/linux/Linux核心技能与应用/Linux基础知识和命令.md)
+       - [Linux进阶知识和命令](/md/linux/Linux核心技能与应用/Linux进阶知识和命令.md)
+       - [Shell脚本编程](/md/linux/Linux核心技能与应用/Shell脚本编程.md)
+       - [Vim文本编辑与版本控制](/md/linux/Linux核心技能与应用/Vim文本编辑与版本控制.md)
+       - [管理服务器和服务](/md/linux/Linux核心技能与应用/管理服务器和服务.md)
+       - [网络和安全](/md/linux/Linux核心技能与应用/网络和安全.md)
+       - [远程连接和SSH](/md/linux/Linux核心技能与应用/远程连接和SSH.md)
+   
    - flask(Python后端开发框架)
        - [flask模型](/md/flask笔记/flask模型.md)
        - [flask模板](/md/flask笔记/flask模板.md)
