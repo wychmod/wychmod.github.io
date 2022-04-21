@@ -7,6 +7,33 @@
        - [计算机网络](/md/计算机基础/计算机网络.md)
        - [深入理解tcp协议](/md/计算机基础/深入理解tcp协议.md)
        - [HTTP协议详解](/md/计算机基础/HTTP协议详解.md)
+   - Python
+       - [anaconda中使用虚拟环境](/md/Python/anaconda中使用虚拟环境.md)
+       - [python 命名规范](/md/Python/python 命名规范.md)
+       - Python高级
+           - [1.一切皆对象](/md/Python/Python高级/1.一切皆对象.md)
+           - [2.魔法函数](/md/Python/Python高级/2.魔法函数.md)
+           - [3.类和对象](/md/Python/Python高级/3.类和对象.md)
+           - [4.自定义序列类](/md/Python/Python高级/4.自定义序列类.md)
+           - [5.深入Python的set和dict](/md/Python/Python高级/5.深入Python的set和dict.md)
+           - [6.对象引用、可变性和垃圾回收](/md/Python/Python高级/6.对象引用、可变性和垃圾回收.md)
+           - [7.元类编程](/md/Python/Python高级/7.元类编程.md)
+           - [8.迭代器和生成器](/md/Python/Python高级/8.迭代器和生成器.md)
+           - [9.socket编程](/md/Python/Python高级/9.socket编程.md)
+           - [10.多线程、多进程和线程池编程](/md/Python/Python高级/10.多线程、多进程和线程池编程.md)
+           - [11.协程和异步io](/md/Python/Python高级/11.协程和异步io.md)
+           - [12.asyncio并发编程](/md/Python/Python高级/12.asyncio并发编程.md)
+           - [python 工具包](/md/Python/Python高级/python 工具包.md)
+           - [Python精度问题](/md/Python/Python高级/Python精度问题.md)
+           - [理解Python装饰器(Decorator)](/md/Python/Python高级/理解Python装饰器(Decorator).md)
+
+       - Python高效
+           - [字典、列表、集合、元组](/md/Python/Python高效/字典、列表、集合、元组.md)
+           - [字符串处理相关问题](/md/Python/Python高效/字符串处理相关问题.md)
+           - [对象迭代与反迭代相关问题](/md/Python/Python高效/对象迭代与反迭代相关问题.md)
+           - [文件IO效率相关问题与解决技巧](/md/Python/Python高效/文件IO效率相关问题与解决技巧.md)
+           - [类与对象深度问题与解决技巧](/md/Python/Python高效/类与对象深度问题与解决技巧.md)
+
    - Django(Python后端开发框架)
    
        - [Django(MRO)](/md/Django笔记/Django(MRO).md)
@@ -45,8 +72,10 @@
        - [flask_redirct_蓝图](/md/flask笔记/flask_redirct_蓝图.md)
        - [flask文件上传邮件发送](/md/flask笔记/flask文件上传邮件发送.md)
        - [在 Flask 应用中使用 gevent - brifuture](/md/flask笔记/在 Flask 应用中使用 gevent - brifuture.md)
-   
+   - 算法
+       - [算法笔记](/md/算法/左神从0学算法/算法笔记.md)
    - 面试
    
        - [python面试](/md/面试/python面试.md)
        - [python服务器端面试](/md/面试/python服务器端面试.md)
+   
