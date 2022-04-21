@@ -21,6 +21,18 @@
        - [Djangoday8日志](/md/Django笔记/Djangoday8日志.md)
        - [django上线部署](/md/Django笔记/django上线部署.md)
        - [多种Python虚拟环境的安装](/md/Django笔记/多种Python虚拟环境的安装.md)
+   - electron
+       - [electron开发初步——开发一个音乐播放软件](/md/electron/electron开发初步——开发一个音乐播放软件.md)
+
+   - flask(Python后端开发框架)
+       - [flask模型](/md/flask笔记/flask模型.md)
+       - [flask模板](/md/flask笔记/flask模板.md)
+       - [flask表单](/md/flask笔记/flask表单.md)
+       - [flask视图函数](/md/flask笔记/flask视图函数.md)
+       - [flask_redirct_蓝图](/md/flask笔记/flask_redirct_蓝图.md)
+       - [flask文件上传邮件发送](/md/flask笔记/flask文件上传邮件发送.md)
+       - [在 Flask 应用中使用 gevent - brifuture](/md/flask笔记/在 Flask 应用中使用 gevent - brifuture.md)
+   
    - 面试
    
        - [python面试](/md/面试/python面试.md)
