@@ -78,11 +78,11 @@
        - [Redux2](/md/React/React基础（技术胖）/Redux2.md)
 
    - React taro
-       - [React-taro基本知识](/md/React taro/React-taro基本知识.md)
-       - [React-taro环境搭建](/md/React taro/React-taro环境搭建.md)
-       - [taro-技术选型](/md/React taro/taro-技术选型.md)
-       - [taro-自带方法](/md/React taro/taro-自带方法.md)
-       - [Taro-设计思想及架构](/md/React taro/Taro-设计思想及架构.md)
+       - [React-taro基本知识](/md/React-taro/React-taro基本知识.md)
+       - [React-taro环境搭建](/md/React-taro/React-taro环境搭建.md)
+       - [taro-技术选型](/md/React-taro/taro-技术选型.md)
+       - [taro-自带方法](/md/React-taro/taro-自带方法.md)
+       - [Taro-设计思想及架构](/md/React-taro/Taro-设计思想及架构.md)
 
    - Vue
        - [Vue3+Vue-CLI项目搭建](/md/vue/Vue3+Vue-CLI项目搭建.md)
