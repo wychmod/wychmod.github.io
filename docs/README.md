@@ -1,7 +1,6 @@
 # Tots-And 的学习开发笔记
 
->我是**Tots-and**，一名在校的计算机研究生，原先是Python开发，现在努力成为一名 Java 工程师、架构师。
-一个着迷于技术又喜欢不断折腾的技术活跃者，从13年毕业到进入互联网，开发过交易、营销类项目，实现过运营、活动类项目，设计过中间件，组织过系统重构，编写过技术专利。不仅从事业务系统的开发工作，也经常做一些字节码插桩类的设计和实现，对架构的设计和落地有丰富的经验。在热衷于Java语言的同时，也喜欢研究中继器、I/O板卡、C#和PHP！
+>我是**Tots-and**，一名在校的计算机研究生，原先是Python开发，现在努力成为一名 Java 工程师。目前在学习Spring cloud有关的内容。研究深度学习有关的内容。
 
 ---
 
@@ -14,9 +13,9 @@
 
 ## Django(Python后端开发框架)
 - [Django(MRO)](/md/Django笔记/Django(MRO).md)
-- [django rest framework开发笔记](/md/Django笔记/django rest framework开发笔记.md)
+- [django-rest-framework开发笔记](/md/Django笔记/django-rest-framework开发笔记.md)
 - [Djangoday1整体跑通](/md/Django笔记/Djangoday1整体跑通.md)
-- [Django-2 视图](/md/Django笔记/Django-2 视图.md)
+- [Django-2视图](/md/Django笔记/Django-2视图.md)
 - [Djangoday3模板](/md/Django笔记/Djangoday3模板.md)
 - [Djangoday4模型](/md/Django笔记/Djangoday4模型.md)
 - [Djangoday5缓存发送邮件用户登录注册](/md/Django笔记/Djangoday5缓存发送邮件用户登录注册.md)
@@ -36,7 +35,7 @@
 - [flask视图函数](/md/flask笔记/flask视图函数.md)
 - [flask_redirct_蓝图](/md/flask笔记/flask_redirct_蓝图.md)
 - [flask文件上传邮件发送](/md/flask笔记/flask文件上传邮件发送.md)
-- [在 Flask 应用中使用 gevent - brifuture](/md/flask笔记/在 Flask 应用中使用 gevent - brifuture.md)
+- [在Flask应用中使用gevent-brifuture](/md/flask笔记/在Flask应用中使用gevent-brifuture.md)
 
 ## git
 - [git命令笔记](/md/git/git命令笔记.md)
@@ -54,7 +53,7 @@
 
 ## Python
 - [anaconda中使用虚拟环境](/md/Python/anaconda中使用虚拟环境.md)
-- [python 命名规范](/md/Python/python 命名规范.md)
+- [python命名规范](/md/Python/python命名规范.md)
 ### Python高级
 - [1.一切皆对象](/md/Python/Python高级/1.一切皆对象.md)
 - [2.魔法函数](/md/Python/Python高级/2.魔法函数.md)
@@ -68,7 +67,7 @@
 - [10.多线程、多进程和线程池编程](/md/Python/Python高级/10.多线程、多进程和线程池编程.md)
 - [11.协程和异步io](/md/Python/Python高级/11.协程和异步io.md)
 - [12.asyncio并发编程](/md/Python/Python高级/12.asyncio并发编程.md)
-- [python 工具包](/md/Python/Python高级/python 工具包.md)
+- [python工具包](/md/Python/Python高级/python工具包.md)
 - [Python精度问题](/md/Python/Python高级/Python精度问题.md)
 - [理解Python装饰器(Decorator)](/md/Python/Python高级/理解Python装饰器(Decorator).md)
 
@@ -88,14 +87,14 @@
 - [Redux2](/md/React/React基础（技术胖）/Redux2.md)
 
 ## React taro
-- [React taro基本知识](/md/React taro/React taro基本知识.md)
-- [React taro环境搭建](/md/React taro/React taro环境搭建.md)
-- [taro 技术选型](/md/React taro/taro 技术选型.md)
-- [taro 自带方法](/md/React taro/taro 自带方法.md)
-- [Taro 设计思想及架构](/md/React taro/Taro 设计思想及架构.md)
+- [React-taro基本知识](/md/React-taro/React-taro基本知识.md)
+- [React-taro环境搭建](/md/React-taro/React-taro环境搭建.md)
+- [taro-技术选型](/md/React-taro/taro-技术选型.md)
+- [taro-自带方法](/md/React-taro/taro-自带方法.md)
+- [Taro-设计思想及架构](/md/React-taro/Taro-设计思想及架构.md)
 
 ## Vue
-- [Vue3 + Vue CLI项目搭建](/md/vue/Vue3 + Vue CLI项目搭建.md)
+- [Vue3+Vue-CLI项目搭建](/md/vue/Vue3+Vue-CLI项目搭建.md)
 
 ## 人工智能
 - [1-线性代数基础](/md/人工智能/人工智能-奈学/1-线性代数基础.md)
@@ -130,6 +129,3 @@
 
 - [python面试](/md/面试/python面试.md)
 - [python服务器端面试](/md/面试/python服务器端面试.md)
-
-
-
