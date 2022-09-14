@@ -129,3 +129,36 @@
 
 - [python面试](/md/面试/python面试.md)
 - [python服务器端面试](/md/面试/python服务器端面试.md)
+
+## 系统设计
+- [设计模式](/md/系统设计/设计模式.md)
+
+## git
+- [learn-git-branching](/md/git/learn-git-branching.md)
+
+## Java基础
+- [Java基本功](/md/java/Java学习路线/Java基本功.md)
+- [Java集合框架](/md/java/Java学习路线/Java集合框架.md)
+
+## Spring
+- [ssm整合学习-Spring](/md/java/spring系列学习/ssm整合学习-Spring.md)
+- [ssm整合学习-SpringMVC](/md/java/spring系列学习/ssm整合学习-SpringMVC.md)
+- [ssm整合学习-Mybatis](/md/java/spring系列学习/ssm整合学习-Mybatis.md)
+- [ssm整合学习-Maven](/md/java/spring系列学习/ssm整合学习-Maven.md)
+- [ssm整合学习-MabtisPlus](/md/java/spring系列学习/ssm整合学习-MabtisPlus.md)
+- [ssm整合学习-SpringBoot](/md/java/spring系列学习/ssm整合学习-SpringBoot.md)
+
+## SpringBoot开发与实战
+- [SpringBoot实战和原理](/md/java/springboot/SpringBoot实战和原理.md)
+- [springboot项目开发流程](/md/java/springboot+vue项目开发/springboot项目开发流程.md)
+- [java和vue服务器部署](/md/java/springboot+vue项目开发/java和vue服务器部署.md)
+
+## Java项目开发相关
+- [雪花算法](/md/java/雪花算法.md)
+- [IOC和AOP](/md/java/IOC和AOP.md)
+- [MVC模式](/md/java/MVC模式.md)
+- [MVC模式](/md/java/Servlet.md)
+
+## MySQL
+- [MySQL是怎样使用的](/md/mysql/MySQL是怎样使用的.md)
+- [MySQL是怎样运行的](/md/mysql/MySQL是怎样运行的.md)
