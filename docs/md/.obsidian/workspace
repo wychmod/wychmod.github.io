@@ -10,8 +10,8 @@
           "type": "markdown",
           "state": {
             "file": "java/springcloud/SpringCloud.md",
-            "mode": "source",
-            "source": false
+            "mode": "preview",
+            "source": true
           }
         }
       }
