@@ -4,14 +4,14 @@
     "type": "split",
     "children": [
       {
-        "id": "83cf2ed91a10e7e0",
+        "id": "8997e62da02860f6",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "2022-09-14.md",
-            "mode": "source",
-            "source": true
+            "file": "java/springcloud/SpringCloud.md",
+            "mode": "preview",
+            "source": false
           }
         }
       }
@@ -78,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2022-09-14.md",
+                "file": "java/springcloud/SpringCloud.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2022-09-14.md",
+                "file": "java/springcloud/SpringCloud.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2022-09-14.md"
+                "file": "java/springcloud/SpringCloud.md"
               }
             }
           }
@@ -129,8 +129,9 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "83cf2ed91a10e7e0",
+  "active": "8997e62da02860f6",
   "lastOpenFiles": [
+    "2022-09-14.md",
     "java/springcloud/SpringCloud.md",
     "java/springcloud/Nacos安装指南.md"
   ]
