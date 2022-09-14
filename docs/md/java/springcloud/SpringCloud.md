@@ -677,3 +677,15 @@ userservice:
 在弹出的编辑窗口，修改权重：
 
 ![](../../youdaonote-images/image-20210713235235219.png)
+
+> **注意**：如果权重修改为0，则该实例永远不会被访问
+
+## 5.5.环境隔离
+
+Nacos提供了namespace来实现环境隔离功能。
+
+- nacos中可以有多个namespace
+- namespace下可以有group、service等
+- 不同namespace之间相互隔离，例如不同namespace的服务互相不可见
+
+![](../../youdaonote-images/image-20210714000101516.png)
