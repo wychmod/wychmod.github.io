@@ -7,8 +7,12 @@
         "id": "83cf2ed91a10e7e0",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "java/springcloud/Nacos安装指南.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "java/springcloud/Nacos安装指南.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "java/springcloud/Nacos安装指南.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "java/springcloud/Nacos安装指南.md"
+              }
             }
           }
         ]
@@ -120,6 +128,8 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "83cf2ed91a10e7e0",
-  "lastOpenFiles": []
+  "active": "62b967b1bdf672ea",
+  "lastOpenFiles": [
+    "java/springcloud/SpringCloud.md"
+  ]
 }
