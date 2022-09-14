@@ -1,3 +1,4 @@
 {
-  "attachmentFolderPath": "youdaonote-images"
+  "attachmentFolderPath": "youdaonote-images",
+  "newLinkFormat": "relative"
 }

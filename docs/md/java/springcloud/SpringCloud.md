@@ -530,7 +530,7 @@ ribbon:
 
 [Nacos](https://nacos.io/)是阿里巴巴的产品，现在是[SpringCloud](https://spring.io/projects/spring-cloud)中的一个组件。相比[Eureka](https://github.com/Netflix/eureka)功能更加丰富，在国内受欢迎程度较高。
 
-![image-20210713230444308.png](youdaonote-images/WEBRESOURCEb6333dc5ed379bd0686e0bc206fd7172.png)
+![image-20210713230444308.png](../../youdaonote-images/WEBRESOURCEb6333dc5ed379bd0686e0bc206fd7172.png)
 
 安装方式可以参考资料《Nacos安装指南.md》
 
@@ -576,3 +576,8 @@ spring:
     nacos:
       server-addr: localhost:8848
 ```
+
+### 3）重启
+
+重启微服务后，登录nacos管理页面，可以看到微服务信息：
+![[../../youdaonote-images/image-20210713231439607 3.png]]
