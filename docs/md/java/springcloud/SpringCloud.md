@@ -582,3 +582,98 @@ spring:
 重启微服务后，登录nacos管理页面，可以看到微服务信息：
 ![](../../youdaonote-images/image-20210713231439607%204.png)
 
+## 5.3.服务分级存储模型
+
+一个**服务**可以有多个**实例**，例如我们的user-service，可以有:
+
+- 127.0.0.1:8081
+- 127.0.0.1:8082
+- 127.0.0.1:8083
+
+假如这些实例分布于全国各地的不同机房，例如：
+
+- 127.0.0.1:8081，在上海机房
+- 127.0.0.1:8082，在上海机房
+- 127.0.0.1:8083，在杭州机房
+
+Nacos就将同一机房内的实例 划分为一个**集群**。
+
+也就是说，user-service是服务，一个服务可以包含多个集群，如杭州、上海，每个集群下可以有多个实例，形成分级模型，如图：
+
+![](../../youdaonote-images/image-20210713232522531.png)
+
+微服务互相访问时，应该尽可能访问同集群实例，因为本地访问速度更快。当本集群内不可用时，才访问其它集群。例如：
+
+![](../../youdaonote-images/image-20210713232658928.png)
+
+杭州机房内的order-service应该优先访问同机房的user-service。
+
+### 5.3.1.给user-service配置集群
+修改user-service的application.yml文件，添加集群配置：
+
+```yaml
+spring:
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        cluster-name: HZ # 集群名称
+```
+重启两个user-service实例后，我们可以在nacos控制台看到下面结果：
+
+![](../../youdaonote-images/image-20210713232916215.png)
+
+再次复制一个user-service启动配置，添加属性：
+
+```sh
+-Dserver.port=8083 -Dspring.cloud.nacos.discovery.cluster-name=SH
+```
+配置如图所示：
+![](../../youdaonote-images/image-20210713233528982.png)
+
+![](../../youdaonote-images/image-20210713233727923.png)
+
+### 5.3.2.同集群优先的负载均衡
+
+默认的`ZoneAvoidanceRule`并不能实现根据同集群优先来实现负载均衡。
+
+因此Nacos中提供了一个`NacosRule`的实现，可以优先从同集群中挑选实例。
+1）给order-service配置集群信息
+
+修改order-service的application.yml文件，添加集群配置：
+
+```sh
+spring:
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        cluster-name: HZ # 集群名称
+```
+
+2）修改负载均衡规则
+
+修改order-service的application.yml文件，修改负载均衡规则：
+
+```yaml
+userservice:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule # 负载均衡规则 
+```
+## 5.4.权重配置
+
+实际部署中会出现这样的场景：
+
+服务器设备性能有差异，部分实例所在机器性能较好，另一些较差，我们希望性能好的机器承担更多的用户请求。
+
+但默认情况下NacosRule是同集群内随机挑选，不会考虑机器的性能问题。
+
+因此，Nacos提供了权重配置来控制访问频率，权重越大则访问频率越高。
+
+在nacos控制台，找到user-service的实例列表，点击编辑，即可修改权重：
+
+![](../../youdaonote-images/image-20210713235133225.png)
+
+在弹出的编辑窗口，修改权重：
+
+![](../../youdaonote-images/image-20210713235235219.png)

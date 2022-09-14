@@ -1,5 +1,8 @@
 {
   "attachmentFolderPath": "youdaonote-images",
   "newLinkFormat": "relative",
-  "useMarkdownLinks": true
+  "useMarkdownLinks": true,
+  "showLineNumber": true,
+  "spellcheck": true,
+  "livePreview": true
 }

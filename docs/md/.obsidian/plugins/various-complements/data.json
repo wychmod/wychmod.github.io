@@ -1,5 +1,5 @@
 {
-  "strategy": "default",
+  "strategy": "english-only",
   "matchStrategy": "prefix",
   "maxNumberOfSuggestions": 5,
   "maxNumberOfWordsAsPhrase": 3,
