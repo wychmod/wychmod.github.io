@@ -4,6 +4,11 @@
       "type": "file",
       "title": "SpringCloud",
       "path": "java/springcloud/SpringCloud.md"
+    },
+    {
+      "type": "file",
+      "title": "Nacos安装指南",
+      "path": "java/springcloud/Nacos安装指南.md"
     }
   ]
 }
