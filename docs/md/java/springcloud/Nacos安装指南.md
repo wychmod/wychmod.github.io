@@ -13,13 +13,13 @@ GitHub的Release下载页：https://github.com/alibaba/nacos/releases
 
 如图：
 
-![image-20210402161102887.png](youdaonote-images/WEBRESOURCE39724dc349060035177bfae7b09d0d23.png)
+![image-20210402161102887.png](../../youdaonote-images/WEBRESOURCE39724dc349060035177bfae7b09d0d23.png)
 
 
 
 本课程采用1.4.1.版本的Nacos，课前资料已经准备了安装包：
 
-![image-20210402161130261.png](youdaonote-images/WEBRESOURCEfa543e80e15725b9a1aea37c52ab2bd1.png)
+![image-20210402161130261.png](../../youdaonote-images/WEBRESOURCEfa543e80e15725b9a1aea37c52ab2bd1.png)
 
 windows版本使用`nacos-server-1.4.1.zip`包即可。
 
@@ -29,7 +29,7 @@ windows版本使用`nacos-server-1.4.1.zip`包即可。
 
 将这个包解压到任意非中文目录下，如图：
 
-![image-20210402161843337.png](youdaonote-images/WEBRESOURCE96d9f6f3271175c5bf6731678b35daa7.png)
+![image-20210402161843337.png](../../youdaonote-images/WEBRESOURCE96d9f6f3271175c5bf6731678b35daa7.png)
 
 目录说明：
 
@@ -44,11 +44,11 @@ Nacos的默认端口是8848，如果你电脑上的其它进程占用了8848端�
 
 **如果无法关闭占用8848端口的进程**，也可以进入nacos的conf目录，修改配置文件中的端口：
 
-![image-20210402162008280.png](youdaonote-images/WEBRESOURCE2d0c2f6ff5bffc059c775ce4f42e1b8a.png)
+![image-20210402162008280.png](../../youdaonote-images/WEBRESOURCE2d0c2f6ff5bffc059c775ce4f42e1b8a.png)
 
 修改其中的内容：
 
-![image-20210402162251093.png](youdaonote-images/WEBRESOURCE75f6c5863e7deb29b3c1138c2f654769.png)
+![image-20210402162251093.png](../../youdaonote-images/WEBRESOURCE75f6c5863e7deb29b3c1138c2f654769.png)
 
 
 
@@ -56,7 +56,7 @@ Nacos的默认端口是8848，如果你电脑上的其它进程占用了8848端�
 
 启动非常简单，进入bin目录，结构如下：
 
-![image-20210402162350977.png](youdaonote-images/WEBRESOURCE786d6a9ec017f8bc0979c69e45419221.png)
+![image-20210402162350977.png](../../youdaonote-images/WEBRESOURCE786d6a9ec017f8bc0979c69e45419221.png)
 
 然后执行命令即可：
 
@@ -69,7 +69,7 @@ Nacos的默认端口是8848，如果你电脑上的其它进程占用了8848端�
 
 执行后的效果如图：
 
-![image-20210402162526774.png](youdaonote-images/WEBRESOURCE986dac3b9b7b128fd7c5d507f7ffe0cf.png)
+![image-20210402162526774.png](../../youdaonote-images/WEBRESOURCE986dac3b9b7b128fd7c5d507f7ffe0cf.png)
 
 
 
@@ -77,11 +77,11 @@ Nacos的默认端口是8848，如果你电脑上的其它进程占用了8848端�
 
 在浏览器输入地址：http://127.0.0.1:8848/nacos 即可：
 
-![image-20210402162630427.png](youdaonote-images/WEBRESOURCEa71414be53d5bf9d46f417f17c62a224.png)
+![image-20210402162630427.png](../../youdaonote-images/WEBRESOURCEa71414be53d5bf9d46f417f17c62a224.png)
 
 默认的账号和密码都是nacos，进入后：
 
-![image-20210402162709515.png](youdaonote-images/WEBRESOURCE4c2a6b5423cbe9751a732301dc8dcd8c.png)
+![image-20210402162709515.png](../../youdaonote-images/WEBRESOURCE4c2a6b5423cbe9751a732301dc8dcd8c.png)
 
 
 
@@ -97,7 +97,7 @@ Nacos依赖于JDK运行，索引Linux上也需要安装JDK才行。
 
 上传jdk安装包：
 
-![image-20210402172334810.png](youdaonote-images/WEBRESOURCE31be5c30fd4e01c1d0b3b21679782158.png)
+![image-20210402172334810.png](../../youdaonote-images/WEBRESOURCE31be5c30fd4e01c1d0b3b21679782158.png)
 
 上传到某个目录，例如：`/usr/local/`
 
@@ -130,15 +130,15 @@ source /etc/profile
 
 如图：
 
-![image-20210402161102887.png](youdaonote-images/WEBRESOURCE9a62cfdecd746d6946b50bad46ed3659.png)
+![image-20210402161102887.png](../../youdaonote-images/WEBRESOURCE9a62cfdecd746d6946b50bad46ed3659.png)
 
 也可以直接使用课前资料中的tar.gz：
 
-![image-20210402161130261.png](youdaonote-images/WEBRESOURCE6c860ccae1dfac7506f8ff74eab81156.png)
+![image-20210402161130261.png](../../youdaonote-images/WEBRESOURCE6c860ccae1dfac7506f8ff74eab81156.png)
 
 上传到Linux服务器的某个目录，例如`/usr/local/src`目录下：
 
-![image-20210402163715580.png](youdaonote-images/WEBRESOURCEcc7f15266bc57dae64b3a322275cc3d2.png)
+![image-20210402163715580.png](../../youdaonote-images/WEBRESOURCEcc7f15266bc57dae64b3a322275cc3d2.png)
 
 
 
@@ -158,11 +158,11 @@ rm -rf nacos-server-1.4.1.tar.gz
 
 目录中最终样式：
 
-![image-20210402163858429.png](youdaonote-images/WEBRESOURCE41c525509a5b3f1d02790f35a66968da.png)
+![image-20210402163858429.png](../../youdaonote-images/WEBRESOURCE41c525509a5b3f1d02790f35a66968da.png)
 
 目录内部：
 
-![image-20210402164414827.png](youdaonote-images/WEBRESOURCE7c59db12d1d02c938931e1ff8655992a.png)
+![image-20210402164414827.png](../../youdaonote-images/WEBRESOURCE7c59db12d1d02c938931e1ff8655992a.png)
 
 ## 2.4.端口配置
 

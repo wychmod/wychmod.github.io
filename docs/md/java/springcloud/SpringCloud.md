@@ -5,7 +5,7 @@
 ## 1.1.单体架构
 **单体架构**：将业务的所有功能集中在一个项目中开发，打成一个包部署。
 
-![image-20210713202807818.png](youdaonote-images/WEBRESOURCE490696907e2653d7e53f3701ac8cd835.png)
+![image-20210713202807818.png](../../youdaonote-images/WEBRESOURCE490696907e2653d7e53f3701ac8cd835.png)
 
 单体架构的优缺点如下：
 
@@ -20,7 +20,7 @@
 
 **分布式架构**：根据业务功能对系统做拆分，每个业务功能模块作为独立项目开发，称为一个服务。
 
-![image-20210713203124797.png](youdaonote-images/WEBRESOURCE50c05afc8c5eac25f1522b1c9bbfba60.png)
+![image-20210713203124797.png](../../youdaonote-images/WEBRESOURCE50c05afc8c5eac25f1522b1c9bbfba60.png)
 
 分布式架构的优缺点：
 
@@ -39,7 +39,7 @@
 - 自治：团队独立、技术独立、数据独立，独立部署和交付
 - 面向服务：服务提供统一标准的接口，与语言和技术无关
 - 隔离性强：服务调用做好隔离、容错、降级，避免出现级联问题
-![image-20210713203753373.png](youdaonote-images/WEBRESOURCE5624061fee36eb51cf07fc74b5274c1c.png)
+![image-20210713203753373.png](../../youdaonote-images/WEBRESOURCE5624061fee36eb51cf07fc74b5274c1c.png)
 
 微服务的上述特性其实是在给分布式架构制定一个标准，进一步降低服务之间的耦合度，提供服务的独立性和灵活性。做到高内聚，低耦合。
 
@@ -55,11 +55,11 @@ SpringCloud集成了各种微服务功能组件，并基于SpringBoot实现了�
 
 其中常见的组件包括：
 
-![image-20210713204155887.png](youdaonote-images/WEBRESOURCEa1aef9f15dd1b995fbeb9fef004d5bf0.png)
+![image-20210713204155887.png](../../youdaonote-images/WEBRESOURCEa1aef9f15dd1b995fbeb9fef004d5bf0.png)
 
 另外，SpringCloud底层是依赖于SpringBoot的，并且有版本的兼容关系，如下：
 
-![image-20210713205003790.png](youdaonote-images/WEBRESOURCE8199d98a5f3f205c5a6bffeae7df9d61.png)
+![image-20210713205003790.png](../../youdaonote-images/WEBRESOURCE8199d98a5f3f205c5a6bffeae7df9d61.png)
 
 我们课堂学习的版本是 Hoxton.SR10，因此对应的SpringBoot版本是2.3.x版本。
 
@@ -89,7 +89,7 @@ SpringCloud集成了各种微服务功能组件，并基于SpringBoot实现了�
 - 微服务数据独立，不要访问其它微服务的数据库
 - 微服务可以将自己的业务暴露为接口，供其它微服务调用
 
-![image-20210713210800950.png](youdaonote-images/WEBRESOURCE98c69ec142fe4467d6ad449ef96eb607.png)
+![image-20210713210800950.png](../../youdaonote-images/WEBRESOURCE98c69ec142fe4467d6ad449ef96eb607.png)
 
 ## 2.2.服务拆分示例
 cloud-demo：父工程，管理依赖
@@ -107,7 +107,7 @@ cloud-demo：父工程，管理依赖
 
 修改order-service中的根据id查询订单业务，要求在查询订单的同时，根据订单中包含的userId查询出用户信息，一起返回。
 
-![image-20210713213312278.png](youdaonote-images/WEBRESOURCE01d09813725a65729b93246001956c46.png)
+![image-20210713213312278.png](../../youdaonote-images/WEBRESOURCE01d09813725a65729b93246001956c46.png)
 
 因此，我们需要在order-service中 向user-service发起一个http的请求，调用http://localhost:8081/user/{userId}这个接口。
 
@@ -147,7 +147,7 @@ public class OrderApplication {
 ### 2.3.3.实现远程调用
 
 修改order-service服务中的cn.itcast.order.service包下的OrderService类中的queryOrderById方法：
-![image-20210713213959569.png](youdaonote-images/WEBRESOURCE0d05877ad528b090706f33df964341db.png)
+![image-20210713213959569.png](../../youdaonote-images/WEBRESOURCE0d05877ad528b090706f33df964341db.png)
 
 ## 2.4.提供者与消费者
 
@@ -157,7 +157,7 @@ public class OrderApplication {
 
 **服务消费者**：一次业务中，调用其它微服务的服务。（调用其它微服务提供的接口）
 
-![image-20210713214404481.png](youdaonote-images/WEBRESOURCEd50342aca3f22cf74fcd41b8e0ee2f49.png)
+![image-20210713214404481.png](../../youdaonote-images/WEBRESOURCEd50342aca3f22cf74fcd41b8e0ee2f49.png)
 
 但是，服务提供者与服务消费者的角色并不是绝对的，而是相对于业务而言。
 
@@ -172,7 +172,7 @@ public class OrderApplication {
 
 # 3.Eureka注册中心
 假如我们的服务提供者user-service部署了多个实例，如图：
-![image-20210713214925388.png](youdaonote-images/WEBRESOURCE0d349a184003727b1f874b97f3d7a337.png)
+![image-20210713214925388.png](../../youdaonote-images/WEBRESOURCE0d349a184003727b1f874b97f3d7a337.png)
 
 - order-service在发起远程调用的时候，该如何得知user-service实例的ip地址和端口？
 - 有多个user-service实例地址，order-service调用时该如何选择？
@@ -180,7 +180,7 @@ public class OrderApplication {
 
 ## 3.1.Eureka的结构和作用
 这些问题都需要利用SpringCloud中的注册中心来解决，其中最广为人知的注册中心就是Eureka，其结构如下：
-![image-20210713220104956.png](youdaonote-images/WEBRESOURCE0d3c283daf823745e2a686973485dab3.png)
+![image-20210713220104956.png](../../youdaonote-images/WEBRESOURCE0d3c283daf823745e2a686973485dab3.png)
 
 回答之前的各个问题。
 
@@ -211,13 +211,13 @@ public class OrderApplication {
 
 > 注意：一个微服务，既可以是服务提供者，又可以是服务消费者，因此eureka将服务注册、服务发现等功能统一封装到了eureka-client端
 
-![image-20210713220509769.png](youdaonote-images/WEBRESOURCEdfb61667232ee34bdbf9a2e66f3c376a.png)
+![image-20210713220509769.png](../../youdaonote-images/WEBRESOURCEdfb61667232ee34bdbf9a2e66f3c376a.png)
 
 ## 3.2.搭建eureka-server
 
 首先大家注册中心服务端：eureka-server，这必须是一个独立的微服务
 ### 3.2.1.创建eureka-server服务
-![image-20210713220605881.png](youdaonote-images/WEBRESOURCE68bee115859339388f0617bd4c227bcd.png)
+![image-20210713220605881.png](../../youdaonote-images/WEBRESOURCE68bee115859339388f0617bd4c227bcd.png)
 
 ### 3.2.2.引入eureka依赖
 引入SpringCloud为eureka提供的starter依赖：
@@ -269,7 +269,7 @@ eureka:
 启动微服务，然后在浏览器访问：http://127.0.0.1:10086
 
 看到下面结果应该是成功了：
-![image-20210713222157190.png](youdaonote-images/WEBRESOURCE339484e7d2fc179c78a7b116c4702932.png)
+![image-20210713222157190.png](../../youdaonote-images/WEBRESOURCE339484e7d2fc179c78a7b116c4702932.png)
 
 ## 3.3.服务注册
 
@@ -307,14 +307,14 @@ eureka:
 
 首先，复制原来的user-service启动配置：
 
-![image-20210713222656562.png](youdaonote-images/WEBRESOURCE9f8d3eaf683076c9440269a411e044bf.png)
+![image-20210713222656562.png](../../youdaonote-images/WEBRESOURCE9f8d3eaf683076c9440269a411e044bf.png)
 
 然后，在弹出的窗口中，填写信息：
 
-![image-20210713222757702.png](youdaonote-images/WEBRESOURCEca1f99b9dd4b2272a8bbc2ebc7b82a62.png)
+![image-20210713222757702.png](../../youdaonote-images/WEBRESOURCEca1f99b9dd4b2272a8bbc2ebc7b82a62.png)
 
 现在，SpringBoot窗口会出现两个user-service启动配置，不过，第一个是8081端口，第二个是8082端口。
-![image-20210713223150650.png](youdaonote-images/WEBRESOURCE31600c6b44fa69a0475951276e66cda5.png)
+![image-20210713223150650.png](../../youdaonote-images/WEBRESOURCE31600c6b44fa69a0475951276e66cda5.png)
 
 ## 3.4.服务发现
 
@@ -356,11 +356,11 @@ eureka:
 
 在order-service的OrderApplication中，给RestTemplate这个Bean添加一个@LoadBalanced注解：
 
-![image-20210713224049419.png](youdaonote-images/WEBRESOURCE26e8427c0f6a0e2be4a7a8c7847c9d7f.png)
+![image-20210713224049419.png](../../youdaonote-images/WEBRESOURCE26e8427c0f6a0e2be4a7a8c7847c9d7f.png)
 
 修改order-service服务中的cn.itcast.order.service包下的OrderService类中的queryOrderById方法。修改访问的url路径，用服务名代替ip、端口：
 
-![image-20210713224245731.png](youdaonote-images/WEBRESOURCE2825e3d38f9d52077fb53de169d55368.png)
+![image-20210713224245731.png](../../youdaonote-images/WEBRESOURCE2825e3d38f9d52077fb53de169d55368.png)
 
 spring会自动帮助我们从eureka-server端，根据userservice这个服务名称，获取实例列表，而后完成负载均衡。
 
@@ -372,7 +372,7 @@ spring会自动帮助我们从eureka-server端，根据userservice这个服务�
 
 SpringCloud底层其实是利用了一个名为Ribbon的组件，来实现负载均衡功能的。
 
-![image-20210713224517686.png](youdaonote-images/WEBRESOURCE07a6c915c1fdb5c4b33a5b0816314d1e.png)
+![image-20210713224517686.png](../../youdaonote-images/WEBRESOURCE07a6c915c1fdb5c4b33a5b0816314d1e.png)
 
 那么我们发出的请求明明是http://userservice/user/1，怎么变成了http://localhost:8081的呢？
 
@@ -386,7 +386,7 @@ SpringCloud底层其实是利用了一个名为Ribbon的组件，来实现负载
 
 ### 1）LoadBalancerIntercepor
 
-![1525620483637.png](youdaonote-images/WEBRESOURCEb6956cacbb66ba438fd37551f0d7afc5.png)
+![1525620483637.png](../../youdaonote-images/WEBRESOURCEb6956cacbb66ba438fd37551f0d7afc5.png)
 
 可以看到这里的intercept方法，拦截了用户的HttpRequest请求，然后做了几件事：
 
@@ -402,7 +402,7 @@ SpringCloud底层其实是利用了一个名为Ribbon的组件，来实现负载
 
 继续跟入execute方法：
 
-![1525620787090.png](youdaonote-images/WEBRESOURCEe9eedd944e518023c9bdc42bbc73e9ba.png)
+![1525620787090.png](../../youdaonote-images/WEBRESOURCEe9eedd944e518023c9bdc42bbc73e9ba.png)
 
 代码是这样的：
 
@@ -413,7 +413,7 @@ SpringCloud底层其实是利用了一个名为Ribbon的组件，来实现负载
 
 放行后，再次访问并跟踪，发现获取的是8081：
 
-![1525620835911.png](youdaonote-images/WEBRESOURCE17d432cf9146037e776e69d2804c532a.png)
+![1525620835911.png](../../youdaonote-images/WEBRESOURCE17d432cf9146037e776e69d2804c532a.png)
 
 果然实现了负载均衡。
 
@@ -423,23 +423,23 @@ SpringCloud底层其实是利用了一个名为Ribbon的组件，来实现负载
 
 在刚才的代码中，可以看到获取服务使通过一个`getServer`方法来做负载均衡:
 
-![1525620835911.png](youdaonote-images/WEBRESOURCEbc13700b52879c808764e6bf702d1b37.png)
+![1525620835911.png](../../youdaonote-images/WEBRESOURCEbc13700b52879c808764e6bf702d1b37.png)
 
 我们继续跟入：
 
-![1544361421671.png](youdaonote-images/WEBRESOURCE4015eb56f3b6b65f14d553153c8512dd.png)
+![1544361421671.png](../../youdaonote-images/WEBRESOURCE4015eb56f3b6b65f14d553153c8512dd.png)
 
 继续跟踪源码chooseServer方法，发现这么一段代码：
 
-![1525622652849.png](youdaonote-images/WEBRESOURCEb5d8d2829a85c8baca468e452200c74f.png)
+![1525622652849.png](../../youdaonote-images/WEBRESOURCEb5d8d2829a85c8baca468e452200c74f.png)
 
 我们看看这个rule是谁：
 
-![1525622699666.png](youdaonote-images/WEBRESOURCE5adbc4bfa1535f3fcc9bdf8fa73e2f6f.png)
+![1525622699666.png](../../youdaonote-images/WEBRESOURCE5adbc4bfa1535f3fcc9bdf8fa73e2f6f.png)
 
 这里的rule默认值是一个`RoundRobinRule`，看类的介绍：
 
-![1525622754316.png](youdaonote-images/WEBRESOURCE65a4974cf6bf9b59677511fa8b9eb78a.png)
+![1525622754316.png](../../youdaonote-images/WEBRESOURCE65a4974cf6bf9b59677511fa8b9eb78a.png)
 
 轮询的意思。
 
@@ -447,7 +447,7 @@ SpringCloud底层其实是利用了一个名为Ribbon的组件，来实现负载
 
 SpringCloudRibbon的底层采用了一个拦截器，拦截了RestTemplate发出的请求，对地址做了修改。用一幅图来总结一下：
 
-![image-20210713224724673.png](youdaonote-images/WEBRESOURCEdafd85b9e5c3cb60145e99a881df600d.png)
+![image-20210713224724673.png](../../youdaonote-images/WEBRESOURCEdafd85b9e5c3cb60145e99a881df600d.png)
 
 基本流程如下：
 
@@ -463,7 +463,7 @@ SpringCloudRibbon的底层采用了一个拦截器，拦截了RestTemplate发出
 
 负载均衡的规则都定义在IRule接口中，而IRule有很多不同的实现类：
 
-![image-20210713225653000.png](youdaonote-images/WEBRESOURCEf99293348731ae46f65414da787017d4.png)
+![image-20210713225653000.png](../../youdaonote-images/WEBRESOURCEf99293348731ae46f65414da787017d4.png)
 
 不同规则的含义如下：
 
@@ -479,7 +479,8 @@ SpringCloudRibbon的底层采用了一个拦截器，拦截了RestTemplate发出
 
 
 
-默认的实现就是ZoneAvoidanceRule，是一种轮询方案
+默认的实现就是ZoneAvoidanceRule，是一种轮询方案。
+
 ### 4.3.2.自定义负载均衡策略
 
 通过定义IRule实现可以修改负载均衡规则，有两种方式：
