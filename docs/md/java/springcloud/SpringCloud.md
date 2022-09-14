@@ -580,4 +580,5 @@ spring:
 ### 3）重启
 
 重启微服务后，登录nacos管理页面，可以看到微服务信息：
-![[../../youdaonote-images/image-20210713231439607 3.png]]
+![](../../youdaonote-images/image-20210713231439607%204.png)
+
