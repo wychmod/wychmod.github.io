@@ -689,3 +689,66 @@ Nacos提供了namespace来实现环境隔离功能。
 - 不同namespace之间相互隔离，例如不同namespace的服务互相不可见
 
 ![](../../youdaonote-images/image-20210714000101516.png)
+
+### 5.5.1.创建namespace
+
+默认情况下，所有service、data、group都在同一个namespace，名为public：
+![](../../youdaonote-images/image-20210714000414781.png)
+
+我们可以点击页面新增按钮，添加一个namespace：
+![](../../youdaonote-images/image-20210714000440143.png)
+![](../../youdaonote-images/image-20210714000505928.png)
+就能在页面看到一个新的namespace：
+![](../../youdaonote-images/image-20210714000522913.png)
+
+### 5.5.2.给微服务配置namespace
+给微服务配置namespace只能通过修改配置来实现。
+
+例如，修改order-service的application.yml文件：
+
+```yaml
+spring:
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        cluster-name: HZ
+        namespace: 492a7d5d-237b-46a1-a99a-fa8e98e4b0f9 # 命名空间，填ID
+
+重启order-service后，访问控制台，可以看到下面的结果：
+![](../../youdaonote-images/image-20210714000830703.png)
+![](../../youdaonote-images/image-20210714000837140.png)
+
+此时访问order-service，因为namespace不同，会导致找不到userservice，控制台会报错：
+![](../../youdaonote-images/image-20210714000941256.png)
+
+## 5.6.Nacos与Eureka的区别
+
+Nacos的服务实例分为两种l类型：
+
+- 临时实例：如果实例宕机超过一定时间，会从服务列表剔除，默认的类型。
+
+- 非临时实例：如果实例宕机，不会从服务列表剔除，也可以叫永久实例。
+
+配置一个服务实例为永久实例：
+
+```yaml
+spring:
+  cloud:
+    nacos:
+      discovery:
+        ephemeral: false # 设置为非临时实例
+```
+
+Nacos和Eureka整体结构类似，服务注册、服务拉取、心跳等待，但是也存在一些差异：
+![](../../youdaonote-images/image-20210714001728017.png)
+
+- Nacos与eureka的共同点
+  - 都支持服务注册和服务拉取
+  - 都支持服务提供者心跳方式做健康检测
+
+- Nacos与Eureka的区别
+  - Nacos支持服务端主动检测提供者状态：临时实例采用心跳模式，非临时实例采用主动检测模式
+  - 临时实例心跳不正常会被剔除，非临时实例则不会被剔除
+  - Nacos支持服务列表变更的消息推送模式，服务列表更新更及时
+  - Nacos集群默认采用AP方式，当集群中存在非临时实例时，采用CP模式；Eureka采用AP方式
