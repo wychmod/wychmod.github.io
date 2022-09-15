@@ -9,6 +9,11 @@
       "type": "file",
       "title": "Nacos安装指南",
       "path": "java/springcloud/Nacos安装指南.md"
+    },
+    {
+      "type": "file",
+      "title": "django-rest-framework开发笔记",
+      "path": "Django笔记/django-rest-framework开发笔记.md"
     }
   ]
 }
