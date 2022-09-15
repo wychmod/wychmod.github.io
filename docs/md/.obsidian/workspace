@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Django笔记/django-rest-framework开发笔记.md",
+            "file": "Django笔记/Djangoday1整体跑通.md",
             "mode": "preview",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "Django笔记/Djangoday1整体跑通.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "Django笔记/Djangoday1整体跑通.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md"
+                "file": "Django笔记/Djangoday1整体跑通.md"
               }
             }
           },
@@ -138,8 +138,8 @@
   },
   "active": "f5cd328c52e66bef",
   "lastOpenFiles": [
-    "Python/anaconda中使用虚拟环境.md",
     "Django笔记/django-rest-framework开发笔记.md",
+    "Python/anaconda中使用虚拟环境.md",
     "Django笔记/django 项目开发笔记.md",
     "java/springcloud/SpringCloud.md",
     "java/springcloud/nacos集群搭建.md",
