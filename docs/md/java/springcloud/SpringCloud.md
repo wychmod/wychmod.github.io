@@ -883,4 +883,99 @@ public class PatternProperties {
 ```
 在UserController中使用这个类代替@Value：
 
-![](../../youdaonote-images/image-20210714171316124.png)
+完整代码：
+
+```java
+package cn.itcast.user.web;
+
+import cn.itcast.user.config.PatternProperties;
+import cn.itcast.user.pojo.User;
+import cn.itcast.user.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+@Slf4j
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PatternProperties patternProperties;
+
+    @GetMapping("now")
+    public String now(){
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(patternProperties.getDateformat()));
+    }
+
+    // 略
+}
+```
+
+## 1.3.配置共享
+
+其实微服务启动时，会去nacos读取多个配置文件，例如：
+
+- `[spring.application.name]-[spring.profiles.active].yaml`，例如：userservice-dev.yaml
+
+- `[spring.application.name].yaml`，例如：userservice.yaml
+
+而`[spring.application.name].yaml`不包含环境，因此可以被多个环境共享。
+
+下面我们通过案例来测试配置共享
+
+### 1）添加一个环境共享配置
+
+我们在nacos中添加一个userservice.yaml文件：
+
+![](../../youdaonote-images/image-20210714173233650.png)
+
+### 2）在user-service中读取共享配置
+
+在user-service服务中，修改PatternProperties类，读取新添加的属性：
+
+![](../../youdaonote-images/image-20210714173324231.png)
+
+在user-service服务中，修改UserController，添加一个方法：
+
+![](../../youdaonote-images/image-20210714173721309.png)
+
+### 3）运行两个UserApplication，使用不同的profile
+
+修改UserApplication2这个启动项，改变其profile值：
+
+![](../../youdaonote-images/image-20210714173519963.png)
+
+这样，UserApplication(8081)使用的profile是dev，UserApplication2(8082)使用的profile是test。
+
+启动UserApplication和UserApplication2
+
+访问http://localhost:8081/user/prop，结果：
+
+![image-20210714174313344](../../image-20210714174313344.png)
+
+访问http://localhost:8082/user/prop，结果：
+
+![image-20210714174424818](../../image-20210714174424818.png)
+
+可以看出来，不管是dev，还是test环境，都读取到了envSharedValue这个属性的值。
+
+### 4）配置共享的优先级
+
+当nacos、服务本地同时出现相同属性时，优先级有高低之分：
+
+![image-20210714174623557](../../image-20210714174623557.png)
+
+## 1.4.搭建Nacos集群
+
+Nacos生产环境下一定要部署为集群状态。参考文档。
+
