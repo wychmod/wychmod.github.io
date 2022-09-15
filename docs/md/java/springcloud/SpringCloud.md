@@ -850,3 +850,37 @@ public class UserController {
     // ...略
 }
 ```
+
+## 1.2.配置热更新
+
+我们最终的目的，是修改nacos中的配置后，微服务中无需重启即可让配置生效，也就是**配置热更新**。
+
+要实现配置热更新，可以使用两种方式：
+### 1.2.1.方式一
+
+在@Value注入的变量所在类上添加注解@RefreshScope：
+![](../../youdaonote-images/image-20210714171036335.png)
+
+### 1.2.2.方式二
+
+使用@ConfigurationProperties注解代替@Value注解。
+
+在user-service服务中，添加一个类，读取patterrn.dateformat属性：
+
+```java
+package cn.itcast.user.config;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@Data
+@ConfigurationProperties(prefix = "pattern")
+public class PatternProperties {
+    private String dateformat;
+}
+```
+在UserController中使用这个类代替@Value：
+
+![](../../youdaonote-images/image-20210714171316124.png)
