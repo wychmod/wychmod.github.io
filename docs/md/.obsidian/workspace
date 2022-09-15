@@ -4,13 +4,13 @@
     "type": "split",
     "children": [
       {
-        "id": "33719d8c3336fd79",
+        "id": "f5cd328c52e66bef",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "java/springcloud/nacos集群搭建.md",
-            "mode": "source",
+            "file": "java/springcloud/SpringCloud.md",
+            "mode": "preview",
             "source": false
           }
         }
@@ -57,7 +57,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -77,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/springcloud/nacos集群搭建.md",
+                "file": "java/springcloud/SpringCloud.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/springcloud/nacos集群搭建.md",
+                "file": "java/springcloud/SpringCloud.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/springcloud/nacos集群搭建.md"
+                "file": "java/springcloud/SpringCloud.md"
               }
             }
           },
@@ -136,10 +137,10 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "f5b687bfa2d60a28",
+  "active": "f5cd328c52e66bef",
   "lastOpenFiles": [
-    "assets/image-20210409210621117.png.md",
     "java/springcloud/nacos集群搭建.md",
+    "assets/image-20210409210621117.png.md",
     "java/springcloud/SpringCloud.md",
     "java/springcloud/Nacos安装指南.md",
     "2022-09-14.md"

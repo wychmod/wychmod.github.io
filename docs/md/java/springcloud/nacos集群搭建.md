@@ -38,7 +38,7 @@ Nacos默认数据存储在内嵌数据库Derby中，不属于生产可用的数�
 
 官方推荐的最佳实践是使用带有主从的高可用数据库集群。
 
-这里我们以单点的数据库为例来讲解。
+这里我们以单点的数据库为例。
 
 首先新建一个数据库，命名为nacos，而后导入下面的SQL：
 
@@ -243,8 +243,6 @@ INSERT INTO users (username, password, enabled) VALUES ('nacos', '$2a$10$EuWPZHz
 INSERT INTO roles (username, role) VALUES ('nacos', 'ROLE_ADMIN');
 ```
 
-
-
 ## 2.2.下载nacos
 
 nacos在GitHub上有下载地址：https://github.com/alibaba/nacos/tags，可以选择任意版本下载。
@@ -252,14 +250,6 @@ nacos在GitHub上有下载地址：https://github.com/alibaba/nacos/tags，可�
 本例中才用1.4.1版本：
 
 ![image-20210409212119411](../../youdaonote-images/image-20210409212119411.png)
-
-
-
-
-
-
-
-
 
 ## 2.3.配置Nacos
 
@@ -271,8 +261,6 @@ nacos在GitHub上有下载地址：https://github.com/alibaba/nacos/tags，可�
 
 - bin：启动脚本
 - conf：配置文件
-
-
 
 进入nacos的conf目录，修改配置文件cluster.conf.example，重命名为cluster.conf：
 
@@ -296,8 +284,6 @@ nacos在GitHub上有下载地址：https://github.com/alibaba/nacos/tags，可�
 
 
 
-
-
 然后修改application.properties文件，添加数据库配置
 
 ```properties
@@ -310,13 +296,7 @@ db.user.0=root
 db.password.0=123
 ```
 
-
-
 这里的数据库地址、用户名、密码请根据实际情况配置。
-
-
-
-
 
 ## 2.4.启动
 
@@ -345,7 +325,6 @@ server.port=8847
 ```
 
 
-
 然后分别启动三个nacos节点：
 
 ```
@@ -353,10 +332,9 @@ startup.cmd
 ```
 
 
-
 ## 2.5.nginx反向代理
 
-找到课前资料提供的nginx安装包： 
+找到nginx安装包： 
 
 ![image-20210410103253355](../../youdaonote-images/image-20210410103253355.png) 
 
@@ -383,11 +361,7 @@ server {
 }
 ```
 
-
-
 而后在浏览器访问：http://localhost/nacos即可。
-
-
 
 代码中application.yml文件配置如下：
 
@@ -399,14 +373,7 @@ spring:
 ```
 
 
-
-
-
-
-
 ## 2.6.优化
-
-
 
 - 实际部署时，需要给做反向代理的nginx服务器设置一个域名，这样后续如果有服务器迁移nacos的客户端也无需更改配置.
 
