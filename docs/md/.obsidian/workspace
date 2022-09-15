@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Django笔记/Djangoday6admin站点配置用户认证user.md",
+            "file": "Django笔记/django-rest-framework开发笔记.md",
             "mode": "preview",
             "source": false
           }
@@ -58,7 +58,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -78,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/Djangoday6admin站点配置用户认证user.md",
+                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/Djangoday6admin站点配置用户认证user.md",
+                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/Djangoday6admin站点配置用户认证user.md"
+                "file": "Django笔记/django-rest-framework开发笔记.md"
               }
             }
           },
@@ -139,6 +139,7 @@
   },
   "active": "f5cd328c52e66bef",
   "lastOpenFiles": [
+    "Django笔记/Djangoday6admin站点配置用户认证user.md",
     "Django笔记/django-rest-framework开发笔记.md",
     "Django笔记/Djangoday4模型.md",
     "Django笔记/Djangoday3模板.md",
@@ -147,7 +148,6 @@
     "Django笔记/django 项目开发笔记.md",
     "Python/anaconda中使用虚拟环境.md",
     "java/springcloud/SpringCloud.md",
-    "java/springcloud/nacos集群搭建.md",
-    "assets/image-20210409210621117.png.md"
+    "java/springcloud/nacos集群搭建.md"
   ]
 }
