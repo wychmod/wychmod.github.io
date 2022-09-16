@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "f5cd328c52e66bef",
+        "id": "2ad162280bbce8a1",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Django笔记/django-rest-framework开发笔记.md",
+            "file": "React/React基础（技术胖）/React16基础.md",
             "mode": "preview",
             "source": false
           }
@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "superuser",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -58,7 +58,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -78,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "React/React基础（技术胖）/React16基础.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "React/React基础（技术胖）/React16基础.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md"
+                "file": "React/React基础（技术胖）/React16基础.md"
               }
             }
           },
@@ -137,17 +137,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "f5cd328c52e66bef",
+  "active": "2ad162280bbce8a1",
   "lastOpenFiles": [
+    "Index.md",
+    "Django笔记/django-rest-framework开发笔记.md",
     "Django笔记/Djangoday8日志.md",
     "Django笔记/Djangoday6admin站点配置用户认证user.md",
     "Django笔记/Djangoday7Advaced.md",
-    "Django笔记/django-rest-framework开发笔记.md",
     "Django笔记/Djangoday4模型.md",
     "Django笔记/Djangoday3模板.md",
     "Django笔记/Django-2视图.md",
     "Django笔记/Djangoday1整体跑通.md",
-    "Django笔记/django 项目开发笔记.md",
-    "Python/anaconda中使用虚拟环境.md"
+    "Django笔记/django 项目开发笔记.md"
   ]
 }
