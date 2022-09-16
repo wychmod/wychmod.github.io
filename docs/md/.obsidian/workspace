@@ -4,13 +4,13 @@
     "type": "split",
     "children": [
       {
-        "id": "2ad162280bbce8a1",
+        "id": "b77b48d2180972eb",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "React/React基础（技术胖）/React16基础.md",
-            "mode": "preview",
+            "file": "java/springcloud/SpringCloud.md",
+            "mode": "source",
             "source": false
           }
         }
@@ -58,7 +58,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -78,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "React/React基础（技术胖）/React16基础.md",
+                "file": "java/springcloud/SpringCloud.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "React/React基础（技术胖）/React16基础.md",
+                "file": "java/springcloud/SpringCloud.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "React/React基础（技术胖）/React16基础.md"
+                "file": "java/springcloud/SpringCloud.md"
               }
             }
           },
@@ -137,8 +137,9 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "2ad162280bbce8a1",
+  "active": "b77b48d2180972eb",
   "lastOpenFiles": [
+    "React/React基础（技术胖）/React16基础.md",
     "Index.md",
     "Django笔记/django-rest-framework开发笔记.md",
     "Django笔记/Djangoday8日志.md",
@@ -147,7 +148,6 @@
     "Django笔记/Djangoday4模型.md",
     "Django笔记/Djangoday3模板.md",
     "Django笔记/Django-2视图.md",
-    "Django笔记/Djangoday1整体跑通.md",
-    "Django笔记/django 项目开发笔记.md"
+    "Django笔记/Djangoday1整体跑通.md"
   ]
 }

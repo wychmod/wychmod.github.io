@@ -851,17 +851,17 @@ public class UserController {
 }
 ```
 
-## 1.2.配置热更新
+## 6.2.配置热更新
 
 我们最终的目的，是修改nacos中的配置后，微服务中无需重启即可让配置生效，也就是**配置热更新**。
 
 要实现配置热更新，可以使用两种方式：
-### 1.2.1.方式一
+### 6.2.1.方式一
 
 在@Value注入的变量所在类上添加注解@RefreshScope：
 ![](../../youdaonote-images/image-20210714171036335.png)
 
-### 1.2.2.方式二
+### 6.2.2.方式二
 
 使用@ConfigurationProperties注解代替@Value注解。
 
@@ -921,7 +921,7 @@ public class UserController {
 }
 ```
 
-## 1.3.配置共享
+## 6.3.配置共享
 
 其实微服务启动时，会去nacos读取多个配置文件，例如：
 
@@ -975,7 +975,7 @@ public class UserController {
 
 ![image-20210714174623557](../../image-20210714174623557.png)
 
-## 1.4.搭建Nacos集群
+## 6.4.搭建Nacos集群
 
 Nacos生产环境下一定要部署为集群状态。参考文档。
 
