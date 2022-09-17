@@ -1175,3 +1175,57 @@ feign:
 接下来，在FeignClientFactoryBean中的loadBalance方法中打断点：
 ![](../../youdaonote-images/image-20210714185925910%201.png)
 Debug方式启动order-service服务，可以看到这里的client，底层就是Apache HttpClient：
+![](../../youdaonote-images/image-20210714190041542%201.png)
+
+总结，Feign的优化：
+
+1.日志级别尽量用basic
+
+2.使用HttpClient或OKHttp代替URLConnection
+
+①  引入feign-httpClient依赖
+
+②  配置文件开启httpClient功能，设置连接池参数
+
+## 2.4.最佳实践
+
+所谓最近实践，就是使用过程中总结的经验，最好的一种使用方式。
+
+自习观察可以发现，Feign的客户端与服务提供者的controller代码非常相似：
+
+feign客户端：
+
+![](../../youdaonote-images/image-20210714190542730%201.png)
+
+UserController：
+
+![](../../youdaonote-images/image-20210714190528450%201.png)
+
+### 2.4.1.继承方式
+
+一样的代码可以通过继承来共享：
+
+1）定义一个API接口，利用定义方法，并基于SpringMVC注解做声明。
+
+2）Feign客户端和Controller都集成改接口
+
+![](../../youdaonote-images/image-20210714190640857%201.png)
+
+优点：
+
+- 简单
+- 实现了代码共享
+
+缺点：
+
+- 服务提供方、服务消费方紧耦合
+- 参数列表中的注解映射并不会继承，因此Controller中必须再次声明方法、参数列表、注解
+
+### 2.4.2.抽取方式
+
+将Feign的Client抽取为独立模块，并且把接口有关的POJO、默认的Feign配置都放到这个模块中，提供给所有消费者使用。
+
+例如，将UserClient、User、Feign的默认配置都抽取到一个feign-api包中，所有微服务引用该依赖包，即可直接使用。
+
+![](../../youdaonote-images/image-20210714214041796%201.png)
+

@@ -14,6 +14,18 @@
             "source": false
           }
         }
+      },
+      {
+        "id": "9274a06349028c84",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "java/springcloud/SpringCloud.md",
+            "mode": "preview",
+            "source": false
+          }
+        }
       }
     ],
     "direction": "vertical"
