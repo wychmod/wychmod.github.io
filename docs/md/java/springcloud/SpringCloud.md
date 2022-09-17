@@ -996,7 +996,7 @@ Feign是一个声明式的http客户端，官方地址：https://github.com/Open
 
 ![](../../youdaonote-images/image-20210714174918088%201.png)
 
-## 2.1.Feign替代RestTemplate
+## 7.1.Feign替代RestTemplate
 
 Fegin的使用步骤如下：
 
@@ -1010,3 +1010,57 @@ Fegin的使用步骤如下：
     <artifactId>spring-cloud-starter-openfeign</artifactId>
 </dependency>
 ```
+
+### 2）添加注解
+
+在order-service的启动类添加注解开启Feign的功能：
+![](../../youdaonote-images/image-20210714175102524%201.png)
+
+### 3）编写Feign的客户端
+
+在order-service中新建一个接口，内容如下：
+
+```java
+package cn.itcast.order.client;
+
+import cn.itcast.order.pojo.User;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient("userservice")
+public interface UserClient {
+    @GetMapping("/user/{id}")
+    User findById(@PathVariable("id") Long id);
+}
+```
+
+这个客户端主要是基于SpringMVC的注解来声明远程调用的信息，比如：
+
+- 服务名称：userservice
+- 请求方式：GET
+- 请求路径：/user/{id}
+- 请求参数：Long id
+- 返回值类型：User
+
+这样，Feign就可以帮助我们发送http请求，无需自己使用RestTemplate来发送了。
+
+### 4）测试
+
+修改order-service中的OrderService类中的queryOrderById方法，使用Feign客户端代替RestTemplate：
+
+![](../../youdaonote-images/image-20210714175415087%201.png)
+
+是不是看起来优雅多了。
+
+### 5）总结
+
+使用Feign的步骤：
+
+① 引入依赖
+
+② 添加@EnableFeignClients注解
+
+③ 编写FeignClient接口
+
+④ 使用FeignClient中定义的方法代替RestTemplate

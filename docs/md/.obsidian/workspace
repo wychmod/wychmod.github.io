@@ -10,7 +10,7 @@
           "type": "markdown",
           "state": {
             "file": "java/springcloud/SpringCloud.md",
-            "mode": "source",
+            "mode": "preview",
             "source": false
           }
         }
@@ -62,8 +62,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 185.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -140,15 +139,15 @@
   },
   "active": "b77b48d2180972eb",
   "lastOpenFiles": [
+    "Django笔记/django-rest-framework开发笔记.md",
+    "java/springcloud/Nacos安装指南.md",
+    "java/springcloud/SpringCloud.md",
     "React/React基础（技术胖）/React16基础.md",
     "Index.md",
-    "Django笔记/django-rest-framework开发笔记.md",
     "Django笔记/Djangoday8日志.md",
     "Django笔记/Djangoday6admin站点配置用户认证user.md",
     "Django笔记/Djangoday7Advaced.md",
     "Django笔记/Djangoday4模型.md",
-    "Django笔记/Djangoday3模板.md",
-    "Django笔记/Django-2视图.md",
-    "Django笔记/Djangoday1整体跑通.md"
+    "Django笔记/Djangoday3模板.md"
   ]
 }
