@@ -10,7 +10,7 @@
           "type": "markdown",
           "state": {
             "file": "java/springcloud/SpringCloud.md",
-            "mode": "preview",
+            "mode": "source",
             "source": false
           }
         }
@@ -62,7 +62,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 185.5
+    "width": 185.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
