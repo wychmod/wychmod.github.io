@@ -1187,7 +1187,7 @@ Debug方式启动order-service服务，可以看到这里的client，底层就�
 
 ②  配置文件开启httpClient功能，设置连接池参数
 
-## 2.4.最佳实践
+## 7.4.最佳实践
 
 所谓最近实践，就是使用过程中总结的经验，最好的一种使用方式。
 
@@ -1201,7 +1201,7 @@ UserController：
 
 ![](../../youdaonote-images/image-20210714190528450%201.png)
 
-### 2.4.1.继承方式
+### 7.4.1.继承方式
 
 一样的代码可以通过继承来共享：
 
@@ -1221,7 +1221,7 @@ UserController：
 - 服务提供方、服务消费方紧耦合
 - 参数列表中的注解映射并不会继承，因此Controller中必须再次声明方法、参数列表、注解
 
-### 2.4.2.抽取方式
+### 7.4.2.抽取方式
 
 将Feign的Client抽取为独立模块，并且把接口有关的POJO、默认的Feign配置都放到这个模块中，提供给所有消费者使用。
 
@@ -1229,3 +1229,65 @@ UserController：
 
 ![](../../youdaonote-images/image-20210714214041796%201.png)
 
+### 7.4.3.实现基于抽取的最佳实践
+
+#### 1）抽取
+
+首先创建一个module，命名为feign-api：
+
+![](../../youdaonote-images/image-20210714204557771%201.png)
+
+项目结构：
+
+![](../../youdaonote-images/image-20210714204656214%201.png)
+
+在feign-api中然后引入feign的starter依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+```
+
+#### 2）在order-service中使用feign-api
+
+首先，删除order-service中的UserClient、User、DefaultFeignConfiguration等类或接口。
+
+在order-service的pom文件中中引入feign-api的依赖：
+
+```xml
+<dependency>
+    <groupId>cn.itcast.demo</groupId>
+    <artifactId>feign-api</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+
+修改order-service中的所有与上述三个组件有关的导包部分，改成导入feign-api中的包
+
+#### 3）重启测试
+
+重启后，发现服务报错了：
+![](../../youdaonote-images/image-20210714205623048%201.png)
+
+这是因为UserClient现在在cn.itcast.feign.clients包下，
+而order-service的@EnableFeignClients注解是在cn.itcast.order包下，不在同一个包，无法扫描到UserClient。
+
+#### 4）解决扫描包问题
+
+方式一：
+
+指定Feign应该扫描的包：
+
+```java
+@EnableFeignClients(basePackages = "cn.itcast.feign.clients")
+```
+
+方式二：
+
+指定需要加载的Client接口：
+
+```java
+@EnableFeignClients(clients = {UserClient.class})
+```
