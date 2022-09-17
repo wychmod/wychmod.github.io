@@ -979,3 +979,34 @@ public class UserController {
 
 Nacos生产环境下一定要部署为集群状态。参考文档。
 
+# 7.Feign远程调用
+先来看我们以前利用RestTemplate发起远程调用的代码：
+
+![](../../youdaonote-images/image-20210714174814204%201.png)
+
+存在下面的问题：
+
+•代码可读性差，编程体验不统一
+
+•参数复杂URL难以维护
+
+Feign是一个声明式的http客户端，官方地址：https://github.com/OpenFeign/feign
+
+其作用就是帮助我们优雅的实现http请求的发送，解决上面提到的问题。
+
+![](../../youdaonote-images/image-20210714174918088%201.png)
+
+## 2.1.Feign替代RestTemplate
+
+Fegin的使用步骤如下：
+
+### 1）引入依赖
+
+我们在order-service服务的pom文件中引入feign的依赖：
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+```
