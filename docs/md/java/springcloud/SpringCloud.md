@@ -1323,7 +1323,7 @@ Gateway网关是我们服务的守门神，所有微服务的统一入口。
 
 Zuul是基于Servlet的实现，属于阻塞式编程。而SpringCloudGateway则是基于Spring5中提供的WebFlux，属于响应式编程的实现，具备更好的性能。
 
-## 3.2.gateway快速入门
+## 8.2.gateway快速入门
 
 下面，我们就演示下网关的基本路由功能。基本步骤如下：
 
@@ -1406,3 +1406,50 @@ spring:
 整个访问的流程如下：
 
 ![](../../youdaonote-images/image-20210714211742956%201.png)
+
+总结：
+
+网关搭建步骤：
+
+1. 创建项目，引入nacos服务发现和gateway依赖
+
+2. 配置application.yml，包括服务基本信息、nacos地址、路由
+
+路由配置包括：
+
+1. 路由id：路由的唯一标示
+
+2. 路由目标（uri）：路由的目标地址，http代表固定地址，lb代表根据服务名负载均衡
+
+3. 路由断言（predicates）：判断路由的规则，
+
+4. 路由过滤器（filters）：对请求或响应做处理
+
+## 8.3.断言工厂
+
+我们在配置文件中写的断言规则只是字符串，这些字符串会被Predicate Factory读取并处理，转变为路由判断的条件
+
+例如Path=/user/**是按照路径匹配，这个规则是由
+
+`org.springframework.cloud.gateway.handler.predicate.PathRoutePredicateFactory`类来
+
+处理的，像这样的断言工厂在SpringCloudGateway还有十几个:
+
+| **名称**   | **说明**                       | **示例**                                                                                                 |
+| ---------- | ------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| After      | 是某个时间点后的请求           | -  After=2037-01-20T17:42:47.789-07:00[America/Denver]                                                   |
+| Before     | 是某个时间点之前的请求         | -  Before=2031-04-13T15:14:47.433+08:00[Asia/Shanghai]                                                   |
+| Between    | 是某两个时间点之前的请求       | -  Between=2037-01-20T17:42:47.789-07:00[America/Denver],  2037-01-21T17:42:47.789-07:00[America/Denver] |
+| Cookie     | 请求必须包含某些cookie         | - Cookie=chocolate, ch.p                                                                                 |
+| Header     | 请求必须包含某些header         | - Header=X-Request-Id, \d+                                                                               |
+| Host       | 请求必须是访问某个host（域名） | -  Host=**.somehost.org,**.anotherhost.org                                                               |
+| Method     | 请求方式必须是指定方式         | - Method=GET,POST                                                                                        |
+| Path       | 请求路径必须符合指定规则       | - Path=/red/{segment},/blue/**                                                                           |
+| Query      | 请求参数必须包含指定参数       | - Query=name, Jack或者-  Query=name                                                                      |
+| RemoteAddr | 请求者的ip必须是指定范围       | - RemoteAddr=192.168.1.1/24                                                                              |
+| Weight     | 权重处理                       |                                                                                                          |
+|            |                                |                                                                                                          |
+| 
+
+
+|                                |                                                                                                          |
