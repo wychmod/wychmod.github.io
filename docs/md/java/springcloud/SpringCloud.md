@@ -1541,3 +1541,8 @@ public interface GlobalFilter {
 }
 ```
 
+在filter中编写自定义逻辑，可以实现下列功能：
+
+- 登录状态判断
+- 权限校验
+- 请求限流等
