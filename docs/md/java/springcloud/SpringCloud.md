@@ -1546,3 +1546,122 @@ public interface GlobalFilter {
 - 登录状态判断
 - 权限校验
 - 请求限流等
+
+### 8.5.2.自定义全局过滤器
+
+需求：定义全局过滤器，拦截请求，判断请求的参数是否满足下面条件：
+
+- 参数中是否有authorization，
+
+- authorization参数值是否为admin
+
+如果同时满足则放行，否则拦截
+
+实现：
+
+在gateway中定义一个过滤器：
+
+```java
+package cn.itcast.gateway.filters;
+
+import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
+
+@Order(-1)
+@Component
+public class AuthorizeFilter implements GlobalFilter {
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        // 1.获取请求参数
+        MultiValueMap<String, String> params = exchange.getRequest().getQueryParams();
+        // 2.获取authorization参数
+        String auth = params.getFirst("authorization");
+        // 3.校验
+        if ("admin".equals(auth)) {
+            // 放行
+            return chain.filter(exchange);
+        }
+        // 4.拦截
+        // 4.1.禁止访问，设置状态码
+        exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+        // 4.2.结束处理
+        return exchange.getResponse().setComplete();
+    }
+}
+```
+
+### 3.5.3.过滤器执行顺序
+
+请求进入网关会碰到三类过滤器：当前路由的过滤器、DefaultFilter、GlobalFilter
+
+请求路由后，会将当前路由过滤器和DefaultFilter、GlobalFilter，合并到一个过滤器链（集合）中，排序后依次执行每个过滤器：
+
+![](../../youdaonote-images/image-20210714214228409%201.png)
+
+排序的规则是什么呢？
+
+- 每一个过滤器都必须指定一个int类型的order值，**order值越小，优先级越高，执行顺序越靠前**。
+- GlobalFilter通过实现Ordered接口，或者添加@Order注解来指定order值，由我们自己指定
+- 路由过滤器和defaultFilter的order由Spring指定，默认是按照声明顺序从1递增。
+- 当过滤器的order值一样时，会按照 defaultFilter > 路由过滤器 > GlobalFilter的顺序执行。
+
+详细内容，可以查看源码：
+
+`org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator#getFilters()`方法是先加载defaultFilters，然后再加载某个route的filters，然后合并。
+
+`org.springframework.cloud.gateway.handler.FilteringWebHandler#handle()`方法会加载全局过滤器，与前面的过滤器合并后根据order排序，组织过滤器链
+
+## 3.6.跨域问题
+
+### 3.6.1.什么是跨域问题
+
+跨域：域名不一致就是跨域，主要包括：
+
+- 域名不同： www.taobao.com 和 www.taobao.org 和 www.jd.com 和 miaosha.jd.com
+
+- 域名相同，端口不同：localhost:8080和localhost8081
+
+跨域问题：浏览器禁止请求的发起者与服务端发生跨域ajax请求，请求被浏览器拦截的问题
+
+解决方案：CORS，这个以前应该学习过，这里不再赘述了。不知道的小伙伴可以查看https://www.ruanyifeng.com/blog/2016/04/cors.html
+
+
+
+### 3.6.2.模拟跨域问题
+
+可以在浏览器控制台看到下面的错误：
+
+![](../../youdaonote-images/image-20210714215832675%201.png)
+
+从localhost:8090访问localhost:10010，端口不同，显然是跨域的请求。
+
+### 3.6.3.解决跨域问题
+
+在gateway服务的application.yml文件中，添加下面的配置：
+
+```yaml
+spring:
+  cloud:
+    gateway:
+      # 。。。
+      globalcors: # 全局的跨域处理
+        add-to-simple-url-handler-mapping: true # 解决options请求被拦截问题
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: # 允许哪些网站的跨域请求 
+              - "http://localhost:8090"
+            allowedMethods: # 允许的跨域ajax的请求方式
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*" # 允许在请求中携带的头信息
+            allowCredentials: true # 是否允许携带cookie
+            maxAge: 360000 # 这次跨域检测的有效期
+```
