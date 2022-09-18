@@ -1399,4 +1399,10 @@ spring:
 
 重启网关，访问http://localhost:10010/user/1时，符合`/user/**`规则，请求转发到uri：http://userservice/user/1，得到了结果：
 
-![image-20210714211908341](assets/image-20210714211908341.png)
+![](../../youdaonote-images/image-20210714211908341%201.png)
+
+### 5）网关路由的流程图
+
+整个访问的流程如下：
+
+![](../../youdaonote-images/image-20210714211742956%201.png)
