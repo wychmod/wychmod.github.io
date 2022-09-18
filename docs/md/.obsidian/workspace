@@ -21,8 +21,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "java/springcloud/SpringCloud.md",
-            "mode": "preview",
+            "file": "docker/docker.md",
+            "mode": "source",
             "source": false
           }
         }
@@ -69,13 +69,11 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 185.5,
-    "collapsed": true
+    "width": 185.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -91,7 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/springcloud/SpringCloud.md",
+                "file": "docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -108,7 +106,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/springcloud/SpringCloud.md",
+                "file": "docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -131,7 +129,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/springcloud/SpringCloud.md"
+                "file": "docker/docker.md"
               }
             }
           },
@@ -150,17 +148,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "b77b48d2180972eb",
+  "active": "9274a06349028c84",
   "lastOpenFiles": [
+    "2022-09-14.md",
+    "java/springcloud/SpringCloud.md",
     "Django笔记/django-rest-framework开发笔记.md",
     "java/springcloud/Nacos安装指南.md",
-    "java/springcloud/SpringCloud.md",
     "React/React基础（技术胖）/React16基础.md",
     "Index.md",
     "Django笔记/Djangoday8日志.md",
     "Django笔记/Djangoday6admin站点配置用户认证user.md",
     "Django笔记/Djangoday7Advaced.md",
-    "Django笔记/Djangoday4模型.md",
-    "Django笔记/Djangoday3模板.md"
+    "Django笔记/Djangoday4模型.md"
   ]
 }
