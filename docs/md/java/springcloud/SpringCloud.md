@@ -1447,9 +1447,97 @@ spring:
 | Path       | 请求路径必须符合指定规则       | - Path=/red/{segment},/blue/**                                                                           |
 | Query      | 请求参数必须包含指定参数       | - Query=name, Jack或者-  Query=name                                                                      |
 | RemoteAddr | 请求者的ip必须是指定范围       | - RemoteAddr=192.168.1.1/24                                                                              |
-| Weight     | 权重处理                       |                                                                                                          |
-|            |                                |                                                                                                          |
-| 
+| Weight     | 权重处理                       |                                                                                                          |                                             
 
+## 8.4.过滤器工厂
 
-|                                |                                                                                                          |
+GatewayFilter是网关中提供的一种过滤器，可以对进入网关的请求和微服务返回的响应做处理：
+![](../../youdaonote-images/image-20210714212312871.png)
+
+### 8.4.1.路由过滤器的种类
+
+Spring提供了31种不同的路由过滤器工厂。例如：
+
+| **名称**             | **说明**                     |
+| -------------------- | ---------------------------- |
+| AddRequestHeader     | 给当前请求添加一个请求头     |
+| RemoveRequestHeader  | 移除请求中的一个请求头       |
+| AddResponseHeader    | 给响应结果中添加一个响应头   |
+| RemoveResponseHeader | 从响应结果中移除有一个响应头 |
+| RequestRateLimiter   | 限制请求的流量               |
+
+### 3.4.2.请求头过滤器
+
+下面我们以AddRequestHeader 为例来讲解。
+
+> **需求**：给所有进入userservice的请求添加一个请求头：Truth=tot-and is freaking awesome!
+
+只需要修改gateway服务的application.yml文件，添加路由过滤即可：
+
+```yaml
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: user-service 
+        uri: lb://userservice 
+        predicates: 
+        - Path=/user/** 
+        filters: # 过滤器
+        - AddRequestHeader=Truth, Itcast is freaking awesome! # 添加请求头
+```
+
+当前过滤器写在userservice路由下，因此仅仅对访问userservice的请求有效。
+
+### 8.4.3.默认过滤器
+
+如果要对所有的路由都生效，则可以将过滤器工厂写到default下。格式如下：
+
+```yaml
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: user-service 
+        uri: lb://userservice 
+        predicates: 
+        - Path=/user/**
+      default-filters: # 默认过滤项
+      - AddRequestHeader=Truth, Itcast is freaking awesome! 
+```
+
+### 3.4.4.总结
+
+过滤器的作用是什么？
+
+① 对路由的请求或响应做加工处理，比如添加请求头
+
+② 配置在路由下的过滤器只对当前路由的请求生效
+
+defaultFilters的作用是什么？
+
+① 对所有路由都生效的过滤器
+
+## 3.5.全局过滤器
+
+网关提供了31种，但每一种过滤器的作用都是固定的。如果我们希望拦截请求，做自己的业务逻辑则没办法实现。
+
+### 3.5.1.全局过滤器作用
+
+全局过滤器的作用也是处理一切进入网关的请求和微服务响应，与GatewayFilter的作用一样。区别在于GatewayFilter通过配置定义，处理逻辑是固定的；而GlobalFilter的逻辑需要自己写代码实现。
+
+定义方式是实现GlobalFilter接口。
+
+```java
+public interface GlobalFilter {
+    /**
+     *  处理当前请求，有必要的话通过{@link GatewayFilterChain}将请求交给下一个过滤器处理
+     *
+     * @param exchange 请求上下文，里面可以获取Request、Response等信息
+     * @param chain 用来把请求委托给下一个过滤器 
+     * @return {@code Mono<Void>} 返回标示当前过滤器业务结束
+     */
+    Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain);
+}
+```
+
