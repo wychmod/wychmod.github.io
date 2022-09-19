@@ -330,7 +330,6 @@ docker exec -it mn bash
 - bash：进入容器后执行的命令，bash是一个linux终端交互命令
 
 
-
 2）进入nginx的HTML所在目录 /usr/share/nginx/html
 
 容器内部会模拟一个独立的Linux文件系统，看起来如同一个linux服务器一样：
@@ -351,29 +350,19 @@ cd /usr/share/nginx/html
 
 ![image-20210731164455818](../youdaonote-images/image-20210731164455818.png)
 
-
-
-
-
 3）修改index.html的内容
 
 容器内没有vi命令，无法直接修改，我们用下面的命令来修改：
 
 ```sh
-sed -i -e 's#Welcome to nginx#传智教育欢迎您#g' -e 's#<head>#<head><meta charset="utf-8">#g' index.html
+sed -i -e 's#Welcome to nginx#wychmod 欢迎您#g' -e 's#<head>#<head><meta charset="utf-8">#g' index.html
 ```
-
-
 
 在浏览器访问自己的虚拟机地址，例如我的是：http://192.168.150.101，即可看到结果：
 
-![image-20210731164717604](../youdaonote-images/image-20210731164717604.png)
-
-
+![](../youdaonote-images/Pasted%20image%2020220919164407.png)
 
 ### 2.2.4.小结
-
-
 
 docker run命令的常见参数有哪些？
 
@@ -391,13 +380,11 @@ docker run命令的常见参数有哪些？
 - docker ps
 - docker ps -a 查看所有容器，包括已经停止的
 
+退出容器命令：
+- exit
 
-
-
-
-
-
-
+删除容器：
+- docker rm
 
 ## 2.3.数据卷（容器数据管理）
 
