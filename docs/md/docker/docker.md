@@ -535,13 +535,7 @@ vi index.html
 - -v [宿主机目录]:[容器内目录]
 - -v [宿主机文件]:[容器内文件]
 
-
-
-
-
 **需求**：创建并运行一个MySQL容器，将宿主机目录直接挂载到容器
-
-
 
 实现思路如下：
 
@@ -559,7 +553,16 @@ vi index.html
 
 ③ 设置MySQL密码
 
-
+```
+docker run \
+--name mysql \
+-e MYSQL_ROOT_PASSWORD=123 \
+-p 3306:3306 \
+-v /tmp/mysql/data:/var/lib/mysql \
+-v /tmp/mysql/conf/hmy.cnf:/etc/mysql/conf.d/hmy.cnf \
+-d \
+mysql:5.7.25
+```
 
 ### 2.3.7.小结
 
@@ -569,15 +572,10 @@ docker run的命令中通过 -v 参数挂载文件或目录到容器中：
 - -v 宿主机文件:容器内文
 - -v 宿主机目录:容器内目录
 
-数据卷挂载与目录直接挂载的
+数据卷挂载与目录直接挂载的区别
 
 - 数据卷挂载耦合度低，由docker来管理目录，但是目录较深，不好找
 - 目录挂载耦合度高，需要我们自己管理目录，不过目录容易寻找查看
-
-
-
-
-
 
 
 # 3.Dockerfile自定义镜像

@@ -66,6 +66,30 @@
           "lastUpdated": 1663577009127
         }
       }
+    },
+    "docker": {
+      "docker": {
+        "currentFile": {
+          "count": 1,
+          "lastUpdated": 1663597875457
+        }
+      }
+    },
+    "mysql": {
+      "mysql": {
+        "currentFile": {
+          "count": 1,
+          "lastUpdated": 1663597888137
+        }
+      }
+    },
+    "MYSQL_ROOT_PASSWORD": {
+      "MYSQL_ROOT_PASSWORD": {
+        "currentFile": {
+          "count": 1,
+          "lastUpdated": 1663597910469
+        }
+      }
     }
   }
 }

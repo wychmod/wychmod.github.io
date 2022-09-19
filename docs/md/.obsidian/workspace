@@ -52,7 +52,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "策略模式",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -70,7 +70,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -150,8 +150,9 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "9c46564bd315d187",
+  "active": "6bb659cd86804a41",
   "lastOpenFiles": [
+    "系统设计/设计模式.md",
     "docker/docker.md",
     "assets/image-20210801100231495.png.md",
     "docker/Centos7安装Docker.md",
@@ -160,7 +161,6 @@
     "2022-09-14.md",
     "Django笔记/django-rest-framework开发笔记.md",
     "java/springcloud/Nacos安装指南.md",
-    "React/React基础（技术胖）/React16基础.md",
-    "Index.md"
+    "React/React基础（技术胖）/React16基础.md"
   ]
 }
