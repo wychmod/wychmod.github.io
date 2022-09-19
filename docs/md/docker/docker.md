@@ -489,12 +489,9 @@ docker run \
 
 - `-v html:/root/htm` ：把html数据卷挂载到容器内的/root/html这个目录中
 
-
-
 ### 2.3.5.案例-给nginx挂载数据卷
 
 **需求**：创建一个nginx容器，修改容器内的html目录内的index.html内容
-
 
 
 **分析**：上个案例中，我们进入nginx容器内部，已经知道nginx的html目录所在位置/usr/share/nginx/html ，我们需要把这个目录挂载到html这个数据卷上，方便操作其中的内容。
@@ -509,8 +506,6 @@ docker run \
 docker run --name mn -v html:/usr/share/nginx/html -p 80:80 -d nginx
 ```
 
-
-
 ② 进入html数据卷所在位置，并修改HTML内容
 
 ```sh
@@ -521,8 +516,6 @@ cd /var/lib/docker/volumes/html/_data
 # 修改文件
 vi index.html
 ```
-
-
 
 ### 2.3.6.案例-给MySQL挂载本地目录
 
