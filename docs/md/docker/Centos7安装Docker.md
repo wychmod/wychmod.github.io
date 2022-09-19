@@ -10,8 +10,6 @@ Docker CE 分为 `stable` `test` 和 `nightly` 三个更新频道。
 
 Docker CE 支持 64 位版本 CentOS 7，并且要求内核版本不低于 3.10， CentOS 7 满足最低内核的要求，所以我们在CentOS 7安装Docker。
 
-
-
 ## 1.1.卸载（可选）
 
 如果之前安装过旧版本的Docker，可以使用下面命令卸载：
@@ -30,8 +28,6 @@ yum remove docker \
                   docker-ce
 ```
 
-
-
 ## 1.2.安装docker
 
 首先需要大家虚拟机联网，安装yum工具
@@ -41,8 +37,6 @@ yum install -y yum-utils \
            device-mapper-persistent-data \
            lvm2 --skip-broken
 ```
-
-
 
 然后更新本地镜像源：
 
@@ -57,10 +51,6 @@ sed -i 's/download.docker.com/mirrors.aliyun.com\/docker-ce/g' /etc/yum.repos.d/
 yum makecache fast
 ```
 
-
-
-
-
 然后输入命令：
 
 ```shell
@@ -68,8 +58,6 @@ yum install -y docker-ce
 ```
 
 docker-ce为社区免费版本。稍等片刻，docker即可安装成功。
-
-
 
 ## 1.3.启动docker
 
@@ -82,15 +70,12 @@ Docker应用需要用到各种端口，逐一去修改防火墙设置。非常�
 启动docker前，一定要关闭防火墙后！！
 
 
-
 ```sh
 # 关闭
 systemctl stop firewalld
 # 禁止开机启动防火墙
 systemctl disable firewalld
 ```
-
-
 
 通过命令启动docker：
 
@@ -101,8 +86,6 @@ systemctl stop docker  # 停止docker服务
 
 systemctl restart docker  # 重启docker服务
 ```
-
-
 
 然后输入命令，可以查看docker版本：
 
@@ -122,13 +105,7 @@ docker官方镜像仓库网速较差，我们需要设置国内镜像服务：
 
 参考阿里云的镜像加速文档：https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
 
-
-
-
-
 # 2.CentOS7安装DockerCompose
-
-
 
 ## 2.1.下载
 
