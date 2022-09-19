@@ -179,15 +179,11 @@ DockerHub：
 
 这里的mysql就是repository，5.7就是tag，合一起就是镜像名称，代表5.7版本的MySQL镜像。
 
-
-
 ### 2.1.2.镜像命令
 
 常见的镜像操作命令如图：
 
 ![image-20210731155649535](../youdaonote-images/image-20210731155649535.png)
-
-
 
 ### 2.1.3.案例1-拉取、查看镜像
 
@@ -205,8 +201,6 @@ DockerHub：
 
 ![image-20210731155903037](../youdaonote-images/image-20210731155903037.png)
 
-
-
 ### 2.1.4.案例2-保存、导入镜像
 
 需求：利用docker save将nginx镜像导出磁盘，然后再通过load加载回来
@@ -222,8 +216,6 @@ docker save --help
 结果：
 
 ![image-20210731161104732](../youdaonote-images/image-20210731161104732.png)
-
-
 
 命令格式：
 
@@ -245,8 +237,6 @@ docker save -o nginx.tar nginx:latest
 
 ![image-20210731161354344](../youdaonote-images/image-20210731161354344.png)
 
-
-
 3）使用docker load加载镜像
 
 先删除本地的nginx镜像：
@@ -254,8 +244,6 @@ docker save -o nginx.tar nginx:latest
 ```sh
 docker rmi nginx:latest
 ```
-
-
 
 然后运行命令，加载本地文件：
 
@@ -266,10 +254,6 @@ docker load -i nginx.tar
 结果：
 
 ![image-20210731161746245](../youdaonote-images/image-20210731161746245.png)
-
-
-
-
 
 ### 2.1.5.练习
 
