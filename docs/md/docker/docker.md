@@ -271,7 +271,6 @@ docker load -i nginx.tar
 - 停止：进程终止，回收进程占用的内存、CPU等资源
 
 
-
 其中：
 
 - docker run：创建并运行一个容器，处于运行状态
@@ -281,8 +280,6 @@ docker load -i nginx.tar
 - docker start：让一个停止的容器再次运行
 
 - docker rm：删除一个容器
-
-
 
 ### 2.2.2.案例-创建并运行一个容器
 
@@ -300,8 +297,6 @@ docker run --name containerName -p 80:80 -d nginx
 - -d：后台运行容器
 - nginx：镜像名称，例如nginx
 
-
-
 这里的`-p`参数，是将容器端口映射到宿主机端口。
 
 默认情况下，容器是隔离环境，我们直接访问宿主机的80端口，肯定访问不到容器中的nginx。
@@ -310,15 +305,11 @@ docker run --name containerName -p 80:80 -d nginx
 
 ![image-20210731163255863](../youdaonote-images/image-20210731163255863.png)
 
-
-
 ### 2.2.3.案例-进入容器，修改文件
 
-**需求**：进入Nginx容器，修改HTML文件内容，添加“传智教育欢迎您”
+**需求**：进入Nginx容器，修改HTML文件内容，添加“wychmod欢迎您”
 
 **提示**：进入容器要用到docker exec命令。
-
-
 
 **步骤**：
 
