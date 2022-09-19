@@ -255,25 +255,6 @@ docker load -i nginx.tar
 
 ![image-20210731161746245](../youdaonote-images/image-20210731161746245.png)
 
-### 2.1.5.练习
-
-需求：去DockerHub搜索并拉取一个Redis镜像
-
-目标：
-
-1）去DockerHub搜索Redis镜像
-
-2）查看Redis镜像的名称和版本
-
-3）利用docker pull命令拉取镜像
-
-4）利用docker save命令将 redis:latest打包为一个redis.tar包
-
-5）利用docker rmi 删除本地的redis:latest
-
-6）利用docker load 重新加载 redis.tar文件
-
-
 
 ## 2.2.容器操作
 
