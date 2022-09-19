@@ -396,11 +396,9 @@ docker run命令的常见参数有哪些？
 
 要解决这个问题，必须将数据与容器解耦，这就要用到数据卷了。
 
-
-
 ### 2.3.1.什么是数据卷
 
-**数据卷（volume）**是一个虚拟目录，指向宿主机文件系统中的某个目录。
+**数据卷（volume) **是一个虚拟目录，指向宿主机文件系统中的某个目录。
 
 ![image-20210731173541846](../youdaonote-images/image-20210731173541846.png)
 
@@ -408,13 +406,7 @@ docker run命令的常见参数有哪些？
 
 这样，我们操作宿主机的/var/lib/docker/volumes/html目录，就等于操作容器内的/usr/share/nginx/html目录了
 
-
-
-
-
 ### 2.3.2.数据集操作命令
-
-
 
 数据卷操作的基本语法如下：
 
@@ -431,7 +423,6 @@ docker volume命令是数据卷操作，根据命令后跟随的command来确定
 - rm 删除一个或多个指定的volume
 
 
-
 ### 2.3.3.创建和查看数据卷
 
 **需求**：创建一个数据卷，并查看数据卷在宿主机的目录位置
@@ -441,7 +432,6 @@ docker volume命令是数据卷操作，根据命令后跟随的command来确定
 ```sh
 docker volume create html
 ```
-
 
 
 ② 查看所有数据
@@ -454,10 +444,6 @@ docker volume ls
 
 ![image-20210731173746910](../youdaonote-images/image-20210731173746910.png)
 
-
-
-
-
 ③ 查看数据卷详细信息卷
 
 ```sh
@@ -469,11 +455,6 @@ docker volume inspect html
 ![image-20210731173809877](../youdaonote-images/image-20210731173809877.png)
 
 可以看到，我们创建的html这个数据卷关联的宿主机目录为`/var/lib/docker/volumes/html/_data`目录。
-
-
-
-
-
 
 
 **小结**：
