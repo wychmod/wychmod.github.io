@@ -4,19 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "7b30dff1ed1740ef",
+        "id": "6bb659cd86804a41",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
             "file": "docker/docker.md",
             "mode": "source",
-            "source": false
+            "source": true
           }
         }
       },
       {
-        "id": "e5a75052f611ed69",
+        "id": "9c46564bd315d187",
         "type": "leaf",
         "state": {
           "type": "markdown",
@@ -74,7 +74,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 185.5
+    "width": 185.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -149,10 +150,10 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "e5a75052f611ed69",
+  "active": "9c46564bd315d187",
   "lastOpenFiles": [
-    "assets/image-20210801100231495.png.md",
     "docker/docker.md",
+    "assets/image-20210801100231495.png.md",
     "docker/Centos7安装Docker.md",
     "assets/image-20210731144304990.png.md",
     "java/springcloud/SpringCloud.md",
