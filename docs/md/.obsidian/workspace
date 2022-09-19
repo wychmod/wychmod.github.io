@@ -4,24 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "a8ae4d2a742b30a1",
+        "id": "048960666c26be1d",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "docker/docker.md",
+            "file": "docker/Centos7安装Docker.md",
             "mode": "source",
             "source": true
           }
         }
       },
       {
-        "id": "048960666c26be1d",
+        "id": "2934e5fb8b28939f",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "docker/docker.md",
+            "file": "docker/Centos7安装Docker.md",
             "mode": "source",
             "source": false
           }
@@ -73,7 +73,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 185.5
+    "width": 185.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -89,7 +90,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "docker/Centos7安装Docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,7 +107,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "docker/Centos7安装Docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -129,7 +130,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "docker/Centos7安装Docker.md"
               }
             }
           },
@@ -148,17 +149,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "a8ae4d2a742b30a1",
+  "active": "048960666c26be1d",
   "lastOpenFiles": [
-    "assets/image-20210731144304990.png.md",
     "docker/docker.md",
+    "docker/Centos7安装Docker.md",
+    "assets/image-20210731144304990.png.md",
     "java/springcloud/SpringCloud.md",
     "2022-09-14.md",
     "Django笔记/django-rest-framework开发笔记.md",
     "java/springcloud/Nacos安装指南.md",
     "React/React基础（技术胖）/React16基础.md",
     "Index.md",
-    "Django笔记/Djangoday8日志.md",
-    "Django笔记/Djangoday6admin站点配置用户认证user.md"
+    "Django笔记/Djangoday8日志.md"
   ]
 }
