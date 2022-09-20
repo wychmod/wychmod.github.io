@@ -130,6 +130,14 @@
           "lastUpdated": 1663642104280
         }
       }
+    },
+    "RabbitMQ": {
+      "RabbitMQ": {
+        "internalLink": {
+          "count": 1,
+          "lastUpdated": 1663683150449
+        }
+      }
     }
   }
 }
