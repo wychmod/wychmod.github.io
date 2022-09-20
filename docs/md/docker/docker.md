@@ -671,12 +671,11 @@ docker run的命令中通过 -v 参数挂载文件或目录到容器中：
   ```sh
   docker build -t javaweb:1.0 .
 
-  docker run --name web =p
+  docker run --name web -p 1129:8090 -d javaweb:1.0
   ```
   
 
-最后访问 http://192.168.150.101:8090/hello/count，其中的ip改成你的虚拟机ip
-
+最后访问 http://192.168.150.101:1129/hello/count，其中的ip改成你的虚拟机ip
 
 
 ### 3.3.2.基于java8构建Java项目
@@ -684,8 +683,6 @@ docker run的命令中通过 -v 参数挂载文件或目录到容器中：
 虽然我们可以基于Ubuntu基础镜像，添加任意自己需要的安装包，构建镜像，但是却比较麻烦。所以大多数情况下，我们都可以在一些安装了部分软件的基础镜像上做改造。
 
 例如，构建java项目的镜像，可以在已经准备了JDK的基础镜像基础上构建。
-
-
 
 需求：基于java:8-alpine镜像，将一个Java项目构建为镜像
 
