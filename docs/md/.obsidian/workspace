@@ -21,8 +21,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "docker/Centos7安装Docker.md",
-            "mode": "source",
+            "file": "docker/docker.md",
+            "mode": "preview",
             "source": false
           }
         }
@@ -90,7 +90,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/Centos7安装Docker.md",
+                "file": "docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -107,7 +107,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/Centos7安装Docker.md",
+                "file": "docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -130,7 +130,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/Centos7安装Docker.md"
+                "file": "docker/docker.md"
               }
             }
           },
@@ -151,9 +151,9 @@
   },
   "active": "1c2fec1acfa8f287",
   "lastOpenFiles": [
+    "docker/Centos7安装Docker.md",
     "docker/docker.md",
     "java/springcloud/SpringCloud.md",
-    "docker/Centos7安装Docker.md",
     "系统设计/设计模式.md",
     "assets/image-20210801100231495.png.md",
     "assets/image-20210731144304990.png.md",
