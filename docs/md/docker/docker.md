@@ -759,26 +759,19 @@ version: "3.8"
 - mysql：一个基于`mysql:5.7.25`镜像构建的容器，并且挂载了两个目录
 - web：一个基于`docker build`临时构建的镜像容器，映射端口时8090
 
-
-
 DockerCompose的详细语法参考官网：https://docs.docker.com/compose/compose-file/
-
-
 
 其实DockerCompose文件可以看做是将多个docker run命令写到一个文件，只是语法稍有差异。
 
 
-
 ## 4.2.安装DockerCompose
 
-[[doc]]
-
+[Centos7安装Docker](Centos7安装Docker.md)
 
 
 ## 4.3.部署微服务集群
 
 **需求**：将之前学习的cloud-demo微服务集群利用DockerCompose部署
-
 
 
 **实现思路**：

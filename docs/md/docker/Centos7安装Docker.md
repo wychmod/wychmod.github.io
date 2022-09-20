@@ -123,7 +123,6 @@ curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compos
 上传到`/usr/local/bin/`目录也可以。
 
 
-
 ## 2.2.修改文件权限
 
 修改文件权限：
@@ -132,9 +131,6 @@ curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compos
 # 修改权限
 chmod +x /usr/local/bin/docker-compose
 ```
-
-
-
 
 
 ## 2.3.Base自动补全命令：
@@ -149,8 +145,6 @@ curl -L https://raw.githubusercontent.com/docker/compose/1.29.1/contrib/completi
 ```sh
 echo "199.232.68.133 raw.githubusercontent.com" >> /etc/hosts
 ```
-
-
 
 
 
