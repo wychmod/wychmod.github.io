@@ -9,21 +9,21 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "docker/docker.md",
+            "file": "消息队列/RabbitMQ.md",
             "mode": "source",
             "source": true
           }
         }
       },
       {
-        "id": "1c2fec1acfa8f287",
+        "id": "f68254d9a20b0d18",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "docker/docker.md",
+            "file": "消息队列/RabbitMQ.md",
             "mode": "preview",
-            "source": false
+            "source": true
           }
         }
       }
@@ -52,7 +52,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "策略模式",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -69,8 +69,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
@@ -90,7 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "消息队列/RabbitMQ.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -107,7 +106,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "消息队列/RabbitMQ.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -130,7 +129,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "消息队列/RabbitMQ.md"
               }
             }
           },
@@ -149,17 +148,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "1c2fec1acfa8f287",
+  "active": "f68254d9a20b0d18",
   "lastOpenFiles": [
-    "docker/Centos7安装Docker.md",
+    "java/springboot/SpringBoot实战和原理.md",
+    "消息队列/RabbitMQ.md",
     "docker/docker.md",
+    "docker/Centos7安装Docker.md",
     "java/springcloud/SpringCloud.md",
     "系统设计/设计模式.md",
     "assets/image-20210801100231495.png.md",
     "assets/image-20210731144304990.png.md",
     "2022-09-14.md",
-    "Django笔记/django-rest-framework开发笔记.md",
-    "java/springcloud/Nacos安装指南.md",
-    "React/React基础（技术胖）/React16基础.md"
+    "Django笔记/django-rest-framework开发笔记.md"
   ]
 }
