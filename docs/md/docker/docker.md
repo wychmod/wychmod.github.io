@@ -934,12 +934,11 @@ gateway：
 
 ```sh
 docker-compose up -d
+
+docker-compose logs -f
+
+docker-compose restart gateway userservice orderservice 
 ```
-
-
-
-
-
 
 
 # 5.Docker镜像仓库 

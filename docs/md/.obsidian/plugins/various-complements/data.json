@@ -98,6 +98,38 @@
           "lastUpdated": 1663637790112
         }
       }
+    },
+    "docker-compose": {
+      "docker-compose": {
+        "currentFile": {
+          "count": 1,
+          "lastUpdated": 1663642087098
+        }
+      }
+    },
+    "gateway": {
+      "gateway": {
+        "currentFile": {
+          "count": 1,
+          "lastUpdated": 1663642096513
+        }
+      }
+    },
+    "userservice": {
+      "userservice": {
+        "currentFile": {
+          "count": 1,
+          "lastUpdated": 1663642100790
+        }
+      }
+    },
+    "orderservice": {
+      "orderservice": {
+        "currentFile": {
+          "count": 1,
+          "lastUpdated": 1663642104280
+        }
+      }
     }
   }
 }

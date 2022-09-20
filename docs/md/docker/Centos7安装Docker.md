@@ -98,7 +98,6 @@ docker -v
 ![image-20210418154704436](../youdaonote-images/image-20210418154704436.png) 
 
 
-
 ## 1.4.配置镜像加速
 
 docker官方镜像仓库网速较差，我们需要设置国内镜像服务：
@@ -122,7 +121,6 @@ curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compos
 
 上传到`/usr/local/bin/`目录也可以。
 
-
 ## 2.2.修改文件权限
 
 修改文件权限：
@@ -131,7 +129,6 @@ curl -L https://github.com/docker/compose/releases/download/1.23.1/docker-compos
 # 修改权限
 chmod +x /usr/local/bin/docker-compose
 ```
-
 
 ## 2.3.Base自动补全命令：
 
@@ -145,7 +142,6 @@ curl -L https://raw.githubusercontent.com/docker/compose/1.29.1/contrib/completi
 ```sh
 echo "199.232.68.133 raw.githubusercontent.com" >> /etc/hosts
 ```
-
 
 
 # 3.Docker镜像仓库
