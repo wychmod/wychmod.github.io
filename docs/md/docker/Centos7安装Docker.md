@@ -191,7 +191,7 @@ services:
     ports:
       - 8080:80
     environment:
-      - REGISTRY_TITLE=传智教育私有仓库
+      - REGISTRY_TITLE=tots-and私有仓库
       - REGISTRY_URL=http://registry:5000
     depends_on:
       - registry
@@ -207,7 +207,7 @@ services:
 # 打开要修改的文件
 vi /etc/docker/daemon.json
 # 添加内容：
-"insecure-registries":["http://192.168.150.101:8080"]
+"insecure-registries": ["http://120.48.73.227:8080"]
 # 重加载
 systemctl daemon-reload
 # 重启docker

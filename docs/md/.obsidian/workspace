@@ -22,7 +22,7 @@
           "type": "markdown",
           "state": {
             "file": "docker/Centos7安装Docker.md",
-            "mode": "preview",
+            "mode": "source",
             "source": false
           }
         }
