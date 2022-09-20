@@ -593,14 +593,9 @@ docker run的命令中通过 -v 参数挂载文件或目录到容器中：
 ![image-20210731175806273](../youdaonote-images/image-20210731175806273.png)
 
 
-
 简单来说，镜像就是在系统函数库、运行环境基础上，添加应用程序文件、配置文件、依赖文件等组合，然后编写好启动脚本打包在一起形成的文件。
 
-
-
 我们要构建镜像，其实就是实现上述打包的过程。
-
-
 
 ## 3.2.Dockerfile语法
 
@@ -608,29 +603,16 @@ docker run的命令中通过 -v 参数挂载文件或目录到容器中：
 
 我们只需要告诉Docker，我们的镜像的组成，需要哪些BaseImage、需要拷贝什么文件、需要安装什么依赖、启动脚本是什么，将来Docker会帮助我们构建镜像。
 
-
-
 而描述上述信息的文件就是Dockerfile文件。
-
-
 
 **Dockerfile**就是一个文本文件，其中包含一个个的**指令(Instruction)**，用指令来说明要执行什么操作来构建镜像。每一个指令都会形成一层Layer。
 
 ![image-20210731180321133](../youdaonote-images/image-20210731180321133.png)
 
 
-
 更新详细语法说明，请参考官网文档： https://docs.docker.com/engine/reference/builder
 
-
-
-
-
-
-
 ## 3.3.构建Java项目
-
-
 
 ### 3.3.1.基于Ubuntu构建Java项目
 
@@ -679,7 +661,6 @@ docker run的命令中通过 -v 参数挂载文件或目录到容器中：
   ENTRYPOINT java -jar /tmp/app.jar
   ```
 
-  
 
 - 步骤5：进入docker-demo
 
@@ -689,8 +670,9 @@ docker run的命令中通过 -v 参数挂载文件或目录到容器中：
 
   ```sh
   docker build -t javaweb:1.0 .
-  ```
 
+  docker run --name web =p
+  ```
   
 
 最后访问 http://192.168.150.101:8090/hello/count，其中的ip改成你的虚拟机ip
