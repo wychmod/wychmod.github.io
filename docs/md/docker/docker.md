@@ -706,18 +706,14 @@ docker run的命令中通过 -v 参数挂载文件或目录到容器中：
 
     ```dockerfile
     FROM java:8-alpine
-    COPY ./app.jar /tmp/app.jar
-    EXPOSE 8090
+    COPY ./docker-demo.jar /tmp/app.jar
+    EXPOSE 1129
     ENTRYPOINT java -jar /tmp/app.jar
     ```
-
-    
 
 - ④ 使用docker build命令构建镜像
 
 - ⑤ 使用docker run创建容器并运行
-
-
 
 ## 3.4.小结
 
@@ -775,7 +771,7 @@ DockerCompose的详细语法参考官网：https://docs.docker.com/compose/compo
 
 ## 4.2.安装DockerCompose
 
-参考课前资料
+[[doc]]
 
 
 
