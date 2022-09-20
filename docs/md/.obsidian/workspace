@@ -16,14 +16,14 @@
         }
       },
       {
-        "id": "bf5c1d7bdbda7bb8",
+        "id": "1c2fec1acfa8f287",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "docker/docker.md",
+            "file": "docker/Centos7安装Docker.md",
             "mode": "preview",
-            "source": true
+            "source": false
           }
         }
       }
@@ -70,12 +70,11 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 185.5,
-    "collapsed": true
+    "width": 185.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -91,7 +90,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "docker/Centos7安装Docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -108,7 +107,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "docker/Centos7安装Docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -131,7 +130,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "docker/Centos7安装Docker.md"
               }
             }
           },
@@ -150,14 +149,14 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "bf5c1d7bdbda7bb8",
+  "active": "1c2fec1acfa8f287",
   "lastOpenFiles": [
-    "docker/Centos7安装Docker.md",
     "docker/docker.md",
+    "java/springcloud/SpringCloud.md",
+    "docker/Centos7安装Docker.md",
     "系统设计/设计模式.md",
     "assets/image-20210801100231495.png.md",
     "assets/image-20210731144304990.png.md",
-    "java/springcloud/SpringCloud.md",
     "2022-09-14.md",
     "Django笔记/django-rest-framework开发笔记.md",
     "java/springcloud/Nacos安装指南.md",

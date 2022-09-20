@@ -943,12 +943,9 @@ docker-compose restart gateway userservice orderservice
 
 # 5.Docker镜像仓库 
 
-
-
 ## 5.1.搭建私有镜像仓库
 
-参考课前资料《CentOS7安装Docker.md》
-
+[Centos7安装Docker](Centos7安装Docker.md)
 
 
 ## 5.2.推送、拉取镜像
