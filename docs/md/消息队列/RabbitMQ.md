@@ -68,7 +68,6 @@ Broker 是一个像数据总线一样的东西，所有的服务要接收数据�
 
 好在现在开源软件或云平台上 Broker 的软件是非常成熟的，比较常见的一种就是我们今天要学习的MQ技术。
 
-
 ## 1.2.技术对比：
 
 MQ，中文是消息队列（MessageQueue），字面来看就是存放消息的队列。也就是事件驱动架构中的Broker。
@@ -79,8 +78,6 @@ MQ，中文是消息队列（MessageQueue），字面来看就是存放消息的
 - RabbitMQ
 - RocketMQ
 - Kafka
-
-
 
 几种常见MQ的对比：
 
@@ -103,19 +100,17 @@ MQ，中文是消息队列（MessageQueue），字面来看就是存放消息的
 追求消息低延迟：RabbitMQ、Kafka
 
 
-
 # 2.快速入门
 
 ## 2.1.安装RabbitMQ
 
-安装RabbitMQ，参考课前资料：
+安装RabbitMQ，参考资料：
 
 ![image-20210717162628635](../youdaonote-images/image-20210717162628635.png)
 
 MQ的基本结构：
 
 ![image-20210717162752376](../youdaonote-images/image-20210717162752376.png)
-
 
 
 RabbitMQ中的一些角色：
@@ -125,9 +120,6 @@ RabbitMQ中的一些角色：
 - exchange个：交换机，负责消息路由
 - queue：队列，存储消息
 - virtualHost：虚拟主机，隔离不同租户的exchange、queue、消息的隔离
-
-
-
 
 
 ## 2.2.RabbitMQ消息模型

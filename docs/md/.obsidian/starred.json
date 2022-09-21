@@ -19,6 +19,11 @@
       "type": "file",
       "title": "docker",
       "path": "docker/docker.md"
+    },
+    {
+      "type": "file",
+      "title": "RabbitMQ",
+      "path": "消息队列/RabbitMQ.md"
     }
   ]
 }
