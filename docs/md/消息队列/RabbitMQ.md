@@ -728,8 +728,6 @@ public void testSendDirectExchange() {
 
 `Topic`类型的`Exchange`与`Direct`相比，都是可以根据`RoutingKey`把消息路由到不同的队列。只不过`Topic`类型`Exchange`可以让队列在绑定`Routing key` 的时候使用通配符！
 
-
-
 `Routingkey` 一般都是有一个或多个单词组成，多个单词之间以”.”分割，例如： `item.insert`
 
  通配符规则：
@@ -738,15 +736,11 @@ public void testSendDirectExchange() {
 
 `*`：匹配不多不少恰好1个词
 
-
-
 举例：
 
 `item.#`：能够匹配`item.spu.insert` 或者 `item.spu`
 
 `item.*`：只能匹配`item.spu`
-
-​     
 
 图示：
 
