@@ -751,8 +751,6 @@ public void testSendDirectExchange() {
 - Queue1：绑定的是`china.#` ，因此凡是以 `china.`开头的`routing key` 都会被匹配到。包括china.news和china.weather
 - Queue2：绑定的是`#.news` ，因此凡是以 `.news`结尾的 `routing key` 都会被匹配。包括china.news和japan.news
 
-
-
 案例需求：
 
 实现思路如下：
@@ -764,11 +762,7 @@ public void testSendDirectExchange() {
 3. 在publisher中编写测试方法，向itcast. topic发送消息
 
 
-
 ![image-20210717170829229](../youdaonote-images/image-20210717170829229.png)
-
-
-
 
 
 ### 3.6.2.消息发送
@@ -777,8 +771,8 @@ public void testSendDirectExchange() {
 
 ```java
 /**
-     * topicExchange
-     */
+ * topicExchange
+ */
 @Test
 public void testSendTopicExchange() {
     // 交换机名称
@@ -789,7 +783,6 @@ public void testSendTopicExchange() {
     rabbitTemplate.convertAndSend(exchangeName, "china.news", message);
 }
 ```
-
 
 
 ### 3.6.3.消息接收
@@ -816,10 +809,6 @@ public void listenTopicQueue2(String msg){
 }
 ```
 
-
-
-
-
 ### 3.6.4.总结
 
 描述下Direct交换机与Topic交换机的差异？
@@ -828,7 +817,6 @@ public void listenTopicQueue2(String msg){
 - Topic交换机与队列绑定时的bindingKey可以指定通配符
 - `#`：代表0个或多个词
 - `*`：代表1个词
-
 
 
 ## 3.7.消息转换器
@@ -843,13 +831,8 @@ public void listenTopicQueue2(String msg){
 - 有安全漏洞
 - 可读性差
 
-我们来测试一下。
-
-
 
 ### 3.7.1.测试默认转换器
-
-
 
 我们修改消息发送的代码，发送一个Map对象：
 
@@ -865,16 +848,11 @@ public void testSendMap() throws InterruptedException {
 }
 ```
 
-
-
 停止consumer服务
-
-
 
 发送消息后查看控制台：
 
 ![image-20210422232835363](../youdaonote-images/image-20210422232835363.png)
-
 
 
 ### 3.7.2.配置JSON转换器
@@ -901,18 +879,3 @@ public MessageConverter jsonMessageConverter(){
     return new Jackson2JsonMessageConverter();
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

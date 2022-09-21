@@ -4,24 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "6bb659cd86804a41",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "消息队列/RabbitMQ.md",
-            "mode": "source",
-            "source": true
-          }
-        }
-      },
-      {
         "id": "f68254d9a20b0d18",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "消息队列/RabbitMQ.md",
+            "file": "docker/docker.md",
             "mode": "preview",
             "source": true
           }
@@ -73,8 +61,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 185.5,
-    "collapsed": true
+    "width": 185.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -90,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "消息队列/RabbitMQ.md",
+                "file": "docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -107,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "消息队列/RabbitMQ.md",
+                "file": "docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -130,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "消息队列/RabbitMQ.md"
+                "file": "docker/docker.md"
               }
             }
           },
@@ -151,8 +138,8 @@
   },
   "active": "f68254d9a20b0d18",
   "lastOpenFiles": [
-    "消息队列/RabbitMQ部署指南.md",
     "消息队列/RabbitMQ.md",
+    "消息队列/RabbitMQ部署指南.md",
     "java/springboot/SpringBoot实战和原理.md",
     "docker/docker.md",
     "docker/Centos7安装Docker.md",
