@@ -414,7 +414,6 @@ Work queues，也被称为（Task queues），任务模型。简单来说就是*
 此时就可以使用work 模型，多个消费者共同处理消息处理，速度就能大大提高了。
 
 
-
 ### 3.2.1.消息发送
 
 这次我们循环发送，模拟大量消息堆积现象。
@@ -440,10 +439,6 @@ public void testWorkQueue() throws InterruptedException {
 }
 ```
 
-
-
-
-
 ### 3.2.2.消息接收
 
 要模拟多个消费者绑定同一个队列，我们在consumer服务的SpringRabbitListener中添加2个新的方法：
@@ -464,23 +459,13 @@ public void listenWorkQueue2(String msg) throws InterruptedException {
 
 注意到这个消费者sleep了1000秒，模拟任务耗时。
 
-
-
-
-
 ### 3.2.3.测试
 
 启动ConsumerApplication后，在执行publisher服务中刚刚编写的发送测试方法testWorkQueue。
 
 可以看到消费者1很快完成了自己的25条消息。消费者2却在缓慢的处理自己的25条消息。
 
-
-
-也就是说消息是平均分配给每个消费者，并没有考虑到消费者的处理能力。这样显然是有问题的。
-
-
-
-
+也就是说消息是平均分配给每个消费者，并没有考虑到消费者的处理能力。这样显然是有问题的。这个就是**预取，预先取走了一半，可以配置设置预取的个数。**
 
 ### 3.2.4.能者多劳
 
@@ -504,15 +489,11 @@ Work模型的使用：
 - 通过设置prefetch来控制消费者预取的消息数量
 
 
-
-
-
 ## 3.3.发布/订阅
 
 发布订阅的模型如图：
 
 ![image-20210717165309625](../youdaonote-images/image-20210717165309625.png)
-
 
 
 可以看到，在订阅模型中，多了一个exchange角色，而且过程略有变化：
