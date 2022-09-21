@@ -399,15 +399,9 @@ public class SpringRabbitListener {
 }
 ```
 
-
-
 ### 3.1.3.测试
 
 启动consumer服务，然后在publisher服务中运行测试代码，发送MQ消息
-
-
-
-
 
 ## 3.2.WorkQueue
 
