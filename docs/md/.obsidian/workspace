@@ -148,17 +148,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "62b967b1bdf672ea",
+  "active": "f68254d9a20b0d18",
   "lastOpenFiles": [
-    "java/springboot/SpringBoot实战和原理.md",
+    "消息队列/RabbitMQ部署指南.md",
     "消息队列/RabbitMQ.md",
+    "java/springboot/SpringBoot实战和原理.md",
     "docker/docker.md",
     "docker/Centos7安装Docker.md",
     "java/springcloud/SpringCloud.md",
     "系统设计/设计模式.md",
     "assets/image-20210801100231495.png.md",
     "assets/image-20210731144304990.png.md",
-    "2022-09-14.md",
-    "Django笔记/django-rest-framework开发笔记.md"
+    "2022-09-14.md"
   ]
 }

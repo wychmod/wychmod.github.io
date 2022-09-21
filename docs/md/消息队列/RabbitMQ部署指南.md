@@ -1,13 +1,5 @@
 # RabbitMQ部署指南
 
-
-
-
-
-
-
-
-
 # 1.单机部署
 
 我们在Centos7虚拟机中使用Docker来安装。
@@ -19,23 +11,6 @@
 ``` sh
 docker pull rabbitmq:3.8-management
 ```
-
-
-
-方式二：从本地加载
-
-在课前资料已经提供了镜像包：
-
-![image-20210423191210349](assets/image-20210423191210349.png) 
-
-上传到虚拟机中后，使用命令加载镜像即可：
-
-```sh
-docker load -i mq.tar
-```
-
-
-
 
 
 ## 1.2.安装MQ
@@ -54,4 +29,3 @@ docker run \
  -d \
  rabbitmq:3.8-management
 ```
-

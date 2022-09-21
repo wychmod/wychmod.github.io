@@ -106,7 +106,7 @@ MQ，中文是消息队列（MessageQueue），字面来看就是存放消息的
 
 安装RabbitMQ，参考资料：
 
-![image-20210717162628635](../youdaonote-images/image-20210717162628635.png)
+[RabbitMQ部署指南](RabbitMQ部署指南.md) 
 
 MQ的基本结构：
 
@@ -119,7 +119,7 @@ RabbitMQ中的一些角色：
 - consumer：消费者
 - exchange个：交换机，负责消息路由
 - queue：队列，存储消息
-- virtualHost：虚拟主机，隔离不同租户的exchange、queue、消息的隔离
+- virtualHost：虚拟主机，隔离不同租户的exchange、queue、消息的隔离（可以给不同的租户设置不同的虚拟主机，会产生隔离效果）
 
 
 ## 2.2.RabbitMQ消息模型
