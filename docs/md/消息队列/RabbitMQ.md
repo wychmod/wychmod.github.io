@@ -668,9 +668,6 @@ public void listenFanoutQueue2(String msg) {
 ![image-20210717170223317](../youdaonote-images/image-20210717170223317.png)
 
 
-
-
-
 ### 3.5.1.基于注解声明队列和交换机
 
 基于@Bean的方式声明队列和交换机比较麻烦，Spring还提供了基于注解方式来声明。
@@ -697,8 +694,6 @@ public void listenDirectQueue2(String msg){
 }
 ```
 
-
-
 ### 3.5.2.消息发送
 
 在publisher服务的SpringAmqpTest类中添加测试方法：
@@ -715,10 +710,6 @@ public void testSendDirectExchange() {
 }
 ```
 
-
-
-
-
 ### 3.5.3.总结
 
 描述下Direct交换机与Fanout交换机的差异？
@@ -732,14 +723,7 @@ public void testSendDirectExchange() {
 - @Queue
 - @Exchange
 
-
-
-
-
 ## 3.6.Topic
-
-
-
 ### 3.6.1.说明
 
 `Topic`类型的`Exchange`与`Direct`相比，都是可以根据`RoutingKey`把消息路由到不同的队列。只不过`Topic`类型`Exchange`可以让队列在绑定`Routing key` 的时候使用通配符！
