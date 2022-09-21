@@ -367,10 +367,6 @@ public class SpringAmqpTest {
 }
 ```
 
-
-
-
-
 ### 3.1.2.消息接收
 
 首先配置MQ地址，在consumer服务的application.yml中添加配置：
@@ -384,8 +380,6 @@ spring:
     username: itcast # 用户名
     password: 123321 # 密码
 ```
-
-
 
 然后在consumer服务的`cn.itcast.mq.listener`包中新建一个类SpringRabbitListener，代码如下：
 
