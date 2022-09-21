@@ -209,12 +209,6 @@ public class PublisherTest {
 }
 ```
 
-
-
-
-
-
-
 ### 2.4.2.consumer实现
 
 代码思路：
@@ -223,7 +217,6 @@ public class PublisherTest {
 - 创建Channel
 - 声明队列
 - 订阅消息
-
 
 
 代码实现：
@@ -273,9 +266,6 @@ public class ConsumerTest {
 ```
 
 
-
-
-
 ## 2.5.总结
 
 基本消息队列的消息发送流程：
@@ -302,8 +292,6 @@ public class ConsumerTest {
 
 
 
-
-
 # 3.SpringAMQP
 
 SpringAMQP是基于RabbitMQ封装的一套模板，并且还利用SpringBoot对其实现了自动装配，使用起来非常方便。
@@ -314,15 +302,11 @@ SpringAmqp的官方地址：https://spring.io/projects/spring-amqp
 
 ![image-20210717164038678](../youdaonote-images/image-20210717164038678.png)
 
-
-
 SpringAMQP提供了三个功能：
 
 - 自动声明队列、交换机及其绑定关系
 - 基于注解的监听器模式，异步接收消息
 - 封装了RabbitTemplate工具，用于发送消息 
-
-
 
 ## 3.1.Basic Queue 简单队列模型
 
@@ -335,7 +319,6 @@ SpringAMQP提供了三个功能：
     <artifactId>spring-boot-starter-amqp</artifactId>
 </dependency>
 ```
-
 
 
 ### 3.1.1.消息发送
@@ -351,7 +334,6 @@ spring:
     username: itcast # 用户名
     password: 123321 # 密码
 ```
-
 
 
 然后在publisher服务中编写测试类SpringAmqpTest，并利用RabbitTemplate实现消息发送：
