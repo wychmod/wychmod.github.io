@@ -597,8 +597,6 @@ public class FanoutConfig {
 }
 ```
 
-
-
 ### 3.4.2.消息发送
 
 在publisher服务的SpringAmqpTest类中添加测试方法：
@@ -613,8 +611,6 @@ public void testFanoutExchange() {
     rabbitTemplate.convertAndSend(exchangeName, "", message);
 }
 ```
-
-
 
 ### 3.4.3.消息接收
 
@@ -632,11 +628,7 @@ public void listenFanoutQueue2(String msg) {
 }
 ```
 
-
-
 ### 3.4.4.总结
-
-
 
 交换机的作用是什么？
 
@@ -652,7 +644,6 @@ public void listenFanoutQueue2(String msg) {
 - Binding
 
 
-
 ## 3.5.Direct
 
 在Fanout模式中，一条消息，会被所有订阅的队列都消费。但是，在某些场景下，我们希望不同的消息被不同的队列消费。这时就要用到Direct类型的Exchange。
@@ -664,9 +655,6 @@ public void listenFanoutQueue2(String msg) {
 - 队列与交换机的绑定，不能是任意绑定了，而是要指定一个`RoutingKey`（路由key）
 - 消息的发送方在 向 Exchange发送消息时，也必须指定消息的 `RoutingKey`。
 - Exchange不再把消息交给每一个绑定的队列，而是根据消息的`Routing Key`进行判断，只有队列的`Routingkey`与消息的 `Routing key`完全一致，才会接收到消息
-
-
-
 
 
 **案例需求如下**：
