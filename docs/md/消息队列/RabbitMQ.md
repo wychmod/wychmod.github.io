@@ -112,12 +112,11 @@ MQ的基本结构：
 
 ![image-20210717162752376](../youdaonote-images/image-20210717162752376.png)
 
-
 RabbitMQ中的一些角色：
 
 - publisher：生产者
 - consumer：消费者
-- exchange个：交换机，负责消息路由
+- exchange：交换机，负责消息路由
 - queue：队列，存储消息
 - virtualHost：虚拟主机，隔离不同租户的exchange、queue、消息的隔离（可以给不同的租户设置不同的虚拟主机，会产生隔离效果）
 
@@ -127,11 +126,6 @@ RabbitMQ中的一些角色：
 RabbitMQ官方提供了5个不同的Demo示例，对应了不同的消息模型：
 
 ![image-20210717163332646](../youdaonote-images/image-20210717163332646.png)
-
-
-
-
-
 
 
 ## 2.3.导入Demo工程
