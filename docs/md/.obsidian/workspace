@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "docker/docker.md",
+            "file": "数据库/mac 安装redis和MongoDB和.md",
             "mode": "preview",
             "source": true
           }
@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "elastic",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -57,7 +57,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -77,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "数据库/mac 安装redis和MongoDB和.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "数据库/mac 安装redis和MongoDB和.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "数据库/mac 安装redis和MongoDB和.md"
               }
             }
           },
@@ -138,10 +139,10 @@
   },
   "active": "f68254d9a20b0d18",
   "lastOpenFiles": [
+    "docker/docker.md",
     "消息队列/RabbitMQ.md",
     "消息队列/RabbitMQ部署指南.md",
     "java/springboot/SpringBoot实战和原理.md",
-    "docker/docker.md",
     "docker/Centos7安装Docker.md",
     "java/springcloud/SpringCloud.md",
     "系统设计/设计模式.md",
