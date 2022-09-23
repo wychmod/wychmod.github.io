@@ -32,8 +32,8 @@ docker run -d \
 	--name es \
     -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
     -e "discovery.type=single-node" \
-    -v es-data:/usr/share/es/data \
-    -v es-plugins:/usr/share/es/plugins \
+    -v es-data:/usr/share/elasticsearch/data \
+    -v es-plugins:/usr/share/elasticsearch/plugins \
     --privileged \
     --network es-net \
     -p 9200:9200 \
@@ -268,7 +268,7 @@ GET /_analyze
 
 ## 3.3 扩展词词典
 
-随着互联网的发展，“造词运动”也越发的频繁。出现了很多新的词语，在原有的词汇列表中并不存在。比如：“奥力给”，“传智播客” 等。
+随着互联网的发展，“造词运动”也越发的频繁。出现了很多新的词语，在原有的词汇列表中并不存在。比如：“奥力给” 等。
 
 所以我们的词汇也需要不断的更新，IK分词器提供了扩展词汇的功能。
 

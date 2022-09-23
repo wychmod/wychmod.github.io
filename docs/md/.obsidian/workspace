@@ -16,25 +16,13 @@
         }
       },
       {
-        "id": "6b69e07b246d8e51",
+        "id": "669b716efc865b40",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "elk/安装elasticsearch.md",
+            "file": "elk/elasticsearch分布式搜索引擎.md",
             "mode": "source",
-            "source": false
-          }
-        }
-      },
-      {
-        "id": "f58088f6e9b77569",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "elk/安装elasticsearch.md",
-            "mode": "preview",
             "source": false
           }
         }
@@ -101,7 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "elk/安装elasticsearch.md",
+                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +106,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "elk/安装elasticsearch.md",
+                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -141,7 +129,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "elk/安装elasticsearch.md"
+                "file": "elk/elasticsearch分布式搜索引擎.md"
               }
             }
           },
@@ -160,10 +148,10 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "6b69e07b246d8e51",
+  "active": "b5df4c2a11e4c829",
   "lastOpenFiles": [
-    "elk/elasticsearch分布式搜索引擎.md",
     "elk/安装elasticsearch.md",
+    "elk/elasticsearch分布式搜索引擎.md",
     "docker/docker.md",
     "assets/image-20210510165308064.png.md",
     "assets/image-20210720193623245.png.md",
