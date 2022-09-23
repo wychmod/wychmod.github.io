@@ -73,7 +73,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 185.5
+    "width": 185.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -148,7 +149,7 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "62b967b1bdf672ea",
+  "active": "99bb852f75f22fcc",
   "lastOpenFiles": [
     "docker/docker.md",
     "elk/安装elasticsearch.md",

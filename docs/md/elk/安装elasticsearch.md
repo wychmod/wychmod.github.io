@@ -56,7 +56,7 @@ elasticsearch:7.12.1
 
 
 
-在浏览器中输入：http://192.168.150.101:9200 即可看到elasticsearch的响应结果：
+在浏览器中输入：http://:9200 即可看到elasticsearch的响应结果：
 
 ![image-20210506101053676](../youdaonote-images/image-20210506101053676.png)
 
