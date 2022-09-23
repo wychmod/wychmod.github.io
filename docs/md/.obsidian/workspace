@@ -10,7 +10,7 @@
           "type": "markdown",
           "state": {
             "file": "docker/docker.md",
-            "mode": "source",
+            "mode": "preview",
             "source": true
           }
         }
@@ -90,7 +90,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "elk/安装elasticsearch.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -107,7 +107,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "elk/安装elasticsearch.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -130,7 +130,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "elk/安装elasticsearch.md"
               }
             }
           },
@@ -149,10 +149,10 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "99bb852f75f22fcc",
+  "active": "b5df4c2a11e4c829",
   "lastOpenFiles": [
-    "elk/安装elasticsearch.md",
     "docker/docker.md",
+    "elk/安装elasticsearch.md",
     "assets/image-20210510165308064.png.md",
     "elk/elasticsearch分布式搜索引擎.md",
     "assets/image-20210720193623245.png.md",
