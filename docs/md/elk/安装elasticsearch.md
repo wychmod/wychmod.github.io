@@ -32,8 +32,8 @@ docker run -d \
 	--name es \
     -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
     -e "discovery.type=single-node" \
-    -v es-data:/usr/share/elasticsearch/data \
-    -v es-plugins:/usr/share/elasticsearch/plugins \
+    -v es-data:/usr/share/es/data \
+    -v es-plugins:/usr/share/es/plugins \
     --privileged \
     --network es-net \
     -p 9200:9200 \
@@ -98,15 +98,11 @@ docker logs -f kibana
 
 kibana中提供了一个DevTools界面：
 
-![image-20210506102630393](../youdaonote-images/image-20210506102630393.png)
+![](../youdaonote-images/Pasted%20image%2020220923182544.png)
 
 这个界面中可以编写DSL来操作elasticsearch。并且对DSL语句有自动补全功能。
 
-
-
 # 3.安装IK分词器
-
-
 
 ## 3.1.在线安装ik插件（较慢）
 
