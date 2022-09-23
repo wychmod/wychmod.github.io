@@ -22,27 +22,15 @@ elasticsearch是一款非常强大的开源搜索引擎，具备非常多强大�
 
   ![image-20210720193641907](../youdaonote-images/image-20210720193641907.png)
 
-- 在打车软件搜索附近的车
-
-  ![image-20210720193648044](../youdaonote-images/image-20210720193648044.png)
-
-
-
-
-
 ### 1.1.2.ELK技术栈
 
 elasticsearch结合kibana、Logstash、Beats，也就是elastic stack（ELK）。被广泛应用在日志数据分析、实时监控等领域：
 
 ![image-20210720194008781](../youdaonote-images/image-20210720194008781.png)
 
-
-
 而elasticsearch是elastic stack的核心，负责存储、搜索、分析数据。
 
 ![image-20210720194230265](../youdaonote-images/image-20210720194230265.png)
-
-
 
 ### 1.1.3.elasticsearch和lucene
 
@@ -52,18 +40,12 @@ elasticsearch底层是基于**lucene**来实现的。
 
 ![image-20210720194547780](../youdaonote-images/image-20210720194547780.png)
 
-
-
-
-
 **elasticsearch**的发展历史：
 
 - 2004年Shay Banon基于Lucene开发了Compass
 - 2010年Shay Banon 重写了Compass，取名为Elasticsearch。
 
 ![image-20210720195001221](../youdaonote-images/image-20210720195001221.png)
-
-
 
 ### 1.1.4.为什么不是其他搜索技术？
 
