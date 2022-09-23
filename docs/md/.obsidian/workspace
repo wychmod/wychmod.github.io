@@ -4,14 +4,14 @@
     "type": "split",
     "children": [
       {
-        "id": "f68254d9a20b0d18",
+        "id": "ef9afd0f931013d8",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "数据库/mac 安装redis和MongoDB和.md",
-            "mode": "preview",
-            "source": true
+            "file": "elk/elasticsearch分布式搜索引擎.md",
+            "mode": "source",
+            "source": false
           }
         }
       }
@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "elastic",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -58,7 +58,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -78,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "数据库/mac 安装redis和MongoDB和.md",
+                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "数据库/mac 安装redis和MongoDB和.md",
+                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "数据库/mac 安装redis和MongoDB和.md"
+                "file": "elk/elasticsearch分布式搜索引擎.md"
               }
             }
           },
@@ -137,17 +137,17 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "f68254d9a20b0d18",
+  "active": "ef9afd0f931013d8",
   "lastOpenFiles": [
     "docker/docker.md",
+    "elk/elasticsearch分布式搜索引擎.md",
+    "assets/image-20210720193623245.png.md",
+    "docker/Centos7安装Docker.md",
+    "数据库/mac 安装redis和MongoDB和.md",
     "消息队列/RabbitMQ.md",
     "消息队列/RabbitMQ部署指南.md",
     "java/springboot/SpringBoot实战和原理.md",
-    "docker/Centos7安装Docker.md",
     "java/springcloud/SpringCloud.md",
-    "系统设计/设计模式.md",
-    "assets/image-20210801100231495.png.md",
-    "assets/image-20210731144304990.png.md",
-    "2022-09-14.md"
+    "系统设计/设计模式.md"
   ]
 }
