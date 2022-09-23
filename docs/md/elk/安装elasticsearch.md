@@ -147,11 +147,9 @@ docker volume inspect es-plugins
 
 说明plugins目录被挂载到了：`/var/lib/docker/volumes/es-plugins/_data `这个目录中。
 
-
-
 ### 2）解压缩分词器安装包
 
-下面我们需要把课前资料中的ik分词器解压缩，重命名为ik
+下面我们需要把ik分词器解压缩，重命名为ik
 
 ![image-20210506110249144](../youdaonote-images/image-20210506110249144.png)
 
@@ -182,7 +180,6 @@ IK分词器包含两种模式：
 * `ik_smart`：最少切分
 
 * `ik_max_word`：最细切分
-
 
 
 ```json
