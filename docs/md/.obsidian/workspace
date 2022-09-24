@@ -73,7 +73,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 185.5
+    "width": 185.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -148,7 +149,7 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "669b716efc865b40",
+  "active": "b5df4c2a11e4c829",
   "lastOpenFiles": [
     "elk/安装elasticsearch.md",
     "elk/elasticsearch分布式搜索引擎.md",

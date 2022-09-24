@@ -590,10 +590,6 @@ ES官方提供了各种不同语言的客户端，用来操作ES。这些客户�
 
 ### 4.0.1.导入数据
 
-首先导入课前资料提供的数据库数据：
-
-![image-20210720220400297](../youdaonote-images/image-20210720220400297.png) 
-
 数据结构如下：
 
 ```sql
@@ -614,21 +610,11 @@ CREATE TABLE `tb_hotel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
-
-
 ### 4.0.2.导入项目
-
-然后导入课前资料提供的项目:
-
-![image-20210720220503411](../youdaonote-images/image-20210720220503411.png) 
-
-
 
 项目结构如图：
 
 ![image-20210720220647541](../youdaonote-images/image-20210720220647541.png)
-
-
 
 ### 4.0.3.mapping映射分析
 
@@ -646,8 +632,6 @@ CREATE TABLE `tb_hotel` (
 - 是否参与搜索要分析业务来判断，例如图片地址，就无需参与搜索
 - 是否分词呢要看内容，内容如果是一个整体就无需分词，反之则要分词
 - 分词器，我们可以统一使用ik_max_word
-
-
 
 来看下酒店数据的索引库结构:
 
@@ -711,8 +695,6 @@ PUT /hotel
 - location：地理坐标，里面包含精度、纬度
 - all：一个组合字段，其目的是将多字段的值 利用copy_to合并，提供给用户搜索
 
-
-
 地理坐标说明：
 
 ![image-20210720222110126](../youdaonote-images/image-20210720222110126.png)
@@ -720,8 +702,6 @@ PUT /hotel
 copy_to说明：
 
 ![image-20210720222221516](../youdaonote-images/image-20210720222221516.png)
-
-
 
 ### 4.0.4.初始化RestClient
 
