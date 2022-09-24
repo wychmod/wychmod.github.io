@@ -1047,8 +1047,6 @@ public class HotelDoc {
 
 ```
 
-
-
 ### 5.1.2.语法说明
 
 新增文档的DSL语句如下：
