@@ -1063,8 +1063,6 @@ POST /{索引库名}/_doc/1
 
 ![image-20210720230027240](../youdaonote-images/image-20210720230027240.png)
 
-
-
 可以看到与创建索引库类似，同样是三步走：
 
 - 1）创建Request对象
@@ -1072,8 +1070,6 @@ POST /{索引库名}/_doc/1
 - 3）发送请求
 
 变化的地方在于，这里直接使用client.xxx()的API，不再需要client.indices()了。
-
-
 
 ### 5.1.3.完整代码
 
@@ -1114,9 +1110,6 @@ void testAddDocument() throws IOException {
 ```
 
 
-
-
-
 ## 5.2.查询文档
 
 ### 5.2.1.语法说明
@@ -1144,10 +1137,6 @@ GET /hotel/_doc/{id}
 - 2）发送请求，得到结果。因为是查询，这里调用client.get()方法
 - 3）解析结果，就是对JSON做反序列化
 
-
-
-
-
 ### 5.2.2.完整代码
 
 在hotel-demo的HotelDocumentTest测试类中，编写单元测试：
@@ -1166,10 +1155,6 @@ void testGetDocumentById() throws IOException {
     System.out.println(hotelDoc);
 }
 ```
-
-
-
-
 
 ## 5.3.删除文档
 
@@ -1200,11 +1185,6 @@ void testDeleteDocument() throws IOException {
 ```
 
 
-
-
-
-
-
 ## 5.4.修改文档
 
 ### 5.4.1.语法说明
@@ -1213,7 +1193,6 @@ void testDeleteDocument() throws IOException {
 
 - 全量修改：本质是先根据id删除，再新增
 - 增量修改：修改文档中的指定字段值
-
 
 
 在RestClient的API中，全量修改与新增的API完全一致，判断依据是ID：
@@ -1232,10 +1211,6 @@ void testDeleteDocument() throws IOException {
 - 1）准备Request对象。这次是修改，所以是UpdateRequest
 - 2）准备参数。也就是JSON文档，里面包含要修改的字段
 - 3）更新文档。这里调用client.update()方法
-
-
-
-
 
 ### 5.4.2.完整代码
 
@@ -1257,9 +1232,6 @@ void testUpdateDocument() throws IOException {
 ```
 
 
-
-
-
 ## 5.5.批量导入文档
 
 案例需求：利用BulkRequest批量将数据库数据导入到索引库中。
@@ -1271,7 +1243,6 @@ void testUpdateDocument() throws IOException {
 - 将查询到的酒店数据（Hotel）转换为文档类型数据（HotelDoc）
 
 - 利用JavaRestClient中的BulkRequest批处理，实现批量新增文档
-
 
 
 ### 5.5.1.语法说明
@@ -1293,14 +1264,11 @@ void testUpdateDocument() throws IOException {
 ![image-20210720232431383](../youdaonote-images/image-20210720232431383.png)
 
 
-
 其实还是三步走：
 
 - 1）创建Request对象。这里是BulkRequest
 - 2）准备参数。批处理的参数，就是其它Request对象，这里就是多个IndexRequest
 - 3）发起请求。这里是批处理，调用的方法为client.bulk()方法
-
-
 
 我们在导入酒店数据时，将上述代码改造成for循环处理即可。
 
@@ -1331,9 +1299,6 @@ void testBulkRequest() throws IOException {
 ```
 
 
-
-
-
 ## 5.6.小结
 
 文档操作的基本步骤：
@@ -1343,4 +1308,3 @@ void testBulkRequest() throws IOException {
 - 准备参数（Index、Update、Bulk时需要）
 - 发送请求。调用RestHighLevelClient#.xxx()方法，xxx是index、get、update、delete、bulk
 - 解析结果（Get时需要）
-
