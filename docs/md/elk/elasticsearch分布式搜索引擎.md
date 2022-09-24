@@ -841,8 +841,6 @@ public class HotelConstants {
 }
 ```
 
-
-
 在hotel-demo中的HotelIndexTest测试类中，编写单元测试，实现创建索引：
 
 ```java
@@ -856,7 +854,6 @@ void createHotelIndex() throws IOException {
     client.indices().create(request, RequestOptions.DEFAULT);
 }
 ```
-
 
 
 ## 4.2.删除索引库
@@ -901,8 +898,6 @@ void testDeleteHotelIndex() throws IOException {
 GET /hotel
 ```
 
-
-
 因此与删除的Java代码流程是类似的。依然是三步走：
 
 - 1）创建Request对象。这次是GetIndexRequest对象
@@ -921,8 +916,6 @@ void testExistsHotelIndex() throws IOException {
 }
 ```
 
-
-
 ## 4.4.总结
 
 JavaRestClient操作elasticsearch的流程基本类似。核心是client.indices()方法来获取索引库的操作对象。
@@ -933,9 +926,6 @@ JavaRestClient操作elasticsearch的流程基本类似。核心是client.indices
 - 创建XxxIndexRequest。XXX是Create、Get、Delete
 - 准备DSL（ Create时需要，其它是无参）
 - 发送请求。调用RestHighLevelClient#indices().xxx()方法，xxx是create、exists、delete
-
-
-
 
 
 # 5.RestClient操作文档
