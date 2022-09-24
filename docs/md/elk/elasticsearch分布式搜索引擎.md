@@ -718,8 +718,6 @@ copy_to说明：
 </dependency>
 ```
 
-
-
 2）因为SpringBoot默认的ES版本是7.6.2，所以我们需要覆盖默认的ES版本：
 
 ```xml
@@ -728,8 +726,6 @@ copy_to说明：
     <elasticsearch.version>7.12.1</elasticsearch.version>
 </properties>
 ```
-
-
 
 3）初始化RestHighLevelClient：
 
@@ -740,8 +736,6 @@ RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(
         HttpHost.create("http://192.168.150.101:9200")
 ));
 ```
-
-
 
 这里为了单元测试方便，我们创建一个测试类HotelIndexTest，然后将初始化的代码编写在@BeforeEach方法中：
 
@@ -772,10 +766,6 @@ public class HotelIndexTest {
     }
 }
 ```
-
-
-
-
 
 ## 4.1.创建索引库
 
