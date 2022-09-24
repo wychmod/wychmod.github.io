@@ -73,8 +73,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 185.5,
-    "collapsed": true
+    "width": 185.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -151,15 +150,15 @@
   },
   "active": "b5df4c2a11e4c829",
   "lastOpenFiles": [
-    "elk/安装elasticsearch.md",
+    "assets/image-20210721165326938.png.md",
     "elk/elasticsearch分布式搜索引擎.md",
+    "elk/安装elasticsearch.md",
     "docker/docker.md",
     "assets/image-20210510165308064.png.md",
     "assets/image-20210720193623245.png.md",
     "docker/Centos7安装Docker.md",
     "数据库/mac 安装redis和MongoDB和.md",
     "消息队列/RabbitMQ.md",
-    "消息队列/RabbitMQ部署指南.md",
-    "java/springboot/SpringBoot实战和原理.md"
+    "消息队列/RabbitMQ部署指南.md"
   ]
 }
