@@ -445,22 +445,16 @@ POST /索引库名/_doc/文档id
 **示例：**
 
 ```json
-POST /heima/_doc/1
+POST /wychmod/_doc/1
 {
-    "info": "黑马程序员Java讲师",
-    "email": "zy@itcast.cn",
-    "name": {
-        "firstName": "云",
-        "lastName": "赵"
-    }
+    "info": "大王",
+    "email": "zy@itcast.cn",
+    "name": {
+        "firstName": "云",
+        "lastName": "赵"
+    }
 }
 ```
-
-**响应：**
-
-![image-20210720212933362](../youdaonote-images/image-20210720212933362.png)
-
-
 
 ## 3.2.查询文档
 
@@ -475,13 +469,8 @@ GET /{索引库名称}/_doc/{id}
 **通过kibana查看数据：**
 
 ```js
-GET /heima/_doc/1
+GET /wychmod/_doc/1
 ```
-
-**查看结果：**
-
-![image-20210720213345003](../youdaonote-images/image-20210720213345003.png)
-
 
 
 ## 3.3.删除文档
@@ -498,14 +487,8 @@ DELETE /{索引库名}/_doc/id值
 
 ```json
 # 根据id删除数据
-DELETE /heima/_doc/1
+DELETE /wychmod/_doc/1
 ```
-
-**结果：**
-
-![image-20210720213634918](../youdaonote-images/image-20210720213634918.png)
-
-
 
 ## 3.4.修改文档
 
@@ -513,8 +496,6 @@ DELETE /heima/_doc/1
 
 - 全量修改：直接覆盖原来的文档
 - 增量修改：修改文档中的部分字段
-
-
 
 ### 3.4.1.全量修改
 
@@ -524,8 +505,6 @@ DELETE /heima/_doc/1
 - 新增一个相同id的文档
 
 **注意**：如果根据id删除时，id不存在，第二步的新增也会执行，也就从修改变成了新增操作了。
-
-
 
 **语法：**
 
@@ -539,23 +518,19 @@ PUT /{索引库名}/_doc/文档id
 
 ```
 
-
-
 **示例：**
 
 ```json
-PUT /heima/_doc/1
+PUT /wychmod/_doc/1
 {
-    "info": "黑马程序员高级Java讲师",
-    "email": "zy@itcast.cn",
-    "name": {
-        "firstName": "云",
-        "lastName": "赵"
-    }
+    "info": "黑马程序员高级Java讲师",
+    "email": "zy@itcast.cn",
+    "name": {
+        "firstName": "云",
+        "lastName": "赵"
+    }
 }
 ```
-
-
 
 ### 3.4.2.增量修改
 
@@ -572,20 +547,16 @@ POST /{索引库名}/_update/文档id
 }
 ```
 
-
-
 **示例：**
 
 ```json
-POST /heima/_update/1
+POST /wychmod/_update/1
 {
-  "doc": {
-    "email": "ZhaoYun@itcast.cn"
-  }
+  "doc": {
+    "email": "ZhaoYun@itcast.cn"
+  }
 }
 ```
-
-
 
 ## 3.5.总结
 
@@ -597,8 +568,6 @@ POST /heima/_update/1
 - 修改文档：
   - 全量修改：PUT /{索引库名}/_doc/文档id { json文档 }
   - 增量修改：POST /{索引库名}/_update/文档id { "doc": {字段}}
-
-
 
 # 4.RestAPI
 
