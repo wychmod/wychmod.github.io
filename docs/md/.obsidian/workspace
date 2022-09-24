@@ -22,7 +22,7 @@
           "type": "markdown",
           "state": {
             "file": "elk/elasticsearch分布式搜索引擎.md",
-            "mode": "source",
+            "mode": "preview",
             "source": false
           }
         }
@@ -148,7 +148,7 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "b5df4c2a11e4c829",
+  "active": "669b716efc865b40",
   "lastOpenFiles": [
     "elk/安装elasticsearch.md",
     "elk/elasticsearch分布式搜索引擎.md",

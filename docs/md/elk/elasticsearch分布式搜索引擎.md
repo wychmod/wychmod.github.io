@@ -261,8 +261,6 @@ mapping是对索引库中文档的约束，常见的mapping属性包括：
 - analyzer：使用哪种分词器
 - properties：该字段的子字段
 
-
-
 例如下面的json文档：
 
 ```json
@@ -293,16 +291,9 @@ mapping是对索引库中文档的约束，常见的mapping属性包括：
   - name.lastName；类型为字符串，但是不需要分词，因此是keyword；参与搜索，因此需要index为true；无需分词器
 
 
-
-
-
-
-
 ## 2.2.索引库的CRUD
 
 这里我们统一使用Kibana编写DSL的方式来演示。
-
-
 
 ### 2.2.1.创建索引库和映射
 
