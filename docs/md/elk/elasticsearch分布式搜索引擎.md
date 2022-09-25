@@ -1334,7 +1334,6 @@ Elasticsearch提供了基于JSON的DSL（[Domain Specific Language](https://www.
   - function_score
 
 
-
 查询的语法基本一致：
 
 ```json
@@ -1366,12 +1365,7 @@ GET /indexName/_search
 
 其它查询无非就是**查询类型**、**查询条件**的变化。
 
-
-
 ## 6.2.全文检索查询
-
-
-
 ### 6.2.1.使用场景
 
 全文检索查询的基本流程如下：
@@ -1389,11 +1383,7 @@ GET /indexName/_search
 
 ![image-20210721165326938](../youdaonote-images/image-20210721165326938.png)
 
-
-
 因为是拿着词条去匹配，因此参与搜索的字段也必须是可分词的text类型的字段。
-
-
 
 ### 6.2.2.基本语法
 
@@ -1429,29 +1419,21 @@ GET /indexName/_search
 }
 ```
 
-
-
 ### 6.2.3.示例
 
 match查询示例：
 
 ![image-20210721170455419](../youdaonote-images/image-20210721170455419.png)
 
-
-
 multi_match查询示例：
 
 ![image-20210721170720691](../youdaonote-images/image-20210721170720691.png)
-
-
 
 可以看到，两种查询结果是一样的，为什么？
 
 因为我们将brand、name、business值都利用copy_to复制到了all字段中。因此你根据三个字段搜索，和根据all字段搜索效果当然一样了。
 
 但是，搜索字段越多，对查询性能影响越大，因此建议采用copy_to，然后单字段查询的方式。
-
-
 
 ### 6.2.4.总结
 
