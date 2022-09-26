@@ -9,9 +9,9 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "java/springboot/SpringBoot实战和原理.md",
-            "mode": "preview",
-            "source": false
+            "file": "elk/elasticsearch分布式搜索引擎.md",
+            "mode": "source",
+            "source": true
           }
         }
       },
@@ -74,7 +74,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 185.5
+    "width": 185.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -90,7 +91,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/springboot/SpringBoot实战和原理.md",
+                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -107,7 +108,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/springboot/SpringBoot实战和原理.md",
+                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -130,7 +131,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/springboot/SpringBoot实战和原理.md"
+                "file": "elk/elasticsearch分布式搜索引擎.md"
               }
             }
           },
@@ -149,8 +150,9 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "b5df4c2a11e4c829",
+  "active": "669b716efc865b40",
   "lastOpenFiles": [
+    "java/springboot/SpringBoot实战和原理.md",
     "elk/elasticsearch分布式搜索引擎.md",
     "assets/image-20210721165326938.png.md",
     "elk/安装elasticsearch.md",
@@ -159,7 +161,6 @@
     "assets/image-20210720193623245.png.md",
     "docker/Centos7安装Docker.md",
     "数据库/mac 安装redis和MongoDB和.md",
-    "消息队列/RabbitMQ.md",
-    "消息队列/RabbitMQ部署指南.md"
+    "消息队列/RabbitMQ.md"
   ]
 }

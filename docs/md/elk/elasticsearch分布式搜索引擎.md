@@ -2192,7 +2192,7 @@ void testMatch() throws IOException {
 ```
 
 
-## 3.3.精确查询
+## 8.3.精确查询
 
 精确查询主要是两者：
 
@@ -2206,7 +2206,7 @@ void testMatch() throws IOException {
 ![image-20210721220305140](../youdaonote-images/image-20210721220305140.png) 
 
 
-## 3.4.布尔查询
+## 8.4.布尔查询
 
 布尔查询是用must、must_not、filter等方式组合其它查询，代码示例如下：
 
@@ -2239,7 +2239,7 @@ void testBool() throws IOException {
 ```
 
 
-## 3.5.排序、分页
+## 8.5.排序、分页
 
 搜索结果的排序和分页是与query同级的参数，因此同样是使用request.source()来设置。
 
@@ -2273,16 +2273,14 @@ void testPageAndSort() throws IOException {
 }
 ```
 
-
-
-## 3.6.高亮
+## 8.6.高亮
 
 高亮的代码与之前代码差异较大，有两点：
 
 - 查询的DSL：其中除了查询条件，还需要添加高亮条件，同样是与query同级。
 - 结果解析：结果除了要解析_source文档数据，还要解析高亮结果
 
-### 3.6.1.高亮请求构建
+### 8.6.1.高亮请求构建
 
 高亮请求的构建API如下：
 
@@ -2311,7 +2309,7 @@ void testHighlight() throws IOException {
 ```
 
 
-### 3.6.2.高亮结果解析
+### 8.6.2.高亮结果解析
 
 高亮的结果与查询的文档结果默认是分离的，并不在一起。
 
@@ -2362,7 +2360,7 @@ private void handleResponse(SearchResponse response) {
 }
 ```
 
-# 4.黑马旅游案例
+# 9.黑马旅游案例
 
 下面，我们通过黑马旅游的案例来实战演练下之前学习的知识。
 
@@ -2374,87 +2372,10 @@ private void handleResponse(SearchResponse response) {
 - 酒店竞价排名
 
 
-启动我们提供的hotel-demo项目，其默认端口是8089，访问http://localhost:8090，就能看到项目页面了：
-
-![image-20210721223159598](../youdaonote-images/image-20210721223159598.png)
+## 9.1.酒店搜索和分页
 
 
-## 4.1.酒店搜索和分页
-
-案例需求：实现黑马旅游的酒店搜索功能，完成关键字搜索和分页
-
-### 4.1.1.需求分析
-
-在项目的首页，有一个大大的搜索框，还有分页按钮：
-
-![image-20210721223859419](../youdaonote-images/image-20210721223859419.png)
-
-点击搜索按钮，可以看到浏览器控制台发出了请求：
-
-![image-20210721224033789](../youdaonote-images/image-20210721224033789.png)
-
-请求参数如下：
-
-![image-20210721224112708](../youdaonote-images/image-20210721224112708.png)
-
-
-
-由此可以知道，我们这个请求的信息如下：
-
-- 请求方式：POST
-- 请求路径：/hotel/list
-- 请求参数：JSON对象，包含4个字段：
-  - key：搜索关键字
-  - page：页码
-  - size：每页大小
-  - sortBy：排序，目前暂不实现
-- 返回值：分页查询，需要返回分页结果PageResult，包含两个属性：
-  - `total`：总条数
-  - `List<HotelDoc>`：当前页的数据
-
-
-
-因此，我们实现业务的流程如下：
-
-- 步骤一：定义实体类，接收请求参数的JSON对象
-- 步骤二：编写controller，接收页面的请求
-- 步骤三：编写业务实现，利用RestHighLevelClient实现搜索、分页
-
-
-
-### 4.1.2.定义实体类
-
-实体类有两个，一个是前端的请求参数实体，一个是服务端应该返回的响应结果实体。
-
-1）请求参数
-
-前端请求的json结构如下：
-
-```json
-{
-    "key": "搜索关键字",
-    "page": 1,
-    "size": 3,
-    "sortBy": "default"
-}
-```
-
-因此，我们在`cn.itcast.hotel.pojo`包下定义一个实体类：
-
-```java
-package cn.itcast.hotel.pojo;
-
-import lombok.Data;
-
-@Data
-public class RequestParams {
-    private String key;
-    private Integer page;
-    private Integer size;
-    private String sortBy;
-}
-```
-
+### 9.1.2.定义实体类
 
 
 2）返回值
@@ -2489,8 +2410,7 @@ public class PageResult {
 ```
 
 
-
-### 4.1.3.定义controller
+### 9.1.3.定义controller
 
 定义一个HotelController，声明查询接口，满足下列要求：
 
@@ -2500,7 +2420,6 @@ public class PageResult {
 - 返回值：PageResult，包含两个属性
   - `Long total`：总条数
   - `List<HotelDoc> hotels`：酒店数据
-
 
 
 因此，我们在`cn.itcast.hotel.web`中定义HotelController：
@@ -2521,7 +2440,6 @@ public class HotelController {
 ```
 
 
-
 ### 4.1.4.实现搜索业务
 
 我们在controller调用了IHotelService，并没有实现该方法，因此下面我们就在IHotelService中定义方法，并且去实现业务逻辑。
@@ -2538,7 +2456,6 @@ PageResult search(RequestParams params);
 ```
 
 
-
 2）实现搜索业务，肯定离不开RestHighLevelClient，我们需要把它注册到Spring中作为一个Bean。在`cn.itcast.hotel`中的`HotelDemoApplication`中声明这个Bean：
 
 ```java
@@ -2549,9 +2466,6 @@ public RestHighLevelClient client(){
     ));
 }
 ```
-
-
-
 
 
 3）在`cn.itcast.hotel.service.impl`中的`HotelService`中实现search方法：
@@ -2609,9 +2523,6 @@ private PageResult handleResponse(SearchResponse response) {
 ```
 
 
-
-
-
 ## 4.2.酒店结果过滤
 
 需求：添加品牌、城市、星级、价格等过滤功能
@@ -2637,29 +2548,6 @@ private PageResult handleResponse(SearchResponse response) {
 
 - 修改请求参数的对象RequestParams，接收上述参数
 - 修改业务逻辑，在搜索条件之外，添加一些过滤条件
-
-
-
-### 4.2.2.修改实体类
-
-修改在`cn.itcast.hotel.pojo`包下的实体类RequestParams：
-
-```java
-@Data
-public class RequestParams {
-    private String key;
-    private Integer page;
-    private Integer size;
-    private String sortBy;
-    // 下面是新增的过滤条件参数
-    private String city;
-    private String brand;
-    private String starName;
-    private Integer minPrice;
-    private Integer maxPrice;
-}
-```
-
 
 
 ### 4.2.3.修改搜索业务
