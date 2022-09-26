@@ -1915,10 +1915,6 @@ GET /hotel/_search
 }
 ```
 
-
-
-
-
 ### 7.2.2.深度分页问题
 
 现在，我要查询990~1000的数据，查询逻辑要这么写：
@@ -1943,8 +1939,6 @@ GET /hotel/_search
 
 ![image-20210721200643029](../youdaonote-images/image-20210721200643029.png)
 
-
-
 查询TOP1000，如果es是单点模式，这并无太大影响。
 
 但是elasticsearch将来一定是集群，例如我集群有5个节点，我要查询TOP1000的数据，并不是每个节点查询200条就可以了。
@@ -1955,22 +1949,14 @@ GET /hotel/_search
 
 ![image-20210721201003229](../youdaonote-images/image-20210721201003229.png)
 
-
-
 那如果我要查询9900~10000的数据呢？是不是要先查询TOP10000呢？那每个节点都要查询10000条？汇总到内存中？
 
-
-
 当查询分页深度较大时，汇总数据过多，对内存和CPU会产生非常大的压力，因此elasticsearch会禁止from+ size 超过10000的请求。
-
-
 
 针对深度分页，ES提供了两种解决方案，[官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html)：
 
 - search after：分页时需要排序，原理是从上一次的排序值开始，查询下一页数据。官方推荐使用的方式。
 - scroll：原理将排序后的文档id形成快照，保存在内存。官方已经不推荐使用。
-
-
 
 ### 7.2.3.小结
 
@@ -1991,9 +1977,6 @@ GET /hotel/_search
   - 场景：海量数据的获取和迁移。从ES7.1开始不推荐，建议用 after search方案。
 
 
-
-
-
 ## 7.3.高亮
 
 ### 7.3.1.高亮原理
@@ -2008,7 +1991,6 @@ GET /hotel/_search
 
 - 1）给文档中的所有关键字都添加一个标签，例如`<em>`标签
 - 2）页面给`<em>`标签编写CSS样式
-
 
 
 ### 7.3.2.实现高亮
@@ -2035,7 +2017,6 @@ GET /hotel/_search
 ```
 
 
-
 **注意：**
 
 - 高亮是对关键字高亮，因此**搜索条件必须带有关键字**，而不能是范围这样的查询。
@@ -2043,13 +2024,9 @@ GET /hotel/_search
 - 如果要对非搜索字段高亮，则需要添加一个属性：required_field_match=false
 
 
-
 **示例**：
 
 ![image-20210721203349633](../youdaonote-images/image-20210721203349633.png)
-
-
-
 
 
 ## 7.4.总结
@@ -2065,14 +2042,6 @@ GET /hotel/_search
 
 ![image-20210721203657850](../youdaonote-images/image-20210721203657850.png)
 
-
-
-
-
-
-
-
-
 # 3.RestClient查询文档
 
 文档的查询同样适用昨天学习的 RestHighLevelClient对象，基本步骤包括：
@@ -2081,7 +2050,6 @@ GET /hotel/_search
 - 2）准备请求参数
 - 3）发起请求
 - 4）解析响应
-
 
 
 ## 3.1.快速入门
