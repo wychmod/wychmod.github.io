@@ -2311,7 +2311,6 @@ void testHighlight() throws IOException {
 ```
 
 
-
 ### 3.6.2.高亮结果解析
 
 高亮的结果与查询的文档结果默认是分离的，并不在一起。
@@ -2327,7 +2326,6 @@ void testHighlight() throws IOException {
 - 第三步：从map中根据高亮字段名称，获取高亮字段值对象HighlightField
 - 第四步：从HighlightField中获取Fragments，并且转为字符串。这部分就是真正的高亮字符串了
 - 第五步：用高亮的结果替换HotelDoc中的非高亮结果
-
 
 
 完整代码如下：
@@ -2364,10 +2362,6 @@ private void handleResponse(SearchResponse response) {
 }
 ```
 
-
-
-
-
 # 4.黑马旅游案例
 
 下面，我们通过黑马旅游的案例来实战演练下之前学习的知识。
@@ -2380,13 +2374,9 @@ private void handleResponse(SearchResponse response) {
 - 酒店竞价排名
 
 
-
 启动我们提供的hotel-demo项目，其默认端口是8089，访问http://localhost:8090，就能看到项目页面了：
 
 ![image-20210721223159598](../youdaonote-images/image-20210721223159598.png)
-
-
-
 
 
 ## 4.1.酒店搜索和分页
