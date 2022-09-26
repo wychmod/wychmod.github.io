@@ -1646,7 +1646,7 @@ TF-IDF算法有一各缺陷，就是词条频率越高，文档得分也会越�
 - TF-IDF算法
 - BM25算法，elasticsearch5.1版本后采用的算法
 
-### 1.5.2.算分函数查询
+### 6.5.2.算分函数查询
 
 根据相关度打分是比较合理的需求，但**合理的不一定是产品经理需要**的。
 
@@ -1738,7 +1738,7 @@ function score query定义的三要素是什么？
 - 加权方式：function score 与 query score如何运算
 
 
-### 1.5.3.布尔查询
+### 6.5.3.布尔查询
 
 布尔查询是一个或多个查询子句的组合，每一个子句就是一个**子查询**。子查询的组合方式有：
 
@@ -2042,7 +2042,7 @@ GET /hotel/_search
 
 ![image-20210721203657850](../youdaonote-images/image-20210721203657850.png)
 
-# 3.RestClient查询文档
+# 8.RestClient查询文档
 
 文档的查询同样适用昨天学习的 RestHighLevelClient对象，基本步骤包括：
 
@@ -2052,11 +2052,11 @@ GET /hotel/_search
 - 4）解析响应
 
 
-## 3.1.快速入门
+## 8.1.快速入门
 
 我们以match_all查询为例
 
-### 3.1.1.发起查询请求
+### 8.1.1.发起查询请求
 
 ![image-20210721203950559](../youdaonote-images/image-20210721203950559.png)
 
@@ -2080,7 +2080,7 @@ GET /hotel/_search
 
 
 
-### 3.1.2.解析响应
+### 8.1.2.解析响应
 
 响应结果的解析：
 
@@ -2105,7 +2105,7 @@ elasticsearch返回的结果是一个JSON字符串，结构包含：
 
 
 
-### 3.1.3.完整代码
+### 8.1.3.完整代码
 
 完整代码如下：
 
@@ -2143,9 +2143,7 @@ private void handleResponse(SearchResponse response) {
 }
 ```
 
-
-
-### 3.1.4.小结
+### 8.1.4.小结
 
 查询的基本步骤是：
 
@@ -2162,15 +2160,11 @@ private void handleResponse(SearchResponse response) {
 4. 解析结果（参考JSON结果，从外到内，逐层解析）
 
 
-
-
-
-## 3.2.match查询
+## 8.2.match查询
 
 全文检索的match和multi_match查询与match_all的API基本一致。差别是查询条件，也就是query的部分。
 
 ![image-20210721215923060](../youdaonote-images/image-20210721215923060.png) 
-
 
 
 因此，Java代码上的差异主要是request.source().query()中的参数了。同样是利用QueryBuilders提供的方法：
@@ -2178,8 +2172,6 @@ private void handleResponse(SearchResponse response) {
 ![image-20210721215843099](../youdaonote-images/image-20210721215843099.png) 
 
 而结果解析代码则完全一致，可以抽取并共享。
-
-
 
 完整代码如下：
 
