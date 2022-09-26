@@ -1600,8 +1600,6 @@ GET /indexName/_search
 - fuction score：算分函数查询，可以控制文档相关性算分，控制文档排名
 - bool query：布尔查询，利用逻辑关系组合多个其它的查询，实现复杂搜索
 
-
-
 ### 6.5.1.相关性算分
 
 当我们利用match查询时，文档结果会根据与搜索词条的关联度打分（_score），返回结果时按照分值降序排列。
@@ -1631,34 +1629,22 @@ GET /indexName/_search
 ]
 ```
 
-
-
 在elasticsearch中，早期使用的打分算法是TF-IDF算法，公式如下：
 
 ![image-20210721190152134](../youdaonote-images/image-20210721190152134.png)
-
-
 
 在后来的5.1版本升级中，elasticsearch将算法改进为BM25算法，公式如下：
 
 ![image-20210721190416214](../youdaonote-images/image-20210721190416214.png)
 
-
-
-
-
 TF-IDF算法有一各缺陷，就是词条频率越高，文档得分也会越高，单个词条对文档影响较大。而BM25则会让单个词条的算分有一个上限，曲线更加平滑：
 
 ![image-20210721190907320](../youdaonote-images/image-20210721190907320.png)
-
-
 
 小结：elasticsearch会根据词条和文档的相关度做打分，算法由两种：
 
 - TF-IDF算法
 - BM25算法，elasticsearch5.1版本后采用的算法
-
-
 
 ### 1.5.2.算分函数查询
 
@@ -1666,19 +1652,11 @@ TF-IDF算法有一各缺陷，就是词条频率越高，文档得分也会越�
 
 以百度为例，你搜索的结果中，并不是相关度越高排名越靠前，而是谁掏的钱多排名就越靠前。如图：
 
-![image-20210721191144560](../youdaonote-images/image-20210721191144560.png)
-
-
-
 要想认为控制相关性算分，就需要利用elasticsearch中的function score 查询了。
-
-
 
 #### 1）语法说明
 
 ![image-20210721191544750](../youdaonote-images/image-20210721191544750.png)
-
-
 
 function score 查询中包含四部分内容：
 
