@@ -2192,9 +2192,6 @@ void testMatch() throws IOException {
 ```
 
 
-
-
-
 ## 3.3.精确查询
 
 精确查询主要是两者：
@@ -2209,20 +2206,13 @@ void testMatch() throws IOException {
 ![image-20210721220305140](../youdaonote-images/image-20210721220305140.png) 
 
 
-
-
-
 ## 3.4.布尔查询
 
 布尔查询是用must、must_not、filter等方式组合其它查询，代码示例如下：
 
 ![image-20210721220927286](../youdaonote-images/image-20210721220927286.png)
 
-
-
 可以看到，API与其它查询的差别同样是在查询条件的构建，QueryBuilders，结果解析等其他代码完全不变。
-
-
 
 完整代码如下：
 
@@ -2249,7 +2239,6 @@ void testBool() throws IOException {
 ```
 
 
-
 ## 3.5.排序、分页
 
 搜索结果的排序和分页是与query同级的参数，因此同样是使用request.source()来设置。
@@ -2257,7 +2246,6 @@ void testBool() throws IOException {
 对应的API如下：
 
 ![image-20210721221121266](../youdaonote-images/image-20210721221121266.png)
-
 
 
 完整代码示例：
