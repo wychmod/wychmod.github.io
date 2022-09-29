@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Django笔记/django-rest-framework开发笔记.md",
-            "mode": "preview",
+            "file": "开会提纲.md",
+            "mode": "source",
             "source": false
           }
         }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "开会提纲.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "开会提纲.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md"
+                "file": "开会提纲.md"
               }
             }
           },
@@ -138,6 +138,7 @@
   },
   "active": "532abe87beba9dca",
   "lastOpenFiles": [
+    "Django笔记/django-rest-framework开发笔记.md",
     "elk/elasticsearch分布式搜索引擎.md",
     "java/springboot/SpringBoot实战和原理.md",
     "assets/image-20210721165326938.png.md",
@@ -146,7 +147,6 @@
     "assets/image-20210510165308064.png.md",
     "assets/image-20210720193623245.png.md",
     "docker/Centos7安装Docker.md",
-    "数据库/mac 安装redis和MongoDB和.md",
-    "消息队列/RabbitMQ.md"
+    "数据库/mac 安装redis和MongoDB和.md"
   ]
 }
