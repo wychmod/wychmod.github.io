@@ -7,8 +7,12 @@
         "id": "532abe87beba9dca",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "Django笔记/django-rest-framework开发笔记.md",
+            "mode": "preview",
+            "source": false
+          }
         }
       }
     ],
@@ -53,13 +57,11 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 185.5,
-    "collapsed": true
+    "width": 185.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -75,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -91,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -112,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Django笔记/django-rest-framework开发笔记.md"
+              }
             }
           },
           {
