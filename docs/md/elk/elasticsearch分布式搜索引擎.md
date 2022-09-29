@@ -2440,7 +2440,7 @@ public class HotelController {
 ```
 
 
-### 4.1.4.实现搜索业务
+### 9.1.4.实现搜索业务
 
 我们在controller调用了IHotelService，并没有实现该方法，因此下面我们就在IHotelService中定义方法，并且去实现业务逻辑。
 
@@ -2523,11 +2523,11 @@ private PageResult handleResponse(SearchResponse response) {
 ```
 
 
-## 4.2.酒店结果过滤
+## 9.2.酒店结果过滤
 
 需求：添加品牌、城市、星级、价格等过滤功能
 
-### 4.2.1.需求分析
+### 9.2.1.需求分析
 
 在页面搜索框下面，会有一些过滤项：
 
@@ -2550,7 +2550,7 @@ private PageResult handleResponse(SearchResponse response) {
 - 修改业务逻辑，在搜索条件之外，添加一些过滤条件
 
 
-### 4.2.3.修改搜索业务
+### 9.2.3.修改搜索业务
 
 在HotelService的search方法中，只有一个地方需要修改：requet.source().query( ... )其中的查询条件。
 
@@ -2616,11 +2616,11 @@ private void buildBasicQuery(RequestParams params, SearchRequest request) {
 
 
 
-## 4.3.我周边的酒店
+## 9.3.我周边的酒店
 
 需求：我附近的酒店
 
-### 4.3.1.需求分析
+### 9.3.1.需求分析
 
 在酒店列表页的右侧，有一个小地图，点击地图的定位按钮，地图会找到你所在的位置：
 
@@ -2637,37 +2637,7 @@ private void buildBasicQuery(RequestParams params, SearchRequest request) {
 - 修改RequestParams参数，接收location字段
 - 修改search方法业务逻辑，如果location有值，添加根据geo_distance排序的功能
 
-
-
-### 4.3.2.修改实体类
-
-修改在`cn.itcast.hotel.pojo`包下的实体类RequestParams：
-
-```java
-package cn.itcast.hotel.pojo;
-
-import lombok.Data;
-
-@Data
-public class RequestParams {
-    private String key;
-    private Integer page;
-    private Integer size;
-    private String sortBy;
-    private String city;
-    private String brand;
-    private String starName;
-    private Integer minPrice;
-    private Integer maxPrice;
-    // 我当前的地理坐标
-    private String location;
-}
-
-```
-
-
-
-### 4.3.3.距离排序API
+### 9.3.3.距离排序API
 
 我们以前学习过排序功能，包括两种：
 
@@ -2702,10 +2672,7 @@ GET /indexName/_search
 ![image-20210722095227059](../youdaonote-images/image-20210722095227059.png)
 
 
-
-
-
-### 4.3.4.添加距离排序
+### 9.3.4.添加距离排序
 
 在`cn.itcast.hotel.service.impl`的`HotelService`的`search`方法中，添加一个排序功能：
 
@@ -2751,8 +2718,7 @@ public PageResult search(RequestParams params) {
 ```
 
 
-
-### 4.3.5.排序距离显示
+### 9.3.5.排序距离显示
 
 重启服务后，测试我的酒店功能：
 
@@ -2821,7 +2787,6 @@ public class HotelDoc {
 ```
 
 
-
 2）修改HotelService中的handleResponse方法
 
 ![image-20210722100613966](../youdaonote-images/image-20210722100613966.png)
@@ -2834,13 +2799,11 @@ public class HotelDoc {
 
 
 
-
-
-## 4.4.酒店竞价排名
+## 9.4.酒店竞价排名
 
 需求：让指定的酒店在搜索结果中排名置顶
 
-### 4.4.1.需求分析
+### 9.4.1.需求分析
 
 要让指定酒店在搜索结果中排名置顶，效果如图：
 
@@ -2849,9 +2812,7 @@ public class HotelDoc {
 页面会给指定的酒店添加**广告**标记。
 
 
-
 那怎样才能让指定的酒店排名置顶呢？
-
 
 
 我们之前学习过的function_score查询可以影响算分，算分高了，自然排名也就高了。而function_score包含3个要素：
@@ -2876,7 +2837,6 @@ public class HotelDoc {
 - 加权方式：可以用默认的相乘，大大提高算分
 
 
-
 因此，业务的实现步骤包括：
 
 1. 给HotelDoc类添加isAD字段，Boolean类型
@@ -2887,7 +2847,7 @@ public class HotelDoc {
 
 
 
-### 4.4.2.修改HotelDoc实体
+### 9.4.2.修改HotelDoc实体
 
 给`cn.itcast.hotel.pojo`包下的HotelDoc类添加isAD字段：
 
@@ -2895,7 +2855,7 @@ public class HotelDoc {
 
 
 
-### 4.4.3.添加广告标记
+### 9.4.3.添加广告标记
 
 接下来，我们挑几个酒店，添加isAD字段，设置为true：
 
@@ -2926,12 +2886,9 @@ POST /hotel/_update/2056105938
 }
 ```
 
-
-
-### 4.4.4.添加算分函数查询
+### 9.4.4.添加算分函数查询
 
 接下来我们就要修改查询条件了。之前是用的boolean 查询，现在要改成function_socre查询。
-
 
 
 function_score查询结构如下：
@@ -2939,15 +2896,12 @@ function_score查询结构如下：
 ![image-20210721191544750](../youdaonote-images/image-20210721191544750.png)
 
 
-
 对应的JavaAPI如下：
 
 ![image-20210722102850818](../youdaonote-images/image-20210722102850818.png)
 
 
-
 我们可以将之前写的boolean查询作为**原始查询**条件放到query中，接下来就是添加**过滤条件**、**算分函数**、**加权模式**了。所以原来的代码依然可以沿用。
-
 
 
 修改`cn.itcast.hotel.service.impl`包下的`HotelService`类中的`buildBasicQuery`方法，添加算分函数查询：

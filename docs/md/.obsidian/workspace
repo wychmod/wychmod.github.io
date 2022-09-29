@@ -4,27 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "b5df4c2a11e4c829",
+        "id": "532abe87beba9dca",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "elk/elasticsearch分布式搜索引擎.md",
-            "mode": "source",
-            "source": true
-          }
-        }
-      },
-      {
-        "id": "669b716efc865b40",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "elk/elasticsearch分布式搜索引擎.md",
-            "mode": "preview",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -91,7 +75,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -108,7 +91,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -130,9 +112,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "elk/elasticsearch分布式搜索引擎.md"
-              }
+              "state": {}
             }
           },
           {
@@ -150,10 +130,10 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "669b716efc865b40",
+  "active": "532abe87beba9dca",
   "lastOpenFiles": [
-    "java/springboot/SpringBoot实战和原理.md",
     "elk/elasticsearch分布式搜索引擎.md",
+    "java/springboot/SpringBoot实战和原理.md",
     "assets/image-20210721165326938.png.md",
     "elk/安装elasticsearch.md",
     "docker/docker.md",
