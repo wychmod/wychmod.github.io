@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "532abe87beba9dca",
+        "id": "0a78c6cc1d2a3145",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "开会提纲.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -77,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "开会提纲.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +89,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "开会提纲.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -116,9 +110,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "开会提纲.md"
-              }
+              "state": {}
             }
           },
           {
@@ -136,14 +128,14 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "532abe87beba9dca",
+  "active": "0a78c6cc1d2a3145",
   "lastOpenFiles": [
-    "Django笔记/django-rest-framework开发笔记.md",
     "开会提纲.md",
+    "elk/安装elasticsearch.md",
+    "Django笔记/django-rest-framework开发笔记.md",
     "elk/elasticsearch分布式搜索引擎.md",
     "java/springboot/SpringBoot实战和原理.md",
     "assets/image-20210721165326938.png.md",
-    "elk/安装elasticsearch.md",
     "docker/docker.md",
     "assets/image-20210510165308064.png.md",
     "assets/image-20210720193623245.png.md",
