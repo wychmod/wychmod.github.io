@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "0a78c6cc1d2a3145",
+        "id": "3bca2a82f44b7e90",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "Django笔记/django-rest-framework开发笔记.md",
-            "mode": "preview",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -40,7 +36,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "fields = ",
+                "query": "restful",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -58,7 +54,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -78,7 +74,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +90,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,9 +111,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md"
-              }
+              "state": {}
             }
           },
           {
@@ -137,12 +129,12 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "0a78c6cc1d2a3145",
+  "active": "f5b687bfa2d60a28",
   "lastOpenFiles": [
+    "Django笔记/django-rest-framework开发笔记.md",
     "Python/Python高级/7.元类编程.md",
     "开会提纲.md",
     "elk/安装elasticsearch.md",
-    "Django笔记/django-rest-framework开发笔记.md",
     "elk/elasticsearch分布式搜索引擎.md",
     "java/springboot/SpringBoot实战和原理.md",
     "assets/image-20210721165326938.png.md",
