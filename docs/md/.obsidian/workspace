@@ -7,8 +7,12 @@
         "id": "0a78c6cc1d2a3145",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "Django笔记/django-rest-framework开发笔记.md",
+            "mode": "preview",
+            "source": false
+          }
         }
       }
     ],
@@ -36,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "migrate",
+                "query": "fields = ",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -53,7 +57,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -73,6 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +117,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Django笔记/django-rest-framework开发笔记.md"
+              }
             }
           },
           {
@@ -130,6 +139,7 @@
   },
   "active": "0a78c6cc1d2a3145",
   "lastOpenFiles": [
+    "Python/Python高级/7.元类编程.md",
     "开会提纲.md",
     "elk/安装elasticsearch.md",
     "Django笔记/django-rest-framework开发笔记.md",
@@ -138,7 +148,6 @@
     "assets/image-20210721165326938.png.md",
     "docker/docker.md",
     "assets/image-20210510165308064.png.md",
-    "assets/image-20210720193623245.png.md",
-    "docker/Centos7安装Docker.md"
+    "assets/image-20210720193623245.png.md"
   ]
 }
