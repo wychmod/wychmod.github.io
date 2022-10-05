@@ -7,11 +7,9 @@
         "id": "be01aafa55a9e97a",
         "type": "leaf",
         "state": {
-          "type": "markdown",
+          "type": "pdf",
           "state": {
-            "file": "Django笔记/django-rest-framework开发笔记.md",
-            "mode": "source",
-            "source": false
+            "file": "React/React基础（技术胖）/React Hooks.pdf"
           }
         }
       }
@@ -40,7 +38,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "restful",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -57,8 +55,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -78,7 +75,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "React/React基础（技术胖）/React Hooks.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +92,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "React/React基础（技术胖）/React Hooks.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +115,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md"
+                "file": "React/React基础（技术胖）/React Hooks.pdf"
               }
             }
           },
