@@ -4,13 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "be01aafa55a9e97a",
+        "id": "4c1cfa974a290263",
         "type": "leaf",
         "state": {
-          "type": "pdf",
-          "state": {
-            "file": "React/React基础（技术胖）/React Hooks.pdf"
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -75,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "React/React基础（技术胖）/React Hooks.pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -92,7 +89,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "React/React基础（技术胖）/React Hooks.pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -114,9 +110,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "React/React基础（技术胖）/React Hooks.pdf"
-              }
+              "state": {}
             }
           },
           {
@@ -134,8 +128,9 @@
     "direction": "horizontal",
     "width": 300
   },
-  "active": "be01aafa55a9e97a",
+  "active": "4c1cfa974a290263",
   "lastOpenFiles": [
+    "React/React基础（技术胖）/React Hooks.pdf",
     "Django笔记/django-rest-framework开发笔记.md",
     "Python/Python高级/7.元类编程.md",
     "开会提纲.md",
@@ -144,7 +139,6 @@
     "java/springboot/SpringBoot实战和原理.md",
     "assets/image-20210721165326938.png.md",
     "docker/docker.md",
-    "assets/image-20210510165308064.png.md",
-    "assets/image-20210720193623245.png.md"
+    "assets/image-20210510165308064.png.md"
   ]
 }
