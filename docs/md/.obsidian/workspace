@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Python/anaconda中使用虚拟环境.md",
+            "file": "算法/左神从0学算法/算法笔记.md",
             "mode": "source",
             "source": false
           }
@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "conda",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -57,8 +57,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -78,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md",
+                "file": "算法/左神从0学算法/算法笔记.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md",
+                "file": "算法/左神从0学算法/算法笔记.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md"
+                "file": "算法/左神从0学算法/算法笔记.md"
               }
             }
           },
@@ -139,15 +138,15 @@
   },
   "active": "4c1cfa974a290263",
   "lastOpenFiles": [
-    "React/React基础（技术胖）/Redux2.md",
     "数学建模.md",
+    "React/React基础（技术胖）/Redux2.md",
+    "Python/anaconda中使用虚拟环境.md",
     "React/React基础（技术胖）/React Hooks.pdf",
     "Django笔记/django-rest-framework开发笔记.md",
     "Python/Python高级/7.元类编程.md",
     "开会提纲.md",
     "elk/安装elasticsearch.md",
     "elk/elasticsearch分布式搜索引擎.md",
-    "java/springboot/SpringBoot实战和原理.md",
-    "assets/image-20210721165326938.png.md"
+    "java/springboot/SpringBoot实战和原理.md"
   ]
 }
