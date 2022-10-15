@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "React/React基础（技术胖）/Redux2.md",
+            "file": "Python/anaconda中使用虚拟环境.md",
             "mode": "source",
             "source": false
           }
@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "react-rou",
+                "query": "conda",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -78,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "React/React基础（技术胖）/Redux2.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "React/React基础（技术胖）/Redux2.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "React/React基础（技术胖）/Redux2.md"
+                "file": "Python/anaconda中使用虚拟环境.md"
               }
             }
           },
@@ -139,6 +139,7 @@
   },
   "active": "4c1cfa974a290263",
   "lastOpenFiles": [
+    "React/React基础（技术胖）/Redux2.md",
     "数学建模.md",
     "React/React基础（技术胖）/React Hooks.pdf",
     "Django笔记/django-rest-framework开发笔记.md",
@@ -147,7 +148,6 @@
     "elk/安装elasticsearch.md",
     "elk/elasticsearch分布式搜索引擎.md",
     "java/springboot/SpringBoot实战和原理.md",
-    "assets/image-20210721165326938.png.md",
-    "docker/docker.md"
+    "assets/image-20210721165326938.png.md"
   ]
 }
