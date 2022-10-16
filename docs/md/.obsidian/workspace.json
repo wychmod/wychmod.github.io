@@ -1,0 +1,164 @@
+{
+  "main": {
+    "id": "06f9183907e2c9db",
+    "type": "split",
+    "children": [
+      {
+        "id": "a5f28dd8abca8f78",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4c1cfa974a290263",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "消息队列/RabbitMQ.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "4a308e8d6a01c1fc",
+    "type": "split",
+    "children": [
+      {
+        "id": "017e69802d206f30",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "62b967b1bdf672ea",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "3cc169e861738dfa",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "671cfd5fd74f177a",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 185.5
+  },
+  "right": {
+    "id": "86b8855ffb1e2918",
+    "type": "split",
+    "children": [
+      {
+        "id": "653bf0665c092cf8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5ffd8c462ec5f9e1",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "消息队列/RabbitMQ.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "f1572c3e54017a5a",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "消息队列/RabbitMQ.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "2e9a78faffdd62be",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "f5b687bfa2d60a28",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "消息队列/RabbitMQ.md"
+              }
+            }
+          },
+          {
+            "id": "401c419984c493ec",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "ribbon": {
+    "mostRecentAction": ""
+  },
+  "active": "f5b687bfa2d60a28",
+  "lastOpenFiles": [
+    "java/springcloud/SpringCloud.md",
+    "算法/左神从0学算法/算法笔记.md",
+    "数学建模.md",
+    "React/React基础（技术胖）/Redux2.md",
+    "Python/anaconda中使用虚拟环境.md",
+    "React/React基础（技术胖）/React Hooks.pdf",
+    "Django笔记/django-rest-framework开发笔记.md",
+    "Python/Python高级/7.元类编程.md",
+    "开会提纲.md",
+    "elk/安装elasticsearch.md"
+  ]
+}
