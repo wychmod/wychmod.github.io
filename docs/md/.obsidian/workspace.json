@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记.md",
+                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "mode": "preview",
                 "source": false
               }
@@ -86,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记.md",
+                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记.md",
+                "file": "elk/elasticsearch分布式搜索引擎.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记.md"
+                "file": "elk/elasticsearch分布式搜索引擎.md"
               }
             }
           },
@@ -150,10 +150,10 @@
   },
   "active": "4c1cfa974a290263",
   "lastOpenFiles": [
+    "算法/左神从0学算法/算法笔记.md",
     "elk/elasticsearch分布式搜索引擎.md",
     "消息队列/RabbitMQ.md",
     "java/springcloud/SpringCloud.md",
-    "算法/左神从0学算法/算法笔记.md",
     "数学建模.md",
     "React/React基础（技术胖）/Redux2.md",
     "Python/anaconda中使用虚拟环境.md",
