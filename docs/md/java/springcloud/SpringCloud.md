@@ -714,7 +714,7 @@ spring:
       discovery:
         cluster-name: HZ
         namespace: 492a7d5d-237b-46a1-a99a-fa8e98e4b0f9 # 命名空间，填ID
-
+```
 重启order-service后，访问控制台，可以看到下面的结果：
 ![](../../youdaonote-images/image-20210714000830703.png)
 ![](../../youdaonote-images/image-20210714000837140.png)
