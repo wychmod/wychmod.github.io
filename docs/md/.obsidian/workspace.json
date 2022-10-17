@@ -4,24 +4,6 @@
     "type": "split",
     "children": [
       {
-        "id": "a5f28dd8abca8f78",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "4c1cfa974a290263",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "elk/elasticsearch分布式搜索引擎.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          }
-        ]
-      },
-      {
         "id": "542689e402177f9f",
         "type": "tabs",
         "children": [
@@ -66,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "deque",
+                "query": "部署",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -87,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 185.5
+    "width": 364.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -165,17 +147,17 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "4c1cfa974a290263",
+  "active": "a71f6312be6bd8ad",
   "lastOpenFiles": [
-    "算法/左神从0学算法/算法笔记.md",
+    "Django笔记/django上线部署.md",
     "elk/elasticsearch分布式搜索引擎.md",
+    "Index.md",
+    "算法/左神从0学算法/算法笔记.md",
     "消息队列/RabbitMQ.md",
     "java/springcloud/SpringCloud.md",
     "数学建模.md",
     "React/React基础（技术胖）/Redux2.md",
     "Python/anaconda中使用虚拟环境.md",
-    "React/React基础（技术胖）/React Hooks.pdf",
-    "Django笔记/django-rest-framework开发笔记.md",
-    "Python/Python高级/7.元类编程.md"
+    "React/React基础（技术胖）/React Hooks.pdf"
   ]
 }
