@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "elk/elasticsearch分布式搜索引擎.md",
+                "file": "java/springboot+vue项目开发/java和vue服务器部署.md",
                 "mode": "preview",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "elk/elasticsearch分布式搜索引擎.md",
+                "file": "java/springboot+vue项目开发/java和vue服务器部署.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "elk/elasticsearch分布式搜索引擎.md",
+                "file": "java/springboot+vue项目开发/java和vue服务器部署.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "elk/elasticsearch分布式搜索引擎.md"
+                "file": "java/springboot+vue项目开发/java和vue服务器部署.md"
               }
             }
           },
@@ -149,8 +149,8 @@
   },
   "active": "a71f6312be6bd8ad",
   "lastOpenFiles": [
-    "Django笔记/django上线部署.md",
     "elk/elasticsearch分布式搜索引擎.md",
+    "Django笔记/django上线部署.md",
     "Index.md",
     "算法/左神从0学算法/算法笔记.md",
     "消息队列/RabbitMQ.md",
