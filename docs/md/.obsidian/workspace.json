@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "部署",
+                "query": "lr",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +65,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -147,7 +148,7 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "a71f6312be6bd8ad",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "elk/elasticsearch分布式搜索引擎.md",
     "Django笔记/django上线部署.md",
