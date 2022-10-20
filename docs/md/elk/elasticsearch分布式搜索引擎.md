@@ -3639,41 +3639,30 @@ public class HotelDoc {
 }
 ```
 
-
-
-### 2.4.3.重新导入
+### 12.4.3.重新导入
 
 重新执行之前编写的导入数据功能，可以看到新的酒店数据中包含了suggestion：
 
 ![image-20210723213546183](../youdaonote-images/image-20210723213546183.png)
 
 
-
-
-
-### 2.4.4.自动补全查询的JavaAPI
+### 12.4.4.自动补全查询的JavaAPI
 
 之前我们学习了自动补全查询的DSL，而没有学习对应的JavaAPI，这里给出一个示例：
 
 ![image-20210723213759922](../youdaonote-images/image-20210723213759922.png)
 
-
-
 而自动补全的结果也比较特殊，解析的代码如下：
 
 ![image-20210723213917524](../youdaonote-images/image-20210723213917524.png)
 
-
-
-### 2.4.5.实现搜索框自动补全
+### 12.4.5.实现搜索框自动补全
 
 查看前端页面，可以发现当我们在输入框键入时，前端会发起ajax请求：
 
 ![image-20210723214021062](../youdaonote-images/image-20210723214021062.png)
 
 返回值是补全词条的集合，类型为`List<String>`
-
-
 
 1）在`cn.itcast.hotel.web`包下的`HotelController`中添加新接口，接收新的请求：
 
@@ -3684,14 +3673,11 @@ public List<String> getSuggestions(@RequestParam("key") String prefix) {
 }
 ```
 
-
-
 2）在`cn.itcast.hotel.service`包下的`IhotelService`中添加方法：
 
 ```java
 List<String> getSuggestions(String prefix);
 ```
-
 
 
 3）在`cn.itcast.hotel.service.impl.HotelService`中实现该方法：
@@ -3732,10 +3718,7 @@ public List<String> getSuggestions(String prefix) {
 ```
 
 
-
-
-
-# 3.数据同步
+# 13.数据同步
 
 elasticsearch中的酒店数据来自于mysql数据库，因此mysql数据发生改变时，elasticsearch也必须跟着改变，这个就是elasticsearch与mysql之间的**数据同步**。
 
@@ -3743,11 +3726,7 @@ elasticsearch中的酒店数据来自于mysql数据库，因此mysql数据发生
 
 ![image-20210723214758392](../youdaonote-images/image-20210723214758392.png)
 
-
-
-
-
-## 3.1.思路分析
+## 13.1.思路分析
 
 常见的数据同步方案有三种：
 
@@ -3755,9 +3734,7 @@ elasticsearch中的酒店数据来自于mysql数据库，因此mysql数据发生
 - 异步通知
 - 监听binlog
 
-
-
-### 3.1.1.同步调用
+### 13.1.1.同步调用
 
 方案一：同步调用
 
@@ -3768,15 +3745,11 @@ elasticsearch中的酒店数据来自于mysql数据库，因此mysql数据发生
 - hotel-demo对外提供接口，用来修改elasticsearch中的数据
 - 酒店管理服务在完成数据库操作后，直接调用hotel-demo提供的接口，
 
-
-
-### 3.1.2.异步通知
+### 13.1.2.异步通知
 
 方案二：异步通知
 
 ![image-20210723215140735](../youdaonote-images/image-20210723215140735.png)
-
-
 
 流程如下：
 
@@ -3784,10 +3757,7 @@ elasticsearch中的酒店数据来自于mysql数据库，因此mysql数据发生
 - hotel-demo监听MQ，接收到消息后完成elasticsearch数据修改
 
 
-
-
-
-### 3.1.3.监听binlog
+### 13.1.3.监听binlog
 
 方案三：监听binlog
 
@@ -3799,9 +3769,7 @@ elasticsearch中的酒店数据来自于mysql数据库，因此mysql数据发生
 - mysql完成增、删、改操作都会记录在binlog中
 - hotel-demo基于canal监听binlog变化，实时更新elasticsearch中的内容
 
-
-
-### 3.1.4.选择
+### 13.1.4.选择
 
 方式一：同步调用
 
@@ -3819,262 +3787,7 @@ elasticsearch中的酒店数据来自于mysql数据库，因此mysql数据发生
 - 缺点：开启binlog增加数据库负担、实现复杂度高
 
 
-
-## 3.2.实现数据同步
-
-
-
-### 3.2.1.思路
-
-利用课前资料提供的hotel-admin项目作为酒店管理的微服务。当酒店数据发生增、删、改时，要求对elasticsearch中数据也要完成相同操作。
-
-步骤：
-
-- 导入课前资料提供的hotel-admin项目，启动并测试酒店数据的CRUD
-
-- 声明exchange、queue、RoutingKey
-
-- 在hotel-admin中的增、删、改业务中完成消息发送
-
-- 在hotel-demo中完成消息监听，并更新elasticsearch中数据
-
-- 启动并测试数据同步功能
-
-
-
-
-
-
-
-
-
-### 3.2.2.导入demo
-
-导入课前资料提供的hotel-admin项目：
-
-![image-20210723220237930](../youdaonote-images/image-20210723220237930.png)
-
-运行后，访问 http://localhost:8099
-
-![image-20210723220354464](../youdaonote-images/image-20210723220354464.png)
-
-
-
-其中包含了酒店的CRUD功能：
-
-![image-20210723220511090](../youdaonote-images/image-20210723220511090.png)
-
-
-
-### 3.2.3.声明交换机、队列
-
-MQ结构如图：
-
-![image-20210723215850307](../youdaonote-images/image-20210723215850307.png)
-
-
-
-#### 1）引入依赖
-
-在hotel-admin、hotel-demo中引入rabbitmq的依赖：
-
-```xml
-<!--amqp-->
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-amqp</artifactId>
-</dependency>
-```
-
-
-
-#### 2）声明队列交换机名称
-
-在hotel-admin和hotel-demo中的`cn.itcast.hotel.constatnts`包下新建一个类`MqConstants`：
-
-```java
-package cn.itcast.hotel.constatnts;
-
-    public class MqConstants {
-    /**
-     * 交换机
-     */
-    public final static String HOTEL_EXCHANGE = "hotel.topic";
-    /**
-     * 监听新增和修改的队列
-     */
-    public final static String HOTEL_INSERT_QUEUE = "hotel.insert.queue";
-    /**
-     * 监听删除的队列
-     */
-    public final static String HOTEL_DELETE_QUEUE = "hotel.delete.queue";
-    /**
-     * 新增或修改的RoutingKey
-     */
-    public final static String HOTEL_INSERT_KEY = "hotel.insert";
-    /**
-     * 删除的RoutingKey
-     */
-    public final static String HOTEL_DELETE_KEY = "hotel.delete";
-}
-```
-
-
-
-#### 3）声明队列交换机
-
-在hotel-demo中，定义配置类，声明队列、交换机：
-
-```java
-package cn.itcast.hotel.config;
-
-import cn.itcast.hotel.constants.MqConstants;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class MqConfig {
-    @Bean
-    public TopicExchange topicExchange(){
-        return new TopicExchange(MqConstants.HOTEL_EXCHANGE, true, false);
-    }
-
-    @Bean
-    public Queue insertQueue(){
-        return new Queue(MqConstants.HOTEL_INSERT_QUEUE, true);
-    }
-
-    @Bean
-    public Queue deleteQueue(){
-        return new Queue(MqConstants.HOTEL_DELETE_QUEUE, true);
-    }
-
-    @Bean
-    public Binding insertQueueBinding(){
-        return BindingBuilder.bind(insertQueue()).to(topicExchange()).with(MqConstants.HOTEL_INSERT_KEY);
-    }
-
-    @Bean
-    public Binding deleteQueueBinding(){
-        return BindingBuilder.bind(deleteQueue()).to(topicExchange()).with(MqConstants.HOTEL_DELETE_KEY);
-    }
-}
-```
-
-
-
-### 3.2.4.发送MQ消息
-
-在hotel-admin中的增、删、改业务中分别发送MQ消息：
-
-![image-20210723221843816](../youdaonote-images/image-20210723221843816.png)
-
-
-
-### 3.2.5.接收MQ消息
-
-hotel-demo接收到MQ消息要做的事情包括：
-
-- 新增消息：根据传递的hotel的id查询hotel信息，然后新增一条数据到索引库
-- 删除消息：根据传递的hotel的id删除索引库中的一条数据
-
-
-
-1）首先在hotel-demo的`cn.itcast.hotel.service`包下的`IHotelService`中新增新增、删除业务
-
-```java
-void deleteById(Long id);
-
-void insertById(Long id);
-```
-
-
-
-2）给hotel-demo中的`cn.itcast.hotel.service.impl`包下的HotelService中实现业务：
-
-```java
-@Override
-public void deleteById(Long id) {
-    try {
-        // 1.准备Request
-        DeleteRequest request = new DeleteRequest("hotel", id.toString());
-        // 2.发送请求
-        client.delete(request, RequestOptions.DEFAULT);
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
-}
-
-@Override
-public void insertById(Long id) {
-    try {
-        // 0.根据id查询酒店数据
-        Hotel hotel = getById(id);
-        // 转换为文档类型
-        HotelDoc hotelDoc = new HotelDoc(hotel);
-
-        // 1.准备Request对象
-        IndexRequest request = new IndexRequest("hotel").id(hotel.getId().toString());
-        // 2.准备Json文档
-        request.source(JSON.toJSONString(hotelDoc), XContentType.JSON);
-        // 3.发送请求
-        client.index(request, RequestOptions.DEFAULT);
-    } catch (IOException e) {
-        throw new RuntimeException(e);
-    }
-}
-```
-
-
-
-3）编写监听器
-
-在hotel-demo中的`cn.itcast.hotel.mq`包新增一个类：
-
-```java
-package cn.itcast.hotel.mq;
-
-import cn.itcast.hotel.constants.MqConstants;
-import cn.itcast.hotel.service.IHotelService;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-@Component
-public class HotelListener {
-
-    @Autowired
-    private IHotelService hotelService;
-
-    /**
-     * 监听酒店新增或修改的业务
-     * @param id 酒店id
-     */
-    @RabbitListener(queues = MqConstants.HOTEL_INSERT_QUEUE)
-    public void listenHotelInsertOrUpdate(Long id){
-        hotelService.insertById(id);
-    }
-
-    /**
-     * 监听酒店删除的业务
-     * @param id 酒店id
-     */
-    @RabbitListener(queues = MqConstants.HOTEL_DELETE_QUEUE)
-    public void listenHotelDelete(Long id){
-        hotelService.deleteById(id);
-    }
-}
-```
-
-
-
-
-
-# 4.集群
+# 14.集群
 
 单机的elasticsearch做数据存储，必然面临两个问题：海量数据存储问题、单点故障问题。
 
@@ -4099,8 +3812,6 @@ public class HotelListener {
 
 * 副本分片（Replica shard）每个主分片可以有一个或者多个副本，数据和主分片一样。
 
-  ​	
-
 数据备份可以保证高可用，但是每个分片备份一份，所需要的节点数量就会翻一倍，成本实在是太高了！
 
 为了在高可用和成本间寻求平衡，我们可以这样做：
@@ -4119,12 +3830,9 @@ public class HotelListener {
 - node2：保存了分片1和2
 
 
+## 14.1.搭建ES集群
 
-
-
-## 4.1.搭建ES集群
-
-参考课前资料的文档：
+参考安装文档
 
 ![image-20210723222732427](../youdaonote-images/image-20210723222732427.png) 
 
@@ -4133,16 +3841,7 @@ public class HotelListener {
 ![image-20210723222812619](../youdaonote-images/image-20210723222812619.png) 
 
 
-
-
-
-
-
-
-
 ## 4.2.集群脑裂问题
-
-
 
 ### 4.2.1.集群职责划分
 
@@ -4150,11 +3849,7 @@ elasticsearch中集群节点有不同的职责划分：
 
 ![image-20210723223008967](../youdaonote-images/image-20210723223008967.png)
 
-
-
 默认情况下，集群中的任何一个节点都同时具备上述四种角色。
-
-
 
 但是真实的集群一定要将集群职责分离：
 
