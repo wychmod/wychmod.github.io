@@ -34,6 +34,11 @@
       "type": "file",
       "title": "算法笔记",
       "path": "算法/左神从0学算法/算法笔记.md"
+    },
+    {
+      "type": "file",
+      "title": "安装elasticsearch",
+      "path": "elk/安装elasticsearch.md"
     }
   ]
 }
