@@ -3198,7 +3198,6 @@ aggs代表聚合，与query同级，此时query的作用是？
 ```
 
 
-
 这里调用了IHotelService中的getFilters方法，尚未实现。
 
 在`cn.itcast.hotel.service.IHotelService`中定义新方法：
@@ -3279,13 +3278,7 @@ private List<String> getAggByName(Aggregations aggregations, String aggName) {
 }
 ```
 
-
-
-
-
-
-
-# 2.自动补全
+# 12.自动补全
 
 当用户在搜索框输入字符时，我们应该提示出与该字符有关的搜索项，如图：
 
@@ -3293,28 +3286,14 @@ private List<String> getAggByName(Aggregations aggregations, String aggName) {
 
 这种根据用户输入的字母，提示完整词条的功能，就是自动补全了。
 
-
-
 因为需要根据拼音字母来推断，因此要用到拼音分词功能。
 
 
-
-## 2.1.拼音分词器
-
-
+## 12.1.拼音分词器
 
 要实现根据字母做补全，就必须对文档按照拼音分词。在GitHub上恰好有elasticsearch的拼音分词插件。地址：https://github.com/medcl/elasticsearch-analysis-pinyin
 
 ![image-20210723205932746](../youdaonote-images/image-20210723205932746.png)
-
-
-
-
-
-课前资料中也提供了拼音分词器的安装包：
-
-![image-20210723205722303](../youdaonote-images/image-20210723205722303.png) 
-
 
 
 安装方式与IK分词器一样，分三步：
@@ -3328,12 +3307,7 @@ private List<String> getAggByName(Aggregations aggregations, String aggName) {
 ​	④测试
 
 
-
 详细安装步骤可以参考IK分词器的安装过程。
-
-
-
-
 
 测试用法如下：
 
@@ -3349,23 +3323,15 @@ POST /_analyze
 
 ![image-20210723210126506](../youdaonote-images/image-20210723210126506.png) 
 
-
-
-
-
-## 2.2.自定义分词器
+## 12.2.自定义分词器
 
 默认的拼音分词器会将每个汉字单独分为拼音，而我们希望的是每个词条形成一组拼音，需要对拼音分词器做个性化定制，形成自定义分词器。
-
-
 
 elasticsearch中分词器（analyzer）的组成包含三部分：
 
 - character filters：在tokenizer之前对文本进行处理。例如删除字符、替换字符
 - tokenizer：将文本按照一定的规则切割成词条（term）。例如keyword，就是不分词；还有ik_smart
 - tokenizer filter：将tokenizer输出的词条做进一步处理。例如大小写转换、同义词处理、拼音处理等
-
-
 
 文档分词时会依次由这三部分来处理文档：
 
@@ -3409,15 +3375,9 @@ PUT /test
 }
 ```
 
-
-
 测试：
 
 ![image-20210723211829150](../youdaonote-images/image-20210723211829150.png)
-
-
-
-
 
 总结：
 
@@ -3444,10 +3404,7 @@ PUT /test
 - 为了避免搜索到同音字，搜索时不要使用拼音分词器
 
 
-
-
-
-## 2.3.自动补全查询
+## 12.3.自动补全查询
 
 elasticsearch提供了[Completion Suggester](https://www.elastic.co/guide/en/elasticsearch/reference/7.6/search-suggesters.html)查询来实现自动补全功能。这个查询会匹配以用户输入内容开头的词条并返回。为了提高补全查询的效率，对于文档中字段的类型有一些约束：
 
@@ -3489,8 +3446,6 @@ POST test/_doc
 }
 ```
 
-
-
 查询的DSL语句如下：
 
 ```json
@@ -3510,19 +3465,11 @@ GET /test/_search
 }
 ```
 
-
-
-
-
-
-
-## 2.4.实现酒店搜索框自动补全
+## 12.4.实现酒店搜索框自动补全
 
 现在，我们的hotel索引库还没有设置拼音分词器，需要修改索引库中的配置。但是我们知道索引库是无法修改的，只能删除然后重新创建。
 
 另外，我们需要添加一个字段，用来做自动补全，将brand、suggestion、city等都放进去，作为自动补全的提示。
-
-
 
 因此，总结一下，我们需要做的事情包括：
 
@@ -3535,7 +3482,6 @@ GET /test/_search
 4. 给HotelDoc类添加suggestion字段，内容包含brand、business
 
 5. 重新导入数据到hotel库
-
 
 
 ### 2.4.1.修改酒店映射结构
@@ -3629,7 +3575,7 @@ PUT /hotel
 
 
 
-### 2.4.2.修改HotelDoc实体
+### 12.4.2.修改HotelDoc实体
 
 HotelDoc中要添加一个字段，用来做自动补全，内容可以是酒店品牌、城市、商圈等信息。按照自动补全字段的要求，最好是这些字段的数组。
 
