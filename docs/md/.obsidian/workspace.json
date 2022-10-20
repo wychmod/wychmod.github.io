@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "176346a6d48d6289",
+        "id": "1de62d1547ac7f4d",
         "type": "tabs",
         "children": [
           {
-            "id": "5fb6fe9dfccdd3cc",
+            "id": "3dd6a184575050b3",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -148,8 +148,10 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "5fb6fe9dfccdd3cc",
+  "active": "3dd6a184575050b3",
   "lastOpenFiles": [
+    "docker/Centos7安装Docker.md",
+    "docker/docker.md",
     "elk/安装elasticsearch.md",
     "elk/elasticsearch分布式搜索引擎.md",
     "java/springboot+vue项目开发/java和vue服务器部署.md",
@@ -157,8 +159,6 @@
     "Index.md",
     "算法/左神从0学算法/算法笔记.md",
     "消息队列/RabbitMQ.md",
-    "java/springcloud/SpringCloud.md",
-    "数学建模.md",
-    "React/React基础（技术胖）/Redux2.md"
+    "java/springcloud/SpringCloud.md"
   ]
 }
