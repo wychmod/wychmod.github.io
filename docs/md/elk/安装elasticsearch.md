@@ -372,13 +372,9 @@ GET /_analyze
 > 注意当前文件的编码必须是 UTF-8 格式，严禁使用Windows记事本编辑
 
 
-
-
-
 # 4.部署es集群
 
 部署es集群可以直接使用docker-compose来完成，不过要求你的Linux虚拟机至少有**4G**的内存空间
-
 
 
 首先编写一个docker-compose文件，内容如下：
@@ -455,7 +451,6 @@ networks:
   elastic:
     driver: bridge
 ```
-
 
 
 Run `docker-compose` to bring up the cluster:
