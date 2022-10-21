@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "1de62d1547ac7f4d",
+        "id": "65d9026c22f800b8",
         "type": "tabs",
         "children": [
           {
-            "id": "3dd6a184575050b3",
+            "id": "4b347d84887496f4",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "elk/安装elasticsearch.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -65,8 +61,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
@@ -86,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "elk/安装elasticsearch.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "elk/安装elasticsearch.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "elk/安装elasticsearch.md"
-              }
+              "state": {}
             }
           },
           {
@@ -148,17 +139,17 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "3dd6a184575050b3",
+  "active": "4b347d84887496f4",
   "lastOpenFiles": [
+    "java/springboot/Java 后端.md",
+    "java/Java学习路线/MVC模式.md",
+    "java/Java学习路线/Servlet.md",
+    "elk/安装elasticsearch.md",
     "elk/elasticsearch分布式搜索引擎.md",
     "docker/docker.md",
     "docker/Centos7安装Docker.md",
-    "elk/安装elasticsearch.md",
     "java/springboot+vue项目开发/java和vue服务器部署.md",
     "Django笔记/django上线部署.md",
-    "Index.md",
-    "算法/左神从0学算法/算法笔记.md",
-    "消息队列/RabbitMQ.md",
-    "java/springcloud/SpringCloud.md"
+    "Index.md"
   ]
 }

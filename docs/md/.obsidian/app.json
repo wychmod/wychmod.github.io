@@ -4,5 +4,6 @@
   "useMarkdownLinks": true,
   "showLineNumber": true,
   "spellcheck": true,
-  "livePreview": true
+  "livePreview": true,
+  "alwaysUpdateLinks": true
 }

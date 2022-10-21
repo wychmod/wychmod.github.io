@@ -91,12 +91,12 @@ Object obj = cla.newInstance();
 - 只能通过规定的方法访问数据。
 - 隐藏类的实例细节，方便修改和实现。
 3. 封装的实现步骤
-![image](../youdaonote-images/F736D76576154A708DD63BEF5B53F142.png)
+![image](../../youdaonote-images/F736D76576154A708DD63BEF5B53F142.png)
 
 **A、访问修饰符**
-![image](../youdaonote-images/23FEB71457014B898F32A76F7C6DA81A.png)
+![image](../../youdaonote-images/23FEB71457014B898F32A76F7C6DA81A.png)
 **B、this关键字**
-![image](../youdaonote-images/09A27BED9D2A4683B81E2927C1CCB110.png)
+![image](../../youdaonote-images/09A27BED9D2A4683B81E2927C1CCB110.png)
 **C、Java 中的内部类**
 
 内部类（ Inner Class ）就是定义在另外一个类里面的类。与之对应，包含内部类的类被称为外部类。
@@ -109,7 +109,7 @@ Object obj = cla.newInstance();
 
 #### 继承
 **1、继承的概念**
-![image](../youdaonote-images/71CC93E18C524C1881F5BB3AA326DE93.png)
+![image](../../youdaonote-images/71CC93E18C524C1881F5BB3AA326DE93.png)
 > 注：java中的继承是**单继承**，即**一个类只有一个父类**。
 **2、继承的好处**
 　子类拥有父类的所有属性和方法（除了private修饰的属性不能拥有）从而实现了实现代码的复用；
@@ -135,9 +135,9 @@ Object obj = cla.newInstance();
 　　父类的引用可以指向子类的对象；
 
 　　这两句话是什么意思呢，让我们用代码来体验一下，首先我们创建一个父类Animal和一个子类Dog，在主函数里如下所示：
-![image](../youdaonote-images/0A03D38828BF4AA9B01AB9FDA731DC57.png)
+![image](../../youdaonote-images/0A03D38828BF4AA9B01AB9FDA731DC57.png)
 　　
-注意：我们不能使用一个子类的引用来指向父类的对象，如：![image](../youdaonote-images/219991B6AE634FD897CB3A832CE55E31.png)。
+注意：我们不能使用一个子类的引用来指向父类的对象，如：![image](../../youdaonote-images/219991B6AE634FD897CB3A832CE55E31.png)。
 
 **2. 抽象类**
 
@@ -335,7 +335,7 @@ public class DianaCondition implements Condition {
         return new Diana("Diana", 18);
     }
 ```
-![image](../youdaonote-images/32B1EA9F913D4CC6BAE2341ACDA39FE7.png)
+![image](../../youdaonote-images/32B1EA9F913D4CC6BAE2341ACDA39FE7.png)
 
 ### 自动装配/配置
 
@@ -715,7 +715,7 @@ public class Banner extends BaseEntity {
 ```
 #### 反向生成model
 idea链接数据库，在persistence界面下右键
-![image](../youdaonote-images/1751A07C31B3444490C379ABA50765E8.png)
+![image](../../youdaonote-images/1751A07C31B3444490C379ABA50765E8.png)
 
 #### @MappedSuperclass
 ```
