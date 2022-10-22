@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "java/抽奖系统/Lottery 抽奖系统.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               }
             }
@@ -150,6 +150,8 @@
   },
   "active": "4b347d84887496f4",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20221022224857.png",
+    "java/抽奖系统/Lottery 抽奖系统.md",
     "java/springboot/Java 后端.md",
     "java/Java学习路线/MVC模式.md",
     "java/Java学习路线/Servlet.md",
@@ -157,8 +159,6 @@
     "elk/elasticsearch分布式搜索引擎.md",
     "docker/docker.md",
     "docker/Centos7安装Docker.md",
-    "java/springboot+vue项目开发/java和vue服务器部署.md",
-    "Django笔记/django上线部署.md",
-    "Index.md"
+    "java/springboot+vue项目开发/java和vue服务器部署.md"
   ]
 }
