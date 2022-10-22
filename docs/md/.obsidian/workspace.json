@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
                 "mode": "source",
                 "source": false
               }
@@ -86,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统.md"
+                "file": "java/抽奖系统/Lottery 抽奖系统-项目信息.md"
               }
             }
           },
@@ -151,7 +151,7 @@
   "active": "4b347d84887496f4",
   "lastOpenFiles": [
     "youdaonote-images/Pasted image 20221022224857.png",
-    "java/抽奖系统/Lottery 抽奖系统.md",
+    "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "java/springboot/Java 后端.md",
     "java/Java学习路线/MVC模式.md",
     "java/Java学习路线/Servlet.md",
