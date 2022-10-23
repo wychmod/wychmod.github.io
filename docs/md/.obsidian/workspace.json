@@ -87,8 +87,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -166,17 +165,17 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "d0a5c8240e03c630",
+  "active": "39080f62ae13ec21",
   "lastOpenFiles": [
+    "KnowledgePlanet/Lottery/-/wikis/第-2-部分-领域开发/第11节：声明事务领取活动领域开发.md",
+    "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "算法/左神从0学算法/算法笔记.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "算法/leetcode 刷题记录/leetcode刷题.md",
     "算法/leetcode 刷题记录/算法面试难点攻坚课--动态规划.md",
     "算法/leetcode 刷题记录/面试算法题.md",
     "算法/蓝桥杯.md",
-    "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "youdaonote-images/Pasted image 20221022224857.png",
-    "java/springboot/Java 后端.md",
-    "java/Java学习路线/MVC模式.md"
+    "java/springboot/Java 后端.md"
   ]
 }
