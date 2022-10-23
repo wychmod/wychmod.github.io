@@ -39,6 +39,11 @@
       "type": "file",
       "title": "安装elasticsearch",
       "path": "elk/安装elasticsearch.md"
+    },
+    {
+      "type": "file",
+      "title": "Lottery 抽奖系统-大厂规范",
+      "path": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md"
     }
   ]
 }
