@@ -20,6 +20,24 @@
             }
           }
         ]
+      },
+      {
+        "id": "7b78087643658eb1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d0a5c8240e03c630",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -69,7 +87,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -142,12 +161,12 @@
       }
     ],
     "direction": "horizontal",
-    "width": 305.5
+    "width": 200
   },
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "39080f62ae13ec21",
+  "active": "d0a5c8240e03c630",
   "lastOpenFiles": [
     "算法/左神从0学算法/算法笔记.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
