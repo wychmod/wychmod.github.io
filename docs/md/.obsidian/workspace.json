@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "2d812d2fa2a1b86c",
@@ -62,8 +61,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -113,7 +111,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -129,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "人工智能/Yolov5核心基础知识.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -146,7 +145,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "人工智能/Yolov5核心基础知识.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "人工智能/Yolov5核心基础知识.md"
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
               }
             }
           },
@@ -191,10 +190,10 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "4154a632b18e3596",
+  "active": "187cf157daa6af6c",
   "lastOpenFiles": [
-    "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "人工智能/Yolov5核心基础知识.md",
+    "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "人工智能/论文阅读笔记-吴恩达ecg论文.md",
