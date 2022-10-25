@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
+                "file": "人工智能/Yolov5核心基础知识.md",
                 "mode": "source",
                 "source": false
               }
@@ -129,7 +129,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
+                "file": "人工智能/Yolov5核心基础知识.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -146,7 +146,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
+                "file": "人工智能/Yolov5核心基础知识.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md"
+                "file": "人工智能/Yolov5核心基础知识.md"
               }
             }
           },
@@ -191,13 +191,13 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "62b967b1bdf672ea",
+  "active": "4154a632b18e3596",
   "lastOpenFiles": [
+    "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "人工智能/Yolov5核心基础知识.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "人工智能/论文阅读笔记-吴恩达ecg论文.md",
-    "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "KnowledgePlanet/Lottery/-/wikis/第-2-部分-领域开发/第11节：声明事务领取活动领域开发.md",
     "算法/左神从0学算法/算法笔记.md",
     "算法/leetcode 刷题记录/leetcode刷题.md",
