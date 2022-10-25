@@ -44,6 +44,11 @@
       "type": "file",
       "title": "Lottery 抽奖系统-大厂规范",
       "path": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md"
+    },
+    {
+      "type": "file",
+      "title": "Lottery 抽奖系统-领域开发",
+      "path": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
     }
   ]
 }
