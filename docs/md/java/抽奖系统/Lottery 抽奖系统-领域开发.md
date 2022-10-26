@@ -84,3 +84,27 @@
 -   lottery-rpc，RPC接口定义层，引用：`common`
 
 在此分层结构和依赖引用下，各层级模块不能循环依赖，同时 `lottery-interfaces` 作为系统的 war 包工程，在构建工程时候需要依赖于 POM 中配置的相关信息。那这里就需要注意下，作为 Lottery 工程下的主 pom.xml 需要完成对 SpringBoot 父文件的依赖，此外还需要定义一些用于其他模块可以引入的配置信息，比如：jdk版本、编码方式等。而其他层在依赖于工程总 pom.xml 后还需要配置自己的信息。
+
+![](../../youdaonote-images/Pasted%20image%2020221026154011.png)
+
+![](../../youdaonote-images/Pasted%20image%2020221026154023.png)
+
+## dubbo的调用过程
+![](../../youdaonote-images/dubbo调用过程.png)
+
+## 配置广播模式 Dubbo 
+
+```yml
+# Dubbo 广播方式配置
+dubbo:
+  application:
+    name: Lottery
+    version: 1.0.0
+  registry:
+    address: N/A #multicast://224.5.6.7:1234
+  protocol:
+    name: dubbo
+    port: 20880
+  scan:
+    base-packages: cn.itedus.lottery.rpc
+```

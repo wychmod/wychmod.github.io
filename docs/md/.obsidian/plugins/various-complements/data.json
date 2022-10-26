@@ -43,118 +43,6 @@
   "insertCommaAfterFrontMatterCompletion": false,
   "showLogAboutPerformanceInConsole": false,
   "selectionHistoryTree": {
-    "负载均衡策略": {
-      "负载均衡策略": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663122484834
-        }
-      }
-    },
-    "image-20210713231439607": {
-      "image-20210713231439607": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663126206947
-        }
-      }
-    },
-    "wychmod": {
-      "wychmod": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663577009127
-        }
-      }
-    },
-    "docker": {
-      "docker": {
-        "currentFile": {
-          "count": 2,
-          "lastUpdated": 1663637764831
-        }
-      }
-    },
-    "mysql": {
-      "mysql": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663597888137
-        }
-      }
-    },
-    "MYSQL_ROOT_PASSWORD": {
-      "MYSQL_ROOT_PASSWORD": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663597910469
-        }
-      }
-    },
-    "javaweb": {
-      "javaweb": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663637790112
-        }
-      }
-    },
-    "docker-compose": {
-      "docker-compose": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663642087098
-        }
-      }
-    },
-    "gateway": {
-      "gateway": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663642096513
-        }
-      }
-    },
-    "userservice": {
-      "userservice": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663642100790
-        }
-      }
-    },
-    "orderservice": {
-      "orderservice": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1663642104280
-        }
-      }
-    },
-    "RabbitMQ": {
-      "RabbitMQ": {
-        "internalLink": {
-          "count": 1,
-          "lastUpdated": 1663683150449
-        }
-      }
-    },
-    "RabbitMQ部署指南": {
-      "RabbitMQ部署指南": {
-        "internalLink": {
-          "count": 1,
-          "lastUpdated": 1663727786066
-        }
-      }
-    },
-    "安装elasticsearch": {
-      "安装elasticsearch": {
-        "internalLink": {
-          "count": 1,
-          "lastUpdated": 1663928607393
-        }
-      }
-    },
     "github": {
       "github": {
         "currentFile": {
@@ -176,6 +64,14 @@
         "currentFile": {
           "count": 1,
           "lastUpdated": 1665342155572
+        }
+      }
+    },
+    "Dubbo": {
+      "Dubbo": {
+        "currentFile": {
+          "count": 1,
+          "lastUpdated": 1666770975147
         }
       }
     }
