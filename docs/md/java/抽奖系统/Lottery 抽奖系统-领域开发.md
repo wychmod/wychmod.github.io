@@ -150,4 +150,68 @@ strategy 是第1个在 domain 下实现的抽奖策略领域，在领域功能�
 两种抽奖算法描述，场景A20%、B30%、C50%
 
 -   **总体概率**：如果A奖品抽空后，B和C奖品的概率按照 `3:5` 均分，相当于B奖品中奖概率由 `0.3` 升为 `0.375`
--   **单项概率**：如果A奖品抽空后，B和C保持目前中奖概率，用户抽奖扔有20%中为A，因A库存抽空则结果展示为未中奖。_为了运营成本，通常这种情况的使用的比较多_
+-   **单项概率**：如果A奖品抽空后，B和C保持目前中奖概率，用户抽奖扔有20%中为A，因A库存抽空则结果展示为未中奖。_为了运营成本，通常这种情况的使用的比较多
+
+### 1. 定义接口
+cn.itedus.lottery.domain.strategy.service.algorithm.IDrawAlgorithm
+```java
+public interface IDrawAlgorithm {
+    /**
+     * SecureRandom 生成随机数，索引到对应的奖品信息返回结果
+     *
+     * @param strategyId 策略ID
+     * @param excludeAwardIds 排除掉已经不能作为抽奖的奖品ID，留给风控和空库存使用
+     * @return 中奖结果
+     */
+    String randomDraw(Long strategyId, List<String> excludeAwardIds);
+}
+```
+
+- 无论任何一种抽奖算法的使用，都以这个接口作为标准的抽奖接口进行抽奖。strategyId 是抽奖策略、excludeAwardIds 排除掉已经不能作为抽奖的奖品ID，留给风控和空库存使用
+
+### 2. 总体概率(算法)
+
+**算法描述**：分别把A、B、C对应的概率值转换成阶梯范围值，A=(0~0.2」、B=(0.2-0.5」、C=(0.5-1.0」，当使用随机数方法生成一个随机数后，与阶梯范围值进行循环比对找到对应的区域，匹配到中奖结果。
+
+![](../../youdaonote-images/Pasted%20image%2020221026200449.png)
+
+**部分代码**
+```java
+public class DefaultRateRandomDrawAlgorithm extends BaseAlgorithm {
+    @Override
+    public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
+        BigDecimal differenceDenominator = BigDecimal.ZERO;
+        // 排除掉不在抽奖范围的奖品ID集合
+        List<AwardRateInfo> differenceAwardRateList = new ArrayList<>();
+        List<AwardRateInfo> awardRateIntervalValList = awardRateInfoMap.get(strategyId);
+        for (AwardRateInfo awardRateInfo : awardRateIntervalValList) {
+            String awardId = awardRateInfo.getAwardId();
+            if (excludeAwardIds.contains(awardId)) {
+                continue;
+            }
+            differenceAwardRateList.add(awardRateInfo);
+            differenceDenominator = differenceDenominator.add(awardRateInfo.getAwardRate());
+        }
+        // 前置判断
+        if (differenceAwardRateList.size() == 0) return "";
+        if (differenceAwardRateList.size() == 1) return differenceAwardRateList.get(0).getAwardId();
+        // 获取随机概率值
+        SecureRandom secureRandom = new SecureRandom();
+        int randomVal = secureRandom.nextInt(100) + 1;
+        // 循环获取奖品
+        String awardId = "";
+        int cursorVal = 0;
+        for (AwardRateInfo awardRateInfo : differenceAwardRateList) {
+            int rateVal = awardRateInfo.getAwardRate().divide(differenceDenominator, 2, BigDecimal.ROUND_UP).multiply(new BigDecimal(100)).intValue();
+            if (randomVal <= (cursorVal + rateVal)) {
+                awardId = awardRateInfo.getAwardId();
+                break;
+            }
+            cursorVal += rateVal;
+        }
+        // 返回中奖结果
+        return awardId;
+    }
+}
+
+```
