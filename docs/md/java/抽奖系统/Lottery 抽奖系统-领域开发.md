@@ -215,3 +215,27 @@ public class DefaultRateRandomDrawAlgorithm extends BaseAlgorithm {
 }
 
 ```
+
+-   首先要从总的中奖列表中排除掉那些被排除掉的奖品，这些奖品会涉及到概率的值重新计算。
+-   如果排除后剩下的奖品列表小于等于1，则可以直接返回对应信息
+-   接下来就使用随机数工具生产一个100内的随值与奖品列表中的值进行循环比对，算法时间复杂度O(n)
+
+### 3. 单项概率(算法)
+
+**算法描述**：单项概率算法不涉及奖品概率重新计算的问题，那么也就是说我们分配好的概率结果是可以固定下来的。好，这里就有一个可以优化的算法，不需要在轮训匹配O(n)时间复杂度来处理中奖信息，而是可以根据概率值存放到HashMap或者自定义散列数组进行存放结果，这样就可以根据概率值直接定义中奖结果，时间复杂度由O(n)降低到O(1)。这样的设计在一般电商大促并发较高的情况下，达到优化接口响应时间的目的。
+
+```java
+@Override
+public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
+    // 获取策略对应的元祖
+    String[] rateTuple = super.rateTupleMap.get(strategyId);
+    assert rateTuple != null;
+    // 随机索引
+    int randomVal = new SecureRandom().nextInt(100) + 1;
+    int idx = super.hashIdx(randomVal);
+    // 返回结果
+    String awardId = rateTuple[idx];
+    if (excludeAwardIds.contains(awardId)) return "未中奖";
+    return awardId;
+}
+```
