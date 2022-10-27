@@ -224,6 +224,8 @@ public class DefaultRateRandomDrawAlgorithm extends BaseAlgorithm {
 
 **算法描述**：单项概率算法不涉及奖品概率重新计算的问题，那么也就是说我们分配好的概率结果是可以固定下来的。好，这里就有一个可以优化的算法，不需要在轮训匹配O(n)时间复杂度来处理中奖信息，而是可以根据概率值存放到HashMap或者自定义散列数组进行存放结果，这样就可以根据概率值直接定义中奖结果，时间复杂度由O(n)降低到O(1)。这样的设计在一般电商大促并发较高的情况下，达到优化接口响应时间的目的。
 
+![](../../youdaonote-images/Pasted%20image%2020221027232944.png)
+
 ```java
 @Override
 public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
@@ -239,3 +241,7 @@ public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
     return awardId;
 }
 ```
+
+### 策略模式的使用
+
+![](../../youdaonote-images/Pasted%20image%2020221027232642.png)
