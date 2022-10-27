@@ -245,3 +245,35 @@ public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
 ### 策略模式的使用
 
 ![](../../youdaonote-images/Pasted%20image%2020221027232642.png)
+
+### 斐波那契散列法
+斐波那契散列法本质是一种乘法散列，为了得到更好的随即性， knuth认为A取黄金分割数是一个比较理想的值，因此A=0.6180339887。
+
+ThreadLocal中采用了斐波那契散列+开放寻址方式存放Entry
+
+使用斐波那契散列法可以让数据散列的更加均匀，不易产生哈希碰撞。减少碰撞也就可以让数据存储的更加分散，获取数据的时间复杂度基本保持在O(1)。
+
+黄金分割点：(√5 - 1) / 2 = 0.6180339887
+
+以32位整数为例理想乘数(黄金分割点) = 2^32\*0.6180339887=2654435769
+
+```java
+// 斐波那契散列增量，逻辑：黄金分割点：(√5 - 1) / 2 = 0.6180339887，Math.pow(2, 32) * 0.6180339887 = 0x61c88647
+    private final int HASH_INCREMENT = 0x61c88647;
+
+    // 数组初始化长度
+    private final int ARR_LENGTH = 128;
+
+    private Map<Long,int[]> intMap = new ConcurrentHashMap<>();
+
+    /**
+     * 斐波那契（Fibonacci）散列法，计算哈希索引下标值
+     *
+     * @param val 值
+     * @return 索引
+     */
+    protected int hashIdx(int val) {
+        int hashCode = val * HASH_INCREMENT + HASH_INCREMENT;
+        return hashCode & (ARR_LENGTH - 1);
+    }
+```
