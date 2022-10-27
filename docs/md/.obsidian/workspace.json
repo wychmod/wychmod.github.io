@@ -91,7 +91,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "ConcurrentHashMap",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -113,8 +113,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -194,15 +193,15 @@
   },
   "active": "b21faccc4c6444d2",
   "lastOpenFiles": [
-    "算法/左神从0学算法/算法笔记·.md",
+    "java/Java学习路线/Java集合框架.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "算法/左神从0学算法/算法笔记·.md",
     "面试/实习面试准备.md",
     "人工智能/Yolov5核心基础知识.md",
     "java/spring系列学习/ssm整合学习-Mybatis.md",
     "java/spring系列学习/spring.md",
     "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
-    "人工智能/论文阅读笔记-吴恩达ecg论文.md",
-    "KnowledgePlanet/Lottery/-/wikis/第-2-部分-领域开发/第11节：声明事务领取活动领域开发.md"
+    "人工智能/论文阅读笔记-吴恩达ecg论文.md"
   ]
 }
