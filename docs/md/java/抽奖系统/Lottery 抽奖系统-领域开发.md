@@ -487,3 +487,158 @@ public void test_award() {
 -   活动状态的审核，【1编辑、2提审、3撤审、4通过、5运行(审核通过后worker扫描状态)、6拒绝、7关闭、8开启】，这里我们会用到设计模式中的`状态模式`进行处理。
 
 ## 二、活动创建
+
+```java
+public class ActivityDeployImpl implements IActivityDeploy {
+
+    private Logger logger = LoggerFactory.getLogger(ActivityDeployImpl.class);
+
+    @Resource
+    private IActivityRepository activityRepository;
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void createActivity(ActivityConfigReq req) {
+        logger.info("创建活动配置开始，activityId：{}", req.getActivityId());
+        ActivityConfigRich activityConfigRich = req.getActivityConfigRich();
+        try {
+            // 添加活动配置
+            ActivityVO activity = activityConfigRich.getActivity();
+            activityRepository.addActivity(activity);
+
+            // 添加奖品配置
+            List<AwardVO> awardList = activityConfigRich.getAwardList();
+            activityRepository.addAward(awardList);
+
+            // 添加策略配置
+            StrategyVO strategy = activityConfigRich.getStrategy();
+            activityRepository.addStrategy(strategy);
+
+            // 添加策略明细配置
+            List<StrategyDetailVO> strategyDetailList = activityConfigRich.getStrategy().getStrategyDetailList();
+            activityRepository.addStrategyDetailList(strategyDetailList);
+
+            logger.info("创建活动配置完成，activityId：{}", req.getActivityId());
+        } catch (DuplicateKeyException e) {
+            logger.error("创建活动配置失败，唯一索引冲突 activityId：{} reqJson：{}", req.getActivityId(), JSON.toJSONString(req), e);
+            throw e;
+        }
+    }
+
+    @Override
+    public void updateActivity(ActivityConfigReq req) {
+        // TODO: 非核心功能后续补充
+    }
+
+}
+```
+
+-   活动的创建操作主要包括：添加活动配置、添加奖品配置、添加策略配置、添加策略明细配置，这些都是在同一个注解事务配置下进行处理 `@Transactional(rollbackFor = Exception.class)`
+-   这里需要注意一点，奖品配置和策略配置都是集合形式的，这里使用了 Mybatis 的一次插入多条数据配置。_如果之前没用过，可以注意下使用方式_
+
+## 三、状态变更(状态模式)
+
+状态模式：类的行为是基于它的状态改变的，这种类型的设计模式属于行为型模式。它描述的是一个行为下的多种状态变更，比如我们最常见的一个网站的页面，在你登录与不登录下展示的内容是略有差异的(不登录不能展示个人信息)，而这种登录与不登录就是我们通过改变状态，而让整个行为发生了变化。
+
+![](../../youdaonote-images/Pasted%20image%2020221030223350.png)
+
+### 1. 工程结构
+```java
+lottery-domain
+└── src
+    └── main
+        └── java
+            └── cn.itedus.lottery.domain.activity
+                ├── model
+                ├── repository
+                │   └── IActivityRepository
+                └── service
+                    ├── deploy
+                    ├── partake [待开发]
+                    └── stateflow
+                        ├── event
+                        │   ├── ArraignmentState.java
+                        │   ├── CloseState.java
+                        │   ├── DoingState.java
+                        │   ├── EditingState.java
+                        │   ├── OpenState.java
+                        │   ├── PassState.java
+                        │   └── RefuseState.java
+                        ├── impl
+                        │   └── StateHandlerImpl.java
+                        ├── AbstractState.java
+                        ├── IStateHandler.java
+                        └── StateConfig.java
+```
+
+-   activity 活动领域层包括：deploy、partake、stateflow
+-   stateflow 状态流转运用的状态模式，主要包括抽象出状态抽象类AbstractState 和对应的 event 包下的状态处理，最终使用 StateHandlerImpl 来提供对外的接口服务。
+
+### 2. 定义抽象类
+
+```java
+public abstract class AbstractState {
+    @Resource
+    protected IActivityRepository activityRepository;
+    /**
+     * 活动提审
+     *
+     * @param activityId   活动ID
+     * @param currentState 当前状态
+     * @return 执行结果
+     */
+    public abstract Result arraignment(Long activityId, Enum<Constants.ActivityState> currentState);
+    /**
+     * 审核通过
+     *
+     * @param activityId   活动ID
+     * @param currentState 当前状态
+     * @return 执行结果
+     */
+    public abstract Result checkPass(Long activityId, Enum<Constants.ActivityState> currentState);
+    /**
+     * 审核拒绝
+     *
+     * @param activityId   活动ID
+     * @param currentState 当前状态
+     * @return 执行结果
+     */
+    public abstract Result checkRefuse(Long activityId, Enum<Constants.ActivityState> currentState);
+    /**
+     * 撤审撤销
+     *
+     * @param activityId   活动ID
+     * @param currentState 当前状态
+     * @return 执行结果
+     */
+    public abstract Result checkRevoke(Long activityId, Enum<Constants.ActivityState> currentState);
+    /**
+     * 活动关闭
+     *
+     * @param activityId   活动ID
+     * @param currentState 当前状态
+     * @return 执行结果
+     */
+    public abstract Result close(Long activityId, Enum<Constants.ActivityState> currentState);
+    /**
+     * 活动开启
+     *
+     * @param activityId   活动ID
+     * @param currentState 当前状态
+     * @return 执行结果
+     */
+    public abstract Result open(Long activityId, Enum<Constants.ActivityState> currentState);
+    /**
+     * 活动执行
+     *
+     * @param activityId   活动ID
+     * @param currentState 当前状态
+     * @return 执行结果
+     */
+    public abstract Result doing(Long activityId, Enum<Constants.ActivityState> currentState);
+}
+```
+
+-   在整个接口中提供了各项状态流转服务的接口，例如；活动提审、审核通过、审核拒绝、撤审撤销等7个方法。
+-   在这些方法中所有的入参都是一样的，activityId(活动ID)、currentStatus(当前状态)，只有他们的具体实现是不同的。
+
