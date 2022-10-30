@@ -642,3 +642,137 @@ public abstract class AbstractState {
 -   在整个接口中提供了各项状态流转服务的接口，例如；活动提审、审核通过、审核拒绝、撤审撤销等7个方法。
 -   在这些方法中所有的入参都是一样的，activityId(活动ID)、currentStatus(当前状态)，只有他们的具体实现是不同的。
 
+### 3. 提审状态(其他更多状态可以参考源码)
+
+```java
+@Component
+public class ArraignmentState extends AbstractState {
+
+    @Override
+    public Result arraignment(Long activityId, Enum<Constants.ActivityState> currentState) {
+        return Result.buildResult(Constants.ResponseCode.UN_ERROR, "待审核状态不可重复提审");
+    }
+
+    @Override
+    public Result checkPass(Long activityId, Enum<Constants.ActivityState> currentState) {
+        boolean isSuccess = activityRepository.alterStatus(activityId, currentState, Constants.ActivityState.PASS);
+        return isSuccess ? Result.buildResult(Constants.ResponseCode.SUCCESS, "活动审核通过完成") : Result.buildErrorResult("活动状态变更失败");
+    }
+
+    @Override
+    public Result checkRefuse(Long activityId, Enum<Constants.ActivityState> currentState) {
+        boolean isSuccess = activityRepository.alterStatus(activityId, currentState, Constants.ActivityState.REFUSE);
+        return isSuccess ? Result.buildResult(Constants.ResponseCode.SUCCESS, "活动审核拒绝完成") : Result.buildErrorResult("活动状态变更失败");
+    }
+
+    @Override
+    public Result checkRevoke(Long activityId, Enum<Constants.ActivityState> currentState) {
+        boolean isSuccess = activityRepository.alterStatus(activityId, currentState, Constants.ActivityState.EDIT);
+        return isSuccess ? Result.buildResult(Constants.ResponseCode.SUCCESS, "活动审核撤销回到编辑中") : Result.buildErrorResult("活动状态变更失败");
+    }
+
+    @Override
+    public Result close(Long activityId, Enum<Constants.ActivityState> currentState) {
+        boolean isSuccess = activityRepository.alterStatus(activityId, currentState, Constants.ActivityState.CLOSE);
+        return isSuccess ? Result.buildResult(Constants.ResponseCode.SUCCESS, "活动审核关闭完成") : Result.buildErrorResult("活动状态变更失败");
+    }
+
+    @Override
+    public Result open(Long activityId, Enum<Constants.ActivityState> currentState) {
+        return Result.buildResult(Constants.ResponseCode.UN_ERROR, "非关闭活动不可开启");
+    }
+
+    @Override
+    public Result doing(Long activityId, Enum<Constants.ActivityState> currentState) {
+        return Result.buildResult(Constants.ResponseCode.UN_ERROR, "待审核活动不可执行活动中变更");
+    }
+
+}
+```
+
+-   ArraignmentState 提审状态中的流程，比如：待审核状态不可重复提审、非关闭活动不可开启、待审核活动不可执行活动中变更，而：`审核通过、审核拒绝、撤销审核、活动关闭，都可以操作`。
+-   通过这样的设计模式结构，优化掉原本需要在各个流程节点中的转换使用 ifelse 的场景，这样操作以后也可以更加方便你进行扩展。_当然其实这里还可以使用如工作流的方式进行处理_
+
+### 4. 状态流转配置抽象类
+
+```java
+public class StateConfig {
+
+    @Resource
+    private ArraignmentState arraignmentState;
+    @Resource
+    private CloseState closeState;
+    @Resource
+    private DoingState doingState;
+    @Resource
+    private EditingState editingState;
+    @Resource
+    private OpenState openState;
+    @Resource
+    private PassState passState;
+    @Resource
+    private RefuseState refuseState;
+
+    protected Map<Enum<Constants.ActivityState>, AbstractState> stateGroup = new ConcurrentHashMap<>();
+
+    @PostConstruct
+    public void init() {
+        stateGroup.put(Constants.ActivityState.ARRAIGNMENT, arraignmentState);
+        stateGroup.put(Constants.ActivityState.CLOSE, closeState);
+        stateGroup.put(Constants.ActivityState.DOING, doingState);
+        stateGroup.put(Constants.ActivityState.EDIT, editingState);
+        stateGroup.put(Constants.ActivityState.OPEN, openState);
+        stateGroup.put(Constants.ActivityState.PASS, passState);
+        stateGroup.put(Constants.ActivityState.REFUSE, refuseState);
+    }
+
+}
+```
+
+-   在状态流转配置中，定义好各个流转操作。
+
+### 5. 实现状态处理服务
+
+```java
+@Service
+public class StateHandlerImpl extends StateConfig implements IStateHandler {
+
+    @Override
+    public Result arraignment(Long activityId, Enum<Constants.ActivityState> currentStatus) {
+        return stateGroup.get(currentStatus).arraignment(activityId, currentStatus);
+    }
+
+    @Override
+    public Result checkPass(Long activityId, Enum<Constants.ActivityState> currentStatus) {
+        return stateGroup.get(currentStatus).checkPass(activityId, currentStatus);
+    }
+
+    @Override
+    public Result checkRefuse(Long activityId, Enum<Constants.ActivityState> currentStatus) {
+        return stateGroup.get(currentStatus).checkRefuse(activityId, currentStatus);
+    }
+
+    @Override
+    public Result checkRevoke(Long activityId, Enum<Constants.ActivityState> currentStatus) {
+        return stateGroup.get(currentStatus).checkRevoke(activityId, currentStatus);
+    }
+
+    @Override
+    public Result close(Long activityId, Enum<Constants.ActivityState> currentStatus) {
+        return stateGroup.get(currentStatus).close(activityId, currentStatus);
+    }
+
+    @Override
+    public Result open(Long activityId, Enum<Constants.ActivityState> currentStatus) {
+        return stateGroup.get(currentStatus).open(activityId, currentStatus);
+    }
+
+    @Override
+    public Result doing(Long activityId, Enum<Constants.ActivityState> currentStatus) {
+        return stateGroup.get(currentStatus).doing(activityId, currentStatus);
+    }
+
+}
+```
+
+-   在状态流转服务中，通过在 `状态组 stateGroup` 获取对应的状态处理服务和操作变更状态。
