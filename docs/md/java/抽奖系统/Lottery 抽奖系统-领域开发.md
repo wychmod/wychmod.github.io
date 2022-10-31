@@ -778,3 +778,46 @@ public class StateHandlerImpl extends StateConfig implements IStateHandler {
 ```
 
 -   在状态流转服务中，通过在 `状态组 stateGroup` 获取对应的状态处理服务和操作变更状态。
+
+# 第09节：ID生成策略领域开发
+
+- 使用雪花算法、阿帕奇工具包 RandomStringUtils、日期拼接，三种方式生成ID，分别用在订单号、策略ID、活动号的生成上。
+
+## 一、开发日志
+
+-   使用策略模式把三种生成ID的算法进行统一包装，由调用方决定使用哪种生成ID的策略。_策略模式属于行为模式的一种，一个类的行为或算法可以在运行时进行更改_
+-   雪花算法本章节使用的是工具包 hutool 包装好的工具类，一般在实际使用雪花算法时需要做一些优化处理，比如支持时间回拨、支持手工插入、简短生成长度、提升生成速度等。
+-   而日期拼接和随机数工具包生成方式，都需要自己保证唯一性，一般使用此方式生成的ID，都用在单表中，本身可以在数据库配置唯一ID。_那为什么不用自增ID，因为自增ID通常容易被外界知晓你的运营数据，以及后续需要做数据迁移到分库分表中都会有些麻烦_
+
+## 二、支撑领域
+
+在 domain 领域包下新增支撑领域，ID 的生成服务就放到这个领域下实现。
+
+关于 ID 的生成因为有三种不同 ID 用于在不同的场景下；
+
+-   订单号：唯一、大量、订单创建时使用、分库分表
+-   活动号：唯一、少量、活动创建时使用、单库单表
+-   策略号：唯一、少量、活动创建时使用、单库单表
+
+## 三、策略模式
+
+通过策略模式的使用，来开发策略ID的服务提供。之所以使用策略模式，是因为外部的调用方会需要根据不同的场景来选择出适合的ID生成策略，而策略模式就非常适合这一场景的使用。
+
+**工程结构**
+
+```java
+lottery-domain
+└── src
+    └── main
+        └── java
+            └── cn.itedus.lottery.domain.support.ids
+                ├── policy
+                │   ├── RandomNumeric.java
+                │   ├── ShortCode.java
+                │   └── SnowFlake.java
+                ├── IdContext.java
+                └── IIdGenerator.java
+```
+
+-   IIdGenerator，定义生成ID的策略接口。RandomNumeric、ShortCode、SnowFlake，是三种生成ID的策略。
+-   IdContext，ID生成上下文，也就是从这里提供策略配置服务。
