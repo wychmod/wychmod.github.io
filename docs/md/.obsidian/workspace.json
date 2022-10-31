@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "Django笔记/Djangoday1整体跑通.md",
                 "mode": "source",
                 "source": false
               }
@@ -91,7 +91,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "状态模式",
+                "query": "django",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -108,13 +108,11 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -130,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "Django笔记/Djangoday1整体跑通.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +145,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "Django笔记/Djangoday1整体跑通.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
+                "file": "Django笔记/Djangoday1整体跑通.md"
               }
             }
           },
@@ -194,15 +192,15 @@
   },
   "active": "5d7fbbc284d578c4",
   "lastOpenFiles": [
+    "Django笔记/django-rest-framework开发笔记.md",
+    "Django笔记/Djangoday3模板.md",
+    "Django笔记/Django-2视图.md",
+    "Django笔记/Djangoday1整体跑通.md",
+    "Django笔记/django 项目开发笔记.md",
+    "Python/Python高级/3.类和对象.md",
+    "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "人工智能/Yolov5核心基础知识.md",
     "系统设计/设计模式.md",
-    "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
-    "java/Java学习路线/Java集合框架.md",
-    "算法/左神从0学算法/算法笔记·.md",
-    "面试/实习面试准备.md",
-    "java/spring系列学习/ssm整合学习-Mybatis.md",
-    "java/spring系列学习/spring.md",
-    "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
-    "java/抽奖系统/Lottery 抽奖系统-项目信息.md"
+    "java/Java学习路线/Java集合框架.md"
   ]
 }
