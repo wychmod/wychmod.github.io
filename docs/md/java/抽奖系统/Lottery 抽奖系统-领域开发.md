@@ -542,6 +542,8 @@ public class ActivityDeployImpl implements IActivityDeploy {
 
 ![](../../youdaonote-images/Pasted%20image%2020221030223350.png)
 
+![](https://images.zsxq.com/FpgISC4YDgrFwtZdIKP6Mhym4-Q9?imageMogr2/auto-orient/quality/100!/ignore-error/1&e=1669823999&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:uPw2egsO0UCJR1aTCw0drOet4I8=)
+
 ### 1. 工程结构
 ```java
 lottery-domain
