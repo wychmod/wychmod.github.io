@@ -821,3 +821,8 @@ lottery-domain
 
 -   IIdGenerator，定义生成ID的策略接口。RandomNumeric、ShortCode、SnowFlake，是三种生成ID的策略。
 -   IdContext，ID生成上下文，也就是从这里提供策略配置服务。
+
+# 第10节：实现和使用分库分表
+
+**开发一个基于 HashMap 核心设计原理，使用哈希散列+扰动函数的方式，把数据散列到多个库表中的组件，并验证使用。**
+
