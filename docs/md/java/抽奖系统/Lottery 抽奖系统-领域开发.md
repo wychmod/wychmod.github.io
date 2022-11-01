@@ -942,3 +942,100 @@ public DataSource dataSource() {
 
 -   这里是一个简化的创建案例，把基于从配置信息中读取到的数据源信息，进行实例化创建。
 -   数据源创建完成后存放到 `DynamicDataSource` 中，它是一个继承了 AbstractRoutingDataSource 的实现类，这个类里可以存放和读取相应的具体调用的数据源信息。
+
+### 4. 切面拦截
+
+在 AOP 的切面拦截中需要完成；数据库路由计算、扰动函数加强散列、计算库表索引、设置到 ThreadLocal 传递数据源，整体案例代码如下：
+
+```java
+@Around("aopPoint() && @annotation(dbRouter)")
+public Object doRouter(ProceedingJoinPoint jp, DBRouter dbRouter) throws Throwable {
+    String dbKey = dbRouter.key();
+    if (StringUtils.isBlank(dbKey)) throw new RuntimeException("annotation DBRouter key is null！");
+
+    // 计算路由
+    String dbKeyAttr = getAttrValue(dbKey, jp.getArgs());
+    int size = dbRouterConfig.getDbCount() * dbRouterConfig.getTbCount();
+
+    // 扰动函数
+    int idx = (size - 1) & (dbKeyAttr.hashCode() ^ (dbKeyAttr.hashCode() >>> 16));
+
+    // 库表索引
+    int dbIdx = idx / dbRouterConfig.getTbCount() + 1;
+    int tbIdx = idx - dbRouterConfig.getTbCount() * (dbIdx - 1);   
+
+    // 设置到 ThreadLocal
+    DBContextHolder.setDBKey(String.format("%02d", dbIdx));
+    DBContextHolder.setTBKey(String.format("%02d", tbIdx));
+    logger.info("数据库路由 method：{} dbIdx：{} tbIdx：{}", getMethod(jp).getName(), dbIdx, tbIdx);
+   
+    // 返回结果
+    try {
+        return jp.proceed();
+    } finally {
+        DBContextHolder.clearDBKey();
+        DBContextHolder.clearTBKey();
+    }
+}
+```
+
+-   简化的核心逻辑实现代码如上，首先我们提取了库表乘积的数量，把它当成 HashMap 一样的长度进行使用。
+-   接下来使用和 HashMap 一样的扰动函数逻辑，让数据分散的更加散列。
+-   当计算完总长度上的一个索引位置后，还需要把这个位置折算到库表中，看看总体长度的索引因为落到哪个库哪个表。
+-   最后是把这个计算的索引信息存放到 ThreadLocal 中，用于传递在方法调用过程中可以提取到索引信息。
+
+### 5. Mybatis 拦截器处理分表
+
+-   最开始考虑直接在Mybatis对应的表 `INSERT INTO user_strategy_export`**_${tbIdx}** 添加字段的方式处理分表。但这样看上去并不优雅，不过也并不排除这种使用方式，仍然是可以使用的。
+-   那么我们可以基于 Mybatis 拦截器进行处理，通过拦截 SQL 语句动态修改添加分表信息，再设置回 Mybatis 执行 SQL 中。
+-   此外再完善一些分库分表路由的操作，比如配置默认的分库分表字段以及单字段入参时默认取此字段作为路由字段。
+
+```java
+@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
+public class DynamicMybatisPlugin implements Interceptor {
+
+
+    private Pattern pattern = Pattern.compile("(from|into|update)[\\s]{1,}(\\w{1,})", Pattern.CASE_INSENSITIVE);
+
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        // 获取StatementHandler
+        StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
+        MetaObject metaObject = MetaObject.forObject(statementHandler, SystemMetaObject.DEFAULT_OBJECT_FACTORY, SystemMetaObject.DEFAULT_OBJECT_WRAPPER_FACTORY, new DefaultReflectorFactory());
+        MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
+
+        // 获取自定义注解判断是否进行分表操作
+        String id = mappedStatement.getId();
+        String className = id.substring(0, id.lastIndexOf("."));
+        Class<?> clazz = Class.forName(className);
+        DBRouterStrategy dbRouterStrategy = clazz.getAnnotation(DBRouterStrategy.class);
+        if (null == dbRouterStrategy || !dbRouterStrategy.splitTable()){
+            return invocation.proceed();
+        }
+
+        // 获取SQL
+        BoundSql boundSql = statementHandler.getBoundSql();
+        String sql = boundSql.getSql();
+
+        // 替换SQL表名 USER 为 USER_03
+        Matcher matcher = pattern.matcher(sql);
+        String tableName = null;
+        if (matcher.find()) {
+            tableName = matcher.group().trim();
+        }
+        assert null != tableName;
+        String replaceSql = matcher.replaceAll(tableName + "_" + DBContextHolder.getTBKey());
+
+        // 通过反射修改SQL语句
+        Field field = boundSql.getClass().getDeclaredField("sql");
+        field.setAccessible(true);
+        field.set(boundSql, replaceSql);
+
+        return invocation.proceed();
+    }
+
+}
+```
+
+-   实现 Interceptor 接口的 intercept 方法，获取StatementHandler、通过自定义注解判断是否进行分表操作、获取SQL并替换SQL表名 USER 为 USER_03、最后通过反射修改SQL语句
+-   此处会用到正则表达式拦截出匹配的sql，`(from|into|update)[\\s]{1,}(\\w{1,})`
