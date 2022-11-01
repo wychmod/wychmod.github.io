@@ -91,7 +91,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "django",
+                "query": "ThreadLocal",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -108,12 +108,12 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -191,17 +191,17 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "62b967b1bdf672ea",
+  "active": "5d7fbbc284d578c4",
   "lastOpenFiles": [
+    "java/springboot+vue项目开发/springboot项目开发流程.md",
+    "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "Python/Python高级/3.类和对象.md",
     "Django笔记/django 项目开发笔记.md",
     "Django笔记/Djangoday1整体跑通.md",
     "Django笔记/Django-2视图.md",
     "Django笔记/Djangoday3模板.md",
     "Django笔记/django-rest-framework开发笔记.md",
-    "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "人工智能/Yolov5核心基础知识.md",
-    "系统设计/设计模式.md",
-    "java/Java学习路线/Java集合框架.md"
+    "系统设计/设计模式.md"
   ]
 }

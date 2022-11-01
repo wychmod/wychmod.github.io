@@ -848,6 +848,97 @@ lottery-domain
 
 需要用到的技术包括：`AOP`、`数据源切换`、`散列算法`、`哈希寻址`、`ThreadLoca`l以及`SpringBoot的Starter开发方式`等技术。而像`哈希散列`、`寻址`、`数据存放`。
 
-## 技术调研
+## 二、技术调研
 
 在 JDK 源码中，包含的数据结构设计有：数组、链表、队列、栈、红黑树，具体的实现有 ArrayList、LinkedList、Queue、Stack，而这些在数据存放都是顺序存储，并没有用到哈希索引的方式进行处理。而 HashMap、ThreadLocal，两个功能则用了哈希索引、散列算法以及在数据膨胀时候的拉链寻址和开放寻址，所以我们要分析和借鉴的也会集中在这两个功能上。
+
+## 三、设计实现
+
+### 1.定义路由注解
+
+**定义**
+
+```java
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+public @interface DBRouter {
+
+    String key() default "";
+
+}
+```
+
+**使用**
+
+```java
+@Mapper
+public interface IUserDao {
+
+     @DBRouter(key = "userId")
+     User queryUserInfoByUserId(User req);
+
+     @DBRouter(key = "userId")
+     void insertUser(User req);
+
+}
+```
+
+-   首先我们需要自定义一个注解，用于放置在需要被数据库路由的方法上。
+-   它的使用方式是通过方法配置注解，就可以被我们指定的 AOP 切面进行拦截，拦截后进行相应的数据库路由计算和判断，并切换到相应的操作数据源上。
+
+### 2. 解析路由配置
+
+![](../../youdaonote-images/Pasted%20image%2020221101183419.png)
+
+-   以上就是我们实现完数据库路由组件后的一个数据源配置，在分库分表下的数据源使用中，都需要支持多数据源的信息配置，这样才能满足不同需求的扩展。
+-   对于这种自定义较大的信息配置，就需要使用到 `org.springframework.context.EnvironmentAware` 接口，来获取配置文件并提取需要的配置信息。
+
+**数据源配置提取**
+
+```java
+@Override
+public void setEnvironment(Environment environment) {
+    String prefix = "router.jdbc.datasource.";    
+
+    dbCount = Integer.valueOf(environment.getProperty(prefix + "dbCount"));
+    tbCount = Integer.valueOf(environment.getProperty(prefix + "tbCount"));    
+
+    String dataSources = environment.getProperty(prefix + "list");
+    for (String dbInfo : dataSources.split(",")) {
+        Map<String, Object> dataSourceProps = PropertyUtil.handle(environment, prefix + dbInfo, Map.class);
+        dataSourceMap.put(dbInfo, dataSourceProps);
+    }
+}
+```
+
+-   prefix，是数据源配置的开头信息，你可以自定义需要的开头内容。
+-   dbCount、tbCount、dataSources、dataSourceProps，都是对配置信息的提取，并存放到 dataSourceMap 中便于后续使用。
+
+### 3. 数据源切换
+
+在结合 SpringBoot 开发的 Starter 中，需要提供一个 DataSource 的实例化对象，那么这个对象我们就放在 DataSourceAutoConfig 来实现，并且这里提供的数据源是可以动态变换的，也就是支持动态切换数据源。
+
+**创建数据源**
+
+```java
+@Bean
+public DataSource dataSource() {
+    // 创建数据源
+    Map<Object, Object> targetDataSources = new HashMap<>();
+    for (String dbInfo : dataSourceMap.keySet()) {
+        Map<String, Object> objMap = dataSourceMap.get(dbInfo);
+        targetDataSources.put(dbInfo, new DriverManagerDataSource(objMap.get("url").toString(), objMap.get("username").toString(), objMap.get("password").toString()));
+    }     
+
+    // 设置数据源
+    DynamicDataSource dynamicDataSource = new DynamicDataSource();
+    dynamicDataSource.setTargetDataSources(targetDataSources);
+    dynamicDataSource.setDefaultTargetDataSource(new DriverManagerDataSource(defaultDataSourceConfig.get("url").toString(), defaultDataSourceConfig.get("username").toString(), defaultDataSourceConfig.get("password").toString()));
+
+    return dynamicDataSource;
+}
+```
+
+-   这里是一个简化的创建案例，把基于从配置信息中读取到的数据源信息，进行实例化创建。
+-   数据源创建完成后存放到 `DynamicDataSource` 中，它是一个继承了 AbstractRoutingDataSource 的实现类，这个类里可以存放和读取相应的具体调用的数据源信息。
