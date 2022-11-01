@@ -91,7 +91,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "spring-boot-autoconfigure",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -108,8 +108,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -129,7 +128,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "java/springboot/SpringBoot实战和原理.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -146,7 +145,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "java/springboot/SpringBoot实战和原理.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
+                "file": "java/springboot/SpringBoot实战和原理.md"
               }
             }
           },
@@ -191,17 +190,74 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "3cc169e861738dfa",
+  "floating": {
+    "id": "3f4ee74855beca97",
+    "type": "floating",
+    "children": [
+      {
+        "id": "41be450b4b352c1c",
+        "type": "window",
+        "children": [
+          {
+            "id": "172705806a0fdcb6",
+            "type": "tabs",
+            "dimension": 71.36337706788363,
+            "children": [
+              {
+                "id": "3b7436bf47fe0356",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "java/springboot/SpringBoot实战和原理.md",
+                    "mode": "preview",
+                    "source": false
+                  }
+                },
+                "group": "4fdd70651fe9ef20"
+              }
+            ]
+          },
+          {
+            "id": "7c9d7544f5931ec7",
+            "type": "tabs",
+            "dimension": 28.636622932116374,
+            "children": [
+              {
+                "id": "58f76c33b59132f1",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {
+                    "file": "java/springboot/SpringBoot实战和原理.md"
+                  }
+                },
+                "group": "4fdd70651fe9ef20"
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 159,
+        "y": 184,
+        "width": 1753,
+        "height": 1050,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
+  "active": "3b7436bf47fe0356",
   "lastOpenFiles": [
-    "java/springboot+vue项目开发/springboot项目开发流程.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "java/spring系列学习/ssm整合学习-SpringMVC.md",
+    "java/springboot/SpringBoot实战和原理.md",
+    "java/springboot+vue项目开发/springboot项目开发流程.md",
     "Python/Python高级/3.类和对象.md",
     "Django笔记/django 项目开发笔记.md",
     "Django笔记/Djangoday1整体跑通.md",
     "Django笔记/Django-2视图.md",
     "Django笔记/Djangoday3模板.md",
-    "Django笔记/django-rest-framework开发笔记.md",
-    "人工智能/Yolov5核心基础知识.md",
-    "系统设计/设计模式.md"
+    "Django笔记/django-rest-framework开发笔记.md"
   ]
 }
