@@ -1010,36 +1010,7 @@ public class DataSourceAutoConfig implements EnvironmentAware {
 -   `dbRouterConfig()`，主要为了把分库分表配置生成一个 Bean 对象，方便在切面类中进行注入使用。
 
 
-
-### 3. 数据源切换
-
-在结合 SpringBoot 开发的 Starter 中，需要提供一个 DataSource 的实例化对象，那么这个对象我们就放在 DataSourceAutoConfig 来实现，并且这里提供的数据源是可以动态变换的，也就是支持动态切换数据源。
-
-**创建数据源**
-
-```java
-@Bean
-public DataSource dataSource() {
-    // 创建数据源
-    Map<Object, Object> targetDataSources = new HashMap<>();
-    for (String dbInfo : dataSourceMap.keySet()) {
-        Map<String, Object> objMap = dataSourceMap.get(dbInfo);
-        targetDataSources.put(dbInfo, new DriverManagerDataSource(objMap.get("url").toString(), objMap.get("username").toString(), objMap.get("password").toString()));
-    }     
-
-    // 设置数据源
-    DynamicDataSource dynamicDataSource = new DynamicDataSource();
-    dynamicDataSource.setTargetDataSources(targetDataSources);
-    dynamicDataSource.setDefaultTargetDataSource(new DriverManagerDataSource(defaultDataSourceConfig.get("url").toString(), defaultDataSourceConfig.get("username").toString(), defaultDataSourceConfig.get("password").toString()));
-
-    return dynamicDataSource;
-}
-```
-
--   这里是一个简化的创建案例，把基于从配置信息中读取到的数据源信息，进行实例化创建。
--   数据源创建完成后存放到 `DynamicDataSource` 中，它是一个继承了 AbstractRoutingDataSource 的实现类，这个类里可以存放和读取相应的具体调用的数据源信息。
-
-### 4. 切面拦截
+### 5. 切面拦截
 
 在 AOP 的切面拦截中需要完成；数据库路由计算、扰动函数加强散列、计算库表索引、设置到 ThreadLocal 传递数据源，整体案例代码如下：
 
@@ -1080,7 +1051,7 @@ public Object doRouter(ProceedingJoinPoint jp, DBRouter dbRouter) throws Throwab
 -   当计算完总长度上的一个索引位置后，还需要把这个位置折算到库表中，看看总体长度的索引因为落到哪个库哪个表。
 -   最后是把这个计算的索引信息存放到 ThreadLocal 中，用于传递在方法调用过程中可以提取到索引信息。
 
-### 5. Mybatis 拦截器处理分表
+### 6. Mybatis 拦截器处理分表
 
 -   最开始考虑直接在Mybatis对应的表 `INSERT INTO user_strategy_export`**_${tbIdx}** 添加字段的方式处理分表。但这样看上去并不优雅，不过也并不排除这种使用方式，仍然是可以使用的。
 -   那么我们可以基于 Mybatis 拦截器进行处理，通过拦截 SQL 语句动态修改添加分表信息，再设置回 Mybatis 执行 SQL 中。
@@ -1135,3 +1106,4 @@ public class DynamicMybatisPlugin implements Interceptor {
 
 -   实现 Interceptor 接口的 intercept 方法，获取StatementHandler、通过自定义注解判断是否进行分表操作、获取SQL并替换SQL表名 USER 为 USER_03、最后通过反射修改SQL语句
 -   此处会用到正则表达式拦截出匹配的sql，`(from|into|update)[\\s]{1,}(\\w{1,})`
+
