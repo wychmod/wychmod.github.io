@@ -918,6 +918,29 @@ public class DBContextHolder {
 ```
 -   这里使用了两个本地线程类记录分库、分表的路由结果。
 
+### 3. 动态数据源类
+
+```java
+```java
+public class DynamicDataSource extends AbstractRoutingDataSource {
+
+    @Override
+    protected Object determineCurrentLookupKey() {
+        return "db" + DBContextHolder.getDBKey();
+    }
+
+}
+```
+
+-   这里的动态数据源需要继承 `AbstractRoutingDataSource` 实现 `determineCurrentLookupKey` 方法。
+-   在这个方法中使用 DBContextHolder.getDBKey()，获取路由设置到 ThreadLocal 的结果。
+
+### 4. 配置加载和创建数据源
+
+```java
+
+```
+
 ### 2. 解析路由配置
 
 ![](../../youdaonote-images/Pasted%20image%2020221101183419.png)
