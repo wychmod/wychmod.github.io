@@ -905,6 +905,19 @@ public interface IUserDao {
 -   首先我们需要自定义一个注解，用于放置在需要被数据库路由的方法上。
 -   它的使用方式是通过方法配置注解，就可以被我们指定的 AOP 切面进行拦截，拦截后进行相应的数据库路由计算和判断，并切换到相应的操作数据源上。
 
+### 2. 本地线程设置路由结果
+
+```java
+public class DBContextHolder {
+
+    private static final ThreadLocal<String> dbKey = new ThreadLocal<String>();
+    private static final ThreadLocal<String> tbKey = new ThreadLocal<String>();
+
+    //...get/set
+}
+```
+-   这里使用了两个本地线程类记录分库、分表的路由结果。
+
 ### 2. 解析路由配置
 
 ![](../../youdaonote-images/Pasted%20image%2020221101183419.png)
