@@ -1901,7 +1901,7 @@ Java 注解可以分为 3 类：
 3. 用元注解配置注解。
 
 注解通过@interface关键字来定义。例如，我们想要定义一个可用于检查字符串长度的注解，实例如下：
-```
+```java
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
