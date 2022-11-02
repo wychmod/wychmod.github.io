@@ -938,36 +938,78 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 ### 4. 配置加载和创建数据源
 
 ```java
+@Configuration
+public class DataSourceAutoConfig implements EnvironmentAware {
 
-```
+    private Map<String, Map<String, Object>> dataSourceMap = new HashMap<>();
 
-### 2. 解析路由配置
+    private int dbCount;  //分库数
+    private int tbCount;  //分表数
 
-![](../../youdaonote-images/Pasted%20image%2020221101183419.png)
-
--   以上就是我们实现完数据库路由组件后的一个数据源配置，在分库分表下的数据源使用中，都需要支持多数据源的信息配置，这样才能满足不同需求的扩展。
--   对于这种自定义较大的信息配置，就需要使用到 `org.springframework.context.EnvironmentAware` 接口，来获取配置文件并提取需要的配置信息。
-
-**数据源配置提取**
-
-```java
-@Override
-public void setEnvironment(Environment environment) {
-    String prefix = "router.jdbc.datasource.";    
-
-    dbCount = Integer.valueOf(environment.getProperty(prefix + "dbCount"));
-    tbCount = Integer.valueOf(environment.getProperty(prefix + "tbCount"));    
-
-    String dataSources = environment.getProperty(prefix + "list");
-    for (String dbInfo : dataSources.split(",")) {
-        Map<String, Object> dataSourceProps = PropertyUtil.handle(environment, prefix + dbInfo, Map.class);
-        dataSourceMap.put(dbInfo, dataSourceProps);
+    @Bean
+    public DBRouterConfig dbRouterConfig() {
+        return new DBRouterConfig(dbCount, tbCount);
     }
+
+    @Bean
+    public DataSource dataSource() {
+        // 创建数据源
+        Map<Object, Object> targetDataSources = new HashMap<>();
+        for (String dbInfo : dataSourceMap.keySet()) {
+            Map<String, Object> objMap = dataSourceMap.get(dbInfo);
+            targetDataSources.put(dbInfo, new DriverManagerDataSource(objMap.get("url").toString(), objMap.get("username").toString(), objMap.get("password").toString()));
+        }
+        // 设置数据源
+        DynamicDataSource dynamicDataSource = new DynamicDataSource();
+        dynamicDataSource.setTargetDataSources(targetDataSources);
+        return dynamicDataSource;
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        String prefix = "router.jdbc.datasource.";
+
+        dbCount = Integer.valueOf(environment.getProperty(prefix + "dbCount"));
+        tbCount = Integer.valueOf(environment.getProperty(prefix + "tbCount"));
+
+        String dataSources = environment.getProperty(prefix + "list");
+        for (String dbInfo : dataSources.split(",")) {
+            Map<String, Object> dataSourceProps = PropertyUtil.handle(environment, prefix + dbInfo, Map.class);
+            dataSourceMap.put(dbInfo, dataSourceProps);
+        }
+    }
+
 }
 ```
 
--   prefix，是数据源配置的开头信息，你可以自定义需要的开头内容。
--   dbCount、tbCount、dataSources、dataSourceProps，都是对配置信息的提取，并存放到 dataSourceMap 中便于后续使用。
+整个 DataSourceAutoConfig，数据源自动加载配置类，提供了三块功能，如下：
+
+-   `setEnvironment`，读取自定义配置，因为我们要设置的是一个在 yml 配置多组数据源，这个方法就是为了解析下面的配置信息。
+    
+    ```xml
+    router:
+         jdbc:
+           datasource:
+             dbCount: 2
+             tbCount: 4
+             list: db01,db02
+             db01:
+               driver-class-name: com.mysql.jdbc.Driver
+               url: jdbc:mysql://127.0.0.1:3306/bugstack_01?useUnicode=true
+               username: root
+               password: 123456
+             db02:
+               driver-class-name: com.mysql.jdbc.Driver
+               url: jdbc:mysql://127.0.0.1:3306/bugstack_02?useUnicode=true
+               username: root
+               password: 123456
+    ```
+    
+-   `dataSource`，方法是为了创建动态数据源，这个数据源就会被 MyBatis SpringBoot Starter 中 `SqlSessionFactory sqlSessionFactory(DataSource dataSource)` 注入使用。
+    
+-   `dbRouterConfig()`，主要为了把分库分表配置生成一个 Bean 对象，方便在切面类中进行注入使用。
+
+
 
 ### 3. 数据源切换
 
