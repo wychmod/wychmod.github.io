@@ -1117,3 +1117,40 @@ public class DynamicMybatisPlugin implements Interceptor {
 -   db-router-spring-boot-starter 扩展和完善自研简单版数据库路由组件，拆解路由策略满足编程式路由配合编程式事务一起使用。
 -   抽奖策略ID字段 strategy_id 用于关联活动与抽奖系统的关系。_也就是用户领取完活动后，可以通过活动表中的抽奖策略ID继续执行抽奖操作_
 -   基于模板模式开发领取活动领域，因为在领取活动中需要进行活动的日期、库存、状态等校验，并处理扣减库存、添加用户领取信息、封装结果等一系列流程操作，因此使用抽象类定义模板模式更为妥当
+
+## 二、自研组件(DBRouter) - 扩展编程式事务
+
+-   问题：如果一个场景需要在同一个事务下，连续操作不同的DAO操作，那么就会涉及到在 DAO 上使用注解 @DBRouter(key = "uId") 反复切换路由的操作。虽然都是一个数据源，但这样切换后，事务就没法处理了。
+-   解决：这里选择了一个较低的成本的解决方案，就是把数据源的切换放在事务处理前，而事务操作也通过编程式编码进行处理。_具体可以参考 db-router-spring-boot-starter 源码_
+
+### 1. 拆解路由算法策略，单独提供路由方法
+
+```java
+public interface IDBRouterStrategy {
+    void doRouter(String dbKeyAttr);
+    void clear();
+}
+```
+
+- 把路由算法拆解出来，无论是切面中还是硬编码，都通过这个方法进行计算路由
+
+### 2. 配置事务处理对象
+
+```java
+@Bean
+public IDBRouterStrategy dbRouterStrategy(DBRouterConfig dbRouterConfig) {
+    return new DBRouterStrategyHashCode(dbRouterConfig);
+}
+@Bean
+public TransactionTemplate transactionTemplate(DataSource dataSource) {
+    DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+    dataSourceTransactionManager.setDataSource(dataSource);
+    TransactionTemplate transactionTemplate = new TransactionTemplate();
+    transactionTemplate.setTransactionManager(dataSourceTransactionManager);
+    transactionTemplate.setPropagationBehaviorName("PROPAGATION_REQUIRED");
+    return transactionTemplate;
+}
+```
+
+-   创建路由策略对象，便于切面和硬编码注入使用。
+-   创建事务对象，用于编程式事务引入
