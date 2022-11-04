@@ -1118,6 +1118,8 @@ public class DynamicMybatisPlugin implements Interceptor {
 -   抽奖策略ID字段 strategy_id 用于关联活动与抽奖系统的关系。_也就是用户领取完活动后，可以通过活动表中的抽奖策略ID继续执行抽奖操作_
 -   基于模板模式开发领取活动领域，因为在领取活动中需要进行活动的日期、库存、状态等校验，并处理扣减库存、添加用户领取信息、封装结果等一系列流程操作，因此使用抽象类定义模板模式更为妥当
 
+![](../../youdaonote-images/Pasted%20image%2020221104221008.png)
+
 ## 二、自研组件(DBRouter) - 扩展编程式事务
 
 -   问题：如果一个场景需要在同一个事务下，连续操作不同的DAO操作，那么就会涉及到在 DAO 上使用注解 @DBRouter(key = "uId") 反复切换路由的操作。虽然都是一个数据源，但这样切换后，事务就没法处理了。
@@ -1154,3 +1156,104 @@ public TransactionTemplate transactionTemplate(DataSource dataSource) {
 
 -   创建路由策略对象，便于切面和硬编码注入使用。
 -   创建事务对象，用于编程式事务引入
+
+## 三、活动领取模板抽象类
+
+```java
+public abstract class BaseActivityPartake extends ActivityPartakeSupport implements IActivityPartake {
+    @Override
+    public PartakeResult doPartake(PartakeReq req) {
+        // 查询活动账单
+        ActivityBillVO activityBillVO = super.queryActivityBill(req);
+        // 活动信息校验处理【活动库存、状态、日期、个人参与次数】
+        Result checkResult = this.checkActivityBill(req, activityBillVO);
+        if (!Constants.ResponseCode.SUCCESS.getCode().equals(checkResult.getCode())) {
+            return new PartakeResult(checkResult.getCode(), checkResult.getInfo());
+        }
+        // 扣减活动库存【目前为直接对配置库中的 lottery.activity 直接操作表扣减库存，后续优化为Redis扣减】
+        Result subtractionActivityResult = this.subtractionActivityStock(req);
+        if (!Constants.ResponseCode.SUCCESS.getCode().equals(subtractionActivityResult.getCode())) {
+            return new PartakeResult(subtractionActivityResult.getCode(), subtractionActivityResult.getInfo());
+        }
+        // 领取活动信息【个人用户把活动信息写入到用户表】
+        Result grabResult = this.grabActivity(req, activityBillVO);
+        if (!Constants.ResponseCode.SUCCESS.getCode().equals(grabResult.getCode())) {
+            return new PartakeResult(grabResult.getCode(), grabResult.getInfo());
+        }
+        // 封装结果【返回的策略ID，用于继续完成抽奖步骤】
+        PartakeResult partakeResult = new PartakeResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo());
+        partakeResult.setStrategyId(activityBillVO.getStrategyId());
+        return partakeResult;
+    }
+    /**
+     * 活动信息校验处理，把活动库存、状态、日期、个人参与次数
+     *
+     * @param partake 参与活动请求
+     * @param bill    活动账单
+     * @return 校验结果
+     */
+    protected abstract Result checkActivityBill(PartakeReq partake, ActivityBillVO bill);
+    /**
+     * 扣减活动库存
+     *
+     * @param req 参与活动请求
+     * @return 扣减结果
+     */
+    protected abstract Result subtractionActivityStock(PartakeReq req);
+    /**
+     * 领取活动
+     *
+     * @param partake 参与活动请求
+     * @param bill    活动账单
+     * @return 领取结果
+     */
+    protected abstract Result grabActivity(PartakeReq partake, ActivityBillVO bill);
+}
+```
+
+-   抽象类 BaseActivityPartake 继承数据支撑类并实现接口方法 IActivityPartake#doPartake
+-   在领取活动 doPartake 方法中，先是通过父类提供的数据服务，获取到`活动账单`，再定义三个抽象方法：活动信息校验处理、扣减活动库存、领取活动，依次顺序解决活动的领取操作。
+
+## 四、领取活动编程式事务处理
+
+
+```java
+@Service
+public class ActivityPartakeImpl extends BaseActivityPartake {
+
+    private Logger logger = LoggerFactory.getLogger(ActivityPartakeImpl.class);
+
+    @Override
+    protected Result grabActivity(PartakeReq partake, ActivityBillVO bill) {
+        try {
+            dbRouter.doRouter(partake.getuId());
+            return transactionTemplate.execute(status -> {
+                try {
+                    // 扣减个人已参与次数
+                    int updateCount = userTakeActivityRepository.subtractionLeftCount(bill.getActivityId(), bill.getActivityName(), bill.getTakeCount(), bill.getUserTakeLeftCount(), partake.getuId(), partake.getPartakeDate());
+                    if (0 == updateCount) {
+                        status.setRollbackOnly();
+                        logger.error("领取活动，扣减个人已参与次数失败 activityId：{} uId：{}", partake.getActivityId(), partake.getuId());
+                        return Result.buildResult(Constants.ResponseCode.NO_UPDATE);
+                    }
+
+                    // 插入领取活动信息
+                    Long takeId = idGeneratorMap.get(Constants.Ids.SnowFlake).nextId();
+                    userTakeActivityRepository.takeActivity(bill.getActivityId(), bill.getActivityName(), bill.getTakeCount(), bill.getUserTakeLeftCount(), partake.getuId(), partake.getPartakeDate(), takeId);
+                } catch (DuplicateKeyException e) {
+                    status.setRollbackOnly();
+                    logger.error("领取活动，唯一索引冲突 activityId：{} uId：{}", partake.getActivityId(), partake.getuId(), e);
+                    return Result.buildResult(Constants.ResponseCode.INDEX_DUP);
+                }
+                return Result.buildSuccessResult();
+            });
+        } finally {
+            dbRouter.clear();
+        }
+    }
+
+}
+```
+
+-   dbRouter.doRouter(partake.getuId()); 是编程式处理分库分表，如果在不需要使用事务的场景下，直接使用注解配置到DAO方法上即可。_两个方式不能混用_
+-   transactionTemplate.execute 是编程式事务，用的就是路由中间件提供的事务对象，通过这样的方式也可以更加方便的处理细节的回滚，而不需要抛异常处理。
