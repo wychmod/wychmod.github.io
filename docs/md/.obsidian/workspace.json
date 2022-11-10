@@ -4,41 +4,8 @@
     "type": "split",
     "children": [
       {
-        "id": "90e926a299e8b342",
-        "type": "tabs",
-        "dimension": 50.33444816053512,
-        "children": [
-          {
-            "id": "4154a632b18e3596",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "人工智能/Yolov5核心基础知识.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "5d7fbbc284d578c4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          }
-        ],
-        "currentTab": 1
-      },
-      {
         "id": "2d812d2fa2a1b86c",
         "type": "tabs",
-        "dimension": 49.66555183946488,
         "children": [
           {
             "id": "187cf157daa6af6c",
@@ -46,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "多线程与高并发/多线程与并发编程.md",
                 "mode": "preview",
                 "source": false
               }
@@ -93,8 +60,8 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "getAnnotation",
-                "matchingCase": false,
+                "query": "里氏替换",
+                "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
                 "extraContext": false,
@@ -115,8 +82,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -132,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "多线程与高并发/多线程与并发编程.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "多线程与高并发/多线程与并发编程.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -172,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
+                "file": "多线程与高并发/多线程与并发编程.md"
               }
             }
           },
@@ -189,22 +155,19 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 310.5
   },
-  "ribbon": {
-    "mostRecentAction": ""
-  },
-  "active": "5d7fbbc284d578c4",
+  "active": "187cf157daa6af6c",
   "lastOpenFiles": [
     "java/Java学习路线/Java基本功.md",
+    "多线程与高并发/多线程与并发编程.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "多线程与高并发/JUC.md",
+    "多线程与高并发/多线程与高并发.md",
+    "Index.md",
+    "人工智能/Yolov5核心基础知识.md",
     "java/spring系列学习/ssm整合学习-Spring.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
-    "java/springboot/SpringBoot实战和原理.md",
-    "java/spring系列学习/ssm整合学习-SpringMVC.md",
-    "Python/Python高级/3.类和对象.md",
-    "Django笔记/django 项目开发笔记.md",
-    "Django笔记/Djangoday1整体跑通.md",
-    "Django笔记/Django-2视图.md"
+    "java/springboot/SpringBoot实战和原理.md"
   ]
 }
