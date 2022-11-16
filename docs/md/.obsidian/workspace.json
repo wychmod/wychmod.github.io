@@ -60,7 +60,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "设计模式",
+                "query": "策略模式",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -157,7 +157,7 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "active": "187cf157daa6af6c",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "多线程与高并发/多线程与并发编程.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
