@@ -358,3 +358,123 @@ PyTypeObject PyFloat_Type = {
 
 注意到 _ob_type_ 指针指向 _PyType_Type_ ，这也是一个静态定义的全局变量。 由此可见，代表“ **类型的类型** ” 即 _type_ 的那个对象应该就是 _PyType_Type_ 了。
 
+## PyType_Type，类型的类型
+
+我们初步考察了 _float_ 类型对象，知道它在 _C_ 语言层面是 _PyFloat_Type_ 全局静态变量。 类型是一种对象，它也有自己的类型，也就是 _Python_ 中的 _type_ ：
+
+```python
+>>> float.__class__
+<class 'type'>
+```
+
+自定义类型也是如此：
+
+```python
+>>> class Foo(object):
+...     pass
+...
+>>> Foo.__class__
+<class 'type'>
+```
+
+那么， _type_ 在 _C_ 语言层面又长啥样呢？
+
+围观 _PyFloat_Type_ 时，我们通过 _ob_type_ 字段揪住了 _PyType_Type_ 。 的确，它就是 _type_ 的肉身。 _PyType_Type_ 在 _Object/typeobject.c_ 中定义：
+
+```c
+PyTypeObject PyType_Type = {
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
+    "type",                                     /* tp_name */
+    sizeof(PyHeapTypeObject),                   /* tp_basicsize */
+    sizeof(PyMemberDef),                        /* tp_itemsize */
+    (destructor)type_dealloc,                   /* tp_dealloc */
+
+    // ...
+    (reprfunc)type_repr,                        /* tp_repr */
+
+    // ...
+};
+```
+
+内建类型和自定义类对应的 _PyTypeObject_ 对象都是这个通过 _PyType_Type_ 创建的。 _PyType_Type_ 在 _Python_ 的类型机制中是一个至关重要的对象，它是所有类型的类型，称为 **元类型** ( _meta class_ )。 借助元类型，你可以实现很多神奇的高级操作。
+
+注意到， _PyType_Type_ 将自己的 _ob_type_ 字段设置成它自己(第 _2_ 行)，这跟我们在 _Python_ 中看到的行为是吻合的：
+
+```python
+>>> type.__class__
+<class 'type'>
+>>> type.__class__ is type
+True
+```
+
+至此，元类型 type 在对象体系里的位置非常清晰了：
+
+![](../../youdaonote-images/Pasted%20image%2020221205201129.png)
+
+## PyBaseObject_Type，类型之基
+
+_object_ 是另一个特殊的类型，它是所有类型的基类。 那么，怎么找到它背后的实体呢？ 理论上，通过 _PyFloat_Type_ 中 _tp_base_ 字段顺藤摸瓜即可。
+
+然而，我们发现这个字段在并没有初始化：
+
+```c
+0,                                          /* tp_base */
+```
+
+这又是什么鬼？
+
+接着查找代码中 _PyFloat_Type_ 出现的地方，我们在 _Object/object.c_ 发现了蛛丝马迹：
+
+```c
+if (PyType_Ready(&PyFloat_Type) < 0)
+    Py_FatalError("Can't initialize float type");
+```
+
+敢情 _PyFloat_Type_ 静态定义后还是个半成品呀！ _PyType_Ready_ 对它做进一步加工，将 _PyFloat_Type_ 中 _tp_base_ 字段初始化成 _PyBaseObject_Type_ ：
+
+```c
+int
+PyType_Ready(PyTypeObject *type)
+{
+    // ...
+
+    base = type->tp_base;
+    if (base == NULL && type != &PyBaseObject_Type) {
+        base = type->tp_base = &PyBaseObject_Type;
+        Py_INCREF(base);
+    }
+
+    // ...
+}
+```
+
+_PyBaseObject_Type_ 就是 _object_ 背后的实体，先一睹其真容：
+
+```c
+PyTypeObject PyBaseObject_Type = {
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
+    "object",                                   /* tp_name */
+    sizeof(PyObject),                           /* tp_basicsize */
+    0,                                          /* tp_itemsize */
+    object_dealloc,                             /* tp_dealloc */
+
+    // ...
+    object_repr,                                /* tp_repr */
+};
+```
+
+注意到， _ob_type_ 字段指向 _PyType_Type_ 跟 _object_ 在 _Python_ 中的行为时相吻合的：
+
+```python
+>>> object.__class__
+<class 'type'>
+```
+
+又注意到 _PyType_Ready_ 函数初始化 _PyBaseObject_Type_ 时，不设置 _tp_base_ 字段。 因为继承链必须有一个终点，不然对象沿着继承链进行属性查找时便陷入死循环。
+
+```python
+>>> print(object.__base__)
+None
+```
+
+至此，我们完全弄清了 _Python_ 对象体系中的所有实体以及关系，得到一幅完整的图画：
