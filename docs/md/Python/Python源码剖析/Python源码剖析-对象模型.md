@@ -478,3 +478,5 @@ None
 ```
 
 至此，我们完全弄清了 _Python_ 对象体系中的所有实体以及关系，得到一幅完整的图画：
+
+![](../../youdaonote-images/Pasted%20image%2020221205202725.png)
