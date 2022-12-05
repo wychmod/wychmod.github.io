@@ -164,3 +164,59 @@ OverflowError: (34, 'Result too large')
 
 > 由于 _Python_ 是由 _C_ 语言实现的，因此 _Python_ 对象在 _C_ 语言层面应该是一个 **结构体** ，组织对象占用的内存。
 
+在 _Python_ 内部，对象都由 _PyObject_ 结构体表示，对象引用则是指针 _PyObject_ * 。 _PyObject_ 结构体定义于头文件 _object.h_ ，路径为 _Include/object.h_ ，代码如下：
+
+```python
+typedef struct _object {
+    _PyObject_HEAD_EXTRA
+    Py_ssize_t ob_refcnt;
+    struct _typeobject *ob_type;
+} PyObject;
+```
+
+除了 __PyObject_HEAD_EXTRA_ 宏，结构体包含以下两个字段：
+
+-   **引用计数** ( ob_refcnt )
+-   **类型指针** ( ob_type )
+
+**引用计数** 很好理解：对象被其他地方引用时加一，引用解除时减一； 当引用计数为零，便可将对象回收，这是最简单的垃圾回收机制。 **类型指针** 指向对象的 **类型对象** ，**类型对象** 描述 **实例对象** 的数据及行为。
+
+回过头来看 __PyObject_HEAD_EXTRA_ 宏的定义，同样在 _Include/object.h_ 头文件内：
+
+```c
+#ifdef Py_TRACE_REFS
+/* Define pointers to support a doubly-linked list of all live heap objects. */
+#define _PyObject_HEAD_EXTRA            \
+    struct _object *_ob_next;           \
+    struct _object *_ob_prev;
+
+#define _PyObject_EXTRA_INIT 0, 0,
+
+#else
+#define _PyObject_HEAD_EXTRA
+#define _PyObject_EXTRA_INIT
+#endif
+```
+
+如果 _Py_TRACE_REFS_ 有定义，宏展开为两个指针，看名字是用来实现 **双向链表** 的：
+
+```c
+struct _object *_ob_next;
+struct _object *_ob_prev;
+```
+
+结合注释，双向链表用于跟踪所有 **活跃堆对象** ，一般不启用，不深入介绍。
+
+对于 **变长对象** ，需要在 _PyObject_ 基础上加入长度信息，这就是 _PyVarObject_ ：
+
+```c
+typedef struct {
+    PyObject ob_base;
+    Py_ssize_t ob_size; /* Number of items in variable part */
+} PyVarObject;
+```
+
+变长对象比普通对象多一个字段 _ob_size_ ，用于记录元素个数：
+
+![图片描述](http://img1.sycdn.imooc.com/5eb908c40001a82807410317.png)
+
