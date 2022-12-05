@@ -142,3 +142,91 @@ type_call(PyTypeObject *type, PyObject *args, PyObject *kwds)
 2.  必要时调用类型对象 _tp_init_ 函数指针对对象进行 **初始化** (第 _15_ 行)；
 
 至此，对象的创建过程已经非常清晰了：
+
+![](../../youdaonote-images/Pasted%20image%2020221205225707.png)
+
+总结一下，_float_ 类型对象是 **可调用对象** ，调用 _float_ 即可创建实例对象：
+
+1.  调用 _float_ ， _Python_ 最终执行其类型对象 _type_ 的 _tp_call_ 函数；
+2.  _tp_call_ 函数调用 _float_ 的 _tp_new_ 函数为实例对象分配 **内存空间** ；
+3.  _tp_call_ 函数必要时进一步调用 _tp_init_ 函数对实例对象进行 **初始化** ；
+
+## 对象的多态性
+
+_Python_ 创建一个对象，比如 _PyFloatObject_ ，会分配内存，并进行初始化。 此后， _Python_ 内部统一通过一个 _PyObject_* 变量来保存和维护这个对象，而不是通过 _PyFloatObject_* 变量。
+
+通过 _PyObject_* 变量保存和维护对象，可以实现更抽象的上层逻辑，而不用关心对象的实际类型和实现细节。 以对象哈希值计算为例，假设有这样一个函数接口：
+
+```c
+Py_hash_t
+PyObject_Hash(PyObject *v);
+```
+
+该函数可以计算任意对象的哈希值，不管对象类型是啥。 例如，计算浮点对象哈希值：
+
+```c
+PyObject *fo = PyFloatObject_FromDouble(3.14);
+PyObject_Hash(fo);
+```
+
+对于其他类型，例如整数对象，也是一样的：
+
+```c
+PyObject *lo = PyLongObject_FromLong(100);
+PyObject_Hash(lo);
+```
+
+然而，对象类型不同，其行为也千差万别，哈希值计算方法便是如此。 _PyObject_Hash_ 函数如何解决这个问题呢？ 到 _Object/object.c_ 中寻找答案：
+
+```c
+Py_hash_t
+PyObject_Hash(PyObject *v)
+{
+    PyTypeObject *tp = Py_TYPE(v);
+    if (tp->tp_hash != NULL)
+        return (*tp->tp_hash)(v);
+    /* To keep to the general practice that inheriting
+    * solely from object in C code should work without
+    * an explicit call to PyType_Ready, we implicitly call
+    * PyType_Ready here and then check the tp_hash slot again
+    */
+    if (tp->tp_dict == NULL) {
+        if (PyType_Ready(tp) < 0)
+            return -1;
+        if (tp->tp_hash != NULL)
+            return (*tp->tp_hash)(v);
+    }
+    /* Otherwise, the object can't be hashed */
+    return PyObject_HashNotImplemented(v);
+}
+```
+
+函数先通过 _ob_type_ 指针找到对象的类型 (第 _4_ 行)； 然后通过类型对象的 _tp_hash_ 函数指针，调用对应的哈希值计算函数 (第 _6_ 行)。 换句话讲， _PyObject_Hash_ 根据对象的类型，调用不同的函数版本。 这不就是 **多态** 吗？
+
+通过 _ob_type_ 字段， _Python_ 在 _C_ 语言层面实现了对象的 **多态** 特性， 思路跟 _C++_ 中的 **虚表指针** 有异曲同工之妙。
+
+## 对象的行为
+
+不同对象的行为不同，比如哈希值计算方法就不同，由类型对象中 _tp_hash_ 字段决定。 除了 _tp_hash_ ，我们看到 _PyTypeObject_ 结构体还定义了很多函数指针，这些指针最终都会指向某个函数，或者为空。 这些函数指针可以看做是 **类型对象** 中定义的 **操作** ，这些操作决定对应 **实例对象** 在运行时的 **行为** 。
+
+尽管如此，不同对象也有一些共性。 举个例子，**整数对象** 和 **浮点对象** 都支持加减乘除等 **数值型操作** ：
+
+```python
+>>> 1 + 2
+3
+>>> 3.14 * 3.14
+9.8596
+```
+
+**元组对象** _tuple_ 和 **列表对象** _list_ 都支持下标操作：
+
+```python
+>>> t = ('apple', 'banana', 'car', 'dog')
+>>> t[-1]
+'dog'
+>>> l = ['alpha', 'beta']
+>>> l[-1]
+'beta'
+```
+
+因此，以对象行为为依据，可以对对象进行分类：
