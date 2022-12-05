@@ -218,5 +218,117 @@ typedef struct {
 
 变长对象比普通对象多一个字段 _ob_size_ ，用于记录元素个数：
 
-![图片描述](http://img1.sycdn.imooc.com/5eb908c40001a82807410317.png)
+![](../../youdaonote-images/Pasted%20image%2020221205191602.png)
 
+至于具体对象，视其大小是否固定，需要包含头部 _PyObject_ 或 _PyVarObject_ 。 为此，头文件准备了两个宏定义，方便其他对象使用：
+
+```c
+#define PyObject_HEAD          PyObject ob_base;
+#define PyObject_VAR_HEAD      PyVarObject ob_base;
+```
+
+例如，对于大小固定的 **浮点对象** ，只需在 _PyObject_ 头部基础上， 用一个 **双精度浮点数** _double_ 加以实现：
+
+```c
+typedef struct {
+    PyObject_HEAD
+
+    double ob_fval;
+} PyFloatObject;
+```
+
+![](../../youdaonote-images/Pasted%20image%2020221205191627.png)
+
+而对于大小不固定的 **列表对象** ，则需要在 _PyVarObject_ 头部基础上， 用一个动态数组加以实现，数组存储列表包含的对象，即 _PyObject_ 指针：
+
+```c
+typedef struct {
+    PyObject_VAR_HEAD
+
+    PyObject **ob_item;
+    Py_ssize_t allocated;
+} PyListObject;
+```
+
+![图片描述](http://img1.sycdn.imooc.com/5eb9092600013a1e10680535.png)
+
+如图， _PyListObject_ 底层由一个数组实现，关键字段是以下 _3_ 个：
+
+-   _ob_item_ ，指向 **动态数组** 的指针，数组保存元素对象指针；
+-   _allocated_ ，动态数组总长度，即列表当前的 **容量** ；
+-   _ob_size_ ，当前元素个数，即列表当前的 **长度** ；
+
+列表容量不足时， _Python_ 会自动扩容，具体做法在讲解 _list_ 源码时再详细介绍。
+
+最后，介绍两个用于初始化对象头部的宏定义。 其中，_PyObject_HEAD_INIT_ 一般用于 **定长对象** ，将引用计数 _ob_refcnt_ 设置为 _1_ 并将对象类型 _ob_type_ 设置成给定类型：
+
+```c
+#define PyObject_HEAD_INIT(type)        \
+    { _PyObject_EXTRA_INIT              \
+    1, type },
+```
+
+_PyVarObject_HEAD_INIT_ 在 _PyObject_HEAD_INIT_ 基础上进一步设置 **长度字段** _ob_size_ ，一般用于 **变长对象** ：
+
+```c
+#define PyVarObject_HEAD_INIT(type, size)       \
+    { PyObject_HEAD_INIT(type) size },
+```
+
+## PyTypeObject，类型的基石
+
+在 _PyObject_ 结构体，我们看到了 _Python_ 中所有对象共有的信息。 对于内存中的任一个对象，不管是何类型，它刚开始几个字段肯定符合我们的预期： **引用计数** 、 **类型指针** 以及变长对象特有的 **元素个数** 。
+
+随着研究不断深入，我们发现有一些棘手的问题没法回答：
+
+-   不同类型的对象所需内存空间不同，创建对象时从哪得知内存信息呢？
+-   对于给定对象，怎么判断它支持什么操作呢？
+
+对于我们初步解读过的 _PyFloatObject_ 和 _PyListObject_ ，并不包括这些信息。 事实上，这些作为对象的 **元信息** ，应该由一个独立实体保存，与对象所属 **类型** 密切相关。
+
+注意到， _PyObject_ 中包含一个指针 _ob_type_ ，指向一个 **类型对象** ，秘密就藏在这里。类型对象 _PyTypeObject_ 也在 _Include/object.h_ 中定义，字段较多，只讨论关键部分：
+
+```c
+typedef struct _typeobject {
+    PyObject_VAR_HEAD
+    const char *tp_name; /* For printing, in format "<module>.<name>" */
+    Py_ssize_t tp_basicsize, tp_itemsize; /* For allocation */
+
+    /* Methods to implement standard operations */
+    destructor tp_dealloc;
+    printfunc tp_print;
+
+    getattrfunc tp_getattr;
+    setattrfunc tp_setattr;
+
+    // ...
+    /* Attribute descriptor and subclassing stuff */
+    struct _typeobject *tp_base;
+
+    // ......
+} PyTypeObject;
+```
+
+可见 **类型对象** _PyTypeObject_ 是一个 **变长对象** ，包含变长对象头部。 专有字段有：
+
+-   **类型名称** ，即 _tp_name_ 字段；
+-   类型的继承信息，例如 _tp_base_ 字段指向基类对象；
+-   创建实例对象时所需的 **内存信息** ，即 _tp_basicsize_ 和 _tp_itemsize_ 字段；
+-   该类型支持的相关 **操作信息** ，即 _tp_print_ 、 _tp_getattr_ 等函数指针；
+
+_PyTypeObject_ 就是 **类型对象** 在 _Python_ 中的表现形式，对应着面向对象中“**类**”的概念。 _PyTypeObject_ 保存着对象的 **元信息** ，描述对象的 **类型** 。
+
+接下来，以 **浮点** 为例，考察 **类型对象** 和 **实例对象** 在内存中的形态和关系：
+
+```python
+>>> float
+<class 'float'>
+>>> pi = 3.14
+>>> e = 2.71
+>>> type(pi) is float
+True
+```
+
+_float_ 为浮点类型对象，系统中只有唯一一个，保存了所有浮点实例对象的元信息。 而浮点实例对象就有很多了，圆周率 _pi_ 是一个，自然对数 _e_ 是另一个，当然还有其他。
+
+代码中各个对象在内存的形式如下图所示：
