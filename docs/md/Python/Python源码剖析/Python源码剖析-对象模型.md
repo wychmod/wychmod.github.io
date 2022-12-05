@@ -332,3 +332,29 @@ True
 _float_ 为浮点类型对象，系统中只有唯一一个，保存了所有浮点实例对象的元信息。 而浮点实例对象就有很多了，圆周率 _pi_ 是一个，自然对数 _e_ 是另一个，当然还有其他。
 
 代码中各个对象在内存的形式如下图所示：
+
+![](../../youdaonote-images/Pasted%20image%2020221205193700.png)
+
+其中，两个浮点 **实例对象** 都是 _PyFloatObject_ 结构体， 除了公共头部字段 _ob_refcnt_ 和 _ob_type_ ，专有字段 _ob_fval_ 保存了对应的数值。 浮点 **类型对象** 是一个 _PyTypeObject_ 结构体， 保存了类型名、内存分配信息以及浮点相关操作。 实例对象 _ob_type_ 字段指向类型对象， _Python_ 据此判断对象类型， 进而获悉关于对象的元信息，如操作方法等。 再次提一遍，_float_ 、 _pi_ 以及 _e_ 等变量只是一个指向实际对象的指针。
+
+由于浮点 **类型对象** 全局唯一，在 _C_ 语言层面作为一个全局变量静态定义即可，_Python_ 的确就这么做。 浮点类型对象就藏身于 _Object/floatobject.c_ 中， _PyFloat_Type_ 是也：
+
+```c
+PyTypeObject PyFloat_Type = {
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
+    "float",
+    sizeof(PyFloatObject),
+    0,
+    (destructor)float_dealloc,                  /* tp_dealloc */
+
+    // ...
+    (reprfunc)float_repr,                       /* tp_repr */
+
+    // ...
+};
+```
+
+其中，第 _2_ 行初始化 _ob_refcnt_ 、 _ob_type_ 以及 _ob_size_ 三个字段； 第 3 行将 _tp_name_ 字段初始化成类型名称 _float_ ；再往下是各种操作的函数指针。
+
+注意到 _ob_type_ 指针指向 _PyType_Type_ ，这也是一个静态定义的全局变量。 由此可见，代表“ **类型的类型** ” 即 _type_ 的那个对象应该就是 _PyType_Type_ 了。
+
