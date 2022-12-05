@@ -13,13 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-对象模型.md",
+                "file": "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "dae18821a77b8775",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -69,8 +82,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -86,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-对象模型.md",
+                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-对象模型.md",
+                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-对象模型.md"
+                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md"
               }
             }
           },
@@ -145,8 +157,10 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "active": "49f6cd1490124ce8",
+  "active": "dae18821a77b8775",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
+    "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "人工智能/Yolov5核心基础知识.md",
     "Django笔记/django-rest-framework开发笔记.md",
     "系统设计/设计模式.md",
@@ -154,8 +168,6 @@
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "java/Java学习路线/Java基本功.md",
     "多线程与高并发/JUC.md",
-    "多线程与高并发/多线程与高并发.md",
-    "Index.md",
-    "java/spring系列学习/ssm整合学习-Spring.md"
+    "多线程与高并发/多线程与高并发.md"
   ]
 }
