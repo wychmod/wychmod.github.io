@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-3-内建对象float.md",
+                "file": "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
                 "mode": "source",
                 "source": false
               }
@@ -151,19 +151,18 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 310.5,
-    "collapsed": true
+    "width": 310.5
   },
   "active": "695f205afa6a5820",
   "lastOpenFiles": [
     "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
-    "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
-    "Python/Python源码剖析/Python源码剖析-3-内建对象float.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
+    "Python/Python源码剖析/Python源码剖析-3-内建对象float.md",
+    "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Python源码.md",
     "().md",
     "人工智能/Yolov5核心基础知识.md",
