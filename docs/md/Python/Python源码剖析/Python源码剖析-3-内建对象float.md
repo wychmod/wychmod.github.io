@@ -224,3 +224,161 @@ if (op != NULL) {
 如果对 C 语言链表操作不熟悉，可以结合以下图示加以理解：
 
 ![](../../youdaonote-images/Pasted%20image%2020221206204435.png)
+
+对象销毁时， _Python_ 将其缓存在空闲链表中，以备后用。考察 _float_dealloc_ 函数：
+
+```c
+if (numfree >= PyFloat_MAXFREELIST)  {
+    PyObject_FREE(op);
+    return;
+}
+numfree++;
+Py_TYPE(op) = (struct _typeobject *)free_list;
+free_list = op;
+```
+
+1.  第 _1-4_ 行，空闲链表长度达到限制值，调用 _PyObject_FREE_ 回收对象内存；
+2.  第 _5-7_ 行，空闲链表长度暂未达到限制，将对象插到空闲链表头部；
+
+这就是 _Python_ 空闲对象缓存池的全部秘密！ 由于空闲对象缓存池在 **提高对象分配效率** 方面发挥着至关重要的作用， 后续研究其他内置对象时，我们还会经常看到它的身影。
+
+# 对象的行为
+
+_PyFloat_Type_ 中定义了很多函数指针，包括 _tp_repr_ 、 _tp_str_ 、 _tp_hash_ 等。 这些函数指针将一起决定 _float_ 对象的行为，例如 _tp_hash_ 函数决定浮点哈希值的计算：
+
+```c
+>>> pi = 3.14
+>>> hash(pi)
+322818021289917443
+```
+
+_tp_hash_ 函数指针指向 _float_hash_ 函数，实现了针对浮点对象的哈希值算法：
+
+```c
+static Py_hash_t
+float_hash(PyFloatObject *v)
+{
+    return _Py_HashDouble(v->ob_fval);
+}
+```
+
+### 数值操作集
+
+由于加减乘除等数值操作很常见， _Python_ 将其抽象成数值操作集 _PyNumberMethods_ 。 数值操作集 _PyNumberMethods_ 在头文件 _Include/object.h_ 中定义：
+
+```c
+typedef struct {
+    /* Number implementations must check *both*
+    arguments for proper type and implement the necessary conversions
+    in the slot functions themselves. */
+
+    binaryfunc nb_add;
+    binaryfunc nb_subtract;
+    binaryfunc nb_multiply;
+    binaryfunc nb_remainder;
+    binaryfunc nb_divmod;
+    ternaryfunc nb_power;
+    unaryfunc nb_negative;
+    // ...
+
+    binaryfunc nb_inplace_add;
+    binaryfunc nb_inplace_subtract;
+    binaryfunc nb_inplace_multiply;
+    binaryfunc nb_inplace_remainder;
+    ternaryfunc nb_inplace_power;
+    //...
+} PyNumberMethods;
+```
+
+_PyNumberMethods_ 定义了各种数学算子的处理函数，数值计算最终由这些函数执行。 处理函数根据参数个数可以分为： **一元函数** ( _unaryfunc_ )、 **二元函数** ( _binaryfunc_ )等。
+
+回到 _Objects/floatobject.c_ 观察浮点对象数值操作集 _float_as_number_ 是如何初始化的：
+
+```c
+static PyNumberMethods float_as_number = {
+    float_add,          /* nb_add */
+    float_sub,          /* nb_subtract */
+    float_mul,          /* nb_multiply */
+    float_rem,          /* nb_remainder */
+    float_divmod,       /* nb_divmod */
+    float_pow,          /* nb_power */
+    (unaryfunc)float_neg, /* nb_negative */
+    // ...
+
+    0,                  /* nb_inplace_add */
+    0,                  /* nb_inplace_subtract */
+    0,                  /* nb_inplace_multiply */
+    0,                  /* nb_inplace_remainder */
+    0,                  /* nb_inplace_power */
+    // ...
+};
+```
+
+以加法为例，以下语句在 _Python_ 内部最终由 _float_add_ 函数执行：
+
+```python
+>>> a = 1.5
+>>> b = 1.1
+>>> a + b
+2.6
+```
+
+_float_add_ 是一个 **二元函数** ，同样位于 _Objects/floatobject.h_ 中：
+
+```c
+static PyObject *
+float_add(PyObject *v, PyObject *w)
+{
+    double a,b;
+    CONVERT_TO_DOUBLE(v, a);
+    CONVERT_TO_DOUBLE(w, b);
+    PyFPE_START_PROTECT("add", return 0)
+    a = a + b;
+    PyFPE_END_PROTECT(a)
+    return PyFloat_FromDouble(a);
+}
+```
+
+函数实现只有寥寥几步： 首先，将两个参数对象转化成浮点值( _5-6_ 行)； 然后，对两个浮点值求和( _8_ 行)； 最后，创建一个新浮点对象保存计算结果并返回( _10_ 行)。
+
+# 面试题精讲
+
+## 例题一
+
+以下例子中， _area_ 计算过程中有临时对象创建吗？为什么？
+
+```c
+>>> pi = 3.14
+>>> r = 2
+>>> area = pi * r ** 2
+```
+
+Python 如何优化临时对象创建效率？
+
+### 解析
+
+这个语句首先计算半径 _r_ 的平方，中间结果由一个临时对象来保存，假设是 _t_ ； 然后计算圆周率 _pi_ 与 _t_ 的乘积，得到最终结果并赋值给变量 _area_ ； 最后，销毁临时对象 _t_ 。
+
+为了提高浮点对象创建效率， _Python_ 引入了 **空闲对象缓存池** 。
+
+浮点对象销毁后， _Python_ 并不急于回收内存，而是将对象放入一个 **空闲链表** 。 后续需要创建浮点对象时，先到空闲链表中取，省去分配内存的开销。
+
+## 例题二
+
+以下例子中，变量 e 的 id 值为何与已销毁的变量 pi 相同？
+
+```c
+>>> pi = 3.14
+>>> id(pi)
+4565221808
+>>> del pi
+>>> e = 2.71
+>>> id(e)
+4565221808
+```
+
+### 解析
+
+_Python_ 为了优化浮点对象内存分配效率，引入了 **空闲对象缓存池** 。 浮点对象销毁后， _Python_ 并不急于回收对象内存，而是将对象缓存在空闲链表中，以备后用。
+
+例子中， _pi_ 对象销毁后， _Python_ 先不回收对象内存，而是将其插空闲对象链表头部。 当创建浮点对象 _e_ 时， _Python_ 从链表头取出空闲对象来用，省去了申请内存的开销。 换句话讲， _pi_ 对象销毁后被 _e_ 重新利用了，因此 _id_ 值相同也就不奇怪了。
