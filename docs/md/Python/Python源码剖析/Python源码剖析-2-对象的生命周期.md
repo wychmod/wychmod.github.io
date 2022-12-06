@@ -230,3 +230,160 @@ PyObject_Hash(PyObject *v)
 ```
 
 因此，以对象行为为依据，可以对对象进行分类：
+
+![](../../youdaonote-images/Pasted%20image%2020221206105421.png)
+
+_Python_ 便以此为依据，为每个类别都定义了一个 **标准操作集** ：
+
+-   _PyNumberMethods_ 结构体定义了 **数值型** 操作；
+-   _PySequenceMethods_ 结构体定义了 **序列型** 操作；
+-   _PyMappingMethods_ 结构体定义了 **关联型** 操作；
+
+只要 **类型对象** 提供相关 **操作集** ， **实例对象** 便具备对应的 **行为** 。 操作集字段如下：
+
+```c
+typedef struct _typeobject {
+    PyObject_VAR_HEAD
+    const char *tp_name; /* For printing, in format "<module>.<name>" */
+    Py_ssize_t tp_basicsize, tp_itemsize; /* For allocation */
+
+    // ...
+    /* Method suites for standard classes */
+
+    PyNumberMethods *tp_as_number;
+    PySequenceMethods *tp_as_sequence;
+    PyMappingMethods *tp_as_mapping;
+
+    // ...
+    /* Functions to access object as input/output buffer */
+    PyBufferProcs *tp_as_buffer;
+
+    // ...
+} PyTypeObject;
+```
+
+以 _float_ 为例，类型对象 _PyFloat_Type_ 相关字段是这样初始化的：
+
+```c
+static PyNumberMethods float_as_number = {
+    float_add,          /* nb_add */
+    float_sub,          /* nb_subtract */
+    float_mul,          /* nb_multiply */
+    float_rem,          /* nb_remainder */
+    float_divmod,       /* nb_divmod */
+    float_pow,          /* nb_power */
+    // ...
+};
+
+PyTypeObject PyFloat_Type = {
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
+    "float",
+    sizeof(PyFloatObject),
+
+    // ...
+    &float_as_number,                           /* tp_as_number */
+    0,                                          /* tp_as_sequence */
+    0,                                          /* tp_as_mapping */
+
+    // ...
+};
+```
+
+-   字段 _tp_as_number_ 非空，因此 _float_ 对象 **支持数值型操作** ；
+-   字段 _tp_as_sequence_ 为空，因此 _float_ 对象 **不支持序列型操作** ；
+-   字段 _tp_as_mapping_ 为空，因此 _float_ 对象 **不支持关联型操作** ；
+
+注意到， _float_as_number_ 变量中相关函数指针都初始化为对应的 _float_ 版本操作函数。 
+
+## 引用计数
+
+_C/C++_ 赋予程序员极大的自由，可以任意申请内存，并按自己的意图灵活管理。 然而，权利的另一面则对应着 **责任** ，一旦内存不再使用，程序员必须将其释放。 这给程序员带来极大的 **工作负担** ，并导致大量问题： **内存泄露** 、 **野指针** 、 **越界访问** 等。
+
+许多后来兴起的开发语言，如 _Java_ 、 _Golang_ 等，选择 **由语言本身负责内存的管理** 。 **垃圾回收机制** 的引入，程序员摆脱了内存管理的噩梦，可以更专注于业务逻辑。 于此同时，开发人员失去了灵活使用内存的机会，也牺牲了一定的执行效率。
+
+随着垃圾回收机制日益完善，可在大部分对性能要求不苛刻的场景中引入，利大于弊。 _Python_ 也采用垃圾回收机制，代替程序员进行繁重的内存管理，**提升开发效率** 的同时，降低 _bug_ 发生的几率。
+
+_Python_ 垃圾回收机制的关键是对象的 **引用计数** ，它决定了一个对象的生死。 我们知道每个 _Python_ 对象都有一个 _ob_refcnt_ 字段，记录着对象当前的引用计数。 当对象被其他地方引用时， _ob_refcnt_ 加一； 当引用解除时， _ob_refcnt_ 减一。 当 _ob_refcnt_ 为零，说明对象已经没有任何引用了，这时便可将其回收。
+
+_Python_ 对象创建后，引用计数设为 _1_ ：
+
+```python
+>>> a = 3.14
+>>> sys.getrefcount(a)
+2
+```
+
+咦？这里引用计数为啥是 _2_ 呢？
+
+对象作为函数参数传递，需要将引用计数加一，避免对象被提前销毁；函数返回时，再将引用计数减一。 因此，例子中 _getrefcount_ 函数看到的对象引用计数为 _2_ 。
+
+接着，变量赋值让对象多了一个引用，这很好理解：
+
+```python
+>>> b = a
+>>> sys.getrefcount(a)
+3
+```
+
+将对象放在容器对象中，引用计数也增加了，符合预期：
+
+```python
+>>> l = [a]
+>>> l
+[3.14]
+>>> sys.getrefcount(a)
+4
+```
+
+我们将 _b_ 变量删除，引用计数减少了：
+
+```python
+>>> del b
+>>> sys.getrefcount(a)
+3
+```
+
+接着，将列表清空，引用计数进一步下降：
+
+```python
+>>> l.clear()
+>>> sys.getrefcount(a)
+2
+```
+
+最后，将变量 _a_ 删除后，引用计数降为 _0_ ，便不复存在了：
+
+```python
+>>> del a
+```
+
+在 _Python_ 中，很多场景都涉及引用计数的调整，例如：
+
+-   容器操作；
+-   变量赋值；
+-   函数参数传递；
+-   属性操作；
+
+为此， _Python_ 定义了两个非常重要的宏，用于维护对象应用计数。 其中， _Py_INCREF_ 将对象应用计数加一 ( _3_ 行)：
+
+```c
+#define Py_INCREF(op) (                         \
+    _Py_INC_REFTOTAL  _Py_REF_DEBUG_COMMA       \
+    ((PyObject *)(op))->ob_refcnt++)
+```
+
+_Py_DECREF_ 将引用计数减一 ( _5_ 行)，并在引用计数为 _0_ 是回收对象 ( _8_ 行)：
+
+```c
+#define Py_DECREF(op)                                   \
+    do {                                                \
+        PyObject *_py_decref_tmp = (PyObject *)(op);    \
+        if (_Py_DEC_REFTOTAL  _Py_REF_DEBUG_COMMA       \
+        --(_py_decref_tmp)->ob_refcnt != 0)             \
+            _Py_CHECK_REFCNT(_py_decref_tmp)            \
+        else                                            \
+            _Py_Dealloc(_py_decref_tmp);                \
+    } while (0)
+```
+
+当一个对象引用计数为 _0_ ， _Python_ 便调用对象对应的析构函数销毁对象，但这并不意味着对象内存一定会回收。 为了提高内存分配效率， _Python_ 为一些常用对象维护了内存池， 对象回收后内存进入内存池中，以便下次使用，由此 **避免频繁申请、释放内存** 。
