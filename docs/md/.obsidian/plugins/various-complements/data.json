@@ -43,107 +43,11 @@
   "insertCommaAfterFrontMatterCompletion": false,
   "showLogAboutPerformanceInConsole": false,
   "selectionHistoryTree": {
-    "step1": {
-      "step1": {
-        "currentFile": {
+    "Python源码剖析-2-对象的生命周期": {
+      "Python源码剖析-2-对象的生命周期": {
+        "internalLink": {
           "count": 1,
-          "lastUpdated": 1665315678794
-        }
-      }
-    },
-    "Areap": {
-      "Areap": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1665342155572
-        }
-      }
-    },
-    "Dubbo": {
-      "Dubbo": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1666770975147
-        }
-      }
-    },
-    "ThreadLocal": {
-      "ThreadLocal": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667298733320
-        }
-      }
-    },
-    "FutureTask": {
-      "FutureTask": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667637951905
-        }
-      }
-    },
-    "synchronized": {
-      "synchronized": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667646152423
-        }
-      }
-    },
-    "locked": {
-      "locked": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667646157893
-        }
-      }
-    },
-    "sleep": {
-      "sleep": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667655569405
-        }
-      }
-    },
-    "while": {
-      "while": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667655573966
-        }
-      }
-    },
-    "BIOServer": {
-      "BIOServer": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667713335992
-        }
-      }
-    },
-    "start": {
-      "start": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667732454575
-        }
-      }
-    },
-    "String": {
-      "String": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667733123777
-        }
-      }
-    },
-    "final": {
-      "final": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1667733131412
+          "lastUpdated": 1670329247088
         }
       }
     }
