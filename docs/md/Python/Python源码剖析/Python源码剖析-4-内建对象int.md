@@ -303,3 +303,52 @@ _long_add_ 函数并不长，调用其他辅助函数完成加法运算，主�
 整数数值越大，整数对象底层数组越长，运算开销也就越大。好在运算处理函数均以快速通道对小整数运算进行优化，将额外开销降到最低。
 
 以 _long_add_ 为例， _8-10_ 行便是一个快速通道：如果参与运算的整数对象底层数组长度均不超过 _1_ ，直接将整数对象转化成 _C_ 整数类型进行运算，性能损耗极小。满足这个条件的整数范围在 _-1073741823~1073741823_ 之间，足以覆盖程序运行时的绝大部分运算场景。
+
+## 绝对值加法
+
+_x_add_ 用于计算两个整数对象绝对值之和，源码同样位于 _Objects/longobject.c_ ：
+
+```c
+static PyLongObject *
+x_add(PyLongObject *a, PyLongObject *b)
+{
+    Py_ssize_t size_a = Py_ABS(Py_SIZE(a)), size_b = Py_ABS(Py_SIZE(b));
+    PyLongObject *z;
+    Py_ssize_t i;
+    digit carry = 0;
+
+    /* Ensure a is the larger of the two: */
+    if (size_a < size_b) {
+        { PyLongObject *temp = a; a = b; b = temp; }
+        { Py_ssize_t size_temp = size_a;
+            size_a = size_b;
+            size_b = size_temp; }
+    }
+    z = _PyLong_New(size_a+1);
+    if (z == NULL)
+        return NULL;
+    for (i = 0; i < size_b; ++i) {
+        carry += a->ob_digit[i] + b->ob_digit[i];
+        z->ob_digit[i] = carry & PyLong_MASK;
+        carry >>= PyLong_SHIFT;
+    }
+    for (; i < size_a; ++i) {
+        carry += a->ob_digit[i];
+        z->ob_digit[i] = carry & PyLong_MASK;
+        carry >>= PyLong_SHIFT;
+    }
+    z->ob_digit[i] = carry;
+    return long_normalize(z);
+}
+```
+
+先解释函数中的关键局部变量：
+
+-   _size_a_ 和 _size_b_ ，分别是操作数 _a_ 和 _b_ 底层数组的长度；
+-   _z_ ，用于保存计算结果的新整数对象；
+-   _i_ ，用于遍历底层整数数组；
+-   _carry_ ，用于保存每个字部分运算的进位；
+
+开始解释函数执行逻辑前，我们先回顾下十进制加法是怎么做的。以 `1024 + 199` 为例：
+
+![](../../youdaonote-images/Pasted%20image%2020221208120918.png)
