@@ -181,3 +181,125 @@ _Python_ 整数对象通过串联多个 _C_ 整数类型，实现大整数的
 
 -   _ob_digit_ 为 _C_ 整数数组，用于存储被保存整数的 **绝对值** ；
 -   _ob_size_ 为 **变长对象** 关键字段，维护数组长度以及被保存整数的 **符号** ；
+
+![](../../youdaonote-images/Pasted%20image%2020221208114713.png)
+
+用整数数组实现大整数的思路其实平白无奇，难点在于大整数 **数学运算** 的实现，这是也比较考验编程功底的地方。
+
+## 数学运算概述
+
+根据我们在 **对象模型** 中学到的知识，对象的行为由对象的 **类型** 决定。因此，整数对象数学运算的秘密藏在整数类型对象中。我们在 _Objects/longobject.c_ 中找到整数类型对象( _PyLong_Type_ )，其定义如下所示：
+
+```c
+PyTypeObject PyLong_Type = {
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
+    "int",                                      /* tp_name */
+    offsetof(PyLongObject, ob_digit),           /* tp_basicsize */
+    sizeof(digit),                              /* tp_itemsize */
+    long_dealloc,                               /* tp_dealloc */
+
+    //...
+
+    &long_as_number,                            /* tp_as_number */
+
+    //...
+
+    long_new,                                   /* tp_new */
+    PyObject_Del,                               /* tp_free */
+};
+```
+
+类型对象中， _tp_as_number_ 是一个关键字段。该字段指向一个 _PyNumberMethods_ 结构体，结构体保存了各种数学运算的 **函数指针** 。我们顺藤摸瓜，很快便找到整数对象所有数学运算的处理函数：
+
+```c
+static PyNumberMethods long_as_number = {
+    (binaryfunc)long_add,       /*nb_add*/
+    (binaryfunc)long_sub,       /*nb_subtract*/
+    (binaryfunc)long_mul,       /*nb_multiply*/
+    long_mod,                   /*nb_remainder*/
+    long_divmod,                /*nb_divmod*/
+    long_pow,                   /*nb_power*/
+    (unaryfunc)long_neg,        /*nb_negative*/
+    (unaryfunc)long_long,       /*tp_positive*/
+    (unaryfunc)long_abs,        /*tp_absolute*/
+    (inquiry)long_bool,         /*tp_bool*/
+    (unaryfunc)long_invert,     /*nb_invert*/
+    long_lshift,                /*nb_lshift*/
+    (binaryfunc)long_rshift,    /*nb_rshift*/
+    long_and,                   /*nb_and*/
+    long_xor,                   /*nb_xor*/
+    long_or,                    /*nb_or*/
+    long_long,                  /*nb_int*/
+    // ...
+};
+```
+
+至此，我们明确了整数对象支持的全部 **数学运算** ，以及对应的 **处理函数** (下表仅列举常用部分)：
+
+![](../../youdaonote-images/Pasted%20image%2020221208114830.png)
+
+**整数对象** 、 **整数类型对象** 以及 **整数数学运算处理函数** 之间的关系：
+
+![](../../youdaonote-images/Pasted%20image%2020221208115932.png)
+
+## 加法
+
+如何为一个由数组表示的大整数实现加法？问题答案得在 _long_add_ 函数中找，该函数是整数对象 **加法处理函数** 。我们再接再厉，扒开 _long_add_ 函数看个究竟(同样位于 _Objects/longobject.c_ )：
+
+```c
+static PyObject *
+long_add(PyLongObject *a, PyLongObject *b)
+{
+    PyLongObject *z;
+
+    CHECK_BINOP(a, b);
+
+    if (Py_ABS(Py_SIZE(a)) <= 1 && Py_ABS(Py_SIZE(b)) <= 1) {
+        return PyLong_FromLong(MEDIUM_VALUE(a) + MEDIUM_VALUE(b));
+    }
+    if (Py_SIZE(a) < 0) {
+        if (Py_SIZE(b) < 0) {
+            z = x_add(a, b);
+            if (z != NULL) {
+                assert(Py_REFCNT(z) == 1);
+                Py_SIZE(z) = -(Py_SIZE(z));
+            }
+        }
+        else
+            z = x_sub(b, a);
+    }
+    else {
+        if (Py_SIZE(b) < 0)
+            z = x_sub(a, b);
+        else
+            z = x_add(a, b);
+    }
+    return (PyObject *)z;
+}
+```
+
+_long_add_ 函数并不长，调用其他辅助函数完成加法运算，主体逻辑如下：
+
+-   第 _4_ 行，定义变量 _z_ 用于临时保存计算结果；
+-   第 _8-10_ 行，如果两个对象数组长度均不超过 _1_ ， 用 _MEDIUM_VALUE_ 宏将其转化成 _C_ 整数进行运算即可；
+-   第 13-17 行，如果两个整数均为 **负数** ，调用 _x_add_ 计算两者绝对值之和，再将结果符号设置为负( _16_ 行处)；
+-   第 _20_ 行，如果 _a_ 为负数， _b_ 为正数，调用 _x_sub_ 计算 _b_ 和 _a_ 的绝对值之差即为最终结果；
+-   第 _24_ 行，如果 _a_ 为正数， _b_ 为负数，调用 _x_sub_ 计算 _a_ 和 _b_ 的绝对值之差即为最终结果；
+-   第 26 行，如果两个整数均为正数，调用 _x_add_ 计算两个绝对值之和即为最终结果；
+
+最后 _4_ 个步骤看起来很复杂，也有点令人费解。别担心，这只是初中数学的基本知识：
+
+![](../../youdaonote-images/Pasted%20image%2020221208120446.png)
+
+因此， _long_add_ 函数将整数加法转换成 **绝对值加法** ( _x_add_ )以及 **绝对值** 减法( _x_sub_ )：
+
+-   _x_add(a, b)_ ，计算两者绝对值之和，即 _|a|+|b|_ ；
+-   _x_sub(a, b)_ ，计算两者绝对值之差，即 _|a|-|b|_ ；
+
+![](../../youdaonote-images/Pasted%20image%2020221208120504.png)
+
+由于绝对值加、减法不用考虑符号对计算结果的影响，实现更为简单，这是 _Python_ 将整数运算转化成绝对值运算的缘由。
+
+整数数值越大，整数对象底层数组越长，运算开销也就越大。好在运算处理函数均以快速通道对小整数运算进行优化，将额外开销降到最低。
+
+以 _long_add_ 为例， _8-10_ 行便是一个快速通道：如果参与运算的整数对象底层数组长度均不超过 _1_ ，直接将整数对象转化成 _C_ 整数类型进行运算，性能损耗极小。满足这个条件的整数范围在 _-1073741823~1073741823_ 之间，足以覆盖程序运行时的绝大部分运算场景。
