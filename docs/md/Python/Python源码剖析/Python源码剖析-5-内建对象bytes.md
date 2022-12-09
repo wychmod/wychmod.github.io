@@ -236,3 +236,77 @@ _a_ 和 _b_ 的数据需要被拷贝两遍！
 而且，待合并的 _bytes_ 对象越多，数据拷贝越严重。考察这两个典型表达式以及相关对象拷贝次数：
 
 ![](../../youdaonote-images/Pasted%20image%2020221209114803.png)
+
+由此可见，合并 n 个 _bytes_ 对象，头两个对象需要拷贝 n-1 次，只有最后一个对象不需要重复拷贝。平均下来，每个对象大约要拷贝 n/2n/2 次！知道这个陷阱之后，你还敢写这样的代码吗？
+
+```python
+>>> result = b''
+>>> for s in segments:
+...     result += s
+```
+
+好在 _bytes_ 对象提供了一个内建方法 _join_ ，可高效合并多个 _bytes_ 对象：
+
+```python
+>>> result = b''.join(segments)
+```
+
+_join_ 方法对数据拷贝进行了优化：先遍历待合并对象，计算总长度；然后根据总长度创建目标对象；最后再遍历待合并对象，逐一拷贝数据。这样一来，每个对象均只需拷贝一次，解决了重复拷贝的陷阱。
+
+![](../../youdaonote-images/Pasted%20image%2020221209122647.png)
+
+_join_ 内建方法同样在 _Objects/bytesobject.c_ 文件中实现，_bytes_join_ 是也，这里不再展开介绍了。
+
+## 字符缓冲池
+
+为了优化单字节 _bytes_ 对象(也可称为 **字符对象** )的创建效率， _Python_ 内部维护了一个 **字符缓冲池** ：
+
+```c
+static PyBytesObject *characters[UCHAR_MAX + 1];
+```
+
+_Python_ 内部创建单字节 _bytes_ 对象时，先检查目标对象是否已在缓冲池中。_PyBytes_FromStringAndSize_ 函数是负责创建 _bytes_ 对象的通用接口，同样位于 _Objects/bytesobject.c_ 中：
+
+```c
+PyObject *
+PyBytes_FromStringAndSize(const char *str, Py_ssize_t size)
+{
+    PyBytesObject *op;
+    if (size < 0) {
+        PyErr_SetString(PyExc_SystemError,
+            "Negative size passed to PyBytes_FromStringAndSize");
+        return NULL;
+    }
+    if (size == 1 && str != NULL &&
+        (op = characters[*str & UCHAR_MAX]) != NULL)
+    {
+#ifdef COUNT_ALLOCS
+        one_strings++;
+#endif
+        Py_INCREF(op);
+        return (PyObject *)op;
+    }
+
+    op = (PyBytesObject *)_PyBytes_FromSize(size, 0);
+    if (op == NULL)
+        return NULL;
+    if (str == NULL)
+        return (PyObject *) op;
+
+    memcpy(op->ob_sval, str, size);
+    /* share short strings */
+    if (size == 1) {
+        characters[*str & UCHAR_MAX] = op;
+        Py_INCREF(op);
+    }
+    return (PyObject *) op;
+}
+```
+
+其中，涉及字符缓冲区维护的关键步骤是：
+
+1.  第 _10-18_ 行，如果目标对象为单字节对象且已在字符缓冲池中，直接返回已缓存对象；
+2.  第 _20-26_ 行，创建新 _bytes_ 对象并拷贝字节序列；
+3.  第 _28-31_ 行，如果创建的对象为单字节对象，将其放入字符缓冲池；
+
+由此可见，当 _Python_ 程序开始运行时，字符缓冲池是空的。随着单字节 _bytes_ 对象的创建，缓冲池中的对象慢慢多了起来。当缓冲池已缓存 `b'1'` 、`b'2'` 、`b'3'` 、`b'a'` 、`b'b'` 、`b'c'` 这几个字符时，内部结构如下：
