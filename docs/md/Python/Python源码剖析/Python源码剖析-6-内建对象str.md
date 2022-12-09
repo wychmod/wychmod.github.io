@@ -167,3 +167,93 @@ _PyCompactUnicodeObject_ 在 _PyASCIIObject_ 基础上，增加 _3_ 个字�
 -   wstr_length ，略；
 
 ![](../../youdaonote-images/Pasted%20image%2020221209165041.png)
+
+由于 ASCII 本身是合法的 UTF8 ，无须保存 UTF8 编码形式，这也是 ASCII 文本底层由 PyASCIIObject 保存的原因。在 _64_ 位机器，_PyCompactUnicodeObject_ 结构体大小为 _72_ 字节；在 _32_ 位机器则是 _36_ 字节。
+
+## PyUnicode_1BYTE_KIND
+
+如果 128<=maxchar<256128<=maxchar<256，_Unicode_ 对象底层便由 _PyCompactUnicodeObject_ 结构体保存，字符存储单元为 _Py_UCS1_ ，大小为 _1_ 字节。以 _Python![®](http://www.imooc.com/static/moco/v1.0/images/face/36x36/ae.png)_ 为例，字符 _![®](http://www.imooc.com/static/moco/v1.0/images/face/36x36/ae.png)_ 码位为 U+00AE ，满足该条件，内部结构如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221209165520.png)
+
+字符存储单元还是 _1_ 字节，跟 _ASCII_ 文本一样。 因此，_Python![®](http://www.imooc.com/static/moco/v1.0/images/face/36x36/ae.png)_ 对象需要占用 _80_ 字节的内存空间72+1*7+1=72+8=8072+1∗7+1=72+8=80：
+
+```python
+>>> sys.getsizeof('Python')
+80
+```
+
+## PyUnicode_2BYTE_KIND
+
+如果 256<=maxchar<65536256<=maxchar<65536，_Unicode_ 对象底层同样由 _PyCompactUnicodeObject_ 结构体保存，但字符存储单元为 _Py_UCS2_ ，大小为 _2_ 字节。以 _AC米兰_ 为例，常用汉字码位在 _U+0100_ 到 _U+FFFF_ 之间，满足该条件，内部结构如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221209165608.png)
+
+由于现在字符存储单元为 2 字节，故而 _str_ 对象 _AC米兰_ 需要占用 82 字节的内存空间：72+2*4+2=72+10=8272+2∗4+2=72+10=82
+
+```python
+>>> sys.getsizeof('AC米兰')
+82
+```
+
+我们看到，当文本包含中文后，英文字母也只能用 _2_ 字节的存储单元来保存了。
+
+你可能会提出疑问，为什么不采用变长存储单元呢？例如，字母 _1_ 字节，汉字 _2_ 字节？这是因为采用变长存储单元后，就无法在 _O(1)_ 时间内取出文本第 n 个字符了——你只能从头遍历直到遇到第 n 个字符。
+
+## PyUnicode_4BYTE_KIND
+
+如果 65536<=maxchar<42949629665536<=maxchar<429496296，便只能用 _4_ 字节存储单元 _Py_UCS4_ 了。以 _AC米兰?_ 为例：
+
+![](../../youdaonote-images/Pasted%20image%2020221209170121.png)
+
+
+```python
+>>> sys.getsizeof('AC米兰')
+96
+```
+
+这样一来，给一段英文文本加上表情，内存暴增 4 倍，也就不奇怪了：
+
+```python
+>>> text = 'a' * 1000
+>>> sys.getsizeof(text)
+1049
+>>> text += '?'
+>>> sys.getsizeof(text)
+4080
+```
+
+# interned机制
+
+如果 _str_ 对象 _interned_ 标识位为 _1_ ，_Python_ 虚拟机将为其开启 _interned_ 机制。那么，什么是 _interned_ 机制？
+
+先考虑以下场景，如果程序中有大量 _User_ 对象，有什么可优化的地方？
+
+```python
+>>> class User:
+...
+...     def __init__(self, name, age):
+...         self.name = name
+...         self.age = age
+...
+>>>
+>>> user = User(name='tom', age=20)
+>>> user.__dict__
+{'name': 'tom', 'age': 20}
+```
+
+由于对象的属性由 _dict_ 保存，这意味着每个 _User_ 对象都需要保存 _str_ 对象 _name_ 。换句话讲，_1_ 亿个 _User_ 对象需要重复保存 _1_ 亿个同样的 _str_ 对象，这将浪费多少内存！
+
+由于 _str_ 是不可变对象，因此 _Python_ 内部将有潜在重复可能的字符串都做成 **单例模式** ，这就是 _interned_ 机制。_Python_ 具体做法是在内部维护一个全局 _dict_ 对象，所有开启 _interned_ 机制 _str_ 对象均保存在这里；后续需要用到相关对象的地方，则优先到全局 _dict_ 中取，避免重复创建。
+
+举个例子，虽然 _str_ 对象 _‘abc’_ 由不同的运算产生，但背后却是同一个对象：
+
+```python
+>>> a = 'abc'
+>>> b = 'ab' + 'c'
+>>> id(a), id(b), a is b
+(4424345224, 4424345224, True)
+```
+
+> 什么时候会启动 interned 机制？
+> 有几种情况：①代码中的常量；②单个ASCII(0-127)或拉丁字母(128-256)；③空字符串对象。②和③很好理解，这部分对象使用频率很高，但数量有限，特别适合启用interned。①代码中的常量，数量是有限的，由程序代码在编译时就确定了，启用internel引入内存的开销是可控的。对于从文件或者网络读入的字符串，就不能启用interned了，因为数量是不可控的。程序可能会读入大量的字符串，如果全部都用interned缓存起来，内存迟早被打爆。
