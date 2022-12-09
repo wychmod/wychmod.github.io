@@ -30,9 +30,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "4ffc64c0e7fed658",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -98,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+                "file": "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+                "file": "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md"
+                "file": "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md"
               }
             }
           },
@@ -157,12 +169,12 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "active": "695f205afa6a5820",
+  "active": "4ffc64c0e7fed658",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "Python/Python源码剖析/Python源码剖析-3-内建对象float.md",
-    "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Python源码.md",
     "().md",
     "人工智能/Yolov5核心基础知识.md",
