@@ -54,9 +54,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "1bc036a7d59ccfa8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -122,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-6-内建对象str.md"
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md"
               }
             }
           },
@@ -181,10 +193,10 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "active": "4bad0b0ab4fbad7f",
+  "active": "1bc036a7d59ccfa8",
   "lastOpenFiles": [
-    "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md",
     "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
+    "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md",
     "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
