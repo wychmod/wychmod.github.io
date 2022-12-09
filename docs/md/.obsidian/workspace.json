@@ -73,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "unicode",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -90,7 +90,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -169,7 +170,7 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "active": "4ffc64c0e7fed658",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
