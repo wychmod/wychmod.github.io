@@ -209,3 +209,30 @@ bytes_concat(PyObject *a, PyObject *b)
 8.  第 _39-44_ 行，返回结果。
 
 _Py_buffer_ 提供了一套操作对象缓冲区的统一接口，屏蔽不同类型对象的内部差异：
+
+![](../../youdaonote-images/Pasted%20image%2020221209114141.png)
+
+_bytes_concat_ 函数逻辑很直白，将两个 _bytes_ 对象的缓冲区拷贝到一起形成新 _bytes_ 对象。 _sq_repeat_ 等其他处理函数也不复杂，因篇幅关系不再单独讲解了。鼓励读者们自行深入源码，弄清他们的来龙去脉，必有收获。
+
+### 数据拷贝的陷阱
+
+考察以下表达式——合并 _3_ 个 _bytes_ 对象：
+
+```python
+>>> result = a + b + c
+```
+
+这个语句执行时，分成两步进行合并：先将 _a_ 和 _b_ 合并，得到临时结果 _t_ ，再将 _t_ 和 _c_ 合并得到最终结果 _result_ ：
+
+```c
+>>> t = a + b
+>>> result = t + c
+```
+
+_a_ 和 _b_ 的数据需要被拷贝两遍！
+
+![](../../youdaonote-images/Pasted%20image%2020221209114733.png)
+
+而且，待合并的 _bytes_ 对象越多，数据拷贝越严重。考察这两个典型表达式以及相关对象拷贝次数：
+
+![](../../youdaonote-images/Pasted%20image%2020221209114803.png)
