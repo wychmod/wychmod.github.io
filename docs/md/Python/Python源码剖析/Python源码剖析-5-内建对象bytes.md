@@ -10,3 +10,202 @@ _Python_ 提供的解决方案是 _Unicode_ _字符串_ ( _str_ )对象，
 
 ![](../../youdaonote-images/Pasted%20image%2020221209112019.png)
 
+如上图， _str_ 对象统一表示一个 **字符串** ，不需要关心编码；计算机通过 **字节序列** 与存储介质和网络介质打交道，字节序列由 _bytes_ 对象表示；存储或传输 _str_ 对象时，需要将其 **序列化** 成字节序列，序列化过程也是 **编码** 的过程。
+
+# 对象结构
+
+_bytes_ 对象用于表示由若干字节组成的 **字节序列** 以及相关的 **操作** ，并不关心字节序列的 **含义** 。因此， _bytes_ 应该是一种 **变长对象** ，内部由 _C_ 数组实现。 _Include/bytesobject.h_ 头文件中的定义印证了我们的猜测：
+
+```c
+typedef struct {
+    PyObject_VAR_HEAD
+    Py_hash_t ob_shash;
+    char ob_sval[1];
+
+    /* Invariants:
+     *     ob_sval contains space for 'ob_size+1' elements.
+     *     ob_sval[ob_size] == 0.
+     *     ob_shash is the hash of the string or -1 if not computed yet.
+     */
+} PyBytesObject;
+```
+
+![](../../youdaonote-images/Pasted%20image%2020221209112137.png)
+  
+字节序列对象 _PyBytesObject_ 中，确实藏着一个字符数组 _ob_sval_ 。注意到 _ob_sval_ 数组长度定义为 _1_ ，这是 _C_ 语言中定义 **变长数组** 的技巧。这个技巧在前面章节( _int 对象，永不溢出的整数_ )中介绍过，这里不再赘述。源码注释表明， _Python_ 为待存储的字节序列额外分配一个字节，用于在末尾处保存 `\0` ，以便兼容 _C_ 字符串。
+
+此外，我们还留意到另一个字段 _ob_shash_ ，它用于保存字节序列的 **哈希值** 。 _Python_ 对象哈希值应用范围很广，比如 _dict_ 字典对象依赖对象哈希值进行存储。由于计算 _bytes_ 对象哈希值需要遍历其内部的字符数组，开销相对较大。因此， _Python_ 选择将哈希值保存起来，以空间换时间，避免重复计算。
+
+最后，以几个典型例子结束 _bytes_ 对象结构介绍，以此加深理解：
+
+![](../../youdaonote-images/Pasted%20image%2020221209112453.png)
+
+由此可见，就算空 _bytes_ 对象( `b''` )也是要占用内存空间的，至少变长对象 **公共头部** 是少不了的。
+
+```python
+>>> sys.getsizeof(b'')
+33
+```
+
+_bytes_ 对象占用的内存空间可分为以下个部分进行计算：
+
+-   变长对象公共头部 _24_ 字节，_ob_refcnt_ 、 _ob_type_ 、 _ob_size_ 每个字段各占用 _8_ 字节；
+-   哈希值 _ob_shash_ 占用 _8_ 字节；
+-   字节序列本身，假设是 _n_ 字节；
+-   额外 _1_ 字节用于存储末尾处的 `\0` ；
+
+因此， _bytes_ 对象空间计算公式为 24+8+n+124+8+n+1，即 33+n33+n，其中 n 为字节序列长度。
+
+## 对象行为
+
+现在，我们开始考察 _bytes_ 对象的 **行为** 。由于对象的行为由对象的 **类型** 决定，因而我们需要到 _bytes_ 类型对象中寻找答案。在 _Objects/bytesobject.c_ 源码文件中，我们找到 _bytes_ **类型对象** 的定义：
+
+```c
+PyTypeObject PyBytes_Type = {
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
+    "bytes",
+    PyBytesObject_SIZE,
+    sizeof(char),
+    // ...
+    &bytes_as_number,                           /* tp_as_number */
+    &bytes_as_sequence,                         /* tp_as_sequence */
+    &bytes_as_mapping,                          /* tp_as_mapping */
+    (hashfunc)bytes_hash,                       /* tp_hash */
+    // ...
+};
+```
+
+我们对类型对象的内部结构已经非常熟悉了， _tp_as_xxxx_ 系列结构体决定了对象支持的各种 **操作** 。举个例子， _bytes_as_number_ 结构体中保存着 **数值运算** 处理函数的指针。 _bytes_ 对象居然支持数据操作，没搞错吧？我们看到， _bytes_as_number_ 结构体中只定义了一个操作—— **模运算** ( _%_ )：
+
+```c
+static PyNumberMethods bytes_as_number = {
+    0,              /*nb_add*/
+    0,              /*nb_subtract*/
+    0,              /*nb_multiply*/
+    bytes_mod,      /*nb_remainder*/
+}
+```
+
+```c
+static PyObject *
+bytes_mod(PyObject *self, PyObject *arg)
+{
+    if (!PyBytes_Check(self)) {
+        Py_RETURN_NOTIMPLEMENTED;
+    }
+    return _PyBytes_FormatEx(PyBytes_AS_STRING(self), PyBytes_GET_SIZE(self),
+                             arg, 0);
+}
+```
+
+由此可见， _bytes_ 对象只是借用 _%_ 运算符实现字符串格式化，谈不上支持数值运算，虚惊一场：
+
+```python
+>>> b'msg: a=%d b=%d' % (1, 2)
+b'msg: a=1 b=2'
+```
+
+## 序列型操作
+
+众所周知， _bytes_ 是 **序列型对象** ，序列型操作才是研究重点。我们在 _bytes_as_sequence_ 结构体中找到相关定义：
+
+```c
+static PySequenceMethods bytes_as_sequence = {
+    (lenfunc)bytes_length, /*sq_length*/
+    (binaryfunc)bytes_concat, /*sq_concat*/
+    (ssizeargfunc)bytes_repeat, /*sq_repeat*/
+    (ssizeargfunc)bytes_item, /*sq_item*/
+    0,                  /*sq_slice*/
+    0,                  /*sq_ass_item*/
+    0,                  /*sq_ass_slice*/
+    (objobjproc)bytes_contains /*sq_contains*/
+};
+```
+
+由此可见， _bytes_ 支持的 **序列型操作** 包括以下 _5_ 个：
+
+-   _sq_length_ ，查询序列长度；
+-   _sq_concat_ ，将两个序列合并为一个；
+-   _sq_repeat_ ，将序列重复多次；
+-   _sq_item_ ，取出给定下标序列元素；
+-   _sq_contains_，包含关系判断；
+
+### 长度
+
+最简单的序列型操作是 **长度查询** ，直接返回 _ob_size_ 字段即可：
+
+```c
+static Py_ssize_t
+bytes_length(PyBytesObject *a)
+{
+    return Py_SIZE(a);
+}
+```
+
+### 合并
+
+```python
+>>> b'abc' + b'cba'
+b'abccba'
+```
+
+合并操作将两个 _bytes_ 对象拼接成一个，由 _bytes_concat_ 函数处理：
+
+```c
+static PyObject *
+bytes_concat(PyObject *a, PyObject *b)
+{
+    Py_buffer va, vb;
+    PyObject *result = NULL;
+
+    va.len = -1;
+    vb.len = -1;
+    if (PyObject_GetBuffer(a, &va, PyBUF_SIMPLE) != 0 ||
+        PyObject_GetBuffer(b, &vb, PyBUF_SIMPLE) != 0) {
+        PyErr_Format(PyExc_TypeError, "can't concat %.100s to %.100s",
+                     Py_TYPE(b)->tp_name, Py_TYPE(a)->tp_name);
+        goto done;
+    }
+
+    /* Optimize end cases */
+    if (va.len == 0 && PyBytes_CheckExact(b)) {
+        result = b;
+        Py_INCREF(result);
+        goto done;
+    }
+    if (vb.len == 0 && PyBytes_CheckExact(a)) {
+        result = a;
+        Py_INCREF(result);
+        goto done;
+    }
+
+    if (va.len > PY_SSIZE_T_MAX - vb.len) {
+        PyErr_NoMemory();
+        goto done;
+    }
+
+    result = PyBytes_FromStringAndSize(NULL, va.len + vb.len);
+    if (result != NULL) {
+        memcpy(PyBytes_AS_STRING(result), va.buf, va.len);
+        memcpy(PyBytes_AS_STRING(result) + va.len, vb.buf, vb.len);
+    }
+
+  done:
+    if (va.len != -1)
+        PyBuffer_Release(&va);
+    if (vb.len != -1)
+        PyBuffer_Release(&vb);
+    return result;
+}
+```
+
+1.  第 _4-5_ 行，定义局部变量 _va_ 、 _vb_ 用于维护缓冲区， _result_ 用于保存合并结果；
+2.  第 _7-14_ 行，从待合并对象中获取字节序列所在缓冲区；
+3.  第 _17-21_ 行，如果第一个对象长度为 _0_ ，第二个对象就是结果；
+4.  第 _22-26_ 行，反之第二个对象长度为 _0_ ，第一个对象就是结果；
+5.  第 _28-31_ 行，长度超过限制则报错，其实判断条件这样写更直观：_va.len + vb.len > PY_SSIZE_T_MAX_ ；
+6.  第 _33_ 行，新建 _bytes_ 对象用于保存合并结果，长度为待合并对象长度之和；
+7.  第 _34-37_ 行，将字节序列从待合并对象拷贝到结果对象；
+8.  第 _39-44_ 行，返回结果。
+
+_Py_buffer_ 提供了一套操作对象缓冲区的统一接口，屏蔽不同类型对象的内部差异：
