@@ -340,3 +340,91 @@ _PyMem_Realloc_ 函数用于对动态内存进行扩容或者缩容，关键步
 2.  将数据从旧内存区域 _ptr_ 拷贝到新内存区域；
 3.  释放旧内存区域 _ptr_ ；
 4.  返回新内存区域。
+
+![](../../youdaonote-images/Pasted%20image%2020221210163157.png)
+
+**内存管理** 是最考验研发人员编程功底的领域之一，鼓励大家到 _PyMem_Realloc_ 源码（_./Objects/obmalloc.c_）中进一步研究内存管理的技巧。学有余力的童鞋，可模仿着自己实现一个 _realloc_ 函数，假以时日编程内功将突飞猛进！
+
+## 尾部追加
+
+_append_ 方法在 _Python_ 内部由 _C_ 函数 _list_append_ 实现，而 _list_append_ 进一步调用 _app1_ 函数完成元素追加：
+
+```c
+static int
+app1(PyListObject *self, PyObject *v)
+{
+    Py_ssize_t n = PyList_GET_SIZE(self);
+
+    assert (v != NULL);
+    if (n == PY_SSIZE_T_MAX) {
+        PyErr_SetString(PyExc_OverflowError,
+            "cannot add more objects to list");
+        return -1;
+    }
+
+    if (list_resize(self, n+1) < 0)
+        return -1;
+
+    Py_INCREF(v);
+    PyList_SET_ITEM(self, n, v);
+    return 0;
+}
+```
+
+1.  第 _4_ 行，调用 _PyList_GET_SIZE_ 取出列表长度，即 _ob_size_ 字段；
+2.  第 _7-11_ 行，判断列表当前长度，如果已经达到最大限制，则报错；
+3.  第 _13-15_ 行，调用 _list_resize_ 更新列表长度，必要时 _list_resize_ 对底层数组进行 **扩容** ；
+4.  第 _16_ 行，自增元素对象 **引用计数** (元素对象新增一个来自列表对象的引用)；
+5.  第 17 行，将元素对象指针保存到列表最后一个位置，列表新长度为 _n+1_ ，最后一个位置下标为 _n_ 。
+
+我们看到，有了 _list_resize_ 这个辅助函数后， _app1_ 函数的实现就非常直白了。接下来，我们将看到 _insert_、_pop_ 等方法的实现中也用到这个函数，从中可体会到程序逻辑 **划分** 、 **组合** 的巧妙之处。
+
+## 头部插入
+
+_insert_ 方法在 _Python_ 内部由 _C_ 函数 _list_insert_impl_ 实现，而 _list_insert_impl_ 则调用 _ins1_ 函数完成元素插入：
+
+```c
+static int
+ins1(PyListObject *self, Py_ssize_t where, PyObject *v)
+{
+    Py_ssize_t i, n = Py_SIZE(self);
+    PyObject **items;
+    if (v == NULL) {
+        PyErr_BadInternalCall();
+        return -1;
+    }
+    if (n == PY_SSIZE_T_MAX) {
+        PyErr_SetString(PyExc_OverflowError,
+            "cannot add more objects to list");
+        return -1;
+    }
+
+    if (list_resize(self, n+1) < 0)
+        return -1;
+
+    if (where < 0) {
+        where += n;
+        if (where < 0)
+            where = 0;
+    }
+    if (where > n)
+        where = n;
+    items = self->ob_item;
+    for (i = n; --i >= where; )
+        items[i+1] = items[i];
+    Py_INCREF(v);
+    items[where] = v;
+    return 0;
+}
+```
+
+1.  第 _4_ 行，调用 _PyList_GET_SIZE_ 取出列表长度，即 _ob_size_ 字段；
+2.  第 _10-14_ 行，判断列表当前长度，如果已经达到最大限制，则报错；
+3.  第 _16-17_ 行，调用 _list_resize_ 更新列表长度，必要时 _list_resize_ 对底层数组进行 **扩容** ；
+4.  第 _19-23_ 行，检查插入位置下标，如果下标为负数，加上 _n_ 将其转换为非负数；
+5.  第 _21-22_、_24-25_ 行，检查插入位置下标是否越界，如果越界则设为开头或结尾；
+6.  第 _26-28_ 行，将插入位置以后的所有元素逐一往后移一个位置，特别注意 _for_ 循环必须 **从后往前** 迭代；
+7.  第 _29_ 行，自增元素对象 **引用计数** (元素对象新增一个来自列表对象的引用)；
+8.  第 _30_ 行，将元素对象指针保存到列表指定位置。
+
+_Python_ 序列 **下标很有特色** ，除了支持 _0~n-1_ 这样的惯例外，还支持 **倒数下标** 。倒数下标为负数，从后往前数：最后一个元素为 _-1_ ，倒数第二个为 _-2_ ；以此类推，第一个元素下标为： _-n_ 。
