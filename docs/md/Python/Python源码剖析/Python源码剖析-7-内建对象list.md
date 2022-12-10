@@ -245,3 +245,98 @@ _Python_ 内部负责管理 _list_ 对象的容量，在必要时 **自动�
 列表头部操作与尾部操作的性能差距非常大，而 _collections.deque_ 作为替代品可解决列表头部操作的性能问题。列表 _copy_ 方法只实现了 **浅拷贝** ，想要 **深拷贝** 只能借助 _copy.deepcopy_ 函数。
 
 # list源码解析
+
+_list_ 对象是一种 **容量自适应** 的 **线性容器** ，底层由 **动态数组** 实现。动态数组结构决定了 _list_ 对象具有优秀的尾部操作性能，但头部操作性能却很差劲。研发人员只有对底层数据结构有足够的认识，才能最大限度避免问题代码。
+
+现成的动态数组实现很多，除了我们正在研究的 _list_ 对象，_C++_ 中的 vector 也是众所周知。
+
+## 容量调整
+
+当我们调用 _append_ 、_pop_ 、_insert_ 等方法时，列表长度随之发生变化。当列表长度超过底层数组容量时，便需要对底层数组进行 **扩容** ；当列表长度远低于底层数组容量时，便需要对底层数组进行 **缩容** 。
+
+_Objects/listobject.c_ 源码表明，_append_ 等方法依赖 _list_resize_ 函数调整列表长度，扩容缩容的秘密就藏在这里！_list_resize_ 函数在调整列表长度前，先检查底层数组容量，并在必要时重新分配底层数组。接下来，我们一起来解读 _list_resize_ 函数，该函数同样位于源文件 _Objects/listobject.c_ 中：
+
+```c
+static int
+list_resize(PyListObject *self, Py_ssize_t newsize)
+{
+    PyObject **items;
+    size_t new_allocated, num_allocated_bytes;
+    Py_ssize_t allocated = self->allocated;
+
+    /* Bypass realloc() when a previous overallocation is large enough
+       to accommodate the newsize.  If the newsize falls lower than half
+       the allocated size, then proceed with the realloc() to shrink the list.
+    */
+    if (allocated >= newsize && newsize >= (allocated >> 1)) {
+        assert(self->ob_item != NULL || newsize == 0);
+        Py_SIZE(self) = newsize;
+        return 0;
+    }
+
+    /* This over-allocates proportional to the list size, making room
+     * for additional growth.  The over-allocation is mild, but is
+     * enough to give linear-time amortized behavior over a long
+     * sequence of appends() in the presence of a poorly-performing
+     * system realloc().
+     * The growth pattern is:  0, 4, 8, 16, 25, 35, 46, 58, 72, 88, ...
+     * Note: new_allocated won't overflow because the largest possible value
+     *       is PY_SSIZE_T_MAX * (9 / 8) + 6 which always fits in a size_t.
+     */
+    new_allocated = (size_t)newsize + (newsize >> 3) + (newsize < 9 ? 3 : 6);
+    if (new_allocated > (size_t)PY_SSIZE_T_MAX / sizeof(PyObject *)) {
+        PyErr_NoMemory();
+        return -1;
+    }
+
+    if (newsize == 0)
+        new_allocated = 0;
+    num_allocated_bytes = new_allocated * sizeof(PyObject *);
+    items = (PyObject **)PyMem_Realloc(self->ob_item, num_allocated_bytes);
+    if (items == NULL) {
+        PyErr_NoMemory();
+        return -1;
+    }
+    self->ob_item = items;
+    Py_SIZE(self) = newsize;
+    self->allocated = new_allocated;
+    return 0;
+}
+```
+
+在函数开头，有几个局部变量定义，对理解函数逻辑非常关键：
+
+-   _items_ 指针，用于保存新数组；
+-   _new_allocated_ ，用于保存新数组容量；
+-   _num_allocated_bytes_ ，用于保存新数组内存大小，以字节为单位；
+-   _allocated_ ，用于保存旧数组容量。
+
+然后，代码第 _12_ 行，检查新长度与底层数组容量的关系。如果新长度不超过数组容量，且不小于数组容量的一半，则无需调整底层数组，直接更新 _ob_size_ 字段。换句话讲， _list_ 对象扩缩容的条件分别如下：
+
+-   **扩容条件** ，新长度大于底层数组长度；
+-   **缩容条件** ，新长度小于底层数组长度的一半；
+
+扩容或缩容条件触发时，_list_resize_ 函数根据新长度计算数组容量并重新分配底层数组（第 _27-44_ 行）：
+
+1.  第 _27_ 行，新容量在长度加上 \frac{1}{8}81​ 的裕量，再加上 _3_ 或 _6_ 的裕量；
+2.  第 _28-31_ 行，如果新容量超过允许范围，返回错误；
+3.  第 _33-34_ 行，如果新长度为 _0_ ，将新容量也设置为 _0_ ，因此空列表底层数组亦为空；
+4.  第 _36-40_ 行，调用 _PyMem_Realloc_ 函数重新分配底层数组；
+5.  第 _41-44_ 行，更新 _3_ 个关键字段，依次设置为 **新底层数组** 、 **新长度** 以及 **新容量** 。
+
+注意到代码第 27 行，新容量的计算公式有点令人费解。为什么还要加上 _3_ 或者 _6_ 的裕量呢？试想一下，如果新长度小于 _8_ ，那么 \frac{1}{8}81​ 的裕量便是 _0_ ！这意味着，当 _list_ 对象长度从 _0_ 开始增长时，需要频繁扩容！
+
+为了解决这个问题，必须在 \frac{1}{8}81​ 裕量的基础上额外加上一定的固定裕量。而 _3_ 和 _6_ 这两个特殊数值的选择，使得列表容量按照 _0_、_4_、_8_、 16、_25_、_35_、_46_、_58_、_72_、_88_…… 这样的序列进行扩张。这样一来，当 _list_ 对象长度较小时，容量翻倍扩展，扩容频率得到有效限制。
+
+顺便提一下， _PyMem_Realloc_ 函数是 _Python_ 内部实现的内存管理函数之一，功能与 _C_ 库函数 _realloc_ 类似：
+
+```c
+PyAPI_FUNC(void *) PyMem_Realloc(void *ptr, size_t new_size);
+```
+
+_PyMem_Realloc_ 函数用于对动态内存进行扩容或者缩容，关键步骤如下：
+
+1.  新申请一块尺寸为 _new_size_ 的内存区域；
+2.  将数据从旧内存区域 _ptr_ 拷贝到新内存区域；
+3.  释放旧内存区域 _ptr_ ；
+4.  返回新内存区域。
