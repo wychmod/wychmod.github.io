@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/python面试.md",
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
                 "mode": "source",
                 "source": false
               }
@@ -135,7 +135,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/python面试.md",
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -152,7 +152,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/python面试.md",
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -175,7 +175,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/python面试.md"
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md"
               }
             }
           },
@@ -196,6 +196,7 @@
   },
   "active": "1bc036a7d59ccfa8",
   "lastOpenFiles": [
+    "面试/python面试.md",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
     "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
     "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md",
@@ -204,7 +205,6 @@
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "Python/Python源码剖析/Python源码剖析-3-内建对象float.md",
     "Python源码.md",
-    "().md",
-    "人工智能/Yolov5核心基础知识.md"
+    "().md"
   ]
 }
