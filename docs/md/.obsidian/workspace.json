@@ -66,9 +66,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "b420e266ce205500",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -97,7 +109,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "python面试",
+                "query": "",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -114,8 +126,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -135,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -152,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -175,7 +186,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md"
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md"
               }
             }
           },
@@ -194,10 +205,10 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "active": "1bc036a7d59ccfa8",
+  "active": "b420e266ce205500",
   "lastOpenFiles": [
-    "面试/python面试.md",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
+    "面试/python面试.md",
     "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
     "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md",
     "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
