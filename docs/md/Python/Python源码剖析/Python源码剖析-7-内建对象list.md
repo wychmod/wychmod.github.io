@@ -428,3 +428,141 @@ ins1(PyListObject *self, Py_ssize_t where, PyObject *v)
 8.  第 _30_ 行，将元素对象指针保存到列表指定位置。
 
 _Python_ 序列 **下标很有特色** ，除了支持 _0~n-1_ 这样的惯例外，还支持 **倒数下标** 。倒数下标为负数，从后往前数：最后一个元素为 _-1_ ，倒数第二个为 _-2_ ；以此类推，第一个元素下标为： _-n_ 。
+
+![](../../youdaonote-images/Pasted%20image%2020221210163843.png)
+
+倒数下标非常实用，可以很方便地取出序列最后几个元素，而不用关心序列的长度。 _Python_ 内部处理倒数下标时，自动为其加上长度序列 _n_ ，便转化成普通下标了。
+
+## 弹出元素
+
+_pop_ 方法将指定下标的元素从列表中弹出，下标默认为 _-1_ 。换句话讲，如果未指定下标，_pop_ 弹出最后一个元素：
+
+```python
+>>> help(list.pop)
+Help on method_descriptor:
+
+pop(self, index=-1, /)
+    Remove and return item at index (default last).
+
+    Raises IndexError if list is empty or index is out of range.
+```
+
+_pop_ 方法在 _Python_ 内部由 _C_ 函数 _list_pop_impl_ 实现：
+
+```c
+static PyObject *
+list_pop_impl(PyListObject *self, Py_ssize_t index)
+{
+    PyObject *v;
+    int status;
+
+    if (Py_SIZE(self) == 0) {
+        /* Special-case most common failure cause */
+        PyErr_SetString(PyExc_IndexError, "pop from empty list");
+        return NULL;
+    }
+    if (index < 0)
+        index += Py_SIZE(self);
+    if (index < 0 || index >= Py_SIZE(self)) {
+        PyErr_SetString(PyExc_IndexError, "pop index out of range");
+        return NULL;
+    }
+    v = self->ob_item[index];
+    if (index == Py_SIZE(self) - 1) {
+        status = list_resize(self, Py_SIZE(self) - 1);
+        if (status >= 0)
+            return v; /* and v now owns the reference the list had */
+        else
+            return NULL;
+    }
+    Py_INCREF(v);
+    status = list_ass_slice(self, index, index+1, (PyObject *)NULL);
+    if (status < 0) {
+        Py_DECREF(v);
+        return NULL;
+    }
+    return v;
+}
+```
+
+1.  第 _7-11_ 行，如果列表为空，没有任何元素可弹出，抛出 _IndexError_ 异常；
+2.  第 _12-13_ 行，如果给定下标为 **倒数下标** ，先加上列表长度，将其转换成普通下标；
+3.  第 _14-16_ 行，检查给定下标是否在合法范围内，超出合法范围同样抛出 _IndexError_ 异常；
+4.  第 _18_ 行，从底层数组中取出待弹出元素；
+5.  第 _19-25_ 行，如果待弹出元素为列表最后一个，调用 _list_resize_ 快速调整列表长度即可，无需移动其他元素；
+6.  第 _26-31_ 行，其他情况下调用 _list_ass_slice_ 函数删除元素，调用前需要通过 _Py_INCREF_ 增加元素引用计数，因为 _list_ass_slice_ 函数内部将释放被删除元素；
+7.  第 32 行，将待弹出元素返回。
+
+_list_ass_slice_ 函数其实有两种不同的语义，具体执行哪种语义由函数参数决定，函数接口如下：
+
+```c
+/* a[ilow:ihigh] = v if v != NULL.
+ * del a[ilow:ihigh] if v == NULL.
+ *
+ * Special speed gimmick:  when v is NULL and ihigh - ilow <= 8, it's
+ * guaranteed the call cannot fail.
+ */
+static int
+list_ass_slice(PyListObject *a, Py_ssize_t ilow, Py_ssize_t ihigh, PyObject *v);
+```
+
+-   **删除语义** ，如果最后一个参数 _v_ 值为 _NULL_ ，执行删除语义，即：_del a[ilow:ihigh]_ ；
+-   **替换语义** ，如果最后一个参数 _v_ 值不为 _NULL_ ，执行替换语义，即 _a[ilow:ihigh] = v_ 。
+
+因此，代码第 _27_ 行中， _list_ass_slice_ 函数执行删除语义，将 _[index, index+1)_ 范围内的元素删除。由于半开半闭区间 _[index, index+1)_ 中只包含 _index_ 一个元素，效果等同于将下标为 _index_ 的元素删除。
+
+执行删除语义时， _list_ass_slice_ 函数将被删元素后面的元素逐一往前移动，以便重新覆盖删除操作所造成的空隙。由此可见，_pop_ 方法弹出元素，时间复杂度跟弹出位置有关：
+
+-   最好时间复杂度 ( **尾部弹出** )，O(1) ；
+-   最坏时间复杂度 ( **头部弹出** )，O(n)；
+-   平均时间复杂度， O(n/2) ，亦即 O(n) 。
+
+![](../../youdaonote-images/Pasted%20image%2020221210165059.png)
+
+因此，调用 _pop_ 方法弹出非尾部元素时，需要非常谨慎。
+
+## 删除元素
+
+_remove_ 方法将给定元素从列表中删除。与 _pop_ 略微不同，_remove_ 方法直接给定待删除元素，而不是元素下标。_remove_ 方法在 _Python_ 内部由 _C_ 函数 _list_remove_ 实现：
+
+```c
+static PyObject *
+list_remove(PyListObject *self, PyObject *value)
+/*[clinic end generated code: output=f087e1951a5e30d1 input=2dc2ba5bb2fb1f82]*/
+{
+    Py_ssize_t i;
+
+    for (i = 0; i < Py_SIZE(self); i++) {
+        int cmp = PyObject_RichCompareBool(self->ob_item[i], value, Py_EQ);
+        if (cmp > 0) {
+            if (list_ass_slice(self, i, i+1,
+                               (PyObject *)NULL) == 0)
+                Py_RETURN_NONE;
+            return NULL;
+        }
+        else if (cmp < 0)
+            return NULL;
+    }
+    PyErr_SetString(PyExc_ValueError, "list.remove(x): x not in list");
+    return NULL;
+}
+```
+
+_list_remove_ 函数先遍历列表中每个元素（第 _7_ 行），检查元素是否为待删除元素 _value_ （第 _8_ 行），以此确定下标。然后， _list_remove_ 函数调用 _list_ass_slice_ 函数进行删除。注意到，如果给定元素不存在， _list_remove_ 将抛出 _ValueError_ 异常。
+
+由此可见，_remove_ 方法在删除前有一个时间复杂度为 O(n)O(n) 的查找过程，性能不甚理想，须谨慎使用。
+
+## 小结
+
+_list_ 对象是一种 **容量自适应** 的 **线性容器** ，底层由 **动态数组** 实现。_Python_ 内部由函数 _list_resize_ 调整列表长度， _list_resize_ 自动为列表进行 **扩容** 或者 **缩容** ：
+
+-   底层数组容量不够时，需要进行 **扩容** ；
+-   扩容时， _Python_ 额外分配大约 1/81/8 的容量裕量，以控制扩容频率；
+-   底层数组空闲位置超过一半时，需要进行 **缩容** 。
+
+动态数组的特性决定了 _list_ 对象相关操作性能有好有坏，使用时须特别留意：
+
+-   _append_ 向尾部追加元素，时间复杂度为 O(1)O(1) ，放心使用；
+-   _insert_ 往列表插入元素，最坏时间复杂度是 O(n)O(n) ，平均时间复杂度也是 O(n)O(n)，须谨慎使用；
+-   _pop_ 从列表中弹出元素，最好时间复杂度为 O(1)O(1) ，平均时间复杂度为 O(n)O(n) ，弹出非尾部元素时需谨慎；
+-   _remove_ 从列表中删除元素，时间复杂度为 O(n)O(n)，同样须谨慎使用。
