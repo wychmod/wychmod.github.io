@@ -509,3 +509,92 @@ _Python_ 采用 **开放地址法** ( _open addressing_ )，将数据直接
 
 **平方探测** ，顾名思义， di​ 是一个平方函数，例如 di = i^2：
 
+![](../../youdaonote-images/Pasted%20image%2020221211002653.png)
+
+**线性探测** 和 **平方探测** 很简单，平方探测似乎更胜一筹。如果哈希表存在局部热点，探测很难快速跳过热点区域，而 **平方探测** 则好很多。然而，这两种方法都不够好——因为固定的探测序列加大了冲突的概率。
+
+![](../../youdaonote-images/Pasted%20image%2020221211002735.png)
+
+如图 _key_ 和 _key2_ 等都哈希到槽位 _1_ ，由于探测序列式相同的，因此冲突概率很高。_Python_ 对此进行了优化，探测函数参考对象哈希值，生成不同的探测序列，进一步降低哈希冲突的可能性：
+
+![](../../youdaonote-images/Pasted%20image%2020221211002807.png)
+
+_Python_ 探测方法在 _lookdict_ 函数中实现，位于 _Objects/dictobject.c_ 源文件内。关键代码如下：
+
+```c
+static Py_ssize_t _Py_HOT_FUNCTION
+lookdict(PyDictObject *mp, PyObject *key,
+         Py_hash_t hash, PyObject **value_addr)
+{
+    size_t i, mask, perturb;
+    PyDictKeysObject *dk;
+    PyDictKeyEntry *ep0;
+
+top:
+    dk = mp->ma_keys;
+    ep0 = DK_ENTRIES(dk);
+    mask = DK_MASK(dk);
+    perturb = hash;
+    i = (size_t)hash & mask;
+
+    for (;;) {
+        Py_ssize_t ix = dk_get_index(dk, i);
+        // 省略键比较部分代码
+
+        // 计算下个槽位
+        // 由于参考了对象哈希值，探测序列因哈希值而异
+        perturb >>= PERTURB_SHIFT;
+        i = (i*5 + perturb + 1) & mask;
+    }
+    Py_UNREACHABLE();
+}
+```
+
+## 哈希攻击
+
+_Python_ 在 _3.3_ 以前， **哈希算法** 只根据对象本身计算哈希值。因此，只要 _Python_ 解释器相同，对象哈希值也肯定相同。我们执行 _Python 2_ 解释器启动一个交互式终端，并计算字符串 _fasion_ 的哈希值：
+
+```python
+>>> import os
+>>> os.getpid()
+2878
+>>> hash('fasion')
+3629822619130952182
+```
+
+我们再次执行 _Python 2_ 解释器启动另一个交互式终端，发现字符串 _fasion_ 的哈希值保存不变：
+
+```python
+>>> import os
+>>> os.getpid()
+2915
+>>> hash('fasion')
+3629822619130952182
+```
+
+如果一些别有用心的人构造出大量哈希值相同的 _key_ ，并提交给服务器，会发生什么事情呢？例如，向一台 _Python 2 Web_ 服务器 _post_ 一个 _json_ 数据，数据包含大量的 _key_ ，所有 _key_ 的哈希值相同。这意味着哈希表将频繁发生哈希冲突，性能由 O(1)O(1) 急剧下降为 O(N)O(N)，被活生生打垮！这就是 **哈希攻击** 。
+
+问题很严重，好在应对方法却很简单——为对象加把 **盐** ( _salt_ )。具体做法如下：
+
+1.  _Python_ 解释器进程启动后，产生一个随机数作为 **盐** ；
+2.  哈希函数同时参考 **对象本身** 以及 **随机数** 计算哈希值；
+
+这样一来，攻击者无法获悉解释器内部的随机数，也就无法构造出哈希值相同的对象了！_Python_ 自 _3.3_ 以后，哈希函数均采用加盐模式，杜绝了 **哈希攻击** 的可能性。_Python_ 哈希算法在 _Python/pyhash.c_ 源文件中实现，有兴趣的童鞋可以学习一下，这里就不再展开了。
+
+执行 _Python 3.7_ 解释器，启动一个交互式终端，并计算字符串 _fasion_ 的哈希值：
+
+```python
+>>> hash('fasion')
+7411353060704220518
+```
+
+再次执行 _Python 3.7_ 解释器，启动另一个交互式终端，发现字符串 _fasion_ 的哈希值已经变了：
+
+```python
+>>> hash('fasion')
+1784735826115825426
+```
+
+## 删除操作
+
+现在回过头来讨论 _dict_ 哈希表的 **删除** 操作，以下图这个场景为例：
