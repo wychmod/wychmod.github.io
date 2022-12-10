@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
+                "file": "面试/python面试.md",
                 "mode": "source",
                 "source": false
               }
@@ -97,7 +97,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "python面试",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -114,7 +114,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -134,7 +135,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
+                "file": "面试/python面试.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +152,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
+                "file": "面试/python面试.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +175,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md"
+                "file": "面试/python面试.md"
               }
             }
           },
@@ -195,6 +196,7 @@
   },
   "active": "1bc036a7d59ccfa8",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
     "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
     "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md",
     "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
@@ -203,7 +205,6 @@
     "Python/Python源码剖析/Python源码剖析-3-内建对象float.md",
     "Python源码.md",
     "().md",
-    "人工智能/Yolov5核心基础知识.md",
-    "Django笔记/django-rest-framework开发笔记.md"
+    "人工智能/Yolov5核心基础知识.md"
   ]
 }
