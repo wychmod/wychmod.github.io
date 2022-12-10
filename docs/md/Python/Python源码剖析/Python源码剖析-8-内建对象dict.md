@@ -1,3 +1,4 @@
+# dict对象基本方法
 _Python_ 中的 _dict_ 对象是一种 **关联式容器** 对象，用于保存由 **键** ( _key_ )到 **值** ( _value_ )的映射关系。借助关联式容器，程序可快速定位到与指定 **键** 相关联的 **值** 。_dict_ 对象在 _Python_ 程序中使用频率非常高，如果应用不当将严重影响程序的执行效率。
 
 ## 基本用法
@@ -373,3 +374,108 @@ _dict_ 对象真正的实现藏身于 _PyDictKeysObject_ 中，它内部包�
 
 > 引入第二层数组之后，字典变得有序了。字典内键值对的顺序变得可依赖，和插入顺序一致
 
+
+> 扩容长度改变后会对索引数组进行重建
+
+
+# dict哈希表高级知识
+
+## 哈希值
+
+_Python_ 内置函数 _hash_ 返回对象 **哈希值** ，**哈希表** 依赖 **哈希值** 索引元素：
+
+![](../../youdaonote-images/Pasted%20image%2020221210235639.png)
+
+根据哈希表性质， **键对象** 必须满足以下两个条件，否则哈希表便不能正常工作：
+
+-   哈希值在对象整个生命周期内不能改变；
+-   可比较，且比较相等的对象哈希值必须相同；
+
+满足这两个条件的对象便是 **可哈希** ( _hashable_ )对象，只有可哈希对象才可作为哈希表的键。因此，诸如 dict 、set等底层由哈希表实现的容器对象，其键对象必须是可哈希对象。
+
+_Python_ 内建对象中的 **不可变对象** ( _immutable_ )都是可哈希对象；而诸如 _list_ 、_dict_ 等 **可变对象** 则不是：
+
+```python
+>>> hash([])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'list'
+```
+
+不可哈希对象不能作为 _dict_ 对象的键，显然 _list_ 、 _dict_ 等均不是合法的键对象：
+
+```python
+>>> {
+...     []: 'list is not hashable'
+... }
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+TypeError: unhashable type: 'list'
+>>>
+>>> {
+...     {}: 'dict is not hashable either'
+... }
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+TypeError: unhashable type: 'dict'
+```
+
+而用户自定义的对象默认便是可哈希对象，对象哈希值由对象地址计算而来，且任意两个不同对象均不相等：
+
+```python
+>>> class A:
+...     pass
+...
+>>>
+>>> a = A()
+>>> b = A()
+>>>
+>>> hash(a), hash(b)
+(-9223372036573452351, -9223372036573452365)
+>>>
+>>> a == b
+False
+```
+
+那么，哈希值如何计算呢？答案是—— **哈希函数** 。在对象模型部分，我们知道对象行为由类型对象决定。 **哈希值** 计算作为对象行为中的一种，秘密也隐藏在类型对象中—— _tp_hash_ 函数指针。而内置函数 _hash_ 则依赖类型对象中的 _tp_hash_ 函数，完成哈希值计算并返回。
+
+以 _str_ 对象为例，其哈希函数位于 _Objects/unicodeobject.c_ 源文件，_unicode_hash_ 是也：
+
+```c
+PyTypeObject PyUnicode_Type = {
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
+    "str",              /* tp_name */
+    sizeof(PyUnicodeObject),        /* tp_size */
+    // ...
+
+    (hashfunc) unicode_hash,        /* tp_hash*/
+
+    // ...
+    unicode_new,            /* tp_new */
+    PyObject_Del,           /* tp_free */
+};
+```
+
+对于用户自定义的对象，可以实现 _**hash**_ 魔术方法，重写默认哈希值计算方法。举个例子，假设标签类 _Tag_ 的实例对象由 _value_ 字段唯一标识，便可以根据 value 字段实现 **哈希函数** 以及 **相等性** 判断：
+
+```python
+class Tag:
+
+    def __init__(self, value, title):
+        self.value = value
+        self.title = title
+
+    def __hash__(self):
+        return hash(self.value)
+
+    def __eq__(self, other):
+        return self.value == other.value
+```
+
+哈希值 **使用频率** 较高，而且在对象生命周期内均不变。因此，可以在对象内部对哈希值进行缓存，避免重复计算。以 _str_ 对象为例，内部结构中的 _hash_ 字段便是用于保存哈希值的。
+
+理想的哈希函数必须保证哈希值尽量均匀地分布于整个哈希空间，越是相近的值，其哈希值差别应该越大。
+
+## 哈希冲突
+
+一方面，不同的对象，哈希值有可能相同，另一方面，与哈希值空间相比，哈希表的槽位是非常有限的。因此，存在多个键被映射到哈希索引的同一槽位的可能性，这便是 **哈希冲突** ！
