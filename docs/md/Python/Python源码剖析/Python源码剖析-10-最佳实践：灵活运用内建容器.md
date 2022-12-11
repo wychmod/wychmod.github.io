@@ -333,4 +333,4 @@ for user in users:
     city2total[user.city] += 1
 ```
 
-_Counter_ 还有很多其他高级特性，由于篇幅关系就不再深入讲解了，有兴趣的同学请自行查阅 _Python_ 文档。
+_Counter_ 还有很多其他高级特性。
