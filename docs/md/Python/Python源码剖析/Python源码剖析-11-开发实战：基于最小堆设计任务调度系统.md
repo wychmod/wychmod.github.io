@@ -226,3 +226,81 @@ def add_job(job_item):
 ```
 
 _PriorityQueue_ 是 _Python_ 标准库提供的优先队列，位于 _queue_ 模块，接口与 _Queue_ 一致。_PriorityQueue_ 底层基于 _heapq_ 实现 _get_ 优先返回 **最小值** 。此外，_PriorityQueue_ 是线程安全的，因此可以在多线程环境中使用：
+
+![](../../youdaonote-images/Pasted%20image%2020221211230709.png)
+
+这个多线程模型很简洁，但这个场景中存在一个 **致命问题** 。
+
+假设我们先往队列提交 _3_ 个 _1_ 小时后执行的定时任务，这 _3_ 个任务均被工作线程接收并处理。由于任务时间未到，工作线程先睡眠等待，这似乎问题不大。试想这时再提交一个 _1_ 分钟后执行的定时任务会怎样？
+
+![](../../youdaonote-images/Pasted%20image%2020221211230724.png)
+
+由于工作线程正在睡眠，新任务需要等到工作线程唤醒，也就是一小时后才有机会被执行！
+
+## 优先队列设计思路揭秘
+
+当然了，我们可以对 _PriorityQueue_ 进行一定的改造，使得 _get_ 方法阻塞到堆顶任务到期才返回。想要改造 _PriorityQueue_ ，必须知道它的实现方式。只要有源码，一切都好说：
+
+```python
+>>> import queue
+>>> print(queue.__file__)
+/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/lib/python3.7/queu
+e.py
+```
+
+这里不打算花大量篇幅介绍 _PriorityQueue_ 的源码，鼓励亲们自行研究，必有收获。现在，我们再造一个轮子——从零开始设计自己 _PriorityQueue_ 类，以此领会优先队列的设计思路，并探索新解决方案。
+
+首先，我们模仿 _Queue_ 实现优先队列类 _PriorityQueue_ ，将 _get_ 、 _put_ 方法代理到 _heappush_ 和 _heappop_ ：
+
+```python
+from heapq import heappush, heappop
+
+class PriorityQueue:
+
+    def __init__(self):
+        self.queue = []
+
+    def get(self):
+        if self.queue:
+            return heappop(self.queue)
+
+    def put(self, item):
+        heappush(self.queue, item)
+```
+
+由于 _PriorityQueue_ 可能同时被多个线程访问，因此必须考虑 **线程安全性** 。由于 _heappush_ 和 _heappop_ 函数并不是线程安全的，需要给这 _self.queue_ 加上一一个 **互斥锁** 。因此，我们引入 _threading_ 模块的 _Lock_ 对象：
+
+```python
+from  threading import Lock
+from heapq import heappush, heappop
+
+class PriorityQueue:
+
+    def __init__(self):
+        self.queue = []
+        self.mutex = Lock()
+
+    def get(self):
+        with self.mutex:
+            if self.queue:
+                return heappop(self.queue)
+
+    def put(self, item):
+        with self.mutex:
+            heappush(self.queue, item)
+```
+
+现在多线程导致的 **竞争态** 已经消除了，但还存在另一个问题：当队列为空时，消费者线程取不到任务。由于消费者并不知道队列何时有新任务，因此只能不断轮询，浪费大量 _CPU_ 时间：
+
+```python
+while True:
+    result = queue.get()
+    if result is None:
+        continue
+        
+    # 处理任务
+```
+
+如果资源不可用时，消费者线程能够先睡眠，等生产者线程准备好资源后再唤醒就完美了！事实上，操作系统有这样的 **线程同步** 工具，这就是 **条件变量** 。_Python_ 将条件变量封装为 _Condition_ 对象，位于 _threading_ 模块内。借助 _Condition_ 对象，可以轻松实现线程等待和唤醒：
+
+![](../../youdaonote-images/Pasted%20image%2020221211230909.png)
