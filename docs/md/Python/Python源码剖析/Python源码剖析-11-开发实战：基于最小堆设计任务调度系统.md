@@ -72,3 +72,157 @@ def add_job(job_item):
 采用多线程方案时，需要合理控制工作线程的 **个数** 。我们可以将执行时间已到达的任务放进一个 **就绪任务队列** ，然后启动若干个工作线程来执行就绪任务。新任务执行时间不定，可能有的是一分钟后执行，有的是一天后才执行。那么，问题就转变成——如何判断任务是否就绪？
 
 这时，我们可以用另一个线程—— **调度线程** 来完成这个使命。调度线程不断接收新任务，并在任务到期时将其添加至就绪任务队列。如果我们用另一个队列来保存新任务，那么调度线程便是两个队列间的 **任务搬运工** ：
+
+![](../../youdaonote-images/Pasted%20image%2020221211225038.png)
+
+-   **新任务队列** ，保存新任务，任务创建后即添加到这个队列；
+
+-   **就绪任务队列** ，保存执行时间已到达的任务；
+
+-   **调度线程** ，订阅 **新任务队列** ，当任务时间到达时将其添加至 **就绪任务队列** ( **搬运工** )；
+
+-   **工作线程** ，从 **就绪任务队** 列取出任务并执行( **消费者** )；
+   
+
+借助 _queue_ 模块，实现方案中的队列只需两行代码：
+
+```python
+from queue import Queue
+
+# 新任务队列
+new_jobs = Queue()
+
+# 就绪任务队列
+ready_jobs = Queue()
+```
+
+这样一来，添加新任务时，只需将 _JobItem_ 放入 **新任务队列** 即可：
+
+```python
+def add_job(job_item):
+    new_jobs.put(job_item)
+```
+
+工作线程执行逻辑也很简单，一个永久循环便搞定了：
+
+```python
+def job_worker():
+    while True:
+        # 从就绪队列中取任务
+        job_item = ready_jobs.get()
+
+        # 执行任务
+        process(job_item.job)
+```
+
+开始划重点了—— **调度线程** 的实现！
+
+由于就绪任务一定是所有任务中执行时间最小的，因此可以用一个 **最小堆** 来维护任务集。我们希望任务按执行时间排序，因此需要为 _JobItem_ 编写相关比较方法：
+
+```python
+from functools import total_ordering
+
+@total_ordering
+class JobItem:
+    
+    def __init__(self, executing_ts, job):
+        self.executing_ts = executing_ts
+        self.job = job
+        # ...
+        
+    def __eq__(self, other):
+        return self.executing_ts == other.executing_ts
+    
+    def __lt__(self, other):
+        return self.executing_ts < other.executing_ts
+```
+
+注意到，我们只实现了 ___eq___ 和 ___lt___ 魔术方法，___gt___ 等其他比较方法均由 _total_ordering_ 装饰器代劳。
+
+调度线程只需从新任务队列中取任务并压入最小堆，与此同时检查堆顶任务执行时间是否到达。由于线程需要同时处理两件不同的事情，初学者可能要慌了。不打紧，我们先画一个流程图梳理一下执行逻辑：
+
+![](../../youdaonote-images/Pasted%20image%2020221211225654.png)
+
+线程主体逻辑是一个永久循环，每次循环时：
+
+1.  先检查堆顶任务，如果执行时间已到，则移到就绪任务队列并进入下次循环；
+2.  等待新任务队列，如有新任务到达，则压入堆中并进入下次循环；
+3.  特别注意，等待新任务时不能永久阻塞，需要根据当前堆顶任务计算等待时间；
+4.  等待超时便进入下次循环再次检查堆顶任务，因此堆中任务不会被耽搁；
+
+理清执行逻辑后，调度线程实现便没有任何难度了，代码如下：
+
+```python
+from heapq import heappush, heappop
+
+def job_dispatcher():
+    # 任务堆，以执行时间排序的最小堆
+    heap = []
+
+    while True:
+        # 从新任务队列取任务的等待时间
+        wait_time = 1
+
+        # 取任务前先检查堆中任务
+        if heap:
+            # 堆顶任务执行时间最小，也就是最近需要执行的任务
+            job_item = heap[0]
+
+            # 执行时间与当前时间比较
+            now = time.time()
+            executing_ts = job_item.executing_ts
+            if now >= executing_ts:
+                # 执行时间到达，从堆中弹出并放入就绪队列
+                heappop(heap)
+                ready_jobs.put(job_item)
+
+                # 继续循环以便再次检查堆顶任务
+                continue
+            else:
+                # 否则计算需要等待的时间
+                wait_time = executing_ts - now
+
+        try:
+            # 从新任务队列等待并取出新任务
+            # 请注意，超时时间为当前堆顶任务等待时间
+            # 超时时间到达后，get停止阻塞，进入下次循环检查并执行堆顶任务
+            job_item = new_queue.get(timeout=wait_time)
+
+            # 将新任务压入堆中
+            # 注意到，执行时间为元组第一个元素，因此堆以执行时间排序
+            heappush(heap, job_item)
+        except:
+            pass
+```
+
+请结合代码注释并对照流程图阅读，不再重复讲解。
+
+## PriorityQueue
+
+用过 _PriorityQueue_ 的同学可能会提出这样的解决方案：
+
+```python
+import time
+from queue import PriorityQueue
+
+jobs = PriorityQueue()
+
+def job_worker():
+    while True:
+        # 从优先队列中取任务
+        job_item = jobs.get()
+
+        # 必要时睡眠，以确保任务时间到达才执行
+        now = time.time()
+        executing_ts = job_item.executing_ts
+        if executing_ts > now:
+            time.sleep(executing_ts - now)
+
+        # 执行任务
+        process(job_item.job)
+
+def add_job(job_item):
+    jobs.put(job_item)
+```
+
+_PriorityQueue_ 是 _Python_ 标准库提供的优先队列，位于 _queue_ 模块，接口与 _Queue_ 一致。_PriorityQueue_ 底层基于 _heapq_ 实现 _get_ 优先返回 **最小值** 。此外，_PriorityQueue_ 是线程安全的，因此可以在多线程环境中使用：
