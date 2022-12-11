@@ -304,3 +304,99 @@ while True:
 如果资源不可用时，消费者线程能够先睡眠，等生产者线程准备好资源后再唤醒就完美了！事实上，操作系统有这样的 **线程同步** 工具，这就是 **条件变量** 。_Python_ 将条件变量封装为 _Condition_ 对象，位于 _threading_ 模块内。借助 _Condition_ 对象，可以轻松实现线程等待和唤醒：
 
 ![](../../youdaonote-images/Pasted%20image%2020221211230909.png)
+
+-   条件对象与资源保护锁配合使用；
+-   资源未准备好，消费者调用 _wait_ 方法等待生产者，_wait_ 释放互斥锁；
+-   生产者准备好资源，调用 _notify_ 方法通知消费者；
+-   消费者被唤醒，_wait_ 方法重新拿到互斥锁并返回，消费者再次检查资源状态；
+
+引入 _Condition_ 后的代码如下，请结合注释阅读，不再赘述：
+
+```python
+class PriorityQueue:
+
+    def __init__(self):
+        self.queue = []
+        # 互斥锁
+        self.mutex = Lock()
+        # 条件对象
+        self.more = Condition(self.mutex)
+
+    def get(self):
+        # 先加互斥锁
+        with self.mutex:
+            while True:
+                if not self.queue:
+                    # 堆为空则等待条件变量
+                    # wait内部将释放互斥锁，以便生产者线程加锁
+                    self.more.wait()
+                    
+                    # 条件变量满足，线程重新唤醒
+                    # wait返回前，重新拿到互斥锁
+                    # 睡眠这段时间，至少有一个生产者压入新数据
+                    # 新数据有可能被其他线程抢走，因此需要重新检查堆是否为空
+                    continue
+
+                return heappop(self.queue)
+
+    def put(self, item):
+        with self.mutex:
+            # 将数据压入堆内
+            heappush(self.queue, item)
+            # 唤醒等待条件对象的其他线程
+            self.more.notify()
+```
+
+至此，我们已经山寨了一个 _PriorityQueue_ ，麻雀虽小五脏俱全！
+
+接下来，我们必须改造 _PriorityQueue_ ，保证任务只有到期后才能弹出。因此，_get_ 方法需要检查堆顶任务，未到期则等待。等待期间可能有执行时间更早的任务提交，这时线程必须停止等待重新检查堆顶。
+
+```python
+class PriorityQueue:
+
+    def __init__(self):
+        self.queue = []
+        # 互斥锁
+        self.mutex = Lock()
+        # 条件对象
+        self.more = Condition(self.mutex)
+
+    def get(self):
+        # 先加互斥锁
+        with self.mutex:
+            while True:
+                if not self.queue:
+                    # 堆为空则等待条件变量
+                    # wait内部将释放互斥锁
+                    self.more.wait()
+
+                    # 条件变量满足，线程重新唤醒
+                    # wait返回前，重新拿到互斥锁
+                    # 睡眠这段时间，至少有一个生产者压入新任务
+                    # 新任务有可能被其他线程抢走，因此需要重新检查堆是否为空
+                    continue
+
+                # 检查堆顶任务
+                job_item = self.queue[0]
+
+                # 判断执行时间是否到达
+                now = time.time()
+                executing_ts = job_item.executing_ts
+                if executing_ts > now:
+                    # 执行时间未到，则继续等待，直到时间达到或者有生产者压入新任务
+                    self.more.wait(executing_ts - now)
+                    # 有新任务提交或者等待时间已到，重新检查堆状态
+                    continue
+
+                # 弹出堆顶元素并返回
+                heappop(self.queue)
+                return job_item
+
+    def put(self, job_item):
+        with self.mutex:
+            # 将任务压入堆内，堆以执行时间排序
+            heappush(self.queue, job_item)
+            # 唤醒等待条件对象的其他线程
+            self.more.notify()
+```
+
