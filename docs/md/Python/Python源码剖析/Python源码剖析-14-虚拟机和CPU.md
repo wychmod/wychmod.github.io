@@ -64,3 +64,154 @@ typedef struct _frame {
 
 ![](../../youdaonote-images/Pasted%20image%2020221212183145.png)
 
+_x86_ 体系处理器通过栈维护调用关系，每次函数调用时在栈上分配一个帧用于保存调用上下文以及临时存储。 _CPU_ 中有两个关键寄存器， _%rsp_ 指向当前栈顶，而 _%rbp_ 则指向当前栈帧。每次调用函数时， **调用者** ( _Caller_ )负责准备参数、保存返回地址，并跳转到被调用函数代码；作为 **被调用者** ( _Callee_ )，函数先将当前 _%rbp_ 寄存器压入栈（保存调用者栈帧位置），并将 _%rbp_ 设置为当前栈顶（保存当前新栈帧位置）。由此， _%rbp_ 寄存器与每个栈帧中保存的调用者栈帧地址一起完美地维护了函数调用关系链。
+
+现在，我们回过头来继续考察 _Python_ 栈帧对象链以及函数调用之前的关系。请看下面这个例子（ _[demo.py](http://demo.py/)_ ）：
+
+```python
+pi = 3.14
+
+def square(r):
+    return r ** 2
+
+def circle_area(r):
+    return pi * square(r)
+
+def main():
+    print(circle_area(5))
+    
+if __name__ == '__main__':
+    main()
+```
+
+当 _Python_ 开始执行这个程序时，虚拟机先创建一个栈帧对象，用于执行模块代码对象：
+![](../../youdaonote-images/Pasted%20image%2020221212183430.png)
+
+当虚拟机执行到模块代码第 _13_ 行时，发生了函数调用。这时，虚拟机新建一个栈帧对，并开始执行函数 _main_ 的代码对象：
+
+![](../../youdaonote-images/Pasted%20image%2020221212184717.png)
+
+随着函数调用逐层深入，当调用 _square_ 函数时，调用链达到最长：
+
+![](../../youdaonote-images/Pasted%20image%2020221212184726.png)
+
+当函数调用完毕后，虚拟机通过 _f_back_ 字段找到前一个栈帧对象并回到调用者代码中继续执行。
+
+### 栈帧获取
+
+栈帧对象 _PyFrameObject_ 中保存着 _Python_ 运行时信息，在底层执行流控制以及程序调试中非常有用。那么，在 _Python_ 代码层面，有没有办法获得栈帧对象呢？答案是肯定的。调用标准库 _sys_ 模块中的 __getframe_ 函数，即可获得当前栈帧对象：
+
+```python
+>>> import sys
+>>> frame = sys._getframe()
+>>> frame
+<frame at 0x10e3706a8, file '<stdin>', line 1, code <module>>
+>>> dir(frame)
+['__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'clear', 'f_back', 'f_builtins', 'f_code', 'f_globals', 'f_lasti', 'f_lineno', 'f_locals', 'f_trace', 'f_trace_lines', 'f_trace_opcodes']
+```
+
+获取栈帧对象后，有什么作用呢？举个例子，我们可以顺着 _f_back_ 字段将调用关系和相关运行时信息打印出来：
+
+```python
+import sys
+
+pi = 3.14
+
+def square(r):
+    frame = sys._getframe()
+    while frame:
+        print('#', frame.f_code.co_name)
+        print('Locals:', list(frame.f_locals.keys()))
+        print('Globals:', list(frame.f_globals.keys()))
+        print()
+
+        frame = frame.f_back
+
+    return r ** 2
+
+def circle_area(r):
+    return pi * square(r)
+
+def main():
+    print(circle_area(5))
+
+if __name__ == '__main__':
+    main()
+```
+
+例子程序在 _square_ 函数中获取栈帧对象，然后逐层输出函数名以及对应的局部名字空间以及全局名字空间。程序执行后，你将看到这样的输出：
+
+```python
+# square
+Locals: ['r', 'frame']
+Globals: ['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__', '__file__', '__cached__', 'sys', 'pi', 'square', 'circle_area', 'main']
+
+# circle_area
+Locals: ['r']
+Globals: ['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__', '__file__', '__cached__', 'sys', 'pi', 'square', 'circle_area', 'main']
+
+# main
+Locals: []
+Globals: ['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__', '__file__', '__cached__', 'sys', 'pi', 'square', 'circle_area', 'main']
+
+# <module>
+Locals: ['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__', '__file__', '__cached__', 'sys', 'pi', 'square', 'circle_area', 'main']
+Globals: ['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__annotations__', '__builtins__', '__file__', '__cached__', 'sys', 'pi', 'square', 'circle_area', 'main']
+
+78.5
+```
+
+### 栈帧获取面试题
+
+如果面试官问你，能不能写个函数实现 _sys._getframe_ 一样的功能，你能应付吗？
+
+我们知道，_Python_ 程序抛异常时，会将执行上下文带出来，保存在异常中：
+
+```python
+>>> try:
+...     1 / 0
+... except Exception as e:
+...     print(e.__traceback__.tb_frame)
+... 
+<frame at 0x1079713f8, file '<stdin>', line 4, code <module>>
+```
+
+因此，我们自己的 _getframe_ 函数可以这样来写：
+
+```python
+def getframe():
+    try:
+        1 / 0
+    except Exception as e:
+        return e.__traceback__.tb_frame.f_back
+```
+
+请注意， _getframe_ 中通过异常获得的是 _getframe_ 自己的栈帧对象，必须通过 _f_back_ 字段找到调用者的栈帧。
+
+## 字节码执行
+
+_Python_ 虚拟机执行代码对象的代码位于 _Python/ceval.c_ 中，主要函数有两个： _PyEval_EvalCodeEx_ 是通用接口，一般用于函数这样带参数的执行场景； PyEval_EvalCode 是更高层封装，用于模块等无参数的执行场景。
+
+```c
+PyObject *
+PyEval_EvalCode(PyObject *co, PyObject *globals, PyObject *locals);
+
+PyObject *
+PyEval_EvalCodeEx(PyObject *_co, PyObject *globals, PyObject *locals,
+                  PyObject *const *args, int argcount,
+                  PyObject *const *kws, int kwcount,
+                  PyObject *const *defs, int defcount,
+                  PyObject *kwdefs, PyObject *closure);
+```
+
+这两个函数最终调用 __PyEval_EvalCodeWithName_ 函数，初始化栈帧对象并调用 _PyEval_EvalFrame_ 系列函数进行处理。栈帧对象将贯穿代码对象执行的始终，负责维护执行时所需的一切上下文信息。而 _PyEval_EvalFrame_ 系列函数最终调用 __PyEval_EvalFrameDefault_ 函数，虚拟机执行的秘密就藏在这！
+
+```c
+PyObject *
+PyEval_EvalFrame(PyFrameObject *f);
+PyObject *
+PyEval_EvalFrameEx(PyFrameObject *f, int throwflag)
+
+PyObject* _Py_HOT_FUNCTION
+_PyEval_EvalFrameDefault(PyFrameObject *f, int throwflag);
+```
