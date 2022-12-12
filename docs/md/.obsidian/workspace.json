@@ -56,6 +56,18 @@
             }
           },
           {
+            "id": "d0cff661b622aa63",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "a4ae1ec772295eb7",
             "type": "leaf",
             "state": {
@@ -68,7 +80,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -134,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
+                "file": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
+                "file": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +186,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md"
+                "file": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md"
               }
             }
           },
@@ -193,11 +205,11 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "active": "dd7fe986ab936d8a",
+  "active": "d0cff661b622aa63",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
     "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
     "Python/Python源码剖析/Python源码剖析-11-开发实战：基于最小堆设计任务调度系统.md",
-    "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
     "Python/Python源码剖析/Python源码剖析-10-最佳实践：灵活运用内建容器.md",
     "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md",
     "Python/anaconda中使用虚拟环境.md",

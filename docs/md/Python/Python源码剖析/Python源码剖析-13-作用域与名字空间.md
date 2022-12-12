@@ -307,3 +307,93 @@ _Python_ 执行一个作用域内的代码时，需要一个容器来存储当�
 
 当 _Python_ 执行函数 _circle_area_printer_ 时，将分配一个栈帧对象保存上下文信息以及执行状态，这个栈帧对象就是后面章节要介绍的 _PyFrameObject_ 。作为代码执行时必不可少上下文信息之一，全局名字空间和局部名字空间也在栈帧对象上记录：
 
+![](../../youdaonote-images/Pasted%20image%2020221212164228.png)
+
+代码语句中涉及的名字查找，均在这个两个名字空间中进行：先查找局部名字空间，再查找全局名字空间。
+
+### Enclosings
+
+在作用域存在嵌套的情况下， _Python_ 将内层代码块中依赖的所有外层名字存储在一个容器内，这就是 **闭包名字空间** ( _Enclosings_ )。
+
+当 _Python_ 执行函数 _print_circle_area_ 时，依赖上层作用域中的名字 _hint_ ， _hint_ 保存与一个独立的名字空间中：
+
+![](../../youdaonote-images/Pasted%20image%2020221212164538.png)
+
+当 _Python_ 执行到语句 `print(hint, pi * r ** 2)` ，按照 _Local_ _Enclosing_ _Global_ 这样的顺序查找语句中涉及的名字。其中，名字 _hint_ 在 _Enclosing_ 中找到，；名字 _pi_ 在 _Global_ 中找到；名字 _r_ 在 _Local_ 中找到。
+
+那么， _print_ 函数又是如何找到的呢？这就要说到 **内建名字空间** 。
+
+### Builtin
+
+_Python_ 在 _builtin_ 模块中提供了很多内建函数和类型，构成运行时的另一个名字空间 **内建名字空间** ( _Builtin_ )。像 _print_ 这样的内建函数或类型，均需要在这个名字空间中查找：
+
+![](../../youdaonote-images/Pasted%20image%2020221212164806.png)
+
+顺便提一下，全局名字空间中有一个名字指向内建名字空间：
+
+```python
+>>> import builtins
+>>> circle.__builtins__ is builtins.__dict__
+True
+```
+
+## 属性空间
+
+_Python_ 是一个动态语言，在运行时可以很灵活地为一些对象设置新属性。例如：
+
+```python
+>>> class A(object):
+...     pass
+... 
+>>> a = A()
+>>> a.value = 'abc'
+>>> a.value
+'abc'
+```
+
+同样，对象 _a_ 的属性在 _Python_ 内部也是存储在 _dict_ 对象中的，这就是该对象的 **属性空间** ：
+
+```python
+>>> a.__dict__
+{'value': 'abc'}
+```
+
+修改代表对象属性空间的 _dict_ 对象，将影响属性查找结果。由于属性空间中没有名字 _name_ ，因此属性查找失败：
+
+```python
+# 由于属性空间中没有名字name，因此属性查找失败
+>>> a.name
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'A' object has no attribute 'name'
+```
+
+当我们往 _dict_ 对象中添加名字 _name_ 后，属性查找便成功了：
+
+```python
+>>> a.__dict__['name'] = 'tom'
+>>> a.name
+'tom'
+```
+
+## 总结
+
+在 _Python_ 中，一个名字 (变量) 可见范围由 **作用域** 决定，而程序作用域由语法静态划分，划分规则提炼如下：
+
+-   _.py_ 文件 (模块) 最外层为 **全局作用域** ；
+-   遇到函数定义，函数体形成子作用域；
+-   遇到类定义，类定义体形成子作用域；
+-   名字仅在其作用域以内可见；
+-   全局作用域对其他所有作用域可见；
+-   函数作用域对其直接子作用域可见，并且可以传递 ( **闭包** )；
+
+与 **作用域** 相对应， _Python_ 在运行时借助 _dict_ 对象保存作用域中的名字，构成动态的 **名字空间** 。这样的名字空间总共有 _4_ 个：
+
+-   内建名字空间
+-   全局名字空间
+-   闭包名字空间
+-   局部名字空间
+
+_Python_ 语句在查找名字时，按照 _Local_ _Enclosing_ _Global_ _Builtin_ 这样的顺序在 _4_ 个名字空间中查找，这也就是所谓的 **LEGB** 规则。
+
+> 作用域总结: 1.函数作用域对内部所有的作用域均可见，包括内部嵌套的类作用域和函数作用域，例如：闭包. 2.类作用域对内部所有的作用域均不可见, 包括内部嵌套的类作用域和函数作用域.
