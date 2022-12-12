@@ -215,3 +215,213 @@ PyEval_EvalFrameEx(PyFrameObject *f, int throwflag)
 PyObject* _Py_HOT_FUNCTION
 _PyEval_EvalFrameDefault(PyFrameObject *f, int throwflag);
 ```
+
+![](../../youdaonote-images/Pasted%20image%2020221212192051.png)
+
+虽然 _Python/ceval.c_ 代码量很大(超过 _5000_ 行)，但主体结构并不复杂，很好理解。由于篇幅关系，我们没有办法对 __PyEval_EvalFrameDefault_ 函数展开深入介绍，只能用伪代码描述该函数的处理结构：
+
+```c
+PyObject* _Py_HOT_FUNCTION
+_PyEval_EvalFrameDefault(PyFrameObject *f, int throwflag)
+{
+    // 逐条取出字节码来执行
+    for (;;) {
+        // 读取下条字节码
+        // 字节码位于： f->f_code->co_code, 偏移量由 f->f_lasti 决定
+        opcode, oparg = read_next_byte_code(f);
+        if (opcode == NULL) {
+            break;
+        }
+
+        switch (opcode) {
+            // 加载常量
+            case LOAD_CONST:
+                // ....
+                break;
+            // 加载名字
+            case LOAD_NAME:
+                // ...
+                break;
+            // ...
+        }
+    }
+}
+```
+
+-   函数主体是一个 _for_ 循环，逐条读入字节码并执行；
+-   _for_ 循环体是一个很大的 _switch_ ，判断字节码指令类型并分别处理；
+
+最后，我们以几个典型的字节码例子，演示虚拟机执行的过程。
+
+### 顺序执行
+
+我们以顺序执行的字节码开始，这类字节码不包含任何跳转指令，逐条执行。下面是一个例子：
+
+```python
+pi = 3.14
+r = 3
+area = pi * r ** 2
+```
+
+对这几行代码进行编译，我们可以得到这样的字节码：
+
+```bash
+  1           0 LOAD_CONST               0 (3.14)
+              2 STORE_NAME               0 (pi)
+
+  2           4 LOAD_CONST               1 (3)
+              6 STORE_NAME               1 (r)
+
+  3           8 LOAD_NAME                0 (pi)
+             10 LOAD_NAME                1 (r)
+             12 LOAD_CONST               2 (2)
+             14 BINARY_POWER
+             16 BINARY_MULTIPLY
+             18 STORE_NAME               2 (area)
+             20 LOAD_CONST               3 (None)
+             22 RETURN_VALUE
+```
+
+_Python_ 虚拟机刚开始执行时，准备好栈帧对象用于保存执行上下文，关系如下(全局名字空间等信息省略)：
+
+![](../../youdaonote-images/Pasted%20image%2020221212192341.png)
+
+由于 _next_instr_ 初始状态指向字节码开头，虚拟机开始加载第一条字节码指令： `LOAD_CONST 0` 。字节码分为两部分，分别是 **操作码** ( _opcode_ )和 **操作数** ( _oparg_ ) 。`LOAD_CONST` 指令表示将常量加载进临时栈，常量下标由操作数给出。`LOAD_CONST` 指令在 __PyEval_EvalFrameDefault_ 函数 _switch_ 结构的一个 _case_ 分支中实现：
+
+```c
+TARGET(LOAD_CONST) {
+    PyObject *value = GETITEM(consts, oparg);
+    Py_INCREF(value);
+    PUSH(value);
+    FAST_DISPATCH();
+}
+```
+
+虚拟机执行这个指令时，先以操作数为下标从常量表中找到待加载常量并压入位于栈帧对象尾部的临时栈：
+
+![](../../youdaonote-images/Pasted%20image%2020221212192506.png)
+
+接着虚拟机接着执行 `STORE_NAME 0` 指令，将栈顶元素弹出并保存到局部名字空间，名字下标由操作数给出：
+
+![](../../youdaonote-images/Pasted%20image%2020221212192533.png)
+
+你可能会问，变量赋值为啥不直接存取名字空间，而是到临时栈绕一圈？主要原因在于： _Python_ 字节码只有一个操作数，另一个操作数只能通过临时栈给出。 _Python_ 字节码设计思想跟 _CPU_ **精简指令集** 类似，指令尽量简化，复杂操作由多条指令组合完成。紧接着的两条字节码指令也是类似的，不再赘述。
+
+接下的指令就不一条条展开介绍了，我们重点关注每条指令执行完毕后，临时栈的变化：
+
+![](../../youdaonote-images/Pasted%20image%2020221212192649.png)
+
+其中， `BINARY_POWER` 指令从栈上弹出两个操作数(底数 _3_ 和 指数 _2_ )进行 **幂运算** ，并将结果 _9_ 压回栈中； `BINARY_MULTIPLY` 指令则进行 **乘积运算** ，步骤也是类似的。
+
+### if 判断
+
+接下来，我们继续研究 _Python_ 控制流字节码，先看看最简单的 _if_ 判断语句：
+
+```python
+value = 1
+if value < 0:
+    print('negative')
+else:
+    print('positive')
+```
+
+对这几行代码进行编译，我们可以得到这样的字节码：
+
+```bash
+  1           0 LOAD_CONST               0 (1)
+              2 STORE_NAME               0 (value)
+
+  2           4 LOAD_NAME                0 (value)
+              6 LOAD_CONST               1 (0)
+              8 COMPARE_OP               0 (<)
+             10 POP_JUMP_IF_FALSE       22
+
+  3          12 LOAD_NAME                1 (print)
+             14 LOAD_CONST               2 ('negative')
+             16 CALL_FUNCTION            1
+             18 POP_TOP
+             20 JUMP_FORWARD             8 (to 30)
+
+  4     >>   22 LOAD_NAME                1 (print)
+             24 LOAD_CONST               3 ('positive')
+             26 CALL_FUNCTION            1
+             28 POP_TOP
+        >>   30 LOAD_CONST               4 (None)
+             32 RETURN_VALUE
+```
+
+当执行到代码第 _2_ 行 _if_ 语句对应的字节码时，临时栈的变化如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221212192943.png)
+
+POP_JUMP_IF_FALSE 指令将比较结果从栈顶弹出并判断真假，如果为假则跳到 else 分支对应的字节码执行；如果为真则继续执行，最终由 JUMP_FORWARD 指令完成跳转绕过 else 分支(跳过 8 个字节也就是 4 条字节码)。
+
+![](../../youdaonote-images/Pasted%20image%2020221212193055.png)
+
+### while 循环
+
+最后，我们快速过一遍循环控制结构，以 _while_ 循环为例：
+
+```python
+values = [1, 2, 3]
+
+while values:
+    print(values.pop())
+```
+
+对这几行代码进行编译，我们可以得到这样的字节码：
+
+```bash
+  1           0 LOAD_CONST               0 (1)
+              2 LOAD_CONST               1 (2)
+              4 LOAD_CONST               2 (3)
+              6 BUILD_LIST               3
+              8 STORE_NAME               0 (values)
+
+  3          10 SETUP_LOOP              20 (to 32)
+        >>   12 LOAD_NAME                0 (values)
+             14 POP_JUMP_IF_FALSE       30
+
+  4          16 LOAD_NAME                1 (print)
+             18 LOAD_NAME                0 (values)
+             20 LOAD_METHOD              2 (pop)
+             22 CALL_METHOD              0
+             24 CALL_FUNCTION            1
+             26 POP_TOP
+             28 JUMP_ABSOLUTE           12
+        >>   30 POP_BLOCK
+        >>   32 LOAD_CONST               3 (None)
+             34 RETURN_VALUE
+```
+
+经过前面学习，我们轻易便可以读懂这些字节码，并画出以下流程图：
+
+![](../../youdaonote-images/Pasted%20image%2020221212193316.png)
+
+1.  `SETUP_LOOP` 指令拉开循环执行的序幕；
+2.  `POP_JUMP_IF_FALSE` 指令判断循环条件，成立则往下执行循环体，否则跳过循环体结束循环；
+3.  `JUMP_ABSOLUTE` 在循环体执行完毕后，跳回循环开头处，再次检查循环条件；
+4.  `POP_BLOCK` 指令在循环结束后，清理循环环境；
+
+## 小结
+
+本节我们深入 _Python_ 虚拟机源码，研究虚拟机执行字节码的全过程。虚拟机在执行代码对象前，需要先创建 **栈帧对象** ( _PyFrameObject_ )，用于维护运行时的上下文信息。 _PyFrameObject_ 关键信息包括：
+
+-   局部名字空间( _f_locals_ )；
+-   全局名字空间( _f_globals_ )；
+-   内建名字空间( _f_builtins_ )；
+-   代码对象( _f_code_ )；
+-   上条已执行指令编号( _f_lasti_ )；
+-   调用者栈帧( _f_back_ )；
+-   静态局部名字空间与临时栈( _f_localsplus_ )；
+
+栈帧对象通过 _f_back_ 串成一个 **调用链** ，与 _CPU_ 栈帧调用链有异曲同工之妙。我们还借助 _sys_ 模块成功取得栈帧对象，并在此基础上输出整个函数调用链。
+
+```python
+import sys
+frame = sys._getframe()
+```
+
+最后，我们研究了典型字节码的执行过程，发现这个过程跟 _CPU_ 执行机器指令的过程非常类似。**字节码就像是汇编语言，而虚拟机就像一颗软件** **CPU** ！由此可见计算机知识间关系紧密，没有 **计算机组成原理** 、 **操作系统** 、 **计算机网络** 等基础知识加持，程序开发就像在沙子上盖大厦。
+
+_Python_ 虚拟机的代码量不小，而本节力求以最通俗的语言将虚拟机的原理讲清楚，因此没有深入源码的细枝末节。鼓励读者保持好奇心，深入到源码中，肯定会有所收获。修炼内功，从源码开始！
