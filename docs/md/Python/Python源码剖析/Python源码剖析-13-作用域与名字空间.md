@@ -106,3 +106,60 @@ print(a)
 _A_ _B_ _C_ 三个作用域嵌套关系如左下所示，访问关系如右下所示：
 
 ![](../../youdaonote-images/Pasted%20image%2020221212120814.png)
+
+箭头表示访问关系，例如作用域 _B_ 中的语句可以访问到作用域 _A_ 中的名字，反过来则不行。
+
+### 闭包作用域
+
+这个例子借助闭包实现提示信息定制功能：
+
+```python
+pi = 3.14
+
+def circle_area_printer(hint):
+
+    def print_circle_area(r):
+        print(hint, pi * r ** 2)
+
+    return print_circle_area
+
+circle_area_en = circle_area_printer('Circle Area:')
+circle_area_zh = circle_area_printer('圆面积：')
+
+circle_area_en(2)
+circle_area_zh(3)
+```
+
+根据前面介绍的规则，我们对代码进行作用域划分，结果如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221212131233.png)
+
+![](../../youdaonote-images/Pasted%20image%2020221212131236.png)\
+
+毫无疑问， _B_ _C_ 均在全局作用域 _A_ 内，因此都可以访问到 _A_ 中的名字。由于 _B_ 是函数作用域，对其子作用域 _C_ 可见。因此， _hint_ 属于 `B` 作用域，而位于 _C_ 作用域的语句可以访问它，也就不奇怪了。
+
+### 类作用域
+
+我们接着以一个简单的类为例，考察类作用域：
+
+```python
+slogan = 'life is short, use python.'
+
+class Dog(object):
+
+    group = ''
+
+    def __init__(self, name):
+        self.name = name
+        
+    def yelp(self):
+        print('woof,', slogan)
+        
+    def yelp_name(self):
+        print('woof, i am', self.name)
+        
+    def yelp_group(self):
+        print('woof, my group is', group)
+```
+
+根据前面介绍的规则，我们对代码进行作用域划分，结果如下：
