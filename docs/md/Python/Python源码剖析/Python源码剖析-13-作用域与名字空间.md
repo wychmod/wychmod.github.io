@@ -212,3 +212,98 @@ if __name__ == '__main__':
 
 各个作用域嵌套关系以及访问关系分别如下：
 
+![](../../youdaonote-images/Pasted%20image%2020221212153713.png)
+
+同样，全局作用域 _A_ 对其他所有内嵌于其中的作用域可见。由于作用域 _B_ 是函数作用域，因此子作用域 _C_ 中的语句能够范围 _B_ 中的名字。
+
+经过以上分析，例子程序应该输出 `woof, my group is silly-dogs` 。
+
+#### 类 - 类
+
+我们接着考察类嵌套的情形：
+
+```python
+class Foo(object):
+
+    bar_name = 'BAR'
+
+    class Bar(object):
+
+        name = bar_name
+
+if __name__ == '__main__':
+    bar = Foo.Bar()
+    print(bar.name)
+```
+
+这个例子没有实际含义，纯粹为了考察嵌套类作用域问题。根据前面介绍的规则，我们对代码进行作用域划分：
+
+![](../../youdaonote-images/Pasted%20image%2020221212153913.png)
+
+各个作用域嵌套关系以及访问关系分别如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221212153920.png)
+
+这里需要注意的是，类作用域 _B_ 对子作用域 _C_ 不可见，因此第 _7_ 行就抛异常了。
+
+## 名字空间
+
+**作用域** 是语法层面的概念，是静态的。当程序开始执行后，作用域中的名字绑定关系需要存储在某个地方，这个地方就是 **名字空间** 。由于名字绑定关系是有 **名字** 和 **对象** 组成的键值对，因而 _dict_ 对象是理想的存储容器。
+
+接下来，我们以计算圆面积的例子程序接着考察作用域背后的运行时实体 —— **名字空间** 。
+
+```python
+# circle.py
+
+pi = 3.14
+
+def circle_area_printer(hint):
+
+    def print_circle_area(r):
+        print(hint, pi * r ** 2)
+
+    return print_circle_area
+```
+
+### Globals
+
+在 _Python_ 中，每个 **模块** 背后都有一个 _dict_ 对象，用于存储 **全局作用域** 中的名字，这就是 **全局名字空间** ( _Globals_ )。在上面这个例子中，全局名字空间至少包含两个名字： _pi_ 和 _circle_area_printer_ 。由此可见， _Python_ 的全局名字空间是以 **模块** 为单位划分的，而不是全局统一的。
+
+其他模块如果也需要使用 _pi_ ，需要借助 _import_ 语句将其导入。模块导入后，我们得到一个模块对象 (假设例子代码位于 _[circle.py](http://circle.py/)_ )：
+
+```python
+>>> import circle
+>>> type(circle)
+<class 'module'>
+```
+
+接着，我们通过模块对象属性查找，便可得到 _circle_ 模块全局名字中间中的 _pi_ ：
+
+```python
+>>> print(circle.pi)
+3.14
+```
+
+此外，我们还可以进一步确认 _circle_area _printer_ 函数也可以通过模块对象属性的方式来访问：
+
+```python
+>>> dir(circle)
+['__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'circle_area_printer', 'pi']
+```
+
+在 _Python_ 中，一个对象可以访问哪些属性，称为对象的 **属性空间** 。由于属性也是键值对，因此一般也是用 _dict_ 来存储。通过观察以上代码行为，我们得到一个结论：模块的 **属性空间** 以及 **全局名字空间** 是同一个东西，都藏身于同一个 _dict_ 对象。那么，我们怎么找到这个特殊的 _dict_ 对象呢？答案是：
+
+```python
+circle.__dict__
+```
+
+全局名字空间藏身于模块对象背后的 _dict_ 对象中：
+
+![](../../youdaonote-images/Pasted%20image%2020221212154210.png)
+
+### Locals
+
+_Python_ 执行一个作用域内的代码时，需要一个容器来存储当前作用域内的名字，这就是 **局部名字空间** ( _Locals_ )。
+
+当 _Python_ 执行函数 _circle_area_printer_ 时，将分配一个栈帧对象保存上下文信息以及执行状态，这个栈帧对象就是后面章节要介绍的 _PyFrameObject_ 。作为代码执行时必不可少上下文信息之一，全局名字空间和局部名字空间也在栈帧对象上记录：
+
