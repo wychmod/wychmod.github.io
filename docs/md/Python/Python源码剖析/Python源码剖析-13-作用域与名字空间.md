@@ -163,3 +163,52 @@ class Dog(object):
 ```
 
 根据前面介绍的规则，我们对代码进行作用域划分，结果如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221212153327.png)
+
+![](../../youdaonote-images/Pasted%20image%2020221212153332.png)
+
+同样，全局作用域 _A_ 对其他所有内嵌于其中的作用域可见。因此，函数 _yelp_ 作用域 _D_ 可以访问到全局作用域 _A_ 中的名字 _slogan_ 。但是由于 _B_ 不是函数作用域，对其子作用域不可见。因此， _yelp_group_ 函数作用域 _F_ 访问不到类作用域 _B_ 中的名字 _group_ ，而 _group_ 在全局作用域 _A_ 中未定义，第 _17_ 行便抛异常了。
+
+### 复杂嵌套
+
+#### 函数 - 类
+
+在 _Python_ 中，类可以动态创建，甚至在函数中返回。在函数中创建并返回类，可以按函数参数对类进行动态定制，有时很有用。那么，这种场景中的作用域又该如何划分呢？我们一起来看一个简单的例子：
+
+```python
+slogan = 'life is short, use python.'
+
+def make_dog(group_name):
+
+    class Dog(object):
+
+        group = group_name
+
+        def __init__(self, name):
+            self.name = name
+
+        def yelp(self):
+            print('woof,', slogan)
+
+        def yelp_name(self):
+            print('woof, i am', self.name)
+
+        def yelp_group(self):
+            print('woof, my group is', self.group)
+
+    return Dog
+
+if __name__ == '__main__':
+    Dog = make_dog('silly-dogs')
+
+    tom = Dog(name='tom')
+    tom.yelp_group()
+```
+
+这个例子借助函数实现类属性 _group_ 动态定制，以不同的 _group_name_ 调用函数即可获得不同的 _Dog_ 类。根据前面介绍的规则，我们对代码进行作用域划分，结果如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221212153702.png)
+
+各个作用域嵌套关系以及访问关系分别如下：
+
