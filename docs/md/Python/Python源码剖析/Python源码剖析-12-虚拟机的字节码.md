@@ -140,3 +140,135 @@ typedef struct {
 代码对象 _PyCodeObject_ 用于存储编译结果，包括**字节码** 以及代码涉及的 **常量 名字** 等等。关键字段包括：
 
 ![](../../youdaonote-images/Pasted%20image%2020221212103103.png)
+
+我们终于得到了字节码，尽管它现在看上去如同天书一般：
+
+```python
+>>> result.co_code
+b'd\x00Z\x00d\x01d\x02\x84\x00Z\x01G\x00d\x03d\x04\x84\x00d\x04e\x02\x83\x03Z\x03d\x05S\x00'
+```
+
+字节码我们现在还无法读懂，放一放。接着研究其他字段，看看名字列表，包含代码对象涉及的所有名字：
+
+```python
+>>> result.co_names
+('PI', 'circle_area', 'object', 'Dog')
+```
+
+常量列表则包括代码对象涉及的所有常量：
+
+```python
+>>> result.co_consts
+(3.14, <code object circle_area at 0x10356c5d0, file "demo.py", line 3>, 'circle_area', <code object Dog at 0x10356cae0, file "demo.py", line 6>, 'Dog', None)
+```
+
+常量列表里还藏着两个代码对象！其中一个对应着 _circle_area_ 函数体，另一个对应着 _Dog_ 类定义体。回想起 _Python_ **作用域** 的划分方式，很自然地联想到： **每个作用域对应着一个代码对象** ！如果这个假设成立， _Dog_ 代码对象的常量列表应该还藏着两个代码对象，分别代表 ***init*** 方法和 _yelp_ 方法的函数体：
+
+![](../../youdaonote-images/Pasted%20image%2020221212104137.png)
+
+进一步研究代表类 _Dog_ 的代码对象，我们发现事实确实如此：
+
+```python
+>>> dog_code = result.co_consts[3]
+>>> dog_code
+<code object Dog at 0x10356cae0, file "demo.py", line 6>
+>>> dog_code.co_consts
+('Dog', <code object __init__ at 0x10356c420, file "demo.py", line 8>, 'Dog.__init__', <code object yelp at 0x10356c930, file "demo.py", line 11>, 'Dog.yelp', None)
+```
+
+因此，我们得到以下结论： _Python_ 源码编译后，每个作用域都对应着一个代码对象，子作用域代码对象位于父作用域代码对象的常量列表里，层级一一对应。
+
+![](../../youdaonote-images/Pasted%20image%2020221212104226.png)
+
+至此，我们对 _Python_ 源码的编译结果—— **代码对象** 以及其中的 **字节码** 有了最基本的认识。虽然代码对象中的很多字段我们还没来得及研究，但不要紧，我们将在 **虚拟机** 、 **函数机制** 、 **类机制** 的学习中一一揭开这些秘密。
+
+## 反编译
+
+字节码是一堆不可读的字节序列，跟二进制机器码一样。我们想读懂机器码，可以将其反汇编。那么，字节码是不是也可以反编译呢？答案是肯定的—— _dis_ 模块就是干这个事的：
+
+```python
+>>> import dis
+>>> dis.dis(result.co_code)
+          0 LOAD_CONST               0 (0)
+          2 STORE_NAME               0 (0)
+          4 LOAD_CONST               1 (1)
+          6 LOAD_CONST               2 (2)
+          8 MAKE_FUNCTION            0
+         10 STORE_NAME               1 (1)
+         12 LOAD_BUILD_CLASS
+         14 LOAD_CONST               3 (3)
+         16 LOAD_CONST               4 (4)
+         18 MAKE_FUNCTION            0
+         20 LOAD_CONST               4 (4)
+         22 LOAD_NAME                2 (2)
+         24 CALL_FUNCTION            3
+         26 STORE_NAME               3 (3)
+         28 LOAD_CONST               5 (5)
+         30 RETURN_VALUE
+```
+
+看到没，字节码反编译后的结果多么像汇编语言！其中，第一列是字节码 **偏移量** ，第二列是 **指令** ，第三列是 **操作数** 。以第一条字节码为例， _LOAD_CONST_ 指令将常量加载进栈，常量下标由操作数给出。而下标为 _0_ 的常量是：
+
+```python
+>>> result.co_consts[0]
+3.14
+```
+
+我们成功解开了第一条字节码：将常量 _3.14_ 加载到栈！对其他字节码的解读也是类似的。
+
+由于代码对象保存了常量、名字等上下文信息，因此直接对代码对象进行反编译可以得到更为清晰的结果：
+
+```python
+>>> dis.dis(result)
+  1           0 LOAD_CONST               0 (3.14)
+              2 STORE_NAME               0 (PI)
+
+  3           4 LOAD_CONST               1 (<code object circle_area at 0x10356c5d0, file "demo.py", line 3>)
+              6 LOAD_CONST               2 ('circle_area')
+              8 MAKE_FUNCTION            0
+             10 STORE_NAME               1 (circle_area)
+
+  6          12 LOAD_BUILD_CLASS
+             14 LOAD_CONST               3 (<code object Dog at 0x10356cae0, file "demo.py", line 6>)
+             16 LOAD_CONST               4 ('Dog')
+             18 MAKE_FUNCTION            0
+             20 LOAD_CONST               4 ('Dog')
+             22 LOAD_NAME                2 (object)
+             24 CALL_FUNCTION            3
+             26 STORE_NAME               3 (Dog)
+             28 LOAD_CONST               5 (None)
+             30 RETURN_VALUE
+```
+
+注意到，操作数指定的常量或名字的实际值在旁边的括号内列出。另外，字节码以语句为单位进行分组，中间以空行隔开，语句行号在字节码前面给出。 `PI = 3.14` 这个语句编译成以下两条字节码：
+
+```bash
+  1           0 LOAD_CONST               0 (3.14)
+              2 STORE_NAME               0 (PI)
+```
+
+## pyc
+
+如果将 _demo_ 作为模块导入， _Python_ 将在 _[demo.py](http://demo.py/)_ 文件所在目录下生成 _.pyc_ 文件：
+
+```python
+>>> import demo
+```
+
+```bash
+$ ls __pycache__ 
+demo.cpython-37.pyc
+```
+
+_pyc_ 文件保存经过序列化处理的代码对象 _PyCodeObject_ 。这样一来， _Python_ 后续导入 _demo_ 模块时，直接读取 _pyc_ 文件并反序列化即可得到代码对象，避免了重复编译导致的开销。只有 _[demo.py](http://demo.py/)_ 有新修改(时间戳比 _pyc_ 文件新)， _Python_ 才会重新编译。
+
+因此， _Python_ 中的 _.py_ 文件可以类比 _Java_ 中的 _.java_ 文件，都是源码文件；而 _.pyc_ 文件可以类比 _.class_ 文件，都是编译结果(字节码)。只不过 _Java_ 程序需要先用编译器 _javac_ 命令来编译，再用虚拟机 _java_ 命令来执行；而 _Python_ 解释器把这个两个活都干了，更加智能。
+
+## 小结
+
+_Python_ **程序** 由 **解释器** _python_ 命令执行， _Python_ 解释器中包含一个 **编译器** 和一个 **虚拟机** 。 _Python_ 解释器执行 _Python_ 程序时，分为以下两步：
+
+1.  **编译器** 将 _.py_ 文件中的 _Python_ 源码编译成 **字节码** ；
+2.  **虚拟机** 逐行执行编译器生成的 **字节码** ；
+
+_Python_ 源码的编译结果是代码对象 _PyCodeObject_ ，对象中保存了 **字节码** 、 **常量** 以及 **名字** 等信息，代码对象与源码作用域一一对应。 _Python_ 将编译生成的代码对象保存在 _.pyc_ 文件中，以避免不必要的重复编译，提高效率。
