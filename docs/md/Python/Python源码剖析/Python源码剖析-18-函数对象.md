@@ -63,3 +63,7 @@ True
 ```
 
 函数对象关键属性整理如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221213205649.png)
+
+![](../../youdaonote-images/Pasted%20image%2020221213205701.png)
