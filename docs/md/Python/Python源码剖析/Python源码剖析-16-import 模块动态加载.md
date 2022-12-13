@@ -225,7 +225,7 @@ text = read('demo.py')
 code = compile(text, 'demo.py', 'exec')
 ```
 
-至此，_Python_ 得到了代表模块逻辑的 **代码** 对象 _PyCodeObject_ 。接着，_Python_ 创建一个全新的 **模块** 对象。模块对象在 _Python_ 内部由 _PyModuleObject_ 结构体表示，位于 _Objects/moduleobject.c_ 。 **模块** 对象也是内建对象中的一种，有兴趣的童鞋参照 **内建对象** 部分的思路研究源码，在此不再展开。
+至此，_Python_ 得到了代表模块逻辑的 **代码** 对象 _PyCodeObject_ 。接着，_Python_ 创建一个全新的 **模块** 对象。模块对象在 _Python_ 内部由 _PyModuleObject_ 结构体表示，位于 _Objects/moduleobject.c_ 。 **模块** 对象也是内建对象中的一种。
 
 由于需要直接创建 **模块对象** 的场景极少，_Python_ 没有将 **模块类型** 暴露出来，这跟其他内置对象类型略有差别：
 
