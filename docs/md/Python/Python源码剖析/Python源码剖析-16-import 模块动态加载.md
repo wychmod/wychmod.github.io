@@ -292,3 +292,57 @@ AttributeError: module 'demo' has no attribute 'a'
 ```python
 value = 1
 ```
+
+![](../../youdaonote-images/Pasted%20image%2020221213155336.png)
+
+模块 **代码** 对象执行完毕后，_demo_ **模块** 对象便具备血肉之躯了！
+
+```python
+>>> demo.value
+1
+```
+
+最后，别忘了将 _demo_ 模块 对象保存到 _sys.modules_ ，以避免不必要的重复加载：
+
+```python
+>>> import sys
+>>> sys.modules['demo'] = demo
+```
+
+这便是 _Python_ **模块动态加载** 的全过程。
+
+## 模块搜索方式
+
+曾几何时，我们对 _ModuleNotFoundError_ 异常谈虎色变。明明已经准备好了模块代码，_Python_ 为何不认呢？全面掌握 **模块加载** 机制，特别是 **模块搜索** 方式后，我们内心便不再畏惧。
+
+_Python_ 模块搜索路径保存于 _sys.path_ 列表中，遇到 _ModuleNotFoundError_ 异常首先要排查 _sys.path_ 是否包含目标模块所在目录路径。如果目标模块所在路径不在 _sys.path_ 中，则需要将其加入：
+
+```python
+# 路径追加到末尾，Python最后才搜索该路径
+sys.path.append('/some/path')
+
+# 路径插入到头部，Python则最先搜索该路径
+sys.path.insert(0, '/some/path')
+```
+
+需要特别注意，同一路径不能重复多次加入，不然将影响 _Python_ 的搜索效率，甚至导致 **内存泄露** 。我曾经帮一个初学者排查内存泄露问题，最后定位到这样的代码：
+
+```python
+def some_function():
+    sys.path.insert(0, '/some/path')
+    import xxxx
+    
+    # ...
+```
+
+这意味着函数每调用一次，_sys.path_ 便增加一个元素！当函数被频繁调用，_sys.path_ 列表最终将耗尽程序内存！
+
+此外，在程序代码中写死模块搜索路径的方式并不可取。更优雅的方式是通过 _PYTHONPATH_ 环境变量指定：
+
+```bash
+PYTHONPATH=/some/path python xxxx.py
+```
+
+这样一来，程序启动后给定路径 _/some/path_ 便在 _sys.path_ 列表中了。
+
+> IMPORT_NAME负责创建模块对象、开辟新frame对象，并以这个frame对象为上下文执行被import模块的代码对象。
