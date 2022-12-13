@@ -145,7 +145,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "__code__",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -162,7 +162,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -242,7 +243,7 @@
     "width": 310.5,
     "collapsed": true
   },
-  "active": "6665125a84c98c5a",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
     "Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md",
