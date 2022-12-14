@@ -122,3 +122,144 @@ True
 
 这两个常量是创建函数最重要的参数，一个指定函数的 **代码** 对象，一个指定 **函数名** 。 _MAKE_FUNCTION_ 字节码从栈顶取出这两个参数，完成 **函数** 对象的创建，并将其放置于栈顶。此外，函数对象继承了当前 **帧** 对象的 **全局名字空间** 。因此， _circle_area_ 不管在何处调用，其全局名字空间一定是就是它所在模块 ( ___main___ ) 的 **属性空间** 。
 
+![](../../youdaonote-images/Pasted%20image%2020221214115312.png)
+
+紧接着的 _STORE_NAME_ 指令我们已经非常熟悉了，它将创建好的函数对象从栈顶弹出，并保存到局部名字空间。
+
+![](../../youdaonote-images/Pasted%20image%2020221214115400.png)
+
+注意到，这个 **局部名字空间** 正好是模块对象的 **属性空间** ！如果函数是在模块 _demo_ 中定义，则可以这样引用：
+
+```python
+>>> import demo
+>>> demo.circle_area(2)
+```
+
+至此，函数诞生的整个历程我们已经尽在掌握，可以腾出手来研究 _MAKE_FUNCTION_ 这个字节码了。
+
+## MAKE_FUNCTION
+
+经过 **虚拟机** 部分学习，我们对研究字节码的套路早已了然于胸。虚拟机处理字节码的逻辑位于 _Python/ceval.c_ ：
+
+```c
+        TARGET(MAKE_FUNCTION) {
+            PyObject *qualname = POP();
+            PyObject *codeobj = POP();
+            PyFunctionObject *func = (PyFunctionObject *)
+                PyFunction_NewWithQualName(codeobj, f->f_globals, qualname);
+
+            Py_DECREF(codeobj);
+            Py_DECREF(qualname);
+            if (func == NULL) {
+                goto error;
+            }
+
+            if (oparg & 0x08) {
+                assert(PyTuple_CheckExact(TOP()));
+                func ->func_closure = POP();
+            }
+            if (oparg & 0x04) {
+                assert(PyDict_CheckExact(TOP()));
+                func->func_annotations = POP();
+            }
+            if (oparg & 0x02) {
+                assert(PyDict_CheckExact(TOP()));
+                func->func_kwdefaults = POP();
+            }
+            if (oparg & 0x01) {
+                assert(PyTuple_CheckExact(TOP()));
+                func->func_defaults = POP();
+            }
+
+            PUSH((PyObject *)func);
+            DISPATCH();
+        }
+```
+
+1.  第 _2-3_ 行，从栈顶弹出关键参数；
+2.  第 _4-5_ 行，调用 _PyFunction_NewWithQualName_ 创建 **函数** 对象， **全局名字空间** 来源于当前 **帧** 对象；
+3.  第 _13-16_ 行，如果函数为 **闭包函数** ，从栈顶取 **闭包变量** ；
+4.  第 _17-20_ 行，如果函数包含注解，从栈顶取注解；
+5.  第 _21-28_ 行，如果函数参数由默认值，从栈顶取默认值，分为普通默认值以及非关键字默认值两种；
+
+_PyFunction_NewWithQualName_ 函数在 _Objects/funcobject.c_ 源文件中实现，主要参数有 3 个：
+
+-   _code_，**代码对象**；
+-   _globals_， **全局名字空间**；
+-   _qualname_，**函数名**；
+
+_PyFunction_NewWithQualName_ 函数则实例化 **函数** 对象 ( _PyFunctionObject_ )，并根据参数初始化相关字段。
+
+当然了，我们也可以用 _Python_ 语言模拟这个过程。根据 **对象模型** 中规则，调用 **类型** 对象即可创建 **实例** 对象。只是 Python 并没有暴露 **函数类型** 对象，好在它不难找：
+
+```python
+>>> def a():
+...     pass
+... 
+>>> function = a.__class__
+>>> function
+<class 'function'>
+```
+
+我们随便定义了一个函数，然后通过 ___class___ 找到它的 **类型** 对象，即 **函数类型** 对象。
+
+然后，我们准备函数的 **代码** 对象：
+
+```python
+>>> text = '''
+... def circle_area(r):
+...     return pi * r ** 2
+... '''
+>>> code = compile(text, 'test', 'exec')
+>>> func_code = code.co_consts[0]
+>>> func_code
+<code object circle_area at 0x10e029150, file "test", line 2>
+```
+
+由此一来，函数三要素便已俱备，调用 **函数类型** 对象即可完成临门一脚：
+
+```python
+>>> circle_area = function(func_code, globals(), 'circle_area')
+>>> circle_area
+<function circle_area at 0x10e070620>
+```
+
+至此，我们得到了梦寐以求的 **函数** 对象，而且是以一种全新的方式！
+
+但是，我们把全局变量 _pi_ 忘在脑后了，没有它函数跑不起来：
+
+```python
+>>> circle_area(2)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "test", line 3, in circle_area
+NameError: name 'pi' is not defined
+```
+
+这难不倒我们，加上便是：
+
+```python
+>>> pi = 3.14
+>>> circle_area(2)
+12.56
+```
+
+不仅如此，我们还可以为函数加上参数默认值：
+
+```python
+>>> circle_area.__defaults__ = (1,)
+```
+
+由此一来，如果调用 _circle_area_ 函数时未指定参数，则默认以 _1_ 为参数。
+
+```python
+>>> circle_area()
+3.14
+>>> circle_area(3)
+28.26
+>>> circle_area(1)
+3.14
+```
+
+> r在代码对象的另一个名字列表co_varnames中，图的空间有限，没有画出来。co_names和co_varnames是有区别的，co_varnames中的是局部变量和闭包变量。这两类变量都是作为数组保存在栈帧对象中的，比较特殊。co_names中的是全局变量和内建变量，需要搜索全局名字空间和内建名字空间。
+
