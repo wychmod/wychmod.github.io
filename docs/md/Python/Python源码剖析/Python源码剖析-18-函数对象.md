@@ -13,6 +13,7 @@
 
 我们知道 _Python_ 中一切都是对象，函数也是一种对象。那么，作为一等对象的函数，到底长什么模样，有什么特殊行为呢？_Python_ 代码又是如何一步步变身为函数对象的呢？洞悉函数秘密后，可以实现哪些有趣的功能呢？带着这些疑问，我们开始探索函数对象。
 
+# 函数对象如何产生
 ## 函数对象长啥样
 
 首先，借助内建函数 _dir_ 观察函数对象，发现了不少新属性：
@@ -263,3 +264,59 @@ NameError: name 'pi' is not defined
 
 > r在代码对象的另一个名字列表co_varnames中，图的空间有限，没有画出来。co_names和co_varnames是有区别的，co_varnames中的是局部变量和闭包变量。这两类变量都是作为数组保存在栈帧对象中的，比较特殊。co_names中的是全局变量和内建变量，需要搜索全局名字空间和内建名字空间。
 
+# 函数调用与虚拟机软件栈
+
+我们将 circle_area 定义在 _geometry_ 模块中，文件名为 _geometry.py_ ：
+
+```python
+pi = 3.14
+
+def circle_area(r):
+    return pi * r ** 2
+
+def cylinder_volume(r, h):
+    return circle_area(r) * h
+```
+
+注意到，模块中还有另一个函数 _cylinder_volume_ 用于计算圆柱体体积，参数 _r_ 是底面圆的半径，参数 _h_ 是圆柱体高度。 _cylinder_volume_ 先调用 _circle_area_ 计算底面面积，再乘以高度得到圆柱体积。
+
+进入 _geometry.py_ 所在目录，并启动 _Python_ 终端，将 _geometry.py_ 模块导入，即可调用相关函数：
+
+```python
+>>> from geometry import circle_area, cylinder_volume
+>>> circle_area(1.5)
+7.065
+```
+
+如果你不想进入 _geometry.py_ 所在目录，也可以将其路径加入到 _sys.path_ ，这个方法我们在模块机制中介绍过：
+
+```python
+>>> import sys
+>>> sys.path.append('/some/path')
+```
+
+开始讨论函数调用流程之前，我们先来看看从 _geometry_ 模块导入相关函数后虚拟机内部的状态：
+
+![](../../youdaonote-images/Pasted%20image%2020221214160804.png)
+
+-   ___main___ 模块是 _Python_ 启动后的执行入口，每个 _Python_ 程序均从 ___main___ 开始执行；
+-   _geometry_ 是我们导入的模块，它有一个 ___dict___ 属性，指向模块属性空间；
+-   _geometry_ 初始化后，属性空间里有一个浮点属性 _pi_ 以及两个函数对象， _circle_area_ 和 _cylinder_colume_ ；
+-   两个函数的 **全局名字空间** 与模块对象的 **属性空间** 是同一个 _dict_ 对象；
+-   两个函数都有一个 **代码对象** ，保存函数 **字节码** 以及 **名字** 、 **常量** 等静态上下文信息；
+-   往下阅读前请务必理解该状态图，有疑问请复习虚拟机模块机制以及函数创建等章节，以加深理解；
+
+每个 _Python_ 程序都有一个 ___main___ 模块，以及与 ___main___ 模块对应的 **栈帧** 对象。___main___ 模块是 _Python_ 程序的入口，而与其对应的栈帧对象则是整个程序调用栈的起点。
+
+当我们在交互式终端输入语句时，也是类似的。 _Python_ 先将代码编译成代码对象，再创建一个 **栈帧** 对象执行该代码对象。以 `circle_area(1.5)` 为例，编译可得到这样的字节码：
+
+```python
+  1           0 LOAD_NAME                0 (circle_area)
+              2 LOAD_CONST               0 (1.5)
+              4 CALL_FUNCTION            1
+              6 PRINT_EXPR
+              8 LOAD_CONST               1 (None)
+             10 RETURN_VALUE
+```
+
+随后，_Python_ 创建栈帧对象作为执行环境，准备执行编译后的代码对象：
