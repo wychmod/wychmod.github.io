@@ -157,7 +157,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "co_names",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -174,7 +174,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -256,13 +257,13 @@
   },
   "active": "968d3bf8dd7c4a97",
   "lastOpenFiles": [
-    "Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md",
+    "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
     "Python/Python源码剖析/Python源码剖析-18-函数对象.md",
+    "Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md",
     "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
     "Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md",
     "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md",
     "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
-    "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
     "Python/Python源码剖析/Python源码剖析-11-开发实战：基于最小堆设计任务调度系统.md",
     "Python/Python源码剖析/Python源码剖析-10-最佳实践：灵活运用内建容器.md",
     "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md"

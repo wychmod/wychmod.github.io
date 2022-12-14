@@ -68,3 +68,57 @@ True
 
 ![](../../youdaonote-images/Pasted%20image%2020221213205701.png)
 
+## 函数对象如何创建
+
+我们已经初步看清 **函数** 对象的模样，它和 **代码** 对象关系密切，**全局名字空间** 就是它所在 **模块** 对象的 **属性空间**。那么，_Python_ 又是如何完成从代码到函数对象的转变的呢？想了解这其中的秘密，还是得从字节码入手。
+
+现在我们要想方设法搞到定义函数的字节码，先将函数代码作为文本保存起来：
+
+```python
+>>> text = '''
+... pi = 3.14
+... def circle_area(r):
+...     return pi * r ** 2
+... '''
+```
+
+然后，调用 compile 函数编译函数代码，得到一个 **代码** 对象：
+
+```python
+>>> code = compile(text, 'test', 'exec')
+```
+
+根据 **虚拟机** 部分的学习，我们知道 **作用域** 与 **代码** 对象之间的一一对应的关系。定义函数的这段代码虽然简短，里面却包含了两个不同的 **作用域** ：一个是模块级别的 **全局作用域** ，一个函数内部的 **局部作用域** ：
+
+![](../../youdaonote-images/Pasted%20image%2020221214113359.png)
+
+那么，为啥 _compile_ 函数只返回一个代码对象呢？因为局部代码对象作为一个 **常量** ，藏身于全局代码对象中。而 _compile_ 函数则只需返回全局代码对象：
+
+```python
+>>> code.co_names
+('pi', 'circle_area')
+>>> code.co_consts
+(3.14, <code object circle_area at 0x10e179420, file "test", line 3>, 'circle_area', None)
+
+>>> code.co_consts[1]
+<code object circle_area at 0x10e179420, file "test", line 3>
+>>> code.co_consts[1].co_names
+('pi',)
+>>> code.co_consts[1].co_consts
+(None, 2)
+```
+
+![](../../youdaonote-images/Pasted%20image%2020221214113641.png)
+
+函数对象诞生的秘密就藏在 _MAKE_FUNCTION_ 指令中。
+
+开始深入源码研究 _MAKE_FUNCTION_ 指令前，我们先推演一遍虚拟机执行这段字节码的全过程。假设 _circle_area_ 在 ___main___ 模块中定义，全局代码对象则作为模块代码执行，以模块 **属性空间** 为 **全局名字空间** 和 **局部名字空间** 。前两行字节码与函数创建无关，在将 _3.14_ 作为 _pi_ 值保存到 **局部名字空间** ，它也是模块的 **属性空间** ：
+
+![](../../youdaonote-images/Pasted%20image%2020221214114034.png)
+
+接下来两行字节码将两个常量加载到栈顶，为创建函数做最后的准备：
+
+![](../../youdaonote-images/Pasted%20image%2020221214114423.png)
+
+这两个常量是创建函数最重要的参数，一个指定函数的 **代码** 对象，一个指定 **函数名** 。 _MAKE_FUNCTION_ 字节码从栈顶取出这两个参数，完成 **函数** 对象的创建，并将其放置于栈顶。此外，函数对象继承了当前 **帧** 对象的 **全局名字空间** 。因此， _circle_area_ 不管在何处调用，其全局名字空间一定是就是它所在模块 ( ___main___ ) 的 **属性空间** 。
+
