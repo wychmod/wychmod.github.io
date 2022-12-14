@@ -320,3 +320,60 @@ def cylinder_volume(r, h):
 ```
 
 随后，_Python_ 创建栈帧对象作为执行环境，准备执行编译后的代码对象：
+
+![](../../youdaonote-images/Pasted%20image%2020221214161223.png)
+
+注意到，栈帧对象全局名字空间、局部名字空间均指向 ___main___ 模块的属性空间。 `circle_area(1.5)` 的语句中，有些我们已经非常熟悉了。第一条字节码，将名为 _circle_area_ 的对象，加载到栈顶，这是我们导入的函数。第二条字节码，将常量 _1.5_ 加载到栈顶，这是准备传递给函数的变量。执行这两个字节码后，虚拟机状态变为：
+
+![](../../youdaonote-images/Pasted%20image%2020221214161709.png)
+
+接着是 _CALL_FUNCTION_ 字节码，顾名思义，我们知道正式它完成了调动函数的使命。_CALL_FUNCTION_ 字节码的处理逻辑同样位于 Python/ceval.c 这个文件，有兴趣的童鞋可以阅读一下源码，这里用通俗的语言结合图示讲解这个字节码的作用。
+
+_CALL_FUNCTION_ 先创建一个新栈帧对象，作为 _circle_name_ 函数的执行环境。新栈帧对象通过 _f_back_ 指针，指向前一个栈帧对象，形成一个调用链。栈帧对象从函数对象取得 **代码** 对象，以及执行函数时的全局名字空间：
+
+![](../../youdaonote-images/Pasted%20image%2020221214162302.png)
+
+此外，注意到执行函数的栈帧对象 _f_locals_ 字段为空，而不是跟 _f_globals_ 一样执行一个 _dict_ 对象。由于函数有多少局部变量是固定的，代码编译时就能确定。因此，没有必要用字典来实现局部名字空间，只需把局部变量依次编号，保存在栈底即可 ( _r=1.5_ 处)。这样一来，通过编号即可快速存取局部变量，效率比字典更高。于此对应，有一个特殊的字节码 LOAD_FAST 用于加载局部变量，以操作数的编号为操作数。
+
+_circle_area_ 的字节码我们已经很熟悉了，便不再赘述了，请动手在栈帧上推演一番。最后， _RETURN_VALUE_ 字节码将结算结果返回给调用者，执行权现在交回调用者的 _CALL_FUNCTION_ 字节码。_CALL_FUNCTION_ 先将结果保存到栈顶并着手回收 _circle_area_ 函数的栈帧对象。
+
+![](../../youdaonote-images/Pasted%20image%2020221214162503.png)
+
+嵌套调用也是类似的，以 `cylinder_volume(1.5, 2)` 为例：
+
+```python
+>>> cylinder_volume(1.5, 2)
+14.13
+```
+
+Python 交互式终端同样先对这个语句进行编译，得到这样的字节码：
+
+```python
+  1           0 LOAD_NAME                0 (cylinder_volume)
+              2 LOAD_CONST               0 (1.5)
+              4 LOAD_CONST               1 (2)
+              6 CALL_FUNCTION            2
+              8 PRINT_EXPR
+             10 LOAD_CONST               2 (None)
+             12 RETURN_VALUE
+```
+
+然后， _Python_ 虚拟机以 ___main___ 栈帧对象为环境，执行这段字节码。当虚拟机执行到 _CALL_FUNCTION_ 这个字节码时，创建新栈帧对象，准备执行函数调用。初始新栈帧对象时，函数参数来源于当前栈顶，而全局名字空间与代码对象来源于被调用函数对象。新栈帧对象初始化完毕，虚拟机便跳到新栈帧，开始执行 _cylinder_volume_ 的字节码。_cylinder_volume_ 字节码中也有 _CALL_FUNCTION_ 指令，调用 _circle_area_ 函数。虚拟机依样画葫芦，为 _circle_area_ 准备栈帧，并开始执行 _circle_area_ 的字节码：
+
+![](../../youdaonote-images/Pasted%20image%2020221214162651.png)
+
+这样一来，随着函数调用的深入，栈帧链逐渐伸长；随着函数执行完毕并返回，栈帧链逐渐收缩。维护栈帧链条的关键是栈帧对象的 _f_back_ 指针，它总是指向上个一栈帧对象，也就是调用者的栈帧，如上图红色箭头。我们在调试程序时，可以查看完整的堆栈信息，也是 _f_back_ 指针的功劳。
+
+正常情况下，函数调用层数不会太深，但递归调用就说不定了。我们来看一个典型的递归例子，斐波那契数列计算：
+
+```python
+def fibonacci(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+
+    return fibonacci(n-1) + fibonacci(n-2
+```
+
+以 _fibonacci(5)_ 为例，需要递归调用 _fibonacii(4)_ ，而 _fibonacii(4)_ 需要调用 _fibonacci(3)_ ，以此类推。递归调用一直向下延伸，直到 _fibonacci(1)_ 。因此，调用链最长时是这样子的：
