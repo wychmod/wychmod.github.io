@@ -73,4 +73,6 @@ dict_keys(['__module__', 'yelp', '__dict__', '__weakref__', '__doc__', 'legs'])
 surprise
 ```
 
-哇，我们在运行时让 _Dog_ 类拥有 _yelp2_ 这个新能力，_Python_ 果然很动态！这个例子帮我们理解 _Python_ 的运行行为，但这种写法不是一个好习惯，在实际项目中尽量少用吧。
+我们在运行时让 _Dog_ 类拥有 _yelp2_ 这个新能力，_Python_ 很动态。这个例子帮我们理解 _Python_ 的运行行为，但这种写法不是一个好习惯，在实际项目中尽量少用吧。
+
+![](../../youdaonote-images/Pasted%20image%2020221215235043.png)
