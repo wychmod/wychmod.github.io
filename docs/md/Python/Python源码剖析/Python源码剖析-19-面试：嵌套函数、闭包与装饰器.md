@@ -177,3 +177,30 @@ start to call
 foo processing
 end of call
 ```
+
+![](../../youdaonote-images/Pasted%20image%2020221215112727.png)
+
+如果我想为其他函数，例如 bar 注入 _log_call_ 魔法，可以这样实现：
+
+```python
+def bar():
+    print('bar processing')
+
+bar = log_call(bar)
+
+bar()
+```
+
+这代码未免太丑陋了！为此，_Python_ 引入了语法糖 _@xxxx_ ：
+
+```python
+@log_call
+def bar():
+    print('bar processing')
+
+bar()
+```
+
+这段代码与上面那段完全等价，却更加优雅、清晰！
+
+像 _log_call_ 这样，为其他函数注入新功能的函数，就是所谓的 **装饰器** ( _decorator_ )。
