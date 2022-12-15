@@ -369,4 +369,4 @@ _functools.partial_ 函数返回一个可调用对象，被调用时相当于�
 smtplib.SMTP_SSL(host, port, keyfile='xxxx', certfile='xxxx')
 ```
 
-这就是偏函数典型的应用场景，你可能对 _functools.partial_ 函数很好奇，后续我们找机会研究一番。
+这就是偏函数典型的应用场景。
