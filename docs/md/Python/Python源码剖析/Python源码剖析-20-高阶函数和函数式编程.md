@@ -161,3 +161,212 @@ by_chinese = lambda item: item['chinese']
 ## map
 
 _map_ 函数接受 **转换函数** 以及一个 **可迭代对象** 作为参数，返回另一个生成器，其元素是输入元素的转换结果：
+
+![](../../youdaonote-images/Pasted%20image%2020221215130734.png)
+
+班主任需要知道每位童鞋的平均分，_map_ 函数能否帮到他？我们可以先写一个简单的函数来计算平均成绩：
+
+```python
+def calculate_total(item):
+    return {
+        'name': item['name'],
+        'total': item['chinese'] + item['math'] + item['english'],
+    }
+```
+
+这样一来，我们用 _map_ 函数将成绩列表中的每个元素转换成平均成绩不就可以了吗？
+
+```python
+>>> for item in map(calculate_total, scores):
+...     print(item['name'], item['total'])
+...
+小雪 250
+小明 245
+小丽 260
+小宇 270
+小刚 190
+小新 250
+```
+
+不仅如此，我们还可以进一步组合，对平均成绩进行排序：
+
+```python
+>>> for item in sorted(map(calculate_total, scores), key=lambda item: item['total'], reverse=True):
+...     print(item['name'], item['total'])
+...
+小宇 270
+小丽 260
+小雪 250
+小新 250
+小明 245
+小刚 190
+```
+
+这就是高阶函数与算子组合的巨大威力，寥寥几行代码便完成了复杂的数据处理。尽管如此，这种风格也不能过分滥用。刻意应用高阶函数和函数式编程，代码可能更不可读，适得其反。
+
+此外，_Python_ 程序一般不直接使用 _map_ 函数，而是通过更有 _Python_ 格调的推导式：
+
+```python
+totals = [calculate_total(item) for item in scores]
+```
+
+## filter
+
+_filter_ 函数根据指定 **判定函数** ，对可迭代对象中的元素进行过滤，过滤结果同样以可迭代对象的形式返回。判定函数以某个元素为参数，返回 _true_ 或 _false_ 标识该元素是否应该出现在结果中。
+
+学校举办英语竞赛，英语老师想挑一些成绩比较好的童鞋前去参加。她设定了一个标准，上次考试成绩在 _90_ 分或者以上。为了从成绩单中筛选出符合条件的童鞋，我们需要先定义一个判定函数：
+
+```python
+lambda item: item['english'] >= 90
+```
+
+这个 _lambda_ 函数某位同学成绩为输出，输出英语成绩是否大于等于 _90_ 分。有了判定函数，调用 filter 即可将符合条件的同学给过滤出来：
+
+```python
+>>> for item in filter(lambda item: item['english'] >= 90, scores):
+...     print(item['name'], item['english'])
+...
+小丽 90
+小宇 90
+```
+
+同样，_Python_ 程序一般不直接使用 _filter_ 函数，而是通过更有 _Python_ 格调的推导式：
+
+```python
+candidates = [item for item in scores if item['english'] >= 90]
+```
+
+## reduce
+
+_reduce_ 函数对可迭代对象的全部元素进行归并，归并方法由归并函数确定。归并函数以两个元素为输入，将两个元素进行合并，最后将结果作为输出返回。求和是一种典型的合并算子，归并函数如下：
+
+```python
+add = lambda a, b: a + b
+```
+
+```python
+>>> add(1, 2)
+3
+>>> add(3, 4)
+7
+```
+
+将数学运算做成算子后，可以任何组合做一些有趣的事情。例如，与 _reduce_ 函数组合，对整数序列求和：
+
+```python
+>>> numbers = [2, 8, 6, 9, 7, 0, 1, 7, 0, 3]
+>>> import functools
+>>> functools.reduce(add, numbers)
+43
+```
+
+你也许会说，对序列求和，_sum_ 函数就可以胜任了，何必搞得这么复杂？
+
+```python
+>>> sum(numbers)
+43
+```
+
+是的，由于求和是一个很常见的操作，_sum_ 函数被单独拿出来实现。_reduce_ 作为通用的归并操作，则更灵活，威力也更强大。只需编写归并函数，便可实现任何你想要的归并操作。例如，对数字序列求乘积：
+
+```python
+>>> numbers = [6, 1, 2, 4, 3, 1, 3, 7, 5, 2]
+>>> functools.reduce(lambda a, b: a*b, numbers)
+30240
+```
+
+## operator
+
+_Python_ 内置了常用数学运算算子，诸如加、减、乘、除等等，无须重复编写 lambda 函数来实现，以加法为例：
+
+```python
+>>> import operator
+>>> operator.add(1, 2)
+3
+```
+
+这样一来，对整数序列求乘积可以进一步简化成这样：
+
+```python
+>>> numbers = [6, 1, 2, 4, 3, 1, 3, 7, 5, 2]
+>>> functools.reduce(operator.mul, numbers)
+30240
+```
+
+_operator_ 模块中的算子就不一一赘述了，请自行前去探索一番。
+
+## functools
+
+_functools_ 是一个用于操作高阶函数以及可调用对象的模块，里面提供了几个有意思的工具函数，非常有用。我们前面刚接触过的 _reduce_ 函数，就是来自 _functools_ 模块。除此之外，还有以下这些：
+
+-   _cached_property_ ，带缓存功能的属性装饰器，将留到类机制部分讲解；
+-   _lru_cache_ ，为函数提供缓存功能的装饰器；
+-   _partial_ ，生成 **偏函数** ；
+-   _wraps_ ，包装函数，使它看起来更像另一个函数，一般在装饰器实现时用到；
+-   _etc_
+
+接下来，我们以 _partial_ 为例展开讲解，看看什么是偏函数以及如何在实际中应用偏函数。
+
+_send_email_ 是一个调用 _smtplib_ 发送邮件的函数，实现了邮件封装发送逻辑。_SMTP_ 协议连接可以是普通可能是 _TCP_ ，也可能是 _SSL_ 连接。因此，_smtplib_ 提供了两个不同的连接类，_SMTP_ 以及 _SMTP_SSL_ 。为了保持灵活性，_send_email_ 函数也将连接对象参数化：
+
+```python
+def send_email(host, port, user, password, fr, to, subject, body,
+        smtp_cls=smtplib.SMTP_SSL):
+    # ...
+    
+    conn = smtp_cls(host, port)
+    
+    # ...
+```
+
+如果采用普通 _TCP_ 连接，可以这样调用 _send_email_ ：
+
+```python
+send_email(
+    host=host,
+    port=port,
+    #...
+    smtp_cls=smtplib.SMTP,
+)
+```
+
+如果采用普通 _SSL_ 连接，由于 _smtp_cls_ 参数默认就是 _smtplib.SMTP_SSL_ ，因此可以这样调用 _send_email_ ：
+
+```python
+send_email(
+    host=host,
+    port=port,
+    #...
+)
+```
+
+在某些场景，我们需要给 _smtplib.SMTP_SSL_ 指定证书，例如：
+
+```python
+smtplib.SMTP_SSL(
+    host=host,
+    port=port,
+    #...
+    keyfile='xxxx',
+    certfile='xxxx',
+)
+```
+
+这是否意味着我们需要改造 _send_email_ 函数呢？是否有办法将 _smtplib.SMTP_SSL_ 与两个与证书相关的参数绑定后再传给 _send_email_ 函数呢？当然了，这对 _functools.partial_ 来说，完全不在话下：
+
+```python
+send_email(
+    host=host,
+    port=port,
+    # ...
+    smtp_cls=functools.partial(smtplib.SMTP_SSL, keyfile='xxxx', certfile='xxxx'),
+)
+```
+
+_functools.partial_ 函数返回一个可调用对象，被调用时相当于调用 _smtplib.SMTP_SSL_ ，而且自动附上那两个用于指定证书的参数。这样一来，当语句 `smtp_cls(host, port)` 执行时，最终等价于：
+
+```python
+smtplib.SMTP_SSL(host, port, keyfile='xxxx', certfile='xxxx')
+```
+
+这就是偏函数典型的应用场景，你可能对 _functools.partial_ 函数很好奇，后续我们找机会研究一番。
