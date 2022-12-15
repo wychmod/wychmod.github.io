@@ -205,7 +205,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "co_names",
+                "query": "**内建名字空间**",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -222,7 +222,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -302,7 +303,7 @@
     "width": 310.5,
     "collapsed": true
   },
-  "active": "ac8d12f1c10469f9",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "Python/Python源码剖析/Python源码剖析-21-装饰器核心解析.md",
     "Python/Python源码剖析/Python源码剖析-22-函数相关面试.md",
