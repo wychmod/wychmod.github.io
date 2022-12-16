@@ -411,3 +411,195 @@ ___build_class___ 相关参数如下：
 结合对象模型中的知识可知： ___build_class___ 函数将基类保存于 _PyTypeObject_ 类型对象的 _tp_base_ 字段中。
 
 通过 tp_base 字段，子类与父类被串在一起，形成一条继承链：
+
+![](../../youdaonote-images/Pasted%20image%2020221216150940.png)
+
+## 多继承
+
+在多继承场景，故事又是怎样的呢？我们接着扩展前面的例子：
+
+```python
+class Animal:
+    def run(self):
+        print('running')
+
+class Dog(Animal):
+    def yelp(self):
+        print('woof')
+    def play(self):
+        print('playing')
+
+class Sleuth(Dog):
+    def yelp(self):
+        print('WOOF!')
+    def hunt(self):
+        print('hunting')
+
+class SnifferDog(Dog):
+    def search(self):
+        print('searching')
+
+class PoliceDog(Sleuth, SnifferDog):
+    def patrol(self):
+        print('patroling')
+```
+
+这个例子引入搜救犬类 _SnifferDog_ ，继承于普通狗 _Dog_ ；警犬类 _PoliceDog_ 同时继承于猎犬类 _Sleuth_ 以及搜救犬类 _SnifferDog_ ，表明警犬同时具有猎犬以及搜救犬的特质：
+
+![](../../youdaonote-images/Pasted%20image%2020221216151225.png)
+
+接着，我们扒开负责创建 _PoliceDog_ 的字节码围观一下：
+
+```python
+ 21          62 LOAD_BUILD_CLASS
+             64 LOAD_CONST               8 (<code object PoliceDog at 0x106b81c00, file "", line 21>)
+             66 LOAD_CONST               9 ('PoliceDog')
+             68 MAKE_FUNCTION            0
+             70 LOAD_CONST               9 ('PoliceDog')
+             72 LOAD_NAME                2 (Sleuth)
+             74 LOAD_NAME                3 (SnifferDog)
+             76 CALL_FUNCTION            4
+             78 STORE_NAME               4 (PoliceDog)
+             80 LOAD_CONST              10 (None)
+             82 RETURN_VALUE
+```
+
+注意到，字节码在调用 ___build_class___ 函数前，将两个父类 _Sleuth_ 以及 _SnifferDog_ 作为参数按顺序压入栈中。因此，这段字节码等价于：
+
+```
+__build_class__(func, 'PoliceDog', Sleuth, SnifferDog)
+```
+
+这样一来， ___build_class___ 函数的 _bases_ 参数将拿到一个由直接父类组成的元组！
+
+在多继承场景，光一个 _tp_base_ 字段不足以保存多个基类， ___build_class___ 函数应该将 bases 元组保存在另一个字段中。再次回到 _PyTypeObject_ 源码，不难找出字段 _tp_bases_ 字段，它便保存着基类列表：
+
+![](../../youdaonote-images/Pasted%20image%2020221216151449.png)
+
+在 _Python_ 层可以访问类 ___base___ 和 ___bases___ 属性，印证了底层字段 _tp_base_ 以及 _tp_bases_ 的作用：
+
+```python
+>>> PoliceDog.__base__
+<class '__main__.Sleuth'>
+>>> PoliceDog.__bases__
+(<class '__main__.Sleuth'>, <class '__main__.SnifferDog'>)
+```
+
+## 属性查找顺序
+
+我们或多或少都知道，子类没有定义的属性，应该沿着继承链到父类中查找：
+
+```python
+>>> s = Sleuth()
+>>> s.play()
+playing
+>>> s.run()
+running
+```
+
+猎犬类没有定义 _play_ 方法，调用了父类 _Dog_ 中定义的；_run_ 方法也没有定义，则调用了祖类 Animal 中定义的。
+
+简单的单继承场景比较好理解，多继承场景就相对复杂一点。我们先来观察 _PoliceDog_ 的行为，看能否得到一些启发。
+
+![](../../youdaonote-images/Pasted%20image%2020221216151702.png)
+
+_PoliceDog_ 类定义了 _patrol_ 方法，_PoliceDog_ 实例便可以调用该方法，这很好理解：
+
+```python
+>>> pd = PoliceDog()
+>>> pd.patrol()
+patroling
+```
+
+虽然 _PoliceDog_ 类没有定义 _hunt_ 方法，但其父类 _Sleuth_ 定义了，因此实例也可以调用方法：
+
+```python
+>>> pd.hunt()
+hunting
+```
+
+虽然父类 _Sleuth_ 以及 祖类 _Dog_ 均定义了 _yelp_ 方法，_PoliceDog_ 实例会选择血缘较近的版本，即 _Sleuth_ 版本：
+
+```python
+>>> pd.yelp()
+WOOF!
+```
+
+_Sleuth_ 覆盖了其父类 _Dog_ 中的 _yelp_ 方法，这在面向对象中称为 **覆写** ( _overwritting_ )，_search_ 方法也是同理：
+
+```python
+>>> pd.search()
+searching
+```
+
+至此，我们可以总结出一条非常重要的规则，在属性查找的过程中，子类版本优先级总是高于父类。举个例子， _Sleuth_ 类定义的版本比 _Dog_ 类优先级更高。
+
+如果你对常用数据结构比较熟悉的话，可能已猜到其中的玄机：属性查找的顺序就是对类继承关系图的 **拓扑排序** ！拓扑排序恰好可以保证有向图中有连接关系节点间的先后顺序。
+
+实际上，_Python_ 虚拟机在创建自定义类对象时，对继承关系图进行拓扑排序，并将排序结果保存于 _PyTypeObject_ 中的 _tp_mro_ 字段中，该字段可通过 ___mro___ 属性访问：
+
+```python
+>>> PoliceDog.__mro__
+(<class '__main__.PoliceDog'>, <class '__main__.Sleuth'>, <class '__main__.SnifferDog'>, <class '__main__.Dog'>, <class '__main__.Animal'>, <class 'object'>)
+```
+
+后续对类进行属性查找时，_Python_ 将依照 ___mro___ 中保存的顺序逐一查找。这是以空间换时间的又一典型例子，有效避免重复排序导致的计算开销。
+
+最后，我们回过头来考察一个更复杂的多继承场景：
+
+```python
+class A:
+    pass
+
+class B(A):
+    pass
+
+class C(B):
+    pass
+
+class D(A):
+    pass
+
+class E(D):
+    pass
+
+class F(A):
+    pass
+
+class G(C, E, F):
+    pass
+```
+
+![](../../youdaonote-images/Pasted%20image%2020221216152154.png)
+
+根据继承关系，我们可以得到以下结论：
+
+-   _G_ 优于 _C_ _E_ _F_
+-   _C_ 优于 _B_
+-   _E_ 优于 _D_
+-   _B_ _D_ _F_ 优于 _A_
+-   _A_ 优于 _object_
+
+然而有些类之间的先后顺序仅靠继承关系是无法确定的， _B_ _E_ 就是其中的例子。这一点都不意外，有向图的拓扑排序结果可能不止一个。
+
+那么，_Python_ 究竟以什么为准呢？
+
+```python
+>>> G.__mro__
+(<class '__main__.G'>, <class '__main__.C'>, <class '__main__.B'>, <class '__main__.E'>, <class '__main__.D'>, <class '__main__.F'>, <class '__main__.A'>, <class 'object'>)
+```
+
+我们直接看结果，可以等到另外两点结论：
+
+-   拓扑排序是深度优先的，遍历 _C_ 之后，继续遍历 _B_，而不是 _E_ ；
+-   分支遍历顺序由基类列表定义顺序决定，因此 _C_ _E_ _F_ 一定按照这个顺序遍历；
+
+实际上，_Python_ 内部采用 **C3算法** ，根据继承关系图生成一个满足以上约束的拓扑排序。如果你对源码比较感兴趣的话，可以从 ___build_class___ 函数出发，顺藤摸瓜。印证过程应该不难，因篇幅关系就不过度展开了。
+
+## 小结
+
+-   基类保存于 _tp_base_ 字段，可通过 ___base___ 属性访问；
+-   基类列表保存于 _tp_bases_ 字段，可通过 ___bases___ 属性访问；
+-   类属性查找顺序为类继承图的深度优先 **拓扑排序** ；
+-   _Python_ 创建自定义类时，对类继承图进行拓扑排序并保存于 _tp_mro_ 字段，可通过 ___mro___ 属性访问；
+-   查看自定义类 ___mro___ 属性，即可确认类属性查找顺序；
