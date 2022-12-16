@@ -273,3 +273,141 @@ woof
 
 # 类继承机制与属性查找
 
+## 单继承
+
+
+```python
+class Animal:
+    def run(self):
+        print('running')
+
+class Dog(Animal):
+    def yelp(self):
+        print('woof')
+    def play(self):
+        print('playing')
+
+class Sleuth(Dog):
+    def yelp(self):
+        print('WOOF!')
+    def hunt(self):
+        print('hunting')
+```
+
+通过引入 _Animal_ 类，我们得到一条包含 _3_ 个类的继承链，继承链结束语 _object_ 基类型对象：
+
+![](../../youdaonote-images/Pasted%20image%2020221216150233.png)
+
+现在，实例化一个 _Sleuth_ 对象，它可以调用自己定义的方法，例如 _hunt_ ：
+
+```python
+>>> s = Sleuth()
+>>> s.hunt()
+hunting
+```
+
+当然了，由于 _Sleuth_ 类继承于 _Dog_ 类，因此 _Sleuth_ 对象也可以调用 _Dog_ 定义的方法，例如 _play_ ：
+
+```python
+>>> s.play()
+playing
+```
+
+_Sleuth_ 类通过 _Dog_ 类间接继承于 _Animal_ 类，因此它也可以调用 _Animal_ 定义的方法：
+
+```python
+>>> s.run()
+running
+```
+
+如果子类对父类中的方法不满意，还可以进行方法重写。猎犬吠声与普通狗有所不同，我们可以为 _Sleuth_ 类重写 _yelp_ 方法，以大写突出吠声的威武雄壮。这样一来，_Sleuth_ 实例对象将执行 _Sleuth_ 类中定义的 _yelp_ 方法版本：
+
+```python
+>>> s.yelp()
+WOOF!
+```
+
+那么，_Python_ 虚拟机内部是如何实现继承机制的呢？我们接着到字节码中寻找秘密。
+
+对以上例子进行编译，我们可以得到这样的字节码：
+
+```pythpn
+  1           0 LOAD_BUILD_CLASS
+              2 LOAD_CONST               0 (<code object Animal at 0x109b90810, file "", line 1>)
+              4 LOAD_CONST               1 ('Animal')
+              6 MAKE_FUNCTION            0
+              8 LOAD_CONST               1 ('Animal')
+             10 CALL_FUNCTION            2
+             12 STORE_NAME               0 (Animal)
+
+  5          14 LOAD_BUILD_CLASS
+             16 LOAD_CONST               2 (<code object Dog at 0x109bd1c90, file "", line 5>)
+             18 LOAD_CONST               3 ('Dog')
+             20 MAKE_FUNCTION            0
+             22 LOAD_CONST               3 ('Dog')
+             24 LOAD_NAME                0 (Animal)
+             26 CALL_FUNCTION            3
+             28 STORE_NAME               1 (Dog)
+
+ 11          30 LOAD_BUILD_CLASS
+             32 LOAD_CONST               4 (<code object Sleuth at 0x109bd1a50, file "", line 11>)
+             34 LOAD_CONST               5 ('Sleuth')
+             36 MAKE_FUNCTION            0
+             38 LOAD_CONST               5 ('Sleuth')
+             40 LOAD_NAME                1 (Dog)
+             42 CALL_FUNCTION            3
+             44 STORE_NAME               2 (Sleuth)
+             46 LOAD_CONST               6 (None)
+             48 RETURN_VALUE
+```
+
+由上一小节，我们知道 _LOAD_BUILD_CLASS_ 字节码用于加载 ___build_class___ 函数，它创建类对象，接口如下：
+
+```python
+>>> help(__build_class__)
+Help on built-in function __build_class__ in module builtins:
+
+__build_class__(...)
+    __build_class__(func, name, *bases, metaclass=None, **kwds) -> class
+
+    Internal helper function used by the class statement.
+```
+
+___build_class___ 相关参数如下：
+
+-   _func_ ，用于初始化类属性空间的可调动对象，由类代码块生成；
+-   _name_ ，类名；
+-   bases ，基类，可以为多个；
+
+由此可见，创建子类时，需要将父类作为 _bases_ 参数传给 ___build_class___ 函数。
+
+创建 _Animal_ 类时，由于没有显式指定继承关系，因此没有给 ___build_class___ 函数传递任何基类：
+
+```python
+  1           0 LOAD_BUILD_CLASS
+              2 LOAD_CONST               0 (<code object Animal at 0x109b90810, file "", line 1>)
+              4 LOAD_CONST               1 ('Animal')
+              6 MAKE_FUNCTION            0
+              8 LOAD_CONST               1 ('Animal')
+             10 CALL_FUNCTION            2
+             12 STORE_NAME               0 (Animal)
+```
+
+这时， ___build_class___ 函数将默认以 _object_ 为基类创建 _Animal_ 对象。换句话讲，如果自定义类没有显式指定继承关系，将默认继承于 _object_ ，这就是继承链中 _object_ 的由来。
+
+当我们创建 _Dog_ 类时，由于代码中明确指定了从 _Animal_ 继承，偏移量为 _24_ 的那条字节码将 _Animal_ 类加载到运行栈并传给 ___build_class___ 函数：
+
+```python
+  5          14 LOAD_BUILD_CLASS
+             16 LOAD_CONST               2 (<code object Dog at 0x109bd1c90, file "", line 5>)
+             18 LOAD_CONST               3 ('Dog')
+             20 MAKE_FUNCTION            0
+             22 LOAD_CONST               3 ('Dog')
+             24 LOAD_NAME                0 (Animal)
+             26 CALL_FUNCTION            3
+             28 STORE_NAME               1 (Dog)
+```
+
+结合对象模型中的知识可知： ___build_class___ 函数将基类保存于 _PyTypeObject_ 类型对象的 _tp_base_ 字段中。
+
+通过 tp_base 字段，子类与父类被串在一起，形成一条继承链：
