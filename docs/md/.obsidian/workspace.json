@@ -8,174 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "62121783cc428d0a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "d10231e72867add3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-11-开发实战：基于最小堆设计任务调度系统.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "540cb78129a4ad46",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "dd7fe986ab936d8a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "d0cff661b622aa63",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "6665125a84c98c5a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "968d3bf8dd7c4a97",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-18-函数对象.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "1d29922d7c9e760d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "403eb14d4e72ef80",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "9eca89fb74b0206b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-21-装饰器核心解析.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "ac8d12f1c10469f9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-22-函数相关面试.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "17168b8b267b609e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-23-类对象源码剖析.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0b2b8bdb3c4a50b2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-24-属性描述符如何影响属性行为.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "346aaf0e0363591a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-25-魔术方法应用.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "a10a9d36c30e8b28",
             "type": "leaf",
             "state": {
@@ -188,43 +20,19 @@
             }
           },
           {
-            "id": "e179f9029047d573",
+            "id": "8bff87781168ae7c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "904bb44c47db0db9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "a4ae1ec772295eb7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-11-开发实战：基于最小堆设计任务调度系统.md",
+                "file": "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 14
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -290,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md",
+                "file": "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -307,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md",
+                "file": "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -330,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md"
+                "file": "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md"
               }
             }
           },
@@ -350,8 +158,9 @@
     "width": 310.5,
     "collapsed": true
   },
-  "active": "a10a9d36c30e8b28",
+  "active": "8bff87781168ae7c",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md",
     "Python/Python源码剖析/Python源码剖析-25-魔术方法应用.md",
     "Python/Python源码剖析/Python源码剖析-24-属性描述符如何影响属性行为.md",
     "Python/Python源码剖析/Python源码剖析-23-类对象源码剖析.md",
@@ -360,7 +169,6 @@
     "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
     "Python/Python源码剖析/Python源码剖析-20-高阶函数和函数式编程.md",
     "Python/Python源码剖析/Python源码剖析-18-函数对象.md",
-    "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
-    "Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md"
+    "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md"
   ]
 }
