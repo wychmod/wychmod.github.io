@@ -199,3 +199,70 @@ __build_class__(...)
 注意到，新栈帧对象从从 _Dog_ 函数对象中取得全局名字空间，这也是模块的属性空间；又从函数对象取得代码对象，这个代码对象正好对应着 _Dog_ 类的代码块；而局部名字空间则是新生类的属性空间。因此，_Dog_ 这个函数对象只是作为打包参数的包袱，将代码对象、全局名字空间等参数作为一个整体进行传递，多么巧妙！
 
 _Dog_ 类代码对象的字节码我们已经非常熟悉了，接着推演一番。代码先从全局名字空间取出模块名 ___name___ ，在局部名字空间中保存为 ___module___ ，原来类对象的 ___module___ 属性就是这么来的！然后将类名 _Dog_ 保存到局部名字空间中的 ___qualname___ 。最后取出 _yelp_ 函数的代码对象，完成 _yelp_ 函数对象的创建工作。至此，新生类 _Dog_ 的属性空间完成初始化：
+
+![](../../youdaonote-images/Pasted%20image%2020221216113208.png)
+
+类属性空间准备完毕，___build_class___ 接着调用 _type_ 元类型对象完成 _Dog_ 类的创建。_type_ 需要的参数有 _3_个，分别是： **类名** 、 **基类列表** (类继承)以及代表 **类属性空间** 的 _dict_ 对象。
+
+```python
+>>> help(type)
+Help on class type in module builtins:
+
+class type(object)
+ |  type(object_or_name, bases, dict)
+ |  type(object) -> the object's type
+ |  type(name, bases, dict) -> a new type
+```
+
+至此，_Dog_ 类对象横空出世！
+
+![](../../youdaonote-images/Pasted%20image%2020221216113359.png)
+模块代码对象最后的字节码将 _Dog_ 类对象保存于模块属性空间，我们已经很熟悉就不再赘述了：
+
+![](../../youdaonote-images/Pasted%20image%2020221216113545.png)
+
+最后，我们以 _Python_ 的语言来回顾类对象创建过程中的关键步骤，以此加深理解。
+
+还记得吗？模块代码对象中包含类代码对象，而类代码对象中又包含着类函数的代码对象：
+
+```python
+# 模块代码对象
+>>> code
+<code object <module> at 0x10b42e8a0, file "", line 2>
+# Dog 类代码对象
+>>> code.co_consts[0]
+<code object Dog at 0x10b42ac00, file "", line 2>
+# Dog 类 yelp 函数代码对象
+>>> code.co_consts[0].co_consts[1]
+<code object yelp at 0x10b5136f0, file "", line 3>
+```
+
+接着，新建一个 dict 对象，作为类的属性空间：
+
+```python
+>>> attrs = {}
+```
+
+以类属性空间为局部名字空间，执行类代码对象，以此完成新类属性空间初始化：
+
+```python
+>>> exec(code.co_consts[0], globals(), attrs)
+>>> attrs
+{'__module__': '__main__', '__qualname__': 'Dog', 'yelp': <function Dog.yelp at 0x10b732e18>}
+```
+
+最后，调用 type 函数完成类对象创建，由于 Dog 没有显式继承关系，基类列表为空：
+
+```python
+>>> Dog = type('Dog', (), attrs)
+>>> Dog
+<class '__main__.Dog'>
+```
+
+哇！我们以一种全新的方式得到一个全新的类！
+
+```python
+>>> dog = Dog()
+>>> dog.yelp()
+woof
+```
