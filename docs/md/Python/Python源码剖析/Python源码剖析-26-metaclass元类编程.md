@@ -269,3 +269,12 @@ fault = FaultPlugin(interval=5)
 ```
 
 例子所涉及了 **类** 对象、**实例** 对象以及 **元类** 对象，不同对象间关系可归纳如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221217001949.png)
+
+-   插件基类 _BasePlugin_ ，插件子类 _BarPlugin_ 、 _FooPlugin_ 均为元类 _PluginMeta_ 的实例；
+-   元类 _PluginMeta_ 是 _type_ 的子类，同时也是 _type_ 的实例；
+-   由于执行 _FaultPlugin_ 定义时抛了异常， _FaultPlugin_ 类实例胎死腹中，它的实例 _fault_ 更无从谈起；
+-   建议关系图与 **对象模型** 部分的对照阅读，进一步体会元类 _PluginMeta_ 的位置、角色与作用；
+
+> 自定义类型对象的实例，如果没有指定元类，应该是通过type的tp_call先后调用tp_new和tp_init完成实例的创建和初始化；如果类型对象指定了元类，就意味着是实例的创建是通过所指定元类的tp_call完成tp_new和tp_init函数指针的调用
