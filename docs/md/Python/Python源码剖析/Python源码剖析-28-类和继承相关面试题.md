@@ -105,3 +105,171 @@ class F(D, E): pass
 
 ![](../../youdaonote-images/Pasted%20image%2020221217114436.png)
 
+子类总比父类先被搜索，因此必须满足以下关系，拓扑排序即可胜任：
+
+-   _F_ 先于 _D_ ；
+-   _F_ 先于 _E_ ；
+-   _D_ 先于 _C_ ；
+-   _C_ 先于 _A_ ；
+-   _A_ 先于 _object_ ；
+-   _E_ 先于 _A_ ；
+-   _E_ 先于 _B_ ；
+-   _B_ 先于 _object_ ；
+
+而根据多继承基类列表顺序，必须保证：
+
+-   _B_ 先于 _A_ ；
+-   _D_ 先于 _E_ ；
+
+因此，_F_ 最先被搜索，接着是 _D_ ，然后按照深度优先的原则来到 _C_ ；由于 _B_ 先于 _A_ ，不能接着搜索 _A_ ；这时只能先搜索 _E_ 分支，然后是 _B_ ，再到 _A_ ；_A_ 和 _B_ 皆搜索过后才能搜索 _object_ 。因此，完整的搜索顺序是这样的：
+
+```python
+F -> D -> C -> E -> B -> A -> object
+```
+
+_Python_ 完成类对象初始化后，通过 _C3_ 算法计算类属性搜索顺序，并将其保存在 ___mro___ 属性中。我们可以据此确认推理结果：
+
+```python
+>>> F.__mro__
+(<class '__main__.F'>, <class '__main__.D'>, <class '__main__.C'>, <class '__main__.E'>, <class '__main__.B'>, <class '__main__.A'>, <class 'object'>)
+```
+
+如果规则前后矛盾，_Python_ 将抛 _TypeError_ 异常。这是一个典型的例子：
+
+```python
+class A: pass
+
+class B: pass
+
+class C(A, B): pass
+
+class D(B, A): pass
+
+class F(C, D): pass
+```
+
+对于 _F_ 类，基类 _C_ 要求 _A_ 先于 _B_ 被搜索，而基类 _D_ 要求 _B_ 先于 _A_ 被搜索，前后矛盾：
+
+```python
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: Cannot create a consistent method resolution
+order (MRO) for bases A, B
+```
+
+由于多继承存在一定的歧义性，实际项目开发一般不鼓励复杂的多继承关系。如果多继承不可避免，则需要严谨确认类属性搜索顺序。最好查看 ___mro___ 属性确认顺序符合预期，切勿想当然。
+
+**试设计装饰器 mystaticmethod ，实现与 staticmethod 相同的功能**
+
+根据属性描述符原理，我们需要实现一个装饰器，将函数对象改造成一个特殊的 **非数据描述符** 。当实例对象访问对应属性时，描述符 ___get___ 方法将被调用，它只需将函数对象原样返回即可：
+
+```python
+class mystaticmethod:
+    
+    def __init__(self, func):
+        self.func = func
+        
+    def __get__(self, instance, owner):
+        return self.func
+```
+
+这样一来，静态函数可以这样来写，以在 _Foo_ 类实现静态方法 _add_ 为例：
+
+```python
+class Foo:
+    
+    @mystaticmethod
+    def add(a, b):
+        return a + b
+    
+    def add2(a, b):
+        return a + b
+```
+
+接着，我们创建一个实例对象 _foo_ ，并通过实例对象访问 _add_ 属性。我们得到的是原始的 _add_ 函数对象，而不是一个 _bound method_ 对象：
+
+```python
+>>> foo = Foo()
+>>> foo.add
+<function Foo.add at 0x1092189d8>
+>>> foo.add(1, 2)
+3
+```
+
+至此，我们通过自己的聪明才智，成功实现了静态方法装饰器。作为对照，_add2_ 未加装饰，它将成为一个普通的类方法。我们通过 _foo_ 实例对象访问 _add2_ 属性时，将得到一个 _bound method_ 对象：
+
+```python
+>>> foo.add2
+<bound method Foo.add2 of <__main__.Foo object at 0x1092349e8>>
+```
+
+**Python 如何实现单例模式？试举例说明。**
+
+通过 _Python_ 对象模型部分学习，我们知道 _Python_ 对象创建和初始化分别由定义于类型对象中的 _tp_new_ 以及 _tp_init_ 函数负责。相应地，在自定义类中，可以通过 ___new___ 和 ___init___ 魔术方法来控制实例对象的实例化。
+
+对于类 _X_ ，当我们调用 `x = X()` 创建实例对象 _x_ 时，_Python_ 内部分为两步进行：
+
+1.  调用 _X.__new___ 为实例对象分配内存，这一步完成实例对象的创建；
+2.  调用 _X.__init___ 将实例对象初始化，_1_ 中生成的实例对象作为 _self_ 参数传给 ___init___ 方法；
+
+如果 _X_ 类未实现 ___new___ 方法，_Python_ 将使用其父类的。如果父类也没有实现该方法，_Python_ 最终将调用 _object.tp_new_ 。_object_ 基类型对象是所有类型对象的基类，它提供了一个通用的 _tp_new_ 版本。
+
+当 ___init___ 方法执行时，对象已经完成了创建，因此无法实现全局唯一的约束。但我们可以在 ___new___ 方法中做手脚，先判断对象是否已经创建，如果是直接将其返回，否则调用父类的 ___new___ 方法完成进行创建并保存。示例代码如下：
+
+```python
+class SomeClass:
+    
+    instance = None
+    
+    def __new__(cls):
+        if cls.instance is None:
+            cls.instance = super().__new__(cls)
+            
+        return cls.instance
+    
+    def __init__(self):
+        # do some initialization
+        pass
+```
+
+例子中，类属性 _instance_ 用于保存 _SomeClass_ 类全局唯一的实例对象。
+
+在 ___new___ 函数中，我们先检查 _instance_ 属性。如果它为 _None_ ，说明实例尚未创建。这时，我们通过 _super_ 调用父类的 ___new___ 方法完成实例对象的创建，并将其保存与 _instance_ 属性中。
+
+当我们再次调用 _SomeClass_ 类创建实例对象时，___new___ 方法也将被调用。但此时，_instance_ 已不再是 _None_ ， ___new___ 直接将其返回，由此避免重复实例化。
+
+这样一来，不管我们调用 _SomeClass_ 多少次，得到的实例对象总是全局唯一的那一个：
+
+```python
+>>> instance = SomeClass()
+>>> id(instance)
+4302595728
+>>> instance = SomeClass()
+>>> id(instance)
+4302595728
+```
+
+**如果程序中有成千上万的 User 类实例对象，如何优化内存使用？**
+
+提示 _User_ 只包含属性 _name_ 和 _email_ 以及若干个类方法：
+
+```python
+class User:
+    
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+        
+    def some_method(self):
+        pass
+        
+    def another_method(self):
+        pass
+
+user = User(name='小菜学编程', email='coding-fan@mp.weixin.qq.com')
+```
+
+根据我们学到的 _Python_ 类机制知识，_User_ 类对象及其实例对象底层内存布局大致如下：
+
+![](../../youdaonote-images/Pasted%20image%2020221217123507.png)
+
