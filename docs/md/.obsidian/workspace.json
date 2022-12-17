@@ -56,12 +56,12 @@
             }
           },
           {
-            "id": "d216ea9357eb6f9b",
+            "id": "d8e5aba8cb4acf44",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md",
+                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
                 "mode": "source",
                 "source": false
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md",
+                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md",
+                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md"
+                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md"
               }
             }
           },
@@ -193,54 +193,17 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "floating": {
-    "id": "53ee20949bc31eac",
-    "type": "floating",
-    "children": [
-      {
-        "id": "4f8732518a5e7042",
-        "type": "window",
-        "children": [
-          {
-            "id": "f848de51dc169311",
-            "type": "tabs",
-            "children": [
-              {
-                "id": "97036affdf5d9771",
-                "type": "leaf",
-                "state": {
-                  "type": "markdown",
-                  "state": {
-                    "file": "Python/Python高级/11.协程和异步io.md",
-                    "mode": "preview",
-                    "source": false
-                  }
-                }
-              }
-            ]
-          }
-        ],
-        "direction": "vertical",
-        "x": 448,
-        "y": 84,
-        "width": 1024,
-        "height": 800,
-        "maximize": false,
-        "zoom": 0
-      }
-    ]
-  },
-  "active": "d216ea9357eb6f9b",
+  "active": "d8e5aba8cb4acf44",
   "lastOpenFiles": [
-    "Python/Python高级/11.协程和异步io.md",
-    "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md",
     "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
+    "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
+    "Python/Python高级/11.协程和异步io.md",
+    "Python/Python高级/python 协程, 异步IO Select 和 selectors 模块 多并发演示.pdf",
+    "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md",
     "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md",
     "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md",
     "Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md",
     "Python/Python源码剖析/Python源码剖析-25-魔术方法应用.md",
-    "Python/Python源码剖析/Python源码剖析-24-属性描述符如何影响属性行为.md",
-    "Python/Python源码剖析/Python源码剖析-23-类对象源码剖析.md",
-    "Python/Python源码剖析/Python源码剖析-22-函数相关面试.md"
+    "Python/Python源码剖析/Python源码剖析-24-属性描述符如何影响属性行为.md"
   ]
 }
