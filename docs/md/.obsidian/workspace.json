@@ -193,17 +193,54 @@
     "direction": "horizontal",
     "width": 310.5
   },
+  "floating": {
+    "id": "53ee20949bc31eac",
+    "type": "floating",
+    "children": [
+      {
+        "id": "4f8732518a5e7042",
+        "type": "window",
+        "children": [
+          {
+            "id": "f848de51dc169311",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "97036affdf5d9771",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "Python/Python高级/11.协程和异步io.md",
+                    "mode": "preview",
+                    "source": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical",
+        "x": 448,
+        "y": 84,
+        "width": 1024,
+        "height": 800,
+        "maximize": false,
+        "zoom": 0
+      }
+    ]
+  },
   "active": "d216ea9357eb6f9b",
   "lastOpenFiles": [
-    "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
+    "Python/Python高级/11.协程和异步io.md",
     "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md",
+    "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
     "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md",
     "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md",
     "Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md",
     "Python/Python源码剖析/Python源码剖析-25-魔术方法应用.md",
     "Python/Python源码剖析/Python源码剖析-24-属性描述符如何影响属性行为.md",
     "Python/Python源码剖析/Python源码剖析-23-类对象源码剖析.md",
-    "Python/Python源码剖析/Python源码剖析-22-函数相关面试.md",
-    "Python/Python源码剖析/Python源码剖析-21-装饰器核心解析.md"
+    "Python/Python源码剖析/Python源码剖析-22-函数相关面试.md"
   ]
 }

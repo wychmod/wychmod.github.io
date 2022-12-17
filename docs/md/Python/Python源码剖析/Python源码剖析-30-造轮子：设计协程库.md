@@ -322,7 +322,7 @@ Traceback (most recent call last):
 StopIteration: 37.69911184307752
 ```
 
-![图片描述](http://img1.sycdn.imooc.com/5f4f03760001751517390304.png)
+![](../../youdaonote-images/Pasted%20image%2020221217230916.png)
 
 因此，_cylindrical_volume_ 就像一个中间人，在调用者和子协程之间来回传递执行权。函数调用很常见，如果涉及协程的函数调用都需要用样板代码传递执行权，那简直就是一个噩梦！为此，_Python_ 引入 _yield from_ ：
 
