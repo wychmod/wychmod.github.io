@@ -417,3 +417,67 @@ _PyEval_EvalFrameEx_ 函数最终调用 __PyEval_EvalFrameDefault_ 函数执�
 ```
 
 首先，_LOAD_CONST_ 将需要带给调用者的值 ( _yield_ 右边的表达式值) 加载到运行栈栈顶：
+
+![](../../youdaonote-images/Pasted%20image%2020221217170314.png)
+
+接着，_YIELD_VALUE_ 开始放大招，它先从栈顶弹出 _yield_ 值作为 __PyEval_EvalFrameDefault_ 函数返回值，然后一个 _goto_ 语句跳出 _for_ 循环，干净利落：
+
+```c
+        TARGET(YIELD_VALUE) {
+            retval = POP();
+
+            if (co->co_flags & CO_ASYNC_GENERATOR) {
+                PyObject *w = _PyAsyncGenValueWrapperNew(retval);
+                Py_DECREF(retval);
+                if (w == NULL) {
+                    retval = NULL;
+                    goto error;
+                }
+                retval = w;
+            }
+
+            f->f_stacktop = stack_pointer;
+            why = WHY_YIELD;
+            goto fast_yield;
+        }
+```
+
+紧接着，__PyEval_EvalFrameDefault_ 函数将当前栈帧 (也就是生成器的栈帧) 从调用链中解开。注意到，_yield_ 值被 __PyEval_EvalFrameDefault_ 函数返回，并最终被 _send_ 方法或 _next_ 函数返回给调用者。
+
+![](../../youdaonote-images/Pasted%20image%2020221217170555.png)
+
+## 生成器的恢复
+
+当我们再次调用 _send_ 方法时，生成器将恢复执行：
+
+```python
+>>> genco.send('hello')
+step one finished， got hello from caller
+2
+```
+
+注意到，通过 _send_ 发送的数据作为 _yield_ 语句的值，被生成器获取并保存在局部变量 _data_ ，进而被输出。这一切是如何做到的呢？我们接着分析。
+
+我们知道，_send_ 方法被调用后，_Python_ 先把生成器栈帧对象挂到调用链，并最终调用 _PyEval_EvalFrameEx_ 函数逐条执行字节码。在这个过程中，_send_ 发送的数据会被放在生成器栈顶：
+
+![](../../youdaonote-images/Pasted%20image%2020221217170747.png)
+
+生成器执行进度被保存在 _f_lasti_ 字段，生成器将从下一条字节码指令 _STORE_FAST_ 继续执行。_STORE_FAST_ 指令从栈顶取出 _send_ 发来的数据，并保存到局部变量 _data_ ：
+
+![](../../youdaonote-images/Pasted%20image%2020221217170818.png)
+
+再接着，生成器将按照正常的逻辑，有条不紊地执行，直到遇到下一个 _yield_ 语句或者生成器函数返回。
+
+至此，生成器执行、暂停、恢复的全部秘密皆已揭开！
+
+-   生成器函数编译后代码对象带有 _CO_GENERATOR_ 标识；
+-   如果函数代码对象带 _CO_GENERATOR_ 标识，被调用时 _Python_ 将创建生成器对象；
+-   生成器创建的同时，_Python_ 还创建一个栈帧对象，用于维护代码对象执行上下文；
+-   调用 _next_/_send_ 驱动生成器执行，_Python_ 将生成器栈帧对象接入调用链，开始执行字节码；
+-   执行到 _yield_ 语句时，_Python_ 将 _yield_ 右边的值放入栈顶，并结束字节码执行循环，执行权回到上一个栈帧；
+-   _yield_ 值最终作为 _next_ 函数或 _send_ 方法的返回值，被调用者取得；
+-   再次调用 *next/*_send_ ，_Python_ 重新将生成器栈帧对象接入调用链恢复执行，通过 _send_ 发送的值被放在栈顶；
+-   生成器函数重新启动后，从 _YIELD_VALUE_ 后的字节码恢复执行，可从栈顶获得调用者发来的值；
+-   代码执行权就这样在调用者和生成器间来回切换，而生成器栈顶被用来传值；
+
+生成器运行机制全面解密后，我们便可以利用这些特性来实现协程。下一节，我们将通过自己的双手，实现一个完整的协程库！这个玩具代码量仅 _100_ 来行，却揭示了协程库的核心机密。
