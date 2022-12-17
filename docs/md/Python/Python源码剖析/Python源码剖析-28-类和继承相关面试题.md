@@ -273,3 +273,117 @@ user = User(name='小菜学编程', email='coding-fan@mp.weixin.qq.com')
 
 ![](../../youdaonote-images/Pasted%20image%2020221217123507.png)
 
+中间橘色部分是 _User_ 类对象，它是一个 _PyTypeObject_ 结构体，_tp_dict_ 字段指向类属性空间。类属性空间是一个字典对象，里面保存着类属性，类方法 _some_method_ 也位于其中。
+
+而 _User_ 实例对象(如例子中的 _user_ )，如蓝色部分所示，它的结构则简单得多，底层是一个 _PyObject_ 结构体。紧接着 _PyObject_ 的是一个指针，指向实例对象属性空间的字典。实例对象属性空间也是一个字典对象，里面则保存着实例对象的属性 _name_ 和 _email_ 。
+
+注意到，_User_ 类对象全局只有一个，而它的实例对象却可以有无数个。那么，一个实例对象占用多少内存空间呢？我们调用 _sys.getsizeof_ 查看一下：
+
+```python
+>>> sys.getsizeof(user)
+64
+```
+
+不对吧？在内建对象部分，我们学习了字典对象的布局，它动辄 _200_ 多字节呢！实际上，_getsizeof_ 只计算蓝色部分内存，这部分是 _32_ 字节，而 _PyObject_ 之前还有 _32_ 字节用于垃圾回收的隐形开销。
+
+因此，一个 _User_ 实例对象的内存开销是 _64_ 字节加上属性空间字典对象的内存开销。换句话讲，每创建一个 _User_ 实例，_Python_ 都会帮你创建一个字典对象，来保存实例属性。
+
+属性空间字典是一个不小的开销，当前这个场景似乎不需要。因为 _User_ 实例对象属性只有固定的两个，不会出现这样的情况：
+
+```python
+>>> user.age = 10
+>>> user.age
+10
+```
+
+联想到函数局部名字空间与这个场景非常类似：参数个数是固定的，因此名字空间由一个静态的数组实现，而不是用字典对象。那么，实例属性是不是也可以采用类似的思路呢？答案是肯定的，_Python_ 实现了 _slot_ 机制：
+
+```python
+class User:
+    
+    __slots__ = ('name', 'email')
+    
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+        
+    def some_method(self):
+        pass
+        
+    def another_method(self):
+        pass
+    
+user = User(name='小菜学编程', email='coding-fan@mp.weixin.qq.com')
+```
+
+这个新的 _User_ 类通过 ___slots___ 将属性 _name_ 和 _email_ 申明为以 _slot_ 形式实现。采用 _slot_ 机制后，_Python_ 便不会为 _User_ 实例对象分配属性空间字典了，而是将属性作为 _slot_ 依次排列在 _PyObject_ 结构体之后：
+
+```python
+>>> user.__dict__
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'User' object has no attribute '__dict__'
+```
+
+![](../../youdaonote-images/Pasted%20image%2020221217124317.png)
+
+由此一来，动辄几百字节的字典对象被节省下来，内存使用效率得到有效提升。当然了，天下没有免费的午餐，我们丧失了在运行时新增属性的灵活性：
+
+```python
+>>> user.age = 10
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'User' object has no attribute 'age'
+```
+
+因此，_slot_ 机制只适用于属性个数固定的场景。
+
+**用 type 元类型创建一个等价的 MyFloat 类**
+
+```python
+class MyFloat(float):
+    
+    def round(self):
+        return int(self)
+```
+
+根据 _Python_ 对象模型，_type_ 是所有类型对象的类型，调用 _type_ 可以创建新的类型对象。在类机制部分，我们学习了自定义类的创建过程，知道 _type_ 在其中所起的重要作用。
+
+使用 _type_ 创建新类型对象，接口如下：
+
+```python
+type(name, bases, dict) -> a new type
+```
+
+-   _name_ ，新类型名；
+-   _bases_ ，基类列表；
+-   _dict_ ，类属性空间；
+
+显而易见，为创建与 _MyFloat_ 完全等价的类对象，_name_ 必须是 _MyFloat_ ；基类是 _float_ 对象，因而 _bases_ 必须是由 _float_ 组成的元组，即 _(float,)_ ；而作为类属性空间 _dict_ 必须包含 _round_ 函数对象。
+
+我们先定义 _round_ 函数以及类属性空间：
+
+```python
+>>> def round(self):
+...     return int(self)
+...
+>>> attrs = {'round': round}
+```
+
+接着，我们调用 _type_ 元类型对象完成新类对象的创建：
+
+```python
+>>> MyFloat = type('MyFloat', (float,), attrs)
+>>> MyFloat
+<class '__main__.MyFloat'>
+```
+
+最后，我们验证新 _MyFloat_ 类的功能，确认它与例子程序完全等价：
+
+```python
+>>> pi = MyFloat('3.14')
+>>> pi.round()
+3
+```
+
+_type_ 元类编程提供了在运行时动态创建新类型的强大能力，在框架设计中非常有用。

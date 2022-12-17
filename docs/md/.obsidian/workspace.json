@@ -42,9 +42,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "19fe8fdc43edec0c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md",
+                "file": "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md",
+                "file": "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md"
+                "file": "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md"
               }
             }
           },
@@ -170,17 +182,17 @@
     "width": 310.5,
     "collapsed": true
   },
-  "active": "f1e3f0aa70a464b6",
+  "active": "19fe8fdc43edec0c",
   "lastOpenFiles": [
-    "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md",
     "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md",
+    "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
+    "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md",
     "Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md",
     "Python/Python源码剖析/Python源码剖析-25-魔术方法应用.md",
     "Python/Python源码剖析/Python源码剖析-24-属性描述符如何影响属性行为.md",
     "Python/Python源码剖析/Python源码剖析-23-类对象源码剖析.md",
     "Python/Python源码剖析/Python源码剖析-22-函数相关面试.md",
     "Python/Python源码剖析/Python源码剖析-21-装饰器核心解析.md",
-    "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
-    "Python/Python源码剖析/Python源码剖析-20-高阶函数和函数式编程.md"
+    "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md"
   ]
 }
