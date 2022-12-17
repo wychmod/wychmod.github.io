@@ -394,3 +394,26 @@ result = PyEval_EvalFrameEx(f, exc);
 ```
 
 首先，第一行代码将生成器栈帧挂到当前调用链上；然后，第二行代码调用 _PyEval_EvalFrameEx_ 开始执行生成器栈帧；生成器栈帧对象保存着生成器执行上下文，其中 _f_lasti_ 字段跟踪生成器代码对象的执行进度。
+
+![](../../youdaonote-images/Pasted%20image%2020221217165727.png)
+
+_PyEval_EvalFrameEx_ 函数最终调用 __PyEval_EvalFrameDefault_ 函数执行 _frame_ 对象上的代码对象。这个函数我们在虚拟机部分学习过，对它并不陌生。虽然它体量巨大，超过 _3_ 千行代码，逻辑却非常直白 —— 内部由无限 _for_ 循环逐条遍历并处理字节码，每执行完一条字节码就自增 _f_lasti_ 字段。
+
+## 生成器的暂停
+
+我们知道，生成器可以利用 _yield_ 语句，将执行权归还给调用者。因此，生成器暂停执行的秘密就隐藏在 _yield_ 语句中。我们先来看看 _yield_ 语句编译后，生成什么字节码：
+
+```python
+>>> import dis
+>>> dis.dis(co_process)
+```
+
+可以看到，_co_process_ 每个 _yield_ 语句编译后，都得到这样 _3_ 条字节码指令：
+
+```python
+  4          14 LOAD_CONST               2 (1)
+             16 YIELD_VALUE
+             18 STORE_FAST               1 (data)
+```
+
+首先，_LOAD_CONST_ 将需要带给调用者的值 ( _yield_ 右边的表达式值) 加载到运行栈栈顶：
