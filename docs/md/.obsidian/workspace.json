@@ -232,6 +232,7 @@
   "active": "069ddaf7dd91000f",
   "lastOpenFiles": [
     "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
+    "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
     "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
     "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
@@ -239,7 +240,6 @@
     "Python/Python高级/python 协程, 异步IO Select 和 selectors 模块 多并发演示.pdf",
     "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md",
     "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md",
-    "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md",
-    "Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md"
+    "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md"
   ]
 }
