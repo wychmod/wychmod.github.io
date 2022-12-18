@@ -53,3 +53,154 @@ _C_ 库函数实现的通用目的内存管理器是一个重要的分水岭，
 ## 按尺寸分类管理
 
 揪出内存碎片根源后，解决方案也就浮出水面了 —— 根据内存块尺寸，将内存空间划分成不同区域，独立管理。举个最简单的例子：
+
+![](../../youdaonote-images/Pasted%20image%2020221218151811.png)
+
+如图，内存被划分成小、中、大三个不同尺寸的区域，区域可由若干内存页组成，每个页都划分为统一规格的内存块。这样一来，小块内存的分配，不会影响大块内存区域，使其碎片化。
+
+每个区域的碎片仍无法完全避免，但这些碎片都是可以被重新分配出去的，影响不大。此外，通过优化分配策略，碎片还可被进一步合并。以小块内存为例，新内存优先从内存页 _1_ 分配，内存页 _2_ 将慢慢变空，最终将被整体回收。
+
+在 _Python_ 虚拟机内部，时刻有对象创建、销毁，这引发频繁的内存申请、释放动作。这类内存尺寸一般不大，但分配、释放频率非常高，因此 _Python_ 专门设计 **内存池** 对此进行优化。
+
+那么，尺寸多大的内存才会动用内存池呢？_Python_ 以 _512_ 字节为限，小于 _512_ 的内存分配才会被内存池接管：
+
+-   _0_ ，直接调用 _malloc_ 函数；
+-   _1_ ~ _512_ ，由专门的内存池负责分配，内存池以内存尺寸进行划分；
+-   _512_ 以上，直接调动 _malloc_ 函数；
+
+那么，_Python_ 是否为每个尺寸的内存都准备一个独立内存池呢？答案是否定的，原因有几个：
+
+-   内存规格有 _512_ 种之多，如果内存池分也分 _512_ 种，徒增复杂性；
+-   内存池种类越多，额外开销越大；
+-   如果某个尺寸内存只申请一次，将浪费内存页内其他空闲内存；
+
+相反，_Python_ 以 _8_ 字节为梯度，将内存块分为：_8_ 字节、_16_ 字节、_24_ 字节，以此类推。总共 _64_ 种：
+
+![](../../youdaonote-images/Pasted%20image%2020221218152012.png)
+
+以 _8_ 字节内存块为例，内存池由多个 **内存页** ( _page_ ，一般是 _4K_ ) 构成，每个内存页划分为若干 _8_ 字节内存块：
+
+![](../../youdaonote-images/Pasted%20image%2020221218152055.png)
+
+上图表示一个内存页，每个小格表示 _1_ 字节，_8_ 个字节组成一个块 ( _block_ )。灰色表示空闲内存块，蓝色表示已分配内存块，深蓝色表示应用内存请求大小。
+
+只要请求的内存大小不超过 _8_ 字节，_Python_ 都在这个内存池为其分配一块 _8_ 字节内存，就算只申请 1 字节内存也是如此。
+
+这种做法好处显而易见，前面提到的问题均得到解决，还带来另一个好处：内存起始地址均以计算机字为单位对齐。计算机以 **字** ( _word_ ) 为单位访问内存，因此内存以字对齐可提升内存读写速度。字大小从早期硬件的 _2_ 字节、_4_ 字节，慢慢发展到现在的 _8_ 字节，甚至 _16_ 字节。
+
+当然了，有得必有失，内存利用率成了被牺牲的因素，平均利用率为 _(1+8)/2/8*100%_ ，大约只有 _56.25%_ 。
+
+乍然一看，内存利用率有些惨不忍睹，但这只是 8 字节内存块的平均利用率。如果考虑所有内存块的平均利用率，其实数值并不低 —— 可以达到 98.65% 呢！计算方法如下：
+
+```python
+# 请求内存总量
+total_requested = 0
+# 实际分配内存总量
+total_allocated = 0
+
+# 请求内存从1到512字节
+for i in range(1, 513):
+    total_requested += i
+    # 实际分配内存为请求内存向上对齐为8的整数倍
+    total_allocated += (i+7)//8*8
+
+print('{:.2f}%'.format(total_requested/total_allocated*100))
+# 98.65%
+```
+
+## 内存池实现
+
+### pool
+
+铺垫了这么多，终于可以开始研究源码，窥探 _Python_ 内存池实现的秘密了，源码位于 _Objects/obmalloc.c_ 。在源码中，我们发现对于 _64_ 位系统，_Python_ 将内存块大小定义为 _16_ 字节的整数倍，而不是上述的 _8_ 字节：
+
+```c
+#if SIZEOF_VOID_P > 4
+#define ALIGNMENT              16               /* must be 2^N */
+#define ALIGNMENT_SHIFT         4
+#else
+#define ALIGNMENT               8               /* must be 2^N */
+#define ALIGNMENT_SHIFT         3
+#endif
+```
+
+为画图方便，我们仍然假设内存块为 8 字节的整数倍，即 (实际上，这些宏定义也是可配置的)：
+
+```c
+#define ALIGNMENT               8
+#define ALIGNMENT_SHIFT         3
+```
+
+下面这个宏将类别编号转化成块大小，例如将类别 _1_ 转化为块大小 _16_ ：
+
+```c
+#define INDEX2SIZE(I) (((uint)(I) + 1) << ALIGNMENT_SHIFT)
+```
+
+_Python_ 每次申请一个 **内存页** ( _page_ )，然后将其划分为统一尺寸的 **内存块** ( _block_ )，一个内存页大小是 _4K_ ：
+
+```c
+#define SYSTEM_PAGE_SIZE        (4 * 1024)
+#define SYSTEM_PAGE_SIZE_MASK   (SYSTEM_PAGE_SIZE - 1)
+
+#define POOL_SIZE               SYSTEM_PAGE_SIZE
+#define POOL_SIZE_MASK          SYSTEM_PAGE_SIZE_MASK
+```
+
+_Python_ 将内存页看做是由一个个内存块组成的池子 ( _pool_ )，内存页开头是一个 _pool_header_ 结构，用于组织当前页，并记录页中的空闲内存块：
+
+```c
+/* Pool for small blocks. */
+struct pool_header {
+    union { block *_padding;
+            uint count; } ref;          /* number of allocated blocks    */
+    block *freeblock;                   /* pool's free list head         */
+    struct pool_header *nextpool;       /* next pool of this size class  */
+    struct pool_header *prevpool;       /* previous pool       ""        */
+    uint arenaindex;                    /* index into arenas of base adr */
+    uint szidx;                         /* block size class index        */
+    uint nextoffset;                    /* bytes to virgin block         */
+    uint maxnextoffset;                 /* largest valid nextoffset      */
+};
+```
+
+-   _count_ ，已分配出去的内存块个数；
+-   _freeblock_ ，指向空闲块链表的第一块；
+-   _nextpool_ ，用于将 _pool_ 组织成链表的指针，指向下一个 _pool_ ；
+-   _prevpool_ ，用于将 _pool_ 组织成链表的指针，指向上一个 _pool_ ；
+-   _szidx_ ，尺寸类别编号；
+-   _nextoffset_ ，下一个未初始化内存块的偏移量；
+-   _maxnextoffset_ ，合法内存块最大偏移量；
+
+当 _Python_ 通过内存池申请内存时，如果没有可用 _pool_ ，内存池将新申请一个 _4K_ 页，并进行初始化。注意到，由于新内存页总是由内存请求触发，因此初始化时第一个内存块便已经被分配出去了：
+
+![](../../youdaonote-images/Pasted%20image%2020221218152836.png)
+随着内存分配请求的发起，空闲块将被分配出去。_Python_ 将从灰色区域取出下一个作为空闲块，直到灰色块用光：
+
+![](../../youdaonote-images/Pasted%20image%2020221218153035.png)
+
+当有内存块被释放时，比如第一块，_Python_ 将其链入空闲块链表头。请注意空闲块链表的组织方式 —— 每个块头部保存一个 _next_ 指针，指向下一个空闲块：
+
+![](../../youdaonote-images/Pasted%20image%2020221218153208.png)
+
+这样一来，一个 _pool_ 在其生命周期内，可能处于以下 _3_ 种状态 (空闲内存块链表结构被省略，请自行脑补)：
+
+![](../../youdaonote-images/Pasted%20image%2020221218153218.png)
+
+-   _empty_ ，**完全空闲** 状态，内部所有内存块都是空闲的，没有任何块已被分配，因此 _count_ 为 _0_ ；
+-   _used_ ，**部分使用** 状态，内部内存块部分已被分配，但还有另一部分是空闲的；
+-   _full_ ，**完全用满** 状态，内部所有内存块都已被分配，没有任何空闲块，因此 _freeblock_ 为 _NULL_ ；
+
+为什么要讨论 _pool_ 状态呢？—— 因为 _pool_ 的状态决定 _Python_ 对它的处理策略：
+
+-   如果 _pool_ 完全空闲，_Python_ 可以将它占用的内存页归还给操作系统，或者缓存起来，后续需要分配新 _pool_ 时直接拿来用；
+-   如果 _pool_ 完全用满，_Python_ 就无须关注它了，将它丢到一边；
+-   如果 _pool_ 只是部分使用，说明它还有内存块未分配，_Python_ 则将它们以 **双向循环链表** 的形式组织起来；
+
+### 可用 pool 链表
+
+由于 _used_ 状态的 _pool_ 只是部分使用，内部还有内存块未分配，将它们组织起来可供后续分配。_Python_ 通过 _pool_header_ 结构体中的 _nextpool_ 和 _prevpool_ 指针，将他们连成一个双向循环链表：
+
+![](../../youdaonote-images/Pasted%20image%2020221218153722.png)
+
+注意到，同个可用 _pool_ 链表中的内存块大小规格都是一样的，上图以 _16_ 字节类别为例。另外，为了简化链表处理逻辑，_Python_ 引入了一个虚拟节点，这是一个常见的 _C_ 语言链表实现技巧。一个空的 _pool_ 链表是这样的，判断条件是 `pool->nextpool == pool` ：
