@@ -104,7 +104,7 @@
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -170,7 +170,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
+                "file": "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -187,7 +187,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
+                "file": "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -210,7 +210,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md"
+                "file": "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md"
               }
             }
           },
@@ -229,10 +229,10 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "active": "069ddaf7dd91000f",
+  "active": "900af7da033f71a7",
   "lastOpenFiles": [
-    "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
     "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
+    "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
     "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
     "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",

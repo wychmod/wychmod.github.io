@@ -144,3 +144,132 @@ _collection_with_callback(1)_ 最终执调用 _collect(1)_ ，它先将后一
 首先，我们需要找出根对象。这里根对象是指被本链表以外的对象引用或被 _Python_ 虚拟机直接引用的对象，与上一小节讨论的略有不同。由于根对象存在来自外部的引用，不能安全释放，应该标记为 **可达** ( _reachable_ )。
 
 根对象集合不难确定：我们只需遍历每个对象引用的对象，将它们的引用计数减一，最后计数不为零的就是根对象。
+
+![](../../youdaonote-images/Pasted%20image%2020221218214047.png)
+
+请注意，虚线表示外部对象，它既不会被遍历到，引用计数也不会被减一。接着，从深色的根对象出发，遍历引用关系，将可以访问到的对象同样标为深色。标色完毕后，对象将分成有色和无色两种：
+
+![](../../youdaonote-images/Pasted%20image%2020221218214127.png)
+
+这样一来，无色部分就是只存在循环引用的垃圾对象，可以被安全释放。
+
+回过头来研究位于 _collect_ 函数的算法处理逻辑，它先将对象引用计数拷贝到 _gc_refs_ 字段：
+
+```c
+    update_refs(young);
+```
+
+这是因为直接操作 _ob_refcnt_ 字段的话，对象的引用计数就被破坏了，而且无法复原。操作 _gc_refs_ 副本字段，就不存在这个问题。
+
+接着，_collect_ 函数调用 _subtract_refs_ 遍历链表中每个对象，将它们引用的对象引用计数( _gc_refs_ )减一。注意到，_subtract_refs_ 函数调用 _tp_traverse_ 函数，来遍历被一个对象引用的对象：
+
+```c
+subtract_refs(young);
+```
+
+```c
+static int
+visit_decref(PyObject *op, void *data)
+{
+    assert(op != NULL);
+    if (PyObject_IS_GC(op)) {
+        PyGC_Head *gc = AS_GC(op);
+        assert(_PyGCHead_REFS(gc) != 0); /* else refcount was too small */
+        if (_PyGCHead_REFS(gc) > 0)
+            // 将对象引用计数减一(gc_refs)
+            _PyGCHead_DECREF(gc);
+    }
+    return 0;
+}
+
+static void
+subtract_refs(PyGC_Head *containers)
+{
+    traverseproc traverse;
+    PyGC_Head *gc = containers->gc.gc_next;
+    // 遍历链表每一个对象
+    for (; gc != containers; gc=gc->gc.gc_next) {
+        // 遍历当前对象所引用的对象，调用visit_decref将它们的引用计数减一
+        traverse = Py_TYPE(FROM_GC(gc))->tp_traverse;
+        (void) traverse(FROM_GC(gc),
+                       (visitproc)visit_decref,
+                       NULL);
+    }
+}
+```
+
+经过这个步骤之后，根对象就被找出来了，它们的引用计数( _gc_refs_ )不为零。
+
+最后，_collect_ 函数初始化一个链表 _unreachable_ 来保存不可达对象，调用 _move_unreachable_ 标记可达对象，并将不可达对象移入 _unreachable_ 链表：
+
+```c
+    gc_list_init(&unreachable);
+    move_unreachable(young, &unreachable);
+```
+
+_move_unreachable_ 遍历给定对象链表，如果一个对象的引用计数不为 _0_ ，就将它标记为可达( _GC_REACHABLE_ )；否则将它标记为临时不可达，移入不可达链表。
+
+```c
+    // 遍历链表每个对象
+    while (gc != young) {
+        PyGC_Head *next;
+
+        // 如果引用计数不为0，说明它可达
+        if (_PyGCHead_REFS(gc)) {
+            PyObject *op = FROM_GC(gc);
+            traverseproc traverse = Py_TYPE(op)->tp_traverse;
+            assert(_PyGCHead_REFS(gc) > 0);
+            // 将它标记为可达
+            _PyGCHead_SET_REFS(gc, GC_REACHABLE);
+            // 遍历被它引用的对象，调用visit_reachable将被引用对象标记为可达
+            (void) traverse(op,
+                            (visitproc)visit_reachable,
+                            (void *)young);
+            next = gc->gc.gc_next;
+            if (PyTuple_CheckExact(op)) {
+                _PyTuple_MaybeUntrack(op);
+            }
+        }
+        else {
+            next = gc->gc.gc_next;
+            // 暂时移入不可达链表
+            gc_list_move(gc, unreachable);
+            _PyGCHead_SET_REFS(gc, GC_TENTATIVELY_UNREACHABLE);
+        }
+        gc = next;
+    }
+```
+
+如果一个对象可达，_Python_ 还通过 _tp_traverse_ 逐个遍历它引用的对象，并调用 _visit_reachable_ 函数进行标记：
+
+```c
+static int
+visit_reachable(PyObject *op, PyGC_Head *reachable)
+{
+    if (PyObject_IS_GC(op)) {
+        PyGC_Head *gc = AS_GC(op);
+        const Py_ssize_t gc_refs = _PyGCHead_REFS(gc);
+
+        if (gc_refs == 0) {
+            // 引用计数为零，将计数设置为1，表明它是可达的
+            _PyGCHead_SET_REFS(gc, 1);
+        }
+        else if (gc_refs == GC_TENTATIVELY_UNREACHABLE) {
+            // 如果对象被临时标记为不可达，将引用计数设置为1表明它是可达的
+            // 并移回原链表继续处理
+            gc_list_move(gc, reachable);
+            _PyGCHead_SET_REFS(gc, 1);
+        }
+         else {
+            assert(gc_refs > 0
+                   || gc_refs == GC_REACHABLE
+                   || gc_refs == GC_UNTRACKED);
+         }
+    }
+    return 0;
+}
+```
+
+如果被引用的对象引用计数为 _0_ ，将它的引用计数设为 _1_ ，之后它将被 _move_unreachable_ 遍历到并设为可达；如果被引用的对象被临时移入 _unreachable_ 链表，同样将它的引用计数设为 _1_ ，并从 _unreachable_ 链表移回原链表尾部，之后它将被 _move_unreachable_ 遍历到并设为可达。
+
+当 _move_unreachable_ 函数执行完毕，_unreachable_ 链表中的对象就是不可达对象，可被安全回收。
