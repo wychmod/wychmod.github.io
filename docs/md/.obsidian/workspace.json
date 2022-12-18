@@ -66,9 +66,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "b532bfd10ef29b4f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -134,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
+                "file": "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
+                "file": "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +186,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md"
+                "file": "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md"
               }
             }
           },
@@ -193,17 +205,17 @@
     "direction": "horizontal",
     "width": 310.5
   },
-  "active": "d8e5aba8cb4acf44",
+  "active": "b532bfd10ef29b4f",
   "lastOpenFiles": [
-    "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
+    "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
+    "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
     "Python/Python高级/11.协程和异步io.md",
     "Python/Python高级/python 协程, 异步IO Select 和 selectors 模块 多并发演示.pdf",
     "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md",
     "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md",
     "Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md",
     "Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md",
-    "Python/Python源码剖析/Python源码剖析-25-魔术方法应用.md",
-    "Python/Python源码剖析/Python源码剖析-24-属性描述符如何影响属性行为.md"
+    "Python/Python源码剖析/Python源码剖析-25-魔术方法应用.md"
   ]
 }
