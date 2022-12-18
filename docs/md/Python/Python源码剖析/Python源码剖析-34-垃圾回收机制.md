@@ -90,3 +90,21 @@ _Python_ 虚拟机运行时状态由 _Include/internal/pystate.h_ 中的 _py
 ```
 
 为方便讨论，我们将这 _3_ 个代分别称为：**初生代**、**中生代** 以及 **老生代**。当这 _3_ 个代初始化完毕后，对应的 _gc_generation_ 数组大概是这样的：
+
+![](../../youdaonote-images/Pasted%20image%2020221218210803.png)
+
+每个 _gc_generation_ 结构体链表头节点都指向自己，换句话说每个可收集对象链表一开始都是空的；计数器字段 _count_ 都被初始化为 _0_ ；而阀值字段 _threshold_ 则有各自的策略。这些策略如何理解呢？
+
+_Python_ 调用 __PyObject_GC_Alloc_ 为需要跟踪的对象分配内存时，该函数将初生代 _count_ 计数器加一，随后对象将接入初生代对象链表；当 _Python_ 调用 _PyObject_GC_Del_ 释放垃圾对象内存时，该函数将初生代 _count_ 计数器减一；__PyObject_GC_Alloc_ 自增 _count_ 后如果超过阀值( _700_ )，将调用 _collect_generations_ 执行一次垃圾回收( _GC_ )。
+
+_collect_generations_ 函数从老生代开始，逐个遍历每个生代，找出需要执行回收操作( _count>threshold_ )的最老生代。随后调用 _collect_with_callback_ 函数开始回收该生代，而该函数最终调用 _collect_ 函数。
+
+_collect_ 函数处理某个生代时，先将比它年轻的生代计数器 count 重置为 _0_ ；然后将它们的对象链表移除，与自己的拼接在一起后执行 _GC_ 算法(本文后半部分介绍)；最后，将下一个生代计数器加一。
+
+-   系统每新增 _701_ 个需要 _GC_ 的对象，_Python_ 就执行一次 _GC_ 操作；
+-   每次 _GC_ 操作需要处理的生代可能是不同的，由 _count_ 和 _threshold_ 共同决定；
+-   某个生代需要执行 _GC_ ( _count>threshold_ )，在它前面的所有年轻生代也同时执行 _GC_ ；
+-   对多个代执行 _GC_ ，_Python_ 将它们的对象链表拼接在一起，一次性处理；
+-   _GC_ 执行完毕后，_count_ 清零，而后一个生代 _count_ 加一；
+
+下面是一个简单的例子：初生代触发 _GC_ 操作，_Python_ 执行 _collect_generations_ 函数。它找出了达到阀值的最老生代是中生代，因此调用 _collection_with_callback(1)_ ，_1_ 是中生代在数组中的下标。
