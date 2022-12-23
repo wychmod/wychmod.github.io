@@ -97,7 +97,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+                "file": "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
                 "mode": "source",
                 "source": false
               }
@@ -182,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+                "file": "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -199,7 +199,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+                "file": "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -222,7 +222,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md"
+                "file": "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md"
               }
             }
           },
@@ -256,13 +256,13 @@
   "lastOpenFiles": [
     "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
     "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
-    "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
     "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
+    "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
+    "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+    "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
     "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
     "Python/Python高级/11.协程和异步io.md",
-    "Python/Python高级/python 协程, 异步IO Select 和 selectors 模块 多并发演示.pdf",
-    "Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md",
-    "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md"
+    "Python/Python高级/python 协程, 异步IO Select 和 selectors 模块 多并发演示.pdf"
   ]
 }
