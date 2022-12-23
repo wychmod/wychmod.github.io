@@ -97,19 +97,9 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
+                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
                 "mode": "source",
                 "source": false
-              }
-            }
-          },
-          {
-            "id": "a3f19c362f4f5e95",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.1.8"
               }
             }
           },
@@ -126,7 +116,7 @@
             }
           }
         ],
-        "currentTab": 8
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -192,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
+                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -209,7 +199,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
+                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -232,7 +222,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md"
+                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md"
               }
             }
           },
@@ -262,11 +252,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a3f19c362f4f5e95",
+  "active": "5581c1212fc9f9d9",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
     "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
     "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
-    "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
     "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
     "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
