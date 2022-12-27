@@ -309,6 +309,7 @@ class SubClass extends SuperClass {
 #### Java的继承与组合
 组合(Composition)体现的是整体与部分、拥有的关系，即has-a的关系。
 ![image.png](../../youdaonote-images/WEBRESOURCE016f9930e5d20b65064c753e2d35053f.png)
+> has-a：表示"有一个"的关系，如狗有一个尾巴
 
 > 面向对象中有一个比较重要的原则『多用组合、少用继承』或者说『组合优于继承』。建议在同样可行的情况下，优先使用组合而不是继承。因为组合更安全，更简单，更灵活，更高效。
 
