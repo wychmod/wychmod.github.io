@@ -97,8 +97,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
-                "mode": "source",
+                "file": "java/Java学习路线/Java基本功.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -182,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "file": "java/Java学习路线/Java基本功.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -199,7 +199,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "file": "java/Java学习路线/Java基本功.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -222,7 +222,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md"
+                "file": "java/Java学习路线/Java基本功.md"
               }
             }
           },
@@ -254,6 +254,7 @@
   },
   "active": "5581c1212fc9f9d9",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
     "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
@@ -262,7 +263,6 @@
     "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
     "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
-    "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md",
-    "Python/Python高级/11.协程和异步io.md"
+    "Python/Python源码剖析/Python源码剖析-29-生成器 generator.md"
   ]
 }
