@@ -175,6 +175,12 @@ public class KindsOfVariables {
 
 > float 类型的值必须要以大写字母 F 或小写字母 f 结尾。
 
+### 基本数据类型有什么好处
+
+我们都知道在 Java 语言中，`new` 一个对象是存储在堆里的，我们通过栈中的引用来使用这些对象；所以，对象本身来说是比较消耗资源的。
+
+对于经常用到的类型，如 int 等，如果我们每次使用这种变量的时候都需要 new 一个 Java 对象的话，就会比较笨重。所以，和 C++ 一样，Java 提供了基本数据类型，这种数据的变量不需要使用 new 创建，他们不会在堆上创建，而是直接在栈内存中存储，因此会更加高效。
+
 ### instanceof 运算符
 如果**instanceof**左侧的变量所指向的对象，是**instanceof**右侧类或接口的一个对象，结果为真，否则结果为假。
 ```java
@@ -1305,6 +1311,30 @@ public class WrapperClassDemo3 {
 ```
 
 > 自动装箱就是直接将一个基本数据类型的变量，赋值给对应包装类型的变量；手动装箱就是调用包装类的构造方法（在 Java14 中已经过时，不推荐这样的操作）。
+
+### 自动装箱和自动拆箱的原理
+
+我们有以下自动拆装箱的代码：
+
+```
+    public static  void main(String[]args){
+        Integer integer=1; //装箱
+        int i=integer; //拆箱
+    }
+```
+
+对以上代码进行反编译后可以得到以下代码：
+
+```
+    public static  void main(String[]args){
+        Integer integer=Integer.valueOf(1);
+        int i=integer.intValue();
+    }
+```
+
+从上面反编译后的代码可以看出，int 的自动装箱都是通过 `Integer.valueOf()` 方法来实现的，Integer 的自动拆箱都是通过 `integer.intValue` 来实现的。如果读者感兴趣，可以试着将八种类型都反编译一遍 ，你会发现以下规律：
+
+> 自动装箱都是通过包装类的 `valueOf()` 方法来实现的.自动拆箱都是通过包装类对象的 `xxxValue()` 来实现的。
 
 ### Java 枚举类
 #### 什么是枚举类
