@@ -3,7 +3,6 @@
 ## 集合概述
 ### Java 集合概览
 **从下图可以看出，在Java中除了以==Map==结尾的类之外， 其他类都实现了 Collection 接⼝。并且,以Map结尾的类都实现了 Map 接⼝。**
-![image.png](https://note.youdao.com/yws/res/9/WEBRESOURCE0650d2da06527512c245e9bd2a6e99b9)
 
 ### List，Set，Map三者的区别
 - List (对付顺序的好帮⼿)： 存储的元素是有序的、可重复的。
@@ -560,11 +559,7 @@ JDK1.8 之前 HashMap 底层是数组和链表结合在⼀起使⽤也就是链�
 
 所谓扰动函数指的就是 HashMap 的 hash ⽅法。使⽤ hash ⽅法也就是扰动函数是为了防⽌⼀些实现⽐较差的 hashCode() ⽅法 换句话说使⽤扰动函数之后可以减少碰撞。
 
-![image.png](https://note.youdao.com/yws/res/2/WEBRESOURCE583cf8ef7cd3dcbcc24a730d6b54cff2)
-![image.png](https://note.youdao.com/yws/res/0/WEBRESOURCEe8f2548a0a1b112d4548709de00666a0)
-
 **JDK1.8 之后**
-![image.png](https://note.youdao.com/yws/res/c/WEBRESOURCE3c6ff0a0d3ca2204c3b1a6ebd9f3d8fc)
 > TreeMap、TreeSet 以及 JDK1.8 之后的 HashMap 底层都⽤到了红⿊树。红⿊树就是为了解决⼆叉查找树的缺陷，因为⼆叉查找树在某些情况下会退化成⼀个线性结构。
 
 ## HashMap 的⻓度为什么是 2 的幂次⽅
@@ -576,18 +571,17 @@ JDK1.8 之前 HashMap 底层是数组和链表结合在⼀起使⽤也就是链�
 ## HashMap 多线程操作导致死循环问题
 主要原因在于并发下的 Rehash 会造成元素之间会形成⼀个循环链表。不过，jdk 1.8 后解决了这个问题，但是还是不建议在多线程下使⽤ HashMap,因为多线程下使⽤ HashMap 还是会存在其他问题⽐如数据丢失。并发环境下推荐使⽤ ConcurrentHashMap 。
 
+## HashMap的容量、扩容
+HashMap中size表示当前共有多少个KV对，capacity表示当前HashMap的容量是多少，默认值是16，每次扩容都是成倍的。loadFactor是装载因子，当Map中元素个数超过`loadFactor* capacity`的值时，会触发扩容。`loadFactor* capacity`可以用threshold表示。
+
 ## ConcurrentHashMap 和 Hashtable 的区别
 ConcurrentHashMap 和 Hashtable 的区别主要体现在实现线程安全的⽅式上不同。
-![image.png](https://note.youdao.com/yws/res/9/WEBRESOURCEfcd422dae85ee72836e020423b3837d9)
 
-![image.png](https://note.youdao.com/yws/res/1/WEBRESOURCE7b0365c90246a9df9ffa51bf71570d41)
+ConcurrentHashMap和HashMap的实现方式不一样，虽然都是使用桶数组实现的，但是还是有区别，ConcurrentHashMap对桶数组进行了分段，而HashMap并没有。
 
-![image.png](https://note.youdao.com/yws/res/2/WEBRESOURCE36d4b335781a345924fe107396b946d2)
+ConcurrentHashMap在每一个分段上都用锁进行了保护。HashMap没有锁机制。所以，前者线程安全的，后者不是线程安全的。
 
-![image.png](https://note.youdao.com/yws/res/8/WEBRESOURCE19456244ba17c6429d0a9d13382b5308)
-
-![image.png](https://note.youdao.com/yws/res/7/WEBRESOURCEb28730ef24426aa77bd2deac0be4d547)
-
+PS：以上区别基于jdk1.8以前的版本。
 ## ConcurrentHashMap 线程安全的具体实现⽅式/底层具体实现
 ### JDK1.7（上⾯有示意图）
 ⾸先将数据分为⼀段⼀段的存储，然后给每⼀段数据配⼀把锁，当⼀个线程占⽤锁访问其中⼀个段数据时，其他段的数据也能被其他线程访问。
@@ -642,8 +636,6 @@ boolean replaceAll(List list, Object oldVal, Object newVal), ⽤新元素替换�
 如果我们在集合被遍历期间对其进⾏修改的话，就会改变 modCount 的值，进⽽导致 modCount 不等于 expectedModCount，进⽽抛出 ConcurrentModificationException 异常。
 > 注：通过 Iterator 的⽅法修改集合的话会修改到 expectedModCount 的值，所以不会抛出异常。
 
-![image.png](https://note.youdao.com/yws/res/d/WEBRESOURCE0e5301cf7b5e6e55a519e484387d574d)
-![image.png](https://note.youdao.com/yws/res/0/WEBRESOURCEfdc63103ddf2cbd556dea6c5a16a0640)
 
 ### 什么是安全失败(fail-safe)呢？
 采⽤安全失败机制的集合容器，在遍历时不是直接在集合内容上访问的，⽽是先复制原有集合内容，在拷⻉的集合上进⾏遍历。所以，在遍历过程中对原集合所作的修改并不能被迭代器检测到，故不会抛ConcurrentModificationException 异常。
@@ -666,11 +658,6 @@ public static <T> List<T> asList(T... a) {
 }
 
 ```
-
-#### 《阿⾥巴巴 Java 开发⼿册》对其的描述
-Arrays.asList() 将数组转换为集合后,底层其实还是数组，《阿⾥巴巴 Java 开发⼿册》对于这个⽅法有如下描述：
-
-![image.png](https://note.youdao.com/yws/res/5/WEBRESOURCE4c043d04a70f836d4996f3ebc8355ab5)
 
 #### 使⽤时的注意事项总结
 **传递的数组必须是对象数组，⽽不是基本类型。**
@@ -1046,7 +1033,6 @@ for (Map.Entry<Integer, String> entry : map.entrySet()) {
     }
 }
 ```
-![image.png](https://note.youdao.com/yws/res/8/WEBRESOURCE5af4ddc8556d8a7e8d5eddf72771b498)
 
 ##### 3.Lambda 方式
 ```java
