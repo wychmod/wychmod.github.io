@@ -97,7 +97,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/springboot+vue项目开发/springboot项目开发流程.md",
+                "file": "java/Java学习路线/Java集合框架.md",
                 "mode": "preview",
                 "source": false
               }
@@ -145,7 +145,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "@ControllerAdvice",
+                "query": "",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -162,8 +162,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -183,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/springboot+vue项目开发/springboot项目开发流程.md",
+                "file": "java/Java学习路线/Java集合框架.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -200,7 +199,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/springboot+vue项目开发/springboot项目开发流程.md",
+                "file": "java/Java学习路线/Java集合框架.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -223,7 +222,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/springboot+vue项目开发/springboot项目开发流程.md"
+                "file": "java/Java学习路线/Java集合框架.md"
               }
             }
           },
@@ -255,8 +254,8 @@
   },
   "active": "5581c1212fc9f9d9",
   "lastOpenFiles": [
-    "java/springboot/Java 后端.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
+    "java/springboot/Java 后端.md",
     "java/Java学习路线/Java基本功.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",

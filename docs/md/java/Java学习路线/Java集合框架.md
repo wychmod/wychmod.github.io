@@ -247,7 +247,7 @@ Set<Map, Entry<K, V>> entrySet：返回此映射中包含的映射的集合；
 - V remove(Object key)：如果存在，则从此映射中删除指定键的映射。
 - Collection<V> values：返回此映射中包含的集合。
 
-```
+```java
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
