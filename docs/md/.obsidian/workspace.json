@@ -97,8 +97,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/Java学习路线/Java集合框架.md",
-                "mode": "preview",
+                "file": "java/Java学习路线/Java基本功.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -182,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/Java学习路线/Java集合框架.md",
+                "file": "java/Java学习路线/Java基本功.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -199,7 +199,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/Java学习路线/Java集合框架.md",
+                "file": "java/Java学习路线/Java基本功.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -222,7 +222,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/Java学习路线/Java集合框架.md"
+                "file": "java/Java学习路线/Java基本功.md"
               }
             }
           },
@@ -254,9 +254,9 @@
   },
   "active": "5581c1212fc9f9d9",
   "lastOpenFiles": [
+    "java/Java学习路线/Java集合框架.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
-    "java/Java学习路线/Java集合框架.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
     "java/springboot/Java 后端.md",
     "java/Java学习路线/Java基本功.md",
