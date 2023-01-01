@@ -2456,6 +2456,235 @@ protected Object[] elementData;
 
 简单点说，就是被transient修饰的成员变量，在序列化的时候其值会被忽略，在被反序列化后， transient 变量的值被设为初始值， 如 int 型的是 0，对象型的是 null。
 
+#### 序列化底层原理
+
+在介绍ArrayList序列化之前，先来考虑一个问题：
+
+> **如何自定义的序列化和反序列化策略**
+
+带着这个问题，我们来看`java.util.ArrayList`的源码
+
+```java
+public class ArrayList<E> extends AbstractList<E>
+        implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+{
+    private static final long serialVersionUID = 8683452581122892189L;
+    transient Object[] elementData; // non-private to simplify nested class access
+    private int size;
+}
+```
+
+笔者省略了其他成员变量，从上面的代码中可以知道ArrayList实现了`java.io.Serializable`接口，那么我们就可以对它进行序列化及反序列化。因为elementData是`transient`的，所以我们认为这个成员变量不会被序列化而保留下来。我们写一个Demo，验证一下我们的想法：
+
+```java
+public static void main(String[] args) throws IOException, ClassNotFoundException {
+        List<String> stringList = new ArrayList<String>();
+        stringList.add("hello");
+        stringList.add("world");
+        stringList.add("hollis");
+        stringList.add("chuang");
+        System.out.println("init StringList" + stringList);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("stringlist"));
+        objectOutputStream.writeObject(stringList);
+
+        IOUtils.close(objectOutputStream);
+        File file = new File("stringlist");
+        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
+        List<String> newStringList = (List<String>)objectInputStream.readObject();
+        IOUtils.close(objectInputStream);
+        if(file.exists()){
+            file.delete();
+        }
+        System.out.println("new StringList" + newStringList);
+    }
+//init StringList[hello, world, hollis, chuang]
+//new StringList[hello, world, hollis, chuang]
+```
+
+了解ArrayList的人都知道，ArrayList底层是通过数组实现的。那么数组`elementData`其实就是用来保存列表中的元素的。通过该属性的声明方式我们知道，他是无法通过序列化持久化下来的。那么为什么code 4的结果却通过序列化和反序列化把List中的元素保留下来了呢？
+
+#### writeObject和readObject方法
+在ArrayList中定义了来个方法： `writeObject`和`readObject`。
+
+这里先给出结论:
+
+> 在序列化过程中，如果被序列化的类中定义了writeObject 和 readObject 方法，虚拟机会试图调用对象类里的 writeObject 和 readObject 方法，进行用户自定义的序列化和反序列化。
+> 
+> 如果没有这样的方法，则默认调用是 ObjectOutputStream 的 defaultWriteObject 方法以及 ObjectInputStream 的 defaultReadObject 方法。
+> 
+> 用户自定义的 writeObject 和 readObject 方法可以允许用户控制序列化的过程，比如可以在序列化的过程中动态改变序列化的数值。
+
+来看一下这两个方法的具体实现：
+
+code 5
+
+```java
+private void readObject(java.io.ObjectInputStream s)
+        throws java.io.IOException, ClassNotFoundException {
+        elementData = EMPTY_ELEMENTDATA;
+
+        // Read in size, and any hidden stuff
+        s.defaultReadObject();
+
+        // Read in capacity
+        s.readInt(); // ignored
+
+        if (size > 0) {
+            // be like clone(), allocate array based upon size not capacity
+            ensureCapacityInternal(size);
+
+            Object[] a = elementData;
+            // Read in all elements in the proper order.
+            for (int i=0; i<size; i++) {
+                a[i] = s.readObject();
+            }
+        }
+    }
+```
+
+code 6
+
+```java
+private void writeObject(java.io.ObjectOutputStream s)
+        throws java.io.IOException{
+        // Write out element count, and any hidden stuff
+        int expectedModCount = modCount;
+        s.defaultWriteObject();
+
+        // Write out size as capacity for behavioural compatibility with clone()
+        s.writeInt(size);
+
+        // Write out all elements in the proper order.
+        for (int i=0; i<size; i++) {
+            s.writeObject(elementData[i]);
+        }
+
+        if (modCount != expectedModCount) {
+            throw new ConcurrentModificationException();
+        }
+    }
+```
+
+那么为什么ArrayList要用这种方式来实现序列化呢？
+
+#### why transient
+
+ArrayList实际上是动态数组，每次在放满以后自动增长设定的长度值，如果数组自动增长长度设为100，而实际只放了一个元素，那就会序列化99个null元素。为了保证在序列化的时候不会将这么多null同时进行序列化，ArrayList把元素数组设置为transient。
+
+#### why writeObject and readObject
+
+前面说过，为了防止一个包含大量空对象的数组被序列化，为了优化存储，所以，ArrayList使用`transient`来声明`elementData`。 但是，作为一个集合，在序列化过程中还必须保证其中的元素可以被持久化下来，所以，通过重写`writeObject` 和 `readObject`方法的方式把其中的元素保留下来。
+
+`writeObject`方法把`elementData`数组中的元素遍历的保存到输出流（ObjectOutputStream）中。
+
+`readObject`方法从输入流（ObjectInputStream）中读出对象并保存赋值到`elementData`数组中。
+
+至此，我们先试着来回答刚刚提出的问题：
+
+> 如何自定义的序列化和反序列化策略
+
+答：可以通过在被序列化的类中增加writeObject 和 readObject方法。那么问题又来了：
+
+> 虽然ArrayList中写了writeObject 和 readObject 方法，但是这两个方法并没有显示的被调用啊。
+> 
+> **那么如果一个类中包含writeObject 和 readObject 方法，那么这两个方法是怎么被调用的呢?**
+
+## [ObjectOutputStream](https://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/serialize-principle?id=objectoutputstream)
+
+从code 4中，我们可以看出，对象的序列化过程通过ObjectOutputStream和ObjectInputputStream来实现的，那么带着刚刚的问题，我们来分析一下ArrayList中的writeObject 和 readObject 方法到底是如何被调用的呢？
+
+为了节省篇幅，这里给出ObjectOutputStream的writeObject的调用栈：
+
+`writeObject ---> writeObject0 --->writeOrdinaryObject--->writeSerialData--->invokeWriteObject`
+
+这里看一下invokeWriteObject：
+
+```
+void invokeWriteObject(Object obj, ObjectOutputStream out)
+        throws IOException, UnsupportedOperationException
+    {
+        if (writeObjectMethod != null) {
+            try {
+                writeObjectMethod.invoke(obj, new Object[]{ out });
+            } catch (InvocationTargetException ex) {
+                Throwable th = ex.getTargetException();
+                if (th instanceof IOException) {
+                    throw (IOException) th;
+                } else {
+                    throwMiscException(th);
+                }
+            } catch (IllegalAccessException ex) {
+                // should not occur, as access checks have been suppressed
+                throw new InternalError(ex);
+            }
+        } else {
+            throw new UnsupportedOperationException();
+        }
+    }
+```
+
+其中`writeObjectMethod.invoke(obj, new Object[]{ out });`是关键，通过反射的方式调用writeObjectMethod方法。官方是这么解释这个writeObjectMethod的：
+
+> class-defined writeObject method, or null if none
+
+在我们的例子中，这个方法就是我们在ArrayList中定义的writeObject方法。通过反射的方式被调用了。
+
+至此，我们先试着来回答刚刚提出的问题：
+
+> **如果一个类中包含writeObject 和 readObject 方法，那么这两个方法是怎么被调用的?**
+
+答：在使用ObjectOutputStream的writeObject方法和ObjectInputStream的readObject方法时，会通过反射的方式调用。
+
+---
+
+至此，我们已经介绍完了ArrayList的序列化方式。那么，不知道有没有人提出这样的疑问：
+
+> **Serializable明明就是一个空的接口，它是怎么保证只有实现了该接口的方法才能进行序列化与反序列化的呢？**
+
+Serializable接口的定义：
+
+```
+public interface Serializable {
+}
+```
+
+读者可以尝试把code 1中的继承Serializable的代码去掉，再执行code 2，会抛出`java.io.NotSerializableException`。
+
+其实这个问题也很好回答，我们再回到刚刚ObjectOutputStream的writeObject的调用栈：
+
+`writeObject ---> writeObject0 --->writeOrdinaryObject--->writeSerialData--->invokeWriteObject`
+
+writeObject0方法中有这么一段代码：
+
+```
+if (obj instanceof String) {
+                writeString((String) obj, unshared);
+            } else if (cl.isArray()) {
+                writeArray(obj, desc, unshared);
+            } else if (obj instanceof Enum) {
+                writeEnum((Enum<?>) obj, desc, unshared);
+            } else if (obj instanceof Serializable) {
+                writeOrdinaryObject(obj, desc, unshared);
+            } else {
+                if (extendedDebugInfo) {
+                    throw new NotSerializableException(
+                        cl.getName() + "\n" + debugInfoStack.toString());
+                } else {
+                    throw new NotSerializableException(cl.getName());
+                }
+            }
+```
+
+在进行序列化操作时，会判断要被序列化的类是否是Enum、Array和Serializable类型，如果不是则直接抛出`NotSerializableException`。
+
+## [总结](https://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/serialize-principle?id=%e6%80%bb%e7%bb%93)
+
+1、如果一个类想被序列化，需要实现Serializable接口。否则将抛出`NotSerializableException`异常，这是因为，在序列化操作过程中会对类型进行检查，要求被序列化的类必须属于Enum、Array和Serializable类型其中的任何一种。
+
+2、在变量声明前加上该关键字，可以阻止该变量被序列化到文件中。
+
+3、在类中增加writeObject 和 readObject 方法可以实现自定义序列化策略
+
 ### Java 注解
 #### 1. 什么是注解
 > Java 注解（Annotation）又称为 Java 标注，是 Java5开始支持加入源代码的特殊语法元数据。Java 语言中的类、方法、变量、参数和包等都可以被标注。Java 标注可以通过反射获取标注的内容。在编译器生成class文件时，标注可以被嵌入到字节码中。Java 虚拟机可以保留标注内容，在运行时可以获取到标注内容。
