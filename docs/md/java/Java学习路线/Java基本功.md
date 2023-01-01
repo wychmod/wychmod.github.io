@@ -1872,6 +1872,8 @@ public class GenericDemo4 {
 
 ### Java 反射
 #### 什么是反射
+反射机制指的是程序在运行时能够获取自身的信息。在java中，只要给定类的名字，那么就可以通过反射机制来获得类的所有属性和方法。
+
 > Java 的反射（reflection）机制是指在程序的运行状态中，可以构造任意一个类的对象，可以了解任意一个对象所属的类，可以了解任意一个类的成员变量和方法，可以调用任意一个对象的属性和方法。这种动态获取程序信息以及动态调用对象的功能称为 Java 语言的反射机制。反射被视为动态语言的关键。
 
 ![image.png](../../youdaonote-images/WEBRESOURCE2c449e781cedc0c8113d611085c54313.png)
@@ -1941,7 +1943,7 @@ public class ReflectionDemo {
 - Field getDeclaredField(name)：根据属性名获取当前类的某个字段（不包含父类继承）；
 - Field[] getFields()：获得所有的 public 字段（包含父类继承）；
 - Field[] getDeclaredFields()：获取当前类的所有字段（不包含父类继承）。
-```
+```java
 package com.imooc.reflect;
 
 import java.lang.reflect.Field;
@@ -1980,7 +1982,7 @@ public class ImoocStudent1 {
 > 调用获取所有字段方法，返回的是一个 Field 类型的数组。可以调用 Field 类下的 getName() 方法来获取字段名称，getType() 方法来获取字段类型。
 
 #### 获取字段值
-```
+```java
 package com.imooc.reflect;
 
 import java.lang.reflect.Field;
