@@ -2589,7 +2589,7 @@ ArrayList实际上是动态数组，每次在放满以后自动增长设定的�
 > 
 > **那么如果一个类中包含writeObject 和 readObject 方法，那么这两个方法是怎么被调用的呢?**
 
-## [ObjectOutputStream](https://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/serialize-principle?id=objectoutputstream)
+#### ObjectOutputStream
 
 从code 4中，我们可以看出，对象的序列化过程通过ObjectOutputStream和ObjectInputputStream来实现的，那么带着刚刚的问题，我们来分析一下ArrayList中的writeObject 和 readObject 方法到底是如何被调用的呢？
 
@@ -2599,7 +2599,7 @@ ArrayList实际上是动态数组，每次在放满以后自动增长设定的�
 
 这里看一下invokeWriteObject：
 
-```
+```java
 void invokeWriteObject(Object obj, ObjectOutputStream out)
         throws IOException, UnsupportedOperationException
     {
@@ -2643,7 +2643,7 @@ void invokeWriteObject(Object obj, ObjectOutputStream out)
 
 Serializable接口的定义：
 
-```
+```java
 public interface Serializable {
 }
 ```
@@ -2656,7 +2656,7 @@ public interface Serializable {
 
 writeObject0方法中有这么一段代码：
 
-```
+```java
 if (obj instanceof String) {
                 writeString((String) obj, unshared);
             } else if (cl.isArray()) {
@@ -2677,11 +2677,11 @@ if (obj instanceof String) {
 
 在进行序列化操作时，会判断要被序列化的类是否是Enum、Array和Serializable类型，如果不是则直接抛出`NotSerializableException`。
 
-## [总结](https://hollischuang.gitee.io/tobetopjavaer/#/basics/java-basic/serialize-principle?id=%e6%80%bb%e7%bb%93)
+#### 总结
 
 1、如果一个类想被序列化，需要实现Serializable接口。否则将抛出`NotSerializableException`异常，这是因为，在序列化操作过程中会对类型进行检查，要求被序列化的类必须属于Enum、Array和Serializable类型其中的任何一种。
 
-2、在变量声明前加上该关键字，可以阻止该变量被序列化到文件中。
+2、在变量声明前加上**transient**关键字，可以阻止该变量被序列化到文件中。
 
 3、在类中增加writeObject 和 readObject 方法可以实现自定义序列化策略
 
