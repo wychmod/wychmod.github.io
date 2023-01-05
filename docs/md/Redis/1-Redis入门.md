@@ -284,7 +284,7 @@ redis-server redis.conf
 ```sh
 # 利用redis-cli来执行 shutdown 命令，即可停止 Redis 服务，
 # 因为之前配置了密码，因此需要通过 -u 来指定密码
-redis-cli -u 123321 shutdown
+redis-cli -u 123123 shutdown
 ```
 
 
