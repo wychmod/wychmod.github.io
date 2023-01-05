@@ -159,13 +159,7 @@ yum install -y gcc tcl
 
 ### 1.3.2.上传安装包并解压
 
-然后将课前资料提供的Redis安装包上传到虚拟机的任意目录：
-
-![](./../youdaonote-images/SyjanS5.png)
-
-例如，我放到了/usr/local/src 目录：
-
-![](./../youdaonote-images/01DTNCf.png)
+官网下载
 
 解压缩：
 
@@ -197,7 +191,6 @@ make && make install
 
 默认的安装路径是在 `/usr/local/bin`目录下：
 
-![](https://i.imgur.com/YSxkGm7.png)
 
 该目录已经默认配置到环境变量，因此可以在任意目录下运行这些命令。其中：
 
