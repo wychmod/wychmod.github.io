@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "Redis/1-Redis入门.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": true
               }
             }
@@ -70,7 +70,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 284.5
+    "width": 284.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
