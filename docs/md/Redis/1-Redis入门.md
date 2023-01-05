@@ -691,26 +691,6 @@ SortedSet的常见命令有：
 
 
 
-练习题：
-
-将班级的下列学生得分存入Redis的SortedSet中：
-
-Jack 85, Lucy 89, Rose 82, Tom 95, Jerry 78, Amy 92, Miles 76
-
-并实现下列功能：
-
-- 删除Tom同学
-- 获取Amy同学的分数
-- 获取Rose同学的排名
-- 查询80分以下有几个学生
-- 给Amy同学加2分
-- 查出成绩前3名的同学
-- 查出成绩80分以下的所有同学
-
-
-
-
-
 # 3.Redis的Java客户端
 
 在Redis官网中提供了各种语言的客户端，地址：https://redis.io/docs/clients/
