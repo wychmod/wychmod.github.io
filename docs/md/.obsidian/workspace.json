@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Redis/1-Redis入门.md",
+                "file": "数据库/mac 安装redis和MongoDB和.md",
                 "mode": "preview",
                 "source": true
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "@map",
+                "query": "redis",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +65,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/1-Redis入门.md",
+                "file": "数据库/mac 安装redis和MongoDB和.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/1-Redis入门.md",
+                "file": "数据库/mac 安装redis和MongoDB和.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/1-Redis入门.md"
+                "file": "数据库/mac 安装redis和MongoDB和.md"
               }
             }
           },
@@ -157,15 +158,15 @@
   },
   "active": "10cd32d28c5d7200",
   "lastOpenFiles": [
-    "youdaonote-images/SyjanS5.png",
+    "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "Redis/1-Redis入门.md",
+    "youdaonote-images/SyjanS5.png",
     "assets/XOAq3cN.png.md",
     "Index.md",
     "Python源码.md",
     "().md",
     "java/Java学习路线/Java基本功.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
-    "java/springboot/SpringBoot实战和原理.md",
-    "java/spring系列学习/ssm整合学习-MabtisPlus.md"
+    "java/springboot/SpringBoot实战和原理.md"
   ]
 }
