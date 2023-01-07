@@ -61,7 +61,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "redis",
+                "query": "session",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -78,7 +78,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -170,15 +171,15 @@
   },
   "active": "49d4ecade05b0912",
   "lastOpenFiles": [
-    "Redis/1-Redis入门.md",
+    "Django笔记/django 项目开发笔记.md",
+    "java/springboot/SpringBoot实战和原理.md",
+    "java/springboot+vue项目开发/springboot项目开发流程.md",
+    "java/spring系列学习/ssm整合学习-Spring.md",
     "Redis/2-Redis实战.md",
+    "Redis/1-Redis入门.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "数据库/mac 安装redis和MongoDB和.md",
     "youdaonote-images/SyjanS5.png",
-    "assets/XOAq3cN.png.md",
-    "Index.md",
-    "Python源码.md",
-    "().md",
-    "java/Java学习路线/Java基本功.md"
+    "assets/XOAq3cN.png.md"
   ]
 }
