@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "file": "java/Java学习路线/Java集合框架.md",
                 "mode": "preview",
                 "source": true
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "file": "java/Java学习路线/Java集合框架.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "file": "java/Java学习路线/Java集合框架.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md"
+                "file": "java/Java学习路线/Java集合框架.md"
               }
             }
           },
@@ -170,15 +170,15 @@
   },
   "active": "49d4ecade05b0912",
   "lastOpenFiles": [
-    "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md",
+    "java/Java学习路线/Java基本功.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+    "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
     "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
     "java/Java学习路线/Java集合框架.md",
     "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md",
     "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Python/Python源码剖析/Python源码剖析-3-内建对象float.md",
-    "Redis/2-Redis实战.md",
-    "java/springboot/Java 后端.md"
+    "Redis/2-Redis实战.md"
   ]
 }
