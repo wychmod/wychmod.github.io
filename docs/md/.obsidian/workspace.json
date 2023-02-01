@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Redis/1-Redis入门.md",
+                "file": "Redis/2-Redis实战.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/1-Redis入门.md",
+                "file": "Redis/2-Redis实战.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/1-Redis入门.md",
+                "file": "Redis/2-Redis实战.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/1-Redis入门.md"
+                "file": "Redis/2-Redis实战.md"
               }
             }
           },
@@ -157,9 +157,9 @@
   },
   "active": "9cb81542e461ac5b",
   "lastOpenFiles": [
+    "Redis/1-Redis入门.md",
     "Redis/2-Redis实战.md",
     "Redis实战篇.assets/1653056228879.png.md",
-    "Redis/1-Redis入门.md",
     "java/Java学习路线/Java集合框架.md",
     "java/Java学习路线/Java基本功.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",

@@ -991,21 +991,15 @@ RedisTemplate可以接收任意Object作为值写入Redis：
 
 
 
-
-
 只不过写入前会把Object序列化为字节形式，默认是采用JDK序列化，得到的结果是这样的：
 
 ![](./../youdaonote-images/5FjtWk5.png)
-
 
 
 缺点：
 
 - 可读性差
 - 内存占用较大
-
-
-
 
 
 我们可以自定义RedisTemplate的序列化方式，代码如下：
@@ -1042,8 +1036,6 @@ public class RedisConfig {
 ![](./../youdaonote-images/XOAq3cN.png)
 
 整体可读性有了很大提升，并且能将Java对象自动的序列化为JSON字符串，并且查询时能自动把JSON反序列化为Java对象。不过，其中记录了序列化时对应的class名称，目的是为了查询时实现自动反序列化。这会带来额外的内存开销。
-
-
 
 
 
