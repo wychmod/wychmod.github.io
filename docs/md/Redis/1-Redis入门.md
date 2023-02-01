@@ -387,16 +387,12 @@ GitHub上的大神编写了Redis的图形化桌面客户端，地址：https://g
 不过该仓库提供的是RedisDesktopManager的源码，并未提供windows安装包。
 
 
-
 在下面这个仓库可以找到安装包：https://github.com/lework/RedisDesktopManager-Windows/releases
-
 
 
 ### 1.4.3.安装
 
-在课前资料中可以找到Redis的图形化桌面客户端：
 
-![](./../youdaonote-images/BZ4Agbi.png)
 
 解压缩后，运行安装程序即可安装：
 
