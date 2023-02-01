@@ -198,7 +198,7 @@ make && make install
 - redis-server：是redis的服务端启动脚本
 - redis-sentinel：是redis的哨兵启动脚本
 
-
+	
 
 ### 1.3.3.启动
 
