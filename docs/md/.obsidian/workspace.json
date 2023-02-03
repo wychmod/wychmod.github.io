@@ -15,7 +15,7 @@
               "state": {
                 "file": "Redis/2-Redis实战.md",
                 "mode": "preview",
-                "source": false
+                "source": true
               }
             }
           }
@@ -143,8 +143,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 310.5,
-    "collapsed": true
+    "width": 310.5
   },
   "left-ribbon": {
     "hiddenItems": {
