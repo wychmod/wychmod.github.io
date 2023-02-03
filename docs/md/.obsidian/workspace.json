@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Redis/2-Redis实战.md",
+                "file": "Redis/Redis高级-最佳实践.md",
                 "mode": "preview",
                 "source": true
               }
@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 284.5,
-    "collapsed": true
+    "width": 284.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -86,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/2-Redis实战.md",
+                "file": "Redis/Redis高级-最佳实践.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/2-Redis实战.md",
+                "file": "Redis/Redis高级-最佳实践.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/2-Redis实战.md"
+                "file": "Redis/Redis高级-最佳实践.md"
               }
             }
           },
@@ -158,15 +157,15 @@
   },
   "active": "9cb81542e461ac5b",
   "lastOpenFiles": [
-    "Redis/1-Redis入门.md",
+    "Redis/Redis高级-分布式缓存.md",
+    "Redis/Redis高级-最佳实践.md",
+    "Redis/Redis高级-多级缓存.md",
+    "Redis/3-原理篇.md",
     "Redis/2-Redis实战.md",
+    "Redis/1-Redis入门.md",
     "Redis实战篇.assets/1653056228879.png.md",
     "java/Java学习路线/Java集合框架.md",
     "java/Java学习路线/Java基本功.md",
-    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
-    "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md",
-    "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
-    "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
-    "Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md"
+    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md"
   ]
 }
