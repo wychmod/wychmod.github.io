@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Redis/Redis高级-分布式缓存.md",
+                "file": "Redis/3-原理篇.md",
                 "mode": "preview",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/Redis高级-分布式缓存.md",
+                "file": "Redis/3-原理篇.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/Redis高级-分布式缓存.md",
+                "file": "Redis/3-原理篇.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/Redis高级-分布式缓存.md"
+                "file": "Redis/3-原理篇.md"
               }
             }
           },
@@ -157,9 +157,9 @@
   },
   "active": "80b59dddb945f89f",
   "lastOpenFiles": [
+    "Redis/Redis高级-分布式缓存.md",
     "Redis/3-原理篇.md",
     "Redis/Redis高级-最佳实践.md",
-    "Redis/Redis高级-分布式缓存.md",
     "数学建模.md",
     "assets/image-20210721165326938.png.md",
     "assets/image-20210510165308064.png.md",
