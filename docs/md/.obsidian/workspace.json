@@ -157,15 +157,15 @@
   },
   "active": "80b59dddb945f89f",
   "lastOpenFiles": [
-    "Redis/Redis高级-分布式缓存.md",
+    "Redis/原理篇.assets/1653986328124.png",
     "Redis/3-原理篇.md",
+    "Redis/原理篇.assets/1653985824540.png",
+    "Redis/Redis高级-分布式缓存.md",
     "Redis/Redis高级-最佳实践.md",
     "数学建模.md",
     "assets/image-20210721165326938.png.md",
     "assets/image-20210510165308064.png.md",
     "Redis/安装Redis集群.md",
-    "Redis/安装OpenResty.md",
-    "Redis/安装Canal.md",
-    "Redis/Redis高级-多级缓存.md"
+    "Redis/安装OpenResty.md"
   ]
 }
