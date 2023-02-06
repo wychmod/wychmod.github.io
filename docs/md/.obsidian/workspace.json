@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "Redis/Redis高级-分布式缓存.md",
                 "mode": "preview",
                 "source": true
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "Redis/Redis高级-分布式缓存.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "Redis/Redis高级-分布式缓存.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/3-原理篇.md"
+                "file": "Redis/Redis高级-分布式缓存.md"
               }
             }
           },
@@ -157,6 +157,7 @@
   },
   "active": "80b59dddb945f89f",
   "lastOpenFiles": [
+    "Redis/3-原理篇.md",
     "Redis/Redis高级-最佳实践.md",
     "Redis/Redis高级-分布式缓存.md",
     "数学建模.md",
@@ -165,7 +166,6 @@
     "Redis/安装Redis集群.md",
     "Redis/安装OpenResty.md",
     "Redis/安装Canal.md",
-    "Redis/Redis高级-多级缓存.md",
-    "Redis/3-原理篇.md"
+    "Redis/Redis高级-多级缓存.md"
   ]
 }
