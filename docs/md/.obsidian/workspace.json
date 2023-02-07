@@ -18,6 +18,16 @@
                 "source": true
               }
             }
+          },
+          {
+            "id": "b071967b6cdee9c4",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "Redis/原理篇.assets/1653982278727.png"
+              }
+            }
           }
         ]
       }
@@ -159,15 +169,15 @@
   },
   "active": "80b59dddb945f89f",
   "lastOpenFiles": [
-    "Redis/原理篇.assets/1653902845082.png",
+    "Redis/原理篇.assets/1653982278727.png",
     "Redis/3-原理篇.md",
+    "Redis/原理篇.assets/1653902845082.png",
     "Redis/原理篇.assets/1653900721427.png",
     "Redis/原理篇.assets/1653900022580.png",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "Redis/原理篇.assets/1653986328124.png",
     "Redis/原理篇.assets/1653985824540.png",
     "Redis/Redis高级-分布式缓存.md",
-    "Redis/Redis高级-最佳实践.md",
-    "数学建模.md"
+    "Redis/Redis高级-最佳实践.md"
   ]
 }
