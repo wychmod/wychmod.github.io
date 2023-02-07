@@ -18,16 +18,6 @@
                 "source": true
               }
             }
-          },
-          {
-            "id": "e48beacaaefdcd42",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "Redis/原理篇.assets/1653902845082.png"
-              }
-            }
           }
         ]
       }
@@ -170,8 +160,8 @@
   "active": "80b59dddb945f89f",
   "lastOpenFiles": [
     "Redis/原理篇.assets/1653902845082.png",
-    "Redis/原理篇.assets/1653900721427.png",
     "Redis/3-原理篇.md",
+    "Redis/原理篇.assets/1653900721427.png",
     "Redis/原理篇.assets/1653900022580.png",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "Redis/原理篇.assets/1653986328124.png",
