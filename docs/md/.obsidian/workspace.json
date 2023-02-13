@@ -8,25 +8,13 @@
         "type": "tabs",
         "children": [
           {
-            "id": "1bd245f4ae4d4cb7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "b697cd5f058ee3b2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -42,45 +30,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "9f17825feba7d654",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0df4486f8dd18bf3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Redis/2-Redis实战.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "8694cdd2834cb384",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Redis/3-原理篇.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -126,8 +77,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -147,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/2-Redis实战.md",
+                "file": "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -164,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/2-Redis实战.md",
+                "file": "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -187,7 +137,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/2-Redis实战.md"
+                "file": "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md"
               }
             }
           },
@@ -217,17 +167,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "0df4486f8dd18bf3",
+  "active": "b697cd5f058ee3b2",
   "lastOpenFiles": [
-    "Redis/3-原理篇.md",
-    "Redis/2-Redis实战.md",
-    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
+    "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md",
+    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+    "Redis/2-Redis实战.md",
+    "Redis/3-原理篇.md",
     "Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md",
     "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
     "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
     "Python/Python源码剖析/Python源码剖析-11-开发实战：基于最小堆设计任务调度系统.md",
-    "Python/Python源码剖析/Python源码剖析-10-最佳实践：灵活运用内建容器.md",
-    "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md"
+    "Python/Python源码剖析/Python源码剖析-10-最佳实践：灵活运用内建容器.md"
   ]
 }
