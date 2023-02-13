@@ -18,8 +18,33 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "b697cd5f058ee3b2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "804323bd380d0996",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -85,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
+                "file": "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
+                "file": "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md"
+                "file": "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md"
               }
             }
           },
@@ -155,17 +180,17 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "1bd245f4ae4d4cb7",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md",
+    "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
+    "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
+    "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
     "Python/Python源码剖析/Python源码剖析-11-开发实战：基于最小堆设计任务调度系统.md",
     "Python/Python源码剖析/Python源码剖析-10-最佳实践：灵活运用内建容器.md",
     "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md",
     "Redis/3-原理篇.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
-    "Redis/原理篇.assets/1653982278727.png",
-    "Redis/原理篇.assets/1653984085095.png",
-    "Redis/原理篇.assets/1653902845082.png",
-    "Redis/原理篇.assets/1653900721427.png",
-    "Redis/原理篇.assets/1653900022580.png"
+    "Redis/原理篇.assets/1653982278727.png"
   ]
 }
