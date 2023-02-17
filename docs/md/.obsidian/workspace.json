@@ -4,29 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "033860eb5d87797c",
+        "id": "8309fafca1a8f8d3",
         "type": "tabs",
         "children": [
           {
-            "id": "b697cd5f058ee3b2",
+            "id": "b075caa4bab8721d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Redis/2-Redis实战.md",
+                "file": "多线程与高并发/多线程与并发编程.md",
                 "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "804323bd380d0996",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md",
-                "mode": "source",
                 "source": false
               }
             }
@@ -60,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "threadpo",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -77,12 +65,12 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 340.5
+    "width": 340.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -98,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/2-Redis实战.md",
+                "file": "多线程与高并发/多线程与并发编程.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/2-Redis实战.md",
+                "file": "多线程与高并发/多线程与并发编程.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/2-Redis实战.md"
+                "file": "多线程与高并发/多线程与并发编程.md"
               }
             }
           },
@@ -168,15 +156,15 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b697cd5f058ee3b2",
+  "active": "b075caa4bab8721d",
   "lastOpenFiles": [
+    "Redis/2-Redis实战.md",
     "多线程与高并发/多线程与并发编程.md",
     "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
     "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
     "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
     "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
-    "Redis/2-Redis实战.md",
     "Redis/3-原理篇.md",
     "Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md",
     "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md"
