@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "深度学习",
+                "query": "豆瓣",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -156,7 +156,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f2a4220c933ac757",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "Python/anaconda中使用虚拟环境.md",
     "多线程与高并发/多线程与并发编程.md",
