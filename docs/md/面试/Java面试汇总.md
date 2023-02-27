@@ -25,3 +25,10 @@
 1. 贵公司的发展目标和方向是什么?
 2. 与同行业的竞争者相比,贵公司的核心竞争优势在什么地方?
 3. 公司现在面临的最大挑战是什么?
+
+# spring
+## Spring,Spring MVC,Spring Boot 之间什么关系
+
+- Spring 包含了多个功能模块，其中最重要的是 Spring-Core（主要提供 IoC 依赖注入功能的支持） 模块， Spring 中的其他模块（比如 Spring MVC）的功能实现基本都需要依赖于该模块。
+- Spring MVC 是 Spring 中的一个很重要的模块，主要赋予 Spring 快速构建 MVC 架构的 Web 程序的能力。MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。
+- 
