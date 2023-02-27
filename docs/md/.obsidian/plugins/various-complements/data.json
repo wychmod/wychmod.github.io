@@ -1,5 +1,5 @@
 {
-  "strategy": "english-only",
+  "strategy": "chinese",
   "matchStrategy": "prefix",
   "maxNumberOfSuggestions": 5,
   "maxNumberOfWordsAsPhrase": 3,
@@ -43,59 +43,27 @@
   "insertCommaAfterFrontMatterCompletion": false,
   "showLogAboutPerformanceInConsole": false,
   "selectionHistoryTree": {
-    "Python源码剖析-2-对象的生命周期": {
-      "Python源码剖析-2-对象的生命周期": {
+    "python面试": {
+      "python面试": {
         "internalLink": {
           "count": 1,
-          "lastUpdated": 1670329247088
+          "lastUpdated": 1677499859712
         }
       }
     },
-    "append": {
-      "append": {
-        "currentFile": {
+    "Java 后端": {
+      "Java 后端": {
+        "internalLink": {
+          "count": 3,
+          "lastUpdated": 1677499942614
+        }
+      }
+    },
+    "spring": {
+      "spring": {
+        "internalLink": {
           "count": 1,
-          "lastUpdated": 1670645596690
-        }
-      }
-    },
-    "listobject": {
-      "listobject": {
-        "currentFile": {
-          "count": 2,
-          "lastUpdated": 1670649140801
-        }
-      }
-    },
-    "dict_time": {
-      "dict_time": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1670687780222
-        }
-      }
-    },
-    "type-": {
-      "type-": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1671812078051
-        }
-      }
-    },
-    "print": {
-      "print": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1671812096235
-        }
-      }
-    },
-    "Javac": {
-      "Javac": {
-        "currentFile": {
-          "count": 1,
-          "lastUpdated": 1672126605271
+          "lastUpdated": 1677499895964
         }
       }
     }

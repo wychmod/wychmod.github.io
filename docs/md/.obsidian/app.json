@@ -3,7 +3,7 @@
   "newLinkFormat": "relative",
   "useMarkdownLinks": true,
   "showLineNumber": true,
-  "spellcheck": true,
+  "spellcheck": false,
   "livePreview": true,
   "alwaysUpdateLinks": true,
   "promptDelete": false,
@@ -13,5 +13,7 @@
     "landscape": false,
     "margin": "0",
     "downscalePercent": 100
-  }
+  },
+  "autoPairBrackets": false,
+  "autoPairMarkdown": true
 }

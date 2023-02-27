@@ -82,7 +82,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 340.5
+    "width": 340.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -155,7 +156,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 310.5
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -168,7 +170,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "0cf1f5149e69997f",
+  "active": "f5b687bfa2d60a28",
   "lastOpenFiles": [
     "面试/实习面试准备.md",
     "Redis/2-Redis实战.md",
