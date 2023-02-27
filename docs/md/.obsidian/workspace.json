@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md",
+                "file": "Redis/2-Redis实战.md",
                 "mode": "preview",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md",
+                "file": "Redis/2-Redis实战.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md",
+                "file": "Redis/2-Redis实战.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md"
+                "file": "Redis/2-Redis实战.md"
               }
             }
           },
@@ -155,8 +155,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "62b967b1bdf672ea",
+  "active": "f2a4220c933ac757",
   "lastOpenFiles": [
+    "人工智能/深度学习报错解决方案.md",
     "Python/anaconda中使用虚拟环境.md",
     "多线程与高并发/多线程与并发编程.md",
     "Redis/2-Redis实战.md",
@@ -165,7 +166,6 @@
     "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md",
     "Python/Python源码剖析/Python源码剖析-16-import 模块动态加载.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
-    "Redis/3-原理篇.md",
-    "Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md"
+    "Redis/3-原理篇.md"
   ]
 }
