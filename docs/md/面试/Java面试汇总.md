@@ -31,4 +31,29 @@
 
 - Spring 包含了多个功能模块，其中最重要的是 Spring-Core（主要提供 IoC 依赖注入功能的支持） 模块， Spring 中的其他模块（比如 Spring MVC）的功能实现基本都需要依赖于该模块。
 - Spring MVC 是 Spring 中的一个很重要的模块，主要赋予 Spring 快速构建 MVC 架构的 Web 程序的能力。MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。
-- 
+- Spring 旨在简化 J2EE 企业应用程序开发。Spring Boot 旨在简化 Spring 开发（减少配置文件，开箱即用！）。
+- Spring Boot 只是简化了配置，如果你需要构建 MVC 架构的 Web 程序，你还是需要使用 Spring MVC 作为 MVC 框架，只是说 Spring Boot 帮你简化了 Spring MVC 的很多配置
+
+![](../youdaonote-images/Pasted%20image%2020230227232027.png)
+
+## 简述Spring MVC
+
+-   Model:系统涉及的数据，也就是 dao 和 bean。
+-   View：展示模型中的数据，只是用来展示。
+-   Controller：处理用户请求都发送给 ，返回数据给 JSP 并展示给用户。
+
+由jsp -> jsp+servlet -> ssh -> ssm ->Spring MVC 下我们一般把后端项目分为 Service 层（处理业务）、Dao 层（数据库操作）、Entity 层（实体类）、Controller 层(控制层，返回数据给前台页面)。
+
+## SpringMVC工作原理
+
+![](../youdaonote-images/Pasted%20image%2020230227233032.png)
+
+**流程说明（重要）：**
+
+1.  客户端（浏览器）发送请求， `DispatcherServlet`拦截请求。
+2.  `DispatcherServlet` 根据请求信息调用 `HandlerMapping` 。`HandlerMapping` 根据 uri 去匹配查找能处理的 `Handler`（也就是我们平常说的 `Controller` 控制器） ，并会将请求涉及到的拦截器和 `Handler` 一起封装。
+3.  `DispatcherServlet` 调用 `HandlerAdapter`适配执行 `Handler` 。
+4.  `Handler` 完成对用户请求的处理后，会返回一个 `ModelAndView` 对象给`DispatcherServlet`，`ModelAndView` 顾名思义，包含了数据模型以及相应的视图的信息。`Model` 是返回的数据对象，`View` 是个逻辑上的 `View`。
+5.  `ViewResolver` 会根据逻辑 `View` 查找实际的 `View`。
+6.  `DispaterServlet` 把返回的 `Model` 传给 `View`（视图渲染）。
+7.  把 `View` 返回给请求者（浏览器）
