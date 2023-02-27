@@ -65,8 +65,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -156,7 +155,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3cc169e861738dfa",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
     "Python/anaconda中使用虚拟环境.md",
     "多线程与高并发/多线程与并发编程.md",
