@@ -32,6 +32,18 @@
             }
           },
           {
+            "id": "62862859809dc626",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "面试/实习面试准备.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "561958d856ed08cd",
             "type": "leaf",
             "state": {
@@ -68,7 +80,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -134,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "面试/实习面试准备.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "面试/实习面试准备.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +186,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "面试/实习面试准备.md"
               }
             }
           },
@@ -204,11 +216,13 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "0cf1f5149e69997f",
+  "active": "62862859809dc626",
   "lastOpenFiles": [
-    "java/springboot/SpringBoot实战和原理.md",
-    "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "面试/Java面试汇总.md",
+    "面试/实习面试准备.md",
+    "java/springboot/SpringBoot实战和原理.md",
+    "面试/python服务器端面试.md",
+    "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
     "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
     "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
@@ -218,7 +232,6 @@
     "面试/春招 实习笔试.pdf",
     "面试/校招投递.md",
     "mysql/MySQL是怎样运行的.md",
-    "面试/实习面试准备.md",
     "Redis/2-Redis实战.md",
     "人工智能/深度学习报错解决方案.md",
     "Python/anaconda中使用虚拟环境.md",
