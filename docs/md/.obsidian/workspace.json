@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/校招投递.md",
+                "file": "面试/Java面试汇总.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -110,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/校招投递.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/校招投递.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +151,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/校招投递.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -180,10 +181,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "9f3536e9de6d68a8",
+  "active": "f5b687bfa2d60a28",
   "lastOpenFiles": [
-    "面试/Java面试汇总.md",
     "面试/校招投递.md",
+    "面试/Java面试汇总.md",
     "mysql/MySQL是怎样运行的.md",
     "面试/实习面试准备.md",
     "Redis/2-Redis实战.md",
