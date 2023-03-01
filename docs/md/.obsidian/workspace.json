@@ -32,12 +32,14 @@
             }
           },
           {
-            "id": "a76508637f37df0b",
+            "id": "9f3536e9de6d68a8",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.1.15"
+                "file": "面试/校招投递.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -108,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "面试/校招投递.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "面试/校招投递.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -148,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "面试/校招投递.md"
               }
             }
           },
@@ -178,11 +180,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a76508637f37df0b",
+  "active": "9f3536e9de6d68a8",
   "lastOpenFiles": [
+    "面试/Java面试汇总.md",
+    "面试/校招投递.md",
     "mysql/MySQL是怎样运行的.md",
     "面试/实习面试准备.md",
-    "面试/Java面试汇总.md",
     "Redis/2-Redis实战.md",
     "人工智能/深度学习报错解决方案.md",
     "Python/anaconda中使用虚拟环境.md",
