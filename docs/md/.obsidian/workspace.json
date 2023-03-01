@@ -94,8 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -181,8 +180,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f5b687bfa2d60a28",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
+    "面试/春招 实习笔试.pdf",
     "面试/校招投递.md",
     "面试/Java面试汇总.md",
     "mysql/MySQL是怎样运行的.md",
