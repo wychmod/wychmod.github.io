@@ -30,6 +30,10 @@
 ## 底层CPython的内建对象的底层实现
 Python是由C实现的，Python万物皆对象，但实际上在C的层面来看，每一个对象都是pyobject的struct，同时pyobject内部维护着属于这个对象的类型，比如说float，就会有一个structs 是pyfloat_object,同时他会有自己的内部实现方式，比如说int就是大数，他永远不会溢出，因为底层是由一个数组组成的。Python的实现和redis很相似。
 
+## Python虚拟机的基本机制
+python的虚拟机被称之为解释器，他和java可以对比，这个解释器包含了一个编译器一个虚拟机，而java是分开的。
+pyc文件就是python编译成的代码对象，对应java的.class对象。在知道了这个运行机制的前提下，
+
 # spring
 ## Spring,Spring MVC,Spring Boot 之间什么关系
 
