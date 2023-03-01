@@ -70,10 +70,24 @@ gil锁保证了一个进程中只有一个线程在运行。比如python的底�
 ## redis内存回收机制
 
 - 内存过期策略
-Redis本身是一个典型的key-value内存存储数据库，因此所有的key、value都保存在之前学习过的Dict结构中。不过在其database结构体中，有两个Dict：一个用来记录key-value；另一个用来记录key-TTL。
-**惰性删除**
+RedisKey的TTL记录方式：
 
-惰性删除：顾明思议并不是在TTL到期后就立刻删除，而是在访问一个key的时候，检查该key的存活时间，如果已经过期才执行删除。
+在RedisDB中通过一个Dict记录每个Key的TTL时间
+
+过期key的删除策略：
+
+惰性清理：每次查找key时判断是否过期，如果过期则删除
+
+定期清理：定期抽样部分key，判断是否过期，如果过期则删除。
+定期清理的两种模式：
+
+SLOW模式执行频率默认为10，每次不超过25ms
+
+FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不超过1ms
+
+- 内存淘汰策略有很多，主要是下面两个
+  * LRU（Least Recently Used），最少最近使用。用当前时间减去最后一次访问时间，这个值越大则淘汰优先级越高。
+  * LFU（Least Frequently Used），最少频率使用。会统计每个key的访问频率，值越小淘汰优先级越高。（逻辑访问次数）
 
 # spring
 ## Spring,Spring MVC,Spring Boot 之间什么关系

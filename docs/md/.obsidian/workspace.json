@@ -26,7 +26,7 @@
               "type": "markdown",
               "state": {
                 "file": "面试/Java面试汇总.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -183,7 +183,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -200,7 +200,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -223,7 +223,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/3-原理篇.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -253,10 +253,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3b03502393f9f01b",
+  "active": "0cf1f5149e69997f",
   "lastOpenFiles": [
-    "面试/Java面试汇总.md",
     "Redis/3-原理篇.md",
+    "面试/Java面试汇总.md",
     "Redis/原理篇.assets/1653902845082.png",
     "youdaonote-images/Pasted image 20230301224507.png",
     "youdaonote-images/Pasted image 20230301224324.png",
