@@ -14,9 +14,9 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Index.md",
+                "file": "面试/Java面试汇总.md",
                 "mode": "source",
-                "source": true
+                "source": false
               }
             }
           },
@@ -126,7 +126,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 279.5
+    "width": 279.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -142,7 +143,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Index.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -159,7 +160,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Index.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -182,7 +183,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Index.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -214,11 +215,11 @@
   },
   "active": "f2a4220c933ac757",
   "lastOpenFiles": [
+    "Index.md",
     "面试/Java面试汇总.md",
     "多线程与高并发/多线程与并发编程.md",
     "Redis/2-Redis实战.md",
     "java/springboot/SpringBoot实战和原理.md",
-    "Index.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
     "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",

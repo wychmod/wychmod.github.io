@@ -1,8 +1,18 @@
 # Tots-And 的学习开发笔记
 
->我是**Tots-and**，一名在校的计算机研究生，原先是Python开发，现在努力成为一名 Java 工程师。目前在学习Spring cloud有关的内容。研究深度学习有关的内容。
+>我是**Tots-and**，一名在校的计算机研究生，原先是Python开发，现在努力成为一名 Java 工程师。
 
 ---
+## Redis
+- [1-Redis入门](Redis/1-Redis入门.md)
+- [2-Redis实战](Redis/2-Redis实战.md)
+- [3-原理篇](Redis/3-原理篇.md)
+- [Redis高级-多级缓存](Redis/Redis高级-多级缓存.md)
+- [Redis高级-分布式缓存](Redis/Redis高级-分布式缓存.md)
+- [Redis高级-最佳实践](Redis/Redis高级-最佳实践.md)
+
+## Java多线程与并发编程
+- [多线程与并发编程](多线程与高并发/多线程与并发编程.md)
 
 ## 操作系统
 - [操作系统](/md/计算机基础/操作系统.md)
@@ -54,6 +64,45 @@
 ## Python
 - [anaconda中使用虚拟环境](/md/Python/anaconda中使用虚拟环境.md)
 - [python命名规范](/md/Python/python命名规范.md)
+
+### Python源码剖析
+- [Python源码剖析-1-对象模型](Python/Python源码剖析/Python源码剖析-1-对象模型.md)
+- [Python源码剖析-2-对象的生命周期](Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md)
+- [Python源码剖析-3-内建对象float](Python/Python源码剖析/Python源码剖析-3-内建对象float.md)
+- [Python源码剖析-4-内建对象int](Python/Python源码剖析/Python源码剖析-4-内建对象int.md)
+- [Python源码剖析-5-内建对象bytes](Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md)
+- [Python源码剖析-6-内建对象str](Python/Python源码剖析/Python源码剖析-6-内建对象str.md)
+- [Python源码剖析-7-内建对象list](Python/Python源码剖析/Python源码剖析-7-内建对象list.md)
+- [Python源码剖析-8-内建对象dict](Python/Python源码剖析/Python源码剖析-8-内建对象dict.md)
+- [Python源码剖析-9-内建对象背后的思想-面试](Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md)
+- [Python源码剖析-10-最佳实践：灵活运用内建容器](Python/Python源码剖析/Python源码剖析-10-最佳实践：灵活运用内建容器.md)
+- [Python源码剖析-11-开发实战：基于最小堆设计任务调度系统](Python/Python源码剖析/Python源码剖析-11-开发实战：基于最小堆设计任务调度系统.md)
+- [Python源码剖析-12-虚拟机的字节码](Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md)
+- [Python源码剖析-13-作用域与名字空间](Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md)
+- [Python源码剖析-14-虚拟机和CPU](Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md)
+- [Python源码剖析-15-GIL全局锁](Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md)
+- [Python源码剖析-16-import 模块动态加载](Python/Python源码剖析/Python源码剖析-16-import%20模块动态加载.md)
+- [Python源码剖析-17-虚拟机面试](Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md)
+- [Python源码剖析-18-函数对象](Python/Python源码剖析/Python源码剖析-18-函数对象.md)
+- [Python源码剖析-19-面试：嵌套函数、闭包与装饰器](Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md)
+- [Python源码剖析-20-高阶函数和函数式编程](Python/Python源码剖析/Python源码剖析-20-高阶函数和函数式编程.md)
+- [Python源码剖析-21-装饰器核心解析](Python/Python源码剖析/Python源码剖析-21-装饰器核心解析.md)
+- [Python源码剖析-22-函数相关面试](Python/Python源码剖析/Python源码剖析-22-函数相关面试.md)
+- [Python源码剖析-23-类对象源码剖析](Python/Python源码剖析/Python源码剖析-23-类对象源码剖析.md)
+- [Python源码剖析-24-属性描述符如何影响属性行为](Python/Python源码剖析/Python源码剖析-24-属性描述符如何影响属性行为.md)
+- [Python源码剖析-25-魔术方法应用](Python/Python源码剖析/Python源码剖析-25-魔术方法应用.md)
+- [Python源码剖析-26-metaclass元类编程](Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md)
+- [Python源码剖析-27-如何实现代码热更新](Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md)
+- [Python源码剖析-28-类和继承相关面试题](Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md)
+- [Python源码剖析-29-生成器 generator](Python/Python源码剖析/Python源码剖析-29-生成器%20generator.md)
+- [Python源码剖析-30-造轮子：设计协程库](Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md)
+- [Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用](Python/Python源码剖析/Python源码剖析-31-工程实践：用%20asyncio%20协程构建高并发应用.md)
+- [Python源码剖析-32-内存池优化内存分配效率](Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md)
+- [Python源码剖析-33-引用计数的缺陷与应对](Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md)
+- [Python源码剖析-34-垃圾回收机制](Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md)
+- [Python源码剖析-35-内存泄露诊断](Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md)
+
+
 ### Python高级
 - [1.一切皆对象](/md/Python/Python高级/1.一切皆对象.md)
 - [2.魔法函数](/md/Python/Python高级/2.魔法函数.md)
