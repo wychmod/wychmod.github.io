@@ -14,9 +14,9 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md",
+                "file": "Index.md",
                 "mode": "source",
-                "source": false
+                "source": true
               }
             }
           },
@@ -105,7 +105,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "线程通信",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -122,8 +122,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -143,7 +142,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md",
+                "file": "Index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -160,7 +159,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md",
+                "file": "Index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -183,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md"
+                "file": "Index.md"
               }
             }
           },
@@ -216,6 +215,7 @@
   "active": "f2a4220c933ac757",
   "lastOpenFiles": [
     "面试/Java面试汇总.md",
+    "多线程与高并发/多线程与并发编程.md",
     "Redis/2-Redis实战.md",
     "java/springboot/SpringBoot实战和原理.md",
     "Index.md",
@@ -240,7 +240,6 @@
     "mysql/MySQL是怎样运行的.md",
     "人工智能/深度学习报错解决方案.md",
     "Python/anaconda中使用虚拟环境.md",
-    "多线程与高并发/多线程与并发编程.md",
     "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md",
     "Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md"
   ]
