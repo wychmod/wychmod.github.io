@@ -6,6 +6,7 @@
       {
         "id": "ed4a93513bf04421",
         "type": "tabs",
+        "dimension": 35.37883531621791,
         "children": [
           {
             "id": "f2a4220c933ac757",
@@ -14,28 +15,6 @@
               "type": "markdown",
               "state": {
                 "file": "面试/Java面试汇总.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "99236040e7b6e22e",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "Redis/原理篇.assets/1653902845082.png"
-              }
-            }
-          },
-          {
-            "id": "62862859809dc626",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "面试/实习面试准备.md",
                 "mode": "source",
                 "source": false
               }
@@ -66,23 +45,30 @@
             }
           },
           {
-            "id": "9f3536e9de6d68a8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "84c4c5ef614cd26a",
             "type": "leaf",
             "state": {
               "type": "empty",
               "state": {}
+            }
+          }
+        ]
+      },
+      {
+        "id": "35f41af6ba4f655e",
+        "type": "tabs",
+        "dimension": 64.6211646837821,
+        "children": [
+          {
+            "id": "f11daa74a00635d4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
+                "mode": "preview",
+                "source": false
+              }
             }
           }
         ]
@@ -224,24 +210,25 @@
   },
   "active": "f2a4220c933ac757",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
+    "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
+    "面试/Java面试汇总.md",
+    "Redis/原理篇.assets/1653902845082.png",
+    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+    "面试/实习面试准备.md",
+    "java/springboot/SpringBoot实战和原理.md",
+    "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "Index.md",
     "数学建模.md",
     "算法/左神从0学算法/算法笔记·.md",
-    "面试/Java面试汇总.md",
     "Redis/3-原理篇.md",
-    "Redis/原理篇.assets/1653902845082.png",
     "youdaonote-images/Pasted image 20230301224507.png",
     "youdaonote-images/Pasted image 20230301224324.png",
-    "面试/实习面试准备.md",
-    "java/springboot/SpringBoot实战和原理.md",
     "面试/python服务器端面试.md",
-    "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
-    "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
     "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
     "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
     "Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md",
     "Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md",
-    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "面试/春招 实习笔试.pdf",
     "面试/校招投递.md",
     "mysql/MySQL是怎样运行的.md",
