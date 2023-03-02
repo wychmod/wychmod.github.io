@@ -1,6 +1,6 @@
 # Tots-And 的学习开发笔记
 
->我是**Tots-and**，一名在校的计算机研究生，原先是Python开发，现在努力成为一名 Java 工程师。目前在学习Spring cloud有关的内容。研究深度学习有关的内容。
+>我是**Tots-and**，一名在校的计算机研究生，原先是Python开发，现在努力成为一名 Java 工程师。
 
 ---
 
@@ -54,6 +54,9 @@
 ## Python
 - [anaconda中使用虚拟环境](/md/Python/anaconda中使用虚拟环境.md)
 - [python命名规范](/md/Python/python命名规范.md)
+### Python源码剖析
+- [Python源码剖析-1-对象模型](Python/Python源码剖析/Python源码剖析-1-对象模型.md)
+- 
 ### Python高级
 - [1.一切皆对象](/md/Python/Python高级/1.一切皆对象.md)
 - [2.魔法函数](/md/Python/Python高级/2.魔法函数.md)
