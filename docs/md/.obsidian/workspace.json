@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "面试/Java面试汇总.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -105,7 +105,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 279.5
+    "width": 279.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -178,7 +179,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 337.5
+    "width": 337.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
