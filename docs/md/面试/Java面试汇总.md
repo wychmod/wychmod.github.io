@@ -361,3 +361,8 @@ TCP是全双工通信，可以双向传输数据。任何一方都可以在数�
 -   **代理设计模式** : Spring AOP 功能的实现。
 -   **单例设计模式** : Spring 中的 Bean 默认都是单例的。
 -   **模板方法模式** : Spring 中 `jdbcTemplate`、`hibernateTemplate` 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。
+
+# 抽奖系统的面经
+
+## dubbo
+dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用。在其他项目中，引用
