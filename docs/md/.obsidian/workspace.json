@@ -42,19 +42,9 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "62d033e63a485524",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "youdaonote-images/Pasted image 20221026154023.png"
-              }
-            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -121,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "youdaonote-images/Pasted image 20221026154023.png",
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "youdaonote-images/Pasted image 20221026154023.png",
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "youdaonote-images/Pasted image 20221026154023.png"
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
               }
             }
           }
@@ -192,9 +182,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "62d033e63a485524",
+  "active": "a7c596ad3cc8c2df",
   "lastOpenFiles": [
+    "youdaonote-images/dubbo调用过程.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "youdaonote-images/Pasted image 20221026154023.png",
     "youdaonote-images/Pasted image 20221026154011.png",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
