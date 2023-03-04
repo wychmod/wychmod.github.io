@@ -38,7 +38,7 @@
               "type": "markdown",
               "state": {
                 "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -180,7 +180,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a87ad215a1ba8d30",
+  "active": "a7c596ad3cc8c2df",
   "lastOpenFiles": [
     "面试/校招投递.md",
     "面试/Java面试汇总.md",
