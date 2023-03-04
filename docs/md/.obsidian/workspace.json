@@ -32,18 +32,6 @@
             }
           },
           {
-            "id": "f38f29521f6890b3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "a7c596ad3cc8c2df",
             "type": "leaf",
             "state": {
@@ -56,7 +44,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -123,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -140,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -171,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           }
@@ -194,8 +182,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f38f29521f6890b3",
+  "active": "de3ee67e62ad3b63",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
     "面试/Java面试汇总.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "youdaonote-images/Pasted image 20221026180106.png",
