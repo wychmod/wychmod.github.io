@@ -38,13 +38,23 @@
               "type": "markdown",
               "state": {
                 "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
+              }
+            }
+          },
+          {
+            "id": "62d033e63a485524",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "youdaonote-images/Pasted image 20221026154023.png"
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -111,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "youdaonote-images/Pasted image 20221026154023.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "youdaonote-images/Pasted image 20221026154023.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
+                "file": "youdaonote-images/Pasted image 20221026154023.png"
               }
             }
           }
@@ -182,10 +192,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a7c596ad3cc8c2df",
+  "active": "62d033e63a485524",
   "lastOpenFiles": [
-    "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "youdaonote-images/Pasted image 20221026154011.png",
+    "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "面试/校招投递.md",
     "面试/Java面试汇总.md",
@@ -212,7 +223,6 @@
     "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
     "Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md",
     "Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md",
-    "面试/春招 实习笔试.pdf",
-    "mysql/MySQL是怎样运行的.md"
+    "面试/春招 实习笔试.pdf"
   ]
 }
