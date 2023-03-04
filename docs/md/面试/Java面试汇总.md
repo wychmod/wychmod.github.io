@@ -329,6 +329,11 @@ TCP是全双工通信，可以双向传输数据。任何一方都可以在数�
 -   **`ThreadPoolExecutor.DiscardPolicy`：** 不处理新任务，直接丢弃掉。
 -   **`ThreadPoolExecutor.DiscardOldestPolicy`：** 此策略将丢弃最早的未处理的任务请求。
 
+## 线程在实际项目中的应用
+
+1. 发短信
+2. 
+
 # 操作系统
 
 ## 死锁的四个条件
