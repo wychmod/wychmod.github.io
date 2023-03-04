@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
                 "mode": "preview",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-大厂规范.md"
+                "file": "java/抽奖系统/Lottery 抽奖系统-项目信息.md"
               }
             }
           }
@@ -167,7 +167,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 337.5
+    "width": 337.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -182,6 +183,8 @@
   },
   "active": "a7c596ad3cc8c2df",
   "lastOpenFiles": [
+    "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "面试/校招投递.md",
     "面试/Java面试汇总.md",
     "多线程与高并发/多线程与并发编程.md",
@@ -209,8 +212,6 @@
     "Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md",
     "面试/春招 实习笔试.pdf",
     "mysql/MySQL是怎样运行的.md",
-    "人工智能/深度学习报错解决方案.md",
-    "Python/anaconda中使用虚拟环境.md",
-    "Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md"
+    "人工智能/深度学习报错解决方案.md"
   ]
 }
