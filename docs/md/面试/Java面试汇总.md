@@ -452,3 +452,5 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 
 1. 自定义注解，用于放置在需要被路由操作数据库的方法上。注解可以创建AOP的切片，在这上面操作相应数据源。
 2. 获取配置信息， 继承EnvironmentAware接口，获取配置文件并提取需要的配置信息。
+3. 数据源切换，创建数据源，放入动态数据源中DynamicDataSource，继承自AbstractRoutingDataSource。
+4. 切面拦截，
