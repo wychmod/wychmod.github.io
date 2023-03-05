@@ -83,7 +83,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "对称的二叉树",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -100,7 +100,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -190,7 +191,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "de3ee67e62ad3b63",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "Redis/2-Redis实战.md",
     "面试/Java面试汇总.md",
