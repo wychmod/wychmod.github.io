@@ -454,3 +454,4 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 2. 获取配置信息， 继承EnvironmentAware接口，获取配置文件并提取需要的配置信息。
 3. 数据源切换，创建数据源，放入动态数据源中DynamicDataSource，继承自AbstractRoutingDataSource。
 4. 切面拦截，在切面中获取路由的属性，然后给hashcode 增加扰动函数(HashMap的方式)，然后判断在哪个库中。
+5. 针对mybtis的拦截器进行定制，用反射的方式将sql进行替换。
