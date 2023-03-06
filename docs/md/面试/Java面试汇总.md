@@ -135,6 +135,11 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 
 # Mysql
 
+## PostgreSQL与MySQL对比
+
+- Mysql: 多线程，PostgreSQL：多进程
+- PostgreSQL支持存储过程，要比MySQL好，具备本地缓存执行计划的能力；
+
 ## 三大范式
 1. 属性不可再分
 2. 消除非主属性对码的部分依赖
