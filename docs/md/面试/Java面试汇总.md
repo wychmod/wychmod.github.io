@@ -491,8 +491,11 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 - ps -aux
 - top
 - `pgrep <process-name>`：根据进程名查找进程
+- pidof java
 
 ## Linux查询网络的命令
+- ifconfig 显示网卡的详细信息
+- 
 
 # 人工智能
 
