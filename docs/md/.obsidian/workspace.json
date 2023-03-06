@@ -56,7 +56,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -106,7 +106,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 279.5
+    "width": 279.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -122,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +140,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +171,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           }
@@ -179,7 +180,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 337.5
+    "width": 337.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -192,8 +194,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7d89e70d04c5ad8b",
+  "active": "a7c596ad3cc8c2df",
   "lastOpenFiles": [
+    "算法/左神从0学算法/算法笔记·.md",
     "面试/校招投递.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "面试/Java面试汇总.md",
@@ -202,7 +205,6 @@
     "多线程与高并发/多线程与并发编程.md",
     "youdaonote-images/Pasted image 20230305184229.png",
     "youdaonote-images/Pasted image 20221027232642.png",
-    "算法/左神从0学算法/算法笔记·.md",
     "Redis/2-Redis实战.md",
     "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
     "youdaonote-images/Pasted image 20221026180106.png",
