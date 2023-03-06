@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "linux/Linux核心技能与应用/Linux进阶知识和命令.md",
                 "mode": "source",
                 "source": false
               }
@@ -97,7 +97,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "top",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -135,7 +135,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "linux/Linux核心技能与应用/Linux进阶知识和命令.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -152,7 +152,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "linux/Linux核心技能与应用/Linux进阶知识和命令.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -183,7 +183,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "linux/Linux核心技能与应用/Linux进阶知识和命令.md"
               }
             }
           }
@@ -205,10 +205,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3cc169e861738dfa",
+  "active": "a7c596ad3cc8c2df",
   "lastOpenFiles": [
-    "Redis/3-原理篇.md",
     "面试/Java面试汇总.md",
+    "Redis/3-原理篇.md",
     "算法/左神从0学算法/算法笔记·.md",
     "面试/校招投递.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
