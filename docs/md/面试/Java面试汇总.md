@@ -141,6 +141,15 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 - docker run
 - docker ps -a
 
+## dockerfile的使用， 如何减少打包的容量
+
+
+
+## jekins是什么，怎么使用
+
+## 创建一个docker，怎么挂载数据卷，怎么映射端口
+
+
 # Mysql
 
 ## PostgreSQL与MySQL对比
@@ -485,11 +494,6 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 
 ## python的消息队列(django)
 
-## dockerfile的使用， 如何减少打包的容量
-
-## jekins是什么，怎么使用
-
-## 创建一个docker，怎么挂载数据卷，怎么映射端口
 
 # linux
 
