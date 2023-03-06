@@ -487,4 +487,11 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 
 ## Linux查询网络的命令
 
+# 人工智能
+
 ## tensorflow1和2的区别
+
+1. TensorFlow 2 可以使用更简洁的 Keras API 来定义和训练神经网络模型。
+2. TensorFlow 2 引入了 Eager Execution 模式，支持动态图计算。在 TensorFlow 1 中，需要先定义图结构，然后再运行计算图。
+3. TensorFlow 2 支持更加灵活和高效的分布式训练
+4. TensorFlow 2 支持更加轻量级的模型定义和导出
