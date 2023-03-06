@@ -483,7 +483,14 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 
 ## 创建一个docker，怎么挂载数据卷，怎么映射端口
 
+# linux
+
 ## linux 查询进程的命令
+
+- ps -ef
+- ps -aux
+- top
+- `pgrep <process-name>`：根据进程名查找进程
 
 ## Linux查询网络的命令
 
