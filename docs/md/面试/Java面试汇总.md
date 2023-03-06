@@ -148,6 +148,10 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 ## jekins是什么，怎么使用
 
 ## 创建一个docker，怎么挂载数据卷，怎么映射端口
+通过-p来映射端口，通过-v来挂载数据卷。
+```docker
+docker run \ --name mn \ -v html:/root/html \ -p 8080:80 nginx \
+```
 
 
 # Mysql
