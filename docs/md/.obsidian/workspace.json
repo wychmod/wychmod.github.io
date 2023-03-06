@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "Seata",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -102,7 +102,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -192,7 +193,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a7c596ad3cc8c2df",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "面试/Java面试汇总.md",
     "算法/左神从0学算法/算法笔记·.md",
