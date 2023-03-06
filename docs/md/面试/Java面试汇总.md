@@ -143,7 +143,8 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 - docker rm
 
 ## dockerfile的使用， 如何减少打包的容量
-
+1. 用distroless去除容器中所有不必要的东西
+2. 
 
 
 ## jekins是什么，怎么使用
