@@ -25,8 +25,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
-                "mode": "preview",
+                "file": "面试/Java面试汇总.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -123,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -140,7 +140,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -171,7 +171,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           }
@@ -193,12 +193,13 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3cc169e861738dfa",
+  "active": "a7c596ad3cc8c2df",
   "lastOpenFiles": [
-    "面试/Java面试汇总.md",
-    "算法/左神从0学算法/算法笔记·.md",
-    "Redis/3-原理篇.md",
+    "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
     "面试/校招投递.md",
+    "算法/左神从0学算法/算法笔记·.md",
+    "面试/Java面试汇总.md",
+    "Redis/3-原理篇.md",
     "docker/docker.md",
     "linux/Linux核心技能与应用/Linux进阶知识和命令.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
@@ -221,7 +222,6 @@
     "Index.md",
     "java/springboot/SpringBoot实战和原理.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
-    "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
     "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
     "Redis/原理篇.assets/1653902845082.png",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
