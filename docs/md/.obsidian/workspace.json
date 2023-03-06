@@ -32,18 +32,6 @@
             }
           },
           {
-            "id": "47c2ad368dfc8f9a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docker/docker.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "dfdb7b6fb3229a6f",
             "type": "leaf",
             "state": {
@@ -80,7 +68,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -146,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "面试/校招投递.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "面试/校招投递.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -194,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "面试/校招投递.md"
               }
             }
           }
@@ -216,9 +204,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "47c2ad368dfc8f9a",
+  "active": "9050fd1967e9f84f",
   "lastOpenFiles": [
     "面试/Java面试汇总.md",
+    "docker/docker.md",
     "linux/Linux核心技能与应用/Linux进阶知识和命令.md",
     "Redis/3-原理篇.md",
     "算法/左神从0学算法/算法笔记·.md",
@@ -253,7 +242,6 @@
     "面试/python服务器端面试.md",
     "Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md",
     "Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md",
-    "Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md",
     "面试/春招 实习笔试.pdf"
   ]
 }

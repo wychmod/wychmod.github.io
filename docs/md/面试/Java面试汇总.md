@@ -135,6 +135,11 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 
 ## docker的具体命令
 
+- docker images
+- docker pull
+- docker rmi
+- docker run
+- docker ps -a
 
 # Mysql
 
