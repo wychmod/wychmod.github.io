@@ -114,12 +114,12 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 279.5,
-    "collapsed": true
+    "width": 279.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -205,7 +205,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a7c596ad3cc8c2df",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "Redis/3-原理篇.md",
     "面试/Java面试汇总.md",
