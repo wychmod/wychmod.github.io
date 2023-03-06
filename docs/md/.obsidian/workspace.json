@@ -68,7 +68,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -135,7 +135,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -152,7 +152,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -183,7 +183,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/3-原理篇.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           }
@@ -205,8 +205,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a87ad215a1ba8d30",
+  "active": "a7c596ad3cc8c2df",
   "lastOpenFiles": [
+    "Redis/3-原理篇.md",
     "面试/Java面试汇总.md",
     "算法/左神从0学算法/算法笔记·.md",
     "面试/校招投递.md",
@@ -235,7 +236,6 @@
     "Redis/原理篇.assets/1653902845082.png",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "数学建模.md",
-    "Redis/3-原理篇.md",
     "youdaonote-images/Pasted image 20230301224507.png",
     "youdaonote-images/Pasted image 20230301224324.png",
     "面试/python服务器端面试.md",
