@@ -473,6 +473,12 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 
 ## docker的具体命令
 
-## java的实现消息队列
+## java的消息队列
 
-## pythonde
+## python的消息队列(django)
+
+## dockerfile的使用， 如何减少打包的容量
+
+## jekins是什么，怎么使用
+
+## 创建一个docker，怎么挂载数据卷，怎么ying she duan kou
