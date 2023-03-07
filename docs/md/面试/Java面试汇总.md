@@ -521,7 +521,9 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 - ss获取socket统计信息
 
 ## linux上文件关键词查询
-
+```linux
+grep -c 10 "关键字" xxx.log | tail -n 100  最后多少行 读取
+```
 
 
 # 人工智能
