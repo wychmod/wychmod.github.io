@@ -407,6 +407,8 @@ TCP是全双工通信，可以双向传输数据。任何一方都可以在数�
 
 - Redis、ElasticSearch、JWT、RabbitMQ、Kafka、RocketMQ、ActiveMQ、Redis、Dubbo
 
+## java的消息队列
+kafka、rocketmq、rabbitmq
 
 # juc
 
