@@ -107,7 +107,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 282.5026054382324
+    "width": 282.5026054382324,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -180,7 +181,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 228.5
+    "width": 228.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -195,13 +197,13 @@
   },
   "active": "a7c596ad3cc8c2df",
   "lastOpenFiles": [
-    "多线程与高并发/多线程与并发编程.md",
+    "面试/校招投递.md",
     "面试/Java面试汇总.md",
+    "算法/左神从0学算法/算法笔记·.md",
+    "多线程与高并发/多线程与并发编程.md",
     "面试/python面试.md",
     "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
     "docker/docker.md",
-    "面试/校招投递.md",
-    "算法/左神从0学算法/算法笔记·.md",
     "Redis/3-原理篇.md",
     "linux/Linux核心技能与应用/Linux进阶知识和命令.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
