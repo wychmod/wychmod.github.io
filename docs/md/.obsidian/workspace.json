@@ -57,24 +57,6 @@
           }
         ],
         "currentTab": 1
-      },
-      {
-        "id": "87ca084a12d52637",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "0ca1952b12fa8209",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docker/docker.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          }
-        ]
       }
     ],
     "direction": "vertical"
