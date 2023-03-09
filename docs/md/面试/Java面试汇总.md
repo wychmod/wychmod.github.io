@@ -89,6 +89,9 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
   * LRU（Least Recently Used），最少最近使用。用当前时间减去最后一次访问时间，这个值越大则淘汰优先级越高。
   * LFU（Least Frequently Used），最少频率使用。会统计每个key的访问频率，值越小淘汰优先级越高。（逻辑访问次数）
 
+## 优惠券系统的完善
+通过对uuid或者雪花算法进行16进制或者某些进制的转换，变成8位或12wei
+
 # spring
 ## Spring,Spring MVC,Spring Boot 之间什么关系
 
@@ -301,6 +304,10 @@ MVCC 在 MySQL 中实现所依赖的手段主要是: **隐藏字段、read view�
 
 中间件顾名思义，是介于request与response处理之间的一道处理过程，相对比较轻量级，并且在全局上改变[django](https://so.csdn.net/so/search?q=django&spm=1001.2101.3001.7020)的输入与输出。因为改变的是全局，所以需要谨慎实用，用不好会影响到性能。
 
+## python的消息队列(django)
+- Celery 是一个功能完备即插即用的任务队列。它使得我们不需要考虑复杂的问题，使用非常简单。
+- **Task Queue**
+
 # 计算机网络
 
 ##  OSI 七层模型
@@ -502,11 +509,7 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 5. 针对mybtis的拦截器进行定制，用反射的方式将sql进行替换。
 
 
-## java的消息队列
 
-## python的消息队列(django)
-- Celery 是一个功能完备即插即用的任务队列。它使得我们不需要考虑复杂的问题，使用非常简单。
-- **Task Queue**
 
 # linux
 
