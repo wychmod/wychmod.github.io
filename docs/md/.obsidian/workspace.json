@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/k8s.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "mode": "source",
                 "source": false
               }
@@ -134,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/k8s.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/k8s.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -182,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/k8s.md"
+                "file": "k8s/1-k8s的介绍.md"
               }
             }
           }
@@ -207,7 +207,7 @@
   "active": "8f268dafe19547eb",
   "lastOpenFiles": [
     "Python/anaconda中使用虚拟环境.md",
-    "k8s/k8s.md",
+    "k8s/1-k8s的介绍.md",
     "k8s",
     "面试/Java面试汇总.md",
     "算法/左神从0学算法/算法笔记·.md",
