@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "python命名",
+                "query": "Docker Compose",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -193,7 +193,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a7c596ad3cc8c2df",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "Python/python命名规范.md",
     "k8s/1-k8s的介绍.md",
