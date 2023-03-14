@@ -8,18 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "2969c5fc6a338a82",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "a7c596ad3cc8c2df",
             "type": "leaf",
             "state": {
@@ -55,8 +43,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -102,8 +89,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -123,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md",
+                "file": "docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -140,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md",
+                "file": "docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -171,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md"
+                "file": "docker/docker.md"
               }
             }
           }
@@ -193,8 +179,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3cc169e861738dfa",
+  "active": "a87ad215a1ba8d30",
   "lastOpenFiles": [
+    "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "Python/python命名规范.md",
     "k8s/1-k8s的介绍.md",
     "md/Python/python命名规范.md",
@@ -224,7 +211,6 @@
     "docker/docker.md",
     "Redis/3-原理篇.md",
     "linux/Linux核心技能与应用/Linux进阶知识和命令.md",
-    "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "Redis/2-Redis实战.md",
     "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
