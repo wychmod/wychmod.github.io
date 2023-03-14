@@ -32,30 +32,6 @@
             }
           },
           {
-            "id": "8f268dafe19547eb",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "k8s/1-k8s的介绍.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "e0741c255f04cc0e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "k8s/2-k8s集群环境的搭建.md",
-                "mode": "preview",
-                "source": true
-              }
-            }
-          },
-          {
             "id": "9050fd1967e9f84f",
             "type": "leaf",
             "state": {
@@ -80,7 +56,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -109,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "conda",
+                "query": "python命名",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -126,12 +102,12 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 282.5026054382324,
-    "collapsed": true
+    "width": 282.5026054382324
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -147,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/2-k8s集群环境的搭建.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -164,7 +140,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/2-k8s集群环境的搭建.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -195,7 +171,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/2-k8s集群环境的搭建.md"
+                "file": "Python/anaconda中使用虚拟环境.md"
               }
             }
           }
@@ -217,8 +193,15 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "e0741c255f04cc0e",
+  "active": "a7c596ad3cc8c2df",
   "lastOpenFiles": [
+    "Python/python命名规范.md",
+    "k8s/1-k8s的介绍.md",
+    "md/Python/python命名规范.md",
+    "Index.md",
+    "md/Python",
+    "md",
+    "k8s/2-k8s集群环境的搭建.md",
     "k8s/assets/image-20200413214011389.png",
     "k8s/assets/image-20200407121501907.png",
     "k8s/assets/image-20200618213054113.png",
@@ -229,10 +212,7 @@
     "k8s/assets/image-20200509152947714.png",
     "k8s/assets/image-20200509153731363.png",
     "k8s/assets/image-20200407100850484.png",
-    "k8s/assets/image-20200608163326496.png",
     "k8s/assets",
-    "k8s/1-k8s的介绍.md",
-    "k8s/2-k8s集群环境的搭建.md",
     "Python/anaconda中使用虚拟环境.md",
     "k8s",
     "面试/Java面试汇总.md",
@@ -253,10 +233,8 @@
     "面试/实习面试准备.md",
     "Python/Python源码剖析/Python源码剖析-21-装饰器核心解析.md",
     "Python/Python高级/理解Python装饰器(Decorator).md",
-    "Index.md",
     "java/springboot/SpringBoot实战和原理.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
-    "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
     "面试/春招 实习笔试.pdf"
   ]
 }
