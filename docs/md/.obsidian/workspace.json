@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md",
+                "file": "docker/docker.md",
                 "mode": "preview",
                 "source": false
               }
@@ -65,8 +65,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -86,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md",
+                "file": "docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md",
+                "file": "docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -129,17 +128,27 @@
             }
           },
           {
+            "id": "22b809343e09a4c3",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "docker/docker.md"
+              }
+            }
+          },
+          {
             "id": "e5a4a06dfd44ce65",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md"
+                "file": "docker/docker.md"
               }
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -156,8 +165,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7d89e70d04c5ad8b",
+  "active": "22b809343e09a4c3",
   "lastOpenFiles": [
+    "人工智能/深度学习报错解决方案.md",
     "算法/左神从0学算法/算法笔记·.md",
     "面试/校招投递.md",
     "Python/anaconda中使用虚拟环境.md",
@@ -197,7 +207,6 @@
     "Python/Python源码剖析/Python源码剖析-21-装饰器核心解析.md",
     "Python/Python高级/理解Python装饰器(Decorator).md",
     "java/springboot/SpringBoot实战和原理.md",
-    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "面试/春招 实习笔试.pdf"
   ]
 }
