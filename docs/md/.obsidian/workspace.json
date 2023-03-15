@@ -8,24 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "9050fd1967e9f84f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "面试/校招投递.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "7d89e70d04c5ad8b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "人工智能/深度学习报错解决方案.md",
                 "mode": "preview",
                 "source": false
               }
@@ -60,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "Docker Compose",
+                "query": "豆瓣源",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -77,7 +65,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -97,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "人工智能/深度学习报错解决方案.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "人工智能/深度学习报错解决方案.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,6 +127,16 @@
               "type": "advanced-tables-toolbar",
               "state": {}
             }
+          },
+          {
+            "id": "e5a4a06dfd44ce65",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "人工智能/深度学习报错解决方案.md"
+              }
+            }
           }
         ],
         "currentTab": 3
@@ -157,8 +156,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "401c419984c493ec",
+  "active": "7d89e70d04c5ad8b",
   "lastOpenFiles": [
+    "算法/左神从0学算法/算法笔记·.md",
+    "面试/校招投递.md",
     "Python/anaconda中使用虚拟环境.md",
     "docker/docker.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
@@ -182,8 +183,6 @@
     "k8s/assets",
     "k8s",
     "面试/Java面试汇总.md",
-    "算法/左神从0学算法/算法笔记·.md",
-    "面试/校招投递.md",
     "多线程与高并发/多线程与并发编程.md",
     "面试/python面试.md",
     "Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md",
