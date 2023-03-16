@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "17ce7f745126111f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/anaconda中使用虚拟环境.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -48,7 +61,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "豆瓣源",
+                "query": "conda",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +78,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -85,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -133,7 +147,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md"
+                "file": "Python/anaconda中使用虚拟环境.md"
               }
             }
           },
@@ -143,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md"
+                "file": "Python/anaconda中使用虚拟环境.md"
               }
             }
           }
@@ -165,7 +179,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7d89e70d04c5ad8b",
+  "active": "17ce7f745126111f",
   "lastOpenFiles": [
     "docker/docker.md",
     "人工智能/深度学习报错解决方案.md",
