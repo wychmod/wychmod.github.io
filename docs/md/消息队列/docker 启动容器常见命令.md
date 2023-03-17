@@ -18,4 +18,11 @@ cd  /opt/kafka_2.13-2.8.1/bin
 
 # 显示新主题：test-kafka 的分区信息
 ./kafka-topics.sh --describe --topic message-kafka --bootstrap-server localhost:9092
+
+# 测试生产消息：
+
+./kafka-console-producer.sh --topic message-kafka --bootstrap-server localhost:9092
+# 测试消费消息：
+
+./kafka-console-consumer.sh --topic message-kafka --from-beginning --bootstrap-server localhost:9092
 ```
