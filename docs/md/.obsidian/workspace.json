@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md",
+                "file": "java/springboot/SpringBoot实战和原理.md",
                 "mode": "preview",
                 "source": false
               }
@@ -61,7 +61,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "conda",
+                "query": "kafka",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -83,7 +83,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 282.5026054382324
+    "width": 282.5026054382324,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -99,7 +100,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md",
+                "file": "java/springboot/SpringBoot实战和原理.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +117,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md",
+                "file": "java/springboot/SpringBoot实战和原理.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -147,7 +148,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md"
+                "file": "java/springboot/SpringBoot实战和原理.md"
               }
             }
           },
@@ -157,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/anaconda中使用虚拟环境.md"
+                "file": "java/springboot/SpringBoot实战和原理.md"
               }
             }
           }
@@ -181,11 +182,11 @@
   },
   "active": "17ce7f745126111f",
   "lastOpenFiles": [
+    "Python/anaconda中使用虚拟环境.md",
     "docker/docker.md",
     "人工智能/深度学习报错解决方案.md",
     "算法/左神从0学算法/算法笔记·.md",
     "面试/校招投递.md",
-    "Python/anaconda中使用虚拟环境.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "Python/python命名规范.md",
     "k8s/1-k8s的介绍.md",
