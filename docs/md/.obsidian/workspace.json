@@ -73,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "kafka",
+                "query": "docker commit",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -90,12 +90,12 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 282.5026054382324,
-    "collapsed": true
+    "width": 282.5026054382324
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -192,7 +192,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "511848dfacbd8540",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "java/springboot/SpringBoot实战和原理.md",
     "消息队列/docker 启动容器常见命令.md",
