@@ -37,8 +37,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "消息队列/docker 启动容器常见命令.md",
-                "mode": "source",
+                "file": "docker/docker.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -73,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "docker commit",
+                "query": "docker",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -90,12 +90,12 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 282.5026054382324
+    "width": 282.5026054382324,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -111,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "消息队列/docker 启动容器常见命令.md",
+                "file": "docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "消息队列/docker 启动容器常见命令.md",
+                "file": "docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "消息队列/docker 启动容器常见命令.md"
+                "file": "docker/docker.md"
               }
             }
           },
@@ -169,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "消息队列/docker 启动容器常见命令.md"
+                "file": "docker/docker.md"
               }
             }
           }
@@ -178,8 +178,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 228.5,
-    "collapsed": true
+    "width": 228.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -192,10 +191,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3cc169e861738dfa",
+  "active": "511848dfacbd8540",
   "lastOpenFiles": [
-    "java/springboot/SpringBoot实战和原理.md",
+    "docker/Centos7安装Docker.md",
     "消息队列/docker 启动容器常见命令.md",
+    "java/springboot/SpringBoot实战和原理.md",
     "算法/左神从0学算法/算法笔记·.md",
     "Python/anaconda中使用虚拟环境.md",
     "docker/docker.md",
@@ -233,7 +233,6 @@
     "系统设计/设计模式.md",
     "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "面试/实习面试准备.md",
-    "Python/Python源码剖析/Python源码剖析-21-装饰器核心解析.md",
     "面试/春招 实习笔试.pdf"
   ]
 }
