@@ -26,8 +26,8 @@
               "type": "markdown",
               "state": {
                 "file": "k8s/2-k8s集群环境的搭建.md",
-                "mode": "preview",
-                "source": false
+                "mode": "source",
+                "source": true
               }
             }
           }
