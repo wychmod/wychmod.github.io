@@ -25,26 +25,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/springboot/SpringBoot实战和原理.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "511848dfacbd8540",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docker/docker.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "mode": "preview",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -94,8 +82,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 282.5026054382324,
-    "collapsed": true
+    "width": 282.5026054382324
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -111,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "k8s/1-k8s的介绍.md"
               }
             }
           },
@@ -169,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "k8s/1-k8s的介绍.md"
               }
             }
           }
@@ -191,14 +178,14 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "511848dfacbd8540",
+  "active": "17ce7f745126111f",
   "lastOpenFiles": [
-    "docker/Centos7安装Docker.md",
-    "消息队列/docker 启动容器常见命令.md",
     "java/springboot/SpringBoot实战和原理.md",
+    "消息队列/docker 启动容器常见命令.md",
+    "docker/Centos7安装Docker.md",
+    "docker/docker.md",
     "算法/左神从0学算法/算法笔记·.md",
     "Python/anaconda中使用虚拟环境.md",
-    "docker/docker.md",
     "人工智能/深度学习报错解决方案.md",
     "面试/校招投递.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
