@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/1-k8s的介绍.md",
+                "file": "k8s/2-k8s集群环境的搭建.md",
                 "mode": "preview",
                 "source": false
               }
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/1-k8s的介绍.md",
+                "file": "k8s/2-k8s集群环境的搭建.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/1-k8s的介绍.md",
+                "file": "k8s/2-k8s集群环境的搭建.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -147,7 +147,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/1-k8s的介绍.md"
+                "file": "k8s/2-k8s集群环境的搭建.md"
               }
             }
           },
@@ -157,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/1-k8s的介绍.md"
+                "file": "k8s/2-k8s集群环境的搭建.md"
               }
             }
           }
@@ -182,6 +182,7 @@
   },
   "active": "17ce7f745126111f",
   "lastOpenFiles": [
+    "k8s/1-k8s的介绍.md",
     "java/springboot/SpringBoot实战和原理.md",
     "消息队列/docker 启动容器常见命令.md",
     "docker/Centos7安装Docker.md",
@@ -192,7 +193,6 @@
     "面试/校招投递.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "Python/python命名规范.md",
-    "k8s/1-k8s的介绍.md",
     "md/Python/python命名规范.md",
     "Index.md",
     "md/Python",
