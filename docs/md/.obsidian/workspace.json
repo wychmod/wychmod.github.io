@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/3-实战和Pod详解.md",
+                "file": "k8s/3-实战.md",
                 "mode": "source",
                 "source": true
               }
@@ -49,14 +49,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/未命名.md",
+                "file": "k8s/4-Pod详解.md",
                 "mode": "source",
                 "source": true
               }
             }
+          },
+          {
+            "id": "8dc3f572e62157c1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "k8s/5-Pod控制器详解.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -122,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/未命名.md",
+                "file": "k8s/5-Pod控制器详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/未命名.md",
+                "file": "k8s/5-Pod控制器详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/未命名.md"
+                "file": "k8s/5-Pod控制器详解.md"
               }
             }
           },
@@ -180,7 +192,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/未命名.md"
+                "file": "k8s/5-Pod控制器详解.md"
               }
             }
           }
@@ -202,10 +214,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "4f7ed03937469edb",
+  "active": "8dc3f572e62157c1",
   "lastOpenFiles": [
-    "k8s/3-实战和Pod详解.md",
-    "k8s/未命名.md",
+    "k8s/4-Pod详解.md",
+    "k8s/5-Pod控制器详解.md",
+    "k8s/3-实战.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
     "k8s/1-k8s的介绍.md",
     "java/springboot/SpringBoot实战和原理.md",
@@ -243,7 +256,6 @@
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "Redis/2-Redis实战.md",
     "Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md",
-    "系统设计/设计模式.md",
     "面试/春招 实习笔试.pdf"
   ]
 }
