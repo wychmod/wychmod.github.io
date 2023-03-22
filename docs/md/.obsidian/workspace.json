@@ -82,8 +82,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 282.5026054382324,
-    "collapsed": true
+    "width": 282.5026054382324
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -180,7 +179,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "17ce7f745126111f",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
     "k8s/1-k8s的介绍.md",
     "java/springboot/SpringBoot实战和原理.md",
