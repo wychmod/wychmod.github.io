@@ -8,11 +8,11 @@
 
 ​    为了解决这个问题，kubernetes提供了Service资源，Service会对提供同一个服务的多个pod进行聚合，并且提供一个统一的入口地址。通过访问Service的入口地址就能访问到后面的pod服务。
 
-<img src="assets/image-20200408194716912.png" style="zoom:100%;border:1px solid" />
+![](assets/image-20200408194716912.png)
 
 ​    Service在很多情况下只是一个概念，真正起作用的其实是kube-proxy服务进程，每个Node节点上都运行着一个kube-proxy服务进程。当创建Service的时候会通过api-server向etcd写入创建的service的信息，而kube-proxy会基于监听的机制发现这种Service的变动，然后**它会将最新的Service信息转换成对应的访问规则**。
 
-<img src="assets/image-20200509121254425.png" style="border:1px solid" />
+![](assets/image-20200509121254425.png)
 
 ~~~powershell
 # 10.97.97.97:80 是service提供的访问入口
@@ -36,20 +36,20 @@ kube-proxy目前支持三种工作模式:
 ​    userspace模式下，kube-proxy会为每一个Service创建一个监听端口，发向Cluster IP的请求被Iptables规则重定向到kube-proxy监听的端口上，kube-proxy根据LB算法选择一个提供服务的Pod并和其建立链接，以将请求转发到Pod上。
 ​    该模式下，kube-proxy充当了一个四层负责均衡器的角色。由于kube-proxy运行在userspace中，在进行转发处理时会增加内核和用户空间之间的数据拷贝，虽然比较稳定，但是效率比较低。
 
-<img src="assets/image-20200509151424280.png" style="border: 1px solid; zoom: 57%;" />
+![](assets/image-20200509151424280.png)
 
 **iptables 模式**
 
 ​    iptables模式下，kube-proxy为service后端的每个Pod创建对应的iptables规则，直接将发向Cluster IP的请求重定向到一个Pod IP。
 ​    该模式下kube-proxy不承担四层负责均衡器的角色，只负责创建iptables规则。该模式的优点是较userspace模式效率更高，但不能提供灵活的LB策略，当后端Pod不可用时也无法进行重试。
 
-<img src="assets/image-20200509152947714.png" style="zoom: 57%;"  />
+![](assets/image-20200509152947714.png)
 
 **ipvs 模式**
 
 ​    ipvs模式和iptables类似，kube-proxy监控Pod的变化并创建相应的ipvs规则。ipvs相对iptables转发效率更高。除此以外，ipvs支持更多的LB算法。
 
-<img src="assets/image-20200509153731363.png" style="zoom: 57%" />
+![](assets/image-20200509153731363.png)
 
 ~~~powershell
 # 此模式必须安装ipvs内核模块，否则会降级为iptables
@@ -325,7 +325,7 @@ service-headliness.dev.svc.cluster.local. 30 IN A 10.244.2.33
 
 ​    在之前的样例中，创建的Service的ip地址只有集群内部才可以访问，如果希望将Service暴露给集群外部使用，那么就要使用到另外一种类型的Service，称为NodePort类型。NodePort的工作原理其实就是**将service的端口映射到Node的一个端口上**，然后就可以通过`NodeIp:NodePort`来访问service了。
 
-<img src="assets/image-20200620175731338.png" style="border:1px solid"  />
+![](assets/image-20200620175731338.png)
 
 创建service-nodeport.yaml
 
@@ -361,6 +361,7 @@ service-nodeport   NodePort   10.105.64.191   <none>        80:30002/TCP  app=ng
 ### LoadBalancer类型的Service
 
 ​    LoadBalancer和NodePort很相似，目的都是向外部暴露一个端口，区别在于LoadBalancer会在集群的外部再来做一个负载均衡设备，而这个设备需要外部环境支持的，外部服务发送到这个设备上的请求，会被设备负载之后转发到集群中。
+
 
 <img src="assets/image-20200510103945494.png" style="border:1px solid" />
 
