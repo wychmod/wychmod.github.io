@@ -26,7 +26,7 @@ kubernetes的Volume支持多种类型，比较常见的有下面几个：
 
 ​    在一个Pod中准备两个容器nginx和busybox，然后声明一个Volume分别挂在到两个容器的目录中，然后nginx容器负责向Volume中写日志，busybox中通过命令将日志内容读到控制台。
 
-<img src="assets/image-20200413174713773.png" style="zoom:80%;border:solid 1px" />
+![](assets/image-20200413174713773.png)
 
 创建一个volume-emptydir.yaml
 
@@ -1246,6 +1246,5 @@ ca.crt:     1025 bytes
 选中某个Pod，可以对其执行日志（logs）、进入执行（exec）、编辑、删除操作
 
 ![](assets/image-20200520163832827.png)
-
 
 > Dashboard提供了kubectl的绝大部分功能，这里不再一一演示
