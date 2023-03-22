@@ -362,14 +362,13 @@ service-nodeport   NodePort   10.105.64.191   <none>        80:30002/TCP  app=ng
 
 ​    LoadBalancer和NodePort很相似，目的都是向外部暴露一个端口，区别在于LoadBalancer会在集群的外部再来做一个负载均衡设备，而这个设备需要外部环境支持的，外部服务发送到这个设备上的请求，会被设备负载之后转发到集群中。
 
-
-<img src="assets/image-20200510103945494.png" style="border:1px solid" />
+![](assets/image-20200510103945494.png)
 
 ### ExternalName类型的Service
 
 ​     ExternalName类型的Service用于引入集群外部的服务，它通过`externalName`属性指定外部一个服务的地址，然后在集群内部访问此service就可以访问到外部的服务了。
 
-<img src="assets/image-20200510113311209.png" style="border:1px solid" />
+![](assets/image-20200510113311209.png)
 
 ~~~yaml
 apiVersion: v1
@@ -404,7 +403,7 @@ www.a.shifen.com.       30      IN      A       39.156.66.14
 
 ​    基于这种现状，kubernetes提供了Ingress资源对象，Ingress只需要一个NodePort或者一个LB就可以满足暴露多个Service的需求。工作机制大致如下图表示：
 
-<img src="assets/image-20200623092808049.png" style="border:1px solid"/>
+![](assets/image-20200623092808049.png)
 
 ​    实际上，Ingress相当于一个7层的负载均衡器，是kubernetes对反向代理的一个抽象，它的工作原理类似于Nginx，可以理解成在**Ingress里建立诸多映射规则，Ingress Controller通过监听这些配置规则并转化成Nginx的反向代理配置 , 然后对外部提供服务**。在这里有两个核心概念：
 
@@ -418,7 +417,7 @@ Ingress（以Nginx为例）的工作原理如下：
 3. Ingress控制器会将生成的Nginx配置写入到一个运行着的Nginx服务中，并动态更新
 4. 到此为止，其实真正在工作的就是一个Nginx了，内部配置了用户定义的请求转发规则
 
-<img src="assets/image-20200516112704764.png" style="border: 1px solid; zoom: 100%;" />
+![](assets/image-20200516112704764.png)
 
 ## Ingress使用
 
@@ -456,7 +455,8 @@ ingress-nginx   NodePort   10.98.75.163   <none>        80:32240/TCP,443:31335/T
 
 为了后面的实验比较方便，创建如下图所示的模型
 
-<img src="assets/image-20200516102419998.png" style="zoom:80%;border:1px solid" />
+![](assets/image-20200516102419998.png)
+
 
 创建tomcat-nginx.yaml
 
