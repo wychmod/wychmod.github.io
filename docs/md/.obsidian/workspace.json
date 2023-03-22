@@ -39,7 +39,7 @@
               "state": {
                 "file": "k8s/3-实战和Pod详解.md",
                 "mode": "source",
-                "source": false
+                "source": true
               }
             }
           }

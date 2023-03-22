@@ -10,7 +10,7 @@
 
 ​    可以通过kubernetes的授权机制，将不同的namespace交给不同租户进行管理，这样就实现了多租户的资源隔离。此时还能结合kubernetes的资源配额机制，限定不同租户能占用的资源，例如CPU使用量、内存使用量等等，来实现租户可用资源的管理。
 
-<img src="assets/image-20200407100850484.png" alt="image-20200407100850484" style="zoom:80%;border:1px solid" />
+![image-20200407100850484](assets/image-20200407100850484.png)
 
 kubernetes在集群启动之后，会默认创建几个namespace
 
@@ -110,7 +110,7 @@ Pod是kubernetes集群进行管理的最小单元，程序要运行必须部署�
 
 Pod可以认为是容器的封装，一个Pod中可以存在一个或者多个容器。
 
-<img src="assets/image-20200407121501907.png" alt="image-20200407121501907" style="zoom:80%;" />
+![image-20200407121501907](assets/image-20200407121501907.png)
 
 kubernetes在集群启动之后，集群中的各个组件也都是以Pod方式运行的。可以通过下面命令查看：
 
@@ -381,6 +381,7 @@ spec:
 
 ​     在kubernetes中Pod控制器的种类有很多，本章节只介绍一种：Deployment。
 
+![image-20200408193950807]()
 <img src="assets/image-20200408193950807.png" alt="image-20200408193950807" style="border: 1px solid; zoom: 80%;" />
 
 **命令操作**
