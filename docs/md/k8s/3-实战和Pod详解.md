@@ -381,8 +381,7 @@ spec:
 
 ​     在kubernetes中Pod控制器的种类有很多，本章节只介绍一种：Deployment。
 
-![image-20200408193950807]()
-<img src="assets/image-20200408193950807.png" alt="image-20200408193950807" style="border: 1px solid; zoom: 80%;" />
+![image-20200408193950807](assets/image-20200408193950807.png)
 
 **命令操作**
 
@@ -593,7 +592,7 @@ spec:
 
 ### Pod结构
 
-<img src="assets/image-20200407121501907.png" alt="image-20200407121501907" style="zoom:80%;" />
+![image-20200407121501907](assets/image-20200407121501907.png)
 
 每个Pod中都可以包含一个或者多个容器，这些容器可以分为两类：
 
@@ -1117,6 +1116,7 @@ Warning  FailedScheduling  <unknown>  default-scheduler  0/2 nodes are available
 
 - pod终止过程
 
+
 <img src="assets/image-20200412111402706.png" alt="image-20200412111402706" style="border:solid 1px" />
 
 
@@ -1144,7 +1144,7 @@ Warning  FailedScheduling  <unknown>  default-scheduler  0/2 nodes are available
 
 6. apiServer将接收到的pod状态信息存入etcd中
 
-   <img src="assets/image-20200406184656917.png" alt="image-20200406184656917" style="zoom:100%;" />
+![image-20200406184656917](assets/image-20200406184656917.png)
 
 
 **pod的终止过程**
@@ -2074,7 +2074,7 @@ pod-podantiaffinity-required   1/1     Running   0          30s   10.244.1.96   
 - NoSchedule：kubernetes将不会把Pod调度到具有该污点的Node上，但不会影响当前Node上已存在的Pod
 - NoExecute：kubernetes将不会把Pod调度到具有该污点的Node上，同时也会将Node上已存在的Pod驱离
 
-<img src="assets/image-20200605021831545.png" alt="image-20200605021606508" style="border:1px solid" />
+![image-20200605021606508](assets/image-20200605021831545.png)
 
 使用kubectl设置和去除污点的命令示例如下：
 
