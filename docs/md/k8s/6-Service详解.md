@@ -457,7 +457,6 @@ ingress-nginx   NodePort   10.98.75.163   <none>        80:32240/TCP,443:31335/T
 
 ![](assets/image-20200516102419998.png)
 
-
 创建tomcat-nginx.yaml
 
 ~~~yaml

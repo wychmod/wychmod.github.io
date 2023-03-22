@@ -81,7 +81,7 @@ volume-emptydir   2/2     Running   0          97s   10.244.1.100   node1  .....
 
 ​    HostPath就是将Node主机中一个实际目录挂在到Pod中，以供容器使用，这样的设计就可以保证Pod销毁了，但是数据依据可以存在于Node主机上。
 
-<img src="assets/image-20200413214031331.png" style="zoom:100%;border:1px solid" />
+![](assets/image-20200413214031331.png)
 
 创建一个volume-hostpath.yaml：
 
@@ -151,7 +151,7 @@ access.log  error.log
 
 ​    NFS是一个网络文件存储系统，可以搭建一台NFS服务器，然后将Pod中的存储直接连接到NFS系统上，这样的话，无论Pod在节点上怎么转移，只要Node跟NFS的对接没问题，数据就可以成功访问。
 
-<img src="assets/image-20200413215133559.png" style="zoom:100%;border:1px solid" />
+![](assets/image-20200413215133559.png)
 
 1）首先要准备nfs的服务器，这里为了简单，直接是master节点做nfs服务器
 
@@ -235,7 +235,7 @@ access.log  error.log
 
 ​    PVC（Persistent Volume Claim）是持久卷声明的意思，是用户对于存储需求的一种声明。换句话说，PVC其实就是用户向kubernetes系统发出的一种资源需求申请。
 
-<img src="assets/image-20200514194111567.png" style="zoom:100%;border:1px solid" />
+![](assets/image-20200514194111567.png)
 
 使用了PV和PVC之后，工作可以得到进一步的细分：
 
@@ -603,7 +603,7 @@ PVC和PV是一一对应的，PV和PVC之间的相互作用遵循以下生命周�
 
   对于PV，管理员可以设定回收策略，用于设置与之绑定的PVC释放资源之后如何处理遗留数据的问题。只有PV的存储空间完成回收，才能供新的PVC绑定和使用
 
-<img src="assets/image-20200515002806726.png" style="zoom:100%;border:1px solid" />
+![](assets/image-20200515002806726.png)
 
 ## 配置存储
 
@@ -798,7 +798,7 @@ admin
 
 - **Service Account**：kubernetes管理的账号，用于为Pod中的服务进程在访问Kubernetes时提供身份标识。
 
-<img src="assets/image-20200520102949189.png" style="zoom:100%;border:1px solid" />
+![](assets/image-20200520102949189.png)
 
 **认证、授权与准入控制**   
 
@@ -808,7 +808,7 @@ ApiServer是访问及管理资源对象的唯一入口。任何一个请求访�
 - Authorization（授权）：  判断用户是否有权限对访问的资源执行特定的动作
 - Admission Control（准入控制）：用于补充授权机制以实现更加精细的访问控制功能。
 
-<img src="assets/image-20200520103942580.png" style="zoom:100%; border:1px solid" />
+![](assets/image-20200520103942580.png)
 
 ## 认证管理
 
@@ -832,8 +832,7 @@ Kubernetes集群安全的最关键点在于如何识别并认证客户端身份�
       这种认证方式是安全性最高的一种方式，但是同时也是操作起来最麻烦的一种方式。
   ~~~
   
-
-<img src="assets/image-20200518211037434.png" style="zoom:100%;border:1px solid" />
+![](assets/image-20200518211037434.png)
 
 **HTTPS认证大体分为3个过程：**
 
@@ -891,7 +890,7 @@ RBAC(Role-Based Access Control) 基于角色的访问控制，主要是在描述
 - 角色：代表着一组定义在资源上的可操作动作(权限)的集合
 - 绑定：将定义好的角色跟用户绑定在一起
 
-<img src="assets/image-20200519181209566.png" style="zoom:100%;border:1px solid" />
+![](assets/image-20200519181209566.png)
 
 RBAC引入了4个顶级资源对象：
 
@@ -1208,11 +1207,11 @@ ca.crt:     1025 bytes
 
 在登录页面上输入上面的token
 
-<img src="assets/image-20200520144548997.png" alt="image-20200520144548997" style="zoom:80%;border:1px solid" />
+![](assets/image-20200520144548997.png)
 
 出现下面的页面代表成功
 
-<img src="assets/image-20200520144959353.png" alt="image-20200520144959353" style="zoom:80%;border:1px solid" />
+![](assets/image-20200520144959353.png)
 
 ## 使用DashBoard
 
@@ -1222,30 +1221,31 @@ ca.crt:     1025 bytes
 
 选择指定的命名空间`dev`，然后点击`Deployments`，查看dev空间下的所有deployment
 
-<img src="assets/image-20200520154628679.png" style="zoom:90%;border:1px solid" />
+![](assets/image-20200520154628679.png)
 
 **扩缩容**
 
 在`Deployment`上点击`规模`，然后指定`目标副本数量`，点击确定
 
-<img src="assets/image-20200520162605102.png" style="zoom:90%;border:1px solid" />
+![](assets/image-20200520162605102.png)
 
 **编辑**
 
 在`Deployment`上点击`编辑`，然后修改`yaml文件`，点击确定
 
-<img src="assets/image-20200520163253644.png" alt="image-20200520163253644" style="zoom:100%;border:1px solid" />
+![](assets/image-20200520163253644.png)
 
 **查看Pod**
 
 点击`Pods`, 查看pods列表
 
-<img src="assets/image-20200520163552110.png" style="zoom:90%;border:1px solid" />
+![](assets/image-20200520163552110.png)
 
 **操作Pod**
 
 选中某个Pod，可以对其执行日志（logs）、进入执行（exec）、编辑、删除操作
 
-<img src="assets/image-20200520163832827.png" style="zoom:90%;border:1px solid" />
+![](assets/image-20200520163832827.png)
+
 
 > Dashboard提供了kubectl的绝大部分功能，这里不再一一演示
