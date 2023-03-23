@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "mode": "preview",
                 "source": false
               }
@@ -43,8 +43,7 @@
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -73,7 +72,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "docker",
+                "query": "conda",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -90,12 +89,12 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -111,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md"
+                "file": "Python/anaconda中使用虚拟环境.md"
               }
             }
           },
@@ -169,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md"
+                "file": "Python/anaconda中使用虚拟环境.md"
               }
             }
           }
@@ -191,10 +190,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "24b2e5f85e386d1f",
+  "active": "7d89e70d04c5ad8b",
   "lastOpenFiles": [
-    "mysql/MySQL是怎样使用的.md",
+    "算法/左神从0学算法/算法笔记·.md",
     "mysql/MySQL是怎样运行的.md",
+    "mysql/MySQL是怎样使用的.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
     "k8s/3-实战.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
@@ -207,7 +207,6 @@
     "消息队列/docker 启动容器常见命令.md",
     "docker/Centos7安装Docker.md",
     "docker/docker.md",
-    "算法/左神从0学算法/算法笔记·.md",
     "Python/anaconda中使用虚拟环境.md",
     "人工智能/深度学习报错解决方案.md",
     "面试/校招投递.md",
