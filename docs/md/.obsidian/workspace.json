@@ -72,7 +72,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "conda",
+                "query": "git规范",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -190,7 +190,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "7d89e70d04c5ad8b",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "算法/左神从0学算法/算法笔记·.md",
     "mysql/MySQL是怎样运行的.md",
