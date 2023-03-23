@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/3-实战.md",
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
                 "mode": "preview",
                 "source": true
               }
@@ -142,8 +142,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 282.5026054382324,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -159,7 +158,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/3-实战.md",
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -176,7 +175,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/3-实战.md",
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -207,7 +206,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/3-实战.md"
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md"
               }
             }
           },
@@ -217,7 +216,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/3-实战.md"
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md"
               }
             }
           }
@@ -241,11 +240,11 @@
   },
   "active": "2402251fa9fbf7f7",
   "lastOpenFiles": [
+    "k8s/3-实战.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
     "k8s/6-Service详解.md",
     "k8s/4-Pod详解.md",
     "k8s/5-Pod控制器详解.md",
-    "k8s/3-实战.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
     "k8s/1-k8s的介绍.md",
     "java/springboot/SpringBoot实战和原理.md",
