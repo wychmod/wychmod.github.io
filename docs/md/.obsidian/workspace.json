@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "mode": "preview",
                 "source": false
               }
@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "conda",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -166,10 +166,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3cc169e861738dfa",
+  "active": "24b2e5f85e386d1f",
   "lastOpenFiles": [
-    "算法/左神从0学算法/算法笔记·.md",
     "mysql/MySQL是怎样运行的.md",
+    "算法/左神从0学算法/算法笔记·.md",
     "mysql/MySQL是怎样使用的.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
     "k8s/3-实战.md",
