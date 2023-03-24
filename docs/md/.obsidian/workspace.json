@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/3-实战.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/3-实战.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/3-实战.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -133,7 +133,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/3-实战.md"
+                "file": "k8s/1-k8s的介绍.md"
               }
             }
           },
@@ -143,7 +143,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/3-实战.md"
+                "file": "k8s/1-k8s的介绍.md"
               }
             }
           }
@@ -167,12 +167,12 @@
   },
   "active": "770e76b8c486d0bb",
   "lastOpenFiles": [
+    "k8s/3-实战.md",
     "Python/anaconda中使用虚拟环境.md",
     "mysql/MySQL是怎样运行的.md",
     "算法/左神从0学算法/算法笔记·.md",
     "mysql/MySQL是怎样使用的.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
-    "k8s/3-实战.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
     "k8s/6-Service详解.md",
