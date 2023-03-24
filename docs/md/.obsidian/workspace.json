@@ -48,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "conda",
+                "query": "lens",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -166,7 +166,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "24b2e5f85e386d1f",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "mysql/MySQL是怎样运行的.md",
     "算法/左神从0学算法/算法笔记·.md",
