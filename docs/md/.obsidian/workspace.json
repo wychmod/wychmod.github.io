@@ -8,30 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "7d89e70d04c5ad8b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/anaconda中使用虚拟环境.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "17ce7f745126111f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "k8s/2-k8s集群环境的搭建和资源管理.md",
-                "mode": "preview",
-                "source": true
-              }
-            }
-          },
-          {
             "id": "24b2e5f85e386d1f",
             "type": "leaf",
             "state": {
@@ -72,7 +48,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "git规范",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
