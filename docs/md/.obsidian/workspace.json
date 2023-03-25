@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "k8s/4-Pod详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "k8s/4-Pod详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +145,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "k8s/4-Pod详解.md"
               }
             }
           },
@@ -156,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "k8s/4-Pod详解.md"
               }
             }
           }
@@ -178,8 +177,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "63ea56faaee21e4b",
+  "active": "770e76b8c486d0bb",
   "lastOpenFiles": [
+    "docker/docker.md",
     "k8s/4-Pod详解.md",
     "k8s/3-实战.md",
     "k8s/1-k8s的介绍.md",
@@ -195,7 +195,6 @@
     "java/springboot/SpringBoot实战和原理.md",
     "消息队列/docker 启动容器常见命令.md",
     "docker/Centos7安装Docker.md",
-    "docker/docker.md",
     "人工智能/深度学习报错解决方案.md",
     "面试/校招投递.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
