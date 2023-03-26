@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/4-Pod详解.md",
+                "file": "k8s/5-Pod控制器详解.md",
                 "mode": "preview",
                 "source": false
               }
@@ -97,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/4-Pod详解.md",
+                "file": "k8s/5-Pod控制器详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/4-Pod详解.md",
+                "file": "k8s/5-Pod控制器详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -145,7 +145,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/4-Pod详解.md"
+                "file": "k8s/5-Pod控制器详解.md"
               }
             }
           },
@@ -155,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/4-Pod详解.md"
+                "file": "k8s/5-Pod控制器详解.md"
               }
             }
           }
@@ -179,8 +179,11 @@
   },
   "active": "770e76b8c486d0bb",
   "lastOpenFiles": [
-    "docker/docker.md",
+    "k8s/6-Service详解.md",
+    "k8s/7-数据存储、安全认证、DashBoard.md",
+    "k8s/5-Pod控制器详解.md",
     "k8s/4-Pod详解.md",
+    "docker/docker.md",
     "k8s/3-实战.md",
     "k8s/1-k8s的介绍.md",
     "Python/anaconda中使用虚拟环境.md",
@@ -189,9 +192,6 @@
     "mysql/MySQL是怎样使用的.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
-    "k8s/7-数据存储、安全认证、DashBoard.md",
-    "k8s/6-Service详解.md",
-    "k8s/5-Pod控制器详解.md",
     "java/springboot/SpringBoot实战和原理.md",
     "消息队列/docker 启动容器常见命令.md",
     "docker/Centos7安装Docker.md",
