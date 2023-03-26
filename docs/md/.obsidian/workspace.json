@@ -60,7 +60,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "path:k8s event",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -77,7 +77,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -177,7 +178,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "770e76b8c486d0bb",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "k8s/6-Service详解.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
