@@ -32,6 +32,18 @@
             }
           },
           {
+            "id": "400414bcb4f6ca52",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/pytest.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "ca7c3818495e729a",
             "type": "leaf",
             "state": {
@@ -56,7 +68,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -122,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Makefile详解.md",
+                "file": "Python/pytest.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Makefile详解.md",
+                "file": "Python/pytest.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Makefile详解.md"
+                "file": "Python/pytest.md"
               }
             }
           },
@@ -180,7 +192,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Makefile详解.md"
+                "file": "Python/pytest.md"
               }
             }
           }
@@ -202,12 +214,13 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b450b71a64728c8c",
+  "active": "400414bcb4f6ca52",
   "lastOpenFiles": [
+    "Python/Makefile详解.md",
+    "Python/pytest.md",
     "youdaonote-images/Pasted image 20230327172044.png",
     "youdaonote-images/Pasted image 20230327171918.png",
     "Python/python命名规范.md",
-    "Python/Makefile详解.md",
     "k8s/4-Pod详解.md",
     "k8s/5-Pod控制器详解.md",
     "算法/左神从0学算法/算法笔记·.md",
@@ -239,7 +252,6 @@
     "k8s/assets/image-20200520102949189.png",
     "k8s/assets/image-20200620175731338.png",
     "k8s/assets/image-20200509152947714.png",
-    "k8s/assets/image-20200509153731363.png",
     "k8s/assets",
     "k8s",
     "面试/Java面试汇总.md",
