@@ -38,7 +38,7 @@
               "type": "markdown",
               "state": {
                 "file": "k8s/4-Pod详解.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": true
               }
             }
@@ -97,7 +97,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "path:k8s event",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -114,7 +114,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",

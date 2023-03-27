@@ -17,15 +17,15 @@
 
   - 可以在根容器上设置Ip地址，其它容器都此Ip（Pod IP），以实现Pod内部的网路通信
 
-    ~~~md
+    ```md
     这里是Pod内部的通讯，Pod的之间的通讯采用虚拟二层网络技术来实现，我们当前环境用的是Flannel
-    ~~~
+    ```
 
 ### Pod定义
 
 下面是Pod的资源清单：
 
-~~~yaml
+```yaml
 apiVersion: v1     #必选，版本号，例如v1
 kind: Pod       　 #必选，资源类型，例如 Pod
 metadata:       　 #必选，元数据
@@ -104,11 +104,11 @@ spec:  #必选，Pod中容器的详细定义
       items:
       - key: string
         path: string
-~~~
+```
 
 
 
-~~~powershell
+```powershell
 #小提示：
 #	在这里，可通过一个命令来查看每种资源的可配置项
 #   kubectl explain 资源类型         查看某种资源可以配置的一级属性
@@ -144,7 +144,7 @@ FIELDS:
    resourceVersion      <string>
    selfLink     <string>
    uid  <string>
-~~~
+```
 
 在kubernetes中基本所有资源的一级属性都是一样的，主要包含5部分：
 
@@ -170,7 +170,7 @@ FIELDS:
 
 本小节主要来研究`pod.spec.containers`属性，这也是pod配置中最为关键的一项配置。
 
-~~~powershell
+```powershell
 [root@master ~]# kubectl explain pod.spec.containers
 KIND:     Pod
 VERSION:  v1
@@ -184,13 +184,13 @@ FIELDS:
    env      <[]Object> # 容器环境变量的配置
    ports    <[]Object>     # 容器需要暴露的端口号列表
    resources <Object>      # 资源限制和资源请求的设置
-~~~
+```
 
 ### 基本配置
 
 创建pod-base.yaml文件，内容如下：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -204,14 +204,14 @@ spec:
     image: nginx:1.17.1
   - name: busybox
     image: busybox:1.30
-~~~
+```
 
 上面定义了一个比较简单Pod的配置，里面有两个容器：
 
 - nginx：用1.17.1版本的nginx镜像创建，（nginx是一个轻量级web容器）
 - busybox：用1.30版本的busybox镜像创建，（busybox是一个小巧的linux命令集合）
 
-~~~powershell
+```powershell
 # 创建Pod
 [root@master pod]# kubectl apply -f pod-base.yaml
 pod/pod-base created
@@ -226,13 +226,13 @@ pod-base   1/2     Running   4          95s
 # 可以通过describe查看内部的详情
 # 此时已经运行起来了一个基本的Pod，虽然它暂时有问题
 [root@master pod]# kubectl describe pod pod-base -n dev
-~~~
+```
 
 ### 镜像拉取
 
 创建pod-imagepullpolicy.yaml文件，内容如下：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -245,7 +245,7 @@ spec:
     imagePullPolicy: Always # 用于设置镜像拉取策略
   - name: busybox
     image: busybox:1.30
-~~~
+```
 
 imagePullPolicy，用于设置镜像拉取策略，kubernetes支持配置三种拉取策略：
 
@@ -260,7 +260,7 @@ imagePullPolicy，用于设置镜像拉取策略，kubernetes支持配置三种�
 > ​	如果镜像tag为：latest（最终版本） ，默认策略是always
 >
 
-~~~powershell
+```powershell
 # 创建Pod
 [root@master pod]# kubectl create -f pod-imagepullpolicy.yaml
 pod/pod-imagepullpolicy created
@@ -280,7 +280,7 @@ Events:
   Normal   Pulled     7s (x3 over 25s)  kubelet, node1     Container image "busybox:1.30" already present on machine
   Normal   Created    7s (x3 over 25s)  kubelet, node1     Created container busybox
   Normal   Started    7s (x3 over 25s)  kubelet, node1     Started container busybox
-~~~
+```
 
 ### 启动命令
 
@@ -290,7 +290,7 @@ Events:
 
 创建pod-command.yaml文件，内容如下：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -303,7 +303,7 @@ spec:
   - name: busybox
     image: busybox:1.30
     command: ["/bin/sh","-c","touch /tmp/hello.txt;while true;do /bin/echo $(date +%T) >> /tmp/hello.txt; sleep 3; done;"]
-~~~
+```
 
 command，用于在pod中的容器初始化完毕之后运行一个命令。
 
@@ -315,7 +315,7 @@ command，用于在pod中的容器初始化完毕之后运行一个命令。
 >
 > ​    while true;do /bin/echo $(date +%T) >> /tmp/hello.txt; sleep 3; done;  每隔3秒向文件中写入当前时间
 
-~~~powershell
+```powershell
 # 创建Pod
 [root@master pod]# kubectl create  -f pod-command.yaml
 pod/pod-command created
@@ -335,7 +335,7 @@ pod-command   2/2     Runing   0          2s
 13:35:35
 13:35:38
 13:35:41
-~~~
+```
 
 ```md
 特别说明：
@@ -350,7 +350,7 @@ pod-command   2/2     Runing   0          2s
 
 创建pod-env.yaml文件，内容如下：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -366,11 +366,11 @@ spec:
       value: "admin"
     - name: "password"
       value: "123456"
-~~~
+```
 
 env，环境变量，用于在pod中的容器设置环境变量。
 
-~~~powershell
+```powershell
 # 创建Pod
 [root@master ~]# kubectl create -f pod-env.yaml
 pod/pod-env created
@@ -381,7 +381,7 @@ pod/pod-env created
 admin
 / # echo $password
 123456
-~~~
+```
 
 这种方式不是很推荐，推荐将这些配置单独存储在配置文件中，这种方式将在后面介绍。
 
@@ -391,7 +391,7 @@ admin
 
 首先看下ports支持的子选项：
 
-~~~powershell
+```powershell
 [root@master ~]# kubectl explain pod.spec.containers.ports
 KIND:     Pod
 VERSION:  v1
@@ -402,11 +402,11 @@ FIELDS:
    hostPort     <integer> # 容器要在主机上公开的端口，如果设置，主机上只能运行容器的一个副本(一般省略) 
    hostIP       <string>  # 要将外部端口绑定到的主机IP(一般省略)
    protocol     <string>  # 端口协议。必须是UDP、TCP或SCTP。默认为“TCP”。
-~~~
+```
 
 接下来，编写一个测试案例，创建pod-ports.yaml
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -420,9 +420,9 @@ spec:
     - name: nginx-port
       containerPort: 80
       protocol: TCP
-~~~
+```
 
-~~~powershell
+```powershell
 # 创建Pod
 [root@master ~]# kubectl create -f pod-ports.yaml
 pod/pod-ports created
@@ -441,7 +441,7 @@ spec:
       name: nginx-port
       protocol: TCP
 ......
-~~~
+```
 
 访问容器中的程序需要使用的是`podIp:containerPort`
 
@@ -457,7 +457,7 @@ spec:
 
 接下来，编写一个测试案例，创建pod-resources.yaml
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -474,7 +474,7 @@ spec:
       requests: # 请求资源（下限）
         cpu: "1"  # CPU限制，单位是core数
         memory: "10Mi"  # 内存限制
-~~~
+```
 
 在这对cpu和memory的单位做一个说明：
 
@@ -482,7 +482,7 @@ spec:
 
 - memory： 内存大小，可以使用Gi、Mi、G、M等形式
 
-~~~powershell
+```powershell
 # 运行Pod
 [root@master ~]# kubectl create  -f pod-resources.yaml
 pod/pod-resources created
@@ -512,7 +512,7 @@ pod-resources   0/2     Pending   0          20s
 [root@master ~]# kubectl describe pod pod-resources -n dev
 ......
 Warning  FailedScheduling  <unknown>  default-scheduler  0/2 nodes are available: 2 Insufficient memory.(内存不足)
-~~~
+```
 
 ## Pod生命周期
 
@@ -592,7 +592,7 @@ Warning  FailedScheduling  <unknown>  default-scheduler  0/2 nodes are available
 
 创建pod-initcontainer.yaml，内容如下：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -612,9 +612,9 @@ spec:
   - name: test-redis
     image: busybox:1.30
     command: ['sh', '-c', 'until ping 192.168.109.202 -c 1 ; do echo waiting for reids...; sleep 2; done;']
-~~~
+```
 
-~~~powershell
+```powershell
 # 创建pod
 [root@master ~]# kubectl create -f pod-initcontainer.yaml
 pod/pod-initcontainer created
@@ -643,7 +643,7 @@ pod-initcontainer                1/1     Running           0          90s
 # 接下来新开一个shell，为当前服务器新增两个ip，观察pod的变化
 [root@master ~]# ifconfig ens33:1 192.168.109.201 netmask 255.255.255.0 up
 [root@master ~]# ifconfig ens33:2 192.168.109.202 netmask 255.255.255.0 up
-~~~
+```
 
 ### 钩子函数
 
@@ -658,7 +658,7 @@ kubernetes在主容器的启动之后和停止之前提供了两个钩子函数�
 
 - Exec命令：在容器内执行一次命令
 
-  ~~~yaml
+  ```yaml
   ……
     lifecycle:
       postStart: 
@@ -667,22 +667,22 @@ kubernetes在主容器的启动之后和停止之前提供了两个钩子函数�
           - cat
           - /tmp/healthy
   ……
-  ~~~
+  ```
 
 - TCPSocket：在当前容器尝试访问指定的socket
 
-  ~~~yaml
+  ```yaml
   ……      
     lifecycle:
       postStart:
         tcpSocket:
           port: 8080
   ……
-  ~~~
+  ```
 
 - HTTPGet：在当前容器中向某url发起http请求
 
-  ~~~yaml
+  ```yaml
   ……
     lifecycle:
       postStart:
@@ -692,11 +692,11 @@ kubernetes在主容器的启动之后和停止之前提供了两个钩子函数�
           host: 192.168.109.100 #主机地址
           scheme: HTTP #支持的协议，http或者https
   ……
-  ~~~
+  ```
 
 接下来，以exec方式为例，演示下钩子函数的使用，创建pod-hook-exec.yaml文件，内容如下：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -716,9 +716,9 @@ spec:
       preStop:
         exec: # 在容器停止之前停止nginx服务
           command: ["/usr/sbin/nginx","-s","quit"]
-~~~
+```
 
-~~~powershell
+```powershell
 # 创建pod
 [root@master ~]# kubectl create -f pod-hook-exec.yaml
 pod/pod-hook-exec created
@@ -731,7 +731,7 @@ pod-hook-exec  1/1     Running    0          29s    10.244.2.48   node2
 # 访问pod
 [root@master ~]# curl 10.244.2.48
 postStart...
-~~~
+```
 
 ### 容器探测
 
@@ -747,7 +747,7 @@ postStart...
 
 - Exec命令：在容器内执行一次命令，如果命令执行的退出码为0，则认为程序正常，否则不正常
 
-  ~~~yaml
+  ```yaml
   ……
     livenessProbe:
       exec:
@@ -755,21 +755,21 @@ postStart...
         - cat
         - /tmp/healthy
   ……
-  ~~~
+  ```
 
 - TCPSocket：将会尝试访问一个用户容器的端口，如果能够建立这条连接，则认为程序正常，否则不正常
 
-  ~~~yaml
+  ```yaml
   ……      
     livenessProbe:
       tcpSocket:
         port: 8080
   ……
-  ~~~
+  ```
 
 - HTTPGet：调用容器内Web应用的URL，如果返回的状态码在200和399之间，则认为程序正常，否则不正常
 
-  ~~~yaml
+  ```yaml
   ……
     livenessProbe:
       httpGet:
@@ -778,7 +778,7 @@ postStart...
         host: 127.0.0.1 #主机地址
         scheme: HTTP #支持的协议，http或者https
   ……
-  ~~~
+  ```
 
 下面以liveness probes为例，做几个演示：
 
@@ -786,7 +786,7 @@ postStart...
 
 创建pod-liveness-exec.yaml
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -802,11 +802,11 @@ spec:
     livenessProbe:
       exec:
         command: ["/bin/cat","/tmp/hello.txt"] # 执行一个查看文件的命令
-~~~
+```
 
  创建pod，观察效果
 
-~~~powershell
+```powershell
 # 创建Pod
 [root@master ~]# kubectl create -f pod-liveness-exec.yaml
 pod/pod-liveness-exec created
@@ -827,13 +827,13 @@ NAME                READY   STATUS             RESTARTS   AGE
 pod-liveness-exec   0/1     CrashLoopBackOff   2          3m19s
 
 # 当然接下来，可以修改成一个存在的文件，比如/tmp/hello.txt，再试，结果就正常了......
-~~~
+```
 
 **方式二：TCPSocket**
 
 创建pod-liveness-tcpsocket.yaml
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -849,11 +849,11 @@ spec:
     livenessProbe:
       tcpSocket:
         port: 8080 # 尝试访问8080端口
-~~~
+```
 
  创建pod，观察效果
 
-~~~powershell
+```powershell
 # 创建Pod
 [root@master ~]# kubectl create -f pod-liveness-tcpsocket.yaml
 pod/pod-liveness-tcpsocket created
@@ -874,13 +874,13 @@ NAME                     READY   STATUS             RESTARTS   AGE
 pod-liveness-tcpsocket   0/1     CrashLoopBackOff   2          3m19s
 
 # 当然接下来，可以修改成一个可以访问的端口，比如80，再试，结果就正常了......
-~~~
+```
 
 **方式三：HTTPGet**
 
 创建pod-liveness-httpget.yaml
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -898,11 +898,11 @@ spec:
         scheme: HTTP #支持的协议，http或者https
         port: 80 #端口号
         path: /hello #URI地址
-~~~
+```
 
  创建pod，观察效果
 
-~~~powershell
+```powershell
 # 创建Pod
 [root@master ~]# kubectl create -f pod-liveness-httpget.yaml
 pod/pod-liveness-httpget created
@@ -923,11 +923,11 @@ NAME                   READY   STATUS    RESTARTS   AGE
 pod-liveness-httpget   1/1     Running   5          3m17s
 
 # 当然接下来，可以修改成一个可以访问的路径path，比如/，再试，结果就正常了......
-~~~
+```
 
 ​    至此，已经使用liveness Probe演示了三种探测方式，但是查看livenessProbe的子属性，会发现除了这三种方式，还有一些其他的配置，在这里一并解释下：
 
-~~~powershell
+```powershell
 [root@master ~]# kubectl explain pod.spec.containers.livenessProbe
 FIELDS:
    exec <Object>  
@@ -938,11 +938,11 @@ FIELDS:
    periodSeconds        <integer>  # 执行探测的频率。默认是10秒，最小1秒
    failureThreshold     <integer>  # 连续探测失败多少次才被认定为失败。默认是3。最小值是1
    successThreshold     <integer>  # 连续探测成功多少次才被认定为成功。默认是1
-~~~
+```
 
 下面稍微配置两个，演示下效果即可：
 
-~~~yaml
+```yaml
 [root@master ~]# more pod-liveness-httpget.yaml
 apiVersion: v1
 kind: Pod
@@ -963,7 +963,7 @@ spec:
         path: /
       initialDelaySeconds: 30 # 容器启动后30s开始探测
       timeoutSeconds: 5 # 探测超时时间为5s
-~~~
+```
 
 ### 重启策略
 
@@ -977,7 +977,7 @@ spec:
 
 创建pod-restartpolicy.yaml：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -996,11 +996,11 @@ spec:
         port: 80
         path: /hello
   restartPolicy: Never # 设置重启策略为Never
-~~~
+```
 
 运行Pod测试
 
-~~~powershell
+```powershell
 # 创建Pod
 [root@master ~]# kubectl create -f pod-restartpolicy.yaml
 pod/pod-restartpolicy created
@@ -1015,7 +1015,7 @@ pod/pod-restartpolicy created
 [root@master ~]# kubectl  get pods pod-restartpolicy -n dev
 NAME                   READY   STATUS    RESTARTS   AGE
 pod-restartpolicy      0/1     Running   0          5min42s
-~~~
+```
 
 ## Pod调度
 
@@ -1036,7 +1036,7 @@ pod-restartpolicy      0/1     Running   0          5min42s
 
 接下来，实验一下：创建一个pod-nodename.yaml文件
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1047,9 +1047,9 @@ spec:
   - name: nginx
     image: nginx:1.17.1
   nodeName: node1 # 指定调度到node1节点上
-~~~
+```
 
-~~~powershell
+```powershell
 #创建Pod
 [root@master ~]# kubectl create -f pod-nodename.yaml
 pod/pod-nodename created
@@ -1070,7 +1070,7 @@ pod/pod-nodename created
 [root@master ~]# kubectl get pods pod-nodename -n dev -o wide
 NAME           READY   STATUS    RESTARTS   AGE   IP       NODE    ......
 pod-nodename   0/1     Pending   0          6s    <none>   node3   ......           
-~~~
+```
 
 **NodeSelector**
 
@@ -1080,16 +1080,16 @@ pod-nodename   0/1     Pending   0          6s    <none>   node3   ......
 
 1 首先分别为node节点添加标签
 
-~~~powershell
+```powershell
 [root@master ~]# kubectl label nodes node1 nodeenv=pro
 node/node2 labeled
 [root@master ~]# kubectl label nodes node2 nodeenv=test
 node/node2 labeled
-~~~
+```
 
 2 创建一个pod-nodeselector.yaml文件，并使用它创建Pod
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1101,9 +1101,9 @@ spec:
     image: nginx:1.17.1
   nodeSelector: 
     nodeenv: pro # 指定调度到具有nodeenv=pro标签的节点上
-~~~
+```
 
-~~~powershell
+```powershell
 #创建Pod
 [root@master ~]# kubectl create -f pod-nodeselector.yaml
 pod/pod-nodeselector created
@@ -1133,7 +1133,7 @@ Events:
   ----     ------            ----       ----               -------
   Warning  FailedScheduling  <unknown>  default-scheduler  0/3 nodes are available: 3 node(s) didn't match node selector.
   Warning  FailedScheduling  <unknown>  default-scheduler  0/3 nodes are available: 3 node(s) didn't match node selector.
-~~~
+```
 
 ### 亲和性调度
 
@@ -1159,7 +1159,7 @@ Affinity主要分为三类：
 
 首先来看一下`NodeAffinity`的可配置项：
 
-~~~markdown
+```yaml
 pod.spec.affinity.nodeAffinity
   requiredDuringSchedulingIgnoredDuringExecution  Node节点必须满足指定的所有规则才可以，相当于硬限制
     nodeSelectorTerms  节点选择列表
@@ -1176,9 +1176,9 @@ pod.spec.affinity.nodeAffinity
         values 值
         operator 关系符 支持In, NotIn, Exists, DoesNotExist, Gt, Lt
 	weight 倾向权重，在范围1-100。
-~~~
+```
 
-~~~markdown
+```markdown
 关系符的使用说明:
 
 - matchExpressions:
@@ -1190,13 +1190,13 @@ pod.spec.affinity.nodeAffinity
   - key: nodeenv              # 匹配标签的key为nodeenv,且value大于"xxx"的节点
     operator: Gt
     values: "xxx"
-~~~
+```
 
 接下来首先演示一下`requiredDuringSchedulingIgnoredDuringExecution` ,
 
 创建pod-nodeaffinity-required.yaml
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1214,9 +1214,9 @@ spec:
           - key: nodeenv
             operator: In
             values: ["xxx","yyy"]
-~~~
+```
 
-~~~powershell
+```powershell
 # 创建pod
 [root@master ~]# kubectl create -f pod-nodeaffinity-required.yaml
 pod/pod-nodeaffinity-required created
@@ -1248,13 +1248,13 @@ pod/pod-nodeaffinity-required created
 [root@master ~]# kubectl get pods pod-nodeaffinity-required -n dev -o wide
 NAME                        READY   STATUS    RESTARTS   AGE   IP            NODE  ...... 
 pod-nodeaffinity-required   1/1     Running   0          11s   10.244.1.89   node1 ......
-~~~
+```
 
 接下来再演示一下`requiredDuringSchedulingIgnoredDuringExecution` ,
 
 创建pod-nodeaffinity-preferred.yaml
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1273,9 +1273,9 @@ spec:
           - key: nodeenv
             operator: In
             values: ["xxx","yyy"]
-~~~
+```
 
-~~~powershell
+```powershell
 # 创建pod
 [root@master ~]# kubectl create -f pod-nodeaffinity-preferred.yaml
 pod/pod-nodeaffinity-preferred created
@@ -1284,15 +1284,14 @@ pod/pod-nodeaffinity-preferred created
 [root@master ~]# kubectl get pod pod-nodeaffinity-preferred -n dev
 NAME                         READY   STATUS    RESTARTS   AGE
 pod-nodeaffinity-preferred   1/1     Running   0          40s
-~~~
+```
 
-~~~markdown
+
 NodeAffinity规则设置的注意事项：
-    1 如果同时定义了nodeSelector和nodeAffinity，那么必须两个条件都得到满足，Pod才能运行在指定的Node上
-    2 如果nodeAffinity指定了多个nodeSelectorTerms，那么只需要其中一个能够匹配成功即可
-    3 如果一个nodeSelectorTerms中有多个matchExpressions ，则一个节点必须满足所有的才能匹配成功
-    4 如果一个pod所在的Node在Pod运行期间其标签发生了改变，不再符合该Pod的节点亲和性需求，则系统将忽略此变化
-~~~
+    1. 如果同时定义了nodeSelector和nodeAffinity，那么必须两个条件都得到满足，Pod才能运行在指定的Node上
+    2. 如果nodeAffinity指定了多个nodeSelectorTerms，那么只需要其中一个能够匹配成功即可
+    3. 如果一个nodeSelectorTerms中有多个matchExpressions ，则一个节点必须满足所有的才能匹配成功
+    4. 如果一个pod所在的Node在Pod运行期间其标签发生了改变，不再符合该Pod的节点亲和性需求，则系统将忽略此变化
 
 **PodAffinity**
 
@@ -1300,7 +1299,7 @@ PodAffinity主要实现以运行的Pod为参照，实现让新创建的Pod跟参
 
 首先来看一下`PodAffinity`的可配置项：
 
-~~~markdown
+```markdown
 pod.spec.affinity.podAffinity
   requiredDuringSchedulingIgnoredDuringExecution  硬限制
     namespaces       指定参照pod的namespace
@@ -1322,19 +1321,19 @@ pod.spec.affinity.podAffinity
           operator
         matchLabels 
     weight 倾向权重，在范围1-100
-~~~
+```
 
-~~~markdown
+```markdown
 topologyKey用于指定调度时作用域,例如:
     如果指定为kubernetes.io/hostname，那就是以Node节点为区分范围
 	如果指定为beta.kubernetes.io/os,则以Node节点的操作系统类型来区分
-~~~
+```
 
 接下来，演示下`requiredDuringSchedulingIgnoredDuringExecution`,
 
 1）首先创建一个参照Pod，pod-podaffinity-target.yaml：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1347,9 +1346,9 @@ spec:
   - name: nginx
     image: nginx:1.17.1
   nodeName: node1 # 将目标pod名确指定到node1上
-~~~
+```
 
-~~~powershell
+```powershell
 # 启动目标pod
 [root@master ~]# kubectl create -f pod-podaffinity-target.yaml
 pod/pod-podaffinity-target created
@@ -1358,11 +1357,11 @@ pod/pod-podaffinity-target created
 [root@master ~]# kubectl get pods  pod-podaffinity-target -n dev
 NAME                     READY   STATUS    RESTARTS   AGE
 pod-podaffinity-target   1/1     Running   0          4s
-~~~
+```
 
 2）创建pod-podaffinity-required.yaml，内容如下：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1381,11 +1380,11 @@ spec:
             operator: In
             values: ["xxx","yyy"]
         topologyKey: kubernetes.io/hostname
-~~~
+```
 
 上面配置表达的意思是：新Pod必须要与拥有标签nodeenv=xxx或者nodeenv=yyy的pod在同一Node上，显然现在没有这样pod，接下来，运行测试一下。
 
-~~~powershell
+```powershell
 # 启动pod
 [root@master ~]# kubectl create -f pod-podaffinity-required.yaml
 pod/pod-podaffinity-required created
@@ -1417,7 +1416,7 @@ pod/pod-podaffinity-required created
 [root@master ~]# kubectl get pods pod-podaffinity-required -n dev
 NAME                       READY   STATUS    RESTARTS   AGE   LABELS
 pod-podaffinity-required   1/1     Running   0          6s    <none>
-~~~
+```
 
 关于`PodAffinity`的 `preferredDuringSchedulingIgnoredDuringExecution`，这里不再演示。
 
@@ -1429,16 +1428,16 @@ PodAntiAffinity主要实现以运行的Pod为参照，让新创建的Pod跟参�
 
 1）继续使用上个案例中目标pod
 
-~~~powershell
+```powershell
 [root@master ~]# kubectl get pods -n dev -o wide --show-labels
 NAME                     READY   STATUS    RESTARTS   AGE     IP            NODE    LABELS
 pod-podaffinity-required 1/1     Running   0          3m29s   10.244.1.38   node1   <none>     
 pod-podaffinity-target   1/1     Running   0          9m25s   10.244.1.37   node1   podenv=pro
-~~~
+```
 
 2）创建pod-podantiaffinity-required.yaml，内容如下：
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1457,11 +1456,11 @@ spec:
             operator: In
             values: ["pro"]
         topologyKey: kubernetes.io/hostname
-~~~
+```
 
 上面配置表达的意思是：新Pod必须要与拥有标签nodeenv=pro的pod不在同一Node上，运行测试一下。
 
-~~~powershell
+```powershell
 # 创建pod
 [root@master ~]# kubectl create -f pod-podantiaffinity-required.yaml
 pod/pod-podantiaffinity-required created
@@ -1471,7 +1470,7 @@ pod/pod-podantiaffinity-required created
 [root@master ~]# kubectl get pods pod-podantiaffinity-required -n dev -o wide
 NAME                           READY   STATUS    RESTARTS   AGE   IP            NODE   .. 
 pod-podantiaffinity-required   1/1     Running   0          30s   10.244.1.96   node2  ..
-~~~
+```
 
 ### 污点和容忍
 
@@ -1491,7 +1490,7 @@ pod-podantiaffinity-required   1/1     Running   0          30s   10.244.1.96   
 
 使用kubectl设置和去除污点的命令示例如下：
 
-~~~powershell
+```powershell
 # 设置污点
 kubectl taint nodes node1 key=value:effect
 
@@ -1500,7 +1499,7 @@ kubectl taint nodes node1 key:effect-
 
 # 去除所有污点
 kubectl taint nodes node1 key-
-~~~
+```
 
 接下来，演示下污点的效果：
 
@@ -1509,7 +1508,7 @@ kubectl taint nodes node1 key-
 3. 修改为node1节点设置一个污点: `tag=heima:NoSchedule`；然后创建pod2( pod1 正常  pod2 失败 )
 4. 修改为node1节点设置一个污点: `tag=heima:NoExecute`；然后创建pod3 ( 3个pod都失败 )
 
-~~~powershell
+```powershell
 # 为node1设置污点(PreferNoSchedule)
 [root@master ~]# kubectl taint nodes node1 tag=heima:PreferNoSchedule
 
@@ -1541,12 +1540,12 @@ NAME                      READY   STATUS    RESTARTS   AGE   IP       NODE     N
 taint1-7665f7fd85-htkmp   0/1     Pending   0          35s   <none>   <none>   <none>    
 taint2-544694789-bn7wb    0/1     Pending   0          35s   <none>   <none>   <none>     
 taint3-6d78dbd749-tktkq   0/1     Pending   0          6s    <none>   <none>   <none>     
-~~~
+```
 
-~~~markdown
+```markdown
 小提示：
     使用kubeadm搭建的集群，默认就会给master节点添加一个污点标记,所以pod就不会调度到master节点上.
-~~~
+```
 
 **容忍（Toleration）**
 
@@ -1564,7 +1563,7 @@ taint3-6d78dbd749-tktkq   0/1     Pending   0          6s    <none>   <none>   <
 
 创建pod-toleration.yaml,内容如下 
 
-~~~yaml
+```yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -1579,9 +1578,9 @@ spec:
     operator: "Equal" # 操作符
     value: "heima"    # 容忍的污点的value
     effect: "NoExecute"   # 添加容忍的规则，这里必须和标记的污点规则相同
-~~~
+```
 
-~~~powershell
+```powershell
 # 添加容忍之前的pod
 [root@master ~]# kubectl get pods -n dev -o wide
 NAME             READY   STATUS    RESTARTS   AGE   IP       NODE     NOMINATED 
@@ -1591,11 +1590,11 @@ pod-toleration   0/1     Pending   0          3s    <none>   <none>   <none>
 [root@master ~]# kubectl get pods -n dev -o wide
 NAME             READY   STATUS    RESTARTS   AGE   IP            NODE    NOMINATED
 pod-toleration   1/1     Running   0          3s    10.244.1.62   node1   <none>        
-~~~
+```
 
 下面看一下容忍的详细配置:
 
-~~~powershell
+```powershell
 [root@master ~]# kubectl explain pod.spec.tolerations
 ......
 FIELDS:
@@ -1604,5 +1603,5 @@ FIELDS:
    operator  # key-value的运算符，支持Equal和Exists（默认）
    effect    # 对应污点的effect，空意味着匹配所有影响
    tolerationSeconds   # 容忍时间, 当effect为NoExecute时生效，表示pod在Node上的停留时间
-~~~
+```
 
