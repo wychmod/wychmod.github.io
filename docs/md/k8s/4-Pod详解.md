@@ -1323,11 +1323,11 @@ pod.spec.affinity.podAffinity
     weight 倾向权重，在范围1-100
 ```
 
-```markdown
+
 topologyKey用于指定调度时作用域,例如:
-    如果指定为kubernetes.io/hostname，那就是以Node节点为区分范围
-	如果指定为beta.kubernetes.io/os,则以Node节点的操作系统类型来区分
-```
+- 如果指定为kubernetes.io/hostname，那就是以Node节点为区分范围
+- 如果指定为beta.kubernetes.io/os,则以Node节点的操作系统类型来区分
+
 
 接下来，演示下`requiredDuringSchedulingIgnoredDuringExecution`,
 
