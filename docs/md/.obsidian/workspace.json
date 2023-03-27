@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/5-Pod控制器详解.md",
+                "file": "k8s/4-Pod详解.md",
                 "mode": "preview",
                 "source": false
               }
@@ -43,8 +43,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -110,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "k8s/4-Pod详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "k8s/4-Pod详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md"
+                "file": "k8s/4-Pod详解.md"
               }
             }
           },
@@ -168,7 +167,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md"
+                "file": "k8s/4-Pod详解.md"
               }
             }
           }
@@ -190,9 +189,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "ca7c3818495e729a",
+  "active": "770e76b8c486d0bb",
   "lastOpenFiles": [
     "k8s/5-Pod控制器详解.md",
+    "算法/左神从0学算法/算法笔记·.md",
     "k8s/6-Service详解.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
     "k8s/4-Pod详解.md",
@@ -201,7 +201,6 @@
     "k8s/1-k8s的介绍.md",
     "Python/anaconda中使用虚拟环境.md",
     "mysql/MySQL是怎样运行的.md",
-    "算法/左神从0学算法/算法笔记·.md",
     "mysql/MySQL是怎样使用的.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
