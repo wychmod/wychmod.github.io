@@ -49,8 +49,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
-                "mode": "source",
+                "file": "Python/pytest.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -68,7 +68,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -114,8 +114,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -135,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/4-Pod详解.md",
+                "file": "Python/pytest.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -152,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/4-Pod详解.md",
+                "file": "Python/pytest.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -183,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/4-Pod详解.md"
+                "file": "Python/pytest.md"
               }
             }
           },
@@ -193,7 +192,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/4-Pod详解.md"
+                "file": "Python/pytest.md"
               }
             }
           }
@@ -215,19 +214,19 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "400414bcb4f6ca52",
+  "active": "ca7c3818495e729a",
   "lastOpenFiles": [
+    "算法/左神从0学算法/算法笔记·.md",
+    "docker/docker.md",
+    "k8s/4-Pod详解.md",
     "Python/pytest.md",
     "Python/Makefile详解.md",
     "youdaonote-images/Pasted image 20230327172044.png",
     "youdaonote-images/Pasted image 20230327171918.png",
     "Python/python命名规范.md",
-    "k8s/4-Pod详解.md",
     "k8s/5-Pod控制器详解.md",
-    "算法/左神从0学算法/算法笔记·.md",
     "k8s/6-Service详解.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
-    "docker/docker.md",
     "k8s/3-实战.md",
     "k8s/1-k8s的介绍.md",
     "Python/anaconda中使用虚拟环境.md",
