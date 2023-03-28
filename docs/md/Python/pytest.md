@@ -47,10 +47,16 @@ class TestDome:
 - 参数 : 显示测试的详细参数信息-v
 - 参数 : 显示测试执行的输出信息-s
 
-### 2、指定执行的测试目录
+### 2、指定执行的测试
 
 ```python
 pytest testcase/
+
+pytest testcase/test_demo1.py
+
+pytest testcase/test_demo1.py::TestClass
+
+pytest testcase/test_demo1.py::TestClass::test_method
 ```
 
 > 命令pytest 测试目录路径
