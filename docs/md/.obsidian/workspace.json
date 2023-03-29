@@ -97,7 +97,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "最小的数",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -114,7 +114,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -214,7 +215,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "ca7c3818495e729a",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "面试/Java面试汇总.md",
     "Python/pytest.md",
