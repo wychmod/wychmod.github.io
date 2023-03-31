@@ -44,18 +44,6 @@
             }
           },
           {
-            "id": "ca7c3818495e729a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "系统设计/设计模式.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "63ea56faaee21e4b",
             "type": "leaf",
             "state": {
@@ -68,7 +56,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -135,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "系统设计/设计模式.md",
+                "file": "k8s/4-Pod详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -152,7 +140,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "系统设计/设计模式.md",
+                "file": "k8s/4-Pod详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -183,7 +171,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "系统设计/设计模式.md"
+                "file": "k8s/4-Pod详解.md"
               }
             }
           },
@@ -193,7 +181,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "系统设计/设计模式.md"
+                "file": "k8s/4-Pod详解.md"
               }
             }
           }
@@ -215,8 +203,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "ca7c3818495e729a",
+  "active": "400414bcb4f6ca52",
   "lastOpenFiles": [
+    "系统设计/设计模式.md",
     "Python/pytest.md",
     "面试/Java面试汇总.md",
     "算法/左神从0学算法/算法笔记·.md",
@@ -256,7 +245,6 @@
     "k8s/assets/image-20200509152947714.png",
     "k8s/assets",
     "k8s",
-    "多线程与高并发/多线程与并发编程.md",
     "面试/春招 实习笔试.pdf"
   ]
 }
