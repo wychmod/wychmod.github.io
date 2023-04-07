@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/7-数据存储、安全认证、DashBoard.md",
+                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
                 "mode": "preview",
                 "source": false
               }
@@ -94,7 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 283.5
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/7-数据存储、安全认证、DashBoard.md",
+                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/7-数据存储、安全认证、DashBoard.md",
+                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/7-数据存储、安全认证、DashBoard.md"
+                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md"
               }
             }
           },
@@ -168,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/7-数据存储、安全认证、DashBoard.md"
+                "file": "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md"
               }
             }
           }
@@ -177,7 +177,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 402.5
+    "width": 402.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -192,6 +193,7 @@
   },
   "active": "63ea56faaee21e4b",
   "lastOpenFiles": [
+    "k8s/7-数据存储、安全认证、DashBoard.md",
     "k8s/6-Service详解.md",
     "docker/docker.md",
     "Python/Makefile详解.md",
@@ -207,7 +209,6 @@
     "youdaonote-images/Pasted image 20230327172044.png",
     "youdaonote-images/Pasted image 20230327171918.png",
     "k8s/5-Pod控制器详解.md",
-    "k8s/7-数据存储、安全认证、DashBoard.md",
     "k8s/3-实战.md",
     "k8s/1-k8s的介绍.md",
     "Python/anaconda中使用虚拟环境.md",
