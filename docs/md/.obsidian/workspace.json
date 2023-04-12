@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "mode": "source",
                 "source": false
               }
@@ -73,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "api ",
+                "query": "api ser",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -111,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "k8s/1-k8s的介绍.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "k8s/1-k8s的介绍.md"
               }
             }
           },
@@ -169,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "k8s/1-k8s的介绍.md"
               }
             }
           }
@@ -191,8 +191,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3cc169e861738dfa",
+  "active": "63ea56faaee21e4b",
   "lastOpenFiles": [
+    "面试/Java面试汇总.md",
     "docker/docker.md",
     "Python/anaconda中使用虚拟环境.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
@@ -205,7 +206,6 @@
     "k8s/4-Pod详解.md",
     "系统设计/设计模式.md",
     "Python/pytest.md",
-    "面试/Java面试汇总.md",
     "算法/左神从0学算法/算法笔记·.md",
     "youdaonote-images/Pasted image 20230327172044.png",
     "youdaonote-images/Pasted image 20230327171918.png",
