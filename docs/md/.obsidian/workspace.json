@@ -181,6 +181,7 @@
   },
   "active": "29dc8380892b302a",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230413232120.png",
     "cicd/Github action.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "Python/Makefile详解.md",
@@ -209,7 +210,6 @@
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "java/springboot/SpringBoot实战和原理.md",
     "消息队列/docker 启动容器常见命令.md",
-    "docker/Centos7安装Docker.md",
     "md/Python",
     "md",
     "k8s/assets/image-20200413214011389.png",
