@@ -30,9 +30,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "6dcd513bbd361b66",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "k8s/6-Service详解.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -61,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "ingress",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -78,7 +90,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -98,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
+                "file": "k8s/6-Service详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
+                "file": "k8s/6-Service详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md"
+                "file": "k8s/6-Service详解.md"
               }
             }
           },
@@ -156,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md"
+                "file": "k8s/6-Service详解.md"
               }
             }
           }
@@ -179,12 +192,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "29dc8380892b302a",
+  "active": "6dcd513bbd361b66",
   "lastOpenFiles": [
+    "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "youdaonote-images/Pasted image 20230413233936.png",
     "youdaonote-images/Pasted image 20230413232120.png",
     "cicd/Github action.md",
-    "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "Python/Makefile详解.md",
     "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "k8s/1-k8s的介绍.md",
@@ -219,7 +232,6 @@
     "k8s/assets/image-20200406184656917.png",
     "k8s/assets/image-20200413215133559.png",
     "k8s/assets/image-20200520102949189.png",
-    "k8s/assets/image-20200620175731338.png",
     "k8s/assets",
     "k8s",
     "面试/春招 实习笔试.pdf"
