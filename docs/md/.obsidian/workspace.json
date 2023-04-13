@@ -38,13 +38,25 @@
               "type": "markdown",
               "state": {
                 "file": "k8s/1-k8s的介绍.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "328b5cb3c93ab634",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "cicd/Github action.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -73,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "api ser",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -90,8 +102,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -111,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/1-k8s的介绍.md",
+                "file": "cicd/Github action.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/1-k8s的介绍.md",
+                "file": "cicd/Github action.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/1-k8s的介绍.md"
+                "file": "cicd/Github action.md"
               }
             }
           },
@@ -169,7 +180,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/1-k8s的介绍.md"
+                "file": "cicd/Github action.md"
               }
             }
           }
@@ -191,8 +202,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "63ea56faaee21e4b",
+  "active": "328b5cb3c93ab634",
   "lastOpenFiles": [
+    "k8s/1-k8s的介绍.md",
+    "cicd/Github action.md",
+    "cicd",
     "面试/Java面试汇总.md",
     "docker/docker.md",
     "Python/anaconda中使用虚拟环境.md",
@@ -211,7 +225,6 @@
     "youdaonote-images/Pasted image 20230327171918.png",
     "k8s/5-Pod控制器详解.md",
     "k8s/3-实战.md",
-    "k8s/1-k8s的介绍.md",
     "mysql/MySQL是怎样运行的.md",
     "mysql/MySQL是怎样使用的.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
@@ -220,7 +233,6 @@
     "消息队列/docker 启动容器常见命令.md",
     "docker/Centos7安装Docker.md",
     "人工智能/深度学习报错解决方案.md",
-    "面试/校招投递.md",
     "md/Python",
     "md",
     "k8s/assets/image-20200413214011389.png",
