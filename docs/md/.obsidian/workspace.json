@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "29dc8380892b302a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/Github action.md",
+                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/Github action.md",
+                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -133,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/Github action.md"
+                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md"
               }
             }
           },
@@ -143,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/Github action.md"
+                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md"
               }
             }
           }
@@ -166,13 +179,14 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b450b71a64728c8c",
+  "active": "29dc8380892b302a",
   "lastOpenFiles": [
+    "cicd/Github action.md",
+    "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "Python/Makefile详解.md",
     "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "k8s/1-k8s的介绍.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
-    "cicd/Github action.md",
     "cicd",
     "面试/Java面试汇总.md",
     "docker/docker.md",
@@ -196,7 +210,6 @@
     "java/springboot/SpringBoot实战和原理.md",
     "消息队列/docker 启动容器常见命令.md",
     "docker/Centos7安装Docker.md",
-    "人工智能/深度学习报错解决方案.md",
     "md/Python",
     "md",
     "k8s/assets/image-20200413214011389.png",
