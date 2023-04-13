@@ -44,7 +44,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -111,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/6-Service详解.md",
+                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/6-Service详解.md",
+                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,7 +159,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/6-Service详解.md"
+                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md"
               }
             }
           },
@@ -169,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/6-Service详解.md"
+                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md"
               }
             }
           }
@@ -192,8 +192,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "6dcd513bbd361b66",
+  "active": "29dc8380892b302a",
   "lastOpenFiles": [
+    "k8s/6-Service详解.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "youdaonote-images/Pasted image 20230413233936.png",
     "youdaonote-images/Pasted image 20230413232120.png",
@@ -208,7 +209,6 @@
     "Python/anaconda中使用虚拟环境.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
-    "k8s/6-Service详解.md",
     "Python/python命名规范.md",
     "Python/fastapi规范.md",
     "k8s/4-Pod详解.md",
