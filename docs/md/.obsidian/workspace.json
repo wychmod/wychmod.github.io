@@ -32,6 +32,18 @@
             }
           },
           {
+            "id": "25aae2a41965e1b6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "cicd/2.安装docker和jekins.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "6dcd513bbd361b66",
             "type": "leaf",
             "state": {
@@ -44,7 +56,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -73,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "ingress",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -90,8 +102,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -111,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
+                "file": "cicd/2.安装docker和jekins.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -128,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
+                "file": "cicd/2.安装docker和jekins.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md"
+                "file": "cicd/2.安装docker和jekins.md"
               }
             }
           },
@@ -169,7 +180,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/1. 什么是CI和CD，为什么要学CI和CD.md"
+                "file": "cicd/2.安装docker和jekins.md"
               }
             }
           }
@@ -192,10 +203,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "29dc8380892b302a",
+  "active": "25aae2a41965e1b6",
   "lastOpenFiles": [
-    "k8s/6-Service详解.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
+    "cicd/2.安装docker和jekins.md",
+    "k8s/6-Service详解.md",
     "youdaonote-images/Pasted image 20230413233936.png",
     "youdaonote-images/Pasted image 20230413232120.png",
     "cicd/Github action.md",
