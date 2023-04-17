@@ -25,13 +25,14 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/6-Service详解.md",
-                "mode": "source",
+                "file": "cicd/2.安装docker和jekins.md",
+                "mode": "preview",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -77,8 +78,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/7-数据存储、安全认证、DashBoard.md",
+                "file": "cicd/2.安装docker和jekins.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/7-数据存储、安全认证、DashBoard.md",
+                "file": "cicd/2.安装docker和jekins.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -146,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/7-数据存储、安全认证、DashBoard.md"
+                "file": "cicd/2.安装docker和jekins.md"
               }
             }
           },
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/7-数据存储、安全认证、DashBoard.md"
+                "file": "cicd/2.安装docker和jekins.md"
               }
             }
           }
@@ -178,9 +178,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b450b71a64728c8c",
+  "active": "6dcd513bbd361b66",
   "lastOpenFiles": [
     "k8s/6-Service详解.md",
+    "k8s/7-数据存储、安全认证、DashBoard.md",
     "cicd/Github action.md",
     "cicd/2.安装docker和jekins.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
@@ -194,7 +195,6 @@
     "面试/Java面试汇总.md",
     "docker/docker.md",
     "Python/anaconda中使用虚拟环境.md",
-    "k8s/7-数据存储、安全认证、DashBoard.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
     "Python/python命名规范.md",
     "Python/fastapi规范.md",
