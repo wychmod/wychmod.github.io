@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "cicd/2.安装docker和jekins.md",
+                "file": "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/2.安装docker和jekins.md",
+                "file": "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/2.安装docker和jekins.md",
+                "file": "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +158,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/2.安装docker和jekins.md"
+                "file": "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md"
               }
             }
           },
@@ -168,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/2.安装docker和jekins.md"
+                "file": "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md"
               }
             }
           }
@@ -193,10 +193,13 @@
   },
   "active": "cf3eb8ed543dcf70",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230417223907.png",
+    "youdaonote-images/Pasted image 20230417223858.png",
+    "youdaonote-images/Pasted image 20230417223849.png",
+    "cicd/2.安装docker和jekins.md",
     "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
     "youdaonote-images/Pasted image 20230417223404.png",
     "youdaonote-images/Pasted image 20230417223350.png",
-    "cicd/2.安装docker和jekins.md",
     "k8s/6-Service详解.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
     "cicd/Github action.md",
@@ -229,8 +232,6 @@
     "md",
     "k8s/assets/image-20200413214011389.png",
     "k8s/assets/image-20200407121501907.png",
-    "k8s/assets/image-20200618213054113.png",
-    "k8s/assets/image-20200406184656917.png",
     "k8s/assets",
     "k8s",
     "面试/春招 实习笔试.pdf"
