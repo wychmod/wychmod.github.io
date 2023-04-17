@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "cicd/Github action.md",
-                "mode": "source",
+                "file": "k8s/6-Service详解.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -97,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/Github action.md",
+                "file": "k8s/6-Service详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/Github action.md",
+                "file": "k8s/6-Service详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -145,7 +145,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/Github action.md"
+                "file": "k8s/6-Service详解.md"
               }
             }
           },
@@ -155,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/Github action.md"
+                "file": "k8s/6-Service详解.md"
               }
             }
           }
@@ -179,8 +179,8 @@
   },
   "active": "b450b71a64728c8c",
   "lastOpenFiles": [
-    "cicd/2.安装docker和jekins.md",
     "cicd/Github action.md",
+    "cicd/2.安装docker和jekins.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "k8s/6-Service详解.md",
     "youdaonote-images/Pasted image 20230413233936.png",
