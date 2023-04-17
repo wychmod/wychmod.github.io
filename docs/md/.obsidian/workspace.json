@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/6-Service详解.md",
+                "file": "k8s/7-数据存储、安全认证、DashBoard.md",
                 "mode": "preview",
                 "source": false
               }
@@ -60,7 +60,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "ServiceAccount",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -77,7 +77,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -97,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/6-Service详解.md",
+                "file": "k8s/7-数据存储、安全认证、DashBoard.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/6-Service详解.md",
+                "file": "k8s/7-数据存储、安全认证、DashBoard.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -145,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/6-Service详解.md"
+                "file": "k8s/7-数据存储、安全认证、DashBoard.md"
               }
             }
           },
@@ -155,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/6-Service详解.md"
+                "file": "k8s/7-数据存储、安全认证、DashBoard.md"
               }
             }
           }
@@ -179,10 +180,10 @@
   },
   "active": "b450b71a64728c8c",
   "lastOpenFiles": [
+    "k8s/6-Service详解.md",
     "cicd/Github action.md",
     "cicd/2.安装docker和jekins.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
-    "k8s/6-Service详解.md",
     "youdaonote-images/Pasted image 20230413233936.png",
     "youdaonote-images/Pasted image 20230413232120.png",
     "Python/Makefile详解.md",
