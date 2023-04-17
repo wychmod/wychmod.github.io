@@ -42,9 +42,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "f08c51679e45668f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "cicd/4. 将镜像上传至私有镜像库.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -110,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
+                "file": "cicd/4. 将镜像上传至私有镜像库.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
+                "file": "cicd/4. 将镜像上传至私有镜像库.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -158,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md"
+                "file": "cicd/4. 将镜像上传至私有镜像库.md"
               }
             }
           },
@@ -168,7 +180,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md"
+                "file": "cicd/4. 将镜像上传至私有镜像库.md"
               }
             }
           }
@@ -191,8 +203,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "cf3eb8ed543dcf70",
+  "active": "f08c51679e45668f",
   "lastOpenFiles": [
+    "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
+    "cicd/4. 将镜像上传至私有镜像库.md",
     "youdaonote-images/Pasted image 20230417233548.png",
     "youdaonote-images/Pasted image 20230417232736.png",
     "youdaonote-images/Pasted image 20230417232629.png",
@@ -201,7 +215,6 @@
     "youdaonote-images/Pasted image 20230417223858.png",
     "youdaonote-images/Pasted image 20230417223849.png",
     "cicd/2.安装docker和jekins.md",
-    "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
     "youdaonote-images/Pasted image 20230417223404.png",
     "youdaonote-images/Pasted image 20230417223350.png",
     "k8s/6-Service详解.md",
@@ -209,7 +222,6 @@
     "cicd/Github action.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "youdaonote-images/Pasted image 20230413233936.png",
-    "youdaonote-images/Pasted image 20230413232120.png",
     "Python/Makefile详解.md",
     "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "k8s/1-k8s的介绍.md",
