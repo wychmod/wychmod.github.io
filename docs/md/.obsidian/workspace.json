@@ -61,7 +61,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md",
+                "file": "k8s/2-k8s集群环境的搭建和资源管理.md",
                 "mode": "source",
                 "source": false
               }
@@ -118,8 +118,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -135,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md",
+                "file": "k8s/2-k8s集群环境的搭建和资源管理.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -152,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md",
+                "file": "k8s/2-k8s集群环境的搭建和资源管理.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -183,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md"
+                "file": "k8s/2-k8s集群环境的搭建和资源管理.md"
               }
             }
           },
@@ -193,7 +192,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md"
+                "file": "k8s/2-k8s集群环境的搭建和资源管理.md"
               }
             }
           }
@@ -218,8 +217,8 @@
   },
   "active": "65b6e343b6f1f6fc",
   "lastOpenFiles": [
-    "cicd/4. 将镜像上传至私有镜像库.md",
     "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md",
+    "cicd/4. 将镜像上传至私有镜像库.md",
     "youdaonote-images/Pasted image 20230418000919.png",
     "youdaonote-images/Pasted image 20230418000810.png",
     "youdaonote-images/Pasted image 20230418000730.png",
