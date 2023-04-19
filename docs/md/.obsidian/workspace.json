@@ -80,7 +80,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -146,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/5-Pod控制器详解.md",
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/5-Pod控制器详解.md",
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -194,7 +194,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/5-Pod控制器详解.md"
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md"
               }
             }
           },
@@ -204,7 +204,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/5-Pod控制器详解.md"
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md"
               }
             }
           }
@@ -226,12 +226,13 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f08c51679e45668f",
+  "active": "d99e3b85d3848126",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230419234634.png",
+    "k8s/5-Pod控制器详解.md",
     "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
     "youdaonote-images/Pasted image 20230419233851.png",
     "cicd/6. 使用 Kubernetes 部署访问你的第一个应用.md",
-    "k8s/5-Pod控制器详解.md",
     "k8s/6-Service详解.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
     "youdaonote-images/Pasted image 20230419233032.png",
