@@ -56,19 +56,31 @@
             }
           },
           {
+            "id": "d99e3b85d3848126",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "f08c51679e45668f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "k8s/6-Service详解.md",
+                "file": "k8s/5-Pod控制器详解.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -97,7 +109,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "Ingress",
+                "query": "金丝雀发布",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -134,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/6-Service详解.md",
+                "file": "k8s/5-Pod控制器详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "k8s/6-Service详解.md",
+                "file": "k8s/5-Pod控制器详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -182,7 +194,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/6-Service详解.md"
+                "file": "k8s/5-Pod控制器详解.md"
               }
             }
           },
@@ -192,7 +204,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "k8s/6-Service详解.md"
+                "file": "k8s/5-Pod控制器详解.md"
               }
             }
           }
@@ -216,7 +228,12 @@
   },
   "active": "f08c51679e45668f",
   "lastOpenFiles": [
+    "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
+    "youdaonote-images/Pasted image 20230419233851.png",
     "cicd/6. 使用 Kubernetes 部署访问你的第一个应用.md",
+    "k8s/5-Pod控制器详解.md",
+    "k8s/6-Service详解.md",
+    "k8s/7-数据存储、安全认证、DashBoard.md",
     "youdaonote-images/Pasted image 20230419233032.png",
     "youdaonote-images/Pasted image 20230419233022.png",
     "youdaonote-images/Pasted image 20230419232740.png",
@@ -224,16 +241,13 @@
     "youdaonote-images/Pasted image 20230419232044.png",
     "youdaonote-images/Pasted image 20230419232025.png",
     "youdaonote-images/Pasted image 20230419231916.png",
-    "k8s/6-Service详解.md",
     "youdaonote-images/Pasted image 20230419231657.png",
     "youdaonote-images/Pasted image 20230419231607.png",
-    "youdaonote-images/Pasted image 20230419231253.png",
     "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
     "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md",
     "cicd/4. 将镜像上传至私有镜像库.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
     "cicd/2.安装docker和jekins.md",
-    "k8s/7-数据存储、安全认证、DashBoard.md",
     "cicd/Github action.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "Python/Makefile详解.md",
@@ -250,8 +264,6 @@
     "系统设计/设计模式.md",
     "Python/pytest.md",
     "算法/左神从0学算法/算法笔记·.md",
-    "k8s/5-Pod控制器详解.md",
-    "k8s/3-实战.md",
     "md/Python",
     "md",
     "k8s/assets",
