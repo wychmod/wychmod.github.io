@@ -85,7 +85,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "ServiceAccount",
+                "query": "Deployment",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -102,7 +102,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -203,7 +204,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f08c51679e45668f",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "cicd/4. 将镜像上传至私有镜像库.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
