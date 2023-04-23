@@ -61,8 +61,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
-                "mode": "source",
+                "file": "docker/docker.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -146,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
+                "file": "docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
+                "file": "docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -194,7 +194,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md"
+                "file": "docker/docker.md"
               }
             }
           },
@@ -204,7 +204,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md"
+                "file": "docker/docker.md"
               }
             }
           }
@@ -228,6 +228,7 @@
   },
   "active": "d99e3b85d3848126",
   "lastOpenFiles": [
+    "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
     "youdaonote-images/Pasted image 20230420100141.png",
     "youdaonote-images/Pasted image 20230420100135.png",
     "youdaonote-images/Pasted image 20230420100113.png",
@@ -237,13 +238,11 @@
     "youdaonote-images/Pasted image 20230419234753.png",
     "youdaonote-images/Pasted image 20230419234634.png",
     "k8s/5-Pod控制器详解.md",
-    "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
     "youdaonote-images/Pasted image 20230419233851.png",
     "cicd/6. 使用 Kubernetes 部署访问你的第一个应用.md",
     "k8s/6-Service详解.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
     "youdaonote-images/Pasted image 20230419233032.png",
-    "youdaonote-images/Pasted image 20230419233022.png",
     "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
     "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md",
     "cicd/4. 将镜像上传至私有镜像库.md",
