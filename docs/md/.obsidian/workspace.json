@@ -252,6 +252,7 @@
   },
   "active": "dcec38bbe8405b6d",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230424001152.png",
     "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
     "cicd/9. Kubernetes Secret：储存你的机密信息.md",
     "youdaonote-images/Pasted image 20230424000509.png",
@@ -288,7 +289,6 @@
     "Python/fastapi规范.md",
     "k8s/4-Pod详解.md",
     "系统设计/设计模式.md",
-    "Python/pytest.md",
     "md/Python",
     "md",
     "k8s/assets",
