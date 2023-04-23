@@ -61,8 +61,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docker/docker.md",
-                "mode": "preview",
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -146,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "docker/docker.md",
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -163,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "docker/docker.md",
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -194,7 +194,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md"
               }
             }
           },
@@ -204,7 +204,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "docker/docker.md"
+                "file": "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md"
               }
             }
           }
@@ -228,6 +228,7 @@
   },
   "active": "d99e3b85d3848126",
   "lastOpenFiles": [
+    "docker/docker.md",
     "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
     "youdaonote-images/Pasted image 20230420100141.png",
     "youdaonote-images/Pasted image 20230420100135.png",
@@ -255,7 +256,6 @@
     "k8s/1-k8s的介绍.md",
     "cicd",
     "面试/Java面试汇总.md",
-    "docker/docker.md",
     "Python/anaconda中使用虚拟环境.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
     "Python/python命名规范.md",
