@@ -240,6 +240,7 @@
   },
   "active": "6f8a5933bdcae0ff",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230423224838.png",
     "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
     "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
     "youdaonote-images/Pasted image 20230423223304.png",
@@ -276,7 +277,6 @@
     "k8s/4-Pod详解.md",
     "系统设计/设计模式.md",
     "Python/pytest.md",
-    "算法/左神从0学算法/算法笔记·.md",
     "md/Python",
     "md",
     "k8s/assets",
