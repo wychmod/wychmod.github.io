@@ -80,6 +80,18 @@
             }
           },
           {
+            "id": "dcec38bbe8405b6d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "cicd/9. Kubernetes Secret：储存你的机密信息.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "f08c51679e45668f",
             "type": "leaf",
             "state": {
@@ -92,7 +104,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -158,7 +170,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
+                "file": "cicd/9. Kubernetes Secret：储存你的机密信息.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -175,7 +187,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
+                "file": "cicd/9. Kubernetes Secret：储存你的机密信息.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -206,7 +218,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md"
+                "file": "cicd/9. Kubernetes Secret：储存你的机密信息.md"
               }
             }
           },
@@ -216,7 +228,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md"
+                "file": "cicd/9. Kubernetes Secret：储存你的机密信息.md"
               }
             }
           }
@@ -238,11 +250,15 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "6f8a5933bdcae0ff",
+  "active": "dcec38bbe8405b6d",
   "lastOpenFiles": [
+    "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
+    "cicd/9. Kubernetes Secret：储存你的机密信息.md",
+    "youdaonote-images/Pasted image 20230424000509.png",
+    "youdaonote-images/Pasted image 20230424000454.png",
+    "youdaonote-images/Pasted image 20230424000446.png",
     "youdaonote-images/Pasted image 20230423224838.png",
     "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
-    "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
     "youdaonote-images/Pasted image 20230423223304.png",
     "youdaonote-images/Pasted image 20230423223011.png",
     "youdaonote-images/Pasted image 20230423222752.png",
@@ -250,10 +266,6 @@
     "docker/docker.md",
     "youdaonote-images/Pasted image 20230420100141.png",
     "youdaonote-images/Pasted image 20230420100135.png",
-    "youdaonote-images/Pasted image 20230420100113.png",
-    "youdaonote-images/Pasted image 20230420100109.png",
-    "youdaonote-images/Pasted image 20230420100039.png",
-    "youdaonote-images/Pasted image 20230419235843.png",
     "k8s/5-Pod控制器详解.md",
     "cicd/6. 使用 Kubernetes 部署访问你的第一个应用.md",
     "k8s/6-Service详解.md",
