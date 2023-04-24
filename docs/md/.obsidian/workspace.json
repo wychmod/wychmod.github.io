@@ -252,6 +252,7 @@
   },
   "active": "dcec38bbe8405b6d",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230424230349.png",
     "youdaonote-images/Pasted image 20230424001152.png",
     "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
     "cicd/9. Kubernetes Secret：储存你的机密信息.md",
@@ -266,7 +267,6 @@
     "youdaonote-images/Pasted image 20230423222745.png",
     "docker/docker.md",
     "youdaonote-images/Pasted image 20230420100141.png",
-    "youdaonote-images/Pasted image 20230420100135.png",
     "k8s/5-Pod控制器详解.md",
     "cicd/6. 使用 Kubernetes 部署访问你的第一个应用.md",
     "k8s/6-Service详解.md",
