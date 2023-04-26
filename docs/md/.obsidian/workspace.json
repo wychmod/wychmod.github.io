@@ -92,6 +92,18 @@
             }
           },
           {
+            "id": "8560244b384e7e1a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "f08c51679e45668f",
             "type": "leaf",
             "state": {
@@ -104,7 +116,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 7
       }
     ],
     "direction": "vertical"
@@ -170,7 +182,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/9. Kubernetes Secret：储存你的机密信息.md",
+                "file": "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -187,7 +199,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/9. Kubernetes Secret：储存你的机密信息.md",
+                "file": "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -218,7 +230,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/9. Kubernetes Secret：储存你的机密信息.md"
+                "file": "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md"
               }
             }
           },
@@ -228,7 +240,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/9. Kubernetes Secret：储存你的机密信息.md"
+                "file": "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md"
               }
             }
           }
@@ -250,8 +262,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "dcec38bbe8405b6d",
+  "active": "8560244b384e7e1a",
   "lastOpenFiles": [
+    "cicd/9. Kubernetes Secret：储存你的机密信息.md",
+    "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
     "youdaonote-images/Pasted image 20230426185630.png",
     "youdaonote-images/Pasted image 20230426185301.png",
     "youdaonote-images/Pasted image 20230426165611.png",
@@ -262,9 +276,7 @@
     "youdaonote-images/Pasted image 20230426161819.png",
     "youdaonote-images/Pasted image 20230426161150.png",
     "youdaonote-images/Pasted image 20230426161135.png",
-    "youdaonote-images/Pasted image 20230426155740.png",
     "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
-    "cicd/9. Kubernetes Secret：储存你的机密信息.md",
     "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
     "docker/docker.md",
     "k8s/5-Pod控制器详解.md",
