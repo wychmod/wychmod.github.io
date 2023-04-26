@@ -104,6 +104,18 @@
             }
           },
           {
+            "id": "58293da10d48e2a4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "cicd/11 Kubernetes ConfigMap：统一管理服务环境变量.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "f08c51679e45668f",
             "type": "leaf",
             "state": {
@@ -116,7 +128,7 @@
             }
           }
         ],
-        "currentTab": 7
+        "currentTab": 8
       }
     ],
     "direction": "vertical"
@@ -182,7 +194,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
+                "file": "cicd/11 Kubernetes ConfigMap：统一管理服务环境变量.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -199,7 +211,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
+                "file": "cicd/11 Kubernetes ConfigMap：统一管理服务环境变量.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -230,7 +242,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md"
+                "file": "cicd/11 Kubernetes ConfigMap：统一管理服务环境变量.md"
               }
             }
           },
@@ -240,7 +252,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md"
+                "file": "cicd/11 Kubernetes ConfigMap：统一管理服务环境变量.md"
               }
             }
           }
@@ -262,12 +274,13 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "8560244b384e7e1a",
+  "active": "58293da10d48e2a4",
   "lastOpenFiles": [
+    "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
+    "cicd/11 Kubernetes ConfigMap：统一管理服务环境变量.md",
     "youdaonote-images/Pasted image 20230426191714.png",
     "youdaonote-images/Pasted image 20230426191112.png",
     "cicd/9. Kubernetes Secret：储存你的机密信息.md",
-    "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
     "youdaonote-images/Pasted image 20230426185630.png",
     "youdaonote-images/Pasted image 20230426185301.png",
     "youdaonote-images/Pasted image 20230426165611.png",
@@ -276,7 +289,6 @@
     "youdaonote-images/Pasted image 20230426163616.png",
     "youdaonote-images/Pasted image 20230426162454.png",
     "youdaonote-images/Pasted image 20230426161819.png",
-    "youdaonote-images/Pasted image 20230426161150.png",
     "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
     "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
     "docker/docker.md",
