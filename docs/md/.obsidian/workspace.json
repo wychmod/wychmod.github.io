@@ -264,6 +264,7 @@
   },
   "active": "8560244b384e7e1a",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230426191112.png",
     "cicd/9. Kubernetes Secret：储存你的机密信息.md",
     "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
     "youdaonote-images/Pasted image 20230426185630.png",
@@ -300,7 +301,6 @@
     "Python/python命名规范.md",
     "Python/fastapi规范.md",
     "k8s/4-Pod详解.md",
-    "系统设计/设计模式.md",
     "md/Python",
     "md",
     "k8s/assets",
