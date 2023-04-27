@@ -121,7 +121,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "cicd/12. 实战训练：部署一个前后端分离项目.md",
+                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "mode": "source",
                 "source": false
               }
@@ -150,6 +150,27 @@
     "type": "split",
     "children": [
       {
+        "id": "03777d9db6475216",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3cc169e861738dfa",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "jwt",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      },
+      {
         "id": "017e69802d206f30",
         "type": "tabs",
         "children": [
@@ -159,21 +180,6 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
-              }
-            }
-          },
-          {
-            "id": "3cc169e861738dfa",
-            "type": "leaf",
-            "state": {
-              "type": "search",
-              "state": {
-                "query": "金丝雀发布",
-                "matchingCase": false,
-                "explainSearch": false,
-                "collapseAll": false,
-                "extraContext": false,
                 "sortOrder": "alphabetical"
               }
             }
@@ -206,7 +212,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/12. 实战训练：部署一个前后端分离项目.md",
+                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -223,7 +229,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/12. 实战训练：部署一个前后端分离项目.md",
+                "file": "Django笔记/django-rest-framework开发笔记.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -254,7 +260,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/12. 实战训练：部署一个前后端分离项目.md"
+                "file": "Django笔记/django-rest-framework开发笔记.md"
               }
             }
           },
@@ -264,7 +270,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/12. 实战训练：部署一个前后端分离项目.md"
+                "file": "Django笔记/django-rest-framework开发笔记.md"
               }
             }
           }
@@ -288,9 +294,9 @@
   },
   "active": "f2a73f495aa67a3e",
   "lastOpenFiles": [
+    "cicd/12. 实战训练：部署一个前后端分离项目.md",
     "cicd/11. Kubernetes ConfigMap：统一管理服务环境变量.md",
     "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
-    "cicd/12. 实战训练：部署一个前后端分离项目.md",
     "youdaonote-images/Pasted image 20230426191714.png",
     "youdaonote-images/Pasted image 20230426191112.png",
     "cicd/9. Kubernetes Secret：储存你的机密信息.md",
