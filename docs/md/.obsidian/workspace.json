@@ -121,8 +121,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
-                "mode": "source",
+                "file": "消息队列/RabbitMQ.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -159,7 +159,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "jwt",
+                "query": "rocketmq",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -212,7 +212,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "消息队列/RabbitMQ.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -229,7 +229,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md",
+                "file": "消息队列/RabbitMQ.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -260,7 +260,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md"
+                "file": "消息队列/RabbitMQ.md"
               }
             }
           },
@@ -270,7 +270,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/django-rest-framework开发笔记.md"
+                "file": "消息队列/RabbitMQ.md"
               }
             }
           }
@@ -294,6 +294,8 @@
   },
   "active": "f2a73f495aa67a3e",
   "lastOpenFiles": [
+    "面试/Java面试汇总.md",
+    "Django笔记/django-rest-framework开发笔记.md",
     "cicd/12. 实战训练：部署一个前后端分离项目.md",
     "cicd/11. Kubernetes ConfigMap：统一管理服务环境变量.md",
     "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
@@ -326,11 +328,9 @@
     "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "k8s/1-k8s的介绍.md",
     "cicd",
-    "面试/Java面试汇总.md",
     "Python/anaconda中使用虚拟环境.md",
     "Python/Python源码剖析/Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用.md",
     "Python/python命名规范.md",
-    "Python/fastapi规范.md",
     "md/Python",
     "md",
     "k8s/assets",
