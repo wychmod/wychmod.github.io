@@ -50,4 +50,6 @@ brokerIP1 = 主机的IP
 
 docker pull pangliang/rocketmq-console-ng
 
+docker run -d --name rmqadmin -e "JAVA_OPTS=-Drocketmq.namesrv.addr=114.64.235.78:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false" -p 8080:8080 pangliang/rocketmq-console-ng
+ 
 ```
