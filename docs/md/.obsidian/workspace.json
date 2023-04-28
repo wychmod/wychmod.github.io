@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/springboot+vue项目开发/springboot项目开发流程.md",
+                "file": "cicd/2.安装docker和jekins.md",
                 "mode": "preview",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "rocketmq",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -137,7 +137,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -157,7 +158,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/springboot+vue项目开发/springboot项目开发流程.md",
+                "file": "cicd/2.安装docker和jekins.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -174,7 +175,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/springboot+vue项目开发/springboot项目开发流程.md",
+                "file": "cicd/2.安装docker和jekins.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -205,7 +206,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/springboot+vue项目开发/springboot项目开发流程.md"
+                "file": "cicd/2.安装docker和jekins.md"
               }
             }
           },
@@ -215,7 +216,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/springboot+vue项目开发/springboot项目开发流程.md"
+                "file": "cicd/2.安装docker和jekins.md"
               }
             }
           }
@@ -239,6 +240,7 @@
   },
   "active": "b450b71a64728c8c",
   "lastOpenFiles": [
+    "java/springboot+vue项目开发/springboot项目开发流程.md",
     "java/springboot/SpringBoot实战和原理.md",
     "消息队列/docker 启动容器常见命令.md",
     "消息队列/RabbitMQ.md",
@@ -274,7 +276,6 @@
     "cicd/Github action.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "Python/Makefile详解.md",
-    "java/抽奖系统/Lottery 抽奖系统-大厂规范.md",
     "cicd",
     "md/Python",
     "md",
