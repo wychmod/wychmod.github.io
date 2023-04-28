@@ -29,3 +29,13 @@ cd  /opt/kafka_2.13-2.8.1/bin
 
 # RocketMQ
 
+```
+mkdir -p /docker/rocketmq/nameserver/logs /docker/rocketmq/nameserver/store
+
+docker run -d --name rmqnamesrv --privileged=true -p 9876:9876  -v /Users/ahs/docker/rocketmq/nameserver/logs:/root/logs -v /Users/ahs/docker/rocketmq/nameserver/store:/root/store -e "MAX_POSSIBLE_HEAP=100000000" rocketmqinc/rocketmq sh mqnamesrv
+
+
+ docker run -d --name rmqbroker --link rmqnamesrv:namesrv -p 10911:10911 -p 10909:10909 --privileged=true -v /docker/rocketmq/data/broker/logs:/root/logs -v /docker/rocketmq/data/broker/store:/root/store -v /docker/rocketmq/conf/broker.conf:/opt/docker/rocketmq/broker.conf -e "NAMESRV_ADDR=namesrv:9876" -e "MAX_POSSIBLE_HEAP=200000000" rocketmqinc/rocketmq sh mqbroker -c /opt/docker/rocketmq/broker.conf
+
+
+```
