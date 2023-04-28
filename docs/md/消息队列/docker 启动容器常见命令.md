@@ -46,4 +46,8 @@ fileReservedTime = 48
 brokerRole = ASYNC_MASTER
 flushDiskType = ASYNC_FLUSH
 brokerIP1 = 主机的IP
+
+
+docker pull pangliang/rocketmq-console-ng
+
 ```
