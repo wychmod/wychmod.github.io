@@ -1757,7 +1757,11 @@ http://archive.apache.org/dist/rocketmq/
 ```cmd
 nohup sh /Users/ahs/IdeaProjects/rocketmq-4.9.3/bin/mqnamesrv > /Users/ahs/IdeaProjects/rocketmq-4.9.3/logs/mqnamesrv.log 2>&1 &
 
+nohup sh /Users/ahs/IdeaProjects/rocketmq-5.1.0/bin/mqnamesrv > /Users/ahs/IdeaProjects/rocketmq-5.1.0/logs/mqnamesrv.log 2>&1 &
+
 nohup sh /Users/ahs/IdeaProjects/rocketmq-4.9.3/bin/mqbroker -n 127.0.0.1:9876 -c /Users/ahs/IdeaProjects/rocketmq-4.9.3/conf/2m-noslave/broker-a.properties > /Users/ahs/IdeaProjects/rocketmq-4.9.3/logs/mqbroker.log  2>&1 &
+
+nohup sh /Users/ahs/IdeaProjects/rocketmq-5.1.0/bin/mqbroker -n 127.0.0.1:9876 -c /Users/ahs/IdeaProjects/rocketmq-5.1.0/conf/2m-noslave/broker-a.properties > /Users/ahs/IdeaProjects/rocketmq-5.1.0/logs/mqbroker.log  2>&1 &
 
 jps 查看是否启动了
 
