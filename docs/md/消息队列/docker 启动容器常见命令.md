@@ -33,15 +33,19 @@ cd  /opt/kafka_2.13-2.8.1/bin
 mkdir -p /Users/ahs/docker/rocketmq/server/logs && chmod 777 /Users/ahs/docker/rocketmq/server/logs
 
 
-```jsx
 docker run -d --name rmqnamesrv --restart=always  -p 9876:9876 \
 --net=mynet \
 --privileged=true \
 -e "JAVA_OPT_EXT=-Xms512M -Xmx512M -Xmn128m" \
--v /opt/rocketmq/server/logs:/home/rocketmq/logs \
-foxiswho/rocketmq:4.8.0 \
+-v /Users/ahs/docker/rocketmq/server/logs:/home/rocketmq/logs \
+foxiswho/rocketmq:latest \
 sh mqnamesrv
-```
+
+mkdir -p /Users/ahs/docker/rocketmq/broker/logs
+mkdir -p /Users/ahs/docker/rocketmq/broker/store
+mkdir -p /Users/ahs/docker/rocketmq/broker/conf
+
+
 ```
 
 ```
