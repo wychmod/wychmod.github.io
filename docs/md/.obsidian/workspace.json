@@ -154,7 +154,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -237,7 +238,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 221.5
+    "width": 221.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -250,7 +252,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "83c6554ca8798154",
+  "active": "22b809343e09a4c3",
   "lastOpenFiles": [
     "Python/asyncio详解.md",
     "Python/fastapi规范.md",
