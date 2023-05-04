@@ -25,8 +25,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/asyncio详解.md",
-                "mode": "source",
+                "file": "消息队列/RabbitMQ.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -123,7 +123,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "rocket",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -150,8 +150,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -171,7 +170,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/asyncio详解.md",
+                "file": "消息队列/RabbitMQ.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -188,7 +187,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/asyncio详解.md",
+                "file": "消息队列/RabbitMQ.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -219,7 +218,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/asyncio详解.md"
+                "file": "消息队列/RabbitMQ.md"
               }
             }
           },
@@ -229,7 +228,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/asyncio详解.md"
+                "file": "消息队列/RabbitMQ.md"
               }
             }
           }
@@ -253,8 +252,8 @@
   },
   "active": "83c6554ca8798154",
   "lastOpenFiles": [
-    "Python/fastapi规范.md",
     "Python/asyncio详解.md",
+    "Python/fastapi规范.md",
     "cicd/2.安装docker和jekins.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
     "java/springboot/SpringBoot实战和原理.md",
