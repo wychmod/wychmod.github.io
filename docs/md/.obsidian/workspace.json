@@ -32,6 +32,16 @@
             }
           },
           {
+            "id": "0ad955f2e6054a7d",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.2.8"
+              }
+            }
+          },
+          {
             "id": "6dcd513bbd361b66",
             "type": "leaf",
             "state": {
@@ -104,7 +114,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -147,6 +157,14 @@
             "type": "leaf",
             "state": {
               "type": "starred",
+              "state": {}
+            }
+          },
+          {
+            "id": "2f56b26b9866d225",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
               "state": {}
             }
           }
@@ -252,7 +270,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "83c6554ca8798154",
+  "active": "0ad955f2e6054a7d",
   "lastOpenFiles": [
     "消息队列/RabbitMQ.md",
     "Python/asyncio详解.md",
