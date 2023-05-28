@@ -13,19 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/fastapi规范.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "83c6554ca8798154",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/asyncio详解.md",
+                "file": "Django笔记/Djangoday7Advaced.md",
                 "mode": "source",
                 "source": false
               }
@@ -103,8 +91,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -123,7 +110,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "rocket",
+                "query": "docker register",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -162,8 +149,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -179,7 +165,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/asyncio详解.md",
+                "file": "Django笔记/Djangoday7Advaced.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -196,7 +182,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/asyncio详解.md",
+                "file": "Django笔记/Djangoday7Advaced.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -227,7 +213,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/asyncio详解.md"
+                "file": "Django笔记/Djangoday7Advaced.md"
               }
             }
           },
@@ -237,7 +223,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/asyncio详解.md"
+                "file": "Django笔记/Djangoday7Advaced.md"
               }
             }
           }
@@ -260,11 +246,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "83c6554ca8798154",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
-    "消息队列/RabbitMQ.md",
-    "Python/asyncio详解.md",
+    "Django笔记/Djangoday5缓存发送邮件用户登录注册.md",
     "Python/fastapi规范.md",
+    "Python/asyncio详解.md",
+    "消息队列/RabbitMQ.md",
     "cicd/2.安装docker和jekins.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
     "java/springboot/SpringBoot实战和原理.md",
@@ -297,7 +284,6 @@
     "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md",
     "cicd/4. 将镜像上传至私有镜像库.md",
     "k8s/2-k8s集群环境的搭建和资源管理.md",
-    "cicd/Github action.md",
     "cicd",
     "md/Python",
     "md",
