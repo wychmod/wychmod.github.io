@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Django笔记/Djangoday7Advaced.md",
+                "file": "Django笔记/Django源码解析.md",
                 "mode": "source",
                 "source": false
               }
@@ -145,7 +145,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -165,7 +166,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/Djangoday7Advaced.md",
+                "file": "Django笔记/Django源码解析.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -182,7 +183,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/Djangoday7Advaced.md",
+                "file": "Django笔记/Django源码解析.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -213,7 +214,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/Djangoday7Advaced.md"
+                "file": "Django笔记/Django源码解析.md"
               }
             }
           },
@@ -223,7 +224,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/Djangoday7Advaced.md"
+                "file": "Django笔记/Django源码解析.md"
               }
             }
           }
@@ -246,8 +247,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "3cc169e861738dfa",
+  "active": "b450b71a64728c8c",
   "lastOpenFiles": [
+    "Django笔记/Djangoday7Advaced.md",
+    "Django笔记/Django源码解析.md",
     "Django笔记/Djangoday5缓存发送邮件用户登录注册.md",
     "Python/fastapi规范.md",
     "Python/asyncio详解.md",
@@ -282,8 +285,6 @@
     "k8s/6-Service详解.md",
     "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
     "cicd/5. 搭建 Kubernetes 集群：持续部署环境起步.md",
-    "cicd/4. 将镜像上传至私有镜像库.md",
-    "k8s/2-k8s集群环境的搭建和资源管理.md",
     "cicd",
     "md/Python",
     "md",
