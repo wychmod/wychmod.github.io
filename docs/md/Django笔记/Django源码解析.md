@@ -23,4 +23,4 @@
 ![](../youdaonote-images/Pasted%20image%2020230529170009.png)
 
 ### shell 实现
-- shell 会通过调用handle()方法中的python()方法或者ipython bpython，来形成一个输入命令行的环境，里面导入一些可以用行django项目的环境变量已经必须chu，等于是加强原生命令行的python
+- shell 会通过调用handle()方法中的python()方法或者ipython bpython，来形成一个输入命令行的环境，里面导入一些可以用行django项目的环境变量已经必须初始化加载的环境，等于是加强原生命令行的python。相当于django.setup()
