@@ -12,4 +12,12 @@
 （1）handle()方法校验项目的名称（first_django）是否合法。它的核心是isidentifier()方法。
 （2）handle()方法根据target参数刞断是否创建项目。如果target参数为None，则取当前目录加上要创建的项目名称（这里是first_django）创建项目目录。
 （3）extensions为元组，使用其默认值即可，即（'.py'，）。
-（4）通过self.handle_template()函数得到生成Django项目的模板文件所在目录。
+（4）通过self.handle_template()函数得到生成Django项目的模板文件所在目录。查看该目录发现目录下文件结构如下：
+![](../youdaonote-images/Pasted%20image%2020230529165759.png)
+（5）遍历得到该目录下的所有模板文件，进行渲染并写到最终的位置。
+
+![](../youdaonote-images/Pasted%20image%2020230529165954.png)
+
+这两句代码会调用Django中的模板层引擎执行渲染动作。为了更好地理解这两句代码，我们进行如下测试：
+
+![](../youdaonote-images/Pasted%20image%2020230529170009.png)
