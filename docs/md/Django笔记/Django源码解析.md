@@ -32,3 +32,6 @@
 ### migrate实现
 - 实例化migrationexecutor类，可以进行一致性检测，冲突检测和解析迁移文件。
 - 迁移时会根据依赖关系，先迁移依赖模型，再迁移自身。
+- migrationexecutor类会通过apply()方法，遍历migration对象的operations属性来实现对数据库的映射。
+
+## Django内置orm框架
