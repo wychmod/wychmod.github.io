@@ -45,3 +45,5 @@
 
 1. 从父类BaseDatabaseWrapper的源码可以看到，首先初始化__init__()函数中的设置self.connection=None；其次在connect()函数中调用了self.get_connection_params()函数，以获取数据库的连接参数（如MySQL服务地址、端口、账号及密码等）；然后调用get_new_connection()函数获取连接对象并赋给self.connection；最后回到django/db/mysql/base.py中继续学习DatabaseWrapper类。由于在DatabaseWrapper类中并没有connect()函数，因此只有调用connect()函数（在父类中定义的该方法），才能给实例的connection属性赋值，而该值正是MySQLdb.connect()方法返回的数据库连接对象。
 2. DatabaseWrapper类中定义的create_cursor()函数，在该函数中得到的cursor对象正是前面得到的数据库连接对象调用cursor()方法得到的结果，只不过其返回的结果对该游标对象进行了封装，得到CursorWrapper对象。这个CursorWrapper对象和mysqlclient中的cursor对象的功能几乎一致，只不过增加了对execute()函数和executemany()函数的异常处理。
+
+> Django为MySQL数据库封装了mysqlclient模块，升级了相应的游标类，并提供了统一的对外操作接口，而对数据库的操作最后都通过调用mysqlclient模块中的相关类与方法完成。
