@@ -24,3 +24,9 @@
 
 ### shell 实现
 - shell 会通过调用handle()方法中的python()方法或者ipython bpython，来形成一个输入命令行的环境，里面导入一些可以用行django项目的环境变量已经必须初始化加载的环境，等于是加强原生命令行的python。相当于django.setup()
+
+### makemigrations实现
+- 会连接一个django_migration表，对表进行查验生成迁移文件。也会对迁移文件进行对比验证。
+
+### migrate实现
+- 
