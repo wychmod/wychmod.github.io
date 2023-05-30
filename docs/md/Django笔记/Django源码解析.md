@@ -27,7 +27,8 @@
 
 ### makemigrations实现
 - 会连接一个django_migration表，对表进行查验生成迁移文件。也会对迁移文件进行对比验证。
+- 也会根据model模型构建依赖关系
 
 ### migrate实现
 - 实例化migrationexecutor类，可以进行一致性检测，冲突检测和解析迁移文件。
-- 
+- 迁移时会根据依赖关系，先迁移依赖模型，再迁移自身。
