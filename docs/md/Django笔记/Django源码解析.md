@@ -42,3 +42,6 @@
 2. 之后再导入传入的settings_module模块，按同样的方式设置该Settings对象的属性。如果settings_module模块和global_settings模块中的属性有交叉，则以settings_module模块的为准（因为是后设置的）。接着是一些必须要设置的属性值，比如SECRET_KEY值等。如果不在settings_module模块中设置，即默认为空字符串，则会直接抛出异常。
 
 ### ORM框架的底层核心
+
+1. 从父类BaseDatabaseWrapper的源码可以看到，首先初始化__init__()函数中的设置self.connection=None；其次在connect()函数中调用了self.get_connection_params()函数，以获取数据库的连接参数（如MySQL服务地址、端口、账号及密码等）；然后调用get_new_connection()函数获取连接对象并赋给self.connection；最后回到django/db/mysql/base.py中继续学习DatabaseWrapper类。由于在DatabaseWrapper类中并没有connect()函数，因此只有调用connect()函数（在父类中定义的该方法），才能给实例的connection属性赋值，而该值正是MySQLdb.connect()方法返回的数据库连接对象。
+2. 现在再来看在DatabaseWrapper类中定义的create_cursor()函数，在该函数中得到的cursor对象正是前面得到的数据库连接对象调用cursor()方法得到的结果，只不过其返回的结果对该游标对象进行了封装，得到CursorWrapper对象。而CursorWrapper对象的核心正是这个cursor对象。通过该类编写的魔法函数，可知这个CursorWrapper对象和mysqlclient中的cursor对象的功能几乎一致，只不过增加了对execute()函数和executemany()函数的异常处理。
