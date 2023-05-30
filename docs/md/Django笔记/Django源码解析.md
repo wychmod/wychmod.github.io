@@ -29,4 +29,4 @@
 - 会连接一个django_migration表，对表进行查验生成迁移文件。也会对迁移文件进行对比验证。
 
 ### migrate实现
-- 
+- 实例化migrationexecutor类，可以进行一致性检测，冲突检测
