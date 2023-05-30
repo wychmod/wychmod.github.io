@@ -34,4 +34,9 @@
 - 迁移时会根据依赖关系，先迁移依赖模型，再迁移自身。
 - migrationexecutor类会通过apply()方法，遍历migration对象的operations属性来实现对数据库的映射。
 
-## Django内置orm框架
+## 2. Django内置orm框架
+
+### settings读取
+
+1. 该类的初始化方法中，先在全局的配置模块（global_settings模块）中遍历大写的属性及其值并添加到该Settings对象中。这样Settings对象就具备了global_settings模块中的属性，并且其值和global_settings模块中的相同。
+2. 之后再导入传入的settings_module模块，按同样的方式设置该Settings对象的属性。如果settings_module模块和global_settings模块中的属性有交叉，则以settings_module模块的为准（因为是后设置的）。接着是一些必须要设置的属性值，比如SECRET_KEY值等。如果不在settings_module模块中设置，即默认为空字符串，则会直接抛出异常。
