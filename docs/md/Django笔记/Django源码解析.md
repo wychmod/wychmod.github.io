@@ -47,3 +47,6 @@
 2. DatabaseWrapper类中定义的create_cursor()函数，在该函数中得到的cursor对象正是前面得到的数据库连接对象调用cursor()方法得到的结果，只不过其返回的结果对该游标对象进行了封装，得到CursorWrapper对象。这个CursorWrapper对象和mysqlclient中的cursor对象的功能几乎一致，只不过增加了对execute()函数和executemany()函数的异常处理。
 
 > Django为MySQL数据库封装了mysqlclient模块，升级了相应的游标类，并提供了统一的对外操作接口，而对数据库的操作最后都通过调用mysqlclient模块中的相关类与方法完成。
+
+### Django数据库操作的背后原理
+
