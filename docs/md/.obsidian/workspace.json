@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Django笔记/Django源码解析.md",
+                "file": "java/springboot+vue项目开发/java和vue服务器部署.md",
                 "mode": "source",
                 "source": false
               }
@@ -38,7 +38,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "docker register",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/Django源码解析.md",
+                "file": "java/springboot+vue项目开发/java和vue服务器部署.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/Django源码解析.md",
+                "file": "java/springboot+vue项目开发/java和vue服务器部署.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -142,7 +142,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/Django源码解析.md"
+                "file": "java/springboot+vue项目开发/java和vue服务器部署.md"
               }
             }
           },
@@ -152,7 +152,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/Django源码解析.md"
+                "file": "java/springboot+vue项目开发/java和vue服务器部署.md"
               }
             }
           }
@@ -176,8 +176,9 @@
   },
   "active": "b450b71a64728c8c",
   "lastOpenFiles": [
-    "面试/Java面试汇总.md",
+    "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "Django笔记/Django源码解析.md",
+    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230529170009.png",
     "youdaonote-images/Pasted image 20230529165954.png",
     "youdaonote-images/Pasted image 20230529165759.png",
