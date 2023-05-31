@@ -18,8 +18,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "29fcb5a9e35b4cef",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.3.4"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -174,7 +185,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b450b71a64728c8c",
+  "active": "29fcb5a9e35b4cef",
   "lastOpenFiles": [
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "Django笔记/Django源码解析.md",
