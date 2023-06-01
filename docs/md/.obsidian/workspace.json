@@ -13,24 +13,13 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/springboot+vue项目开发/java和vue服务器部署.md",
+                "file": "java/spring系列学习/ssm整合学习-Spring.md",
                 "mode": "source",
                 "source": false
               }
             }
-          },
-          {
-            "id": "29fcb5a9e35b4cef",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.3.4"
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -105,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/springboot+vue项目开发/java和vue服务器部署.md",
+                "file": "java/spring系列学习/ssm整合学习-Spring.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -122,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/springboot+vue项目开发/java和vue服务器部署.md",
+                "file": "java/spring系列学习/ssm整合学习-Spring.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -153,7 +142,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/springboot+vue项目开发/java和vue服务器部署.md"
+                "file": "java/spring系列学习/ssm整合学习-Spring.md"
               }
             }
           },
@@ -163,7 +152,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/springboot+vue项目开发/java和vue服务器部署.md"
+                "file": "java/spring系列学习/ssm整合学习-Spring.md"
               }
             }
           }
@@ -185,8 +174,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "29fcb5a9e35b4cef",
+  "active": "b450b71a64728c8c",
   "lastOpenFiles": [
+    "java/spring系列学习/spring-依赖注入.md",
+    "java/spring系列学习/spring.md",
+    "java/springboot+vue项目开发/java和vue服务器部署.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "Django笔记/Django源码解析.md",
     "面试/Java面试汇总.md",
@@ -220,9 +212,6 @@
     "youdaonote-images/Pasted image 20230426165542.png",
     "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
     "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
-    "k8s/5-Pod控制器详解.md",
-    "k8s/6-Service详解.md",
-    "cicd/3. 使用 Jenkins 构建镜像：将应用打包成镜像.md",
     "cicd",
     "md/Python",
     "md",
