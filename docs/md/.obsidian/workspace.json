@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/spring系列学习/ssm整合学习-Spring.md",
+                "file": "java/spring系列学习/spring-依赖注入.md",
                 "mode": "source",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/spring系列学习/ssm整合学习-Spring.md",
+                "file": "java/spring系列学习/spring-依赖注入.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/spring系列学习/ssm整合学习-Spring.md",
+                "file": "java/spring系列学习/spring-依赖注入.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -142,7 +142,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/spring系列学习/ssm整合学习-Spring.md"
+                "file": "java/spring系列学习/spring-依赖注入.md"
               }
             }
           },
@@ -152,7 +152,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/spring系列学习/ssm整合学习-Spring.md"
+                "file": "java/spring系列学习/spring-依赖注入.md"
               }
             }
           }
@@ -176,8 +176,11 @@
   },
   "active": "b450b71a64728c8c",
   "lastOpenFiles": [
-    "java/spring系列学习/spring-依赖注入.md",
     "java/spring系列学习/spring.md",
+    "java/spring系列学习/spring-依赖注入.md",
+    "java/spring系列学习/ssm整合学习-SpringMVC.md",
+    "java/spring系列学习/ssm整合学习-SpringBoot.md",
+    "java/spring系列学习/ssm整合学习-Spring.md",
     "java/springboot+vue项目开发/java和vue服务器部署.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
     "Django笔记/Django源码解析.md",
@@ -205,13 +208,10 @@
     "cicd/10. Kubernetes DNS 策略：将你的服务连接起来.md",
     "youdaonote-images/Pasted image 20230426191714.png",
     "youdaonote-images/Pasted image 20230426191112.png",
-    "cicd/9. Kubernetes Secret：储存你的机密信息.md",
     "youdaonote-images/Pasted image 20230426185630.png",
     "youdaonote-images/Pasted image 20230426185301.png",
     "youdaonote-images/Pasted image 20230426165611.png",
     "youdaonote-images/Pasted image 20230426165542.png",
-    "cicd/8. 服务可用性探针：如何判断你的服务是否可用.md",
-    "cicd/7. Kubernetes 灰度发布与滚动发布：零宕机发布的奥秘.md",
     "cicd",
     "md/Python",
     "md",
