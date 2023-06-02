@@ -56,3 +56,5 @@
 ◎ 为什么能对查询结果使用切片？当使用Django操作数据库时，懒查询指的是什么？
 ◎ DjangoBooks为什么要通过objects属性才能调用all()、filter()等方法，为什么要通过objects属性才能进行链式操作？
 
+### sql语句的翻译
+1. get_compiler()方法获取一个编译对象（Compiler），专门用于将这里的Query对象翻译成对应数据库中的SQL语句。connection指未指定using参数时，默认数据库配置的连接对象。
