@@ -58,3 +58,5 @@
 
 ### sql语句的翻译
 1. get_compiler()方法获取一个编译对象（Compiler），专门用于将这里的Query对象翻译成对应数据库中的SQL语句。connection指未指定using参数时，默认数据库配置的连接对象。
+2. 调用query.get_compiler()方法的结果应该为在django/db/models/sql/compiler.py文件中定义的SQLCompiler类
+3. 
