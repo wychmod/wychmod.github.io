@@ -11,24 +11,15 @@
             "id": "15a1480732e46225",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
-            "id": "17c66cccfbfb7a4c",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
-                "file": "AliceBot 自动化测试设计与实现.md",
+                "file": "Django笔记/Django源码解析.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -103,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AliceBot 自动化测试设计与实现.md",
+                "file": "Django笔记/Django源码解析.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AliceBot 自动化测试设计与实现.md",
+                "file": "Django笔记/Django源码解析.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -151,7 +142,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AliceBot 自动化测试设计与实现.md"
+                "file": "Django笔记/Django源码解析.md"
               }
             }
           }
@@ -173,7 +164,7 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "e5a4a06dfd44ce65",
+  "active": "15a1480732e46225",
   "lastOpenFiles": [
     "AliceBot 自动化测试设计与实现.md",
     "Django笔记/Django源码解析.md",
