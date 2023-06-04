@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Django笔记/Django源码解析.md",
-                "mode": "source",
+                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Django笔记/Django源码解析.md",
+                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Django笔记/Django源码解析.md",
+                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -142,7 +142,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Django笔记/Django源码解析.md"
+                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md"
               }
             }
           }
@@ -166,8 +166,8 @@
   },
   "active": "15a1480732e46225",
   "lastOpenFiles": [
-    "AliceBot 自动化测试设计与实现.md",
     "Django笔记/Django源码解析.md",
+    "AliceBot 自动化测试设计与实现.md",
     "java/springboot+vue项目开发/java和vue服务器部署.md",
     "java/spring系列学习/spring.md",
     "java/spring系列学习/spring-依赖注入.md",
