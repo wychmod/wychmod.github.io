@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+                "file": "Redis/3-原理篇.md",
                 "mode": "preview",
                 "source": false
               }
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+                "file": "Redis/3-原理篇.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
+                "file": "Redis/3-原理篇.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -142,7 +142,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md"
+                "file": "Redis/3-原理篇.md"
               }
             }
           }
@@ -166,6 +166,8 @@
   },
   "active": "15a1480732e46225",
   "lastOpenFiles": [
+    "Redis/2-Redis实战.md",
+    "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Django笔记/Django源码解析.md",
     "AliceBot 自动化测试设计与实现.md",
     "java/springboot+vue项目开发/java和vue服务器部署.md",
@@ -194,8 +196,6 @@
     "docker/Centos7安装Docker.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
     "Django笔记/django-rest-framework开发笔记.md",
-    "cicd/12. 实战训练：部署一个前后端分离项目.md",
-    "cicd/11. Kubernetes ConfigMap：统一管理服务环境变量.md",
     "youdaonote-images/Pasted image 20230426191714.png",
     "youdaonote-images/Pasted image 20230426191112.png",
     "youdaonote-images/Pasted image 20230426185630.png",
