@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/校招投递.md",
+                "file": "java/springboot+vue项目开发/springboot项目开发流程.md",
                 "mode": "preview",
                 "source": false
               }
@@ -51,7 +51,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "实习",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -86,7 +86,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -106,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/校招投递.md",
+                "file": "java/springboot+vue项目开发/springboot项目开发流程.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -123,7 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/校招投递.md",
+                "file": "java/springboot+vue项目开发/springboot项目开发流程.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -154,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/校招投递.md"
+                "file": "java/springboot+vue项目开发/springboot项目开发流程.md"
               }
             }
           }
@@ -178,6 +179,7 @@
   },
   "active": "4c8a3ac3a6dceb81",
   "lastOpenFiles": [
+    "面试/校招投递.md",
     "Redis/2-Redis实战.md",
     "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Django笔记/Django源码解析.md",
@@ -207,7 +209,6 @@
     "docker/docker.md",
     "docker/Centos7安装Docker.md",
     "k8s/7-数据存储、安全认证、DashBoard.md",
-    "Django笔记/django-rest-framework开发笔记.md",
     "youdaonote-images/Pasted image 20230426191714.png",
     "youdaonote-images/Pasted image 20230426191112.png",
     "youdaonote-images/Pasted image 20230426185630.png",
