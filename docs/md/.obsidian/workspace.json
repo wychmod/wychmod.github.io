@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "Redis/2-Redis实战.md",
                 "mode": "preview",
                 "source": false
               }
@@ -38,7 +38,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "布隆过滤器",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,8 +73,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -94,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "Redis/2-Redis实战.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,7 +110,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Redis/3-原理篇.md",
+                "file": "Redis/2-Redis实战.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -142,7 +141,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Redis/3-原理篇.md"
+                "file": "Redis/2-Redis实战.md"
               }
             }
           }
@@ -166,6 +165,7 @@
   },
   "active": "15a1480732e46225",
   "lastOpenFiles": [
+    "Redis/3-原理篇.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
     "面试/校招投递.md",
     "Redis/2-Redis实战.md",
@@ -195,7 +195,6 @@
     "消息队列/docker 启动容器常见命令.md",
     "docker/docker.md",
     "docker/Centos7安装Docker.md",
-    "k8s/7-数据存储、安全认证、DashBoard.md",
     "youdaonote-images/Pasted image 20230426191714.png",
     "youdaonote-images/Pasted image 20230426191112.png",
     "youdaonote-images/Pasted image 20230426185630.png",
