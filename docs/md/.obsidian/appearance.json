@@ -1,7 +1,7 @@
 {
   "theme": "moonstone",
   "cssTheme": "Big Sur Aesthetic",
-  "translucency": false,
+  "translucency": true,
   "accentColor": "",
   "baseFontSize": 14
 }
