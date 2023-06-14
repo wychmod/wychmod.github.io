@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "ed4bedd1403d3e20",
+        "id": "65a1c1f68d167da7",
         "type": "tabs",
         "children": [
           {
-            "id": "2b886354d17b7b3d",
+            "id": "4708358406217711",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -68,7 +68,14 @@
               "type": "bookmarks",
               "state": {}
             }
-          },
+          }
+        ],
+        "currentTab": 1
+      },
+      {
+        "id": "d0bd5622ff9ae4dd",
+        "type": "tabs",
+        "children": [
           {
             "id": "f86f3baafd8ee047",
             "type": "leaf",
@@ -77,8 +84,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
@@ -165,10 +171,10 @@
       "workspaces:管理工作区布局": false
     }
   },
-  "active": "f86f3baafd8ee047",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
-    "2023-06-14.md",
     "未命名.canvas",
+    "2023-06-14.md",
     "面试/Java面试汇总.md",
     "Redis/2-Redis实战.md",
     "Redis/3-原理篇.md",
