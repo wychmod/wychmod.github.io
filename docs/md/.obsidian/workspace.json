@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "c8d9d9fa9c9daaea",
+        "id": "ed4bedd1403d3e20",
         "type": "tabs",
         "children": [
           {
-            "id": "15a1480732e46225",
+            "id": "2b886354d17b7b3d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "面试/Java面试汇总.md",
-                "mode": "preview",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -72,9 +68,17 @@
               "type": "bookmarks",
               "state": {}
             }
+          },
+          {
+            "id": "f86f3baafd8ee047",
+            "type": "leaf",
+            "state": {
+              "type": "recent-files",
+              "state": {}
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -143,7 +147,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -157,11 +161,14 @@
       "graph:查看关系图谱": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false
+      "command-palette:打开命令面板": false,
+      "workspaces:管理工作区布局": false
     }
   },
-  "active": "62b967b1bdf672ea",
+  "active": "f86f3baafd8ee047",
   "lastOpenFiles": [
+    "2023-06-14.md",
+    "未命名.canvas",
     "面试/Java面试汇总.md",
     "Redis/2-Redis实战.md",
     "Redis/3-原理篇.md",
@@ -190,8 +197,6 @@
     "消息队列/RabbitMQ.md",
     "java/springboot/SpringBoot实战和原理.md",
     "消息队列/docker 启动容器常见命令.md",
-    "docker/docker.md",
-    "docker/Centos7安装Docker.md",
     "youdaonote-images/Pasted image 20230426191714.png",
     "youdaonote-images/Pasted image 20230426191112.png",
     "youdaonote-images/Pasted image 20230426185630.png",
