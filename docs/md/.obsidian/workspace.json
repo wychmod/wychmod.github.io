@@ -11,8 +11,12 @@
             "id": "4708358406217711",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "人工智能/人工智能-奈学/1-线性代数基础.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -34,7 +38,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "toc",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -69,8 +73,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -104,6 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "人工智能/人工智能-奈学/1-线性代数基础.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,6 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "人工智能/人工智能-奈学/1-线性代数基础.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +154,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "人工智能/人工智能-奈学/1-线性代数基础.md"
+              }
             }
           }
         ],
@@ -171,7 +178,7 @@
       "workspaces:管理工作区布局": false
     }
   },
-  "active": "62b967b1bdf672ea",
+  "active": "4708358406217711",
   "lastOpenFiles": [
     "未命名.canvas",
     "2023-06-14.md",
