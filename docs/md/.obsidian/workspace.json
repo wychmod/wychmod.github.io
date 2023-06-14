@@ -38,7 +38,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "java面试",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,7 +73,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -93,7 +94,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,7 +110,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -140,9 +139,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "面试/Java面试汇总.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -163,8 +160,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "15a1480732e46225",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
+    "面试/Java面试汇总.md",
     "Redis/2-Redis实战.md",
     "Redis/3-原理篇.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
@@ -179,7 +177,6 @@
     "java/spring系列学习/ssm整合学习-SpringBoot.md",
     "java/spring系列学习/ssm整合学习-SpringMVC.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
-    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230529170009.png",
     "youdaonote-images/Pasted image 20230529165954.png",
     "youdaonote-images/Pasted image 20230529165759.png",
