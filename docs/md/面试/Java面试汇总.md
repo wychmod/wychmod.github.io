@@ -52,8 +52,12 @@ gil锁保证了一个进程中只有一个线程在运行。比如python的底�
 
 启动过程本质上都是在做容器的初始化，并将对应的bean初始化出来放入容器。在spring环境中，每个bean的初始化都要开发者自己添加设置，但是切换成springboot程序后，自动配置功能的添加帮助开发者提前预设了很多bean的初始化过程。
 1.  主要是依靠@EnableAutoConfiguration来实现自动装配的，
-2. 原理是通过@import 借助AutoConfigurationImportSelector 调用SpringFactoriesLoader的loadfactiryNames方法， 从classpat
-3.  整体流程采用事件监听的机制进行过程控制，开发者可以根据需要自行扩展，添加对应的监听器绑定具体事件，就可以在事件触发位置执行开发者的业务代码
+2. 原理是通过@import 借助AutoConfigurationImportSelector 调用SpringFactoriesLoader的loadfactiryNames方法， 从classpath 中寻找所有META-INF/spring.factories配置文件（spring.factories配置了自动装配的类），将所有符合条件的@Configuration配置都加载到IOC容器。
+
+## starter开发
+
+1. 引入所必须的包，然后自定义自己的properties类。
+2. 
 
 ## redis网络模型
 
