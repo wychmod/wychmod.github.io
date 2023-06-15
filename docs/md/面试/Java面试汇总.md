@@ -56,8 +56,9 @@ gil锁保证了一个进程中只有一个线程在运行。比如python的底�
 
 ## starter开发
 
-1. 引入所必须的包，然后自定义自己的properties类。
-2. 
+1. 引入所必须的包，然后自定义自己的properties类，读取配置文件。
+2. 写功能核心类
+3. 定义自动配置类，命名规则“名字+AutoConfiguration”，写一些注解确保在没有这个be an
 
 ## redis网络模型
 
