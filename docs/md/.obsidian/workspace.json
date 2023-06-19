@@ -15,7 +15,7 @@
               "state": {
                 "file": "spring源码/1.Spring编程思想.md",
                 "mode": "source",
-                "source": false
+                "source": true
               }
             }
           }
@@ -165,7 +165,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 221.5
+    "width": 798.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
