@@ -38,7 +38,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "安装docker",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,7 +73,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -178,7 +179,7 @@
       "workspaces:管理工作区布局": false
     }
   },
-  "active": "c3aff32767e46cf6",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
     "面试/Java面试汇总.md",
     "人工智能/人工智能-奈学/1-线性代数基础.md",
