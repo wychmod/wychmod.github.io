@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "docker/Centos7安装Docker.md",
                 "mode": "preview",
                 "source": false
               }
@@ -38,7 +38,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "安装docker",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,8 +73,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -108,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "docker/Centos7安装Docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "docker/Centos7安装Docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "docker/Centos7安装Docker.md"
               }
             }
           }
@@ -181,10 +180,10 @@
   },
   "active": "c3aff32767e46cf6",
   "lastOpenFiles": [
+    "面试/Java面试汇总.md",
     "人工智能/人工智能-奈学/1-线性代数基础.md",
     "未命名.canvas",
     "2023-06-14.md",
-    "面试/Java面试汇总.md",
     "Redis/2-Redis实战.md",
     "Redis/3-原理篇.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
