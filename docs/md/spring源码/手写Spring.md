@@ -32,7 +32,7 @@ Spring是面向Bean的编程（Bean Oriented Programming，BOP），Bean在Sprin
 
 | 模块名称               | 主要功能                                  |
 | ---------------------- | ----------------------------------------- |
-| spring-core            | 依赖注入IOC与D的最基本实现                |
+| spring-core            | 依赖注入IOC与DI的最基本实现                |
 | spring-beans           | Bean工厂与Bean的装配                      |
 | spring-context         | 定义基础的Spring的Context.上下文即IOC容器 |
 | spring-context-support | 对Spring IOC容器的扩展支持，以及IOC子容器 |
@@ -158,7 +158,9 @@ scanPackage=com.wychmod.demo
 1. 加载配置文件
 2. 扫描相关的类
 3. 初始化Ioc容器，将扫描到的相关类实例化，保存到Ioc容器中
-4. 
+4. 完成依赖注入
+5. 初始化HandlerMapping
+6. 委派，根据URL去找到一个对应的Method并通过response返回
 
 ```java
 package com.gupaoedu.mvcframework.v2.servlet;  
