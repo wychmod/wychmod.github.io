@@ -10,9 +10,14 @@
 	1. 调用getBean()创建对象
 	2. 立即就会发生DI
 
+![](../youdaonote-images/Pasted%20image%2020230623171938.png)
+
 ### Servlet初始化基本流程
 1. 调用Servlet init()方法
-2. 读取配置文件(properties、xml、yml) -> BeanDefinition(配置文件保存到了内存中)
+	- 创建ApplicationContext
+2. 读取配置文件(properties、xml、yml) -> BeanDefinitionReader(配置文件保存到了内存中)
 3. 扫描相关的类，扫描到的类也变成了BeanDefinition
-4. 初始化I0C容器，并且实例化对象  Bean
+	- ApplicationContext.getBean()
+4. 初始化I0C容器，并且实例化对象 -> BeanWrapper
 5. 完成DI注入
+
