@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "spring源码/1.Spring编程思想.md",
+                "file": "spring源码/手写Spring.md",
                 "mode": "source",
                 "source": true
               }
@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -120,7 +119,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "系统设计/设计模式.md",
+                "file": "spring源码/手写Spring.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -137,7 +136,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "系统设计/设计模式.md",
+                "file": "spring源码/手写Spring.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +167,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "系统设计/设计模式.md"
+                "file": "spring源码/手写Spring.md"
               }
             }
           }
@@ -192,9 +191,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "db04a690014d286b",
+  "active": "6e99ab4765841de3",
   "lastOpenFiles": [
-    "spring源码/1.Spring编程思想.md",
+    "系统设计/设计模式.md",
+    "spring源码/手写Spring.md",
     "youdaonote-images/Pasted image 20230620201107.png",
     "youdaonote-images/Pasted image 20230620201105.png",
     "youdaonote-images/Pasted image 20230620200816.png",
@@ -203,7 +203,6 @@
     "youdaonote-images/8A538AA6-0881-4CC3-8FFE-0722E8834223_4_5005_c.jpeg",
     "youdaonote-images/D439AB3B-9C00-4F6D-8C15-D33680DE25F5.png",
     "youdaonote-images/Pasted image 20230619234827.png",
-    "系统设计/设计模式.md",
     "java/spring系列学习/spring.md",
     "spring源码",
     "docker/Centos7安装Docker.md",
