@@ -1,2 +1,7 @@
-## 完整版Spring
-### 1.从Servlet到ApplicationContext
+## 实现IoC和DI的功能
+### 基本流程
+1. 调用Servlet init()方法
+2. 读取配置文件
+3. 扫描相关的类
+4. 初始化I0C容器，并且实例化对象
+5. 完成DI注入
