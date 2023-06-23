@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "spring源码/手写Spring.md",
-                "mode": "preview",
+                "file": "spring源码/2-手写完整功能Spring.md",
+                "mode": "source",
                 "source": true
               }
             }
@@ -85,7 +85,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -119,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "spring源码/手写Spring.md",
+                "file": "spring源码/2-手写完整功能Spring.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -136,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "spring源码/手写Spring.md",
+                "file": "spring源码/2-手写完整功能Spring.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -167,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "spring源码/手写Spring.md"
+                "file": "spring源码/2-手写完整功能Spring.md"
               }
             }
           }
@@ -193,8 +194,9 @@
   },
   "active": "6e99ab4765841de3",
   "lastOpenFiles": [
+    "spring源码/1-300行手写简易Spring.md",
+    "spring源码/2-手写完整功能Spring.md",
     "系统设计/设计模式.md",
-    "spring源码/手写Spring.md",
     "youdaonote-images/Pasted image 20230620201107.png",
     "youdaonote-images/Pasted image 20230620201105.png",
     "youdaonote-images/Pasted image 20230620200816.png",
