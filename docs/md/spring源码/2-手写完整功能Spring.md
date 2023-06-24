@@ -54,4 +54,5 @@ B { A a } （B 初始化的时候A已经存在，可以依赖注入，再循环�
 | 5    | HandlerAdapter              | 动态参数适配器                      |
 | 6    | HandlerExceptionResolver    | 异常拦截器                          |
 | 7    | RequestToViewNameTranslator | 视图提取器，从request中获取viewName |
-| 8    | ViewResolvers               |                                     |
+| 8    | ViewResolvers               | 视图转换器，模板引擎                |
+| 9    | FlashMapManager             | 参数缓存器                          | 
