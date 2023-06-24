@@ -43,16 +43,22 @@ B { A a } （B 初始化的时候A已经存在，可以依赖注入，再循环�
 
 ## 实现MVC功能
 
-### MVC
+### MVC九大组件
 
 | 序号 | 组件名                      | 解释                                |
 | ---- | --------------------------- | ----------------------------------- |
 | 1    | MultipartResolver           | 多文件上传的组件                    |
 | 2    | LocaleResolver              | 本地语言环境                        |
 | 3    | ThemeResolver               | 主题模板处理器                      |
-| 4    | HandlerMapping              | 保存Url映射关系                     |
-| 5    | HandlerAdapter              | 动态参数适配器                      |
+| 4    | **HandlerMapping**              | 保存Url映射关系                     |
+| 5    | **HandlerAdapter**              | 动态参数适配器                      |
 | 6    | HandlerExceptionResolver    | 异常拦截器                          |
 | 7    | RequestToViewNameTranslator | 视图提取器，从request中获取viewName |
-| 8    | ViewResolvers               | 视图转换器，模板引擎                |
+| 8    | **ViewResolvers**               | 视图转换器，模板引擎                |
 | 9    | FlashMapManager             | 参数缓存器                          | 
+
+### 实现三个功能
+- HandlerMapping
+- HandlerAdapter
+- ViewResolvers
+![](../youdaonote-images/Pasted%20image%2020230624230026.png)
