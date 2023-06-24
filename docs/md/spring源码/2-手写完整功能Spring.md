@@ -21,6 +21,19 @@
 4. 初始化I0C容器，并且实例化对象 -> BeanWrapper
 5. 完成DI注入
 
+### Spring IOC的基本流程
+
+1. 读取配置文件。
+2. 解析配置文件，并封装成BeanDefinition。
+3. 把BeanDefinition对应的实例放入到容器进行缓存。
+
+### Spring DI的基本流程
+循环读取BeanDefinition的缓存信息。
+调用getBean0方法创建对象实例。
+将创建好的对象实例包装为BeanWrapper对象。
+将BeanWrapper对象缓存到IOC容器。
+循环IOC容器执行以来注入。
+
 ### DI注入时循环依赖如何解决：
 A { B b } （A 初始化的时候B还不存在，不能依赖注入）
 B { A a } （B 初始化的时候A已经存在，可以依赖注入，再循环一次，把A的B给注入。）
