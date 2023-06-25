@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "spring源码/2-手写完整功能Spring.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "mode": "source",
                 "source": true
               }
@@ -50,7 +50,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "享元模式",
+                "query": "conda",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -85,8 +85,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -120,7 +119,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "spring源码/2-手写完整功能Spring.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -137,7 +136,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "spring源码/2-手写完整功能Spring.md",
+                "file": "Python/anaconda中使用虚拟环境.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +167,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "spring源码/2-手写完整功能Spring.md"
+                "file": "Python/anaconda中使用虚拟环境.md"
               }
             }
           }
@@ -194,10 +193,10 @@
   },
   "active": "6e99ab4765841de3",
   "lastOpenFiles": [
+    "spring源码/2-手写完整功能Spring.md",
     "youdaonote-images/Pasted image 20230624230026.png",
     "spring源码/1-300行手写简易Spring.md",
     "系统设计/设计模式.md",
-    "spring源码/2-手写完整功能Spring.md",
     "youdaonote-images/Pasted image 20230623171938.png",
     "youdaonote-images/Pasted image 20230620201107.png",
     "youdaonote-images/Pasted image 20230620201105.png",
@@ -227,7 +226,6 @@
     "java/spring系列学习/ssm整合学习-SpringBoot.md",
     "java/spring系列学习/ssm整合学习-SpringMVC.md",
     "cicd/1. 什么是CI和CD，为什么要学CI和CD.md",
-    "youdaonote-images/Pasted image 20230529170009.png",
     "cicd/6. 使用 Kubernetes 部署访问你的第一个应用.md",
     "cicd/2.安装docker和jekins.md",
     "Django笔记/Djangoday7Advaced.md",
