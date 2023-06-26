@@ -58,7 +58,9 @@ B { A a } （B 初始化的时候A已经存在，可以依赖注入，再循环�
 | 9    | FlashMapManager             | 参数缓存器                          | 
 
 ### 实现三个功能
-- HandlerMapping
-- HandlerAdapter
-- ViewResolvers
+- HandlerMapping: 保存Url映射关系
+- HandlerAdapter: 动态参数适配器
+- ViewResolvers : 视图转换器，模板引擎
 ![](../youdaonote-images/Pasted%20image%2020230624230026.png)
+
+> 
