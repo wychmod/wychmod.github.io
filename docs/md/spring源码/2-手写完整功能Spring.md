@@ -61,6 +61,7 @@ B { A a } （B 初始化的时候A已经存在，可以依赖注入，再循环�
 - HandlerMapping: 保存Url映射关系
 - HandlerAdapter: 动态参数适配器
 - ViewResolvers : 视图转换器，模板引擎
-![](../youdaonote-images/Pasted%20image%2020230624230026.png)
 
-> 
+在Spring框架中，ModelAndView是一个组合对象，可以同时包含模型数据和视图信息。它的作用是将处理器方法（Controller方法）处理的数据（模型数据）和对应的视图（View）封装在一起，然后返回给DispatcherServlet，DispatcherServlet再将其传递给ViewResolver进行视图解析和渲染。
+
+![](../youdaonote-images/Pasted%20image%2020230624230026.png)
