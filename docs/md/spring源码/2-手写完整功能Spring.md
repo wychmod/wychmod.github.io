@@ -84,6 +84,9 @@ handler方法 对应多个通知
 Map\<Method, List\<Advice\>\>
 
 ### 基本原理
-AopConfig:
+
+AdvisedSupport: 去解析Aop的配置信息
+AopConfig: 保存Aop基本的配置
+
 
 ![](../youdaonote-images/Pasted%20image%2020230627234735.png)
