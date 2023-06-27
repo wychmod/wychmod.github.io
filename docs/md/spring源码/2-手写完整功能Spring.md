@@ -87,6 +87,7 @@ Map\<Method, List\<Advice\>\>
 
 AdvisedSupport: 去解析Aop的配置信息
 AopConfig: 保存Aop基本的配置
-
+Advice:
+JdkDynamicAopProxy:
 
 ![](../youdaonote-images/Pasted%20image%2020230627234735.png)
