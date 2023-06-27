@@ -82,3 +82,8 @@ Advice 通知
 handler方法 对应多个通知
 
 Map\<Method, List\<Advice\>\>
+
+### 基本原理
+AopConfig:
+
+![](../youdaonote-images/Pasted%20image%2020230627234735.png)
