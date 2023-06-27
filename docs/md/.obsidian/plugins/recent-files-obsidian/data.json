@@ -1,16 +1,28 @@
 {
   "recentFiles": [
     {
+      "basename": "MySQL性能优化-架构",
+      "path": "mysql/MySQL性能优化-架构.md"
+    },
+    {
+      "basename": "1-300行手写简易Spring",
+      "path": "spring源码/1-300行手写简易Spring.md"
+    },
+    {
+      "basename": "MySQL是怎样运行的",
+      "path": "mysql/MySQL是怎样运行的.md"
+    },
+    {
+      "basename": "MySQL是怎样使用的",
+      "path": "mysql/MySQL是怎样使用的.md"
+    },
+    {
       "basename": "2-手写完整功能Spring",
       "path": "spring源码/2-手写完整功能Spring.md"
     },
     {
       "basename": "anaconda中使用虚拟环境",
       "path": "Python/anaconda中使用虚拟环境.md"
-    },
-    {
-      "basename": "1-300行手写简易Spring",
-      "path": "spring源码/1-300行手写简易Spring.md"
     },
     {
       "basename": "设计模式",
