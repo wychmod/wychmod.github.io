@@ -65,3 +65,16 @@ B { A a } （B 初始化的时候A已经存在，可以依赖注入，再循环�
 在Spring框架中，ModelAndView是一个组合对象，可以同时包含模型数据和视图信息。它的作用是将处理器方法（Controller方法）处理的数据（模型数据）和对应的视图（View）封装在一起，然后返回给DispatcherServlet，DispatcherServlet再将其传递给ViewResolver进行视图解析和渲染。
 
 ![](../youdaonote-images/Pasted%20image%2020230624230026.png)
+
+
+## 实现AOP功能
+
+底层技术用动态代理来实现:
+- 增强：
+	- 1. 增加一些新的代码，生成一个新的类
+	- 2. 跟目标类实现一个相同的接口
+	- 3. 直接继承目标类，覆盖目标类方法
+- 解耦
+
+真正调用代码逻辑的时候，直接运行生成的Proxy类的代码
+

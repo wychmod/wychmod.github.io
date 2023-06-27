@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md",
+                "file": "spring源码/2-手写完整功能Spring.md",
                 "mode": "source",
                 "source": false
               }
@@ -92,7 +92,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5
+    "width": 357.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -108,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md",
+                "file": "spring源码/2-手写完整功能Spring.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md",
+                "file": "spring源码/2-手写完整功能Spring.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md"
+                "file": "spring源码/2-手写完整功能Spring.md"
               }
             }
           }
@@ -182,8 +183,8 @@
   },
   "active": "db04a690014d286b",
   "lastOpenFiles": [
-    "spring源码/1-300行手写简易Spring.md",
     "mysql/MySQL性能优化-架构.md",
+    "spring源码/1-300行手写简易Spring.md",
     "mysql/MySQL调优实战.md",
     "mysql/MySQL是怎样运行的.md",
     "mysql/MySQL是怎样使用的.md",
