@@ -87,7 +87,7 @@ Map\<Method, List\<Advice\>\>
 
 AdvisedSupport: 去解析Aop的配置信息
 AopConfig: 保存Aop基本的配置
-Advice:
-JdkDynamicAopProxy:
+Advice: 定义了拦截器的方法和属性，用于在目标对象的方法执行前、后或异常时执行相关操作，实现了 AOP 的横切关注点
+JdkDynamicAopProxy: 该类是 AOP 框架中使用 JDK 动态代理实现代理的类，它实现了 `InvocationHandler` 接口，可以动态创建代理对象，并在代理对象的方法执行时调用拦截器的相关方法，实现了 AOP 的功能。
 
 ![](../youdaonote-images/Pasted%20image%2020230627234735.png)
