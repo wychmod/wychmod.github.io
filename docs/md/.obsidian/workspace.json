@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "spring源码/2-手写完整功能Spring.md",
-                "mode": "source",
+                "file": "系统设计/设计模式.md",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "spring源码/2-手写完整功能Spring.md",
+                "file": "系统设计/设计模式.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "spring源码/2-手写完整功能Spring.md",
+                "file": "系统设计/设计模式.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "spring源码/2-手写完整功能Spring.md"
+                "file": "系统设计/设计模式.md"
               }
             }
           }
@@ -183,13 +183,13 @@
   },
   "active": "db04a690014d286b",
   "lastOpenFiles": [
+    "spring源码/2-手写完整功能Spring.md",
     "youdaonote-images/Pasted image 20230627234735.png",
     "mysql/MySQL性能优化-架构.md",
     "spring源码/1-300行手写简易Spring.md",
     "mysql/MySQL调优实战.md",
     "mysql/MySQL是怎样运行的.md",
     "mysql/MySQL是怎样使用的.md",
-    "spring源码/2-手写完整功能Spring.md",
     "Python/anaconda中使用虚拟环境.md",
     "youdaonote-images/Pasted image 20230624230026.png",
     "系统设计/设计模式.md",
@@ -201,7 +201,6 @@
     "youdaonote-images/CB5D1E7B-9E4F-42FE-A856-AED72DA50A21.png",
     "youdaonote-images/8A538AA6-0881-4CC3-8FFE-0722E8834223_4_5005_c.jpeg",
     "youdaonote-images/D439AB3B-9C00-4F6D-8C15-D33680DE25F5.png",
-    "youdaonote-images/Pasted image 20230619234827.png",
     "java/spring系列学习/spring.md",
     "spring源码",
     "docker/Centos7安装Docker.md",
