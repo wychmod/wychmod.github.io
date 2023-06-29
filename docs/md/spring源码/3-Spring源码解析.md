@@ -62,6 +62,10 @@ applyPropertyvalues() --> 循环PropertyValye,挨个调用BeanWrapper的setvalue
 ## AOP分析
 
 
+### 主要流程
+
+![](../youdaonote-images/Pasted%20image%2020230629201523.png)
+
 
 ### 运行时序图
 ![](../youdaonote-images/时序图.jpg)
