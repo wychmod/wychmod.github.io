@@ -92,7 +92,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5
+    "width": 357.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -182,6 +183,8 @@
   },
   "active": "db04a690014d286b",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230629140846.png",
+    "youdaonote-images/Pasted image 20230629140751.png",
     "spring源码/2-手写完整功能Spring.md",
     "spring源码/3-Spring源码解析.md",
     "系统设计/设计模式.md",
@@ -200,7 +203,6 @@
     "youdaonote-images/31E13A08-507B-483A-B83C-9404FFC35BBE.png",
     "youdaonote-images/CB5D1E7B-9E4F-42FE-A856-AED72DA50A21.png",
     "youdaonote-images/8A538AA6-0881-4CC3-8FFE-0722E8834223_4_5005_c.jpeg",
-    "youdaonote-images/D439AB3B-9C00-4F6D-8C15-D33680DE25F5.png",
     "java/spring系列学习/spring.md",
     "spring源码",
     "docker/Centos7安装Docker.md",
@@ -219,7 +221,6 @@
     "java/spring系列学习/spring-依赖注入.md",
     "java/spring系列学习/ssm整合学习-Spring.md",
     "java/spring系列学习/ssm整合学习-SpringBoot.md",
-    "java/spring系列学习/ssm整合学习-SpringMVC.md",
     "cicd",
     "md/Python",
     "md",
