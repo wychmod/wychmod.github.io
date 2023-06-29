@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "系统设计/设计模式.md",
-                "mode": "preview",
+                "file": "spring源码/3-Spring源码解析.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -109,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "系统设计/设计模式.md",
+                "file": "spring源码/3-Spring源码解析.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "系统设计/设计模式.md",
+                "file": "spring源码/3-Spring源码解析.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "系统设计/设计模式.md"
+                "file": "spring源码/3-Spring源码解析.md"
               }
             }
           }
@@ -184,6 +183,8 @@
   "active": "db04a690014d286b",
   "lastOpenFiles": [
     "spring源码/2-手写完整功能Spring.md",
+    "spring源码/3-Spring源码解析.md",
+    "系统设计/设计模式.md",
     "youdaonote-images/Pasted image 20230627234735.png",
     "mysql/MySQL性能优化-架构.md",
     "spring源码/1-300行手写简易Spring.md",
@@ -192,7 +193,6 @@
     "mysql/MySQL是怎样使用的.md",
     "Python/anaconda中使用虚拟环境.md",
     "youdaonote-images/Pasted image 20230624230026.png",
-    "系统设计/设计模式.md",
     "youdaonote-images/Pasted image 20230623171938.png",
     "youdaonote-images/Pasted image 20230620201107.png",
     "youdaonote-images/Pasted image 20230620201105.png",
