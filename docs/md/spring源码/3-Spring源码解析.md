@@ -67,5 +67,16 @@ applyPropertyvalues() --> 循环PropertyValye,挨个调用BeanWrapper的setvalue
 ![](../youdaonote-images/Pasted%20image%2020230629201523.png)
 
 
+### 核心功能
+
+AOP就两个最核心的类MethodInterceptor、MethodInvocation
+其他的都是起辅助作用
+
+MethodInterceptor有一个方法叫做invoke()
+MethodInvocation有一个方法叫做proceed()
+proceed()串联起了整个Interceptor调用链
+
+![](../youdaonote-images/Pasted%20image%2020230629225029.png)
+
 ### 运行时序图
 ![](../youdaonote-images/时序图.jpg)
