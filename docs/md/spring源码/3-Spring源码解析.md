@@ -80,3 +80,14 @@ proceed()串联起了整个Interceptor调用链
 
 ### 运行时序图
 ![](../youdaonote-images/时序图.jpg)
+
+
+## MVC分析
+
+### SpringMVC请求处理流程
+
+![](../youdaonote-images/Pasted%20image%2020230629225510.png)
+
+### 运行时序图
+
+![](../youdaonote-images/一步一步手绘Spring%20MVC%20运行时序图.png)
