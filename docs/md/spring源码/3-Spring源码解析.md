@@ -56,8 +56,12 @@ populateBean() -->根据beanName、BeanDefiniton、BeanWrpper找到需要赋值�
 
 applyPropertyvalues() --> 循环PropertyValye,挨个调用BeanWrapper的setvalue()方法，用反射调用setter方法完成赋值
 
-
-![](../youdaonote-images/时序图.jpg)
+![](../youdaonote-images/一步一步手绘Spring%20DI运行时序图.png)
 
 
 ## AOP分析
+
+
+
+### 运行时序图
+![](../youdaonote-images/时序图.jpg)
