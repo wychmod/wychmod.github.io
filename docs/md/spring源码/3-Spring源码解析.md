@@ -49,5 +49,15 @@ Bean的解析过程非常复杂，功能被分得很细，因为这里需要被�
 
 ### 运行时序图
 
+createBeanInstance() --> 用反射创建了个对象实例-->封装成BeanWrapper
+
+populateBean() -->根据beanName、BeanDefiniton、BeanWrpper找到需要赋值的属性
+把需要赋值的属性封装成了一个集合PropertyValues,集合的元素Propertyvalue,Propertyvalue需要赋值的bean,赋值需要调用的方法，要赋什么值。
+
+applyPropertyvalues() --> 循环PropertyValye,挨个调用BeanWrapper的setvalue()方法，用反射调用setter方法完成赋值
+
+
 ![](../youdaonote-images/时序图.jpg)
 
+
+## AOP分析
