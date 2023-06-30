@@ -144,6 +144,9 @@ proceed()串联起了整个Interceptor调用链
 		- AfterReturningAdviceInterceptor
 		- AspectJAfterThrowingAdvice
 		- MethodBeforeAdviceInterceptor
+		- 三者都继承自AbstractAspectJAdvice，和满足MethodInterceptor接口，在执行MethodInterceptor的invoke()时会根据自身定义的不同来执行AbstractAspectJAdvice的切面方法
+- JoinPoint: 切点参数接口，可以保存用户要传递的信息，以及保存一些方法信息。
+	- MethodInvocation: 实现了JoinPoint接口，通过proceed()来调用拦截器链
 - AopConfig: 读取的Aop的配置信息，例如before调哪个方法
 
 ### 运行时序图
