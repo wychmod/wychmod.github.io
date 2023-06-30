@@ -6,3 +6,7 @@
 Spring 在启动的时候会解析生成相关的Bean，这时候会查看拥有相关注解的类和方法，并且为这些类和方法生成代理，根据@Transactional的相关参数进行相关配置注入，这样就在代理中为我们把相关的事务处理掉了（开启正常提交事务、异常回滚事务）。
 
 真正的数据库层的事务提交和回滚是通过binlog或者redo log实现的。
+
+![](../youdaonote-images/Pasted%20image%2020230630201006.png)
+
+![](../youdaonote-images/Pasted%20image%2020230630201104.png)
