@@ -10,3 +10,14 @@ Spring 在启动的时候会解析生成相关的Bean，这时候会查看拥有
 ![](../youdaonote-images/Pasted%20image%2020230630201006.png)
 
 ![](../youdaonote-images/Pasted%20image%2020230630201104.png)
+
+
+## 手写ORM框架
+
+1. 支持读写分离
+2. 支持分库分表
+3. 支持单表操作不需要写任何SQL
+4. 支持自定义SQL
+5. 支持高度扩展
+
+QueryRule, 查询条件构造器
