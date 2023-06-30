@@ -50,6 +50,14 @@ refresh（）方法的主要作用是：在创建IoC容器前，如果已经有�
 
 ![](../youdaonote-images/一步一步手绘Spring%20IoC运行时序图.jpg)
 
+### IoC容器初始化小结
+
+1. 初始化的入口由容器实现中的refresh（）方法调用来完成。
+2. 对Bean定义载入IoC容器使用的方法是loadBeanDefinition（）。
+
+
+
+
 ## DI分析
 
 ### 依赖注入执行细节
