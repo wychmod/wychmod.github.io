@@ -40,6 +40,12 @@ Application继承图：
 
 ![](../youdaonote-images/Pasted%20image%2020230630112350.png)
 
+Spring IoC容器对Bean配置资源的载入是从refresh（）方法开始的。refresh（）方法是一个模板方法，规定了 IoC 容器的启动流程，有些逻辑要交给其子类实现。
+
+refresh（）方法的主要作用是：在创建IoC容器前，如果已经有容器存在，需要把已有的容器销毁和关闭，以保证在refresh（）方法之后使用的是新创建的IoC容器。它类似于对IoC容器的重启，在新创建的容器中对容器进行初始化，对Bean配置资源进行载入。
+
+
+
 ### 基于XML的IoC运行时序图
 
 ![](../youdaonote-images/一步一步手绘Spring%20IoC运行时序图.jpg)
