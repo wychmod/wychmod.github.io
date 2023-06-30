@@ -117,6 +117,11 @@ applyPropertyvalues() --> 循环PropertyValye,挨个调用BeanWrapper的setvalue
 ![](../youdaonote-images/Pasted%20image%2020230629201523.png)
 
 
+### 源码分析
+
+
+
+
 ### 核心功能
 
 AOP就两个最核心的类MethodInterceptor、MethodInvocation
