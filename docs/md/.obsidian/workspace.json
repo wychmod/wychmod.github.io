@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md",
+                "file": "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
                 "mode": "source",
                 "source": false
               }
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md",
+                "file": "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md",
+                "file": "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md"
+                "file": "spring源码/4-Spring事务传播原理及数据库事务操作原理.md"
               }
             }
           }
@@ -183,6 +183,8 @@
   },
   "active": "db04a690014d286b",
   "lastOpenFiles": [
+    "spring源码/3-Spring源码解析.md",
+    "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
     "youdaonote-images/6E1968E1-8E92-4D6A-B91C-D0C0817A6756.png",
     "youdaonote-images/Pasted image 20230630140604.png",
     "youdaonote-images/Pasted image 20230630114716.png",
@@ -193,9 +195,7 @@
     "youdaonote-images/Pasted image 20230629225029.png",
     "youdaonote-images/Pasted image 20230629201523.png",
     "youdaonote-images/一步一步手绘Spring DI运行时序图.png",
-    "youdaonote-images/时序图.jpg",
     "spring源码/2-手写完整功能Spring.md",
-    "spring源码/3-Spring源码解析.md",
     "系统设计/设计模式.md",
     "mysql/MySQL性能优化-架构.md",
     "spring源码/1-300行手写简易Spring.md",
