@@ -146,8 +146,12 @@ proceed()串联起了整个Interceptor调用链
 		- MethodBeforeAdviceInterceptor
 		- 三者都继承自AbstractAspectJAdvice，和满足MethodInterceptor接口，在执行MethodInterceptor的invoke()时会根据自身定义的不同来执行AbstractAspectJAdvice的切面方法
 - JoinPoint: 切点参数接口，可以保存用户要传递的信息，以及保存一些方法信息。
-	- MethodInvocation: 实现了JoinPoint接口，通过proceed()来调用拦截器链
+	- MethodInvocation: 实现了JoinPoint接口，通过proceed()来调用拦截器链, 会判断要调用的拦截器是否实现MethodInterceptor。
 - AopConfig: 读取的Aop的配置信息，例如before调哪个方法
+- AopProxy: Aop代理接口，提供获取代理对象的方法，用于后续的方法调用
+	- cglib: 动态代理实现类
+	- JdkDynamicAopProxy: 代理对象的方法调用,通过返回拦截器链,然后调用拦截器链的proceed方法, proceed()串联起了整个Interceptor调用链
+- DefaultAopProxyFactory: 代理对象工厂，根据接口判断是使用jdk还是CGLib
 
 ### 运行时序图
 ![](../youdaonote-images/时序图.jpg)
