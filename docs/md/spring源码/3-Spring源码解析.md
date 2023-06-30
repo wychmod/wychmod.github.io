@@ -150,6 +150,10 @@ proceed()串联起了整个Interceptor调用链
 
 ![](../youdaonote-images/Pasted%20image%2020230629225510.png)
 
+### 核心组件运行步骤
+
+![](../youdaonote-images/6E1968E1-8E92-4D6A-B91C-D0C0817A6756.png)
+
 ### 运行时序图
 
 ![](../youdaonote-images/一步一步手绘Spring%20MVC%20运行时序图.png)
