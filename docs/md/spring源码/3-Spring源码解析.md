@@ -55,7 +55,7 @@ refresh（）方法的主要作用是：在创建IoC容器前，如果已经有�
 1. 初始化的入口由容器实现中的refresh（）方法调用来完成。
 2. 对Bean定义载入IoC容器使用的方法是loadBeanDefinition（）。
 
-
+大致过程如下：通过 ResourceLoader 来完成资源文件的定位，DefaultResourceLoader 是默认的实现，同时上下文本身就给出了ResourceLoader的实现，可以通过类路径、文件系统、URL等方式来定位资源。如果是XmlBeanFactory作为IoC容器，那么需要为它指定Bean定义的资源，也就是说Bean定义文件时通过抽象成Resource来被IoC容器处理，容器通过BeanDefinitionReader来完成定义信息的解析和 Bean 信息的注册，往往使用 XmlBeanDefinitionReader 来解析 Bean 的XML 定义文件—实际的处理过程是委托给 BeanDefinitionParserDelegate 来完成的，从而得到Bean的定义信息，这些信息在Spring中使用BeanDefinition来表示—这个名字可以让我们想到loadBeanDefinition（）、registerBeanDefinition（）这些相关方法。它们都是为处理BeanDefinition服务的，容器解析得到BeanDefinition以后，需要在IoC容器中注册，这由IoC实现BeanDefinitionRegistry接口来实现。注册过程就是在IoC容器内部维护的一个HashMap来保存得到的BeanDefinition的过程。这个HashMap是IoC容器持有Bean信息的场所，以后对Bean的操作都是围绕这个HashMap来实现的。
 
 
 ## DI分析
@@ -63,6 +63,9 @@ refresh（）方法的主要作用是：在创建IoC容器前，如果已经有�
 ### 依赖注入执行细节
 
 ![](../youdaonote-images/Pasted%20image%2020230629165143.png)
+
+
+### 依赖注入发生的时间
 
 
 
