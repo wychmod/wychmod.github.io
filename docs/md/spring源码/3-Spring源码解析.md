@@ -123,6 +123,8 @@ Spring AOP是由接入BeanPostProcessor后置处理器开始的，它是Spring I
 
 BeanPostProcessor后置处理器的调用发生在Spring IoC容器完成Bean实例对象的创建和属性的依赖注入之后。为 Bean 实例对象添加 BeanPostProcessor 后置处理器的入口是initializeBean（）方法。
 
+![](../youdaonote-images/Pasted%20image%2020230630140604.png)
+
 
 ### 核心功能
 
