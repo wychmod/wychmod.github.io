@@ -21,3 +21,10 @@ Spring 在启动的时候会解析生成相关的Bean，这时候会查看拥有
 5. 支持高度扩展
 
 QueryRule, 查询条件构造器
+
+List<?> select(QueryRule queryRule)
+
+int delete(T entity)
+int update(T entity)
+int insert(T entity)
+
