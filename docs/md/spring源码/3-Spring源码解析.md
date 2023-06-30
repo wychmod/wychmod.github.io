@@ -1,18 +1,3 @@
-## IoC分析
-### IoC容器初始化三步曲
-
-![](../youdaonote-images/Pasted%20image%2020230629140751.png)
-
-### 基于XML的定位、加载和注册
-
-![](../youdaonote-images/Pasted%20image%2020230629140846.png)
-
-
-
-### 运行时序图
-
-![](../youdaonote-images/一步一步手绘Spring%20IoC运行时序图.jpg)
-
 ### Spring核心容器类图
 
 #### 1.BeanFactory
@@ -38,6 +23,26 @@ Bean的解析过程非常复杂，功能被分得很细，因为这里需要被�
 
 ![](../youdaonote-images/Pasted%20image%2020230629162527.png)
 
+
+## IoC分析
+
+### IoC容器初始化三步曲
+
+![](../youdaonote-images/Pasted%20image%2020230629140751.png)
+
+### 基于XML的定位、加载和注册
+
+IoC容器的初始化包括BeanDefinition的Resource定位、加载和注册三个基本的过程。
+
+![](../youdaonote-images/Pasted%20image%2020230629140846.png)
+
+Application继承图：
+
+![](../youdaonote-images/Pasted%20image%2020230630112350.png)
+
+### 基于XML的IoC运行时序图
+
+![](../youdaonote-images/一步一步手绘Spring%20IoC运行时序图.jpg)
 
 ## DI分析
 
