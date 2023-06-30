@@ -137,6 +137,15 @@ proceed()串联起了整个Interceptor调用链
 
 ![](../youdaonote-images/Pasted%20image%2020230629225029.png)
 
+![](../youdaonote-images/Pasted%20image%2020230630161139.png)
+
+- Advice: 切面接口，定义了切面属性
+	- AbstractAspectJAdvice: 继承自Advice, 保存有切面和切面方法，执行切面的具体方法在这个抽象类，在执行前会对传递参数进行配置。
+		- AfterReturningAdviceInterceptor
+		- AspectJAfterThrowingAdvice
+		- MethodBeforeAdviceInterceptor
+- AopConfig: 读取的Aop的配置信息，例如before调哪个方法
+
 ### 运行时序图
 ![](../youdaonote-images/时序图.jpg)
 
