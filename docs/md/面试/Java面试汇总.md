@@ -141,6 +141,21 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 
 `FactoryBean` ：创建对象的工厂 Bean ，可以使用它来直接创建一些初始化流程比较复杂的对象
 
+## 请解释Spring Bean的生命周期
+
+所谓生命周期，从创建，到调用，到销毁
+singleton: 从Spring容器的启动到Spring容器的销毁，如果是延时加载，在调用前创建对象
+prototype:在调用前创建，调用后销毁,作用域决定了生命周期的长短
+
+## Spring Bean各作用域之间的区别？
+
+1、singleton: 作用域全局，在任何地方可以通过Ioc容器拿到它
+2、prototype: 全局的，
+3、request: 在一次请求发起和结束之间
+4、session: 一个session创建和session失效之间，一般默认是30分钟
+5、global-session:可以理解为容器中的一个应用(Spring5不再支持)
+
+
 # docker
 
 ## 什么是容器？
