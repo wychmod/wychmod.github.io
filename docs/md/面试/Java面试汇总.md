@@ -155,6 +155,15 @@ prototype:在调用前创建，调用后销毁,作用域决定了生命周期的
 4、session: 一个session创建和session失效之间，一般默认是30分钟
 5、global-session:可以理解为容器中的一个应用(Spring5不再支持)
 
+## Spring中的Bean是线程安全的吗？
+
+你自己写的Bean是线程安全的吗？
+Spring中的Bean是否线程安全和Spring无关，和你自己写的代码有关
+
+## Spring中用到了哪些设计模式？
+工厂模式(beanFactory)、单例模式（容器式单例），原型（多例）模式（容器式多例）、代理模式(Aop)、建造者模式（通过调用BeanDefinitionBuilder获得BeanDefinition）
+享元模式、门面模式、适配器模式、委派模式、装饰器模式(事务的装饰器)、责任链模式
+空对象模式
 
 # docker
 
