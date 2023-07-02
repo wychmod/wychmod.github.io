@@ -137,7 +137,7 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 1. ApplicationContext是BeanFactory的实现类
 2. BeanFactory]顶层设计(抽象)，而ApplicationContext是User Interface，是用户使用的接口
 3. 功能会非常丰富，API是最全的, 一般会认为ApplicationContext就是IoC
-4. DefaultBeanFactory 
+4. Ioc的功能是在DefaultListableBeanFactory类中完成的，但是有共同的接口
 
 `FactoryBean` ：创建对象的工厂 Bean ，可以使用它来直接创建一些初始化流程比较复杂的对象
 
