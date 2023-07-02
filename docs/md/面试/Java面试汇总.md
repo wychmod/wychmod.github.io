@@ -133,9 +133,11 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 6.  `DispaterServlet` 把返回的 `Model` 传给 `View`（视图渲染）。
 7.  把 `View` 返回给请求者（浏览器）
 
-## BeanFactory与FactoryBean的区别
-
-`BeanFactory` ：SpringFramework 中实现 IOC 的最底层容器（此处的回答可以从两种角度出发：从类的继承结构上看，它是最顶级的接口，也就是最顶层的容器实现；从类的组合结构上看，它则是最深层次的容器，`ApplicationContext` 在最底层组合了 `BeanFactory` ）
+## BeanFactory与FactoryBean与ApplicationContext的区别
+1. ApplicationContext是BeanFactory的实现类
+2. BeanFactory]顶层设计(抽象)，而ApplicationContext是User Interface，是用户使用的接口
+3. 功能会非常丰富，API是最全的, 一般会认为ApplicationContext就是IoC
+4. DefaultBeanFactory 
 
 `FactoryBean` ：创建对象的工厂 Bean ，可以使用它来直接创建一些初始化流程比较复杂的对象
 
