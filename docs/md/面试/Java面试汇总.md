@@ -162,8 +162,8 @@ Spring中的Bean是否线程安全和Spring无关，和你自己写的代码有�
 
 ## Spring中用到了哪些设计模式？
 工厂模式(beanFactory)、单例模式（容器式单例），原型（多例）模式（容器式多例）、代理模式(Aop)、建造者模式（通过调用BeanDefinitionBuilder获得BeanDefinition）
-享元模式、门面模式、适配器模式、委派模式、装饰器模式(事务的装饰器)、责任链模式
-空对象模式
+享元模式、门面模式、适配器模式()、委派模式(BeanDefinitionDocmentReader)、装饰器模式(事务的装饰器)、责任链模式(拦截器的责任链)
+
 
 # docker
 
