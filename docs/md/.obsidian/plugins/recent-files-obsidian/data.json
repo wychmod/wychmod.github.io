@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "MySQL性能优化-架构",
+      "path": "mysql/MySQL性能优化-架构.md"
+    },
+    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
     },
@@ -19,10 +23,6 @@
     {
       "basename": "2-手写完整功能Spring",
       "path": "spring源码/2-手写完整功能Spring.md"
-    },
-    {
-      "basename": "MySQL性能优化-架构",
-      "path": "mysql/MySQL性能优化-架构.md"
     },
     {
       "basename": "1-300行手写简易Spring",
