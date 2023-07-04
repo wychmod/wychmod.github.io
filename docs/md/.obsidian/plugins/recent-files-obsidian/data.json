@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "3-Spring源码解析",
+      "path": "spring源码/3-Spring源码解析.md"
+    },
+    {
       "basename": "MySQL是怎样运行的",
       "path": "mysql/MySQL是怎样运行的.md"
     },
@@ -19,10 +23,6 @@
     {
       "basename": "4-Spring事务传播原理及数据库事务操作原理",
       "path": "spring源码/4-Spring事务传播原理及数据库事务操作原理.md"
-    },
-    {
-      "basename": "3-Spring源码解析",
-      "path": "spring源码/3-Spring源码解析.md"
     },
     {
       "basename": "2-手写完整功能Spring",

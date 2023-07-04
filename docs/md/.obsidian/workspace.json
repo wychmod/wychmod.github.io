@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md",
-                "mode": "preview",
+                "file": "spring源码/3-Spring源码解析.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -120,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md",
+                "file": "spring源码/3-Spring源码解析.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -137,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md",
+                "file": "spring源码/3-Spring源码解析.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md"
+                "file": "spring源码/3-Spring源码解析.md"
               }
             }
           }
@@ -192,8 +192,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "9dc31f24c0808e60",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
+    "mysql/MySQL是怎样运行的.md",
     "mysql/MySQL性能优化-架构.md",
     "youdaonote-images/Pasted image 20230703235814.png",
     "面试/Java面试汇总.md",
@@ -212,7 +213,6 @@
     "spring源码/2-手写完整功能Spring.md",
     "spring源码/1-300行手写简易Spring.md",
     "mysql/MySQL调优实战.md",
-    "mysql/MySQL是怎样运行的.md",
     "mysql/MySQL是怎样使用的.md",
     "Python/anaconda中使用虚拟环境.md",
     "java/spring系列学习/spring.md",
