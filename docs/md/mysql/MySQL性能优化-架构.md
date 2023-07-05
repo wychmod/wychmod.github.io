@@ -285,3 +285,23 @@ binlog以事件的形式记录了所有的DDL和DML语句（因为它记录的�
 3. 存储引擎和Server记录不同的日志。
 4.  先记录redo,再记录binlog。
 
+binlog控制着主从复制，如果binlog没有就不该提交。
+
+在崩溃恢复时，判断事务是否需要提交：
+1、binlog无记录，redolog无记录：
+	在redo log写之前crash,恢复操作：回滚事务
+2、binlog:无记录，redolog状态prepare:
+	在binlog写完之前的crash,恢复操作：回滚事务
+3、binlog有记录，redolog状态prepare:
+	在binlog写完提交事务之前的crash,恢复操作：提交事务
+4、binlog有记录，redolog状态commit:
+	正常完成的事务，不需要恢复
+
+## binlog 没开启怎么办？
+redolog 就不用两阶段提交了，因为不会影响主从复制了。
+
+## buffer pool 读大内容的问题
+buffer pool 有默认大小，如果你全表扫描大数据，可以调大buffer pool的大小。
+
+## redo log为什么是两个
+可以she zhi
