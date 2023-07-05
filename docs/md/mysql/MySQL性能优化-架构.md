@@ -176,7 +176,7 @@ show global variables like %und0%;
 
 Buffer Pool主要分为3个部分：Buffer Pool、Change Buffer、Adaptive Hash Index、(redo)log bufer。
 
-1、 Buffer Pool
+##### 1、 Buffer Pool
 
 BufferPool 缓存的是页面信息，包括数据页、索引页。
 Buffer Pool默认大小是128M，可以调整。
@@ -188,7 +188,7 @@ SHOW VARIABLES like '%innodb_buffer_pool%';
 SHOW STATUS LIKE '%innodb_buffer_pool%';
 ```
 
-2、 LRU
+##### 2、 LRU
 
 InnoDB用LRU算法来管理缓冲池（链表实现，不是传统的LRU,分成了young和old),经过淘汰的数据就是热点数据。
 
@@ -204,6 +204,12 @@ InnoDB 有一个预读机制 (read ahead) 。也就是说，设计者认为访�
 
 可以设置冷却时间，避免刚进来的数据太大，直接提到热区，导致数据被污染。
 
-3、  Change Buffer 写缓冲
+##### 3、  Change Buffer 写缓冲
 
 如果这个数据页不是唯一索引，不存在数据重复的情况，也就不需要从磁盘加载索引页判断数据是不是重复（唯一性检查）。这种情况下可以先把修改记录在内存的缓冲池中，从而提升更新语句(Insert、Delete、Update)的执行速度。
+
+##### 4、 Adaptive Hash Index
+
+##### 5、 Redo Log Buffer
+
+Redo 1og 也不是每一次都直接写入磁盘，在Buffer Pool 里面有一块内存区域(Log Buffer )专门用来保存即将要写入日志文件的数据，默认16M，它一样可以节省磁盘IO 。
