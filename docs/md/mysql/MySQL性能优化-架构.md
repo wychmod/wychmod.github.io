@@ -149,4 +149,20 @@ show variables like 'innodb _log%';
 
 ### 3.4 undo log
 
+undo log(撤销日志或回滚日志)记录了事务发生之前的数据状态，分为insert undo log 和update undo log。如果修改数据时出现异常，可以回滚操作(保持原子性)。
+
+ndolog记录的是反向的操作，比如insert会记录delete，跟redolog 记录做了什么操作不同，所以叫做逻辑格式的日志。
+
+```sql
+show global variables like %und0%;
+```
+
 > redo log和undo 1og 与事务密切相关，统称为事务日志。
+
+
+### 3.5 更新过程
+
+1. 事务开始，从内存 (buffer pool)或磁盘(datafile) 取到包含这条数据的数据页，返回给执行器;
+2. 执行器修改数据页的数据
+3. 记录原来的到undolog， 记录现在到redolog
+4. 
