@@ -227,6 +227,9 @@ SHOW VARIABLES LIKE 'innodb_flush_log_at _trx_commit';
 #### 3.6.2 磁盘结构
 
 ##### 1、系统表空间system tab|espace
+
+Inn ODB 系统表空间包含InnODB 数据字典和双写缓冲区, Change Buffer和Und o Logs，如果没有指定file-per-table，也包含用户创建的表和素引数据。
+
 ##### 2、独占表空间fiIe-per-table tab|espaces
 ##### 3、通用表空间general tablespaces
 ##### 4、临时表空间temporary tablespaces
