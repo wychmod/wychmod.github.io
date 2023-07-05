@@ -4,28 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "e03d44c4c64ce2cd",
+        "id": "0cba643d8b26839c",
         "type": "tabs",
         "children": [
           {
-            "id": "9dc31f24c0808e60",
+            "id": "10d16275fc0e0041",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "1c66aeb8119fcd67",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "系统设计/设计模式.md",
+                "file": "mysql/MySQL性能优化-架构.md",
                 "mode": "source",
                 "source": false
               }
@@ -120,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md",
+                "file": "mysql/MySQL性能优化-架构.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -137,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md",
+                "file": "mysql/MySQL性能优化-架构.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md"
+                "file": "mysql/MySQL性能优化-架构.md"
               }
             }
           }
@@ -192,8 +180,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "9dc31f24c0808e60",
+  "active": "10d16275fc0e0041",
   "lastOpenFiles": [
+    "spring源码/3-Spring源码解析.md",
     "youdaonote-images/Pasted image 20230704103554.png",
     "youdaonote-images/Pasted image 20230704103310.png",
     "youdaonote-images/Pasted image 20230704103131.png",
@@ -206,11 +195,9 @@
     "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
     "youdaonote-images/Pasted image 20230630201104.png",
     "youdaonote-images/Pasted image 20230630201006.png",
-    "spring源码/3-Spring源码解析.md",
     "youdaonote-images/Pasted image 20230630161139.png",
     "youdaonote-images/6E1968E1-8E92-4D6A-B91C-D0C0817A6756.png",
     "youdaonote-images/Pasted image 20230630140604.png",
-    "youdaonote-images/Pasted image 20230630114716.png",
     "spring源码/2-手写完整功能Spring.md",
     "spring源码/1-300行手写简易Spring.md",
     "mysql/MySQL调优实战.md",
