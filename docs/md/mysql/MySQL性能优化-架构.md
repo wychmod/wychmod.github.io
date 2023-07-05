@@ -178,3 +178,21 @@ Buffer Pool主要分为3个部分：Buffer Pool、Change Buffer、Adaptive Hash 
 
 1、 Buffer Pool
 
+BufferPool 缓存的是页面信息，包括数据页、索引页。
+Buffer Pool默认大小是128M，可以调整。
+
+```sql
+# 查看系统变量
+SHOW VARIABLES like '%innodb_buffer_pool%';
+# 查看服务器状态
+SHOW STATUS LIKE '%innodb_buffer_pool%';
+```
+
+2、 LRU
+
+InnoDB用LRU算法来管理缓冲池（链表实现，不是传统的LRU,分成了young和old),经过淘汰的数据就是热点数据。
+
+![](../youdaonote-images/Pasted%20image%2020230705223019.png)
+
+首先，InnoDB的数据页并不是都是在访问的时候才缓存到buffer pool的。 InnoDB 有一个预读机制 (read ahead) 。也就是说，设计者认为访问某个page
+的数据的时候，相邻的一些page 可能会很快被访问到，所以先把这些page 放到buf fer pool 中缓存起来。
