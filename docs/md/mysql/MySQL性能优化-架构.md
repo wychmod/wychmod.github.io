@@ -194,5 +194,8 @@ InnoDB用LRU算法来管理缓冲池（链表实现，不是传统的LRU,分成�
 
 ![](../youdaonote-images/Pasted%20image%2020230705223019.png)
 
-首先，InnoDB的数据页并不是都是在访问的时候才缓存到buffer pool的。 InnoDB 有一个预读机制 (read ahead) 。也就是说，设计者认为访问某个page
-的数据的时候，相邻的一些page 可能会很快被访问到，所以先把这些page 放到buf fer pool 中缓存起来。
+InnoDB 有一个预读机制 (read ahead) 。也就是说，设计者认为访问某个page的数据的时候，相邻的一些page 可能会很快被访问到，所以先把这些page 放到buf fer pool 中缓存起来。
+
+![](../youdaonote-images/Pasted%20image%2020230705223405.png)
+
+把LRU list分成两部分，靠近head的叫做new sublist,用来放热数据。靠近tail的叫做old sublist,用来放冷数据。中间的分割线叫做midpoint。也就是对buffer pool做一个冷热分离。所有新数据加入到buffer pool的时候，一律先放到冷数据区的head。
