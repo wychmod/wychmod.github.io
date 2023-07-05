@@ -226,9 +226,9 @@ SHOW VARIABLES LIKE 'innodb_flush_log_at _trx_commit';
 
 #### 3.6.2 磁盘结构
 
-系统表空间system tab|espace
-独占表空间fiIe-per-table tab|espaces
-通用表空间general tablespaces
-l临时表空间temporary tablespaces
-Redo log
-Undo表空间
+##### 1、系统表空间system tab|espace
+##### 2、独占表空间fiIe-per-table tab|espaces
+##### 3、通用表空间general tablespaces
+##### 4、临时表空间temporary tablespaces
+##### 5、Redo log
+##### 6、Undo表空间
