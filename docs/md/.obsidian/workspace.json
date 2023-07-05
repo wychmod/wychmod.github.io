@@ -18,9 +18,15 @@
                 "source": false
               }
             }
-          },
+          }
+        ]
+      },
+      {
+        "id": "7da1e01ed1024d10",
+        "type": "tabs",
+        "children": [
           {
-            "id": "ba68fe2480341d10",
+            "id": "9c46994bff389abc",
             "type": "leaf",
             "state": {
               "type": "markdown",
