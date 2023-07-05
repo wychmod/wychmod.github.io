@@ -38,6 +38,11 @@ show global variables like 'interactive_timeout' ; -- 交互式超时时间，�
 
 #### 2.3 语法解析和预处理
 
+1. 词法解析：把一个完整的SQL语句打碎成一个个的单词
+2. 语法解析：语法分析会对SQL做一些语法检查，比如单弓1号有没有闭合， 然后根据 MySQL定义的语法规则，生成解析树
+3. 
+![](../youdaonote-images/Pasted%20image%2020230705191017.png)
+
 
 
 ## 2、理解MySQL的架构与内部模块
