@@ -213,3 +213,15 @@ InnoDB 有一个预读机制 (read ahead) 。也就是说，设计者认为访�
 ##### 5、 Redo Log Buffer
 
 Redo 1og 也不是每一次都直接写入磁盘，在Buffer Pool 里面有一块内存区域(Log Buffer )专门用来保存即将要写入日志文件的数据，默认16M，它一样可以节省磁盘IO 。
+
+刷盘时机
+```sql
+SHOW VARIABLES LIKE 'innodb_flush_log_at _trx_commit';
+```
+![](../youdaonote-images/Pasted%20image%2020230705225537.png)
+
+![](../youdaonote-images/Pasted%20image%2020230705225549.png)
+
+刷盈越快，越安全，但是也会越消耗性能。
+
+#### 3.6.2 磁盘结构
