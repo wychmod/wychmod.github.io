@@ -252,7 +252,29 @@ Inn ODB 系统表空间包含InnODB 数据字典和双写缓冲区, Change Buffe
 
 ##### 4、临时表空间temporary tablespaces
 
-
+存储临时表的数据，包括用户创建的临时表，和磁盘的内部临时表。数据库关闭删除，开启创建。
 
 ##### 5、Redo log
+
+前面有
+
 ##### 6、Undo表空间
+
+前面有
+
+
+#### 3.6.3 后台线程
+
+后台线程的主要作用是负责刷新内存池中的数据和把修改的数据页刷新到磁盘。后 台线程分为:master thread, Io thread, purge thread, page cleaner thread.
+
+1. master thread负责刷新缓存数据到磁盘并协调调度其它后台进程。
+2. lO thread分为insert buffer、.log、read、write进程。分别用来处理insert buffer、重做日志、读写请求的IO回调。
+3. page cleaner thread用来刷新脏页
+4. purge thread用来回收undo页。
+
+### 3.7 Binlog
+
+Server 层也有一个日志文件，叫做binlog，它可以被所有的存储引擎使用。
+
+binlog以事件的形式记录了所有的DDL和DML语句（因为它记录的是操作而不是数据值，属于逻辑日志)，可以用来做主从复制和数据恢复。
+
