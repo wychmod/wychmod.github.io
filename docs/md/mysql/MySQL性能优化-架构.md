@@ -235,12 +235,24 @@ Inn ODB 系统表空间包含InnODB 数据字典和双写缓冲区, Change Buffe
 3. 双写缓冲(InnoDB的一大特性)：InnoDB的页和操作系统的页大小不一致，Inn oDB页大小一般为 15K，操作系统页 大小为 4K，Inn o D B 的页写入到磁盘时，一个页需要分 4 次写。
 	如果存储引擎正在写入页的数据到磁盘时发生了宕机，可能出现页只写了一部分的。可能导致数据丢失，如果这个页本身已经损坏了，用redo log来做崩溃恢复是没有意义的，就用页的副本来还原这个页，然后再应用redolog。页的副本就是double write, InnoDB的双写技术。通过它实现了数据页的可靠性。
 
-> double write 由两部分组成，一部分是内存的double write, 一 个 部 分 是 磁 盘 上的 d o u b l e w r i t e 。 因 为 d o u b l ewrite是顺序写入的，不会带来很大的开销。
+> double write 由两部分组成，一部分是内存的double write, 一个部分是磁盘上的double write。因为double write是顺序写入的，不会带来很大的开销。
 
 ![](../youdaonote-images/Pasted%20image%2020230706000541.png)
 
-##### 2、独占表空间fiIe-per-table tab|espaces
+##### 2、独占表空间fiIe-per-table tablespaces
+
+我们可以让每张表独占一个表空间。这个开关通过innodb_file_per_table 设置，默认开启。这个文件就是数据目录下的ibd 文件。存放数据和索引。
+
+
 ##### 3、通用表空间general tablespaces
+
+通用表空间也是一种共享的表空间，可以创建一个通用的表空间，用来存储不同数据库的表，数据路径和文件可以自定义。
+
+> 不同表空间的数据是可以移动的。
+
 ##### 4、临时表空间temporary tablespaces
+
+
+
 ##### 5、Redo log
 ##### 6、Undo表空间
