@@ -10,7 +10,7 @@
 ### 2. 一条查询SQL语句是如何执行的?
 ![image.png](../youdaonote-images/WEBRESOURCE8dad609ccd37e4f45c7d742c6c5891c0.png)
 
-#### 1. 连接
+#### 2.1 连接
 查看 MySQL 当前有多少个连接:
 ```sql
 show global status like 'Thread%';
@@ -27,6 +27,12 @@ show global variables like 'interactive_timeout' ; -- 交互式超时时间，�
 
 默认都为8小时。默认最大连接数是151个，最大可以为100000个。
 
+> MySQL中的参数 (变量)分为session 和global级别，分别是在当前会话中生效和全局生效。当没有带参数的时候，默认是session 级别，包括查询和修改。
+
+#### 2.2 查询缓存
+如果两个查询请求在任何字符上的不同（例如：空格、注释、大小写），都会导致缓存不会命中。另外，如果查询请求中包含某些系统函数、用户自定义变量和函数、一些系统表,那这个请求就不会被缓存。
+
+缓存这一块，我们还是交给ORM框架 (比如MyBatis 默 认 开 启 了一 级 缓 存 ) ， 或独立的缓存服务，比如Redis来处理更台适。
 
 
 ## 2、理解MySQL的架构与内部模块
