@@ -165,4 +165,16 @@ show global variables like %und0%;
 1. 事务开始，从内存 (buffer pool)或磁盘(datafile) 取到包含这条数据的数据页，返回给执行器;
 2. 执行器修改数据页的数据
 3. 记录原来的到undolog， 记录现在到redolog
-4. 
+4. 调用存储引擎的接口，记录数据页到Buffer Pool
+5. 事务提交
+
+### 3.6 InnoDB总体架构
+
+![](../youdaonote-images/Pasted%20image%2020230705222521.png)
+
+#### 3.6.1 内存结构
+
+Buffer Pool主要分为3个部分：Buffer Pool、Change Buffer、Adaptive Hash Index、(redo)log bufer。
+
+1、 Buffer Pool
+
