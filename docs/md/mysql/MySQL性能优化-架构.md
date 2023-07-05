@@ -199,3 +199,11 @@ InnoDB 有一个预读机制 (read ahead) 。也就是说，设计者认为访�
 ![](../youdaonote-images/Pasted%20image%2020230705223405.png)
 
 把LRU list分成两部分，靠近head的叫做new sublist,用来放热数据。靠近tail的叫做old sublist,用来放冷数据。中间的分割线叫做midpoint。也就是对buffer pool做一个冷热分离。所有新数据加入到buffer pool的时候，一律先放到冷数据区的head。
+
+![](../youdaonote-images/Pasted%20image%2020230705224303.png)
+
+可以设置冷却时间，避免刚进来的数据太大，直接提到热区，导致数据被污染。
+
+3、  Change Buffer 写缓冲
+
+如果这个数据页不是唯一索引，不存在数据重复的情况，也就不需要从磁盘加载索引页判断数据是不是重复（唯一性检查）。这种情况下可以先把修改记录在内存的缓冲池中，从而提升更新语句(Insert、Delete、Update)的执行速度。
