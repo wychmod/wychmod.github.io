@@ -225,3 +225,10 @@ SHOW VARIABLES LIKE 'innodb_flush_log_at _trx_commit';
 刷盈越快，越安全，但是也会越消耗性能。
 
 #### 3.6.2 磁盘结构
+
+系统表空间system tab|espace
+独占表空间fiIe-per-table tab|espaces
+通用表空间general tablespaces
+l临时表空间temporary tablespaces
+Redo log
+Undo表空间
