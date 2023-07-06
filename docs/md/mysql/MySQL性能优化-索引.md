@@ -105,4 +105,18 @@ select *from fulltext test where match(content) against('三体'INNATURALLANGUAG
 memory 存储引擎可以使用Hash 索引。
 
 # 3. B+Tree 落地形式
-## 3.1 MySQL 架构
+## 3.1 MySQL数据存储文件
+
+MySQL 的数据都是文件的形式存放在磁盘中的，在MySQL中有这么一个参数:
+```sql
+show VARIABLES LIKE 'datadir';
+```
+
+每张InnoDB的表有两个文件(.frm和.ibd),MylSAM的表有三个文件(.frm、.MYD、.MYI) 
+.frm是MySQL里面表结构定义的文件，不管你建表的时候选用任何一个存储引擎都会生成
+
+### 3.1.1 MyISAM
+
+一个是.MYD文件，D代表Data,是MyISAM的数据文件，存放数据记录，比如我
+们的user_myisam表的所有的表数据。
+一个是.MYI文件，I代表Index,是MyISAM的索引文件，存放索引，比如我们在id字段上面创建了一个主键索引，那么主键索引就是在这个索引文件里面。一个索引就会有一棵B+Tree,所有的B+Tree都在这个myi文件里面。
