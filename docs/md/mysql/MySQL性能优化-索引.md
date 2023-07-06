@@ -120,3 +120,15 @@ show VARIABLES LIKE 'datadir';
 一个是.MYD文件，D代表Data,是MyISAM的数据文件，存放数据记录，比如我
 们的user_myisam表的所有的表数据。
 一个是.MYI文件，I代表Index,是MyISAM的索引文件，存放索引，比如我们在id字段上面创建了一个主键索引，那么主键索引就是在这个索引文件里面。一个索引就会有一棵B+Tree,所有的B+Tree都在这个myi文件里面。
+
+MyISAM 的B+Tree 里面，叶子节点存储的是数据文件对应的磁盘地址。所以从索 引文件. MY1 中找到键值后，会到数据文件. MYD 中获取相应的数据记录。
+
+![](../youdaonote-images/Pasted%20image%2020230706230147.png)
+
+> MyISAM非主键索引跟主键索引存储和检索数据的方式是没有任何区别的
+
+### 3.1.2 InnoDB
+
+在lnnoDB的某个索引的叶子节点上，它直接存储了我们的数据。
+**所以，在InnoDB中索引即数据，数据即索引，就是这个原因。**
+
