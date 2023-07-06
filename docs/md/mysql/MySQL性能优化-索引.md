@@ -76,3 +76,7 @@ select *from fulltext test where match(content) against('三体'INNATURALLANGUAG
 
 ## 2.5 B+树(加强版多路平衡查找树)
 
+![image\_1cacafpso19vpkik1j5rtrd17cm3a.png-158.1kB](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/4/9/16a01bd2a6c7a65f\~tplv-t2oaga2asx-zoom-in-crop-mark:3024:0:0:0.awebp "image_1cacafpso19vpkik1j5rtrd17cm3a.png-158.1kB")
+
+特点：
+
