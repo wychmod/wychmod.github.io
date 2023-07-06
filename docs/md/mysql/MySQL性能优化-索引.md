@@ -58,7 +58,21 @@ select *from fulltext test where match(content) against('三体'INNATURALLANGUAG
 
 跟AVL树一样，B树在枝节点和叶子节点存储键值、数据地址、节点引用。
 
-特点:分叉数 (路数)永远比关键宁数多1
+特点:分叉数 (路数)永远比关键字数多1。
+
+节点的分裂和合并，其实就是lnnoDB页的分裂和合并。所以不在频繁更新的列上建立索引。
+
+如果索引键值有序，写满一页接着开辟一个新的页。如果索引键值无序，存储过程造成大量磁盘碎片，带来频繁的page 分裂和合并。
+
+![](../youdaonote-images/Pasted%20image%2020230706222807.png)
+
+![](../youdaonote-images/Pasted%20image%2020230706222925.png)
+
+![](../youdaonote-images/Pasted%20image%2020230706222940.png)
+
+![](../youdaonote-images/Pasted%20image%2020230706222949.png)
 
 
-## 2.1 二分查找
+
+## 2.5 B+树(加强版多路平衡查找树)
+
