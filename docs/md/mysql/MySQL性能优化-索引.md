@@ -17,4 +17,7 @@ CREATE TABLE 'fulltext test (
 select *from fulltext test where match(content) against('三体'INNATURALLANGUAGEMODE);
 ```
 
-# 2.
+# 2. 索引存储模型推演
+## 2.1 二分查找
+
+可以考虑用有序数组作为索引的数据结构。有序数组的等值查询和比较查询效率非常高，但是更新数据的时候会出现 一个问题，可能要挪动大量的数据 (改变index)，所以只适合存储静态的数据。
