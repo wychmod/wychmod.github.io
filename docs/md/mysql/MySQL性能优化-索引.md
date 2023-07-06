@@ -40,7 +40,9 @@ select *from fulltext test where match(content) against('三体'INNATURALLANGUAG
 
 平衡二叉树的定义:左右子树;深度差绝对值不能超过1。通过左旋右旋保持平衡。
 
+![](../youdaonote-images/Pasted%20image%2020230706214148.png)
 
+### 2.3.1 AVL树用于存储索引数据
 
 ## 2.1 二分查找
 ## 2.1 二分查找
