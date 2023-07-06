@@ -50,7 +50,9 @@ select *from fulltext test where match(content) against('三体'INNATURALLANGUAG
 
 **为了解决这个问题**：
 
+1. 让每个节点存储更多的数据
+2. 节点上的关键字的数量越多，我们的指针数也越多，也就是意味着可以有更多的分叉。
+分叉越多，树的深度越少，io次数越少。
 
-
-## 2.1 二分查找
+## 2.4 多路平衡査找村(BTree)(分裂、合井)
 ## 2.1 二分查找
