@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/MySQL性能优化-索引.md",
+                "file": "mysql/MySQL性能优化-事务.md",
                 "mode": "source",
                 "source": false
               }
@@ -120,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/MySQL性能优化-索引.md",
+                "file": "mysql/MySQL性能优化-事务.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -137,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/MySQL性能优化-索引.md",
+                "file": "mysql/MySQL性能优化-事务.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/MySQL性能优化-索引.md"
+                "file": "mysql/MySQL性能优化-事务.md"
               }
             }
           }
@@ -194,9 +194,10 @@
   },
   "active": "10d16275fc0e0041",
   "lastOpenFiles": [
+    "mysql/MySQL性能优化-索引.md",
+    "mysql/MySQL性能优化-事务.md",
     "youdaonote-images/Pasted image 20230706233457.png",
     "mysql/MySQL是怎样运行的.md",
-    "mysql/MySQL性能优化-索引.md",
     "youdaonote-images/Pasted image 20230706230147.png",
     "youdaonote-images/Pasted image 20230706222949.png",
     "youdaonote-images/Pasted image 20230706222940.png",
@@ -207,7 +208,6 @@
     "youdaonote-images/Pasted image 20230706213610.png",
     "youdaonote-images/Pasted image 20230706213549.png",
     "mysql/MySQL性能优化-架构.md",
-    "youdaonote-images/Pasted image 20230706001929.png",
     "spring源码/3-Spring源码解析.md",
     "面试/Java面试汇总.md",
     "系统设计/设计模式.md",
