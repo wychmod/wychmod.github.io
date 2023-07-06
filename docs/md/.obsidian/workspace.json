@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -121,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md",
+                "file": "mysql/MySQL性能优化-索引.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md",
+                "file": "mysql/MySQL性能优化-索引.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/MySQL是怎样运行的.md"
+                "file": "mysql/MySQL性能优化-索引.md"
               }
             }
           }
@@ -193,10 +192,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "136c8529d827dcbb",
+  "active": "10d16275fc0e0041",
   "lastOpenFiles": [
-    "mysql/MySQL性能优化-索引.md",
     "mysql/MySQL是怎样运行的.md",
+    "mysql/MySQL性能优化-索引.md",
     "mysql/MySQL性能优化-架构.md",
     "youdaonote-images/Pasted image 20230706001929.png",
     "youdaonote-images/Pasted image 20230706000541.png",
