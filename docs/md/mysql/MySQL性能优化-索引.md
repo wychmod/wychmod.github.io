@@ -97,3 +97,12 @@ select *from fulltext test where match(content) against('三体'INNATURALLANGUAG
 
 1、只有两路; 2、不够平衡。
 红黑树一般只放在内存里面用。例如Java的Tree/Map,它可以用来实现一致性哈希。
+
+## 2.7 Hash索引
+
+在InnoDB中，不能显式地创建一个哈希索引 (所谓的支持哈希索引指的是AHl，自适应哈希，它是InnoDB自动为buffer pool 中的热点页创建的索引) 。
+
+memory 存储引擎可以使用Hash 索引。
+
+# 3. B+Tree 落地形式
+## 3.1 MySQL 架构
