@@ -55,4 +55,10 @@ select *from fulltext test where match(content) against('三体'INNATURALLANGUAG
 分叉越多，树的深度越少，io次数越少。
 
 ## 2.4 多路平衡査找村(BTree)(分裂、合井)
+
+跟AVL树一样，B树在枝节点和叶子节点存储键值、数据地址、节点引用。
+
+特点:分叉数 (路数)永远比关键宁数多1
+
+
 ## 2.1 二分查找
