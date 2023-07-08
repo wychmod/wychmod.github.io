@@ -44,4 +44,9 @@ show global variables like "tx_isolation";
 ## 1.5 事务并发会带來什么问题?
 
 - 脏读
+![](../youdaonote-images/Pasted%20image%2020230709003300.png)
+
+- 不可重复读
+![](../youdaonote-images/Pasted%20image%2020230709003343.png)
+
 - 
