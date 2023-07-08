@@ -49,4 +49,12 @@ show global variables like "tx_isolation";
 - 不可重复读
 ![](../youdaonote-images/Pasted%20image%2020230709003343.png)
 
-- 
+- 幻读
+
+![](../youdaonote-images/Pasted%20image%2020230709003848.png)
+
+> 事务并发的三大问题其实都是数据库读一致性问题，必须由数据库提供一定的事务隔离机制来解决。
+
+## 1.6 SQL92标准
+
+- Read Uncommitted(RU未提交读) - 未解决任何并发问题 - 
