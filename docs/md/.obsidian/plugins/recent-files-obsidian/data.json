@@ -1,12 +1,12 @@
 {
   "recentFiles": [
     {
-      "basename": "MySQL性能优化-索引",
-      "path": "mysql/MySQL性能优化-索引.md"
-    },
-    {
       "basename": "MySQL性能优化-事务",
       "path": "mysql/MySQL性能优化-事务.md"
+    },
+    {
+      "basename": "MySQL性能优化-索引",
+      "path": "mysql/MySQL性能优化-索引.md"
     },
     {
       "basename": "MySQL是怎样运行的",
