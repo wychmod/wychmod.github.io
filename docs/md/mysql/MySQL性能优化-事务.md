@@ -57,4 +57,15 @@ show global variables like "tx_isolation";
 
 ## 1.6 SQL92标准
 
-- Read Uncommitted(RU未提交读) - 未解决任何并发问题 - 
+- Read Uncommitted(RU未提交读) - 未解决任何并发问题 - 事务未提交的数据对其他事务也是可见的，会出现脏读
+- Read Committed(RC已提交读) - 解决脏读问题 - 一个事务开始之后，只能看到已提交的事务所做的修改，会出现不可重复读
+- Repeatable Read(RR可重复读) - 解决不可重复读问题 - 在同一个事务中多次读取同样的数据结果是一样的，这种隔离级别未解决幻读的问题
+- Serializable(串行化) - 解决所有问题 - 最高的隔离级别，通过强制事务的串行执行
+
+
+## 1.7 MySQL InnoDB对隔离级别的支持
+
+![](../youdaonote-images/Pasted%20image%2020230709004623.png)
+
+## 1.8 两大实现方案
+
