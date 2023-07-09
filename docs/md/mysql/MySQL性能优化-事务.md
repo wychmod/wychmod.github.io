@@ -104,4 +104,11 @@ InnoDB中，一条数据的旧版本，是存放在哪里的呢？undo log。因
 
 DB_ROLL_PTR，它其实就是指向undo log链的指针。
 
+我们必须要有一个数据结构，把本事务1D、活跃事务1D、当前系统最大事务ID 存起来，这样才能实现判断。这个数据结构就叫Read View (可见性视图)，每个事务都维护一个自己的Read View。
 
+![](../youdaonote-images/Pasted%20image%2020230709122940.png)
+
+- m_ids:表示在生成ReadView时当前系统中活跃的读写事务的事务id列表。
+- min_trx_id:表示在生成ReadView时当前系统中活跃的读写事务中最小的事务id,也就是mids中的最小值。
+- max_trx_id:表示生成ReadView时系统中应该分配给下一个事务的id值。
+- creator_trx_id:表示生成该ReadView的事务的事务id。
