@@ -98,3 +98,10 @@ InnoDB的事务都下是有编号的，会不断递增。InnoDB 为每行记录�
 - DB_ROLL_PTR,7字节：回滚指针（我们把它理解为删除版本号，数据被删除或记录为旧数据的时候，记录当前事务D,没有修改或者删除的时候是空)。
 ![](../youdaonote-images/Pasted%20image%2020230709121901.png)
 
+![](../youdaonote-images/MVCC.png)
+
+InnoDB中，一条数据的旧版本，是存放在哪里的呢？undo log。因为修改了多次，这些undo log会形成一个链条，叫做undo log链。
+
+DB_ROLL_PTR，它其实就是指向undo log链的指针。
+
+
