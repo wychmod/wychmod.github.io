@@ -95,4 +95,6 @@ show global variables like "tx_isolation";
 
 InnoDB的事务都下是有编号的，会不断递增。InnoDB 为每行记录都实现了两个隐藏字段:
 - DB_TRX_ID，6 字节:事务ID ，数据是在哪个事务插入或者修改为新数据的，就记录为当前事务ID。
-- 
+- DB_ROLL_PTR,7字节：回滚指针（我们把它理解为删除版本号，数据被删除或记录为旧数据的时候，记录当前事务D,没有修改或者删除的时候是空)。
+![](../youdaonote-images/Pasted%20image%2020230709121901.png)
+
