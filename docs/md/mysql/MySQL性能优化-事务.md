@@ -112,3 +112,9 @@ DB_ROLL_PTR，它其实就是指向undo log链的指针。
 - min_trx_id:表示在生成ReadView时当前系统中活跃的读写事务中最小的事务id,也就是mids中的最小值。
 - max_trx_id:表示生成ReadView时系统中应该分配给下一个事务的id值。
 - creator_trx_id:表示生成该ReadView的事务的事务id。
+
+根据这个数据结构，事务判断可见性的规则：
+1. 从数据的最早版本开始判断 （undo log）
+2. 数据版本的trx_id=creator_trx_id,本事务修改，可以访问
+3. 数据版本的trx_id<min_trx_id(未提交事务的最小ID),说明这个版本在生成ReadView已经提交，可以访问
+4. 数据版本的trx_id>max_trx_id(下一个事务ID),这个版本是生成ReadView之后才开启的事务建立的，不能访问
