@@ -153,4 +153,10 @@ show variables like 'innodb_autoinc_lock_mode';
 
 ## 2.3 共享锁
 
-第一个行锁是：Shared Lock 
+第一个行锁是：Shared Lock 共享锁，多个事务可以共享一把读锁。
+- 共享锁的作用:因为共享锁会阻塞其他事务的修改，所以可以用在不允许其他事务修改数据的情况。
+- 可以用select ..... lock in share mode;的方式手工加上一把读锁。
+
+## 2.4 排它锁
+
+第二个行锁是：Exclusive Locks 排它锁。只要一个事务获取了一行数据的排它锁，其他的事务就不能再获取这一行数 据的共享锁和排它锁。
