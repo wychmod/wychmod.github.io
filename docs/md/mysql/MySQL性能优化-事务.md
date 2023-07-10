@@ -118,4 +118,13 @@ DB_ROLL_PTR，它其实就是指向undo log链的指针。
 2. 数据版本的trx_id=creator_trx_id,本事务修改，可以访问
 3. 数据版本的trx_id<min_trx_id(未提交事务的最小ID),说明这个版本在生成ReadView已经提交，可以访问
 4. 数据版本的trx_id>max_trx_id(下一个事务ID),这个版本是生成ReadView之后才开启的事务建立的，不能访问
-5.  数据版本的trx_id在min_trxid和max_trx_id之间 ，看 看 是 否 在 m i d s 中 。 如果在，不可以。如果不在，可以。
+5.  数据版本的trx_id在min_trxid和max_trx_id之间 ，看看是否在mids中。 如果在，不可以。如果不在，可以。
+6. 如果当前版本不可见，就找undo 1og链中的下一个版本。
+
+> RR中ReadView是事务第一次查询的时候建立的。RC的Read View是事务每次查询的时候建立的。
+> 锁和MVCC是协同使用的，并不互斥。
+
+# 2.MySQL InnoDB锁的基本类型
+
+## 2.1锁的粒度
+
