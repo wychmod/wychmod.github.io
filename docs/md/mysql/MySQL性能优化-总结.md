@@ -41,4 +41,4 @@ Master节点上有一个log dump线程，是用来发送binlog给slave的。
 
 ![](../youdaonote-images/Pasted%20image%2020230711234245.png)
 
-## 3.3 fen ku fen bi
+## 3.3 分库分表
