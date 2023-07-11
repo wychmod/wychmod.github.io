@@ -283,3 +283,31 @@ RC和 RR主要有几个区别:
 MySQL 有一个参数来控制获取锁的等待时间，默认是50 秒。
 
 ## 6.2 死锁的发生和检测
+
+1. 互斥
+2. 不可剥夺
+3. 形成环路等待
+
+为什么可以直接检测到呢？是因为死锁的发生需要满足一定的条件，所以在发生死锁时，InnoDB一般都能通过算法(wait-for graph)自动检测到。
+
+> 如果锁一直没有释放，就有可能造成大量阻塞或者发生死锁，造成系统吞吐量下降这时候就要查看是哪些事务持有了锁。
+
+## 6.3查看锁信息（日志）
+
+SHOW STATUS命令中，包括了一些行锁的信息：
+```sql
+show status like 'innodb_row_lock_%'
+select * from informationschema.INNODBTRX; - - 当前运行的所有事务，还有具体的语句
+
+select *frominformation_schema.INNODB LOCKS; -- 当前出现的锁
+
+select *frominformation_schema.INNODB LOCK_WAITS; -- 锁等待的对应关系
+```
+
+
+如果一个事务长时间持有锁不释放，可以k事务对应的线程D,也就是INNODB_TRX表中的trx_mysql_thread_id,例如执行kill4,kil7,kill8。
+
+当然，死锁的问题不能每次都靠k线程来解决，这是治标不治本的行为。我们应该
+尽量在应用端，也就是在编码的过程中避免。
+
+## 6.4 suo
