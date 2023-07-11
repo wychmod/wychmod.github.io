@@ -57,3 +57,28 @@ Master节点上有一个log dump线程，是用来发送binlog给slave的。
 
 # 4优化器一一SQL语句分析与优化
 
+把SQL执行情况记录下来，用到服务端的慢查询日志。
+
+## 4.1 慢查询日志slomquery 1og
+### 4. 1. 1 打开慢日志开关
+
+因为开启慢查询日志是有代价的（跟binlog、optimizer--trace一样），所以它默认是关闭的
+
+还有一个参数，控制执行超过多长时间的SQL才记录到慢日志，默认是10秒。如果改成0秒的话就是记录所有的SQL。
+
+```sql
+show variables like 'slow query%'
+
+show variables like '%long_query%';
+```
+
+修改配置文件my.cnf
+
+### 4. 1. 2 慢日志分析
+
+1、日志内容
+
+```linux
+less /var/lib/mysql/localhost-slow.log
+```
+
