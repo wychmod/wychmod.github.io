@@ -189,4 +189,9 @@ show variables like 'innodb_autoinc_lock_mode';
 
 ## 3.2 有主键索引的表
 
-可以锁住id相同de
+可以锁住id相同的，不能锁住id相同的。
+
+## 3.3 唯一索引（假设锁住字段）
+
+**InnoDB的行锁，就是通过锁住索引来实现的。**
+
