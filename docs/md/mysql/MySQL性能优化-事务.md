@@ -207,3 +207,12 @@ show variables like 'innodb_autoinc_lock_mode';
 
 ![](../youdaonote-images/Pasted%20image%2020230711221525.png)
 
+## 4.1 记录锁
+
+第一种情况，当我们对于唯一性的索引（包括唯一索引和主键索引)使用等值查询精准匹配到一条记录的时候，这个时候使用的就是记录锁。
+
+![](../youdaonote-images/Pasted%20image%2020230711222942.png)
+
+## 4.2 间隙锁
+
+第二种情况，当我们查询的记录不存在，没有命中任何一个record,无论是用等值查询还是范国查询的时候，它使用的都是间隙锁。
