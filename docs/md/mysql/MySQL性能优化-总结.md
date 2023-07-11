@@ -82,3 +82,17 @@ show variables like '%long_query%';
 less /var/lib/mysql/localhost-slow.log
 ```
 
+2 . mysqldumpslow
+
+MySQL提供了mysqldumpslow的工具，在MySQL的bin目录下。
+```sql
+mysqldumpslow --help
+
+# 查询用时最多的10条慢SQL:
+mysqldumpslow -s t -t 10 -g 'select'/var/lib/mysql/localhost-slow.log
+```
+
+> 有的时候查询慢，不一定是SQL语句的问题，也有可能是服务器状态的问题。
+
+### 4. 1. 3 其他系统命令
+
