@@ -258,3 +258,23 @@ RR: 普通的select使用快照读(snapshot read),底层使用MVCC来实现。
 RC：普通的select都是快照读，MVCC来实现。
 
 加锁的select 都使用**记录锁**，因为没有Gap Lock.
+
+> 除了两种特殊情況- —外键约束检查(foreign-keyconstraint checking)以及重复键检查(duplicate-key checking)时会使用问隙锁封锁区问。 所以RC会出现幻读的问题。
+
+# 5 事务隔离级别怎么选?
+
+Ru ser 不能用
+
+RC和 RR主要有几个区别:
+
+1. RR的间隙锁会导致锁定范围的扩大。
+2. 条件列未使用到索引，RR锁表，RC锁行。
+3. RC的"半一致性”(semi-consistent)读可以增加update操作的并发性。
+	- 在RC中，一个update语句，如果读到一行已经加锁的记录，此时InnoDB返回记录最近提交的版本，由MySQL上层判断此版本是否满足update的where条件。若满足（需要更新），则MySQL会重新发起一次读操作，此时会读取行的最新版本（并加锁）。
+
+实际上，如果能够正确地使用锁（避免不使用索引去伽锁），只锁定需要的数据，用默认的RR级别就可以了。
+
+# 6 死锁
+
+## 6.1 锁的释放与阻塞
+
