@@ -42,3 +42,18 @@ Master节点上有一个log dump线程，是用来发送binlog给slave的。
 ![](../youdaonote-images/Pasted%20image%2020230711234245.png)
 
 ## 3.3 分库分表
+
+分库分表总体上可以分为两类:
+1. 垂直分库，减少并发压力。
+2. 水平分表，解决存储瓶颈。
+
+垂直分库的做法，把一个数据库按照业务拆分成不同的数据库:
+
+![](../youdaonote-images/Pasted%20image%2020230712003151.png)
+
+水平分库分表的做法，把单张表的数据按照一定的规则分布到多个数据库。
+
+![](../youdaonote-images/Pasted%20image%2020230712003216.png)
+
+# 4优化器一一SQL语句分析与优化
+
