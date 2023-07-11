@@ -235,5 +235,26 @@ show variables like 'innodb_autoinc_lock_mode';
 
 ## 4.4 小结：隔离级别的实现
 
+再回过头来看下这张图片，为什么InnoDB的RR级别能够解决幻读的问题，就是用引临键锁实现的。
 
 ![](../youdaonote-images/Pasted%20image%2020230709004623.png)
+
+### 4.4.1 未提交读
+
+RU 不加锁
+
+### 4.4.2 串行化
+
+所有的select语句都会被隐式的转化为select .... in share mode,会和update、delete互斥。
+
+### 4.4.3 可重复读
+
+RR: 普通的select使用快照读(snapshot read),底层使用MVCC来实现。
+
+加锁的select(select…in share mode/select…for update)以及更新操作update,delete等语句使用当前读(current read),底层使用记录锁、或者间隙锁临键锁。
+
+### 4.4.3 已提交读
+
+RC：普通的select都是快照读，MVCC来实现。
+
+加锁的select 都使用**记录锁**，因为没有Gap Lock.
