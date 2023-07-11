@@ -34,3 +34,11 @@ MySQL的主从复制是怎么实现的呢？
 MySQL所有更新语句都会记录到Server层的binlog。有了这个binlog,从服务器会不断获取主服务器的binlog文件，然后解析里面的SQL语句，在从服务器上面执丸行一遍，保持主从的数据一致。
 
 ![](../youdaonote-images/Pasted%20image%2020230711233358.png)
+
+这里面涉及到三个线程，连接到master 获取binlog，并且解析binlog写入中继日志，这个线程叫做I/O线程。
+Master节点上有一个log dump线程，是用来发送binlog给slave的。
+从库的SQL线程，是用来读取relay log,把数据写入到数据库的。
+
+![](../youdaonote-images/Pasted%20image%2020230711234245.png)
+
+## 3.3 fen ku fen bi
