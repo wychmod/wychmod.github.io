@@ -131,3 +131,9 @@ set GLOBAL innodb_status_output_locks=ON:
 - id值相同时，表的查询顺序是从上往下顺序执行。
 - 把小表放在前面查询，因为它的中间结果最少。(小表驱动大表的思想)
 
+### 4.2.2 selecttype 查询类型
+
+- SIMPLE: 简单查询，不包含子查询，不包含关联查询union。
+- PRIMARY: 子查询SQL 语句中的 主查询，也就是最外面的那层查询。
+- SUBQUERY: 子查询中所有的内层查询都是SUBQUERY类型的。
+- 
