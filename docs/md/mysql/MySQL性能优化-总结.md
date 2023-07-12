@@ -96,3 +96,11 @@ mysqldumpslow -s t -t 10 -g 'select'/var/lib/mysql/localhost-slow.log
 
 ### 4. 1. 3 其他系统命令
 
+show processlist 运行线程
+```sql
+show full processlist;
+# 效果一样
+select * from information schema.processlist;
+```
+显示用户运行线程。可以根据id 号kill线程。
+
