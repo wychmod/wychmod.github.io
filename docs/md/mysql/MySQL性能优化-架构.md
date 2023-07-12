@@ -210,6 +210,8 @@ InnoDB 有一个预读机制 (read ahead) 。也就是说，设计者认为访�
 
 ##### 4、 Adaptive Hash Index
 
+由于 InnoDB 不⽀持hash 索引，但在某些情况下 hash 索引的效率很⾼，于是出现了adaptive hash index 功能， InnoDB 存储引擎会监控对表上索引的查找，如果观察到建⽴ hash 索引可以提⾼性能的时候，则⾃动建⽴ hash 索引。
+
 ##### 5、 Redo Log Buffer
 
 Redo 1og 也不是每一次都直接写入磁盘，在Buffer Pool 里面有一块内存区域(Log Buffer )专门用来保存即将要写入日志文件的数据，默认16M，它一样可以节省磁盘IO 。
@@ -232,8 +234,9 @@ Inn ODB 系统表空间包含InnODB 数据字典和双写缓冲区, Change Buffe
 
 1. undo也可以设置独立的表空间
 2. 数据字典：由内部系统表组成，存储表和索引的元数据（定义信息）。
-3. 双写缓冲(InnoDB的一大特性)：InnoDB的页和操作系统的页大小不一致，Inn oDB页大小一般为 15K，操作系统页 大小为 4K，Inn o D B 的页写入到磁盘时，一个页需要分 4 次写。
+3. 双写缓冲(InnoDB的一大特性)：InnoDB的页和操作系统的页大小不一致，InnoDB页大小一般为16K，操作系统页 大小为 4K，InnoDB的页写入到磁盘时，一个页需要分 4 次写。
 	如果存储引擎正在写入页的数据到磁盘时发生了宕机，可能出现页只写了一部分的。可能导致数据丢失，如果这个页本身已经损坏了，用redo log来做崩溃恢复是没有意义的，就用页的副本来还原这个页，然后再应用redolog。页的副本就是double write, InnoDB的双写技术。通过它实现了数据页的可靠性。
+![](../youdaonote-images/Pasted%20image%2020230712161557.png)
 
 > double write 由两部分组成，一部分是内存的double write, 一个部分是磁盘上的double write。因为double write是顺序写入的，不会带来很大的开销。
 

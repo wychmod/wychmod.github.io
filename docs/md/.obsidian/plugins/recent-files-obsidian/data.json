@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "MySQL性能优化-架构",
+      "path": "mysql/MySQL性能优化-架构.md"
+    },
+    {
       "basename": "MySQL性能优化-总结",
       "path": "mysql/MySQL性能优化-总结.md"
     },
@@ -15,10 +19,6 @@
     {
       "basename": "MySQL是怎样运行的",
       "path": "mysql/MySQL是怎样运行的.md"
-    },
-    {
-      "basename": "MySQL性能优化-架构",
-      "path": "mysql/MySQL性能优化-架构.md"
     },
     {
       "basename": "3-Spring源码解析",
