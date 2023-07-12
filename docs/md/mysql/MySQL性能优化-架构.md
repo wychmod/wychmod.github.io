@@ -206,6 +206,8 @@ InnoDB 有一个预读机制 (read ahead) 。也就是说，设计者认为访�
 
 ##### 3、  Change Buffer 写缓冲
 
+Insert Buffer的升级版。
+
 如果这个数据页不是唯一索引，不存在数据重复的情况，也就不需要从磁盘加载索引页判断数据是不是重复（唯一性检查）。这种情况下可以先把修改记录在内存的缓冲池中，从而提升更新语句(Insert、Delete、Update)的执行速度。
 
 ##### 4、 Adaptive Hash Index
