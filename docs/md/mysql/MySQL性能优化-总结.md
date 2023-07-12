@@ -188,4 +188,18 @@ MySQL认为扫描多少行才能返回请求的数据，是一个预估值。一
 - using index: 用到了覆盖索引 ，不需要回表。
 - using where:使用了where过滤，表示存储引擎返回的记录并不是所有的都满足查询条件，需要在server层进行过滤（跟是否使用索引没有关系)
 - Using index condition (索引条件下推)
-- using filesort:不能使用素引来排序，用到了额外的排序 。需要优化。
+- using filesort:不能使用素引来排序，用到了额外的排序 。**需要优化**。
+- using temporary: 用到了临时表。
+
+> EXPLAIN FORMAT=JSON。可以获得更详细信息。
+
+
+## 4. 3 SQL 与索引优化
+
+```sql
+
+-大偏移量的limit
+select from user innodb limit 900000,10:
+-改成先过滤D,再limit
+SELECT FROM user innodb WHERE id 900000 LIMIT 10;
+```
