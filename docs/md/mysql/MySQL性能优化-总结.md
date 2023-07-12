@@ -104,3 +104,22 @@ select * from information schema.processlist;
 ```
 显示用户运行线程。可以根据id 号kill线程。
 
+show status 服多器运行状态
+
+```sql
+SHOW GLOBAL STATUS;
+
+SHOW GLOBAL STATUS LIKE'com_select'; - 査看select 次数
+```
+
+showengine 存储引擎运行信息,包括事务持有的表锁、行锁信息;事务的锁等待情况; 线程信号量等待;文件IO请求;bufferpool统计信息
+
+```sql
+show engine innodb status;
+
+-- 开启标准监控和锁监控
+set GLOBAL innodb_status_output=ON;
+set GLOBAL innodb_status_output_locks=ON:
+```
+
+
