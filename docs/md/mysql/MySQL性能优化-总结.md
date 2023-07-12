@@ -131,9 +131,23 @@ set GLOBAL innodb_status_output_locks=ON:
 - id值相同时，表的查询顺序是从上往下顺序执行。
 - 把小表放在前面查询，因为它的中间结果最少。(小表驱动大表的思想)
 
-### 4.2.2 selecttype 查询类型
+### 4.2.2 select type 查询类型
 
 - SIMPLE: 简单查询，不包含子查询，不包含关联查询union。
 - PRIMARY: 子查询SQL 语句中的 主查询，也就是最外面的那层查询。
 - SUBQUERY: 子查询中所有的内层查询都是SUBQUERY类型的。
-- 
+- DERIVED: 衍生查询，表示在得到最终查询结果之前会用到临时表。
+- UNION: 用到了UNION 查询。
+
+### 4.2.3 type 连接类型
+
+所有的连接类型中，上面的最好，越往下越差。
+
+在常用的链接类型中:system >const > eq ref > ref > ran ge > index > all
+
+除了 all 都能用到索引。
+
+- const： 主键索引或者唯一索引，只能查到一条数据的 SQL。
+- system: system是const 的一种特例，只有一行满足条件，对于MyISAM、Memory的表，
+只查询到一条记录，也是system 。比如系统库的这张表 (8. 0 的版本中系统表全部变成InnoDB存储引擎了)
+- eg_ref: 通常出现在多表的 join 查询，被驱动表通过唯一性素引(UNIQUE或PRIMARY KEY) 进行访问，此时被驱动表的访问方式就是eq_ref.eq_ref是除const 之外最好的访问类型。
