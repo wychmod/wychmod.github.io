@@ -220,3 +220,5 @@ SELECT FROM user innodb WHERE id 900000 LIMIT 10;
 
 ### 5.3.1 非空
 
+非空字段尽量定义成NOT NULL,提供默认值，或者使用特殊值、空串代替null。
+NULL类型的存储、优化、使用都会存在问题。
