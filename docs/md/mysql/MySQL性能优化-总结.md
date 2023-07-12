@@ -143,7 +143,7 @@ set GLOBAL innodb_status_output_locks=ON:
 
 所有的连接类型中，上面的最好，越往下越差。
 
-在常用的链接类型中:system >const > eq ref > ref > ran ge > index > all
+在常用的链接类型中:system >const > eq_ref > ref > range > index > all
 
 除了 all 都能用到索引。
 
@@ -151,3 +151,11 @@ set GLOBAL innodb_status_output_locks=ON:
 - system: system是const 的一种特例，只有一行满足条件，对于MyISAM、Memory的表，
 只查询到一条记录，也是system 。比如系统库的这张表 (8. 0 的版本中系统表全部变成InnoDB存储引擎了)
 - eg_ref: 通常出现在多表的 join 查询，被驱动表通过唯一性素引(UNIQUE或PRIMARY KEY) 进行访问，此时被驱动表的访问方式就是eq_ref.eq_ref是除const 之外最好的访问类型。
+- ref: 查询用到了非唯一性索引，或者关联操作只使用了索引的最左前缀。
+- range: 索引范围扫描。
+- index:Full Index Scan ，查询全部素引中的数据 (比不走索引要快)
+- all: 没有索引國者没有用到索引，type就是ALL。代表全表扫描。
+- NULL:不用访问表或者素引就能得到结果
+
+> 不 走 素 引 一 定 是 全 表 扫 描 (A L L )
+
