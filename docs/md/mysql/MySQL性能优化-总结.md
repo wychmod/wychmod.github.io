@@ -159,3 +159,12 @@ set GLOBAL innodb_status_output_locks=ON:
 
 > 不 走 素 引 一 定 是 全 表 扫 描 (A L L )
 
+### 4.2.4 possible_key、key 
+
+可能用到的索引和实际用到的索引。如果是NULL就代表没有用到索引。
+
+### 4.2.5 key_len
+
+索引的长度 (使用的 字节数)。跟索引字段的类型、长度有关。
+
+### 4.2.6
