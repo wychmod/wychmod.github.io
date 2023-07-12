@@ -122,4 +122,11 @@ set GLOBAL innodb_status_output=ON;
 set GLOBAL innodb_status_output_locks=ON:
 ```
 
+## 4.2 EXPLAIN 执行计划
+
+### 4.2.1 id
+
+- id是查询序列编号，每张表都是单独访问的，一个SELECT就会有一个序号。
+- id值不同的时候，先查询id值大的（先大后小）。
+- 把小表放在前面查询，因为它的中间结果最少。(x)
 
