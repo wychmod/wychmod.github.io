@@ -1,3 +1,12 @@
+## 设计思路
+
+### Spring Bean
+
+凡是可以存放数据的具体数据结构实现，都可以称之为容器。例如：ArrayList、LinkedList、HashSet等，但在 Spring Bean 容器的场景下，我们需要一种可以用于存放和名称索引式的数据结构，所以选择 HashMap 是最合适不过的。
+
+![](../youdaonote-images/Pasted%20image%2020230714093237.png)
+
+
 ## 实现IoC和DI的功能
 
 ###  基本思路
