@@ -3,6 +3,18 @@
 #### 1.BeanFactory
 Spring中Bean的创建是典型的工厂模式，这一系列的Bean工厂，即IoC容器，为开发者管理对象之间的依赖关系提供了很多便利和基础服务，在Spring中有许多IoC容器的实现供用户选择，其相互关系如下图所示。
 
+
+![](../youdaonote-images/Pasted%20image%2020230714224855.png)
+
+- BeanFactory，已经存在的 Bean 工厂接口用于获取 Bean 对象，这次新增加了按照类型获取 Bean 的方法：`<T> T getBean(String name, Class<T> requiredType)`
+- ListableBeanFactory，是一个扩展 Bean 工厂接口的接口，新增加了 `getBeansOfType`、`getBeanDefinitionNames()` 方法，在 Spring 源码中还有其他扩展方法。
+- HierarchicalBeanFactory，在 Spring 源码中它提供了可以获取父类 BeanFactory 方法，属于是一种扩展工厂的层次子接口。_Sub-interface implemented by bean factories that can be part of a hierarchy._
+- AutowireCapableBeanFactory，是一个自动化处理Bean工厂配置的接口，目前案例工程中还没有做相应的实现，后续逐步完善。
+- ConfigurableBeanFactory，可获取 BeanPostProcessor、BeanClassLoader等的一个配置化接口。
+- ConfigurableListableBeanFactory，提供分析和修改Bean以及预先实例化的操作接口，不过目前只有一个 getBeanDefinition 方法。
+
+### [#](https://bugstack.cn/md/spring/develop-spring/2021-06-09-%E7%AC%AC6%E7%AB%A0%EF%BC%9A%E6%B0%94%E5%90%9E%E5%B1%B1%E6%B2%B3%EF%BC%8C%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%8C%E4%BB%8ESpring.xml%E8%A7%A3%E6%9E%90%E5%92%8C%E6%B3%A8%E5%86%8CBean%E5%AF%B9%E8%B1%A1.html#_2-%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89%E5%92%8C%E5%AE%9E%E7%8E%B0)
+
 ![](../youdaonote-images/Pasted%20image%2020230704101957.png)
 
 ![](../youdaonote-images/Pasted%20image%2020230704103131.png)
@@ -18,6 +30,8 @@ ApplicationContext是Spring提供的一个高级的IoC容器，它除了能够�
 （1）支持信息源，可以实现国际化（实现MessageSource接口）。
 （2）访问资源（实现ResourcePatternResolver接口，后面章节会讲到）。
 （3）支持应用事件（实现ApplicationEventPublisher接口）。
+
+
 
 #### 2.BeanDefinition
 Spring IoC容器管理我们定义的各种Bean对象及其相互关系，Bean对象在Spring实现中是以BeanDefinition来描述的，其继承体系如下图所示。
