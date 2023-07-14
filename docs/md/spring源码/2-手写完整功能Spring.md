@@ -41,6 +41,8 @@
 2. 解析配置文件，并封装成BeanDefinition。
 3. 把BeanDefinition对应的实例放入到容器进行缓存。
 
+![](../youdaonote-images/Pasted%20image%2020230714224231.png)
+
 ### Spring DI的基本流程
 1. 循环读取BeanDefinition的缓存信息。
 2. 调用getBean()方法创建对象实例。
