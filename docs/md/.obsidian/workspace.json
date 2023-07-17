@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -183,6 +182,7 @@
   },
   "active": "10d16275fc0e0041",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230718003858.png",
     "youdaonote-images/Pasted image 20230717232226.png",
     "youdaonote-images/Pasted image 20230717161508.png",
     "youdaonote-images/Pasted image 20230714224855.png",
@@ -201,7 +201,6 @@
     "youdaonote-images/Pasted image 20230712003216.png",
     "youdaonote-images/Pasted image 20230712003151.png",
     "youdaonote-images/Pasted image 20230711234245.png",
-    "youdaonote-images/Pasted image 20230711233938.png",
     "mysql/MySQL性能优化-事务.md",
     "mysql/MySQL性能优化-索引.md",
     "面试/Java面试汇总.md",
