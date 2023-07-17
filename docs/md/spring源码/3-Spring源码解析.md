@@ -88,6 +88,43 @@ refresh（）方法的主要作用是：在创建IoC容器前，如果已经有�
 
 ### Aware
 
+可以通过实现BeanNameAware, BeanClassLoaderAware, ApplicationContextAware,BeanFactoryAware接口来感知到spring内部对象。
+原理：在Bean 的初始化方法中通过判断是否有这个接口对元素进行注入。
+```java
+public class UserService implements BeanNameAware, BeanClassLoaderAware, ApplicationContextAware, BeanFactoryAware {
+
+    private ApplicationContext applicationContext;
+    private BeanFactory beanFactory;
+
+    private String uId;
+    private String company;
+    private String location;
+    private UserDao userDao;
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
+    @Override
+    public void setBeanName(String name) {
+        System.out.println("Bean Name is：" + name);
+    }
+
+    @Override
+    public void setBeanClassLoader(ClassLoader classLoader) {
+        System.out.println("ClassLoader：" + classLoader);
+    }
+
+    // ...get/set
+}
+```
+
 ![](../youdaonote-images/Pasted%20image%2020230717232226.png)
 
 ## DI分析
