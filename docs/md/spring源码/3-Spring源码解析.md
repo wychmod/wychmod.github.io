@@ -85,6 +85,11 @@ refresh（）方法的主要作用是：在创建IoC容器前，如果已经有�
 - BeanPostProcessor，也是 Spring 提供的扩展机制，不过 BeanPostProcessor 是在 Bean 对象实例化之后修改 Bean 对象，也可以替换 Bean 对象。这部分与后面要实现的 AOP 有着密切的关系。
 - 同时如果只是添加这两个接口，不做任何包装，那么对于使用者来说还是非常麻烦的。我们希望于开发 Spring 的上下文操作类，把相应的 XML 加载 、注册、实例化以及新增的修改和扩展都融合进去，让 Spring 可以自动扫描到我们的新增服务，便于用户使用。
 
+
+### Aware
+
+![](../youdaonote-images/Pasted%20image%2020230717232226.png)
+
 ## DI分析
 
 ### 依赖注入执行细节
