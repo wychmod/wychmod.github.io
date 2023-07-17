@@ -92,7 +92,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5
+    "width": 357.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -182,6 +183,7 @@
   },
   "active": "10d16275fc0e0041",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230717161508.png",
     "youdaonote-images/Pasted image 20230714224855.png",
     "spring源码/2-手写完整功能Spring.md",
     "youdaonote-images/Pasted image 20230714224231.png",
@@ -200,7 +202,6 @@
     "youdaonote-images/Pasted image 20230711234245.png",
     "youdaonote-images/Pasted image 20230711233938.png",
     "youdaonote-images/Pasted image 20230711233358.png",
-    "youdaonote-images/Pasted image 20230711230646.png",
     "mysql/MySQL性能优化-事务.md",
     "mysql/MySQL性能优化-索引.md",
     "面试/Java面试汇总.md",

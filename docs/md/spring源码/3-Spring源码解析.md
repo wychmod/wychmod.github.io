@@ -13,8 +13,6 @@ Spring中Bean的创建是典型的工厂模式，这一系列的Bean工厂，即
 - ConfigurableBeanFactory，可获取 BeanPostProcessor、BeanClassLoader等的一个配置化接口。
 - ConfigurableListableBeanFactory，提供分析和修改Bean以及预先实例化的操作接口，不过目前只有一个 getBeanDefinition 方法。
 
-### [#](https://bugstack.cn/md/spring/develop-spring/2021-06-09-%E7%AC%AC6%E7%AB%A0%EF%BC%9A%E6%B0%94%E5%90%9E%E5%B1%B1%E6%B2%B3%EF%BC%8C%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%8C%E4%BB%8ESpring.xml%E8%A7%A3%E6%9E%90%E5%92%8C%E6%B3%A8%E5%86%8CBean%E5%AF%B9%E8%B1%A1.html#_2-%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89%E5%92%8C%E5%AE%9E%E7%8E%B0)
-
 ![](../youdaonote-images/Pasted%20image%2020230704101957.png)
 
 ![](../youdaonote-images/Pasted%20image%2020230704103131.png)
@@ -77,6 +75,15 @@ refresh（）方法的主要作用是：在创建IoC容器前，如果已经有�
 
 大致过程如下：通过 ResourceLoader 来完成资源文件的定位，DefaultResourceLoader 是默认的实现，同时上下文本身就给出了ResourceLoader的实现，可以通过类路径、文件系统、URL等方式来定位资源。如果是XmlBeanFactory作为IoC容器，那么需要为它指定Bean定义的资源，也就是说Bean定义文件时通过抽象成Resource来被IoC容器处理，容器通过BeanDefinitionReader来完成定义信息的解析和 Bean 信息的注册，往往使用 XmlBeanDefinitionReader 来解析 Bean 的XML 定义文件—实际的处理过程是委托给 BeanDefinitionParserDelegate 来完成的，从而得到Bean的定义信息，这些信息在Spring中使用BeanDefinition来表示—这个名字可以让我们想到loadBeanDefinition（）、registerBeanDefinition（）这些相关方法。它们都是为处理BeanDefinition服务的，容器解析得到BeanDefinition以后，需要在IoC容器中注册，这由IoC实现BeanDefinitionRegistry接口来实现。注册过程就是在IoC容器内部维护的一个HashMap来保存得到的BeanDefinition的过程。这个HashMap是IoC容器持有Bean信息的场所，以后对Bean的操作都是围绕这个HashMap来实现的。
 
+### 应用上下文
+为了能满足于在 Bean 对象从注册到实例化的过程中执行用户的自定义操作，就需要在 Bean 的定义和初始化过程中插入接口类，这个接口再有外部去实现自己需要的服务。那么在结合对 Spring 框架上下文的处理能力，就可以满足我们的目标需求了。整体设计结构如下图：
+
+![](../youdaonote-images/Pasted%20image%2020230717161508.png)
+
+- 满足于对 Bean 对象扩展的两个接口，其实也是 Spring 框架中非常具有重量级的两个接口：BeanFactoryPostProcessor 和 BeanPostProcessor，也几乎是大家在使用 Spring 框架额外新增开发自己组建需求的两个必备接口。
+- BeanFactoryPostProcessor，是由 Spring 框架组建提供的容器扩展机制，允许在 Bean 对象注册后但未实例化之前，对 Bean 的定义信息 BeanDefinition 执行修改操作。
+- BeanPostProcessor，也是 Spring 提供的扩展机制，不过 BeanPostProcessor 是在 Bean 对象实例化之后修改 Bean 对象，也可以替换 Bean 对象。这部分与后面要实现的 AOP 有着密切的关系。
+- 同时如果只是添加这两个接口，不做任何包装，那么对于使用者来说还是非常麻烦的。我们希望于开发 Spring 的上下文操作类，把相应的 XML 加载 、注册、实例化以及新增的修改和扩展都融合进去，让 Spring 可以自动扫描到我们的新增服务，便于用户使用。
 
 ## DI分析
 
@@ -116,6 +123,7 @@ BeanFactory接口中定义了几个getBean（）方法，用于用户向IoC容�
 
 
 > Bean方法被覆盖意味着有子类，JDK反射只能生成接口或类的代理对象，不能生成子类的代理对象。CGLib可以生成子类的代理对象，它可以对类进行增强，即在运行时动态生成一个子类，并在子类中添加需要的方法和属性。
+
 
 ### 运行时序图
 
