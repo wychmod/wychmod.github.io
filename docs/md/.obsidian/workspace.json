@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md",
+                "file": "spring源码/2-手写完整功能Spring.md",
                 "mode": "preview",
                 "source": false
               }
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -109,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md",
+                "file": "spring源码/2-手写完整功能Spring.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md",
+                "file": "spring源码/2-手写完整功能Spring.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "spring源码/3-Spring源码解析.md"
+                "file": "spring源码/2-手写完整功能Spring.md"
               }
             }
           },
