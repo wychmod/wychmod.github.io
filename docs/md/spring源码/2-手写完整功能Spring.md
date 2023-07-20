@@ -72,6 +72,39 @@ B { A a } （B 初始化的时候A已经存在，可以依赖注入，再循环�
 - 接下来就开始对`B对象`的属性进行填充，恰好这会可以从缓存中拿到`半成品的A对象`，那么这个时候`B对象`的属性就填充完了。
 - 最后返回来继续完成`A对象`的属性填充，把实例化后并填充了属性的`B对象`赋值给A对象的`b属性`，这样就完成了一个循环依赖操作。
 
+```java
+private final static Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
+
+private static <T> T getBean(Class<T> beanClass) throws Exception {
+    String beanName = beanClass.getSimpleName().toLowerCase();
+    if (singletonObjects.containsKey(beanName)) {
+        return (T) singletonObjects.get(beanName);
+    }
+    // 实例化对象入缓存
+    Object obj = beanClass.newInstance();
+    singletonObjects.put(beanName, obj);
+    // 属性填充补全对象
+    Field[] fields = obj.getClass().getDeclaredFields();
+    for (Field field : fields) {
+        field.setAccessible(true);
+        Class<?> fieldClass = field.getType();
+        String fieldBeanName = fieldClass.getSimpleName().toLowerCase();
+        field.set(obj, singletonObjects.containsKey(fieldBeanName) ? singletonObjects.get(fieldBeanName) : getBean(fieldClass));
+        field.setAccessible(false);
+    }
+    return (T) obj;
+}
+```
+
+> 使用一级缓存存放对象的方式，就是这样简单的实现过程，只要是创建完对象，立马塞到缓存里去。这样就可以在其他对象创建时候获取到属性需要填充的对象了。
+
+![](../youdaonote-images/Pasted%20image%2020230720142903.png)
+
+- 关于循环依赖在我们目前的 Spring 框架中扩展起来也并不会太复杂，主要就是对于创建对象的`提前暴露`，如果是工厂对象则会使用 getEarlyBeanReference 逻辑提前将工厂🏭对象存放到三级缓存中。等到后续获取对象的时候实际拿到的是工厂对象中 getObject，这个才是最终的实际对象。
+- 在创建对象的 `AbstractAutowireCapableBeanFactory#doCreateBean` 方法中，提前暴露对象以后，就可以通过接下来的流程，getSingleton 从三个缓存中以此寻找对象，一级、二级如果有则直接取走，如果对象是三级缓存中则会从三级缓存中获取后并删掉工厂对象，把实际对象放到二级缓存中。
+- 最后是关于单例的对象的注册操作，这个注册操作就是把真实的实际对象放到一级缓存中，因为此时它已经是一个成品对象了。
+
+
 
 ## 实现MVC功能
 
