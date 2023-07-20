@@ -103,8 +103,59 @@ private static <T> T getBean(Class<T> beanClass) throws Exception {
 - 关于循环依赖在我们目前的 Spring 框架中扩展起来也并不会太复杂，主要就是对于创建对象的`提前暴露`，如果是工厂对象则会使用 getEarlyBeanReference 逻辑提前将工厂🏭对象存放到三级缓存中。等到后续获取对象的时候实际拿到的是工厂对象中 getObject，这个才是最终的实际对象。
 - 在创建对象的 `AbstractAutowireCapableBeanFactory#doCreateBean` 方法中，提前暴露对象以后，就可以通过接下来的流程，getSingleton 从三个缓存中以此寻找对象，一级、二级如果有则直接取走，如果对象是三级缓存中则会从三级缓存中获取后并删掉工厂对象，把实际对象放到二级缓存中。
 - 最后是关于单例的对象的注册操作，这个注册操作就是把真实的实际对象放到一级缓存中，因为此时它已经是一个成品对象了。
+- 循环依赖的核心功能实现主要包括 DefaultSingletonBeanRegistry 提供三级缓存：`singletonObjects`、`earlySingletonObjects`、`singletonFactories`，分别存放成品对象、半成品对象和工厂对象。同时包装三个缓存提供方法：getSingleton、registerSingleton、addSingletonFactory，这样使用方就可以分别在不同时间段存放和获取对应的对象了。
+```java
+public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
+    // 一级缓存，普通对象
+    private Map<String, Object> singletonObjects = new ConcurrentHashMap<>();
 
+    // 二级缓存，提前暴漏对象，没有完全实例化的对象
+    protected final Map<String, Object> earlySingletonObjects = new HashMap<String, Object>();
+
+    // 三级缓存，存放代理对象
+    private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<String, ObjectFactory<?>>();
+
+    private final Map<String, DisposableBean> disposableBeans = new LinkedHashMap<>();
+
+    @Override
+    public Object getSingleton(String beanName) {
+        Object singletonObject = singletonObjects.get(beanName);
+        if (null == singletonObject) {
+            singletonObject = earlySingletonObjects.get(beanName);
+            // 判断二级缓存中是否有对象，这个对象就是代理对象，因为只有代理对象才会放到三级缓存中
+            if (null == singletonObject) {
+                ObjectFactory<?> singletonFactory = singletonFactories.get(beanName);
+                if (singletonFactory != null) {
+                    singletonObject = singletonFactory.getObject();
+                    // 把三级缓存中的代理对象中的真实对象获取出来，放入二级缓存中
+                    earlySingletonObjects.put(beanName, singletonObject);
+                    singletonFactories.remove(beanName);
+                }
+            }
+        }
+        return singletonObject;
+    }
+
+    public void registerSingleton(String beanName, Object singletonObject) {
+        singletonObjects.put(beanName, singletonObject);
+        earlySingletonObjects.remove(beanName);
+        singletonFactories.remove(beanName);
+    }
+
+    protected void addSingletonFactory(String beanName, ObjectFactory<?> singletonFactory){
+        if (!this.singletonObjects.containsKey(beanName)) {
+            this.singletonFactories.put(beanName, singletonFactory);
+            this.earlySingletonObjects.remove(beanName);
+        }
+    }
+
+    public void registerDisposableBean(String beanName, DisposableBean bean) {
+        disposableBeans.put(beanName, bean);
+    }
+
+}
+```
 
 ## 实现MVC功能
 
