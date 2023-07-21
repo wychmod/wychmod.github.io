@@ -210,6 +210,7 @@ AOP就两个最核心的类MethodInterceptor、MethodInvocation
 MethodInterceptor有一个方法叫做invoke()
 MethodInvocation有一个方法叫做proceed()
 proceed()串联起了整个Interceptor调用链
+前置Interceptor调用时，先调用before的前置方法，再调用proceed()
 
 ![](../youdaonote-images/Pasted%20image%2020230629225029.png)
 
