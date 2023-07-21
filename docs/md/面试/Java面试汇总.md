@@ -140,6 +140,11 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 3. 功能会非常丰富，API是最全的, 一般会认为ApplicationContext就是IoC
 4. Ioc的功能是在DefaultListableBeanFactory类中完成的，但是有共同的接口
 
+ApplicationContext是Spring提供的一个高级的IoC容器，它除了能够提供IoC容器的基本功能，还为用户提供了以下附加服务。
+（1）支持信息源，可以实现国际化（实现MessageSource接口）。
+（2）访问资源（实现ResourcePatternResolver接口，后面章节会讲到）。
+（3）支持应用事件（实现ApplicationEventPublisher接口）。
+
 `FactoryBean` ：创建对象的工厂 Bean ，可以使用它来直接创建一些初始化流程比较复杂的对象
 
 ## 请解释Spring Bean的生命周期
