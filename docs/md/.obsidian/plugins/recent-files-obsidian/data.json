@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "JVM调优",
+      "path": "JVM/JVM调优.md"
+    },
+    {
       "basename": "2-手写完整功能Spring",
       "path": "spring源码/2-手写完整功能Spring.md"
     },
@@ -11,10 +15,6 @@
     {
       "basename": "4-Spring事务传播原理及数据库事务操作原理",
       "path": "spring源码/4-Spring事务传播原理及数据库事务操作原理.md"
-    },
-    {
-      "basename": "JVM调优",
-      "path": "JVM/JVM调优.md"
     },
     {
       "basename": "MySQL性能优化-架构",
