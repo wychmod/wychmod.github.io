@@ -6,6 +6,8 @@
 
 **Java后端和Python后端双语言博客，以及含有部分的前端内容，有Spring、SpringBoot、Redis、Mysql、Python、Django等不同的博客内容，适合初学者当作百科进行查阅。**
 
+[博客地址点击这里](https://wychmod.github.io/#/)
+
 ![](https://img.shields.io/badge/OS-Linux-informational?style=flat&logo=linux&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Editor-IntelliJ_IDEA-informational?style=flat&logo=intellij-idea&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Code-Java-informational?style=flat&logo=Java&logoColor=white&color=2bbc8a)
