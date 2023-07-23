@@ -1,8 +1,21 @@
-# Tots-And 的学习开发笔记
+# wychmod 的全站开发笔记与知识汇总
 
->我是**Tots-and**，一名在校的计算机研究生，原先是Python开发，现在努力成为一名 Java 工程师。
+>我是**wychmod**，一名24应届计算机研究生，Java与Python双语言的开发者，前端也能写一点。
 
 ---
+## Mysql调优
+- [MySQL性能优化-架构](/md/mysql/MySQL性能优化-架构.md)
+- [MySQL性能优化-索引](/md/mysql/MySQL性能优化-索引.md)
+- [MySQL性能优化-事务](/md/mysql/MySQL性能优化-事务.md)
+- [MySQL性能优化-总结](/md/mysql/MySQL性能优化-总结.md)
+- [MySQL是怎样使用的](/md/mysql/MySQL是怎样使用的.md)
+
+## Spring源码解析
+- [1-300行手写简易Spring](/md/spring源码/1-300行手写简易Spring.md)
+- [2-手写完整功能Spring](/md/spring源码/2-手写完整功能Spring.md)
+- [3-Spring源码解析](/md/spring源码/3-Spring源码解析.md)
+- [4-Spring事务传播原理及数据库事务操作原理](/md/spring源码/4-Spring事务传播原理及数据库事务操作原理.md)
+
 ## Redis
 - [1-Redis入门](/md/Redis/1-Redis入门.md)
 - [2-Redis实战](/md/Redis/2-Redis实战.md)
