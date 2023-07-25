@@ -18,6 +18,36 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "b647b666c7e5af5f",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "youdaonote-images/dubbo调用过程.png"
+              }
+            }
+          },
+          {
+            "id": "d045bff7415d687b",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "youdaonote-images/Pasted image 20221026154023.png"
+              }
+            }
+          },
+          {
+            "id": "9d96db323f1a41a8",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "youdaonote-images/Pasted image 20221026154011.png"
+              }
+            }
           }
         ]
       }
@@ -191,6 +221,10 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
+    "youdaonote-images/dubbo调用过程.png",
+    "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "youdaonote-images/Pasted image 20221026154023.png",
+    "youdaonote-images/Pasted image 20221026154011.png",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "面试/Java面试汇总.md",
     "spring源码/2-手写完整功能Spring.md",
@@ -204,8 +238,6 @@
     "youdaonote-images/Pasted image 20230717161508.png",
     "youdaonote-images/Pasted image 20230714224855.png",
     "youdaonote-images/Pasted image 20230714224231.png",
-    "youdaonote-images/Pasted image 20230714093825.png",
-    "youdaonote-images/Pasted image 20230714093237.png",
     "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
     "mysql/MySQL性能优化-架构.md",
     "JVM",
@@ -228,8 +260,6 @@
     "Redis/3-原理篇.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
     "面试/校招投递.md",
-    "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
-    "Django笔记/Django源码解析.md",
     "cicd",
     "md/Python",
     "md",
