@@ -28,19 +28,9 @@
                 "file": "youdaonote-images/dubbo调用过程.png"
               }
             }
-          },
-          {
-            "id": "d045bff7415d687b",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "youdaonote-images/Pasted image 20221026154023.png"
-              }
-            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -130,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "youdaonote-images/Pasted image 20221026154023.png",
+                "file": "youdaonote-images/dubbo调用过程.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "youdaonote-images/Pasted image 20221026154023.png",
+                "file": "youdaonote-images/dubbo调用过程.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -178,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "youdaonote-images/Pasted image 20221026154023.png"
+                "file": "youdaonote-images/dubbo调用过程.png"
               }
             }
           },
@@ -210,10 +200,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d045bff7415d687b",
+  "active": "b647b666c7e5af5f",
   "lastOpenFiles": [
-    "youdaonote-images/Pasted image 20221026154011.png",
     "youdaonote-images/Pasted image 20221026154023.png",
+    "youdaonote-images/Pasted image 20221026154011.png",
     "youdaonote-images/dubbo调用过程.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
