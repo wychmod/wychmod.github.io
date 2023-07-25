@@ -38,18 +38,9 @@
                 "file": "youdaonote-images/Pasted image 20221026154023.png"
               }
             }
-          },
-          {
-            "id": "9d96db323f1a41a8",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "youdaonote-images/Pasted image 20221026154011.png"
-              }
-            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -139,7 +130,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "youdaonote-images/Pasted image 20221026154023.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -156,7 +147,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "youdaonote-images/Pasted image 20221026154023.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -187,7 +178,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
+                "file": "youdaonote-images/Pasted image 20221026154023.png"
               }
             }
           },
@@ -219,12 +210,12 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "92c6fac349172889",
+  "active": "d045bff7415d687b",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20221026154011.png",
+    "youdaonote-images/Pasted image 20221026154023.png",
     "youdaonote-images/dubbo调用过程.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
-    "youdaonote-images/Pasted image 20221026154023.png",
-    "youdaonote-images/Pasted image 20221026154011.png",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "面试/Java面试汇总.md",
     "spring源码/2-手写完整功能Spring.md",
@@ -237,7 +228,6 @@
     "youdaonote-images/Pasted image 20230720142005.png",
     "youdaonote-images/Pasted image 20230717161508.png",
     "youdaonote-images/Pasted image 20230714224855.png",
-    "youdaonote-images/Pasted image 20230714224231.png",
     "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
     "mysql/MySQL性能优化-架构.md",
     "JVM",
