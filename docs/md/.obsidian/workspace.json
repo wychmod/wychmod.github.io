@@ -18,6 +18,16 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "86ba7a62cd263b2c",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "youdaonote-images/Pasted image 20221029195803.png"
+              }
+            }
           }
         ]
       }
@@ -191,8 +201,9 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
-    "youdaonote-images/Pasted image 20221027232642.png",
+    "youdaonote-images/Pasted image 20221029195803.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "youdaonote-images/Pasted image 20221027232642.png",
     "youdaonote-images/dubbo调用过程.png",
     "youdaonote-images/Pasted image 20221026154023.png",
     "youdaonote-images/Pasted image 20221026154011.png",
@@ -207,7 +218,6 @@
     "youdaonote-images/Pasted image 20230720142317.png",
     "youdaonote-images/Pasted image 20230720142005.png",
     "youdaonote-images/Pasted image 20230717161508.png",
-    "youdaonote-images/Pasted image 20230714224855.png",
     "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
     "mysql/MySQL性能优化-架构.md",
     "JVM",
