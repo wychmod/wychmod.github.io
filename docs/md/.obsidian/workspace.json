@@ -18,16 +18,6 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "eae186bc1dca95ef",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "youdaonote-images/Pasted image 20221029213034.png"
-              }
-            }
           }
         ]
       }
@@ -202,8 +192,8 @@
   "active": "92c6fac349172889",
   "lastOpenFiles": [
     "youdaonote-images/Pasted image 20221029213034.png",
-    "youdaonote-images/Pasted image 20221029195803.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "youdaonote-images/Pasted image 20221029195803.png",
     "youdaonote-images/Pasted image 20221027232642.png",
     "youdaonote-images/dubbo调用过程.png",
     "youdaonote-images/Pasted image 20221026154023.png",
