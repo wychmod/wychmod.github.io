@@ -18,8 +18,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "77d821ef69b7f55e",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "youdaonote-images/Pasted image 20221101165259.png"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -109,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "youdaonote-images/Pasted image 20221101165259.png",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+                "file": "youdaonote-images/Pasted image 20221101165259.png",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
+                "file": "youdaonote-images/Pasted image 20221101165259.png"
               }
             }
           },
@@ -189,10 +200,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "92c6fac349172889",
+  "active": "77d821ef69b7f55e",
   "lastOpenFiles": [
-    "youdaonote-images/Pasted image 20230727150332.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "youdaonote-images/Pasted image 20230727150332.png",
     "youdaonote-images/Pasted image 20221029213034.png",
     "youdaonote-images/Pasted image 20221029195803.png",
     "youdaonote-images/Pasted image 20221027232642.png",
