@@ -1301,3 +1301,26 @@ public PartakeResult doPartake(PartakeReq req) {
 
 ## 四、抽奖活动流程编排
 
+```java
+@Override
+public DrawProcessResult doDrawProcess(DrawProcessReq req) {
+    // 1. 领取活动
+    PartakeResult partakeResult = activityPartake.doPartake(new PartakeReq(req.getuId(), req.getActivityId()));
+    if (!Constants.ResponseCode.SUCCESS.getCode().equals(partakeResult.getCode())) {
+        return new DrawProcessResult(partakeResult.getCode(), partakeResult.getInfo());
+    }
+    Long strategyId = partakeResult.getStrategyId();
+    Long takeId = partakeResult.getTakeId();
+    // 2. 执行抽奖
+    DrawResult drawResult = drawExec.doDrawExec(new DrawReq(req.getuId(), strategyId, String.valueOf(takeId)));
+    if (Constants.DrawState.FAIL.getCode().equals(drawResult.getDrawState())) {
+        return new DrawProcessResult(Constants.ResponseCode.LOSING_DRAW.getCode(), Constants.ResponseCode.LOSING_DRAW.getInfo());
+    }
+    DrawAwardInfo drawAwardInfo = drawResult.getDrawAwardInfo();
+    // 3. 结果落库
+    activityPartake.recordDrawOrder(buildDrawOrderVO(req, strategyId, takeId, drawAwardInfo));
+    // 4. 发送MQ，触发发奖流程
+    // 5. 返回结果
+    return new DrawProcessResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo(), drawAwardInfo);
+}
+```
