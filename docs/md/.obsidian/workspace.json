@@ -18,6 +18,16 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "883e3d0e02d32922",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "youdaonote-images/Pasted image 20221104221008.png"
+              }
+            }
           }
         ]
       }
@@ -191,8 +201,9 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
-    "youdaonote-images/Pasted image 20221103112752.png",
+    "youdaonote-images/Pasted image 20221104221008.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
+    "youdaonote-images/Pasted image 20221103112752.png",
     "youdaonote-images/Pasted image 20221101165259.png",
     "youdaonote-images/Pasted image 20230727150332.png",
     "youdaonote-images/Pasted image 20221029213034.png",
