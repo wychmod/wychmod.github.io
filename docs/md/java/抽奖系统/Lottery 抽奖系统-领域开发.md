@@ -1339,6 +1339,37 @@ public DrawProcessResult doDrawProcess(DrawProcessReq req) {
 组合模式的特点就像是搭建出一棵二叉树，而库表中则需要把这样一颗二叉树存放进去，那么这里就需要包括：树根、树茎、子叶、果实。在具体的逻辑实现中则需要通过子叶判断走哪个树茎以及最终筛选出一个果实来。
 
 ```sql
+CREATE TABLE `rule_tree` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `tree_name` varchar(64) DEFAULT NULL COMMENT '规则树NAME',
+  `tree_desc` varchar(128) DEFAULT NULL COMMENT '规则树描述',
+  `tree_root_node_id` bigint(20) DEFAULT NULL COMMENT '规则树根ID',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10002 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `rule_tree_node` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `tree_id` int(2) DEFAULT NULL COMMENT '规则树ID',
+  `node_type` int(2) DEFAULT NULL COMMENT '节点类型；1子叶、2果实',
+  `node_value` varchar(32) DEFAULT NULL COMMENT '节点值[nodeType=2]；果实值',
+  `rule_key` varchar(16) DEFAULT NULL COMMENT '规则Key',
+  `rule_desc` varchar(32) DEFAULT NULL COMMENT '规则描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `rule_tree_node_line` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `tree_id` bigint(20) DEFAULT NULL COMMENT '规则树ID',
+  `node_id_from` bigint(20) DEFAULT NULL COMMENT '节点From',
+  `node_id_to` bigint(20) DEFAULT NULL COMMENT '节点To',
+  `rule_limit_type` int(2) DEFAULT NULL COMMENT '限定类型；1:=;2:>;3:<;4:>=;5<=;6:enum[枚举范围];7:果实',
+  `rule_limit_value` varchar(32) DEFAULT NULL COMMENT '限定值',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 ```
+
+## 二、应用场景
+
+![](../../youdaonote-images/Pasted%20image%2020230728233415.png)
