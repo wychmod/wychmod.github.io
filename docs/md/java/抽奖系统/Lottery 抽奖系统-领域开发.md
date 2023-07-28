@@ -1277,5 +1277,27 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
 ### 1. 领取活动增加判断和返回领取单ID
 
 ```java
-
+@Override
+public PartakeResult doPartake(PartakeReq req) {
+    // 1. 查询是否存在未执行抽奖领取活动单【user_take_activity 存在 state = 0，领取了但抽奖过程失败的，可以直接返回领取结果继续抽奖】
+    UserTakeActivityVO userTakeActivityVO = this.queryNoConsumedTakeActivityOrder(req.getActivityId(), req.getuId());
+    if (null != userTakeActivityVO) {
+        return buildPartakeResult(userTakeActivityVO.getStrategyId(), userTakeActivityVO.getTakeId());
+    }
+   
+    // 5. 插入领取活动信息【个人用户把活动信息写入到用户表】
+    Long takeId = idGeneratorMap.get(Constants.Ids.SnowFlake).nextId();
+    Result grabResult = this.grabActivity(req, activityBillVO, takeId);
+    if (!Constants.ResponseCode.SUCCESS.getCode().equals(grabResult.getCode())) {
+        return new PartakeResult(grabResult.getCode(), grabResult.getInfo());
+    }
+    return buildPartakeResult(activityBillVO.getStrategyId(), takeId);
+}
 ```
+
+- 活动领域中主要是领取活动新增加了`第1步的查询流程`和`修改第5步返回takeId`
+- 查询是否存在未执行抽奖领取活动单。在SQL查询当前活动ID，用户最早领取但未消费的一条记录【这部分一般会有业务流程限制，比如是否处理最先还是最新领取单，要根据自己的业务实际场景进行处理】
+- this.grabActivity 方法，用户领取活动时候，新增记录：strategy_id、state 两个字段，这两个字段就是为了处理用户对领取镜像记录的二次处理未执行抽奖的领取单，以及state状态控制事务操作的幂等性。
+
+## 四、抽奖活动流程编排
+
