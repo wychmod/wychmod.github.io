@@ -1274,3 +1274,8 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
 
 ## 三、工程改造
 
+### 1. 领取活动增加判断和返回领取单ID
+
+```java
+
+```
