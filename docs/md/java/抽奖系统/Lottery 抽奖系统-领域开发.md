@@ -1324,3 +1324,5 @@ public DrawProcessResult doDrawProcess(DrawProcessReq req) {
     return new DrawProcessResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo(), drawAwardInfo);
 }
 ```
+
+- 按照流程图设计，分别进行：领取活动、执行抽奖、结果落库、发送MQ、返回结果，这些步骤的操作。其实这块的流程就相对来说比较简单了，主要是串联起各个抽奖步骤的操作。
