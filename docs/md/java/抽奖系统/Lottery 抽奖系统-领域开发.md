@@ -1259,7 +1259,7 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
 -   transactionTemplate.execute 是编程式事务，用的就是路由中间件提供的事务对象，通过这样的方式也可以更加方便的处理细节的回滚，而不需要抛异常处理。
 
 # 第12节：在应用层编排抽奖过程
-
+![](../../youdaonote-images/Pasted%20image%2020230728224407.png)
 ## 一、开发日志
 
 - 分别在两个分库的表 lottery_01.user_take_activity、lottery_02.user_take_activity 中添加 state`【活动单使用状态 0未使用、1已使用】` 状态字段，这个状态字段用于写入中奖信息到 user_strategy_export_000~003 表中时候，两个表可以做一个幂等性的事务。同时还需要加入 strategy_id 策略ID字段，用于处理领取了活动单但执行抽奖失败时，可以继续获取到此抽奖单继续执行抽奖，而不需要重新领取活动。_其实领取活动就像是一种活动镜像信息，可以在控制幂等反复使用_
