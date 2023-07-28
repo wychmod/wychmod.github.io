@@ -1257,3 +1257,4 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
 
 -   dbRouter.doRouter(partake.getuId()); 是编程式处理分库分表，如果在不需要使用事务的场景下，直接使用注解配置到DAO方法上即可。_两个方式不能混用_
 -   transactionTemplate.execute 是编程式事务，用的就是路由中间件提供的事务对象，通过这样的方式也可以更加方便的处理细节的回滚，而不需要抛异常处理。
+
