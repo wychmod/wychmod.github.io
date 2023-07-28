@@ -1258,3 +1258,14 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
 -   dbRouter.doRouter(partake.getuId()); 是编程式处理分库分表，如果在不需要使用事务的场景下，直接使用注解配置到DAO方法上即可。_两个方式不能混用_
 -   transactionTemplate.execute 是编程式事务，用的就是路由中间件提供的事务对象，通过这样的方式也可以更加方便的处理细节的回滚，而不需要抛异常处理。
 
+# 第12节：在应用层编排抽奖过程
+
+## 一、开发日志
+
+- 分别在两个分库的表 lottery_01.user_take_activity、lottery_02.user_take_activity 中添加 state`【活动单使用状态 0未使用、1已使用】` 状态字段，这个状态字段用于写入中奖信息到 user_strategy_export_000~003 表中时候，两个表可以做一个幂等性的事务。同时还需要加入 strategy_id 策略ID字段，用于处理领取了活动单但执行抽奖失败时，可以继续获取到此抽奖单继续执行抽奖，而不需要重新领取活动。_其实领取活动就像是一种活动镜像信息，可以在控制幂等反复使用_
+- 在 lottery-application 模块下新增 process 包用于流程编排，其实它也是 service 服务包是对领域功能的封装，很薄的一层。那么定义成 process 是想大家对流程编排有个概念，一般这一层的处理可以使用可视化的流程编排工具通过拖拽的方式，处理这部分代码的逻辑。
+
+## 二、编排流程
+
+![](../../youdaonote-images/Pasted%20image%2020230728220331.png)
+
