@@ -1335,3 +1335,10 @@ public DrawProcessResult doDrawProcess(DrawProcessReq req) {
 - 增加规则引擎开发需要的相关的配置类表：rule_tree、rule_tree_node、rule_tree_node_line
 - 运用组合模式搭建规则引擎领域服务，包括：logic 逻辑过滤器、engine 引擎执行器
 
+## 二、库表设计
+组合模式的特点就像是搭建出一棵二叉树，而库表中则需要把这样一颗二叉树存放进去，那么这里就需要包括：树根、树茎、子叶、果实。在具体的逻辑实现中则需要通过子叶判断走哪个树茎以及最终筛选出一个果实来。
+
+```sql
+
+
+```
