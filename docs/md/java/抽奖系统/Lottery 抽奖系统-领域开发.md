@@ -1913,3 +1913,5 @@ public class LotteryInvoiceListener {
 - 每一个 MQ 消息的消费都会有一个对应的 XxxListener 来处理消息体，如果你使用一些其他的 MQ 可能还会看到一些抽象类来处理 MQ 消息集合。
 - 在这个 LotteryInvoiceListener 消息监听类中，主要就是通过消息中的发奖类型获取到对应的奖品发货工厂，处理奖品的发送操作。
 - 在奖品发送操作中，已经补全了 `DistributionBase#updateUserAwardState` 更新奖品发送状态的操作。
+## 五、抽奖流程解耦
+
