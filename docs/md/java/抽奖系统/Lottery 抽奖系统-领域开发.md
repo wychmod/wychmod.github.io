@@ -1949,3 +1949,12 @@ public DrawProcessResult doDrawProcess(DrawProcessReq req) {
 
 # 第17节：引入xxl job处理活动状态扫描
 
+> 引入XXL-JOB，分布式任务调度平台，处理需要使用定时任务解决的场景。
+
+## 一、开发日志
+- 搭建 XXL-JOB 分布式任务调度环境，这里需要在官网：[https://github.com/xuxueli/xxl-job/](https://github.com/xuxueli/xxl-job/) 下载运行包，按照 Java SpringBoot 修改一些基本配置，项目启动即可。
+- 配置 XXL-JOB 的基础使用环境，导入库表、配置文件、验证官网管理，测试任务启动运行
+- 解决第一个分布式任务场景问题，扫描抽奖活动状态，把审核通过的活动扫描为活动中，把已过期活动中的状态扫描为关闭。后续章节我们还会使用分布式任务调度系统解决其他场景问题。
+
+## 二、搭建分布式任务调度环境(XXL-JOB)
+
