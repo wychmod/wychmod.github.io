@@ -1833,5 +1833,10 @@ public class KafkaConsumer {
 
 ## 二、创建主题（Topic）
 
+```shell
+创建topic：bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic lottery_invoice
 ```
-```
+
+## 三、流程说明
+
+![](../../youdaonote-images/Pasted%20image%2020230729222846.png)
