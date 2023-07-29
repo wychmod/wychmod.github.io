@@ -1378,8 +1378,33 @@ CREATE TABLE `rule_tree_node_line` (
 - 通常量化决策引擎也是一种用于差异化人群的规则过滤器，不只是可以过滤出活动，也可以用于活动唯独的过滤，判断是否可以参与到这个抽奖活动中。
 - 在我们的这个抽奖系统后，后面会使用规则引擎领域服务，在应用层做一层封装后，由接口层进行调用使用。_也就是用户参与活动之前，要做一层规则引擎过滤_
 
+## 三、功能开发
+
 ![](../../youdaonote-images/Pasted%20image%2020230728234825.png)
 
 - 首先可以看下黑色框框的模拟指导树结构；`1`、`11`、`12`、`111`、`112`、`121`、`122`，这是一组树结构的ID，并由节点串联组合出一棵关系树。
 - 接下来是类图部分，左侧是从`LogicFilter`开始定义适配的决策过滤器，`BaseLogic`是对接口的实现，提供最基本的通用方法。`UserAgeFilter`、`UserGenerFilter`，是两个具体的实现类用于判断`年龄`和`性别`。
 - 最后则是对这颗可以被组织出来的决策树，进行执行的引擎。同样定义了引擎接口和基础的配置，在配置里面设定了需要的模式决策节点。
+
+### 2. 规则过滤器接口
+
+```java
+public interface LogicFilter {
+    /**
+     * 逻辑决策器
+     * @param matterValue          决策值
+     * @param treeNodeLineInfoList 决策节点
+     * @return                     下一个节点Id
+     */
+    Long filter(String matterValue, List<TreeNodeLineVO> treeNodeLineInfoList);
+    /**
+     * 获取决策值
+     *
+     * @param decisionMatter 决策物料
+     * @return               决策值
+     */
+    String matterValue(DecisionMatterReq decisionMatter);
+}
+```
+
+- 这一部分定义了适配的通用接口，逻辑决策器、获取决策值，让每一个提供决策能力的节点都必须实现此接口，保证统一性。
