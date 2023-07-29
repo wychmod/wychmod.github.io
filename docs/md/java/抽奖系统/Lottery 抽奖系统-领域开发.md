@@ -1840,3 +1840,33 @@ public class KafkaConsumer {
 ## 三、流程说明
 
 ![](../../youdaonote-images/Pasted%20image%2020230729222846.png)
+
+- 因为 MQ 消息的发送是不具备事务性的，也就是说你在发送 MQ 时可能会失败，哪怕成功率是3个9到4个9，也会有一定的概率触发发送失败。所以我们在 MQ 发送完成后需要知道是否发送成功，进行库表状态更新，如果发送失败则需要使用 worker 来补偿 MQ 发送。PS：这部分内容我们会在后续章节实现。
+- 最后 MQ 发送完成到消费，也是可能有失败的，比如处理失败、更新库表失败等，但无论是什么失败都需要保证 MQ 进行重试处理。而保证 MQ 消息重试的前提就是服务的幂等性，否则你在重试的过程中就造成了流程异常，比如更新次数多了、数据库插入多了、给用户发奖多了等等，尤其是发生资损是更可怕的。
+
+## 四、MQ 服务
+
+**1.生产消息**
+
+```java
+@Component
+public class KafkaProducer {
+    private Logger logger = LoggerFactory.getLogger(KafkaProducer.class);
+    @Resource
+    private KafkaTemplate<String, Object> kafkaTemplate;
+    /**
+     * MQ主题：中奖发货单
+     */
+    public static final String TOPIC_INVOICE = "lottery_invoice";
+    /**
+     * 发送中奖物品发货单消息
+     *
+     * @param invoice 发货单
+     */
+    public ListenableFuture<SendResult<String, Object>> sendLotteryInvoice(InvoiceVO invoice) {
+        String objJson = JSON.toJSONString(invoice);
+        logger.info("发送MQ消息 topic：{} bizId：{} message：{}", TOPIC_INVOICE, invoice.getuId(), objJson);
+        return kafkaTemplate.send(TOPIC_INVOICE, objJson);
+    }
+}
+```
