@@ -1915,3 +1915,31 @@ public class LotteryInvoiceListener {
 - 在奖品发送操作中，已经补全了 `DistributionBase#updateUserAwardState` 更新奖品发送状态的操作。
 ## 五、抽奖流程解耦
 
+```java
+public DrawProcessResult doDrawProcess(DrawProcessReq req) {
+    // 1. 领取活动
+    
+    // 2. 执行抽奖
+    // 3. 结果落库
+    // 4. 发送MQ，触发发奖流程
+    InvoiceVO invoiceVO = buildInvoiceVO(drawOrderVO);
+    ListenableFuture<SendResult<String, Object>> future = kafkaProducer.sendLotteryInvoice(invoiceVO);
+    future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
+        @Override
+        public void onSuccess(SendResult<String, Object> stringObjectSendResult) {
+            // 4.1 MQ 消息发送完成，更新数据库表 user_strategy_export.mq_state = 1
+            activityPartake.updateInvoiceMqState(invoiceVO.getuId(), invoiceVO.getOrderId(), Constants.MQState.COMPLETE.getCode());
+        }
+        @Override
+        public void onFailure(Throwable throwable) {
+            // 4.2 MQ 消息发送失败，更新数据库表 user_strategy_export.mq_state = 2 【等待定时任务扫码补偿MQ消息】
+            activityPartake.updateInvoiceMqState(invoiceVO.getuId(), invoiceVO.getOrderId(), Constants.MQState.FAIL.getCode());
+        }
+    });
+    // 5. 返回结果
+    return new DrawProcessResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo(), drawAwardVO);
+}
+```
+
+- 消息发送完毕后进行回调处理，更新数据库中 MQ 发送的状态，如果有 MQ 发送失败则更新数据库 mq_state = 2 **这里还有可能在更新库表状态的时候失败**，但没关系这些都会被 worker 补偿处理掉，一种是发送 MQ 失败，另外一种是 MQ 状态为 0 但很久都没有发送 MQ 那么也可以触发发送。
+- 现在从用户领取活动、执行抽奖、结果落库，到 发送MQ处理后续发奖的流程就解耦了，因为用户只需要知道自己中奖了，但发奖到货是可以等待的，毕竟发送虚拟商品的等待时间并不会很长，而实物商品走物流就更可以接收了。所以对于这样的流程进行解耦是非常有必要的，否则你的程序逻辑会让用户在界面等待更久的时间。
