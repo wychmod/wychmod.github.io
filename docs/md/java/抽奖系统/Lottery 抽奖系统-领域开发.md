@@ -1677,10 +1677,10 @@ bin/kafka-server-start.sh -daemon config/server.properties
 **关闭**
 
 ```
-`bin/kafka-server-stop.sh -daemon config/server.properties
+bin/kafka-server-stop.sh -daemon config/server.properties
 ```
 
-### [](#4-%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98)4. 创建主题
+### 4. 创建主题
 
 ```
 fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic Hello-Kafka
@@ -1688,7 +1688,14 @@ fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-topics.sh --creat
 
 - **创建 `Kafka` 主题** - `Kafka` 提供了一个名为 `kafka-topics.sh` 的命令行实用程序，用于在服务器上创建主题。 打开新终端并键入以下示例。
 
-### [](#5-%E6%9F%A5%E7%9C%8B%E4%B8%BB%E9%A2%98)5. 查看主题
+- bin/kafka-topics.sh：Kafka命令行工具的路径。
+- –create：指定创建主题的操作。
+- –zookeeper localhost:2181：指定Zookeeper的地址和端口。
+- –replication-factor 1：指定主题的副本因子，这里设置为1，表示每个分区只有一个副本。
+- –partitions 1：指定主题的分区数，这里设置为1，表示只有一个分区。
+- –topic Hello-Kafka：指定要创建的主题的名称，这里设置为"Hello-Kafka"。
+
+### 5. 查看主题
 
 ```
 bin/kafka-topics.sh --list --zookeeper localhost:2181
@@ -1696,13 +1703,13 @@ bin/kafka-topics.sh --list --zookeeper localhost:2181
 
 - 由于我们已经创建了一个主题，它将仅列出 `Hello-Kafka` 。 假设，如果创建多个主题，您将在输出中获取主题名称。
 
-### [](#6-%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF)6. 发送消息
+### 6. 发送消息
 
 ```
 fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-console-producer.sh --broker-list localhost:9092 --topic Hello-Kafka
 ```
 
-### [](#7-%E7%9B%91%E5%90%AC%E6%B6%88%E6%81%AF)7. 监听消息
+### 7. 监听消息
 
 ```
 fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic Hello-Kafka --from-beginning
