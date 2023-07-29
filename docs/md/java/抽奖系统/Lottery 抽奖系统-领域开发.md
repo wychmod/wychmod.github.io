@@ -1513,3 +1513,22 @@ public class EngineBase extends EngineConfig implements EngineFilter {
 
 ### 6. 规则引擎处理器
 
+```java
+@Service("ruleEngineHandle")
+public class RuleEngineHandle extends EngineBase {
+    @Resource
+    private IRuleRepository ruleRepository;
+    @Override
+    public EngineResult process(DecisionMatterReq matter) {
+        // 决策规则树
+        TreeRuleRich treeRuleRich = ruleRepository.queryTreeRuleRich(matter.getTreeId());
+        if (null == treeRuleRich) {
+            throw new RuntimeException("Tree Rule is null!");
+        }
+        // 决策节点
+        TreeNodeVO treeNodeInfo = engineDecisionMaker(treeRuleRich, matter);
+        // 决策结果
+        return new EngineResult(matter.getUserId(), treeNodeInfo.getTreeId(), treeNodeInfo.getTreeNodeId(), treeNodeInfo.getNodeValue());
+    }
+}
+```
