@@ -1656,28 +1656,28 @@ Kafka非常快，并保证零停机和零数据丢失。
 
 **启动**
 
-```
-fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
+```shell
+bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
 ```
 
 **关闭**
 
 ```
-fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/zookeeper-server-stop.sh -daemon config/zookeeper.properties
+bin/zookeeper-server-stop.sh -daemon config/zookeeper.properties
 ```
 
-### [](#3-%E9%85%8D%E7%BD%AE-kafka)3. 配置 Kafka
+### 3. 配置 Kafka
 
 **启动**
 
 ```
-fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-server-start.sh -daemon config/server.properties
+bin/kafka-server-start.sh -daemon config/server.properties
 ```
 
 **关闭**
 
 ```
-fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-server-stop.sh -daemon config/server.properties
+`bin/kafka-server-stop.sh -daemon config/server.properties
 ```
 
 ### [](#4-%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98)4. 创建主题
