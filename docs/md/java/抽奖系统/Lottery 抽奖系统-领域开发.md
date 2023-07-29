@@ -1870,3 +1870,46 @@ public class KafkaProducer {
     }
 }
 ```
+
+- 我们会把所有的生产消息都放到 KafkaProducer 中，并对外提供一个可以发送 MQ 消息的方法。
+- 因为我们配置的类型转换为 StringDeserializer 所以发送消息的方式是 JSON 字符串，当然这个编解码器是可以重写的，满足你发送其他类型的数据。
+
+**2.消费消息**
+
+```java
+@Component
+public class LotteryInvoiceListener {
+    private Logger logger = LoggerFactory.getLogger(LotteryInvoiceListener.class);
+    @Resource
+    private DistributionGoodsFactory distributionGoodsFactory;
+    @KafkaListener(topics = "lottery_invoice", groupId = "lottery")
+    public void onMessage(ConsumerRecord<?, ?> record, Acknowledgment ack, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+        Optional<?> message = Optional.ofNullable(record.value());
+        // 1. 判断消息是否存在
+        if (!message.isPresent()) {
+            return;
+        }
+        // 2. 处理 MQ 消息
+        try {
+            // 1. 转化对象（或者你也可以重写Serializer<T>）
+            InvoiceVO invoiceVO = JSON.parseObject((String) message.get(), InvoiceVO.class);
+            // 2. 获取发送奖品工厂，执行发奖
+            IDistributionGoods distributionGoodsService = distributionGoodsFactory.getDistributionGoodsService(invoiceVO.getAwardType());
+            DistributionRes distributionRes = distributionGoodsService.doDistribution(new GoodsReq(invoiceVO.getuId(), invoiceVO.getOrderId(), invoiceVO.getAwardId(), invoiceVO.getAwardName(), invoiceVO.getAwardContent()));
+            Assert.isTrue(Constants.AwardState.SUCCESS.getCode().equals(distributionRes.getCode()), distributionRes.getInfo());
+            // 3. 打印日志
+            logger.info("消费MQ消息，完成 topic：{} bizId：{} 发奖结果：{}", topic, invoiceVO.getuId(), JSON.toJSONString(distributionRes));
+            // 4. 消息消费完成
+            ack.acknowledge();
+        } catch (Exception e) {
+            // 发奖环节失败，消息重试。所有到环节，发货、更新库，都需要保证幂等。
+            logger.error("消费MQ消息，失败 topic：{} message：{}", topic, message.get());
+            throw e;
+        }
+    }
+}
+```
+
+- 每一个 MQ 消息的消费都会有一个对应的 XxxListener 来处理消息体，如果你使用一些其他的 MQ 可能还会看到一些抽象类来处理 MQ 消息集合。
+- 在这个 LotteryInvoiceListener 消息监听类中，主要就是通过消息中的发奖类型获取到对应的奖品发货工厂，处理奖品的发送操作。
+- 在奖品发送操作中，已经补全了 `DistributionBase#updateUserAwardState` 更新奖品发送状态的操作。
