@@ -1683,7 +1683,7 @@ bin/kafka-server-stop.sh -daemon config/server.properties
 ### 4. 创建主题
 
 ```
-fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic Hello-Kafka
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic Hello-Kafka
 ```
 
 - **创建 `Kafka` 主题** - `Kafka` 提供了一个名为 `kafka-topics.sh` 的命令行实用程序，用于在服务器上创建主题。 打开新终端并键入以下示例。
@@ -1706,11 +1706,11 @@ bin/kafka-topics.sh --list --zookeeper localhost:2181
 ### 6. 发送消息
 
 ```
-fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-console-producer.sh --broker-list localhost:9092 --topic Hello-Kafka
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic Hello-Kafka
 ```
 
 ### 7. 监听消息
 
 ```
-fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic Hello-Kafka --from-beginning
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic Hello-Kafka --from-beginning
 ```
