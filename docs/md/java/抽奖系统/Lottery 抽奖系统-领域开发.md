@@ -1538,3 +1538,13 @@ public class RuleEngineHandle extends EngineBase {
 
 # 第14节：门面接口封装和对象转换
 
+> 在 lottery-interfaces 接口层创建 `facade 门面模式` 包装抽奖接口，并在 `assembler 包` 使用 MapStruct 做对象转换操作处理。
+
+## 一、开发日志
+
+- 补充 lottery-application 应用层对规则引擎的调用，添加接口方法 IActivityProcess#doRuleQuantificationCrowd
+- 删掉 lottery-rpc 测试内容，新增加抽奖活动展台接口 ILotteryActivityBooth，并添加两个抽奖的接口方法，普通抽奖和量化人群抽奖。
+- 开发 lottery-interfaces 接口层，对抽奖活动的封装，并对外提供抽奖服务。
+
+## 二、对象转换
+
