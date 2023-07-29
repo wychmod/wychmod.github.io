@@ -1408,3 +1408,43 @@ public interface LogicFilter {
 ```
 
 - 这一部分定义了适配的通用接口，逻辑决策器、获取决策值，让每一个提供决策能力的节点都必须实现此接口，保证统一性。
+
+### 3. 规则基础抽象类
+
+```java
+public abstract class BaseLogic implements LogicFilter {
+    @Override
+    public Long filter(String matterValue, List<TreeNodeLineVO> treeNodeLineInfoList) {
+        for (TreeNodeLineVO nodeLine : treeNodeLineInfoList) {
+            if (decisionLogic(matterValue, nodeLine)) {
+                return nodeLine.getNodeIdTo();
+            }
+        }
+        return Constants.Global.TREE_NULL_NODE;
+    }
+    /**
+     * 获取规则比对值
+     * @param decisionMatter 决策物料
+     * @return 比对值
+     */
+    @Override
+    public abstract String matterValue(DecisionMatterReq decisionMatter);
+    private boolean decisionLogic(String matterValue, TreeNodeLineVO nodeLine) {
+        switch (nodeLine.getRuleLimitType()) {
+            case Constants.RuleLimitType.EQUAL:
+                return matterValue.equals(nodeLine.getRuleLimitValue());
+            case Constants.RuleLimitType.GT:
+                return Double.parseDouble(matterValue) > Double.parseDouble(nodeLine.getRuleLimitValue());
+            case Constants.RuleLimitType.LT:
+                return Double.parseDouble(matterValue) < Double.parseDouble(nodeLine.getRuleLimitValue());
+            case Constants.RuleLimitType.GE:
+                return Double.parseDouble(matterValue) >= Double.parseDouble(nodeLine.getRuleLimitValue());
+            case Constants.RuleLimitType.LE:
+                return Double.parseDouble(matterValue) <= Double.parseDouble(nodeLine.getRuleLimitValue());
+            default:
+                return false;
+        }
+    }
+}
+```
+
