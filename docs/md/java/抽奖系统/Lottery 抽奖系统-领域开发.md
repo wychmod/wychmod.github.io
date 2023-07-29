@@ -1630,3 +1630,9 @@ public class LotteryActivityBooth implements ILotteryActivityBooth {
 
 - 在抽奖活动展台的类中主要实现了两个接口方法，指定活动抽奖(doDraw)、量化人群抽奖(doQuantificationDraw)
 
+# 第15节：搭建MQ消息组件Kafka服务环境
+
+## 一、Kafka 安装和配置
+
+Apache Kafka是一个分布式发布 - 订阅消息系统和一个强大的队列，可以处理大量的数据，并使您能够将消息从一个端点传递到另一个端点。 Kafka适合离线和在线消息消费。 Kafka消息保留在磁盘上，并在群集内复制以防止数据丢失。 Kafka构建在ZooKeeper同步服务之上。 它与Apache Storm和Spark非常好地集成，用于实时流式数据分析。
+
