@@ -1550,3 +1550,13 @@ public class RuleEngineHandle extends EngineBase {
 
 ![](../../youdaonote-images/Pasted%20image%2020230729144656.png)
 
+目前我整理出，用于对象属性转换有12种，包括：普通的getset、json2Json、Apache属性拷贝、Spring属性拷贝、bean-mapping、bean-mapping-asm、BeanCopier、Orika、Dozer、ModelMapper、JMapper、MapStruct 接下来我们分别测试这11种属性转换操作分别在一百次、一千次、一万次、十万次、一百万次时候的性能时间对比。
+
+![](../../youdaonote-images/Pasted%20image%2020230729145057.png)
+
+- `BeanUtils.copyProperties` 是大家代码里最常出现的工具类，但只要你不把它用错成 `Apache` 包下的，而是使用 Spring 提供的，就基本还不会对性能造成多大影响。
+- 但如果说性能更好，可替代手动`get、set`的，还是 `MapStruct` 更好用，因为它本身就是在编译期生成`get、set`代码，和我们写`get、set`一样。
+- 其他一些组件包主要基于 `AOP`、`ASM`、`CGlib`，的技术手段实现的，所以也会有相应的性能损耗。
+
+### 2. 接口包装
+
