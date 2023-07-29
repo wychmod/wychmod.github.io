@@ -1825,6 +1825,9 @@ public class KafkaConsumer {
 
 > 使用MQ消息的特性，把用户抽奖到发货到流程进行解耦。这个过程中包括了消息的发送、库表中状态的更新、消息的接收消费、发奖状态的处理等。
 
+![](../../youdaonote-images/Pasted%20image%2020230729230758.png)
+
+![](../../youdaonote-images/Pasted%20image%2020230729230804.png)
 ## 一、开发日志
 
 - 在数据库表 `user_strategy_export` 添加字段 `mq_state` 这个字段用于发送 MQ 成功更新库表状态，如果 MQ 消息发送失败则需要通过定时任务补偿 MQ 消息。PS：你可以使用本章节分支下的 sql 更新自己的库表。
