@@ -1802,3 +1802,21 @@ public class KafkaProducer {
     }
 }
 ```
+
+**消费者**
+
+```java
+@Component
+public class KafkaConsumer {
+    private Logger logger = LoggerFactory.getLogger(KafkaConsumer.class);
+    @KafkaListener(topics = KafkaProducer.TOPIC_TEST, groupId = KafkaProducer.TOPIC_GROUP)
+    public void topicTest(ConsumerRecord<?, ?> record, Acknowledgment ack, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+        Optional<?> message = Optional.ofNullable(record.value());
+        if (message.isPresent()) {
+            Object msg = message.get();
+            logger.info("topic_test 消费了： Topic:" + topic + ",Message:" + msg);
+            ack.acknowledge();
+        }
+    }
+}
+```
