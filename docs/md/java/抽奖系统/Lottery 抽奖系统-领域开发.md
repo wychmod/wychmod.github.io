@@ -1448,3 +1448,27 @@ public abstract class BaseLogic implements LogicFilter {
 }
 ```
 
+- 在抽象方法中实现了接口方法，同时定义了基本的决策方法；`1、2、3、4、5`，`等于、小于、大于、小于等于、大于等于`的判断逻辑。
+- 同时定义了抽象方法，让每一个实现接口的类都必须按照规则提供`决策值`，这个决策值用于做逻辑比对。
+
+### 4.树节点逻辑实现类
+
+**年龄规则**
+```java
+
+@Component
+public class UserAgeFilter extends BaseLogic {
+    @Override
+    public String matterValue(DecisionMatterReq decisionMatter) {
+        return decisionMatter.getValMap().get("age").toString();
+    }
+}
+```
+
+**性别规则**
+
+```java
+
+
+
+```
