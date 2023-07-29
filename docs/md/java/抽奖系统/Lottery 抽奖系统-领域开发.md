@@ -1331,6 +1331,8 @@ public DrawProcessResult doDrawProcess(DrawProcessReq req) {
 
 > 使用组合模式搭建用于量化人群的规则引擎，用于用户参与活动之前，通过规则引擎过滤性别、年龄、首单消费、消费金额、忠实用户等各类身份来量化出具体可参与的抽奖活动。通过这样的方式控制运营成本和精细化运营。
 
+![](../../youdaonote-images/Pasted%20image%2020230729105054.png)
+
 ## 一、开发日志
 - 增加规则引擎开发需要的相关的配置类表：rule_tree、rule_tree_node、rule_tree_node_line
 - 运用组合模式搭建规则引擎领域服务，包括：logic 逻辑过滤器、engine 引擎执行器
@@ -1532,3 +1534,7 @@ public class RuleEngineHandle extends EngineBase {
     }
 }
 ```
+
+
+# 第14节：门面接口封装和对象转换
+
