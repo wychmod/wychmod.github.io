@@ -1636,3 +1636,74 @@ public class LotteryActivityBooth implements ILotteryActivityBooth {
 
 Apache Kafka是一个分布式发布 - 订阅消息系统和一个强大的队列，可以处理大量的数据，并使您能够将消息从一个端点传递到另一个端点。 Kafka适合离线和在线消息消费。 Kafka消息保留在磁盘上，并在群集内复制以防止数据丢失。 Kafka构建在ZooKeeper同步服务之上。 它与Apache Storm和Spark非常好地集成，用于实时流式数据分析。
 
+以下是Kafka的几个好处：
+
+- **可靠性** - Kafka是分布式，分区，复制和容错的。
+- **可扩展性** - Kafka消息传递系统轻松缩放，无需停机。
+- **耐用性** - Kafka使用分布式提交日志，这意味着消息会尽可能快地保留在磁盘上，因此它是持久的。
+- **性能** - Kafka对于发布和订阅消息都具有高吞吐量。 即使存储了许多TB的消息，它也保持稳定的性能。
+
+Kafka非常快，并保证零停机和零数据丢失。
+
+### 1. 安装
+
+- 使用版本：kafka_2.13-2.8.0.tgz
+- 官网下载：[https://kafka.apache.org/downloads](https://kafka.apache.org/downloads)
+- 网盘下载：[https://pan.baidu.com/s/1tNdzkmhr_mZJQvnCcTeeFw](https://pan.baidu.com/s/1tNdzkmhr_mZJQvnCcTeeFw) 提取码: 5niu
+- 教程文档：[https://www.w3cschool.cn/apache_kafka/](https://www.w3cschool.cn/apache_kafka/)
+
+### 2. 配置 Zookeeper
+
+**启动**
+
+```
+fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
+```
+
+**关闭**
+
+```
+fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/zookeeper-server-stop.sh -daemon config/zookeeper.properties
+```
+
+### [](#3-%E9%85%8D%E7%BD%AE-kafka)3. 配置 Kafka
+
+**启动**
+
+```
+fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-server-start.sh -daemon config/server.properties
+```
+
+**关闭**
+
+```
+fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-server-stop.sh -daemon config/server.properties
+```
+
+### [](#4-%E5%88%9B%E5%BB%BA%E4%B8%BB%E9%A2%98)4. 创建主题
+
+```
+fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic Hello-Kafka
+```
+
+- **创建 `Kafka` 主题** - `Kafka` 提供了一个名为 `kafka-topics.sh` 的命令行实用程序，用于在服务器上创建主题。 打开新终端并键入以下示例。
+
+### [](#5-%E6%9F%A5%E7%9C%8B%E4%B8%BB%E9%A2%98)5. 查看主题
+
+```
+bin/kafka-topics.sh --list --zookeeper localhost:2181
+```
+
+- 由于我们已经创建了一个主题，它将仅列出 `Hello-Kafka` 。 假设，如果创建多个主题，您将在输出中获取主题名称。
+
+### [](#6-%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF)6. 发送消息
+
+```
+fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-console-producer.sh --broker-list localhost:9092 --topic Hello-Kafka
+```
+
+### [](#7-%E7%9B%91%E5%90%AC%E6%B6%88%E6%81%AF)7. 监听消息
+
+```
+fuzhengweideMacBook-Pro:kafka_2.13-2.8.0 fuzhengwei$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic Hello-Kafka --from-beginning
+```
