@@ -1507,3 +1507,9 @@ public class EngineBase extends EngineConfig implements EngineFilter {
     }
 }
 ```
+
+- 这里主要提供决策树流程的处理过程，有点像通过链路的关系(`性别`、`年龄`)在二叉树中寻找果实节点的过程。
+- 同时提供一个抽象方法，执行决策流程的方法供外部去做具体的实现。
+
+### 6. 规则引擎处理器
+
