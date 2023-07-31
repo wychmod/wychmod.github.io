@@ -2453,3 +2453,29 @@ public void recoverActivityCacheStockByRedis(Long activityId, String tokenKey, S
 
 由于我们使用 Redis 代替数据库库存，那么在缓存的库存处理后，还需要把数据库中的库存处理为和缓存一致，这样在后续运营这部分数据时才能保证一定的运营可靠性。
 
+![](../../youdaonote-images/Pasted%20image%2020230801005500.png)
+
+- 申请新的 MQ Topic：`bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic lottery_activity_partake`
+- 这里需要注意，MQ 的发送，只发生在用户首次领取活动时，如果是已经领取活动但因为抽奖等流程失败，二次进入此流程，则不会发送 MQ 消息。
+
+**5. 活动领取记录 MQ 消费**
+
+```java
+@KafkaListener(topics = "lottery_activity_partake", groupId = "lottery")
+public void onMessage(ConsumerRecord<?, ?> record, Acknowledgment ack, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+    Optional<?> message = Optional.ofNullable(record.value());
+    // 1. 判断消息是否存在
+    if (!message.isPresent()) {
+        return;
+    }
+    // 2. 转化对象（或者你也可以重写Serializer<T>）
+    ActivityPartakeRecordVO activityPartakeRecordVO = JSON.parseObject((String) message.get(), ActivityPartakeRecordVO.class);
+    logger.info("消费MQ消息，异步扣减活动库存 message：{}", message.get());
+    
+    // 3. 更新数据库库存
+    activityPartake.updateActivityStock(activityPartakeRecordVO);
+}
+```
+
+- 消费 MQ 消息的流程就比较简单了，接收到 MQ 进行更新数据库处理即可。不过我们这里更新数据库并不是直接对数据库进行库存扣减操作，而是把从缓存拿到的库存最新镜像更新到数据库中。它的 SQL = `UPDATE activity SET stock_surplus_count = #{stockSurplusCount} WHERE activity_id = #{activityId} AND stock_surplus_count > #{stockSurplusCount}`
+- 更新数据库库存【实际场景业务体量较大，可能也会由于MQ消费引起并发，对数据库产生压力，所以如果并发量较大，可以把库存记录缓存中，并使用定时任务进行处理缓存和数据库库存同步，减少对数据库的操作次数】
