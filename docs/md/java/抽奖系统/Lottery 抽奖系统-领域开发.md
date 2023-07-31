@@ -2061,4 +2061,11 @@ public class SampleXxlJob {
 
 **xxl-job-executor-samples#xxl-job-executor-sample-springboot**
 
-
+```java
+@SpringBootApplication
+public class XxlJobExecutorApplication {
+	public static void main(String[] args) {
+        SpringApplication.run(XxlJobExecutorApplication.class, args);
+	}
+}
+```
