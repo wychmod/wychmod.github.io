@@ -2396,3 +2396,33 @@ public void lotteryOrderMQStateJobHandler() throws Exception {
 2. 滑块库存锁实现
 
 在活动领域层的领取活动抽象类 `BaseActivityPartake` 添加方法 subtractionActivityStockByRedis、recoverActivityCacheStockByRedis，分别用户 Redis 库存扣减和加锁 Key 的处理。
+
+**2.1 库存扣减操作**
+
+```java
+@Override
+public StockResult subtractionActivityStockByRedis(String uId, Long activityId, Integer stockCount) {
+    //  1. 获取抽奖活动库存 Key
+    String stockKey = Constants.RedisKey.KEY_LOTTERY_ACTIVITY_STOCK_COUNT(activityId);
+    
+    // 2. 扣减库存，目前占用库存数
+    Integer stockUsedCount = (int) redisUtil.incr(stockKey, 1);
+    
+    // 3. 超出库存判断，进行恢复原始库存
+    if (stockUsedCount > stockCount) {
+        redisUtil.decr(stockKey, 1);
+        return new StockResult(Constants.ResponseCode.UN_ERROR.getCode(), Constants.ResponseCode.UN_ERROR.getInfo());
+    }
+    
+    // 4. 以活动库存占用编号，生成对应加锁Key，细化锁的颗粒度
+    String stockTokenKey = Constants.RedisKey.KEY_LOTTERY_ACTIVITY_STOCK_COUNT_TOKEN(activityId, stockUsedCount);
+    
+    // 5. 使用 Redis.setNx 加一个分布式锁
+    boolean lockToken = redisUtil.setNx(stockTokenKey, 350L);
+    if (!lockToken) {
+        logger.info("抽奖活动{}用户秒杀{}扣减库存，分布式锁失败：{}", activityId, uId, stockTokenKey);
+        return new StockResult(Constants.ResponseCode.UN_ERROR.getCode(), Constants.ResponseCode.UN_ERROR.getInfo());
+    }
+    return new StockResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo(), stockTokenKey, stockCount - stockUsedCount);
+}
+```
