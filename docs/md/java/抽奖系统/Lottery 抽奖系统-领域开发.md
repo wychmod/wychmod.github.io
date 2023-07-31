@@ -2125,3 +2125,5 @@ xxl:
       logretentiondays: 50
     accessToken:
 ```
+
+- 配置中主要包括你的服务地址，应用名称、日志路径等
