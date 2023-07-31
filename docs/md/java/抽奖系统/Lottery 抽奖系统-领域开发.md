@@ -2239,3 +2239,16 @@ public class LotteryXxlJob {
 
 - 审核通过 -> 扫描为活动中
 - 活动中已过期时间 -> 扫描为活动关闭
+
+### 5. 配置抽奖系统任务调度执行器
+![](../../youdaonote-images/Pasted%20image%2020230731160004.png)
+
+- 只有配置了任务执行器，才能执行当前这个实例中的任务。
+- 另外在有些业务体量较大的场景中，需要把任务开发为新工程并单独部署。
+
+### 6. 配置任务
+
+- 这里我们把已经开发了的任务 `LotteryXxlJob#lotteryActivityStateJobHandler` 配置到任务调度中心，如下：
+![](../../youdaonote-images/Pasted%20image%2020230731160346.png)
+
+- 配置完成后，就可以启动任务了。
