@@ -2088,3 +2088,6 @@ http://127.0.0.1:8080/xxl-job-admin/jobinfo
 - - 每一个执行器下就会对应一组带执行的 job 任务，来完成我们自己的任务调度。
 
 ### 8. 测试效果
+
+![](../../youdaonote-images/Pasted%20image%2020230731144753.png)
+
