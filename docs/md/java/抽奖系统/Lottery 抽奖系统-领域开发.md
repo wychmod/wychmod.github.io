@@ -2058,3 +2058,7 @@ public class SampleXxlJob {
     }
 }
 ```
+
+**xxl-job-executor-samples#xxl-job-executor-sample-springboot**
+
+
