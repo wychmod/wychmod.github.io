@@ -2069,3 +2069,14 @@ public class XxlJobExecutorApplication {
 	}
 }
 ```
+- 正常启动即可，运行后就可以在任务调度后台管理任务了。
+
+
+### 6. 查看任务
+
+http://127.0.0.1:8080/xxl-job-admin/jobinfo
+
+![](../../youdaonote-images/Pasted%20image%2020230731123749.png)
+
+- 在任务管理中，可以新增任务，并配置任务的执行时间、以及测试等功能。
+
