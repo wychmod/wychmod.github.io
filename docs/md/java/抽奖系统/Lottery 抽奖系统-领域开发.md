@@ -2103,3 +2103,25 @@ http://127.0.0.1:8080/xxl-job-admin/jobinfo
     <version>2.3.0</version>
 </dependency>
 ```
+
+### 2. 配置 application.yml
+
+```yml
+# xxl-job
+# 官网：https://github.com/xuxueli/xxl-job/
+# 地址：http://localhost:7397/xxl-job-admin 【需要先启动 xxl-job】
+# 账号：admin
+# 密码：123456
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:7397/xxl-job-admin
+    executor:
+      address:
+      appname: lottery-job
+      ip:
+      port: 9999
+      logpath: /Users/fuzhengwei/itstack/data/applogs/xxl-job/jobhandler
+      logretentiondays: 50
+    accessToken:
+```
