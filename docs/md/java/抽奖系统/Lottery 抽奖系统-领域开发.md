@@ -2015,3 +2015,20 @@ XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅�
 1. 启动前检查好 application.properties 中的端口号
 2. 确保数据库表已经初始化完成，并修改 application.properties 中数据库链接信息
 3. 修改 logback.xml 日志打印目录，否则日志找不到会报错
+
+```java
+@SpringBootApplication
+public class XxlJobAdminApplication {
+	public static void main(String[] args) {
+        SpringApplication.run(XxlJobAdminApplication.class, args);
+	}
+}
+```
+
+- 像启动 SpringBoot 程序一样，启动这个 xxl-job 任务调度后台，如果你是部署到云服务器，则需要打包构架部署
+
+**访问页面**
+
+- 地址：http://localhost:`7397`/xxl-job-admin `我修改端口为7397了，你按照自己的端口就可以`
+- 账号：admin
+- 密码：123456
