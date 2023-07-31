@@ -2001,7 +2001,7 @@ XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅�
 - 35、用户管理：支持在线管理系统用户，存在管理员、普通用户两种角色；
 - 36、权限控制：执行器维度进行权限控制，管理员拥有全量权限，普通用户需要分配执行器权限后才允许相关操作；
 
-### [](#3-%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE)3. 基础配置
+### 3. 基础配置
 
 1. 下载：[2.3.0](https://github.com/xuxueli/xxl-job/releases/tag/2.3.0)
 2. 打开：使用 IDEA 打开下载的 xxl-job
@@ -2010,7 +2010,7 @@ XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅�
 5. 案例：xxl-job-executor-samples 是一组job任务案例，运行后可以在分布式任务调度后台管理任务，配置、启动、关闭
 6. 核心：xxl-job-core
 
-### [](#4-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1xxl-job-admin)4. 启动服务(xxl-job-admin)
+### 4. 启动服务(xxl-job-admin)
 
 1. 启动前检查好 application.properties 中的端口号
 2. 确保数据库表已经初始化完成，并修改 application.properties 中数据库链接信息
