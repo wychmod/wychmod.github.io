@@ -2426,3 +2426,21 @@ public StockResult subtractionActivityStockByRedis(String uId, Long activityId, 
     return new StockResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo(), stockTokenKey, stockCount - stockUsedCount);
 }
 ```
+
+- 代码中的注释就是整个操作流程，创建 Key、占用库存、判断库存、**以占用库存的编号做为加锁key**、调用 setNx 加一个分布式锁，最终完成整个秒杀扣减库存的动作。
+- 这里还有一些其他的实现方式，例如：`lua脚本`、zk、jvm层，都可以处理，但经过验证 lua脚本会有一定的耗时，并发较高时会有问题。
+- 秒杀的设计原则是保证不超卖，但不一定保证100个库存完全消耗掉，因为可能会有一些锁失败的情况。不过在库存数据最终一致性任务处理下，基本保证`3个9`到`4个9`的可用率还是没问题的。
+- 如果说你的库存秒杀tps已经到10级以上，_一般单key在10万以下是可靠的_，那么这个时候就需要进行库存分片，把路由是思想用到 Redis 使用上，不同的用户进入 Redis 进行秒杀处理时，把他的库存操作路由到属于他的分组上进行处理，那么这样就可以横向扩展了。
+
+**2.2 并发锁删除处理**
+
+```java
+@Override
+public void recoverActivityCacheStockByRedis(Long activityId, String tokenKey, String code) {
+    // 删除分布式锁 Key
+    redisUtil.del(tokenKey);
+}
+```
+
+- 秒杀完毕后，接下来的流程是用户记录落库，但可能这个时候会发生失败的情况，因为需要在失败时恢复缓存的库存。不过这个情况不是事务性的，因此可能会恢复失败，也就是保证不超卖，但不能保证一定完全消耗库存。_当然这个部分具体看你希望的是什么，比如你可以牺牲掉一些性能，考虑 lua 脚本和给整个流程分布式事务锁。_
+- 如果最后的操作是成功的，那么正常删除掉这个加锁的 Key 就可以了，因为下一个用户获取的到的库存滑块又是新的了，旧 Key 已经没有用了。
