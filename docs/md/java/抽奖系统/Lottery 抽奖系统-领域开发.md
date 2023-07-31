@@ -2262,3 +2262,104 @@ public class LotteryXxlJob {
 - 我们的任务流程，完成的就是整个抽奖活动中，关于中奖结果落库后，进行MQ后。出现问题时，进行补偿消息发送处理的部分。
 - 在MQ消息补偿的过程中，会把发送失败的消息和迟迟没有发送的消息，都进行补偿，已保障全流程的可靠性。
 
+## 功能实现
+
+### 1. 路由组件提供必要方法
+
+首先我们需要在路由组件中，提供获取分库数、分表数和设置库表路由，也就是手动设置的操作，这样可以把扫描的路由结果确定下来。
+
+```java
+public interface IDBRouterStrategy {
+    /**
+     * 路由计算
+     *
+     * @param dbKeyAttr 路由字段
+     */
+    void doRouter(String dbKeyAttr);
+    /**
+     * 手动设置分库路由
+     *
+     * @param dbIdx 路由库，需要在配置范围内
+     */
+    void setDBKey(int dbIdx);
+    /**
+     * 手动设置分表路由
+     *
+     * @param tbIdx 路由表，需要在配置范围内
+     */
+    void setTBKey(int tbIdx);
+    /**
+     * 获取分库数
+     *
+     * @return 数量
+     */
+    int dbCount();
+    /**
+     * 获取分表数
+     *
+     * @return 数量
+     */
+    int tbCount();
+    /**
+     * 清除路由
+     */
+    void clear();
+}
+```
+
+### 2. 消息补偿任务
+
+```java
+@XxlJob("lotteryOrderMQStateJobHandler")
+public void lotteryOrderMQStateJobHandler() throws Exception {
+    // 验证参数
+    String jobParam = XxlJobHelper.getJobParam();
+    if (null == jobParam) {
+        logger.info("扫描用户抽奖奖品发放MQ状态[Table = 2*4] 错误 params is null");
+        return;
+    }
+    // 获取分布式任务配置参数信息 参数配置格式：1,2,3 也可以是指定扫描一个，也可以配置多个库，按照部署的任务集群进行数量配置，均摊分别扫描效率更高
+    String[] params = jobParam.split(",");
+    logger.info("扫描用户抽奖奖品发放MQ状态[Table = 2*4] 开始 params：{}", JSON.toJSONString(params));
+    if (params.length == 0) {
+        logger.info("扫描用户抽奖奖品发放MQ状态[Table = 2*4] 结束 params is null");
+        return;
+    }
+    // 获取分库分表配置下的分表数
+    int tbCount = dbRouter.tbCount();
+    // 循环获取指定扫描库
+    for (String param : params) {
+        // 获取当前任务扫描的指定分库
+        int dbCount = Integer.parseInt(param);
+        // 判断配置指定扫描库数，是否存在
+        if (dbCount > dbRouter.dbCount()) {
+            logger.info("扫描用户抽奖奖品发放MQ状态[Table = 2*4] 结束 dbCount not exist");
+            continue;
+        }
+        // 循环扫描对应表
+        for (int i = 0; i < tbCount; i++) {
+            // 扫描库表数据
+            List<InvoiceVO> invoiceVOList = activityPartake.scanInvoiceMqState(dbCount, i);
+            logger.info("扫描用户抽奖奖品发放MQ状态[Table = 2*4] 扫描库：{} 扫描表：{} 扫描数：{}", dbCount, i, invoiceVOList.size());
+            // 补偿 MQ 消息
+            for (InvoiceVO invoiceVO : invoiceVOList) {
+                ListenableFuture<SendResult<String, Object>> future = kafkaProducer.sendLotteryInvoice(invoiceVO);
+                future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
+                    @Override
+                    public void onSuccess(SendResult<String, Object> stringObjectSendResult) {
+                        // MQ 消息发送完成，更新数据库表 user_strategy_export.mq_state = 1
+                        activityPartake.updateInvoiceMqState(invoiceVO.getuId(), invoiceVO.getOrderId(), Constants.MQState.
+                    }
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        // MQ 消息发送失败，更新数据库表 user_strategy_export.mq_state = 2 【等待定时任务扫码补偿MQ消息】
+                        activityPartake.updateInvoiceMqState(invoiceVO.getuId(), invoiceVO.getOrderId(), Constants.MQState.
+                    }
+                });
+            }
+        }
+    }
+    logger.info("扫描用户抽奖奖品发放MQ状态[Table = 2*4] 完成 param：{}", JSON.toJSONString(params));
+}
+
+```
