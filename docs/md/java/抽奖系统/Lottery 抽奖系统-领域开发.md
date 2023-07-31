@@ -2363,3 +2363,8 @@ public void lotteryOrderMQStateJobHandler() throws Exception {
 }
 
 ```
+
+**任务配置**
+
+![](../../youdaonote-images/Pasted%20image%2020230731165721.png)
+
