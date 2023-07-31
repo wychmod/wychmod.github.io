@@ -2029,6 +2029,32 @@ public class XxlJobAdminApplication {
 
 **访问页面**
 
-- 地址：http://localhost:`7397`/xxl-job-admin `我修改端口为7397了，你按照自己的端口就可以`
+- 地址：http://127.0.0.1:8080/xxl-job-admin/ `我修改端口为7397了，你按照自己的端口就可以`
 - 账号：admin
 - 密码：123456
+
+![](../../youdaonote-images/Pasted%20image%2020230731103544.png)
+
+### 5. 启动任务
+
+- 当任务调度后台启动后，则可以启动测试任务，这样就可以通过任务调度后来管理任务了。
+**任务类 com.xxl.job.executor.service.jobhandler.SampleXxlJob**
+
+```java
+@Component
+public class SampleXxlJob {
+    private Logger logger = LoggerFactory.getLogger(SampleXxlJob.class);
+    /**
+     * 1、简单任务示例（Bean模式）
+     */
+    @XxlJob("demoJobHandler")
+    public void demoJobHandler() throws Exception {
+        logger.info("XXL-JOB, Hello World.");
+        for (int i = 0; i < 5; i++) {
+            XxlJobHelper.log("beat at:" + i);
+            TimeUnit.SECONDS.sleep(2);
+        }
+        // default success
+    }
+}
+```
