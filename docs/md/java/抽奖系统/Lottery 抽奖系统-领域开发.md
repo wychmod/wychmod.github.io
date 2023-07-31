@@ -2387,3 +2387,12 @@ public void lotteryOrderMQStateJobHandler() throws Exception {
 
 ## 三、功能开发
 
+1. 滑块库存锁设计
+![](../../youdaonote-images/Pasted%20image%2020230731215655.png)
+
+- 如图所示，即使是使用 Redis 分布式锁，我们也不希望把锁的颗粒度放的太粗，否则还是会出现活动有库存但不能秒杀，提示“活动过于火爆”
+- 那么我们就需要按照活动编号把库存锁的颗粒度缩小，实际操作也并不复杂，只是把`活动ID+库存扣减后的值`一起作为分布式锁的Key，这样就缩小了锁的颗粒度。
+
+2. 滑块库存锁实现
+
+在活动领域层的领取活动抽象类 `BaseActivityPartake` 添加方法 subtractionActivityStockByRedis、recoverActivityCacheStockByRedis，分别用户 Redis 库存扣减和加锁 Key 的处理。
