@@ -2091,3 +2091,15 @@ http://127.0.0.1:8080/xxl-job-admin/jobinfo
 
 ![](../../youdaonote-images/Pasted%20image%2020230731144753.png)
 
+## 三、任务扫描活动状态
+
+### 1. 引入POM
+
+```xml
+<!-- xxl-job-core https://github.com/xuxueli/xxl-job/-->
+<dependency>
+    <groupId>com.xuxueli</groupId>
+    <artifactId>xxl-job-core</artifactId>
+    <version>2.3.0</version>
+</dependency>
+```
