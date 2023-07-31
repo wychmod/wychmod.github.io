@@ -2368,3 +2368,5 @@ public void lotteryOrderMQStateJobHandler() throws Exception {
 
 ![](../../youdaonote-images/Pasted%20image%2020230731165721.png)
 
+# 第19节：设计滑动库存分布式锁处理活动秒杀
+
