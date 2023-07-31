@@ -2449,3 +2449,7 @@ public void recoverActivityCacheStockByRedis(Long activityId, String tokenKey, S
 
 ![](../../youdaonote-images/Pasted%20image%2020230801004738.png)
 
+**4. 发送MQ消息，处理数据一致性**
+
+由于我们使用 Redis 代替数据库库存，那么在缓存的库存处理后，还需要把数据库中的库存处理为和缓存一致，这样在后续运营这部分数据时才能保证一定的运营可靠性。
+
