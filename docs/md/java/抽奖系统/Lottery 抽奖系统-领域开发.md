@@ -2372,6 +2372,8 @@ public void lotteryOrderMQStateJobHandler() throws Exception {
 
 > 引入 Redis 到抽奖系统，设计颗粒度更细的滑动库存编号分布式锁，处理活动秒杀流程
 
+![](../../youdaonote-images/Pasted%20image%2020230801085859.png)
+
 ## 一、开发日志
 
 - 在抽奖系统中引入 Redis 模块，优化用户参与抽奖活动。因为只要有大量的用户参与抽奖，那么这个就属于秒杀场景。所以需要使用 Redis 分布式锁的方式来处理集中化库存扣减的问题，否则在 TPS 达到1k-2k，就会把数据库拖垮。
@@ -2479,3 +2481,10 @@ public void onMessage(ConsumerRecord<?, ?> record, Acknowledgment ack, @Header(K
 
 - 消费 MQ 消息的流程就比较简单了，接收到 MQ 进行更新数据库处理即可。不过我们这里更新数据库并不是直接对数据库进行库存扣减操作，而是把从缓存拿到的库存最新镜像更新到数据库中。它的 SQL = `UPDATE activity SET stock_surplus_count = #{stockSurplusCount} WHERE activity_id = #{activityId} AND stock_surplus_count > #{stockSurplusCount}`
 - 更新数据库库存【实际场景业务体量较大，可能也会由于MQ消费引起并发，对数据库产生压力，所以如果并发量较大，可以把库存记录缓存中，并使用定时任务进行处理缓存和数据库库存同步，减少对数据库的操作次数】
+
+
+# 总结
+
+## 为什么在删除分布式锁之前不能恢复库存
+
+因为如果恢复了库存，然后出现死锁，会导致其他的的人再也抢不到锁，你的锁是3，恢复成了2，别人就也要抢3，这样再也没法获得锁了。
