@@ -38,7 +38,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "Portainer",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -91,8 +91,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -188,7 +187,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "92c6fac349172889",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "youdaonote-images/Pasted image 20230801085859.png",
     "youdaonote-images/Pasted image 20230801005500.png",
