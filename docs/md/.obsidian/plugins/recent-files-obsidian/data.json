@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "2.安装docker、Portainer和jekins",
+      "path": "cicd/2.安装docker、Portainer和jekins.md"
+    },
+    {
       "basename": "Lottery 抽奖系统-领域开发",
       "path": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
     },
