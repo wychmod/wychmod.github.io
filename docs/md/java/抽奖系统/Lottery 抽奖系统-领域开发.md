@@ -2485,6 +2485,8 @@ public void onMessage(ConsumerRecord<?, ?> record, Acknowledgment ack, @Header(K
 
 # 总结
 
+![](../../youdaonote-images/Pasted%20image%2020230804153356.png)
+
 ## 为什么在删除分布式锁之前不能恢复库存
 
 因为如果恢复了库存，然后出现死锁，会导致其他的的人再也抢不到锁，你的锁是3，恢复成了2，别人就也要抢3，这样再也没法获得锁了。

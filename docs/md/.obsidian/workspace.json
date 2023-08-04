@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "cicd/2.安装docker、Portainer和jekins.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
                 "mode": "source",
                 "source": false
               }
@@ -107,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "cicd/2.安装docker、Portainer和jekins.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -124,7 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cicd/2.安装docker、Portainer和jekins.md",
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -155,7 +155,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "cicd/2.安装docker、Portainer和jekins.md"
+                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
               }
             }
           },
@@ -189,6 +189,8 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230804153356.png",
+    "cicd/2.安装docker、Portainer和jekins.md",
     "youdaonote-images/Pasted image 20230804013007.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "youdaonote-images/Pasted image 20230801085859.png",
@@ -200,7 +202,6 @@
     "youdaonote-images/Pasted image 20230731164203.png",
     "youdaonote-images/Pasted image 20230731160346.png",
     "youdaonote-images/Pasted image 20230731160004.png",
-    "youdaonote-images/Pasted image 20230731144753.png",
     "面试/Java面试汇总.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "spring源码/2-手写完整功能Spring.md",
@@ -227,7 +228,6 @@
     "Redis/2-Redis实战.md",
     "Redis/3-原理篇.md",
     "java/springboot+vue项目开发/springboot项目开发流程.md",
-    "面试/校招投递.md",
     "cicd",
     "md/Python",
     "md",
