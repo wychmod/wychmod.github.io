@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "JVM/1.JVM调优-类加载机制.md",
+                "file": "JVM/JVM实战-1-.md",
                 "mode": "source",
                 "source": false
               }
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -109,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/1.JVM调优-类加载机制.md",
+                "file": "JVM/JVM实战-1-.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/1.JVM调优-类加载机制.md",
+                "file": "JVM/JVM实战-1-.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/1.JVM调优-类加载机制.md"
+                "file": "JVM/JVM实战-1-.md"
               }
             }
           },
@@ -191,6 +190,9 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230807231506.png",
+    "JVM/JVM-bak.md",
+    "JVM/JVM实战-1-.md",
     "youdaonote-images/Pasted image 20230807230052.png",
     "youdaonote-images/Pasted image 20230807230008.png",
     "youdaonote-images/Pasted image 20230807173041.png",
@@ -201,14 +203,12 @@
     "youdaonote-images/Pasted image 20230807171222.png",
     "youdaonote-images/Pasted image 20230807170824.png",
     "youdaonote-images/Pasted image 20230807150952.png",
-    "youdaonote-images/Pasted image 20230807150844.png",
     "面试/Java面试汇总.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "cicd/2.安装docker、Portainer和jekins.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "spring源码/2-手写完整功能Spring.md",
     "spring源码/3-Spring源码解析.md",
-    "JVM/1.JVM调优-类加载机制.md",
     "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
     "mysql/MySQL性能优化-架构.md",
     "JVM",
@@ -229,7 +229,6 @@
     "2023-06-14.md",
     "Redis/2-Redis实战.md",
     "Redis/3-原理篇.md",
-    "java/springboot+vue项目开发/springboot项目开发流程.md",
     "cicd",
     "md/Python",
     "md",
