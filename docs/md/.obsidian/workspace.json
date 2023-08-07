@@ -18,6 +18,18 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "763f1e5e42c29c6b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "JVM/JVM-bak.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ]
       }
@@ -190,9 +202,11 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
-    "youdaonote-images/Pasted image 20230807231506.png",
     "JVM/JVM-bak.md",
     "JVM/JVM实战-1-.md",
+    "youdaonote-images/Pasted image 20230807232040.png",
+    "youdaonote-images/Pasted image 20230807231945.png",
+    "youdaonote-images/Pasted image 20230807231506.png",
     "youdaonote-images/Pasted image 20230807230052.png",
     "youdaonote-images/Pasted image 20230807230008.png",
     "youdaonote-images/Pasted image 20230807173041.png",
@@ -200,9 +214,6 @@
     "youdaonote-images/Pasted image 20230807172441.png",
     "youdaonote-images/Pasted image 20230807172427.png",
     "youdaonote-images/Pasted image 20230807172352.png",
-    "youdaonote-images/Pasted image 20230807171222.png",
-    "youdaonote-images/Pasted image 20230807170824.png",
-    "youdaonote-images/Pasted image 20230807150952.png",
     "面试/Java面试汇总.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "cicd/2.安装docker、Portainer和jekins.md",
