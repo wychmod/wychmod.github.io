@@ -13,6 +13,17 @@
 	- 内存管理：栈 堆 方法区等
 - JVM跟java无关
 ![](../youdaonote-images/Pasted%20image%2020230808105703.png)
+
+## 1.2 常见JVM实现
+
+![](../youdaonote-images/Pasted%20image%2020230808122657.png)
+
+## 1.3 编译器干了什么
+![](../youdaonote-images/Pasted%20image%2020230807171222.png)
+
+## 1.4 JDK JRE JVM
+
+![](../youdaonote-images/Pasted%20image%2020230807150952.png)
 # 2.类加载机制
 ## 2.1 JVM在什么情况下会加载一个类？
 
