@@ -1,6 +1,8 @@
 # 1.JVM运行原理
 ![](../youdaonote-images/Pasted%20image%2020230807150844.png)
 ![](../youdaonote-images/Pasted%20image%2020230807231506.png)
+![](../youdaonote-images/Pasted%20image%2020230808105518.png)
+
 
 # 2.类加载机制
 ## 2.1 JVM在什么情况下会加载一个类？
