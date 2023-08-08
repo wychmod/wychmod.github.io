@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -122,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM-bak.md",
+                "file": "JVM/JVM实战-1-.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM-bak.md",
+                "file": "JVM/JVM实战-1-.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM-bak.md"
+                "file": "JVM/JVM实战-1-.md"
               }
             }
           },
@@ -202,10 +201,11 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "763f1e5e42c29c6b",
+  "active": "92c6fac349172889",
   "lastOpenFiles": [
-    "JVM/JVM实战-1-.md",
     "JVM/JVM-bak.md",
+    "JVM/JVM实战-1-.md",
+    "youdaonote-images/Pasted image 20230808125123.png",
     "youdaonote-images/Pasted image 20230808122657.png",
     "youdaonote-images/Pasted image 20230808105703.png",
     "youdaonote-images/Pasted image 20230808105518.png",
@@ -215,7 +215,6 @@
     "youdaonote-images/Pasted image 20230807231506.png",
     "youdaonote-images/Pasted image 20230807230052.png",
     "youdaonote-images/Pasted image 20230807230008.png",
-    "youdaonote-images/Pasted image 20230807173041.png",
     "面试/Java面试汇总.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "cicd/2.安装docker、Portainer和jekins.md",

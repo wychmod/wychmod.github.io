@@ -24,6 +24,84 @@
 ## 1.4 JDK JRE JVM
 
 ![](../youdaonote-images/Pasted%20image%2020230807150952.png)
+
+## 1.5 类文件（class 文件）
+
+### 1.5.1 16进制class文件
+```java
+cafe babe 0000 0034 003f 0a00 0a00 2b08 002c 0900 0d00 2d06 4059 0000 0000 0000 0900 0d00 2e09 002f 0030 0800 310a 0032 0033 0700 340a 000d 0035 0900 0d00 3607 0037 0100 046e 616d 6501 0012 4c6a 6176 612f 6c61 6e67 2f53 7472 696e 673b 0100 0361 6765 0100 0149 0100 0673 616c 6172 7901 0001 4401 000d 436f 6e73 7461 6e74 ......
+```
+
+![](../youdaonote-images/Pasted%20image%2020230808125123.png)
+### 1.5.2 The ClassFile Structure
+
+```java
+ClassFile {
+
+u4 magic;
+
+u2 minor_version;
+
+u2 major_version;
+
+u2 constant_pool_count;
+
+cp_info constant_pool[constant_pool_count-1];
+
+u2 access_flags;
+
+u2 this_class;
+
+u2 super_class;
+
+u2 interfaces_count;
+
+u2 interfaces[interfaces_count];
+
+u2 fields_count;
+
+field_info fields[fields_count];
+
+u2 methods_count;
+
+method_info methods[methods_count];
+
+u2 attributes_count;
+
+attribute_info attributes[attributes_count];
+
+}
+```
+
+### 1.5.3 分析classfile结构
+
+- u4: cafebabe 
+	magic: magic项提供标识类文件格式的magic数字
+- u2+u2:0000+0034，34等于10进制的52，表示JDK8
+	minor_version
+	major_version
+- u2:003f=63(10进制)
+	constant_pool_count: constant_pool_count项的值等于constant_pool表的表项数加1。
+	表示常量池中的数量是62
+- cp_info constant_pool[constant_pool_count-1]
+	常量池主要存储两方面内容：字面量(Literal)和符号引用(Symbolic References)
+
+> 字面量:文本字符串，final修饰等 
+> 符号引用：类和接口的全限定名、字段名称和描述符、方法名称和描述符
+
+### 1.5.4 反编译验证
+
+JVM相对class文件来说可以理解为是操作系统；class文件相对JVM来说可以理解为是汇编语言或者机器语言。
+
+> 编译指令：javap -v -p Person.class
+
+![](../youdaonote-images/Pasted%20image%2020230807172352.png)
+
+![](../youdaonote-images/Pasted%20image%2020230807172427.png)
+
+![](../youdaonote-images/Pasted%20image%2020230807172441.png)
+
+
 # 2.类加载机制
 ## 2.1 JVM在什么情况下会加载一个类？
 
