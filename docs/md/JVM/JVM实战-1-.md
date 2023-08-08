@@ -186,3 +186,18 @@ sun.misc.Launcher$AppClassLoader@18b4aac2
 	- 为了安全起见，防止使用自定义类加载器，加载修改过有风险的核心类，如果父加载过就不会再加载。同时也是提高了效率，父加载过子不用重复加载。
 
 ![](../youdaonote-images/Pasted%20image%2020230808170700.png)
+
+### 2.3.2 类加载器范围
+
+**来自Launcher源码**
+-  sun.boot.class.path
+	- Bootstrap ClassLoader加载路径
+- java.ext.dirs
+	- ExtensionClassLoader加载路径
+- java.class.path
+	- AppClassLoader加载路径
+
+
+### 2.3.1 双亲委派
+
+### 2.3.1 双亲委派
