@@ -31,7 +31,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -121,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM实战-1-.md",
+                "file": "JVM/JVM-bak.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM实战-1-.md",
+                "file": "JVM/JVM-bak.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM实战-1-.md"
+                "file": "JVM/JVM-bak.md"
               }
             }
           },
@@ -201,10 +202,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "92c6fac349172889",
+  "active": "763f1e5e42c29c6b",
   "lastOpenFiles": [
-    "JVM/JVM-bak.md",
     "JVM/JVM实战-1-.md",
+    "JVM/JVM-bak.md",
     "youdaonote-images/Pasted image 20230808122657.png",
     "youdaonote-images/Pasted image 20230808105703.png",
     "youdaonote-images/Pasted image 20230808105518.png",
