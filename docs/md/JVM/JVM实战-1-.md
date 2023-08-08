@@ -183,5 +183,6 @@ sun.misc.Launcher$AppClassLoader@18b4aac2
 	- 当加载不成会抛出notfountclassload
 - 思考：为什么要搞双亲委派
 	- java.lang.String类由自定义类加载器加载行不行？
+	- 为了安全起见，防止使用自定义类加载器，加载修改过有风险的核心类，如果父加载过就不会再加载。同时也是提高了效率，父加载过子不用重复加载。
 
 ![](../youdaonote-images/Pasted%20image%2020230808170700.png)
