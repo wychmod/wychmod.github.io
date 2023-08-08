@@ -129,7 +129,6 @@ JVM相对class文件来说可以理解为是操作系统；class文件相对JVM�
 这个时候就会触发JVM通过类加载器，从“ReplicaManager.class”字节码文件中加载对应的类到内存里来使用，这样代码才能跑起来。
 
 ![](../youdaonote-images/Pasted%20image%2020230807232040.png)
-
 ## 2.2 验证、准备和初始化的过程
 ### 2.2.1 验证阶段
 
@@ -142,3 +141,35 @@ JVM相对class文件来说可以理解为是操作系统；class文件相对JVM�
 ### 2.2.2 准备阶段
 
 ### 2.2.1 验证阶段
+
+## 2.3 类加载器
+
+![](../youdaonote-images/Pasted%20image%2020230808164904.png)
+
+```java
+public class T002_ClassLoaderLevel {  
+    public static void main(String[] args) {  
+        System.out.println(String.class.getClassLoader());  
+        System.out.println(sun.awt.HKSCS.class.getClassLoader());  
+        System.out.println(sun.net.spi.nameservice.dns.DNSNameService.class.getClassLoader());  
+        System.out.println(T002_ClassLoaderLevel.class.getClassLoader());  
+  
+        System.out.println(sun.net.spi.nameservice.dns.DNSNameService.class.getClassLoader().getClass().getClassLoader());  
+        System.out.println(T002_ClassLoaderLevel.class.getClassLoader().getClass().getClassLoader());  
+  
+        System.out.println(new T006_MSBClassLoader().getParent());  
+        System.out.println(ClassLoader.getSystemClassLoader());  
+    }  
+}
+
+null
+null
+sun.misc.Launcher$ExtClassLoader@7d4991ad
+sun.misc.Launcher$AppClassLoader@18b4aac2
+null
+null
+sun.misc.Launcher$AppClassLoader@18b4aac2
+sun.misc.Launcher$AppClassLoader@18b4aac2
+```
+
+> 通过getclass获取Bootstrap级别的classLoader会显示Null 因为是c++实现的。
