@@ -3,7 +3,16 @@
 ![](../youdaonote-images/Pasted%20image%2020230807231506.png)
 ![](../youdaonote-images/Pasted%20image%2020230808105518.png)
 
-
+## 1.1 JVM与class文件格式
+- jvm是一种规范
+	- java virtual machine specifications
+	- https://docs.oracle.com/en/java/javase/13/
+	- https://docs.oracle.com/javase/specs/index.html
+- 虚构出来的一台计算机
+	- 字节码指令集（汇编语言）
+	- 内存管理：栈 堆 方法区等
+- JVM跟java无关
+![](../youdaonote-images/Pasted%20image%2020230808105703.png)
 # 2.类加载机制
 ## 2.1 JVM在什么情况下会加载一个类？
 
