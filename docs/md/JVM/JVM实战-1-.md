@@ -94,6 +94,9 @@ attribute_info attributes[attributes_count];
 JVM相对class文件来说可以理解为是操作系统；class文件相对JVM来说可以理解为是汇编语言或者机器语言。
 
 > 编译指令：javap -v -p Person.class
+> 或者使用IDEA的插件 View -> Show Bytecode With Jclasslib
+
+![](../youdaonote-images/Pasted%20image%2020230808130629.png)
 
 ![](../youdaonote-images/Pasted%20image%2020230807172352.png)
 
