@@ -173,3 +173,13 @@ sun.misc.Launcher$AppClassLoader@18b4aac2
 ```
 
 > 通过getclass获取Bootstrap级别的classLoader会显示Null 因为是c++实现的。
+
+### 2.3.1 双亲委派
+
+- 父加载器
+-  父加载器不是“类加载器的加载器”！！！！！也不是“类加载器的父类加载
+器”
+▪ 双亲委派是一个孩子向父亲方向，然后父亲向孩子方向的双亲委
+派过程
+▪ 思考：为什么要搞双亲委派
+– java.lang.String类由自定义类加载器加载行不行？
