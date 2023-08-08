@@ -191,12 +191,48 @@ sun.misc.Launcher$AppClassLoader@18b4aac2
 
 **来自Launcher源码**
 -  sun.boot.class.path
-	- Bootstrap ClassLoader加载路径
+	- Bootstrap ClassLoader加载路径sun.boot.class.path
 - java.ext.dirs
-	- ExtensionClassLoader加载路径
+	- ExtensionClassLoader加载路径java.ext.dirs
 - java.class.path
-	- AppClassLoader加载路径
+	- AppClassLoader加载路径java.class.path
+```java
+public class T003_ClassLoaderScope {  
+    public static void main(String[] args) {  
+        String pathBoot = System.getProperty("sun.boot.class.path");  
+        System.out.println(pathBoot.replaceAll(":", System.lineSeparator()));  
+  
+        System.out.println("--------------------");  
+        String pathExt = System.getProperty("java.ext.dirs");  
+        System.out.println(pathExt.replaceAll(":", System.lineSeparator()));  
+  
+        System.out.println("--------------------");  
+        String pathApp = System.getProperty("java.class.path");  
+        System.out.println(pathApp.replaceAll(":", System.lineSeparator()));  
+    }  
+}
 
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/resources.jar
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/rt.jar
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/sunrsasign.jar
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/jsse.jar
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/jce.jar
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/charsets.jar
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/jfr.jar
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/classes
+--------------------
+/Users/ahs/Library/Java/Extensions
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/ext
+/Library/Java/Extensions
+/Network/Library/Java/Extensions
+/System/Library/Java/Extensions
+/usr/lib/java
+--------------------
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/charsets.jar
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/jre/lib/ext/cldrdata.jar
+/Users/ahs/Movies/编程/msb015-jvm/(剪) JVM调优第一版/out/production/JVM
+/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar
+```
 
 ### 2.3.1 双亲委派
 
