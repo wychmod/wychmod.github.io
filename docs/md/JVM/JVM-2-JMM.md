@@ -208,3 +208,21 @@ public class T04_Disorder {
 
 # 2. 对象内存布局
 
+1. 请解释一下对象的创建过程？
+2. 对象在内存中的存储布局？
+3. 对象头具体包括什么？
+4. 对象怎么定位？
+5. 对象怎么分配？
+6. Object o = new Object在内存中占用多少字节？
+
+## 2.1 对象的创建过程？
+1. class loading
+2. class linking (verification, preparation, resolution)
+3. class initializing
+4. 申请对象内存
+5. 成员变量赋默认值
+6. 调用构造方法\<init\>
+	1. 成员变量顺序赋初始值
+	2. 执行构造方法语句
+
+## 2.2 对象在内存中的存储布局
