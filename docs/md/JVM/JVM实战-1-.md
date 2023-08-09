@@ -330,19 +330,16 @@ public class T007_MSBClassLoaderWithEncription extends ClassLoader {
 - Xcomp 使用纯编译模式，执行
 很快，启动很慢
 
-### 2.2.7 lazyloading(lazyInitializing)
+### 2.2.7 lazyloading(lazyInitializing) 和 2.1 对应
 - JVM规范并没有规定何时加载
 - 但是严格规定了什么时候必须初始化
 	- new getstatic putstatic invokestatic指令，访问final变量除外
 	- java.lang.reflect对类进行反射调用时
-    
-- 初始化子类的时候，父类首先初始化
-    
-    –虚拟机启动时，被执行的主类必须初始化
-    
-    –动态语言支持java.lang.invoke.MethodHandle解析的结果为REF_getstatic REF_putstatic REF_invokestatic的方法句柄时，该类必须初始化
+	- 初始化子类的时候，父类首先初始化
+	- 虚拟机启动时，被执行的主类必须初始化
+	- 动态语言支持java.lang.invoke.MethodHandle解析的结果为REF_getstatic REF_putstatic REF_invokestatic的方法句柄时，该类必须初始化
 
-## 2.2 验证、准备和初始化的过程
+## 2.2 验证、准备和解析的过程
 ### 2.2.1 验证阶段
 
 根据Java虚拟机规范，来校验你加载进来的“.class”文件中的内容，是否符合指定的规范。
@@ -352,6 +349,9 @@ public class T007_MSBClassLoaderWithEncription extends ClassLoader {
 ![](../youdaonote-images/Pasted%20image%2020230807232258.png)
 
 ### 2.2.2 准备阶段
+- 静态成员变量赋默认值
 
-### 2.2.1 验证阶段
+### 2.2.3 解析阶段
+- 将类、方法、属性等符号引用解析为直接引用 常量池中的各种符号引用解析为指针、偏移量等内存地址的直接引用
+
 
