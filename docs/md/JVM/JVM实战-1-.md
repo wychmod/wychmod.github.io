@@ -299,7 +299,15 @@ public class T007_MSBClassLoaderWithEncription extends ClassLoader {
 - 模板模式：如果是AppClassLoader首先会执行URLClassLoader的findClass方法
 ![](../youdaonote-images/Pasted%20image%2020230809115423.png)
 
-
+### 2.2.5 parent是如何指定的，如何打破双亲委派
+1. 继承classLoader以后，用super(parent)指定
+2. 双亲委派的打破
+    1. 如何打破：重写loadClass（）    
+    2. 何时打破过？
+        1. JDK1.2之前，自定义ClassLoader都必须重写loadClass()
+        2. ThreadContextClassLoader可以实现基础类调用实现类代码，通过thread.setContextClassLoader指定
+        3. 热启动，热部署
+            1. osgi tomcat 都有自己的模块指定classloader（可以加载同一类库的不同版本，这个行为就打破了双亲委派）(实现：可以在loadClass里不findclass了，直接loadClass)
 
 ## 2.2 验证、准备和初始化的过程
 ### 2.2.1 验证阶段
