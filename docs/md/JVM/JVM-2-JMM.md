@@ -294,3 +294,14 @@ public class T03_SizeOfAnObject {
 > 问题：为什么GC年龄默认为15？（最大为15） 两位最大15
 
 ## 2.4 对象怎么定位？
+
+1. 句柄池
+![](../youdaonote-images/Pasted%20image%2020230810003638.png)
+
+2. 直接指针
+![](../youdaonote-images/Pasted%20image%2020230810003720.png)
+
+## 2.5对象怎么分配？
+
+
+## 2.6 Object o = new Object在内存中占用多少字节？
