@@ -364,4 +364,11 @@ public class T007_MSBClassLoaderWithEncription extends ClassLoader {
 
 2. new - 申请内存 - 默认值 - 初始值
 
- 
+## 3.先默认值后初始值的造成的单例问题
+
+double check 单例
+声明单例时使用了volatile
+![](../youdaonote-images/Pasted%20image%2020230809162355.png)
+为什么要使用volatile 是因为不使用会指令重排，有可能先astore 再 调用构造函数，如果先astore已经有了引用，如果其他线程走到这个位置，会发现已经有了，但是操作的是默认值，而不是初始值。
+
+volatile

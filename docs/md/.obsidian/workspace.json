@@ -15,7 +15,7 @@
               "state": {
                 "file": "JVM/JVM实战-1-.md",
                 "mode": "source",
-                "source": true
+                "source": false
               }
             }
           },
@@ -203,6 +203,7 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230809162355.png",
     "youdaonote-images/Pasted image 20230809115423.png",
     "youdaonote-images/Pasted image 20230809115241.png",
     "youdaonote-images/Pasted image 20230809115232.png",
@@ -216,7 +217,6 @@
     "youdaonote-images/Pasted image 20230808125123.png",
     "youdaonote-images/Pasted image 20230808122657.png",
     "youdaonote-images/Pasted image 20230808105703.png",
-    "youdaonote-images/Pasted image 20230808105518.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "cicd/2.安装docker、Portainer和jekins.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
