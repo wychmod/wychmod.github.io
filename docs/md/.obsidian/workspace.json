@@ -20,18 +20,6 @@
             }
           },
           {
-            "id": "bc3a341afa893ced",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "c148e66a6e6313df",
             "type": "leaf",
             "state": {
@@ -55,8 +43,7 @@
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -145,7 +132,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md",
+                "file": "JVM/JVM-2-JMM.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -162,7 +149,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md",
+                "file": "JVM/JVM-2-JMM.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -193,7 +180,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md"
+                "file": "JVM/JVM-2-JMM.md"
               }
             }
           },
@@ -225,8 +212,11 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "c148e66a6e6313df",
+  "active": "92c6fac349172889",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230809223542.png",
+    "youdaonote-images/Pasted image 20230809223501.png",
+    "多线程与高并发/多线程与并发编程.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "JVM/JVM-2-JMM.md",
     "JVM/JVM实战-1-加载链接初始化.md",
@@ -241,7 +231,6 @@
     "youdaonote-images/马士兵教育 java1.8类文件格式第一版.png",
     "youdaonote-images/Pasted image 20230808130629.png",
     "youdaonote-images/Pasted image 20230808125123.png",
-    "youdaonote-images/Pasted image 20230808122657.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "cicd/2.安装docker、Portainer和jekins.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
@@ -264,8 +253,6 @@
     "docker/Centos7安装Docker.md",
     "人工智能/人工智能-奈学/1-线性代数基础.md",
     "未命名.canvas",
-    "2023-06-14.md",
-    "Redis/2-Redis实战.md",
     "cicd",
     "md/Python",
     "md",

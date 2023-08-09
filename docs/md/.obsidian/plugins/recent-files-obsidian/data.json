@@ -1,16 +1,16 @@
 {
   "recentFiles": [
     {
+      "basename": "JVM-2-JMM",
+      "path": "JVM/JVM-2-JMM.md"
+    },
+    {
       "basename": "多线程与并发编程",
       "path": "多线程与高并发/多线程与并发编程.md"
     },
     {
       "basename": "Python源码剖析-2-对象的生命周期",
       "path": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md"
-    },
-    {
-      "basename": "JVM-2-JMM",
-      "path": "JVM/JVM-2-JMM.md"
     },
     {
       "basename": "JVM实战-1-加载链接初始化",
