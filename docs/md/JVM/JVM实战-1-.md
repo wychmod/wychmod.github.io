@@ -355,3 +355,5 @@ public class T007_MSBClassLoaderWithEncription extends ClassLoader {
 - 将类、方法、属性等符号引用解析为直接引用 常量池中的各种符号引用解析为指针、偏移量等内存地址的直接引用
 
 
+## 2.3 初始化阶段(initalizing)
+- 调用类初始化代码 <clinit>，给静态成员变量赋初始值
