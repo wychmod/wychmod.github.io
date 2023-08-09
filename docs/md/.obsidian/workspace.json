@@ -26,7 +26,7 @@
               "type": "markdown",
               "state": {
                 "file": "多线程与高并发/多线程与并发编程.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               }
             }
@@ -215,14 +215,14 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
+    "多线程与高并发/多线程与并发编程.md",
+    "JVM/JVM-2-JMM.md",
     "youdaonote-images/Pasted image 20230810002531.png",
     "youdaonote-images/Pasted image 20230809232225.png",
     "youdaonote-images/Pasted image 20230809224110.png",
     "youdaonote-images/Pasted image 20230809223542.png",
     "youdaonote-images/Pasted image 20230809223501.png",
-    "多线程与高并发/多线程与并发编程.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
-    "JVM/JVM-2-JMM.md",
     "JVM/JVM实战-1-加载链接初始化.md",
     "youdaonote-images/Pasted image 20230809162355.png",
     "youdaonote-images/Pasted image 20230809115423.png",
@@ -231,7 +231,6 @@
     "JVM/JVM-bak.md",
     "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230808170700.png",
-    "youdaonote-images/Pasted image 20230808164904.png",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "cicd/2.安装docker、Portainer和jekins.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",

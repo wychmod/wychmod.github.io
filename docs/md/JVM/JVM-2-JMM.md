@@ -282,4 +282,15 @@ public class T03_SizeOfAnObject {
    }
 ```
 
-##
+## 2.3 对象头具体包括什么
+* Mark Word 结构：最后两位是**锁标志位**
+
+  ![](../youdaonote-images/JUC-Monitor-MarkWord结构32位.png)
+
+* 64 位虚拟机 Mark Word：
+
+  ![](../youdaonote-images/JUC-Monitor-MarkWord结构64位.png)
+
+> 问题：为什么GC年龄默认为15？（最大为15） 两位最大15
+
+## 2.4 对象怎么定位？
