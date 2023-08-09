@@ -139,6 +139,7 @@ public class T04_Disorder {
 
 ```
 
+> as if serial 不管如何重排序，单线程执行结果不会改变
 ## 1.4 java并发内存模型
 
 ![](../youdaonote-images/Pasted%20image%2020230809232225.png)
@@ -204,4 +205,6 @@ public class T04_Disorder {
 2. JVM层面 C C++ 调用了操作系统提供的同步机制
     
 3. OS和硬件层面 X86 : lock cmpxchg(比较并交换指令) /  [https](https://blog.csdn.net/21aspnet/article/details/88571740)[://blog.csdn.net/21aspnet/article/details/](https://blog.csdn.net/21aspnet/article/details/88571740)[88571740](https://blog.csdn.net/21aspnet/article/details/88571740)
+
+# 2. 对象内存布局
 
