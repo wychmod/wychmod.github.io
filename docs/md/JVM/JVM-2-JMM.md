@@ -303,5 +303,11 @@ public class T03_SizeOfAnObject {
 
 ## 2.5对象怎么分配？
 
-
+- GC相关内容
 ## 2.6 Object o = new Object在内存中占用多少字节？
+
+markword 8
+ClassPointer指针: 8 -> 4
+实例数据：引用类型: 8->4
+
+一共16字节
