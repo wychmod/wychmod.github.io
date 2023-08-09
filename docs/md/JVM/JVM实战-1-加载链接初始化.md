@@ -371,4 +371,6 @@ double check 单例
 ![](../youdaonote-images/Pasted%20image%2020230809162355.png)
 为什么要使用volatile 是因为不使用会指令重排，有可能先astore 再 调用构造函数，如果先astore已经有了引用，如果其他线程走到这个位置，会发现已经有了，但是操作的是默认值，而不是初始值。
 
-volatile
+volatile的作用
+- 线程间可见性
+- 防止指令重排序
