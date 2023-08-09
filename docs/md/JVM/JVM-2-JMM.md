@@ -226,3 +226,60 @@ public class T04_Disorder {
 	2. 执行构造方法语句
 
 ## 2.2 对象在内存中的存储布局
+![](../youdaonote-images/Pasted%20image%2020230810002531.png)
+- 普通对象
+	1. 对象头：markword 8
+	2. ClassPointer指针：-XX:+UseCompressedClassPointers 为4字节 不开启为8字节
+	3. 实例数据
+	    1. 引用类型：-XX:+UseCompressedOops 为4字节 不开启为8字节 Oops Ordinary Object Pointers
+	4. Padding对齐，8的倍数
+    
+- 数组对象
+	1. 对象头：markword 8
+	2. ClassPointer指针同上
+	3. 数组长度：4字节
+	4. 数组数据
+	5. 对齐 8的倍数
+
+- 验证
+```java
+import java.lang.instrument.Instrumentation;
+
+public class ObjectSizeAgent {
+    private static Instrumentation inst;
+
+    public static void premain(String agentArgs, Instrumentation _inst) {
+        inst = _inst;
+    }
+
+    public static long sizeOf(Object o) {
+        return inst.getObjectSize(o);
+    }
+}
+
+public class T03_SizeOfAnObject {
+       public static void main(String[] args) {
+           System.out.println(ObjectSizeAgent.sizeOf(new Object()));
+           System.out.println(ObjectSizeAgent.sizeOf(new int[] {}));
+           System.out.println(ObjectSizeAgent.sizeOf(new P()));
+       }
+   // -XX:+UseCompressedClassPointers 压缩class指针 8->4
+   // -XX:+UseCompressedOops 压缩引用指针 8->4
+       private static class P {
+                           //8 _markword
+                           //4 _oop指针
+           int id;         //4
+           String name;    //4 <- 8
+           int age;        //4
+   
+           byte b1;        //1
+           byte b2;        //1
+   
+           Object o;       //4 <- 8
+           byte b3;        //1
+   
+       }
+   }
+```
+
+##
