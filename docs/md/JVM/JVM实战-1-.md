@@ -309,6 +309,39 @@ public class T007_MSBClassLoaderWithEncription extends ClassLoader {
         3. 热启动，热部署
             1. osgi tomcat 都有自己的模块指定classloader（可以加载同一类库的不同版本，这个行为就打破了双亲委派）(实现：可以在loadClass里不findclass了，直接loadClass)
 
+### 2.2.6 JVM采用解释+编译的混合模式来运行代码
+-  解释器
+	- bytecode intepreter
+-  JIT
+	- Just In-Time compiler
+- 混合模式
+	- 混合使用解释器 + 热点代码编译
+	- 起始阶段采用解释执行
+	- 热点代码检测
+		- 多次被调用的方法（方法计数器：监测方法执行频率）
+		- 多次被调用的循环（循环计数器：检测循环执行频率）
+		- 进行编译
+		- 检测热点代码：-XX:CompileThreshold = 10000
+- Xmixed 默认为混合模式
+开始解释执行，启动速度较快
+对热点代码实行检测和编译
+- Xint 使用解释模式，启动很快
+执行稍慢
+- Xcomp 使用纯编译模式，执行
+很快，启动很慢
+
+### 2.2.7 lazyloading(lazyInitializing)
+- JVM规范并没有规定何时加载
+- 但是严格规定了什么时候必须初始化
+	- new getstatic putstatic invokestatic指令，访问final变量除外
+	- java.lang.reflect对类进行反射调用时
+    
+- 初始化子类的时候，父类首先初始化
+    
+    –虚拟机启动时，被执行的主类必须初始化
+    
+    –动态语言支持java.lang.invoke.MethodHandle解析的结果为REF_getstatic REF_putstatic REF_invokestatic的方法句柄时，该类必须初始化
+
 ## 2.2 验证、准备和初始化的过程
 ### 2.2.1 验证阶段
 
