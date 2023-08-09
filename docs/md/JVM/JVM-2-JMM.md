@@ -101,7 +101,7 @@ CPU为了提高指令执行效率，会在一条指令执行过程中（比如�
 读指令的同时可以同时执行不影响的其他指令，而写的同时可以进行合并写
 
 乱序执行的证明：
-**如果两个线程正常运行，**
+**如果两个线程正常运行，就不会出现x=0，y=0的情况，但是指令重排就会出现x=0，y=0**
 ```java
 public class T04_Disorder {  
     private static int x = 0, y = 0;  
@@ -136,3 +136,7 @@ public class T04_Disorder {
         }    }}
 
 ```
+
+## 1.4 java并发内存模型
+
+![](../youdaonote-images/Pasted%20image%2020230809232225.png)
