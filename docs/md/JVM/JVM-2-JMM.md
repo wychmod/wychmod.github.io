@@ -14,7 +14,7 @@
 
 **现代CPU的数据一致性实现 = 缓存锁(MESI ...) + 总线锁**
 
-**读取缓存以cache line为基本单位，目前64bytes**,使用缓存行的对齐能够提高效率
+**读取缓存以cache line为基本单位，目前64bytes**
 
 > MESI协议：`CPU`中每个缓存行（`caceh line`)使用4种状态进行标记（使用额外的两位(`bit`)表示):
 > 1. **M: 被修改（Modified)**
@@ -29,4 +29,66 @@
 ### 1.2.1 伪共享问题
 
 **位于同一缓存行的两个不同数据，被两个不同CPU锁定，产生互相影响**
+
+解决方案：
+1. 使用对齐填充
+2. 使用@contented注解，通过缓存行填充来解决伪共享问题
+
+```java
+// 伪共享问题, 效率会特别低
+public class T03_CacheLinePadding {
+​
+    public static volatile long[] arr = new long[2];
+​
+    public static void main(String[] args) throws Exception {
+        Thread t1 = new Thread(()->{
+            for (long i = 0; i < 10000_0000L; i++) {
+                arr[0] = i;
+            }
+        });
+​
+        Thread t2 = new Thread(()->{
+            for (long i = 0; i < 10000_0000L; i++) {
+                arr[1] = i;
+            }
+        });
+​
+        final long start = System.nanoTime();
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        System.out.println((System.nanoTime() - start)/100_0000);
+    }
+}
+
+// 8*8=64字节，对齐填充可以解决伪共享问题
+public class T04_CacheLinePadding {
+​
+    public static volatile long[] arr = new long[16];
+​
+    public static void main(String[] args) throws Exception {
+        Thread t1 = new Thread(()->{
+            for (long i = 0; i < 10000_0000L; i++) {
+                arr[0] = i;
+            }
+        });
+​
+        Thread t2 = new Thread(()->{
+            for (long i = 0; i < 10000_0000L; i++) {
+                arr[8] = i;
+            }
+        });
+​
+        final long start = System.nanoTime();
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        System.out.println((System.nanoTime() - start)/100_0000);
+    }
+}
+```
+
+> 使用缓存行的对齐能够提高效率
 
