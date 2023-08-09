@@ -20,6 +20,18 @@
             }
           },
           {
+            "id": "bc3a341afa893ced",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "763f1e5e42c29c6b",
             "type": "leaf",
             "state": {
@@ -31,7 +43,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -120,7 +133,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM-2-JMM.md",
+                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -137,7 +150,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM-2-JMM.md",
+                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +181,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM-2-JMM.md"
+                "file": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md"
               }
             }
           },
@@ -200,10 +213,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "92c6fac349172889",
+  "active": "bc3a341afa893ced",
   "lastOpenFiles": [
-    "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM-2-JMM.md",
+    "JVM/JVM实战-1-加载链接初始化.md",
     "youdaonote-images/Pasted image 20230809162355.png",
     "youdaonote-images/Pasted image 20230809115423.png",
     "youdaonote-images/Pasted image 20230809115241.png",
