@@ -55,8 +55,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -145,7 +144,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "JVM/JVM-2-JMM.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -162,7 +161,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "JVM/JVM-2-JMM.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -193,7 +192,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md"
+                "file": "JVM/JVM-2-JMM.md"
               }
             }
           },
@@ -225,10 +224,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "6de4582630b05ed1",
+  "active": "92c6fac349172889",
   "lastOpenFiles": [
-    "算法/蓝桥杯.md",
     "算法/左神从0学算法/算法笔记·.md",
+    "算法/蓝桥杯.md",
     "JVM/JVM-2-JMM.md",
     "youdaonote-images/Pasted image 20230810003720.png",
     "youdaonote-images/Pasted image 20230810003638.png",
