@@ -20,6 +20,18 @@
             }
           },
           {
+            "id": "6de4582630b05ed1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "算法/左神从0学算法/算法笔记·.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "c148e66a6e6313df",
             "type": "leaf",
             "state": {
@@ -43,7 +55,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -116,8 +129,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -133,7 +145,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM-2-JMM.md",
+                "file": "算法/左神从0学算法/算法笔记·.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -150,7 +162,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM-2-JMM.md",
+                "file": "算法/左神从0学算法/算法笔记·.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -181,7 +193,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM-2-JMM.md"
+                "file": "算法/左神从0学算法/算法笔记·.md"
               }
             }
           },
@@ -213,12 +225,14 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "92c6fac349172889",
+  "active": "6de4582630b05ed1",
   "lastOpenFiles": [
+    "算法/蓝桥杯.md",
+    "算法/左神从0学算法/算法笔记·.md",
+    "JVM/JVM-2-JMM.md",
     "youdaonote-images/Pasted image 20230810003720.png",
     "youdaonote-images/Pasted image 20230810003638.png",
     "多线程与高并发/多线程与并发编程.md",
-    "JVM/JVM-2-JMM.md",
     "youdaonote-images/Pasted image 20230810002531.png",
     "youdaonote-images/Pasted image 20230809232225.png",
     "youdaonote-images/Pasted image 20230809224110.png",
@@ -229,7 +243,6 @@
     "youdaonote-images/Pasted image 20230809162355.png",
     "youdaonote-images/Pasted image 20230809115423.png",
     "youdaonote-images/Pasted image 20230809115241.png",
-    "youdaonote-images/Pasted image 20230809115232.png",
     "JVM/JVM-bak.md",
     "面试/Java面试汇总.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
@@ -252,7 +265,6 @@
     "java/spring系列学习/spring.md",
     "spring源码",
     "docker/Centos7安装Docker.md",
-    "人工智能/人工智能-奈学/1-线性代数基础.md",
     "未命名.canvas",
     "cicd",
     "md/Python",
