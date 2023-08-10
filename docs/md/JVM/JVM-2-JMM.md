@@ -311,3 +311,11 @@ ClassPointer指针: 8 -> 4
 实例数据：引用类型: 8->4
 
 一共16字节
+
+# 3. 指令集分类
+
+1. 基于寄存器的指令集
+2. 基于栈的指令集 
+	- Hotspot中的Local Variable Table = JVM中的寄存器
+
+# 4. 
