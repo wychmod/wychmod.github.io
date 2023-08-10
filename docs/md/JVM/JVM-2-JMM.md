@@ -318,4 +318,8 @@ ClassPointer指针: 8 -> 4
 2. 基于栈的指令集 
 	- Hotspot中的Local Variable Table = JVM中的寄存器
 
-# 4. 
+# 4. 运行时数据区(Run-Time Data Areas)
+
+![](../youdaonote-images/Pasted%20image%2020230811010126.png)
+
+## 4.1 PC 程序计数器
