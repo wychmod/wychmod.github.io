@@ -339,16 +339,18 @@ ClassPointer指针: 8 -> 4
 > }
 
 ## 4.2 JVM Stacks
-
+一个Java线程的运行状态，由一个虚拟机栈来保存，所以虚拟机栈肯定是线程私有的，独有的，随着线程的创建而创建。
+![](../youdaonote-images/Pasted%20image%2020230812234535.png)
 1. Frame - 每个方法对应一个栈帧
-   1. Local Variable Table
-   2. Operand Stack
+   1. Local Variable Table局部变量表
+   2. Operand Stack操作数栈
       对于long的处理（store and load），多数虚拟机的实现都是原子的
       jls 17.7，没必要加volatile
-   3. Dynamic Linking
+      **以压栈和出栈的方式存储操作数的**
+   1. Dynamic Linking 动态链接
        https://blog.csdn.net/qq_41813060/article/details/88379473 
       jvms 2.6.3
-   4. return address
+   4. return address方法返回地址
       a() -> b()，方法a调用了方法b, b方法的返回值放在什么地方
 
 ## 4.3 Native Method Stack
