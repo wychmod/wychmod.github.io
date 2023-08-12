@@ -347,10 +347,16 @@ ClassPointer指针: 8 -> 4
       对于long的处理（store and load），多数虚拟机的实现都是原子的
       jls 17.7，没必要加volatile
       **以压栈和出栈的方式存储操作数的**
-   1. Dynamic Linking 动态链接
-       https://blog.csdn.net/qq_41813060/article/details/88379473 
-      jvms 2.6.3
+   3. Dynamic Linking 动态链接
+      每个栈帧都包含一个指向运行时常量池中该栈帧所属方法的引用，持有这个引用是为了支持方法调 用过程中的动态连接
    4. return address方法返回地址
       a() -> b()，方法a调用了方法b, b方法的返回值放在什么地方
+![](../youdaonote-images/Pasted%20image%2020230812235000.png)
 
-## 4.3 Native Method Stack
+![](../youdaonote-images/Pasted%20image%2020230812235344.png)
+## 4.3 Heap
+1. Java堆是Java虚拟机所管理内存中最大的一块，在虚拟机启动时创建，被所有线程共享。
+2. Java对象实例以及数组都在堆上分配。
+
+
+## 4.4 Native Method Stack
