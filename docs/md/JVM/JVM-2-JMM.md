@@ -323,3 +323,20 @@ ClassPointer指针: 8 -> 4
 ![](../youdaonote-images/Pasted%20image%2020230811010126.png)
 
 ## 4.1 PC 程序计数器
+
+> 存放指令位置
+>
+> 虚拟机的运行，类似于这样的循环：
+>
+> while( not end ) {
+>
+> ​	取PC中的位置，找到对应位置的指令；
+>
+> ​	执行该指令；
+>
+> ​	PC ++;
+>
+> }
+
+## 4.2 JVM Stacks
+
