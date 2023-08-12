@@ -340,3 +340,15 @@ ClassPointer指针: 8 -> 4
 
 ## 4.2 JVM Stacks
 
+1. Frame - 每个方法对应一个栈帧
+   1. Local Variable Table
+   2. Operand Stack
+      对于long的处理（store and load），多数虚拟机的实现都是原子的
+      jls 17.7，没必要加volatile
+   3. Dynamic Linking
+       https://blog.csdn.net/qq_41813060/article/details/88379473 
+      jvms 2.6.3
+   4. return address
+      a() -> b()，方法a调用了方法b, b方法的返回值放在什么地方
+
+## 4.3 Native Method Stack
