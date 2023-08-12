@@ -359,4 +359,10 @@ ClassPointer指针: 8 -> 4
 2. Java对象实例以及数组都在堆上分配。
 
 
-## 4.4 Native Method Stack
+## 4.4 Native Method Stack(本地方法栈)
+指的是本地方法，也就是c、c++，java调用了JNI。
+>如果当前线程执行的方法是Native类型的，这些方法就会在本地方法栈中执行。
+
+![](../youdaonote-images/Pasted%20image%2020230812235742.png)
+
+## 4.5 Direct Memory
