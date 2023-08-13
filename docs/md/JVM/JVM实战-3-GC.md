@@ -74,3 +74,6 @@
 ### 1.5.2 堆内存逻辑分区
 ![](../youdaonote-images/Pasted%20image%2020230813235001.png)
 
+1. 新生代（刚new出来）
+	1. 
+2. 老年代（也叫old 也叫tenured终身代）
