@@ -77,7 +77,7 @@
 ![](../youdaonote-images/Pasted%20image%2020230813235848.png)
 ![](../youdaonote-images/Pasted%20image%2020230813235925.png)
 1. 新生代（刚new出来）
-	1. Eden + 2个suvivor区 
+	1. Eden + 2个suvivor区 (两个suvivor是为了方便复制，这样没有空间碎片，如果只有一个就会产生空间碎片)
 	2. 栈上放不下，进入伊甸区
 	3. YGC回收之后，大多数的对象会被回收，活着的进入s1
 	4. 再次YGC，活着的对象eden + s1 -> s2
@@ -100,7 +100,7 @@
 	- 多线程的时候不用竞争eden就可以申请空间，提高效率
 	- 小对象
 	-  无需调整
-
+![](../youdaonote-images/Pasted%20image%2020230814001929.png)
 ## 1.6 对象何时进入老年代
 
 - 超过 XX:MaxTenuringThreshold 指定次数（YGC） – Parallel Scavenge 15
