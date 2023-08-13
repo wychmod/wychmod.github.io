@@ -130,15 +130,18 @@
 - 年轻代 并行回收
 
 ### 1.7.4 ParNew
-- 年轻代 配合CMS的并行回收
-    ![](../youdaonote-images/Pasted%20image%2020230814002903.png)
-6. ParallelOld 是Parallel Scavenge收集器的老年代版本
-    
-7. **CMS**: ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms) CMS问题比较多，所以现在没有一个版本默认是CMS，只能手工指定 CMS既然是MarkSweep，就一定会有碎片化的问题，碎片到达一定程度，CMS的老年代分配对象分配不下的时候，使用SerialOld 进行老年代回收 想象一下： 
+- 年轻代 配合CMS的并行回收 更注重吞吐
+![](../youdaonote-images/Pasted%20image%2020230814002903.png)
+
+### 1.7.5 ParallelOld 
+- 是Parallel Scavenge收集器的老年代版本
+
+### 1.7.6 **CMS**
+-  ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms) CMS问题比较多，所以现在没有一个版本默认是CMS，只能手工指定 CMS既然是MarkSweep，就一定会有碎片化的问题，碎片到达一定程度，CMS的老年代分配对象分配不下的时候，使用SerialOld 进行老年代回收 想象一下： 
 	PS + PO -> 10g内存 停11s，换垃圾回收器 -> PN + CMS + SerialOld（几个小时 - 几天的STW）
 	几十个G的内存，单线程回收 -> G1 + FGC 
 	几十个G -> 上T内存的服务器 ZGC 算法：三色标记 + Incremental Update
-	![](../youdaonote-images/Pasted%20image%2020230814003953.png)
+![](../youdaonote-images/Pasted%20image%2020230814003953.png)
 ```java
 (1)初始标记 CMS initial mark 标记GC Roots直接关联对象，不用Tracing，速度很快 
 (2)并发标记 CMS concurrent mark 进行GC Roots Tracing 
@@ -158,7 +161,6 @@
 12. PS 和 PN区别的延伸阅读： 
     ps 更关注吞吐量
 13. 垃圾收集器跟内存大小的关系
-    
     1. Serial 几十兆
         
     2. PS 上百兆 - 几个G
