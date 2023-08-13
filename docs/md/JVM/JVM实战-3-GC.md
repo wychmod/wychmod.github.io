@@ -118,15 +118,15 @@
 1. JDK诞生 Serial追随 提高效率，诞生了PS，为了配合CMS，诞生了PN，CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前没有任何一个JDK版本默认是CMS 并发垃圾回收是因为无法忍受STW
     
 2. Serial 年轻代 串行回收 停顿时间较长
-
+    ![](../youdaonote-images/Pasted%20image%2020230814002516.png)
     
 3. PS 年轻代 并行回收
     
 4. ParNew 年轻代 配合CMS的并行回收
-    
+    ![](../youdaonote-images/Pasted%20image%2020230814002903.png)
 5. SerialOld
-    
-6. ParallelOld
+    ![](../youdaonote-images/Pasted%20image%2020230814002613.png)
+6. ParallelOld 是Parallel Scavenge收集器的老年代版本
     
 7. ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms) CMS问题比较多，所以现在没有一个版本默认是CMS，只能手工指定 CMS既然是MarkSweep，就一定会有碎片化的问题，碎片到达一定程度，CMS的老年代分配对象分配不下的时候，使用SerialOld 进行老年代回收 想象一下： PS + PO -> 加内存 换垃圾回收器 -> PN + CMS + SerialOld（几个小时 - 几天的STW） 几十个G的内存，单线程回收 -> G1 + FGC 几十个G -> 上T内存的服务器 ZGC 算法：三色标记 + Incremental Update
     
@@ -138,8 +138,8 @@
     
 11. Eplison
     
-12. PS 和 PN区别的延伸阅读： ▪[https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html#GUID-3D0BB91E-9BFF-4EBB-B523-14493A860E73](https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html)
-    
+12. PS 和 PN区别的延伸阅读： 
+    ps 更关注吞吐量
 13. 垃圾收集器跟内存大小的关系
     
     1. Serial 几十兆
@@ -153,4 +153,4 @@
     5. ZGC - 4T - 16T（JDK13）
         
 
-1.8默认的垃圾回收：PS + ParallelOld
+> 1.8默认的垃圾回收：PS + ParallelOld
