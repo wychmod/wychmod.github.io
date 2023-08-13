@@ -9,6 +9,10 @@
       "path": "算法/左神从0学算法/算法笔记·.md"
     },
     {
+      "basename": "JVM实战-1-加载链接初始化",
+      "path": "JVM/JVM实战-1-加载链接初始化.md"
+    },
+    {
       "basename": "蓝桥杯",
       "path": "算法/蓝桥杯.md"
     },
@@ -19,10 +23,6 @@
     {
       "basename": "Python源码剖析-2-对象的生命周期",
       "path": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md"
-    },
-    {
-      "basename": "JVM实战-1-加载链接初始化",
-      "path": "JVM/JVM实战-1-加载链接初始化.md"
     },
     {
       "basename": "JVM-bak",

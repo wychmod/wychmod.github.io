@@ -32,12 +32,12 @@
             }
           },
           {
-            "id": "c148e66a6e6313df",
+            "id": "f5976fa250a1f42b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md",
+                "file": "JVM/JVM实战-1-加载链接初始化.md",
                 "mode": "source",
                 "source": false
               }
@@ -128,7 +128,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5
+    "width": 357.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -226,23 +227,23 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20230813142541.png",
+    "算法/左神从0学算法/算法笔记·.md",
+    "JVM/JVM实战-1-加载链接初始化.md",
+    "JVM/JVM-2-JMM.md",
+    "youdaonote-images/Pasted image 20230813142018.png",
+    "youdaonote-images/Pasted image 20230813141423.png",
     "youdaonote-images/Pasted image 20230812235742.png",
     "youdaonote-images/Pasted image 20230812235344.png",
     "youdaonote-images/Pasted image 20230812235000.png",
     "youdaonote-images/Pasted image 20230812234535.png",
     "youdaonote-images/Pasted image 20230811010126.png",
-    "算法/左神从0学算法/算法笔记·.md",
     "算法/蓝桥杯.md",
-    "JVM/JVM-2-JMM.md",
     "youdaonote-images/Pasted image 20230810003720.png",
     "youdaonote-images/Pasted image 20230810003638.png",
     "多线程与高并发/多线程与并发编程.md",
     "youdaonote-images/Pasted image 20230810002531.png",
-    "youdaonote-images/Pasted image 20230809232225.png",
-    "youdaonote-images/Pasted image 20230809224110.png",
-    "youdaonote-images/Pasted image 20230809223542.png",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
-    "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM-bak.md",
     "面试/Java面试汇总.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
