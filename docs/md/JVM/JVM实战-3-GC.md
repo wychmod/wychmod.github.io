@@ -129,8 +129,18 @@
 6. ParallelOld 是Parallel Scavenge收集器的老年代版本
     
 7. **CMS**: ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms) CMS问题比较多，所以现在没有一个版本默认是CMS，只能手工指定 CMS既然是MarkSweep，就一定会有碎片化的问题，碎片到达一定程度，CMS的老年代分配对象分配不下的时候，使用SerialOld 进行老年代回收 想象一下： 
-	PS + PO -> 加内存 换垃圾回收器 -> PN + CMS + SerialOld（几个小时 - 几天的STW） 几十个G的内存，单线程回收 -> G1 + FGC 几十个G -> 上T内存的服务器 ZGC 算法：三色标记 + Incremental Update
-    
+	PS + PO -> 10g内存 停11s，换垃圾回收器 -> PN + CMS + SerialOld（几个小时 - 几天的STW）
+	几十个G的内存，单线程回收 -> G1 + FGC 
+	几十个G -> 上T内存的服务器 ZGC 算法：三色标记 + Incremental Update
+	![](../youdaonote-images/Pasted%20image%2020230814003953.png)
+```java
+(1)初始标记 CMS initial mark 标记GC Roots直接关联对象，不用Tracing，速度很快 
+(2)并发标记 CMS concurrent mark 进行GC Roots Tracing 
+(3)重新标记 CMS remark 修改并发标记因用户程序变动的内容 
+(4)并发清除 CMS concurrent sweep 清除不可达对象回收空间，同时有新垃圾产生，留着下次清理称为 浮动垃圾
+```
+	
+
 8. G1(10ms) 算法：三色标记 + SATB
     
 9. ZGC (1ms) PK C++ 算法：ColoredPointers + LoadBarrier
