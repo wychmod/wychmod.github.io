@@ -91,3 +91,12 @@
 	1. 尽量减少FGC
 	2. MinorGC = YGC
 	3. MajorGC = FGC
+4. 栈上分配(栈上分配比堆上分配快)
+	-  线程私有小对象
+	-  无逃逸
+	- 支持标量替换
+	- 无需调整
+5. 线程本地分配TLAB （Thread Local Allocation Buffer） – 占用eden，默认1% 
+	- 多线程的时候不用竞争eden就可以申请空间，提高效率
+	- 小对象
+	-  无需调整
