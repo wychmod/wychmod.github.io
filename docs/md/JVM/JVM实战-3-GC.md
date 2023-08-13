@@ -115,17 +115,23 @@
 
 ![](../youdaonote-images/Pasted%20image%2020230814002122.png)
 
-1. JDK诞生 Serial追随 提高效率，诞生了PS，为了配合CMS，诞生了PN，CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前没有任何一个JDK版本默认是CMS 并发垃圾回收是因为无法忍受STW
-    
-2. Serial 年轻代 串行回收 停顿时间较长
-    ![](../youdaonote-images/Pasted%20image%2020230814002516.png)
-    
-3. PS 年轻代 并行回收
-    
-4. ParNew 年轻代 配合CMS的并行回收
+-  JDK诞生 Serial追随 提高效率，诞生了PS，为了配合CMS，诞生了PN，CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前没有任何一个JDK版本默认是CMS 并发垃圾回收是因为无法忍受STW
+
+### 1.7.1 Serial 
+- 年轻代 串行回收 停顿时间较长
+
+![](../youdaonote-images/Pasted%20image%2020230814002516.png)
+
+### 1.7.2 SerialOld
+
+![](../youdaonote-images/Pasted%20image%2020230814002613.png)
+
+### 1.7.3 PS 
+- 年轻代 并行回收
+
+### 1.7.4 ParNew
+- 年轻代 配合CMS的并行回收
     ![](../youdaonote-images/Pasted%20image%2020230814002903.png)
-5. SerialOld
-    ![](../youdaonote-images/Pasted%20image%2020230814002613.png)
 6. ParallelOld 是Parallel Scavenge收集器的老年代版本
     
 7. **CMS**: ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms) CMS问题比较多，所以现在没有一个版本默认是CMS，只能手工指定 CMS既然是MarkSweep，就一定会有碎片化的问题，碎片到达一定程度，CMS的老年代分配对象分配不下的时候，使用SerialOld 进行老年代回收 想象一下： 
