@@ -83,7 +83,7 @@
 	4. 再次YGC，活着的对象eden + s1 -> s2
 	5. 再次YGC，eden + s2 -> s1
 	6. 年龄足够 -> 老年代 （15 CMS 6）
-	7. s区装不下 -> 老年代
+	7. s区装不下 -> 老年代 (分配担保：YGC期间 survivor区空间不够了 空间担保直接进入老年代)
 2. 老年代（也叫old 也叫tenured终身代）
 	1. 顽固分子
 	2. 老年代满了FGC Full GC
@@ -100,3 +100,14 @@
 	- 多线程的时候不用竞争eden就可以申请空间，提高效率
 	- 小对象
 	-  无需调整
+
+## 1.6 对象何时进入老年代
+
+- 超过 XX:MaxTenuringThreshold 指定次数（YGC） – Parallel Scavenge 15
+	- CMS 6
+	-  G1 15
+- 动态年龄
+	- s1 - > s2超过50%
+	- 把年龄最大的放入O
+![](../youdaonote-images/Pasted%20image%2020230814001406.png)
+
