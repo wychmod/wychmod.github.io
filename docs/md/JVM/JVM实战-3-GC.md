@@ -78,6 +78,16 @@
 ![](../youdaonote-images/Pasted%20image%2020230813235925.png)
 1. 新生代（刚new出来）
 	1. Eden + 2个suvivor区 
-	2. 栈上放不下，
-	3. YGC回收之后，大多数的对象会被回收，活着的进入s0
+	2. 栈上放不下，进入伊甸区
+	3. YGC回收之后，大多数的对象会被回收，活着的进入s1
+	4. 再次YGC，活着的对象eden + s1 -> s2
+	5. 再次YGC，eden + s2 -> s1
+	6. 年龄足够 -> 老年代 （15 CMS 6）
+	7. s区装不下 -> 老年代
 2. 老年代（也叫old 也叫tenured终身代）
+	1. 顽固分子
+	2. 老年代满了FGC Full GC
+3. GC Tuning (Generation)
+	1. 尽量减少FGC
+	2. MinorGC = YGC
+	3. MajorGC = FGC
