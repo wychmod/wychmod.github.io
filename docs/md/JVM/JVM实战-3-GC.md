@@ -21,5 +21,16 @@
 
 ### 1.2.1 引用计数（ReferenceCount）
 
-
 ### 1.2.2 根可达算法(RootSearching)
+
+> 根可达算法（Root Reachable Algorithm）是一种用于图中节点可达性判断的算法。该算法通过判断从根节点出发，是否可以到达目标节点来确定节点的可达性。
+
+![](../youdaonote-images/Pasted%20image%2020230813232206.png)
+
+## 1.3 常见的垃圾回收算法
+
+### 1.3.1 标记清除(mark sweep)
+
+### 1.3.2 拷贝算法 (copying)
+
+### 1.3.3 标记压缩(mark compact)
