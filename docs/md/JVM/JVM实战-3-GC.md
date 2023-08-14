@@ -174,26 +174,22 @@
     > 
     > –XX:CMSInitiatingOccupancyFraction 92% 可以降低这个值，让CMS保持老年代足够的空间
 
-8. G1(10ms) 算法：三色标记 + SATB
+### 1.7.7 G1(10ms) 
+- 算法：三色标记 + SATB
+
+### 1.7.8 ZGC (1ms) 
+- PK C++ 算法：ColoredPointers + LoadBarrier
+
+### 1.7.9 Shenandoah 
+- 算法：ColoredPointers + WriteBarrier
+
+### 1.7.10 Eplison
     
-9. ZGC (1ms) PK C++ 算法：ColoredPointers + LoadBarrier
-    
-10. Shenandoah 算法：ColoredPointers + WriteBarrier
-    
-11. Eplison
-    
-12. PS 和 PN区别的延伸阅读： 
-    ps 更关注吞吐量
-13. 垃圾收集器跟内存大小的关系
-    1. Serial 几十兆
-        
-    2. PS 上百兆 - 几个G
-        
-    3. CMS - 20G
-        
-    4. G1 - 上百G
-        
-    5. ZGC - 4T - 16T（JDK13）
-        
+### 1.8 垃圾收集器跟内存大小的关系
+1. Serial 几十兆   
+2. PS 上百兆 - 几个G   
+3. CMS - 20G
+4. G1 - 上百G 
+5. ZGC - 4T - 16T（JDK13）
 
 > 1.8默认的垃圾回收：PS + ParallelOld
