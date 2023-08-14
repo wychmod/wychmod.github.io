@@ -152,6 +152,28 @@
 > 优点：并发收集、低停顿
 > 缺点：产生大量空间碎片、并发阶段会降低吞吐量，还会并发失败，会用Serial old来清理
 
+**concurrent mark阶段的算法**
+- 三色标记 + Incremental Update
+
+**CMS的问题**
+
+1. Memory Fragmentation内存碎片
+    
+    > -XX:+UseCMSCompactAtFullCollection 
+    > -XX:CMSFullGCsBeforeCompaction 默认为0 指的是经过多少次FGC才进行压缩
+    
+2. Floating Garbage 浮动垃圾
+    
+    > 如果并发收集器无法在年老代填充之前完成回收不可访问的对象，或者如果分配不能满足年老代中的可用空闲空间块，则暂停应用程序，并在所有应用程序线程停止的情况下完成收集
+    > 
+    > 解决方案：降低触发CMS的阈值
+    > 
+    > PromotionFailed
+    > 
+    > 解决方案类似，保持老年代有足够的空间
+    > 
+    > –XX:CMSInitiatingOccupancyFraction 92% 可以降低这个值，让CMS保持老年代足够的空间
+
 8. G1(10ms) 算法：三色标记 + SATB
     
 9. ZGC (1ms) PK C++ 算法：ColoredPointers + LoadBarrier
