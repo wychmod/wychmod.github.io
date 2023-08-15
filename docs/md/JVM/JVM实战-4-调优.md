@@ -54,3 +54,6 @@ PS日志格式
 
 times: user(用户态) sys（内核态） real（实际耗时）
 
+**一旦产生内存溢出，会把整个堆给你heap dump出来**
+heap dump部分格式如下：
+![](../youdaonote-images/Pasted%20image%2020230815162335.png)
