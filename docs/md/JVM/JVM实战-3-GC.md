@@ -262,9 +262,8 @@ public class HelloGC {
 2. java -XX:+PrintCommandLineFlags HelloGC(主要用于获取和打印当前正在运行的 Java 程序的命令行参数和标志。)
 3. java -Xmn10M(新生代大小) -Xms40M(最小堆大小) -Xmx60M（最大堆大小，一般设为和最小一样，防止弹性浪费系统资源） -XX:+PrintCommandLineFlags -XX:+PrintGC HelloGC 
 	PrintGCDetails PrintGCTimeStamps PrintGCCauses (打印GC详细，打印GC原因)
-    
 4. java -XX:+UseConcMarkSweepGC -XX:+PrintCommandLineFlags HelloGC
-    
+    cms垃圾回收器，命令会比较频繁
 5. java -XX:+PrintFlagsInitial 默认参数值
     
 6. java -XX:+PrintFlagsFinal 最终参数值
