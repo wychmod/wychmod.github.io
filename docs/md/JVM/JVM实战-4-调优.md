@@ -57,3 +57,16 @@ times: user(用户态) sys（内核态） real（实际耗时）
 **一旦产生内存溢出，会把整个堆给你heap dump出来**
 heap dump部分格式如下：
 ![](../youdaonote-images/Pasted%20image%2020230815162335.png)
+
+```java
+eden space 5632K, 94% used [0x00000000ff980000,0x00000000ffeb3e28,0x00000000fff00000)
+                            后面的内存地址指的是，起始地址，使用空间结束地址，整体空间结束地址
+```
+
+> total = eden + 1个survivor
+
+
+# 3.调优前的基础概念：
+1. 吞吐量：用户代码时间 /（用户代码执行时间 + 垃圾回收时间）
+    
+2. 响应时间：STW越短，响应时间越好
