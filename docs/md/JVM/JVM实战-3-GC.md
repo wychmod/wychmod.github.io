@@ -203,8 +203,6 @@
     
     - 这个组合已经很少用（在某些版本中已经废弃）
         
-    - [https://stackoverflow.com/questions/34962257/why-remove-support-for-parnewserialold-anddefnewcms-in-the-future](https://stackoverflow.com/questions/34962257/why-remove-support-for-parnewserialold-anddefnewcms-in-the-future)
-        
 - -XX:+UseConc(urrent)MarkSweepGC = ParNew + CMS + Serial Old
     
 - -XX:+UseParallelGC = Parallel Scavenge + Parallel Old (1.8默认) 【PS + SerialOld】
