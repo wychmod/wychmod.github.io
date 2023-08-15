@@ -185,7 +185,7 @@
 
 ### 1.7.10 Eplison
     
-### 1.8 垃圾收集器跟内存大小的关系
+## 1.8 垃圾收集器跟内存大小的关系
 1. Serial 几十兆   
 2. PS 上百兆 - 几个G   
 3. CMS - 20G
@@ -193,3 +193,34 @@
 5. ZGC - 4T - 16T（JDK13）
 
 > 1.8默认的垃圾回收：PS + ParallelOld
+
+# 2. 常见垃圾回收器组合参数设定：(1.8)
+
+- -XX:+UseSerialGC = Serial New (DefNew) + Serial Old
+    - 小型程序。默认情况下不会是这种选项，HotSpot会根据计算及配置和JDK版本自动选择收集器
+        
+- -XX:+UseParNewGC = ParNew + SerialOld
+    
+    - 这个组合已经很少用（在某些版本中已经废弃）
+        
+    - [https://stackoverflow.com/questions/34962257/why-remove-support-for-parnewserialold-anddefnewcms-in-the-future](https://stackoverflow.com/questions/34962257/why-remove-support-for-parnewserialold-anddefnewcms-in-the-future)
+        
+- -XX:+UseConc(urrent)MarkSweepGC = ParNew + CMS + Serial Old
+    
+- -XX:+UseParallelGC = Parallel Scavenge + Parallel Old (1.8默认) 【PS + SerialOld】
+    
+- -XX:+UseParallelOldGC = Parallel Scavenge + Parallel Old
+    
+- -XX:+UseG1GC = G1
+    
+- Linux中没找到默认GC的查看方法，而windows中会打印UseParallelGC
+    
+    - java +XX:+PrintCommandLineFlags -version
+        
+    - 通过GC的日志来分辨
+        
+- Linux下1.8版本默认的垃圾回收器到底是什么？
+    
+    - 1.8.0_181 默认（看不出来）Copy MarkCompact
+        
+    - 1.8.0_222 默认 PS + PO
