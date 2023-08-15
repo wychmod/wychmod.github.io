@@ -281,9 +281,20 @@ java -Djava.rmi.server.hostname=192.168.17.11 -Dcom.sun.management.jmxremote -Dc
 
 3. 关闭linux防火墙（实战中应该打开对应端口）
 
-   > ```shell
-   > service iptables stop
-   > chkconfig iptables off #永久关闭
-   > ```
+```shell
+service iptables stop
+chkconfig iptables off #永久关闭
+```
 
 4. windows上打开 jconsole远程连接 192.168.17.11:11111
+> 现在也用的比较少。
+
+### 4.2.3 jvisualvm远程连接
+
+https://www.cnblogs.com/liugh/p/7620336.html （简单做法）
+
+![](../youdaonote-images/Pasted%20image%2020230815173746.png)
+
+### 4.2.4 jprofiler (收费)
+
+### 4.2.5 jprofiler (收费)
