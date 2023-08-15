@@ -50,3 +50,7 @@ public class HelloGC {
 
 PS日志格式
 
+![](../youdaonote-images/Pasted%20image%2020230815154917.png)
+
+times: user(用户态) sys（内核态） real（实际耗时）
+
