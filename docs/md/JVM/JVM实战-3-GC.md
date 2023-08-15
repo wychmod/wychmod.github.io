@@ -222,3 +222,19 @@
     - 1.8.0_181 默认（看不出来）Copy MarkCompact
         
     - 1.8.0_222 默认 PS + PO
+
+## 2.1 JVM调优第一步，了解JVM常用命令行参数
+
+- JVM的命令行参数参考：[https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html)
+    
+- HotSpot参数分类
+    
+    > 标准： - 开头，所有的HotSpot都支持
+    > 
+    > 非标准：-X 开头，特定版本HotSpot支持特定命令
+    > 
+    > 不稳定：-XX 开头，下个版本可能取消
+    
+    java -version
+    
+    java -X
