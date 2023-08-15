@@ -260,3 +260,30 @@ public class T15_FullGC_Problem01 {
     http://192.168.17.11:7000
     拉到最后：找到对应链接
     可以使用OQL查找特定问题对象
+13. 找到代码的问题
+
+### 4.2.2 jconsole远程连接
+
+jdk自带的，比较直观，java有一个标准的访问远程服务器的这样的协议JMX
+
+1. 程序启动加入参数：
+
+```shell
+java -Djava.rmi.server.hostname=192.168.17.11 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=11111 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false XXX
+```
+
+2. 如果遭遇 Local host name unknown：XXX的错误，修改/etc/hosts文件，把XXX加入进去
+
+```java
+   192.168.17.11 basic localhost localhost.localdomain localhost4 localhost4.localdomain4
+   ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+```
+
+3. 关闭linux防火墙（实战中应该打开对应端口）
+
+   > ```shell
+   > service iptables stop
+   > chkconfig iptables off #永久关闭
+   > ```
+
+4. windows上打开 jconsole远程连接 192.168.17.11:11111
