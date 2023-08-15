@@ -237,4 +237,12 @@ public class T15_FullGC_Problem01 {
    eg.
    waiting on <0x0000000088ca3310> (a java.lang.Object)
    假如有一个进程中100个线程，很多线程都在waiting on \<xx\> ，一定要找到是哪个线程持有这把锁
-   怎么找？搜索jstack dump的信息，找<xx> ，看哪个线程持有这把锁RUNNABLE
+   怎么找？搜索jstack dump的信息，找\<xx\> ，看哪个线程持有这把锁RUNNABLE
+6. 为什么阿里规范里规定，线程的名称（尤其是线程池）都要写有意义的名称
+   怎么样自定义线程池里的线程名称？（自定义ThreadFactory）
+7. jinfo pid 把进程中的详细信息列出来，作用不大。
+8. jstat -gc 打印gc信息，动态观察gc情况 / 阅读GC日志发现频繁GC / arthas观察 / jconsole/jvisualVM/ Jprofiler（最好用）
+   jstat -gc 4655 500 : 每个500个毫秒打印GC的情况
+   如果面试官问你是怎么定位OOM问题的？如果你回答用图形界面（错误）
+   1：已经上线的系统不用图形界面用什么？（cmdline arthas）
+   2：图形界面到底用在什么地方？测试！测试的时候进行监控！（压测观察）
