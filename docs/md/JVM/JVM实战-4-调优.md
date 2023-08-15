@@ -313,5 +313,107 @@ https://www.cnblogs.com/liugh/p/7620336.html （简单做法）
    目前有些限制条件：只能改方法实现（方法已经运行完成），不能改方法名， 不能改属性
    m() -> mm()
 * sc  - search class
-* watch  - watch method
+* watch  - watch method 观察方法执行结果
 * 没有包含的功能：jmap
+
+## 4.3 案例汇总
+
+OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙高，但内存回收特别少) （上面案例）
+
+1. 硬件升级系统反而卡顿的问题（见上）
+
+2. 线程池不当运用产生OOM问题（见上）
+   不断的往List里加对象（实在太LOW）
+
+3. smile jira问题
+   实际系统不断重启
+   解决问题 加内存 + 更换垃圾回收器 G1
+   真正问题在哪儿？不知道
+
+4. tomcat http-header-size过大问题（Hector）
+
+5. lambda表达式导致方法区溢出问题(MethodArea / Perm Metaspace)
+   LambdaGC.java     -XX:MaxMetaspaceSize=9M -XX:+PrintGCDetails
+
+   ```java
+   "C:\Program Files\Java\jdk1.8.0_181\bin\java.exe" -XX:MaxMetaspaceSize=9M -XX:+PrintGCDetails "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.1\lib\idea_rt.jar=49316:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.1\bin" -Dfile.encoding=UTF-8 -classpath "C:\Program Files\Java\jdk1.8.0_181\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\deploy.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\access-bridge-64.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\cldrdata.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\dnsns.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\jaccess.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\jfxrt.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\localedata.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\nashorn.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\sunec.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\sunjce_provider.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\sunmscapi.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\sunpkcs11.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\ext\zipfs.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\javaws.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\jfxswt.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\management-agent.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\plugin.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_181\jre\lib\rt.jar;C:\work\ijprojects\JVM\out\production\JVM;C:\work\ijprojects\ObjectSize\out\artifacts\ObjectSize_jar\ObjectSize.jar" com.mashibing.jvm.gc.LambdaGC
+   [GC (Metadata GC Threshold) [PSYoungGen: 11341K->1880K(38400K)] 11341K->1888K(125952K), 0.0022190 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+   [Full GC (Metadata GC Threshold) [PSYoungGen: 1880K->0K(38400K)] [ParOldGen: 8K->1777K(35328K)] 1888K->1777K(73728K), [Metaspace: 8164K->8164K(1056768K)], 0.0100681 secs] [Times: user=0.02 sys=0.00, real=0.01 secs] 
+   [GC (Last ditch collection) [PSYoungGen: 0K->0K(38400K)] 1777K->1777K(73728K), 0.0005698 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+   [Full GC (Last ditch collection) [PSYoungGen: 0K->0K(38400K)] [ParOldGen: 1777K->1629K(67584K)] 1777K->1629K(105984K), [Metaspace: 8164K->8156K(1056768K)], 0.0124299 secs] [Times: user=0.06 sys=0.00, real=0.01 secs] 
+   java.lang.reflect.InvocationTargetException
+   	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+   	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+   	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+   	at java.lang.reflect.Method.invoke(Method.java:498)
+   	at sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:388)
+   	at sun.instrument.InstrumentationImpl.loadClassAndCallAgentmain(InstrumentationImpl.java:411)
+   Caused by: java.lang.OutOfMemoryError: Compressed class space
+   	at sun.misc.Unsafe.defineClass(Native Method)
+   	at sun.reflect.ClassDefiner.defineClass(ClassDefiner.java:63)
+   	at sun.reflect.MethodAccessorGenerator$1.run(MethodAccessorGenerator.java:399)
+   	at sun.reflect.MethodAccessorGenerator$1.run(MethodAccessorGenerator.java:394)
+   	at java.security.AccessController.doPrivileged(Native Method)
+   	at sun.reflect.MethodAccessorGenerator.generate(MethodAccessorGenerator.java:393)
+   	at sun.reflect.MethodAccessorGenerator.generateSerializationConstructor(MethodAccessorGenerator.java:112)
+   	at sun.reflect.ReflectionFactory.generateConstructor(ReflectionFactory.java:398)
+   	at sun.reflect.ReflectionFactory.newConstructorForSerialization(ReflectionFactory.java:360)
+   	at java.io.ObjectStreamClass.getSerializableConstructor(ObjectStreamClass.java:1574)
+   	at java.io.ObjectStreamClass.access$1500(ObjectStreamClass.java:79)
+   	at java.io.ObjectStreamClass$3.run(ObjectStreamClass.java:519)
+   	at java.io.ObjectStreamClass$3.run(ObjectStreamClass.java:494)
+   	at java.security.AccessController.doPrivileged(Native Method)
+   	at java.io.ObjectStreamClass.<init>(ObjectStreamClass.java:494)
+   	at java.io.ObjectStreamClass.lookup(ObjectStreamClass.java:391)
+   	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1134)
+   	at java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1548)
+   	at java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1509)
+   	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1432)
+   	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178)
+   	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348)
+   	at javax.management.remote.rmi.RMIConnectorServer.encodeJRMPStub(RMIConnectorServer.java:727)
+   	at javax.management.remote.rmi.RMIConnectorServer.encodeStub(RMIConnectorServer.java:719)
+   	at javax.management.remote.rmi.RMIConnectorServer.encodeStubInAddress(RMIConnectorServer.java:690)
+   	at javax.management.remote.rmi.RMIConnectorServer.start(RMIConnectorServer.java:439)
+   	at sun.management.jmxremote.ConnectorBootstrap.startLocalConnectorServer(ConnectorBootstrap.java:550)
+   	at sun.management.Agent.startLocalManagementAgent(Agent.java:137)
+   
+   ```
+
+6. 直接内存溢出问题（少见）
+   《深入理解Java虚拟机》P59，使用Unsafe分配直接内存，或者使用NIO的问题
+
+7. 栈溢出问题
+   -Xss设定太小
+
+8. 比较一下这两段程序的异同，分析哪一个是更优的写法：
+
+   ```java 
+   Object o = null;
+   for(int i=0; i<100; i++) {
+       o = new Object();
+       //业务处理
+   }
+   ```
+
+   ```java
+   for(int i=0; i<100; i++) {
+       Object o = new Object();
+   }
+   ```
+
+9. 重写finalize引发频繁GC
+   小米云，HBase同步系统，系统通过nginx访问超时报警，最后排查，C++程序员重写finalize引发频繁GC问题
+   为什么C++程序员会重写finalize？（new delete）
+   finalize耗时比较长（200ms）
+   
+10. 如果有一个系统，内存一直消耗不超过10%，但是观察GC日志，发现FGC总是频繁产生，会是什么引起的？
+    System.gc() (这个比较Low)
+
+11. Distuptor有个可以设置链的长度，如果过大，然后对象大，消费完不主动释放，会溢出 (来自 死物风情)
+
+12. 用jvm都会溢出，mycat用崩过，1.6.5某个临时版本解析sql子查询算法有问题，9个exists的联合sql就导致生成几百万的对象（来自 死物风情）
+
+13. new 大量线程，会产生 native thread OOM，（low）应该用线程池，
+    解决方案：减少堆空间（太TMlow了）,预留更多内存产生native thread
+    JVM内存占物理内存比例 50% - 80%
