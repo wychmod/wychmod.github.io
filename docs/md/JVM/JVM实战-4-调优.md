@@ -227,3 +227,8 @@ public class T15_FullGC_Problem01 {
 }
    
 ```
+
+1. java -Xms200M -Xmx200M -XX:+PrintGC com.mashibing.jvm.gc.T15_FullGC_Problem01
+2. 一般是运维团队首先受到报警信息（CPU Memory）
+3. top命令观察到问题：内存不断增长 CPU占用率居高不下
+4. 
