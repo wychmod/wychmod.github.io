@@ -231,4 +231,10 @@ public class T15_FullGC_Problem01 {
 1. java -Xms200M -Xmx200M -XX:+PrintGC com.mashibing.jvm.gc.T15_FullGC_Problem01
 2. 一般是运维团队首先受到报警信息（CPU Memory）
 3. top命令观察到问题：内存不断增长 CPU占用率居高不下
-4. 
+4. top -Hp xxx 观察进程中的线程，哪个线程CPU和内存占比高
+5. jps定位具体java进程
+   jstack 定位线程状况，重点关注：WAITING BLOCKED
+   eg.
+   waiting on <0x0000000088ca3310> (a java.lang.Object)
+   假如有一个进程中100个线程，很多线程都在waiting on \<xx\> ，一定要找到是哪个线程持有这把锁
+   怎么找？搜索jstack dump的信息，找<xx> ，看哪个线程持有这把锁RUNNABLE
