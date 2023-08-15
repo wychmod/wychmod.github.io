@@ -304,7 +304,7 @@ https://www.cnblogs.com/liugh/p/7620336.html （简单做法）
 * jvm观察jvm信息
 * thread定位线程问题
 * dashboard 观察系统情况
-* heapdump + jhat分析
+* heapdump导出堆内存信息 + jhat分析
 * jad反编译
    动态代理生成类的问题定位
    第三方的类（观察代码）
