@@ -405,11 +405,11 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 
 9. 重写finalize引发频繁GC
    小米云，HBase同步系统，系统通过nginx访问超时报警，最后排查，C++程序员重写finalize引发频繁GC问题
-   为什么C++程序员会重写finalize？（new delete）
+   为什么C++程序员会重写finalize？（new delete）以为java有c的析构函数
    finalize耗时比较长（200ms）
    
 10. 如果有一个系统，内存一直消耗不超过10%，但是观察GC日志，发现FGC总是频繁产生，会是什么引起的？
-    System.gc() (这个比较Low)
+    System.gc() (有人手写了这个，这个比较Low)
 
 11. Distuptor有个可以设置链的长度，如果过大，然后对象大，消费完不主动释放，会溢出 (来自 死物风情)
 
