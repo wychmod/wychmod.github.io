@@ -246,3 +246,17 @@ public class T15_FullGC_Problem01 {
    如果面试官问你是怎么定位OOM问题的？如果你回答用图形界面（错误）
    1：已经上线的系统不用图形界面用什么？（cmdline arthas）
    2：图形界面到底用在什么地方？测试！测试的时候进行监控！（压测观察）
+9. jmap - histo 4655 | head -20，查找有多少对象产生 (在线定位可以影响性能但不大)
+10. jmap -dump:format=b,file=xxx pid ：生成内存导出文件 (这个影响很大一般不用)
+
+    线上系统，内存特别大，jmap执行期间会对进程产生很大影响，甚至卡顿（电商不适合）
+    1：设定了参数HeapDump，OOM的时候会自动产生堆转储文件
+    2：<font color='red'>很多服务器备份（高可用），停掉这台服务器对其他服务器不影响</font>
+    3：在线定位(一般小点儿公司用不到)
+11. java -Xms20M -Xmx20M -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError com.mashibing.jvm.gc.T15_FullGC_Problem01 (内存溢出时生成heap dump)
+12. 使用MAT / jhat /jvisualvm 进行dump文件分析
+     https://www.cnblogs.com/baihuitestsoftware/articles/6406271.html 
+    jhat -J-mx512M xxx.dump
+    http://192.168.17.11:7000
+    拉到最后：找到对应链接
+    可以使用OQL查找特定问题对象
