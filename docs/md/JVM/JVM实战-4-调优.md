@@ -464,3 +464,45 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 [CMS-concurrent-reset: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
 	//重置内部结构，为下次GC做准备
 ```
+
+# 6.G1日志详解
+```java
+[GC pause (G1 Evacuation Pause) (young) (initial-mark), 0.0015790 secs]  
+//young -> 年轻代 Evacuation-> 复制存活对象   
+//initial-mark 混合回收的阶段，这里是YGC混合老年代回收  
+   [Parallel Time: 1.5 ms, GC Workers: 1] //一个GC线程  
+      [GC Worker Start (ms):  92635.7]  
+      [Ext Root Scanning (ms):  1.1]  
+      [Update RS (ms):  0.0]  
+         [Processed Buffers:  1]  
+      [Scan RS (ms):  0.0]  
+      [Code Root Scanning (ms):  0.0]  
+      [Object Copy (ms):  0.1]  
+      [Termination (ms):  0.0]  
+         [Termination Attempts:  1]  
+      [GC Worker Other (ms):  0.0]  
+      [GC Worker Total (ms):  1.2]  
+      [GC Worker End (ms):  92636.9]  
+   [Code Root Fixup: 0.0 ms]  
+   [Code Root Purge: 0.0 ms]  
+   [Clear CT: 0.0 ms]  
+   [Other: 0.1 ms]  
+      [Choose CSet: 0.0 ms]  
+      [Ref Proc: 0.0 ms]  
+      [Ref Enq: 0.0 ms]  
+      [Redirty Cards: 0.0 ms]  
+      [Humongous Register: 0.0 ms]  
+      [Humongous Reclaim: 0.0 ms]  
+      [Free CSet: 0.0 ms]  
+   [Eden: 0.0B(1024.0K)->0.0B(1024.0K) Survivors: 0.0B->0.0B Heap: 18.8M(20.0M)->18.8M(20.0M)]  
+ [Times: user=0.00 sys=0.00, real=0.00 secs]   
+//以下是混合回收其他阶段  
+[GC concurrent-root-region-scan-start]  
+[GC concurrent-root-region-scan-end, 0.0000078 secs]  
+[GC concurrent-mark-start]  
+//无法evacuation，进行FGC  
+[Full GC (Allocation Failure)  18M->18M(20M), 0.0719656 secs]  
+   [Eden: 0.0B(1024.0K)->0.0B(1024.0K) Survivors: 0.0B->0.0B Heap: 18.8M(20.0M)->18.8M(20.0M)], [Metaspace: 38  
+76K->3876K(1056768K)] [Times: user=0.07 sys=0.00, real=0.07 secs]  
+​
+```
