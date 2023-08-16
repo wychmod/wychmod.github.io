@@ -199,6 +199,19 @@
 
 ![](../youdaonote-images/Pasted%20image%2020230816152418.png)
 
+- **GC什么时候触发**？
+	- YGC
+		- Eden空间不足
+		- 多线程并行执行
+	- FGC
+		- Old空间不足
+		- System.gc()
+- **G1如果产生FGC，你该怎么办**？
+	1. 扩内存
+	2. 提高cpu性能，回收的快，业务逻辑产生对象的速度固定，垃圾回收越快，内存空间越大
+	3. 降低mixedGC触发的阈值，让mixedGC提早发生（默认是45%）YG
+
+
 ### 1.7.7 G1基本概念：card table
 1. Card Table
 	1. 由于做YGC时，需要扫描整个OLD区(看是否有引用)，效率非常低，所以JVM设计了CardTable， 如果一个OLD区CardTable中有对象指向Y区，就将它设为Dirty，下次扫描时，只需要扫描Dirty Card 在结构上，Card Table用BitMap来实现
