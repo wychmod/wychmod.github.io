@@ -469,7 +469,7 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 ```java
 [GC pause (G1 Evacuation Pause) (young) (initial-mark), 0.0015790 secs]  
 //young -> 年轻代 Evacuation-> 复制存活对象   
-//initial-mark 混合回收的阶段，这里是YGC混合老年代回收  
+//initial-mark 混合回收的阶段，这里是YGC混合老年代回收，看到initial-mark说明mixedGC已经开始
    [Parallel Time: 1.5 ms, GC Workers: 1] //一个GC线程  
       [GC Worker Start (ms):  92635.7]  
       [Ext Root Scanning (ms):  1.1]  
@@ -495,6 +495,7 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
       [Humongous Reclaim: 0.0 ms]  
       [Free CSet: 0.0 ms]  
    [Eden: 0.0B(1024.0K)->0.0B(1024.0K) Survivors: 0.0B->0.0B Heap: 18.8M(20.0M)->18.8M(20.0M)]  
+   // 三个区从多少收到多少
  [Times: user=0.00 sys=0.00, real=0.00 secs]   
 //以下是混合回收其他阶段  
 [GC concurrent-root-region-scan-start]  
@@ -506,3 +507,96 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 76K->3876K(1056768K)] [Times: user=0.07 sys=0.00, real=0.07 secs]  
 ​
 ```
+
+# GC常用参数
+
+- -Xmn -Xms -Xmx -Xss 年轻代 最小堆 最大堆 栈空间
+    
+- -XX:+UseTLAB (不建议动) 使用TLAB，默认打开
+    
+- -XX:+PrintTLAB (不建议动) 打印TLAB的使用情况
+    
+- -XX:TLABSize (不建议动) 设置TLAB大小
+    
+- -XX:+DisableExplictGC System.gc()不管用 ，这是FGC，一般线上用
+    
+- -XX:+PrintGC
+    
+- -XX:+PrintGCDetails
+    
+- -XX:+PrintHeapAtGC 打印堆栈情况
+    
+- -XX:+PrintGCTimeStamps
+    
+- -XX:+PrintGCApplicationConcurrentTime (低) 打印应用程序时间
+    
+- -XX:+PrintGCApplicationStoppedTime （低） 打印暂停时长
+    
+- -XX:+PrintReferenceGC （重要性低） 记录回收了多少种不同引用类型的引用
+    
+- -verbose:class 类加载详细过程
+    
+- -XX:+PrintVMOptions
+    
+- -XX:+PrintFlagsFinal -XX:+PrintFlagsInitial 必须会用,查询参数和ps结合
+    
+- -Xloggc:opt/log/gc.log
+    
+- -XX:MaxTenuringThreshold 升代年龄，最大值15
+    
+- 锁自旋次数 -XX:PreBlockSpin 热点代码检测参数-XX:CompileThreshold 逃逸分析 标量替换 ... 这些不建议设置
+    
+
+# Parallel常用参数
+
+- -XX:SurvivorRatio
+    
+- -XX:PreTenureSizeThreshold 大对象到底多大
+    
+- -XX:MaxTenuringThreshold
+    
+- -XX:+ParallelGCThreads 并行收集器的线程数，同样适用于CMS，一般设为和CPU核数相同
+    
+- -XX:+UseAdaptiveSizePolicy 自动选择各区大小比例
+    
+
+### CMS常用参数
+
+- -XX:+UseConcMarkSweepGC
+    
+- -XX:ParallelCMSThreads CMS线程数量
+    
+- -XX:CMSInitiatingOccupancyFraction 使用多少比例的老年代后开始CMS收集，默认是68%(近似值)，如果频繁发生SerialOld卡顿，应该调小，（频繁CMS回收）
+    
+- -XX:+UseCMSCompactAtFullCollection 在FGC时进行压缩
+    
+- -XX:CMSFullGCsBeforeCompaction 多少次FGC之后进行压缩
+    
+- -XX:+CMSClassUnloadingEnabled
+    
+- -XX:CMSInitiatingPermOccupancyFraction 达到什么比例时进行Perm回收 1.8之前才有
+    
+- GCTimeRatio 设置GC时间占用程序运行时间的百分比
+    
+- -XX:MaxGCPauseMillis 停顿时间，是一个建议时间，GC会尝试用各种手段达到这个时间，比如减小年轻代
+    
+
+# G1常用参数
+
+- -XX:+UseG1GC
+    
+- -XX:MaxGCPauseMillis stw时间建议值，G1会尝试调整Young区的块数来达到这个值
+    
+- -XX:GCPauseIntervalMillis ？GC的间隔时间
+    
+- -XX:+G1HeapRegionSize 分区大小，建议逐渐增大该值，1 2 4 8 16 32。 随着size增加，垃圾的存活时间更长，GC间隔更长，但每次GC的时间也会更长 ZGC做了改进（动态区块大小）
+    
+- G1NewSizePercent 新生代最小比例，默认为5%
+    
+- G1MaxNewSizePercent 新生代最大比例，默认为60%
+    
+- GCTimeRatio GC时间建议比例，G1会根据这个值调整堆空间
+    
+- ConcGCThreads 线程数量
+    
+- InitiatingHeapOccupancyPercent 启动G1的堆空间占用比例
