@@ -200,7 +200,9 @@
 ![](../youdaonote-images/Pasted%20image%2020230816152418.png)
 
 ### 1.7.7 G1基本概念：card table
-1. CSet = Collection Set
+1. Card Table
+	1. 由于做YGC时，需要扫描整个OLD区(看是否有引用)，效率非常低，所以JVM设计了CardTable， 如果一个OLD区CardTable中有对象指向Y区，就将它设为Dirty，下次扫描时，只需要扫描Dirty Card 在结构上，Card Table用BitMap来实现
+2. CSet = Collection Set
 	- 收集集合(CSet)代表每次GC暂停时回收的一系列目标分区。在任意一次收集暂停中，CSet所有分区都会被释放，内部存活的对象都会被转移到分配的空闲分区中。
 	- 混合收集会通过启发式算法，在老年代候选回收分区中，筛选出回收收益最高的分区添加到CSet中。
 ![](../youdaonote-images/Pasted%20image%2020230816153848.png)
