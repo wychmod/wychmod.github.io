@@ -208,9 +208,17 @@
 2. RSet（Remember Set ：记忆集合）
 	- 每一个Region都会划出一部分内存用来储存**记录其他Region对当前持有Rset Region中Card的引用**，这个记录就叫做Remember Set。
 	- G1垃圾回收器，有对STW时间的控制，通过参数 -XX:MaxGCPauseMillis 来设置，而对于整个堆进行一次回收所需要的的实际STW时间可能远远超过这个值，所以G1可以不用扫描整个堆，只要通过扫描RSet来分析垃圾比例最高的Region区，放入CSet（Collection Set ：回收集合）中，进行回收。
-	- 
+	- Rset的储存方状态，会根据对当前区域中引用数量的增加依次递增，分别为：稀疏（hash）->细粒度->粗粒度。
+		- 稀疏状态： 一个其他Region引用当前Region 中Card 的集合 被放在一个数组里面，Key：redion地址 Value：card 地址数组
+		- 细粒度： 一个Region地址链表，共同维护当前 Region 中所有card 的一个BitMap集合，该card 被引用了就设置对应bit 为1，并且还维护一个 对应Region对当前Region中card 索引数量
+		- 粗粒度： 所有region 形成一个 bitMap，如果有region 对当前 Region 有指针指向，就设置其对应的bit 为1
+
+![](../youdaonote-images/Pasted%20image%2020230816211554.png)
 
 ![](../youdaonote-images/Pasted%20image%2020230816211119.png)
+> 如果有Rset的数据结构退化成了粗粒度的时候，要对Region进行回收的时候，就必须对Region进行全扫描才能正确回收，这样就大大增大了G1垃圾回收器的工作量，降低了效率。
+
+> 其次为了追求效率一般Young代Region不会有RSet，因为维护Rset需要消耗不少性能，而年轻代快速回收的特性，带来了大量的浪费
 ### 1.7.7 三色标记
 ![](../youdaonote-images/Pasted%20image%2020230816152917.png)
 
