@@ -161,6 +161,7 @@
     
     > -XX:+UseCMSCompactAtFullCollection 
     > -XX:CMSFullGCsBeforeCompaction 默认为0 指的是经过多少次FGC才进行压缩
+    > 当碎片过多的时候，一次full gc可能会有好几小时。
     
 2. Floating Garbage 浮动垃圾
     
