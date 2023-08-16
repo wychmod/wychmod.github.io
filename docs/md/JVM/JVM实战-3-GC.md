@@ -206,7 +206,11 @@
 ![](../youdaonote-images/Pasted%20image%2020230816153848.png)
 
 2. RSet（Remember Set ：记忆集合）
+	- 每一个Region都会划出一部分内存用来储存**记录其他Region对当前持有Rset Region中Card的引用**，这个记录就叫做Remember Set。
+	- G1垃圾回收器，有对STW时间的控制，通过参数 -XX:MaxGCPauseMillis 来设置，而对于整个堆进行一次回收所需要的的实际STW时间可能远远超过这个值，所以G1可以不用扫描整个堆，只要通过扫描RSet来分析垃圾比例最高的Region区，放入CSet（Collection Set ：回收集合）中，进行回收。
 	- 
+
+![](../youdaonote-images/Pasted%20image%2020230816211119.png)
 ### 1.7.7 三色标记
 ![](../youdaonote-images/Pasted%20image%2020230816152917.png)
 
