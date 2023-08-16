@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "JVM实战-1-加载链接初始化",
+      "path": "JVM/JVM实战-1-加载链接初始化.md"
+    },
+    {
       "basename": "JVM实战-3-GC",
       "path": "JVM/JVM实战-3-GC.md"
     },
@@ -19,10 +23,6 @@
     {
       "basename": "算法笔记·",
       "path": "算法/左神从0学算法/算法笔记·.md"
-    },
-    {
-      "basename": "JVM实战-1-加载链接初始化",
-      "path": "JVM/JVM实战-1-加载链接初始化.md"
     },
     {
       "basename": "蓝桥杯",
