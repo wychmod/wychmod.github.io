@@ -1,12 +1,12 @@
 {
   "recentFiles": [
     {
-      "basename": "JVM实战-1-加载链接初始化",
-      "path": "JVM/JVM实战-1-加载链接初始化.md"
-    },
-    {
       "basename": "JVM实战-2-JMM",
       "path": "JVM/JVM实战-2-JMM.md"
+    },
+    {
+      "basename": "JVM实战-1-加载链接初始化",
+      "path": "JVM/JVM实战-1-加载链接初始化.md"
     },
     {
       "basename": "JVM实战-3-GC",
