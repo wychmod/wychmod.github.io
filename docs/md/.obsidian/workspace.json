@@ -67,7 +67,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -157,7 +158,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM实战-3-GC.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -174,7 +175,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM实战-3-GC.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -205,7 +206,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM实战-3-GC.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -237,13 +238,13 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "92c6fac349172889",
+  "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
+    "JVM/JVM实战-3-GC.md",
     "JVM/JVM实战-4-调优.md",
     "youdaonote-images/Pasted image 20230815173746.png",
     "youdaonote-images/Pasted image 20230815162335.png",
     "youdaonote-images/Pasted image 20230815154917.png",
-    "JVM/JVM实战-3-GC.md",
     "youdaonote-images/Pasted image 20230814003953.png",
     "youdaonote-images/Pasted image 20230814003945.png",
     "youdaonote-images/Pasted image 20230814002903.png",
