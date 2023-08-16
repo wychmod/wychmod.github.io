@@ -418,3 +418,49 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 13. new 大量线程，会产生 native thread OOM，（low）应该用线程池，
     解决方案：减少堆空间（太TMlow了）,预留更多内存产生native thread
     JVM内存占物理内存比例 50% - 80%
+
+# 5 cms日志详解
+
+执行命令：java -Xms20M -Xmx20M -XX:+PrintGCDetails -XX:+UseConcMarkSweepGC com.mashibing.jvm.gc.T15_FullGC_Problem01
+
+[GC (Allocation Failure) [ParNew: 6144K->640K(6144K), 0.0265885 secs] 6585K->2770K(19840K), 0.0268035 secs] [Times: user=0.02 sys=0.00, real=0.02 secs]
+
+> ParNew：年轻代收集器
+> 
+> 6144->640：收集前后的对比
+> 
+> （6144）：整个年轻代容量
+> 
+> 6585 -> 2770：整个堆的情况
+> 
+> （19840）：整个堆大小
+
+
+```java
+[GC (CMS Initial Mark) [1 CMS-initial-mark: 8511K(13696K)] 9866K(19840K), 0.0040321 secs] [Times: user=0.01 sys=0.00, real=0.00 secs] 
+	//8511 (13696) : 老年代使用（最大）
+	//9866 (19840) : 整个堆使用（最大）
+[CMS-concurrent-mark-start]
+[CMS-concurrent-mark: 0.018/0.018 secs] [Times: user=0.01 sys=0.00, real=0.02 secs] 
+	//这里的时间意义不大，因为是并发执行
+[CMS-concurrent-preclean-start]
+[CMS-concurrent-preclean: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+	//标记Card为Dirty，也称为Card Marking
+[GC (CMS Final Remark) [YG occupancy: 1597 K (6144 K)][Rescan (parallel) , 0.0008396 secs][weak refs processing, 0.0000138 secs][class unloading, 0.0005404 secs][scrub symbol table, 0.0006169 secs][scrub string table, 0.0004903 secs][1 CMS-remark: 8511K(13696K)] 10108K(19840K), 0.0039567 secs] [Times: user=0.00 sys=0.00, real=0.00 secs] 
+	//STW阶段，YG occupancy:年轻代占用及容量
+	//[Rescan (parallel)：STW下的存活对象标记
+	//weak refs processing: 弱引用处理
+	//class unloading: 卸载用不到的class
+	//scrub symbol(string) table: 
+		//cleaning up symbol and string tables which hold class-level metadata and 
+		//internalized string respectively
+	//CMS-remark: 8511K(13696K): 阶段过后的老年代占用及容量
+	//10108K(19840K): 阶段过后的堆占用及容量
+
+[CMS-concurrent-sweep-start]
+[CMS-concurrent-sweep: 0.005/0.005 secs] [Times: user=0.00 sys=0.00, real=0.01 secs] 
+	//标记已经完成，进行并发清理
+[CMS-concurrent-reset-start]
+[CMS-concurrent-reset: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+	//重置内部结构，为下次GC做准备
+```
