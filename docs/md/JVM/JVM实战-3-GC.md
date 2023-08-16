@@ -183,6 +183,7 @@
 - 如果对象太大，一个Region放不下[超过Region大小的50%]，那么就会直接放到H中
 - 设置Region大小：-XX:G1HeapRegionSize=M
 - Garbage-Frist，其实就是优先回收垃圾最多的Region区域
+- 每个区域的年龄不是固定的，可能这次是年轻代，进行一次YGC就会变成老年代。
 ```java
 （1）分代收集（仍然保留了分代的概念） 
 （2）空间整合（整体上属于“标记-整理”算法，不会导致空间碎片） 
@@ -199,14 +200,17 @@
 ![](../youdaonote-images/Pasted%20image%2020230816152418.png)
 
 
+### 1.7.7 三色标记
+![](../youdaonote-images/Pasted%20image%2020230816152917.png)
+
 ### 1.7.8 ZGC (1ms) 
 - PK C++ 算法：ColoredPointers + LoadBarrier
-
+**ColoredPointers**: 
 ### 1.7.9 Shenandoah 
 - 算法：ColoredPointers + WriteBarrier
 
 ### 1.7.10 Eplison
-    
+
 ## 1.8 垃圾收集器跟内存大小的关系
 1. Serial 几十兆   
 2. PS 上百兆 - 几个G   
