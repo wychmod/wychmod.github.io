@@ -252,6 +252,10 @@
 1. incremental update -- 增量更新，关注引用的增加，把黑色重新标记为灰色，下次重新扫描属性，CMS使用
 2. SATB snapshot at the beginning – 关注引用的删除当B->D消失时，要把这个引用推到GC的堆栈，保证D还能被GC扫描到G1使用
 
+**为什么G1用SATB?**
+1. incremental update 变成灰色的要重新扫描，效率低
+2. 灰色 → 白色 引用消失时，如果没有黑色指向白色引用会被push到堆栈,下次扫描时拿到这个引用，由于有RSet的存在，不需要扫描整个堆去查找指向白色的引用，效率比较高
+
 ![](../youdaonote-images/Pasted%20image%2020230816214155.png)
 ### 1.7.8 ZGC (1ms) 
 - PK C++ 算法：ColoredPointers + LoadBarrier
