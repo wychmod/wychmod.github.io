@@ -201,8 +201,12 @@
 
 ### 1.7.7 G1基本概念：card table
 1. CSet = Collection Set
-	- 
+	- 收集集合(CSet)代表每次GC暂停时回收的一系列目标分区。在任意一次收集暂停中，CSet所有分区都会被释放，内部存活的对象都会被转移到分配的空闲分区中。
+	- 混合收集会通过启发式算法，在老年代候选回收分区中，筛选出回收收益最高的分区添加到CSet中。
+![](../youdaonote-images/Pasted%20image%2020230816153848.png)
 
+2. RSet（Remember Set ：记忆集合）
+	- 
 ### 1.7.7 三色标记
 ![](../youdaonote-images/Pasted%20image%2020230816152917.png)
 
