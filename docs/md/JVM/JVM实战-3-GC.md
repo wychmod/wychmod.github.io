@@ -190,6 +190,14 @@
 ```
 ![](../youdaonote-images/Pasted%20image%2020230816152142.png)
 
+**工作过程可以分为如下几步**:
+1. 初始标记（Initial Marking） 标记以下GC Roots能够关联的对象，并且修改TAMS的值，需要暂停用户线程
+2. 并发标记（Concurrent Marking） 从GC Roots进行可达性分析，找出存活的对象，与用户线程并发 执行
+3. 最终标记（Final Marking） 修正在并发标记阶段因为用户程序的并发执行导致变动的数据，需 暂停用户线程
+4. 筛选回收（Live Data Counting and Evacuation） 对各个Region的回收价值和成本进行排序，根据 用户所期望的GC停顿时间制定回收计划
+
+![](../youdaonote-images/Pasted%20image%2020230816152418.png)
+
 
 ### 1.7.8 ZGC (1ms) 
 - PK C++ 算法：ColoredPointers + LoadBarrier
