@@ -262,6 +262,14 @@
 
 > java 10以前是串行FullGC，之后是并行FullGC
 ### 1.7.8 ZGC (1ms) 
+>JDK11新引入的ZGC收集器，不管是物理上还是逻辑上，ZGC中已经不存在新老年代的概念了，会分为一个个page，当进行GC操作时会对page进行压缩，因此没有碎片问题，只能在64位的linux上使用，目前用得还比较少
+
+1. 可以达到10ms以内的停顿时间要求
+2. 支持TB级别的内存
+3. 堆内存变大后停顿时间还是在10ms以内
+
+![](../youdaonote-images/Pasted%20image%2020230816221619.png)
+
 - 算法：ColoredPointers + LoadBarrier
 **ColoredPointers**: 
 ### 1.7.9 Shenandoah 
