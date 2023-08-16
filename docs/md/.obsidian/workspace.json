@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "JVM/JVM实战-3-GC.md",
                 "mode": "source",
                 "source": false
               }
@@ -156,7 +156,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "JVM/JVM实战-3-GC.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -173,7 +173,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "JVM/JVM实战-3-GC.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -204,7 +204,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "JVM/JVM实战-3-GC.md"
               }
             }
           },
@@ -239,13 +239,13 @@
   "active": "92c6fac349172889",
   "lastOpenFiles": [
     "JVM/JVM实战-4-调优.md",
+    "面试/Java面试汇总.md",
     "JVM/JVM实战-3-GC.md",
     "youdaonote-images/Pasted image 20230816221619.png",
     "youdaonote-images/Pasted image 20230816214155.png",
     "youdaonote-images/Pasted image 20230816211554.png",
     "youdaonote-images/Pasted image 20230816211119.png",
     "youdaonote-images/Pasted image 20230816153848.png",
-    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230816152917.png",
     "youdaonote-images/Pasted image 20230816152418.png",
     "youdaonote-images/Pasted image 20230816152142.png",

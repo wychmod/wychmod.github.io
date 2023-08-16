@@ -212,6 +212,11 @@
 	3. 降低mixedGC触发的阈值，让mixedGC提早发生（默认是45%）YGC不行时，占用堆空间超过45%，就会启动，mixedGC相当于cms。
 
 
+YoungGC 的工作流程
+YGC 的工作流程很简单：APP线程跑，然后就进行青年代Region的回收，把需要回收的YoungRegion，放入YoungCSet中，在YGC阶段就进行对年轻代CSet中的Region进行回收。因为大部分都是垃圾，且用了复制回收算法，基本只需要较短时间的STW就能完全回收了。
+————————————————
+版权声明：本文为CSDN博主「Ocean曈」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_15965621/article/details/107899419
 
 ### 1.7.7 G1基本概念：card table
 1. Card Table
