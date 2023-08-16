@@ -239,6 +239,12 @@
 在标记对象的过程中，对象引用关系正在发生改变。
 ![](../youdaonote-images/Pasted%20image%2020230816152917.png)
 
+### 漏标问题的解决
+
+**漏标是指，本来是live object，但是由于没有遍历到，被当成garbage回收掉了**
+
+
+![](../youdaonote-images/Pasted%20image%2020230816214155.png)
 ### 1.7.8 ZGC (1ms) 
 - PK C++ 算法：ColoredPointers + LoadBarrier
 **ColoredPointers**: 
