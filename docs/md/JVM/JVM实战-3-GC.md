@@ -199,6 +199,9 @@
 
 ![](../youdaonote-images/Pasted%20image%2020230816152418.png)
 
+### 1.7.7 G1基本概念：card table
+1. CSet = Collection Set
+	- 
 
 ### 1.7.7 三色标记
 ![](../youdaonote-images/Pasted%20image%2020230816152917.png)
