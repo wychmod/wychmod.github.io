@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md",
+                "file": "JVM/JVM实战-2-JMM.md",
                 "mode": "source",
                 "source": false
               }
@@ -156,7 +156,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md",
+                "file": "JVM/JVM实战-2-JMM.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -173,7 +173,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md",
+                "file": "JVM/JVM实战-2-JMM.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -204,7 +204,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md"
+                "file": "JVM/JVM实战-2-JMM.md"
               }
             }
           },
