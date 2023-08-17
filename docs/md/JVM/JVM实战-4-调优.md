@@ -105,6 +105,15 @@ eden space 5632K, 94% used [0x00000000ff980000,0x00000000ffeb3e28,0x00000000fff0
 
 - 儒猿案例1: 有个计算系统，每次YGC后会有200mb的垃圾，同时垃圾很快就可以回收，但是s区只有100mb会直接进入old区，多次后出发FULLGC，实际上可以通过调优，扩大s区的内存，让他进去s区，然后通过YGC回收。
 
+```java
+-Xms3072M -Xmx3072M -Xmn2048M -Xss1M -XX:PermSize=256M -XX:MaxPermSize=256M -
+XX:SurvivorRatio=8 -XX:MaxTenuringThreshold=5 -XX:PretenureSizeThreshold=1M -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFaction=92 -XX:+UseCMSCompactAtFullCollection -XX:CMSFullGCsBeforeCompaction=0
+```
+
+>Full GC优化的前提是Minor GC的优化，Minor GC的优化的前提是合理分配内存空间，合理分配内存空间的前提是对系统运行期间的内存使用模型进行预估。 
+
+> 其实对很多普通的Java系统而言，只要对系统运行期间的内存使用模型做好预估，然后分配好合理的内存空间，尽量让Minor GC之后的存活对象留在Survivor里不要去老年代，然后其余的GC参数不做太多优化，系统性能基本上就不会太差。
+
 * 案例1：垂直电商，最高每日百万订单，处理订单系统需要什么样的服务器配置？
 
   > 这个问题比较业余，因为很多不同的服务器配置都能支撑(1.5G 16G)
