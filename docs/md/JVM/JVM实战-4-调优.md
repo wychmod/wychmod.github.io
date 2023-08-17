@@ -44,6 +44,7 @@ public class HelloGC {
 7. java -XX:+PrintFlagsFinal | grep xxx 找到对应的参数
 8. java -XX:+PrintFlagsFinal -version |grep GC
 
+![](../youdaonote-images/Pasted%20image%2020230817094842.png)
 # 2.PS GC日志详解
 
 > 每种垃圾回收器的日志格式是不同的！
