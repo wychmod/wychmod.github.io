@@ -253,8 +253,24 @@ public class T15_FullGC_Problem01 {
 6. 为什么阿里规范里规定，线程的名称（尤其是线程池）都要写有意义的名称
    怎么样自定义线程池里的线程名称？（自定义ThreadFactory）
 7. jinfo pid 把进程中的详细信息列出来，作用不大。
-8. jstat -gc 打印gc信息，动态观察gc情况 / 阅读GC日志发现频繁GC / arthas观察 / jconsole/jvisualVM/ Jprofiler（最好用）
+8. jstat -gc Pid 打印gc信息，动态观察gc情况 / 阅读GC日志发现频繁GC / arthas观察 / jconsole/jvisualVM/ Jprofiler（最好用）
    jstat -gc 4655 500 : 每个500个毫秒打印GC的情况
+	S0C：这是From Survivor区的大小
+	S1C：这是To Survivor区的大小
+	S0U：这是From Survivor区当前使用的内存大小
+	S1U：这是To Survivor区当前使用的内存大小
+	EC：这是Eden区的大小
+	EU：这是Eden区当前使用的内存大小
+	OC：这是老年代的大小
+	OU：这是老年代当前使用的内存大小
+	MC：这是方法区（永久代、元数据区）的大小
+	MU：这是方法区（永久代、元数据区）的当前使用的内存大小
+	YGC：这是系统运行迄今为止的Young GC次数
+	YGCT：这是Young GC的耗时
+	FGC：这是系统运行迄今为止的Full GC次数
+	FGCT：这是Full GC的耗时
+	GCT：这是所有GC的总耗时
+
    如果面试官问你是怎么定位OOM问题的？如果你回答用图形界面（错误）
    1：已经上线的系统不用图形界面用什么？（cmdline arthas）
    2：图形界面到底用在什么地方？测试！测试的时候进行监控！（压测观察）
