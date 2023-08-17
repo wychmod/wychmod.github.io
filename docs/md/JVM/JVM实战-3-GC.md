@@ -109,6 +109,7 @@
 - 动态年龄
 	- s1 - > s2超过50%
 	- 把年龄最大的放入O
+- 大对象直接进入老年代-XX:PretenureSizeThreshold
 ![](../youdaonote-images/Pasted%20image%2020230814001406.png)
 
 ## 1.7 常见的垃圾回收器
