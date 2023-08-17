@@ -112,6 +112,9 @@
 - 大对象直接进入老年代-XX:PretenureSizeThreshold
 ![](../youdaonote-images/Pasted%20image%2020230814001406.png)
 
+- 什么情况下Minor GC之前会提前触发Full GC，什么情况下会直接触发Minor GC?
+在新生代 的要进入老年代的对象大小超过了老年代可以承载的，同时没有空间担保或者空间担保平均每次的大于了老年代剩余的，就会出发FULLGC。
+
 ## 1.7 常见的垃圾回收器
 
 ![](../youdaonote-images/Pasted%20image%2020230814002122.png)
