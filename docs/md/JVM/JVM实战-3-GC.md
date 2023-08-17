@@ -163,7 +163,7 @@
 
 1. Memory Fragmentation内存碎片
     
-    > -XX:+UseCMSCompactAtFullCollection 每次
+    > -XX:+UseCMSCompactAtFullCollection 每次fullgc之后进行stw，把内存碎片压缩到一起。
     > -XX:CMSFullGCsBeforeCompaction 默认为0 指的是经过多少次FGC才进行压缩
     > 当碎片过多的时候，一次full gc可能会有好几小时。
     
@@ -179,6 +179,11 @@
     > 
     > –XX:CMSInitiatingOccupancyFraction 92% 可以降低这个值，让CMS保持老年代足够的空间
 
+### 1.7.6 几个触发老年代GC的时机
+第一是老年代可用内存小于新生代全部对象的大小，如果没开启空间担保参数，会直接触发Full GC，所以一般空间担保参数都会打开；
+第二是老年代可用内存小于历次新生代GC后进入老年代的平均对象大小，此时会提前Full GC；
+第三是新生代Minor GC后的存活对象大于Survivor，那么就会进入老年代，此时老年代内存不足。
+第四是-XX:CMSInitiatingOccupancyFaction，老年代已经使用的内存空间超过了这个参数指定的比例，也会自动触发Full GC。
 ### 1.7.7 G1(10ms) 
 - 算法：三色标记 + SATB
 - 介绍：G1是一种服务端应用使用的垃圾收集器，目标是用在多核、大内存的机器上，它在大多数情况下可以实现指定的GC暂停时间，同时还能保持较高的吞吐量
