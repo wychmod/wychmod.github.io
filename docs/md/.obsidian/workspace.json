@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md",
+                "file": "JVM/JVM实战-3-GC.md",
                 "mode": "source",
                 "source": false
               }
@@ -140,7 +140,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5
+    "width": 357.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -156,7 +157,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md",
+                "file": "JVM/JVM实战-3-GC.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -173,7 +174,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md",
+                "file": "JVM/JVM实战-3-GC.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -204,7 +205,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md"
+                "file": "JVM/JVM实战-3-GC.md"
               }
             }
           },
@@ -238,11 +239,11 @@
   },
   "active": "92c6fac349172889",
   "lastOpenFiles": [
+    "JVM/JVM实战-4-调优.md",
     "youdaonote-images/Pasted image 20230817094842.png",
     "JVM/JVM实战-3-GC.md",
     "JVM/JVM实战-2-JMM.md",
     "JVM/JVM实战-1-加载链接初始化.md",
-    "JVM/JVM实战-4-调优.md",
     "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230816221619.png",
     "youdaonote-images/Pasted image 20230816214155.png",
@@ -253,7 +254,6 @@
     "youdaonote-images/Pasted image 20230816152418.png",
     "youdaonote-images/Pasted image 20230816152142.png",
     "youdaonote-images/Pasted image 20230816105029.png",
-    "youdaonote-images/Pasted image 20230815173746.png",
     "算法/左神从0学算法/算法笔记·.md",
     "算法/蓝桥杯.md",
     "多线程与高并发/多线程与并发编程.md",
