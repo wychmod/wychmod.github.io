@@ -209,10 +209,10 @@
 ![](../youdaonote-images/Pasted%20image%2020230816152418.png)
 
 - **GC什么时候触发**？
-	- YGC
+	- YGC(复制)
 		- Eden空间不足
 		- 多线程并行执行
-	- FGC
+	- FGC(复制)
 		- Old空间不足
 		- System.gc()
 - **G1如果产生FGC，你该怎么办**？
@@ -220,7 +220,7 @@
 	2. 提高cpu性能，回收的快，业务逻辑产生对象的速度固定，垃圾回收越快，内存空间越大
 	3. 降低mixedGC触发的阈值，让mixedGC提早发生（默认是45%）YGC不行时，占用堆空间超过45%，就会启动，mixedGC相当于cms。
 
-- MixedGC : 基于复制算法进行的,
+- MixedGC : 基于复制算法进行的,有一些参数可以控制这个，比如“-XX:G1MixedGCCountTarget”参数，就是在一次MixedGC的过程中，最后一个阶段执行几次混合回收，默认值是8次
 
 ![](../youdaonote-images/Pasted%20image%2020230817170250.png)
 
