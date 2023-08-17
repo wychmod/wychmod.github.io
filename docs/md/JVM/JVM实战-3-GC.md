@@ -220,6 +220,10 @@
 	2. 提高cpu性能，回收的快，业务逻辑产生对象的速度固定，垃圾回收越快，内存空间越大
 	3. 降低mixedGC触发的阈值，让mixedGC提早发生（默认是45%）YGC不行时，占用堆空间超过45%，就会启动，mixedGC相当于cms。
 
+- MixedGC : 基于复制算法进行的,
+
+![](../youdaonote-images/Pasted%20image%2020230817170250.png)
+
 
 - **YoungGC 的工作流程**
 YGC 的工作流程很简单：APP线程跑，然后就进行青年代Region的回收，把需要回收的YoungRegion，放入YoungCSet中，在YGC阶段就进行对年轻代CSet中的Region进行回收。因为大部分都是垃圾，且用了复制回收算法，基本只需要较短时间的STW就能完全回收了。
