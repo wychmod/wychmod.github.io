@@ -379,6 +379,7 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 
 2. 线程池不当运用产生OOM问题（见上）
    不断的往List里加对象（实在太LOW）
+2. String.split() java1.6使用了这个会产生大量的对象，导致频繁gc
 
 3. smile jira问题
    实际系统不断重启
