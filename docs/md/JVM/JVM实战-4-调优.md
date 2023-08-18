@@ -253,7 +253,7 @@ public class T15_FullGC_Problem01 {
 6. 为什么阿里规范里规定，线程的名称（尤其是线程池）都要写有意义的名称
    怎么样自定义线程池里的线程名称？（自定义ThreadFactory）
 7. jinfo pid 把进程中的详细信息列出来，作用不大。
-8. jstat -gc Pid 打印gc信息，动态观察gc情况 / 阅读GC日志发现频繁GC / arthas观察 / jconsole/jvisualVM/ Jprofiler（最好用）
+8. jstat -gc Pid 打印gc信息，动态观察gc情况，观察eden的增长情况 / 阅读GC日志发现频繁GC / arthas观察 / jconsole/jvisualVM/ Jprofiler（最好用）
    jstat -gc 4655 500 : 每个500个毫秒打印GC的情况
 	S0C：这是From Survivor区的大小
 	S1C：这是To Survivor区的大小
@@ -278,7 +278,8 @@ jstat -gc PID 1000 10
    1：已经上线的系统不用图形界面用什么？（cmdline arthas）
    2：图形界面到底用在什么地方？测试！测试的时候进行监控！（压测观察）
 9. jmap - histo 4655 | head -20，查找有多少对象产生 (在线定位可以影响性能但不大)
-10. jmap -dump:format=b,file=xxx pid ：生成内存导出文件 (这个影响很大一般不用)
+10. jmap -head Pid 会打印出来堆内存相关的一些参数设置，然后就是当前堆内存里的一些基本各个区域的情况
+11. jmap -dump:format=b,file=xxx pid ：生成内存导出文件 (这个影响很大一般不用)
 
     线上系统，内存特别大，jmap执行期间会对进程产生很大影响，甚至卡顿（电商不适合）
     1：设定了参数HeapDump，OOM的时候会自动产生堆转储文件
