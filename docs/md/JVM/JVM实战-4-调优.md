@@ -271,6 +271,9 @@ public class T15_FullGC_Problem01 {
 	FGCT：这是Full GC的耗时
 	GCT：这是所有GC的总耗时
 
+jstat -gc PID 1000 10
+每隔1秒钟更新出来最新的一行jstat统计信息，一共执行10次jstat统计
+
    如果面试官问你是怎么定位OOM问题的？如果你回答用图形界面（错误）
    1：已经上线的系统不用图形界面用什么？（cmdline arthas）
    2：图形界面到底用在什么地方？测试！测试的时候进行监控！（压测观察）
