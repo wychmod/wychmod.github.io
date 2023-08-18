@@ -655,3 +655,11 @@ OOM产生的原因多种多样，有些程序未必产生OOM，不断FGC(CPU飙�
 - ConcGCThreads 线程数量
     
 - InitiatingHeapOccupancyPercent 启动G1的堆空间占用比例
+
+# JVM参数模板
+
+```java
+-Xms4096M -Xmx4096M -Xmn3072M -Xss1M -XX:PermSize=256M -XX:MaxPermSize=256M -XX:+UseParNewGC -
+XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFaction=92 -XX:+UseCMSCompactAtFullCollection -
+XX:CMSFullGCsBeforeCompaction=0 -XX:+CMSParallelInitialMarkEnabled(在初始标记阶段多线程) -XX:+CMSScavengeBeforeRemark(在remark之前先压缩)
+```
