@@ -294,6 +294,29 @@ jstat -gc PID 1000 10
     可以使用OQL查找特定问题对象
 13. 找到代码的问题
 
+### 4.2.1 jstat 实战
+```java
+public class Demo1 {  
+    public static void main(String[] args) throws Exception{  
+        Thread.sleep(30000);  
+        while (true) {  
+            loadData();  
+        }  
+    }  
+    private static void loadData() throws Exception{  
+        byte[] data = null;  
+        for (int i=0;i<50;i++) {  
+            data = new byte[100*1024];  
+        }  
+        data = null;  
+  
+        Thread.sleep(1000);  
+    }  
+}
+
+// jps
+// jstat -gc 51464 1000 1000
+```
 ### 4.2.2 jconsole远程连接
 
 jdk自带的，比较直观，java有一个标准的访问远程服务器的这样的协议JMX
