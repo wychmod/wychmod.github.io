@@ -504,7 +504,7 @@ TCP是全双工通信，可以双向传输数据。任何一方都可以在数�
 
 如果是数据库网络中断，就先直接查询数据库或着看是否有多级缓存。如果是获取分布式锁网络中断。redission可以使用超时重试的方法进行抢锁。
 
-# Java
+# Java基础
 
 ## 协程 纤程
 
@@ -521,6 +521,8 @@ java使用quasar实现的，要设定vm options，使用instrumentation这个类
 
 ## java的消息队列
 kafka、rocketmq、rabbitmq
+
+## 
 
 # juc
 
