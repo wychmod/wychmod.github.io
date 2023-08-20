@@ -530,7 +530,14 @@ new string("hello").intern()
 4. 存储方面，string在常量池，buffer和builder都在堆。
 
 ## 如何理解java对象的创建过程
-
+1. class loading 加载类对象
+2. class linking 链接(verification验证class是否符合jvm语法, preparation静态成员变量赋默认值, resolution符号引用变直接引用)
+3. class initializing 给静态成员变量赋初始值
+4. 申请对象内存
+5. 成员变量赋默认值
+6. 调用构造方法\<init\>
+	1. 成员变量顺序赋初始值
+	2. 执行构造方法语句
 
 ## 协程 纤程
 
