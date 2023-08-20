@@ -527,6 +527,10 @@ new string("hello").intern()
 1. 可变性：string value使用final修饰的，每次修改String的值会产生一个新的对象。buffer和builder是可变类，不会产生新的对象
 2. 线程安全：String不可变类，线程安全。buffer是线程安全的，因为每个方法都加了synchronized。builder不是线程安全的。
 3. String性能最低，频繁创建对象。buffer性能比string 高，因为加了锁比builder低。
+4. 存储方面，string在常量池，buffer和builder都在堆。
+
+## 如何理解java对象的创建过程
+
 
 ## 协程 纤程
 
