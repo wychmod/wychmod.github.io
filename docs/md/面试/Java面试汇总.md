@@ -523,7 +523,10 @@ hello在常量池，实力对象在堆。
 new string("hello").intern()
 将堆里的字符串运行时动态的加入字符串常量池，如果字符串常量池已经有就用原来的，没有就新建一个。
 
-## 
+## String StringBuffer StringBuilder的区别是什么？
+1. 可变性：string value使用final修饰的，每次修改String的值会产生一个新的对象。buffer和builder是可变类，不会产生新的对象
+2. 线程安全：String不可变类，线程安全。buffer是线程安全的，因为每个方法都加了synchronized。builder不是线程安全的。
+3. String性能最低，频繁创建对象。buffer性能比string 高，因为加了锁比builder低。
 
 ## 协程 纤程
 
