@@ -558,6 +558,9 @@ new string("hello").intern()
 
 如果不重写hashcode可能导致equals相同hash值不同，没法用于散列集合。
 
+## 受检异常和非受检异常
+
+Error(程序底层或硬件错误)和RunTimeException 属于非受检异常，其他都是受检异常，需要自己用try catch来进行捕获抛出
 ## 协程 纤程
 
 纤程和线程的本质区别是一个通过内核态，一个不通过内核态。
