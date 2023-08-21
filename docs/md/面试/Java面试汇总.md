@@ -523,6 +523,16 @@ hello在常量池，实力对象在堆。
 new string("hello").intern()
 将堆里的字符串运行时动态的加入字符串常量池，如果字符串常量池已经有就用原来的，没有就新建一个。
 
+## 什么是方法重载？返回值算重载吗？
+- 方法重载是指在同一个类中定义多个方法，它们具有相同的名称但参数列表不同。
+> 返回值不同不算方法重载,JVM通过方法名称 + 参数类型 + 参数个数组成的一个唯一值方法签名，和返回值没关系。
+
+## ArrayList和LinkedList有什么区别？
+- ArrayList 和 LinkedList 都是 Java 中的 List 接口的实现类。
+- 底层实现不同
+- 随机访问性能不同
+- 插入和删除性能不同
+
 ## String StringBuffer StringBuilder的区别是什么？
 1. 可变性：string value使用final修饰的，每次修改String的值会产生一个新的对象。buffer和builder是可变类，不会产生新的对象
 2. 线程安全：String不可变类，线程安全。buffer是线程安全的，因为每个方法都加了synchronized。builder不是线程安全的。
