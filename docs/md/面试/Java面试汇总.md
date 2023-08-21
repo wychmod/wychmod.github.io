@@ -527,9 +527,9 @@ new string("hello").intern()
 - 方法重载是指在同一个类中定义多个方法，它们具有相同的名称但参数列表不同。
 > 返回值不同不算方法重载,JVM通过方法名称 + 参数类型 + 参数个数组成的一个唯一值方法签名，和返回值没关系。
 
-## ArrayList和LinkedList有什么区别？
-- ArrayList 和 LinkedList 都是 Java 中的 List 接口的实现类。
-- 底层实现不同
+## ArrayList和LinkedList和Vector有什么区别？
+- ArrayList 和 LinkedList 和Vector都是 Java 中的 List 接口的实现类。
+- 底层实现不同 ArrayList和Vector底层都是动态数组 Vector线程安全性能差，Vector翻倍扩容，ArrayList扩容百分之五十。
 - 随机访问性能不同
 - 插入和删除性能不同
 
