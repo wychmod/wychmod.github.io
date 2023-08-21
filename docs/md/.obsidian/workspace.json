@@ -32,6 +32,18 @@
             }
           },
           {
+            "id": "e4b96a8318db338f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "JVM/JVM实战-2-JMM.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "6de4582630b05ed1",
             "type": "leaf",
             "state": {
@@ -239,9 +251,9 @@
   "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
     "面试/python面试.md",
+    "JVM/JVM实战-2-JMM.md",
     "面试/Java面试汇总.md",
     "JVM/JVM实战-1-加载链接初始化.md",
-    "JVM/JVM实战-2-JMM.md",
     "JVM/JVM实战-3-GC.md",
     "JVM/JVM实战-4-调优.md",
     "youdaonote-images/Pasted image 20230817170250.png",
