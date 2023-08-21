@@ -5,6 +5,10 @@
       "path": "面试/Java面试汇总.md"
     },
     {
+      "basename": "python面试",
+      "path": "面试/python面试.md"
+    },
+    {
       "basename": "JVM实战-1-加载链接初始化",
       "path": "JVM/JVM实战-1-加载链接初始化.md"
     },
