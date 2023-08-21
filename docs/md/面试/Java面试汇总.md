@@ -571,10 +571,10 @@ kafka、rocketmq、rabbitmq
 # JVM
 
 ## 一个空对象占多大内存
-对象头+实例数据
+对象头+实例数据+对齐填充
 markword 8
 ClassPointer指针: 8 -> 4
-实例数据：引用类型: 8->4
+对齐填充：4
 
 一共16字节
 

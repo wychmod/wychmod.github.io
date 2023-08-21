@@ -79,7 +79,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -168,7 +169,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "JVM/JVM实战-2-JMM.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -185,7 +186,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "JVM/JVM实战-2-JMM.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -216,7 +217,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "JVM/JVM实战-2-JMM.md"
               }
             }
           },
@@ -248,11 +249,12 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "49c33f44c8ce8acb",
+  "active": "e4b96a8318db338f",
   "lastOpenFiles": [
-    "面试/python面试.md",
-    "JVM/JVM实战-2-JMM.md",
     "面试/Java面试汇总.md",
+    "JVM/JVM实战-2-JMM.md",
+    "算法/左神从0学算法/算法笔记·.md",
+    "面试/python面试.md",
     "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM实战-3-GC.md",
     "JVM/JVM实战-4-调优.md",
@@ -266,7 +268,6 @@
     "youdaonote-images/Pasted image 20230816152917.png",
     "youdaonote-images/Pasted image 20230816152418.png",
     "youdaonote-images/Pasted image 20230816152142.png",
-    "算法/左神从0学算法/算法笔记·.md",
     "算法/蓝桥杯.md",
     "多线程与高并发/多线程与并发编程.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",

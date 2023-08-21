@@ -308,7 +308,7 @@ public class T03_SizeOfAnObject {
 
 markword 8
 ClassPointer指针: 8 -> 4
-实例数据：引用类型: 8->4
+对齐填充：4
 
 一共16字节
 
