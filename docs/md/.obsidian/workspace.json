@@ -79,8 +79,7 @@
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -169,7 +168,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM实战-2-JMM.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -186,7 +185,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM实战-2-JMM.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -217,7 +216,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM实战-2-JMM.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -249,10 +248,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "e4b96a8318db338f",
+  "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
-    "面试/Java面试汇总.md",
     "JVM/JVM实战-2-JMM.md",
+    "面试/Java面试汇总.md",
     "算法/左神从0学算法/算法笔记·.md",
     "面试/python面试.md",
     "JVM/JVM实战-1-加载链接初始化.md",
