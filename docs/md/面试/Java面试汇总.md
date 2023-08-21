@@ -554,7 +554,9 @@ new string("hello").intern()
 1. 用\==号比较两个对象的内存地址，地址相同返回true。
 2. 否则继续对比字符串的值
 
-同时java任何一个对象都有native方法hashcode方法。是为了在hashtable
+同时java任何一个对象都有native方法hashcode方法。是为了在hashtable添加元素的时候判断元素是否存在，如果用equals方法速度太慢。如果有相同hash值存在，再比较equals。
+
+如果不重写hashcode可能导致equals相同hash值不同，没法用于散列集合。
 
 ## 协程 纤程
 
