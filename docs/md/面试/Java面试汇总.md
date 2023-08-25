@@ -587,6 +587,10 @@ java使用quasar实现的，要设定vm options，使用instrumentation这个类
 ## java的消息队列
 kafka、rocketmq、rabbitmq
 
+## HashMap 和 Hashtable的区别
+map线程不安全，table线程安全。
+table慢，底层加了锁。
+table的值不能为null，map可以，map源码，null 为 0
 
 # JVM
 
