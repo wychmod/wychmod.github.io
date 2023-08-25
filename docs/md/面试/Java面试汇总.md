@@ -605,6 +605,9 @@ table的值不能为null，map可以，map源码，null 为 0
 ![](../youdaonote-images/Pasted%20image%2020230825210317.png)
 HashMap 在 JDK 1.7 时，是通过数组 + 链表实现的，而在 JDK 1.8 时，HashMap 是通过数组 + 链表或红黑树实现的。在 JDK 1.8 之后，如果链表的数量大于阈值（默认为 8），并且数组长度大于 64 时，为了查询效率会将链表升级为红黑树，但当红黑树的节点小于等于 6 时，为了节省内存空间会将红黑树退化为链表。
 
+## 为什么HashMap会死循环？
+
+HashMap 死循环发生在 JDK 1.7 版本中，形成死循环的原因是 HashMap 在 JDK 1.7 使用的是头插法，头插法 + 多线程并发操作 + HashMap 扩容，这几个点加在一起就形成了 HashMap 的死循环，解决死循环可以采用线程安全容器 ConcurrentHashMap 替代。
 # JVM
 
 ## 一个空对象占多大内存
