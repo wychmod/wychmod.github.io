@@ -655,7 +655,11 @@ ClassPointer指针: 8 -> 4
 
 ## ConcurrentHashMap如何实现线程安全？
 
+ConcurrentHashMap 在 JDK 1.7 时，使用的是分段锁(每个segment类似于数据库)也就是 Segment 来实现线程安全的。 然而它在 JDK 1.8 之后，使用的是 CAS + synchronized 或 CAS + volatile 来实现线程安全的。(ConcurrentHashMap 是在头节点加锁来保证线程安全的，锁的粒度相比 Segment 来说更小了)
 
+![](../youdaonote-images/Pasted%20image%2020230825224740.png)
+
+![](../youdaonote-images/Pasted%20image%2020230825225100.png)
 
 ## java的线程通信
 
