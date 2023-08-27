@@ -722,7 +722,9 @@ Java中线程池的创建方式主要有以下几种：
 6. ThreadFactory：创建线程的工厂。
 7. RejectedExecutionHandler：拒绝策略。
 
+## 线程池的运行流程
 
+![](../youdaonote-images/Pasted%20image%2020230827200106.png)
 ## 线程在实际项目中的应用
 
 1. 发短信
