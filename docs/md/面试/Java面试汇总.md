@@ -704,7 +704,16 @@ ConcurrentHashMap 在 JDK 1.7 时，使用的是分段锁(每个segment类似于
 
 ## 线程池有什么优点？
 
+Java中线程池的创建方式主要有以下几种：
 
+1. 使用 ThreadPoolExecutor 类手动创建：通过 ThreadPoolExecutor 类的构造函数自定义线程池的参数，包括核心线程数、最大线程数、线程存活时间、任务队列等。
+2. 使用 Executors 类提供的工厂方法创建：通过 Executors 类提供的一些静态工厂方法创建线程池，例如 newFixedThreadPool、newSingleThreadExecutor、newCachedThreadPool 等。
+3. 使用 Spring 框架提供的 ThreadPoolTaskExecutor 类：在 Spring 框架中可以通过 ThreadPoolTaskExecutor 类来创建线程池。
+
+线程池是一种管理和复用线程资源的机制。相比于线程，它具备四个主要优势：1.复用线程，降低了资源消耗；2.提高响应速度；3.提供了管理线程数和任务数的能力；4.更多增强功能。
+
+
+#
 
 ## 线程在实际项目中的应用
 
