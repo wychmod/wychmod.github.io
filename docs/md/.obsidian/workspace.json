@@ -20,6 +20,18 @@
             }
           },
           {
+            "id": "217dd35e24c390a5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "多线程与高并发/多线程与并发编程.md",
+                "mode": "preview",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "3d0f8fdbf305803e",
             "type": "leaf",
             "state": {
@@ -67,7 +79,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,7 +169,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "多线程与高并发/多线程与并发编程.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -173,7 +186,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "多线程与高并发/多线程与并发编程.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -204,7 +217,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "多线程与高并发/多线程与并发编程.md"
               }
             }
           },
@@ -236,12 +249,12 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "49c33f44c8ce8acb",
+  "active": "217dd35e24c390a5",
   "lastOpenFiles": [
+    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230825225100.png",
     "youdaonote-images/Pasted image 20230825224740.png",
     "JVM/JVM实战-2-JMM.md",
-    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230825210317.png",
     "算法/左神从0学算法/算法笔记·.md",
     "面试/python面试.md",
@@ -255,7 +268,6 @@
     "youdaonote-images/Pasted image 20230816211554.png",
     "youdaonote-images/Pasted image 20230816211119.png",
     "youdaonote-images/Pasted image 20230816153848.png",
-    "youdaonote-images/Pasted image 20230816152917.png",
     "算法/蓝桥杯.md",
     "多线程与高并发/多线程与并发编程.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",

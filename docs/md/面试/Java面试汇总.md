@@ -684,6 +684,10 @@ ConcurrentHashMap 在 JDK 1.7 时，使用的是分段锁(每个segment类似于
 -   **`ThreadPoolExecutor.DiscardPolicy`：** 不处理新任务，直接丢弃掉。
 -   **`ThreadPoolExecutor.DiscardOldestPolicy`：** 此策略将丢弃最早的未处理的任务请求。
 
+## 线程等待和唤醒有几种实现？
+
+
+
 ## 线程在实际项目中的应用
 
 1. 发短信
