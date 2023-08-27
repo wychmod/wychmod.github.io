@@ -5,6 +5,14 @@
       "path": "面试/Java面试汇总.md"
     },
     {
+      "basename": "MySQL性能优化-索引",
+      "path": "mysql/MySQL性能优化-索引.md"
+    },
+    {
+      "basename": "MySQL性能优化-总结",
+      "path": "mysql/MySQL性能优化-总结.md"
+    },
+    {
       "basename": "python面试",
       "path": "面试/python面试.md"
     },
@@ -125,16 +133,8 @@
       "path": "mysql/MySQL是怎样运行的.md"
     },
     {
-      "basename": "MySQL性能优化-总结",
-      "path": "mysql/MySQL性能优化-总结.md"
-    },
-    {
       "basename": "MySQL性能优化-事务",
       "path": "mysql/MySQL性能优化-事务.md"
-    },
-    {
-      "basename": "MySQL性能优化-索引",
-      "path": "mysql/MySQL性能优化-索引.md"
     },
     {
       "basename": "设计模式",
