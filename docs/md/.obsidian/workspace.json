@@ -103,8 +103,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -193,7 +192,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -210,7 +209,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -241,7 +240,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -273,8 +272,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "c7cdd41783f7700e",
+  "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
+    "算法/左神从0学算法/算法笔记·.md",
     "面试/Java面试汇总.md",
     "mysql/MySQL性能优化-索引.md",
     "mysql/MySQL性能优化-总结.md",
@@ -289,7 +289,6 @@
     "youdaonote-images/Pasted image 20230825225100.png",
     "youdaonote-images/Pasted image 20230825224740.png",
     "youdaonote-images/Pasted image 20230825210317.png",
-    "算法/左神从0学算法/算法笔记·.md",
     "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM实战-3-GC.md",
     "JVM/JVM实战-4-调优.md",
