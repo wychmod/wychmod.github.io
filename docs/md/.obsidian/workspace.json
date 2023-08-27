@@ -91,8 +91,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -182,7 +181,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/MySQL性能优化-索引.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -199,7 +198,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/MySQL性能优化-索引.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -230,7 +229,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/MySQL性能优化-索引.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -262,10 +261,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "2db772e4c5f9eb4a",
+  "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
-    "面试/Java面试汇总.md",
     "mysql/MySQL性能优化-索引.md",
+    "面试/Java面试汇总.md",
     "mysql/MySQL性能优化-总结.md",
     "面试/python面试.md",
     "多线程与高并发/多线程与并发编程.md",

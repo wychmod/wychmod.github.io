@@ -319,6 +319,7 @@ B 树也称 B-树,全称为 多路平衡查找树 ，B+ 树是 B 树的一种变
 ![image.png](../youdaonote-images/WEBRESOURCE7449b5d4f69861ae9d1050a5a1b976e6.png)
 在 MySQL 中，MyISAM 引擎和 InnoDB 引擎都是使用 B+Tree 作为索引结构，但是，两者的实现方式不太一样。
 
+> Bshu
 
 ## MySQL的ACID
 
