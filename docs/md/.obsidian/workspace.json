@@ -20,6 +20,18 @@
             }
           },
           {
+            "id": "e8417491026bddac",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "面试/python面试.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "217dd35e24c390a5",
             "type": "leaf",
             "state": {
@@ -98,7 +110,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "自我评价",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -133,7 +145,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -250,9 +263,10 @@
   },
   "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
+    "面试/python面试.md",
+    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230827212213.png",
     "image/1673857589195-279abdaf-6268-4f34-9cf1-0265227baf3a.png.md",
-    "面试/Java面试汇总.md",
     "image",
     "youdaonote-images/Pasted image 20230827211224.png",
     "JVM/JVM实战-2-JMM.md",
@@ -262,7 +276,6 @@
     "youdaonote-images/Pasted image 20230825224740.png",
     "youdaonote-images/Pasted image 20230825210317.png",
     "算法/左神从0学算法/算法笔记·.md",
-    "面试/python面试.md",
     "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM实战-3-GC.md",
     "JVM/JVM实战-4-调优.md",
@@ -270,7 +283,6 @@
     "youdaonote-images/Pasted image 20230817094842.png",
     "youdaonote-images/Pasted image 20230816221619.png",
     "youdaonote-images/Pasted image 20230816214155.png",
-    "youdaonote-images/Pasted image 20230816211554.png",
     "算法/蓝桥杯.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "JVM/JVM-bak.md",
