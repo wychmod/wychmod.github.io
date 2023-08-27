@@ -79,8 +79,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -169,7 +168,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -186,7 +185,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -217,7 +216,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "多线程与高并发/多线程与并发编程.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -249,8 +248,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "217dd35e24c390a5",
+  "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
+    "多线程与高并发/多线程与并发编程.md",
     "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230825225100.png",
     "youdaonote-images/Pasted image 20230825224740.png",
@@ -269,7 +269,6 @@
     "youdaonote-images/Pasted image 20230816211119.png",
     "youdaonote-images/Pasted image 20230816153848.png",
     "算法/蓝桥杯.md",
-    "多线程与高并发/多线程与并发编程.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
     "JVM/JVM-bak.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
