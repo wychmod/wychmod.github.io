@@ -725,6 +725,32 @@ Java中线程池的创建方式主要有以下几种：
 ## 线程池的运行流程
 
 ![](../youdaonote-images/Pasted%20image%2020230827200106.png)
+
+## 如何停止线程池？
+- 调用方法停止线程池：
+    1. 调用线程池的 shutdown() 方法来关闭线程池。该方法会停止线程池的接受新任务，并尝试将所有未完成的任务完成执行；
+    2. 调用线程池的 shutdownNow() 方法来关闭线程池。该方法会停止线程池的接受新任务，并尝试停止所有正在执行的任务。该方法会返回一个未完成任务的列表，这些任务将被取消。
+- 等待线程池停止：在关闭线程池后，通过调用 awaitTermination() 方法来等待所有任务完成执行。该方法会阻塞当前线程，直到所有任务完成执行或者等待超时。
+
+```java
+ExecutorService executor = Executors.newFixedThreadPool(10);
+// 提交任务到线程池
+for (int i = 0; i < 100; i++) {
+    executor.submit(new MyTask());
+}
+// 关闭线程池
+executor.shutdown();
+try {
+    // 等待所有任务完成执行
+    if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+        // 如果等待超时，强制关闭线程池
+        executor.shutdownNow();
+    }
+} catch (InterruptedException e) {
+    // 处理异常
+}
+```
+
 ## 线程在实际项目中的应用
 
 1. 发短信
