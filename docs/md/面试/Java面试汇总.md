@@ -677,6 +677,7 @@ ConcurrentHashMap 在 JDK 1.7 时，使用的是分段锁(每个segment类似于
 1.  **互斥量(Mutex)**：采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。因为互斥对象只有一个，所以可以保证公共资源不会被多个线程同时访问。比如 Java 中的 synchronized 关键词和各种 Lock 都是这种机制。
 2.  **信号量(Semaphore)** ：它允许同一时刻多个线程访问同一资源，但是需要控制同一时刻访问此资源的最大线程数量。
 3.  **事件(Event)** :Wait/Notify：通过通知操作的方式来保持多线程同步，还可以方便的实现多线程优先级的比较操作。
+4. **栅栏机制**：使用 Java 中的 CyclicBarrier 类来实现多个线程之间的同步，它允许多个线程在指定的屏障处等待，并在所有线程都达到屏障时继续执行。
 
 ## 线程池饱和的策略
 -   **`ThreadPoolExecutor.AbortPolicy`：** 抛出 `RejectedExecutionException`来拒绝新任务的处理。
@@ -693,9 +694,6 @@ ConcurrentHashMap 在 JDK 1.7 时，使用的是分段锁(每个segment类似于
 - **LockSupport 存在的必要性**：前两种方法 notify 方法以及 signal 方法都是随机唤醒，如果存在多个等待线程的话，可能会唤醒不应该唤醒的线程，因此有 LockSupport 类下的 park 和 unpark 方法指定唤醒线程是非常有必要的。
 - **Condition 存在的必要性**：Condition 相比于 Object 类的 wait 和 notify/notifyAll 方法，前者可以创建多个等待集，例如，我们可以创建一个生产者等待唤醒对象，和一个消费者等待唤醒对象，这样我们就能实现生产者只能唤醒消费者，而消费者只能唤醒生产者的业务逻辑了，如下代码所示：
 
----
-
-著作权归 www.javacn.site 所有 原文链接：https://www.javacn.site/interview/thread/wait.html#%E4%B8%89%E3%80%81park-unpark
 
 ## 线程在实际项目中的应用
 
