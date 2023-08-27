@@ -757,6 +757,20 @@ try {
 
 ## 什么是volatile？
 volatile 是 Java 并发编程的重要组成部分，它的主要作用有两个：保证内存的可见性和禁止指令重排序。volatile 常使用在一写多读的场景中，不会进行指令重排，操作完成后就可以对其他线程可见了。比较经典的例子就是double check的单例模式，要加volatile 防止指令重排。
+
+## volatile实现原理？
+
+volatile 关键字在底层的实现主要是通过内存屏障（memory barrier）来实现的。内存屏障是一种 CPU 指令，用于强制执行 CPU 的内部缓存与主内存之间的数据同步。
+
+在 Java 中，当线程读取一个 volatile 变量时，会从主内存中读取变量的最新值，并把它存储到线程的工作内存中。当线程写入一个 volatile 变量时，会把变量的值写入到线程的工作内存中，并强制将这个值刷新到主内存中。这样就保证了 volatile 变量的可见性和有序性。
+
+内存屏障是一种硬件机制，用于控制 CPU 缓存和主内存之间的数据同步。在 Java 中，内存屏障通常有两种：读屏障和写屏障。
+
+> sfence：store| 在sfence指令前的写操作当必须在sfence指令后的写操作前完成。 lfence：load | 在lfence指令前的读操作当必须在lfence指令后的读操作前完成。 mfence：modify/mix | 在mfence指令前的读写操作当必须在mfence指令后的读写操作前完成。
+
+> 原子指令，如x86上的”lock …” 指令是一个Full Barrier，执行时会锁住内存子系统来确保执行顺序，甚至跨多个CPU。Software Locks通常使用了内存屏障或原子指令来实现变量可见性和保持程序顺序
+
+CPU 缓存一致性，MESI 协议这 4 个字母代表 4 个状态，分别是：Modified（已修改）、Exclusive（独占）、Shared（共享）、Invalidated（已失效）。
 ## 线程在实际项目中的应用
 
 1. 发短信
