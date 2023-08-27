@@ -783,6 +783,21 @@ CPU 缓存一致性，MESI 协议这 4 个字母代表 4 个状态，分别是�
 - 使用线程安全的容器：如 ConcurrentHashMap、Hashtable、Vector。需要注意的是，线程安全的容器底层通常也是使用锁机制实现的；
 - 使用本地变量：线程本地变量是一种特殊的变量，它只能被同一个线程访问。在 Java 中，线程本地变量可以通过 ThreadLocal 类来实现。每个 ThreadLocal 对象都可以存储一个线程本地变量，而且每个线程都有自己的一份线程本地变量副本，因此不同的线程之间互不干扰。
 
+## synchronized和Lock有什么区别？
+
+synchronized 和 Lock 主要的区别有以下几个方面：
+
+1. 锁的获取方式：synchronized 是隐式获取锁的，即在进入 synchronized 代码块或方法时自动获取锁，退出时自动释放锁；而 Lock 需要程序显式地获取锁和释放锁，即需要调用 lock() 方法获取锁，调用 unlock() 方法释放锁。
+2. 锁的性质：synchronized 是可重入的互斥锁，即同一个线程可以多次获得同一把锁，而且锁的释放也只能由获得锁的线程来释放；Lock 可以是可重入的互斥锁，也可以是非可重入的互斥锁，还可以是读写锁。
+3. 锁的粒度：synchronized 是以代码块和方法为单位进行加锁和解锁，而 Lock 可以精确地控制锁的范围，可以支持多个条件变量。
+4. 性能：在低并发的情况下，synchronized 的性能优于 Lock，因为 Lock 需要显式地获取和释放锁，而 synchronized 是在 JVM 层面实现的；在高并发的情况下，Lock 的性能可能优于 synchronized，因为 Lock 可以更好地支持高并发和读写分离的场景。
+
+## synchronized底层是如何实现的？
+
+ synchronized 的底层是通过 Monitor（监视器）实现的。
+
+
+
 # 操作系统
 
 ## 死锁的四个条件
