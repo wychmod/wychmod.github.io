@@ -794,9 +794,8 @@ synchronized 和 Lock 主要的区别有以下几个方面：
 
 ## synchronized底层是如何实现的？
 
- synchronized 的底层是通过 Monitor（监视器）实现的。
-
-
+synchronized 是通过 Monitor 监视器实现的，而监视器又是通过 C++ 代码实现的，它的具体执行流程是：线程先通过自旋 CAS 的方式尝试获取锁，如果获取失败就进入 EntrySet（监控）集合，如果获取成功就拥有该锁。而拥有锁的线程当调用 wait() 方法时，会释放锁并进入 WaitSet（待授权）集合，直到其他线程调用 notify 或 notifyAll 方法时才会尝试再次获取锁。线程正常执行完成之后，就会通知 EntrySet 集合中的线程，让它们尝试获取锁。
+![](../youdaonote-images/Pasted%20image%2020230827211224.png)
 
 # 操作系统
 
