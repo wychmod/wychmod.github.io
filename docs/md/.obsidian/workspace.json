@@ -67,7 +67,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,7 +157,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "Redis/3-原理篇.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -173,7 +174,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "Redis/3-原理篇.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -204,7 +205,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "Redis/3-原理篇.md"
               }
             }
           },
@@ -236,11 +237,11 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "49c33f44c8ce8acb",
+  "active": "fc1d5d6ecd093a32",
   "lastOpenFiles": [
+    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230828233337.png",
     "Redis/3-原理篇.md",
-    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230828232617.png",
     "算法/左神从0学算法/算法笔记·.md",
     "mysql/MySQL性能优化-总结.md",
@@ -260,7 +261,6 @@
     "youdaonote-images/Pasted image 20230827211224.png",
     "JVM/JVM实战-2-JMM.md",
     "youdaonote-images/Pasted image 20230827200106.png",
-    "youdaonote-images/Pasted image 20230825225100.png",
     "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM实战-3-GC.md",
     "JVM/JVM实战-4-调优.md",
