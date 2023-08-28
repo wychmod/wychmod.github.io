@@ -79,8 +79,7 @@
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -169,7 +168,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -186,7 +185,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -217,7 +216,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -249,8 +248,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "2d3d0c1bd1d5e411",
+  "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
+    "mysql/MySQL性能优化-架构.md",
     "mysql/MySQL性能优化-事务.md",
     "mysql/MySQL性能优化-索引.md",
     "mysql/MySQL性能优化-总结.md",
@@ -283,7 +283,6 @@
     "spring源码/2-手写完整功能Spring.md",
     "spring源码/3-Spring源码解析.md",
     "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
-    "mysql/MySQL性能优化-架构.md",
     "JVM",
     "mysql/MySQL是怎样运行的.md",
     "系统设计/设计模式.md",
