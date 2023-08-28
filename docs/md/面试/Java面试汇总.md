@@ -598,11 +598,11 @@ Redis 常用的数据类型有 5 种：String 字符串类型、List 列表类�
 ![](../youdaonote-images/Pasted%20image%2020230828231937.png)
 - dict 空的哈希表是用来rehash的
 ![](../youdaonote-images/Pasted%20image%2020230828232217.png)
-- ZipList 压缩链表是一种特殊的“双端链表” ，由一系列特殊编码的连续内存块组成。可以在任意一端进行压入/弹出操作, 并且该操作的时间复杂度为 O(1)。
+- ZipList 压缩链表是一种特殊的“双端链表” ，由一系列特殊编码的连续内存块组成。可以在任意一端进行压入/弹出操作, 并且该操作的时间复杂度为 O(1)。(虽然节省内存，但申请内存必须是连续空间，有最佳上限)
 ![](../youdaonote-images/Pasted%20image%2020230828232617.png)
-
-
-
+- QuickList是一个节点为ZipList的双端链表
+- SkipList（跳表）首先是链表，元素按照升序排列
+![](../youdaonote-images/Pasted%20image%2020230828233337.png)
 ## 常见的缓存更新策略
 
 - 旁路缓存
