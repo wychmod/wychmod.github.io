@@ -594,7 +594,10 @@ Redis 常用的数据类型有 5 种：String 字符串类型、List 列表类�
 和python一样，都是c实现的。
 - 简单字符串
 ![](../youdaonote-images/Pasted%20image%2020230828231744.png)
-- 
+- intset 整形数组
+![](../youdaonote-images/Pasted%20image%2020230828231937.png)
+- dict 空的哈希表是用来rehash的
+![](../youdaonote-images/Pasted%20image%2020230828232217.png)
 
 ## 常见的缓存更新策略
 
