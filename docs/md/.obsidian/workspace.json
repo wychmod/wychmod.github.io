@@ -32,12 +32,12 @@
             }
           },
           {
-            "id": "2db772e4c5f9eb4a",
+            "id": "2d3d0c1bd1d5e411",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/MySQL性能优化-索引.md",
+                "file": "mysql/MySQL性能优化-架构.md",
                 "mode": "source",
                 "source": false
               }
@@ -79,7 +79,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -152,8 +153,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -169,7 +169,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "mysql/MySQL性能优化-架构.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -186,7 +186,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "mysql/MySQL性能优化-架构.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -217,7 +217,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "mysql/MySQL性能优化-架构.md"
               }
             }
           },
@@ -249,12 +249,13 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "49c33f44c8ce8acb",
+  "active": "2d3d0c1bd1d5e411",
   "lastOpenFiles": [
-    "算法/左神从0学算法/算法笔记·.md",
-    "面试/Java面试汇总.md",
+    "mysql/MySQL性能优化-事务.md",
     "mysql/MySQL性能优化-索引.md",
     "mysql/MySQL性能优化-总结.md",
+    "面试/Java面试汇总.md",
+    "算法/左神从0学算法/算法笔记·.md",
     "面试/python面试.md",
     "多线程与高并发/多线程与并发编程.md",
     "youdaonote-images/Pasted image 20230827212213.png",
@@ -285,7 +286,6 @@
     "mysql/MySQL性能优化-架构.md",
     "JVM",
     "mysql/MySQL是怎样运行的.md",
-    "mysql/MySQL性能优化-事务.md",
     "系统设计/设计模式.md",
     "spring源码/1-300行手写简易Spring.md",
     "spring源码",
