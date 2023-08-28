@@ -9,6 +9,10 @@
       "path": "mysql/MySQL性能优化-架构.md"
     },
     {
+      "basename": "算法笔记·",
+      "path": "算法/左神从0学算法/算法笔记·.md"
+    },
+    {
       "basename": "MySQL性能优化-事务",
       "path": "mysql/MySQL性能优化-事务.md"
     },
@@ -19,10 +23,6 @@
     {
       "basename": "MySQL性能优化-总结",
       "path": "mysql/MySQL性能优化-总结.md"
-    },
-    {
-      "basename": "算法笔记·",
-      "path": "算法/左神从0学算法/算法笔记·.md"
     },
     {
       "basename": "python面试",
