@@ -78,30 +78,6 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "f5976fa250a1f42b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JVM/JVM实战-1-加载链接初始化.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "763f1e5e42c29c6b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JVM/JVM-bak.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
         ]
       }
@@ -176,7 +152,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5
+    "width": 357.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
