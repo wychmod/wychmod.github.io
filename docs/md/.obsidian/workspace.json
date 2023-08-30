@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -191,8 +190,9 @@
   },
   "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
-    "Redis/3-原理篇.md",
+    "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "面试/Java面试汇总.md",
+    "Redis/3-原理篇.md",
     "面试/python面试.md",
     "算法/左神从0学算法/算法笔记·.md",
     "youdaonote-images/Pasted image 20230828233337.png",
@@ -221,7 +221,6 @@
     "JVM/JVM-bak.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "cicd/2.安装docker、Portainer和jekins.md",
-    "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "spring源码/2-手写完整功能Spring.md",
     "spring源码/3-Spring源码解析.md",
     "spring源码/4-Spring事务传播原理及数据库事务操作原理.md",
