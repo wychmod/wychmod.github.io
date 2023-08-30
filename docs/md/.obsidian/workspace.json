@@ -20,48 +20,12 @@
             }
           },
           {
-            "id": "fc1d5d6ecd093a32",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Redis/3-原理篇.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "c7cdd41783f7700e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "3d0f8fdbf305803e",
+            "id": "ff133777b92cff80",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "面试/python面试.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "6de4582630b05ed1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
                 "mode": "source",
                 "source": false
               }
@@ -140,8 +104,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 357.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -239,13 +202,13 @@
   },
   "active": "49c33f44c8ce8acb",
   "lastOpenFiles": [
+    "面试/python面试.md",
     "Redis/3-原理篇.md",
+    "算法/左神从0学算法/算法笔记·.md",
     "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20230828233337.png",
     "youdaonote-images/Pasted image 20230828232617.png",
-    "算法/左神从0学算法/算法笔记·.md",
     "mysql/MySQL性能优化-总结.md",
-    "面试/python面试.md",
     "youdaonote-images/Pasted image 20230828232217.png",
     "youdaonote-images/Pasted image 20230828231937.png",
     "youdaonote-images/Pasted image 20230828231744.png",
