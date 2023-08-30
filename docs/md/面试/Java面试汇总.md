@@ -463,7 +463,7 @@ MVCC 工作流程如下：
 
 ## Mysql优化的手段有哪些？
 ![](../youdaonote-images/Pasted%20image%2020230711230646.png)
-![](app://c54463f386bfb22fa83818669817ad5793dd/Users/ahs/PycharmProjects/wychmod.github.io/docs/md/youdaonote-images/Pasted%20image%2020230828225156.png?1693234316372)
+
 ![](../youdaonote-images/Pasted%20image%2020230828225156.png)
 
 可以从两个方面来解决连接数不够的问题:
