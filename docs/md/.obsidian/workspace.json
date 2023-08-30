@@ -31,7 +31,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -104,7 +105,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5
+    "width": 357.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -120,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "Redis/3-原理篇.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -137,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "Redis/3-原理篇.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +170,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "Redis/3-原理篇.md"
               }
             }
           },
@@ -200,10 +202,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "49c33f44c8ce8acb",
+  "active": "79eb1b71cb5d8ac6",
   "lastOpenFiles": [
-    "Redis/3-原理篇.md",
     "面试/Java面试汇总.md",
+    "Redis/3-原理篇.md",
     "面试/python面试.md",
     "算法/左神从0学算法/算法笔记·.md",
     "youdaonote-images/Pasted image 20230828233337.png",
