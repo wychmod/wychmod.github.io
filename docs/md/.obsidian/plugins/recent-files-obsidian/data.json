@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "算法笔记·",
+      "path": "算法/左神从0学算法/算法笔记·.md"
+    },
+    {
       "basename": "Lottery 抽奖系统-领域开发",
       "path": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
     },
@@ -19,10 +23,6 @@
     {
       "basename": "python面试",
       "path": "面试/python面试.md"
-    },
-    {
-      "basename": "算法笔记·",
-      "path": "算法/左神从0学算法/算法笔记·.md"
     },
     {
       "basename": "MySQL性能优化-总结",
