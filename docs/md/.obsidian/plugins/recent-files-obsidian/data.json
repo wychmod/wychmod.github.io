@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "MySQL性能优化-索引",
+      "path": "mysql/MySQL性能优化-索引.md"
+    },
+    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
     },
@@ -35,10 +39,6 @@
     {
       "basename": "MySQL性能优化-事务",
       "path": "mysql/MySQL性能优化-事务.md"
-    },
-    {
-      "basename": "MySQL性能优化-索引",
-      "path": "mysql/MySQL性能优化-索引.md"
     },
     {
       "basename": "多线程与并发编程",
