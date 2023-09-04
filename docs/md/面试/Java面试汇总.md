@@ -954,7 +954,7 @@ Java 内存模型（Java Memory Model，JMM）是一种规范，定义了 Java �
 
 ## 一个空对象占多大内存
 对象头+实例数据+对齐填充
-markword 8
+markword (64位 8个字节 32位 4字节) 存放 hashcode 分代年龄等信息
 ClassPointer指针: 8 -> 4
 对齐填充：4
 
