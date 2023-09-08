@@ -612,6 +612,7 @@ DNS解析域名为目的IP，通过IP找到服务器路径，客户端向服务�
 (4)数据链路层，封装成帧，加入帧首部和尾部
 # Redis
 
+
 ## CAP理论
 
 **CAP** 也就是 **Consistency（一致性）**、**Availability（可用性）**、**Partition Tolerance（分区容错性）** 这三个单词首字母组合。
