@@ -262,6 +262,15 @@ docker run \ --name mn \ -v html:/root/html \ -p 8080:80 nginx \
 2. 更改数据库端口
 3. 密钥的复杂度和保存完善
 
+## 防止SQL注入攻击
+
+1. 参数化查询
+2. 输入验证和过滤
+3. 最小权限原则
+4. 是用orm框架
+5. 使用安全数据库连接
+6. 避免动态拼接sql语句
+
 ## PostgreSQL与MySQL对比
 
 - Mysql: 多线程，PostgreSQL：多进程
