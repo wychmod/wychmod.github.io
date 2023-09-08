@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "设计模式",
+      "path": "系统设计/设计模式.md"
+    },
+    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
     },
@@ -139,10 +143,6 @@
     {
       "basename": "MySQL是怎样运行的",
       "path": "mysql/MySQL是怎样运行的.md"
-    },
-    {
-      "basename": "设计模式",
-      "path": "系统设计/设计模式.md"
     },
     {
       "basename": "1-300行手写简易Spring",

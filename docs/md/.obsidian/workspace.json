@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "系统设计/设计模式.md",
                 "mode": "source",
                 "source": false
               }
@@ -62,7 +62,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "一致性哈希",
+                "query": "单例",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -132,7 +132,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "系统设计/设计模式.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +149,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "系统设计/设计模式.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -180,7 +180,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "系统设计/设计模式.md"
               }
             }
           },
@@ -214,8 +214,8 @@
   },
   "active": "dfcb06bc92ad3b68",
   "lastOpenFiles": [
-    "mysql/MySQL性能优化-索引.md",
     "面试/Java面试汇总.md",
+    "mysql/MySQL性能优化-索引.md",
     "算法/左神从0学算法/算法笔记·.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "youdaonote-images/Pasted image 20230831091221.png",
