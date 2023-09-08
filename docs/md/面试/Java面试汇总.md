@@ -256,6 +256,12 @@ docker run \ --name mn \ -v html:/root/html \ -p 8080:80 nginx \
 
 # Mysql
 
+## 如何预防数据库被入侵
+
+1. 方式sql的错误语句
+2. 更改数据库端口
+3. 密钥的复杂度和保存完善
+
 ## PostgreSQL与MySQL对比
 
 - Mysql: 多线程，PostgreSQL：多进程
