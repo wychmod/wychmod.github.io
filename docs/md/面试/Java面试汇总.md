@@ -620,7 +620,11 @@ DNS解析域名为目的IP，通过IP找到服务器路径，客户端向服务�
 - **可用性（Availability）**: 非故障的节点在合理的时间内返回合理的响应（不是错误或者超时的响应）。
 - **分区容错性（Partition tolerance）** : 分布式系统出现网络分区的时候，仍然能够对外提供服务。
 
-CAP定理中指定，只能实现CP和AP
+CAP理论：
+Redis单机模式：实现了数据的一致性Consistency(一致性)
+redis哨兵模式：实现了数据的一致性和高可用性 Consistency(一致性)、Availability(可用性)
+redis 集群模式：实现了分区容忍性和高可用性 Availability(可用性)、Partition Tolerance(分区容错性)
+分区容忍性：指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信，在分布式系统中，分区容忍性必不可少，因为需要总是假设网络是不可靠的。因此，CAP 理论实际上是要在可用性和一致性之间做权衡。
 
 ## Redis 为什么快
 
@@ -645,7 +649,7 @@ Redis 常用的数据类型有 5 种：String 字符串类型、List 列表类�
 - ZipList 压缩链表是一种特殊的“双端链表” ，由一系列特殊编码的连续内存块组成。可以在任意一端进行压入/弹出操作, 并且该操作的时间复杂度为 O(1)。(虽然节省内存，但申请内存必须是连续空间，有最佳上限)
 ![](../youdaonote-images/Pasted%20image%2020230828232617.png)
 - QuickList是一个节点为ZipList的双端链表
-- SkipList（跳表）首先是链表，元素按照升序排列
+- SkipList（跳表）首先是链表，元素按照升序排列 时间复杂度（nlogn）
 ![](../youdaonote-images/Pasted%20image%2020230828233337.png)
 
 ## Redis 如何实现消息队列
