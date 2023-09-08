@@ -62,7 +62,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "jmm",
+                "query": "布隆过滤器",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -212,7 +212,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "dfcb06bc92ad3b68",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "系统设计/设计模式.md",
     "面试/Java面试汇总.md",
