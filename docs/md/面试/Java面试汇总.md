@@ -1419,3 +1419,14 @@ grep -c 10 "关键字" xxx.log | tail -n 100  最后多少行 读取
 与设计人员、开发人员和客户代表等相关人员探讨，确认是否是缺陷；
 
 合理的论述，向测试经理说明自己的判断的理由
+
+## Bug的生命周期
+测试人员在执行测试的过程中，如有发现 Bug，需要在对应的 Bug 管理平台来创建 Bug
+
+New：测试人员创建了一个 Bug
+Open：开发人员要去确认是否是 Bug，是 Bug 状态就改为 Open，不是 Bug 就拒绝 （rejected）
+Fixed：开发人员在修复完成之后将 Bug 状态改为 fixed
+Rejected：如果认为不是 Bug，则拒绝修改
+Delay：确认是 Bug 之后，如果 Bug 优先级比较低且开发人员不能立即修复 Bug，状态改为 delay
+Closed：Bug 确认修复完成，测试人员将 Bug 改为 closed
+Reopen：Bug 确认修复未完成，测试人员将 Bug 状态改为 Reopen
