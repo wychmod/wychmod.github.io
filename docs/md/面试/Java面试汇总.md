@@ -214,6 +214,19 @@ prototype:在调用前创建，调用后销毁,作用域决定了生命周期的
 你自己写的Bean是线程安全的吗？
 Spring中的Bean是否线程安全和Spring无关，和你自己写的代码有关
 
+## 单例Bean线程安全吗？
+无状态的单例 Bean 是线程安全的，而有状态的单例 Bean 是非线程安全的，所以总的来说单例 Bean 还是非线程安全的。
+
+## 如何保证线程安全？
+
+Spring 中保证单例 Bean 线程安全的手段有以下几个：
+
+1. 变为原型 Bean：在 Bean 上添加 @Scope("prototype") 注解，将其变为多例 Bean。这样每次注入时返回一个新的实例，避免竞争。
+2. 加锁：在 Bean 中对需要同步的方法或代码块添加同步锁 @Synchronized 或使用 Java 中的线程同步工具 ReentrantLock 等。
+3. 使用线程安全的集合：如 Vector、Hashtable 代替 ArrayList、HashMap 等非线程安全集合。
+4. 变为无状态 Bean：不在 Bean 中保存状态，让 Bean 成为无状态 Bean。无状态的 Bean 没有共享变量，自然也无须考虑线程安全问题。
+5. 使用线程局部变量 ThreadLocal：在方法内部使用线程局部变量 ThreadLocal，因为 ThreadLocal 是线程独享的，所以也不存在线程安全问题。
+
 ## Spring中用到了哪些设计模式？
 工厂模式(beanFactory)、单例模式（容器式单例），原型（多例）模式（容器式多例）、代理模式(Aop)、建造者模式（通过调用BeanDefinitionBuilder获得BeanDefinition）
 享元模式、门面模式、适配器模式()、委派模式(BeanDefinitionDocmentReader)、装饰器模式(事务的装饰器)、责任链模式(拦截器的责任链)
