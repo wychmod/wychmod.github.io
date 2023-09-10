@@ -139,6 +139,16 @@ Python采用了类似Windows内核对象一样的方式来对内存进行管理�
 1.  主要是依靠@EnableAutoConfiguration来实现自动装配的，
 2. 原理是通过@import 借助AutoConfigurationImportSelector 调用SpringFactoriesLoader的loadfactiryNames方法， 从classpath 中寻找所有META-INF/spring.factories配置文件（spring.factories配置了自动装配的类），将所有符合条件的@Configuration配置都加载到IOC容器。
 
+Spring Boot 在启动时，会检索所有的 Spring 模块，找到符合条件的配置并应用到应用上下文中。这个过程发生在 SpringApplication 这个类中。
+
+Spring Boot 自动装配主要依靠两部分：
+
+1. SpringFactoriesLoader 驱动：在启动过程中会加载 META-INF/spring.factories 配置文件，获取自动装配相关的配置类信息。
+    
+2. 条件装配：Spring Boot 不会永远都自动装配，它会根据类路径下是否存在某个名称符合命名规则的自动装配类来决定是否进行自动装配。这就是条件装配，通过 @Conditional 条件注解完成。
+    
+
+
 ## starter开发
 
 1. 引入所必须的包，然后自定义自己的properties类，读取配置文件。
