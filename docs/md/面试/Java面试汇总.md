@@ -166,6 +166,18 @@ Spring Boot 自动装配主要依靠两部分：
 通过对uuid或者雪花算法进行16进制或者某些进制的转换，变成8位或12位字符串。
 
 # spring
+
+## SpringBoot事务失效的场景有哪些？
+
+当声明式事务 @Transactional 遇到以下场景时，事务会失效：
+
+1. 非 public 修饰的方法；
+2. timeout 设置过小；
+3. 代码中使用 try/catch 处理异常；
+4. 调用类内部 @Transactional 方法；
+5. 数据库不支持事务。
+
+
 ## Spring,Spring MVC,Spring Boot, Spring Cloud 之间什么关系
 
 - Spring 包含了多个功能模块，其中最重要的是 Spring-Core（主要提供 IoC 依赖注入功能的支持） 模块， Spring 中的其他模块（比如 Spring MVC）的功能实现基本都需要依赖于该模块。
