@@ -1079,6 +1079,18 @@ ClassPointer指针: 8 -> 4(指针压缩)
 
 一共16字节
 
+## JVM是如何运行的？
+JVM 整体的大概执行流程是这样的：
+
+1. 程序在执行之前先要把 Java 代码转换成字节码（class 文件），JVM 首先需要把字节码通过一定的方式**类加载器（ClassLoader）** 把文件加载到内存中**运行时数据区（Runtime Data Area）**；
+2. 但字节码文件是 JVM 的一套指令集规范，并不能直接交个底层操作系统去执行，因此需要特定的命令解析器，也就是 JVM 的执行引擎（Execution Engine）会**将字节码翻译成底层系统指令再交由 CPU 去执行；**
+3. **在执行的过程中，也需要调用其他语言的接口，如通过调用本地库接口（Native Interface）** 来实现整个程序的运行，如下图所示：
+![](../youdaonote-images/Pasted%20image%2020230911144241.png)
+
+1. 类加载器（ClassLoader）
+2. 运行时数据区（Runtime Data Area）
+3. 执行引擎（Execution Engine）
+4. 本地库接口（Native Interface）
 # juc
 
 ## 为什么HashMap线程不安全？
