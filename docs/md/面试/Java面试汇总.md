@@ -259,6 +259,15 @@ Spring 中保证单例 Bean 线程安全的手段有以下几个：
 工厂模式(beanFactory)、单例模式（容器式单例），原型（多例）模式（容器式多例）、代理模式(Aop)、建造者模式（通过调用BeanDefinitionBuilder获得BeanDefinition）
 享元模式、门面模式、适配器模式()、委派模式(BeanDefinitionDocmentReader)、装饰器模式(事务的装饰器)、责任链模式(拦截器的责任链)
 
+# Mybatis
+
+## Mybatis执行流程
+
+- **读取配置文件**：读取 MyBatis 配置文件（通常是 mybatis-config.xml），该文件包含了 MyBatis 的全局配置信息，如数据库连接信息、类型别名、插件等。
+- **创建 SqlSessionFactory**：SqlSessionFactory 是 MyBatis 的核心接口之一，它负责创建 SqlSession 对象。SqlSessionFactory 可以通过 XML 配置文件或 Java 代码进行配置。
+- **创建 SqlSession**：SqlSession 是 MyBatis 的另一个核心接口，它负责与数据库进行交互。SqlSession 提供了许多方法，如 selectOne、selectList、insert、update、delete 等，可以执行 SQL 语句并返回结果。
+- **执行 SQL 语句**：SqlSession 会根据 Mapper 接口中的方法名和参数，找到对应的 SQL 语句并执行。在执行 SQL 语句之前，MyBatis 会将 `#{}`替换为实际的参数值，并将 `${}` 替换为实际的 SQL 语句。
+- **返回结果**：执行 SQL 语句后，MyBatis 会将结果映射为 Java 对象并返回。MyBatis 提供了许多映射方式，如基于 XML 的映射、注解映射、自定义映射等。
 
 # docker
 
