@@ -1091,6 +1091,16 @@ JVM 整体的大概执行流程是这样的：
 2. 运行时数据区（Runtime Data Area）
 3. 执行引擎（Execution Engine）
 4. 本地库接口（Native Interface）
+## 什么是类加载器？
+
+- **启动类加载器（Bootstrap Class Loader）**：它是 JVM 的内部组件，负责加载 Java 核心类库（如java.lang）和其他被系统类加载器所需要的类。启动类加载器是由 JVM 实现提供的，通常使用本地代码来实现。
+- **扩展类加载器（Extension Class Loader）**：它是 sun.misc.Launcher$ExtClassLoader 类的实例，负责加载 Java 的扩展类库（如 java.util、java.net）等。扩展类加载器通常从 java.ext.dirs 系统属性所指定的目录或 JDK 的扩展目录中加载类。
+- **系统类加载器（System Class Loader）**：也称为应用类加载器（Application Class Loader），它是sun.misc.Launcher$AppClassLoader 类的实例，负责加载应用程序的类。系统类加载器通常从 CLASSPATH 环境变量所指定的目录或 JVM 的类路径中加载类。
+- **用户自定义类加载器（User-defined Class Loader）**：这是开发人员根据需要自己实现的类加载器。用户自定义类加载器可以根据特定的加载策略和需求来加载类，例如从特定的网络位置、数据库或其他非传统来源加载类。
+
+---
+
+著作权归 www.javacn.site 所有 原文链接：https://www.javacn.site/interview/jvm/classloader.html
 # juc
 
 ## 为什么HashMap线程不安全？
