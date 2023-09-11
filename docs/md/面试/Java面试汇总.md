@@ -1098,9 +1098,20 @@ JVM 整体的大概执行流程是这样的：
 - **系统类加载器（System Class Loader）**：也称为应用类加载器（Application Class Loader），它是sun.misc.Launcher$AppClassLoader 类的实例，负责加载应用程序的类。系统类加载器通常从 CLASSPATH 环境变量所指定的目录或 JVM 的类路径中加载类。
 - **用户自定义类加载器（User-defined Class Loader）**：这是开发人员根据需要自己实现的类加载器。用户自定义类加载器可以根据特定的加载策略和需求来加载类，例如从特定的网络位置、数据库或其他非传统来源加载类。
 
----
+![](../youdaonote-images/Pasted%20image%2020230911230921.png)
 
-著作权归 www.javacn.site 所有 原文链接：https://www.javacn.site/interview/jvm/classloader.html
+## 类是如何被加载的？
+- **加载：** 查找并加载类的二进制数据。
+- **连接：** 将 Java 类的二进制数据合并到 JVM 运行状态之中。
+    1. 验证：验证加载的类是否符合 Java 虚拟机规范。
+    2. 准备：为类的静态变量分配内存，并设置默认初始值。
+    3. 解析：将类中的符号引用转换为直接引用。
+- **初始化：** 执行类的初始化代码，包括静态变量赋值和静态代码块的执行。
+
+## 什么是双亲委派
+
+向父类加载器cha xun
+
 # juc
 
 ## 为什么HashMap线程不安全？

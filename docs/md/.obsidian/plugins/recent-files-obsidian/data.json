@@ -5,6 +5,10 @@
       "path": "面试/Java面试汇总.md"
     },
     {
+      "basename": "JVM实战-1-加载链接初始化",
+      "path": "JVM/JVM实战-1-加载链接初始化.md"
+    },
+    {
       "basename": "算法笔记·",
       "path": "算法/左神从0学算法/算法笔记·.md"
     },
@@ -55,10 +59,6 @@
     {
       "basename": "JVM实战-2-JMM",
       "path": "JVM/JVM实战-2-JMM.md"
-    },
-    {
-      "basename": "JVM实战-1-加载链接初始化",
-      "path": "JVM/JVM实战-1-加载链接初始化.md"
     },
     {
       "basename": "JVM实战-3-GC",
