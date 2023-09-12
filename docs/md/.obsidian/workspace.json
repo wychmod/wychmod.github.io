@@ -20,72 +20,12 @@
             }
           },
           {
-            "id": "7bc80c8ba47cff26",
+            "id": "d45bec5608d01cb7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "de2f17e8311c3dac",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JVM/JVM实战-1-加载链接初始化.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "38d3502da6124fbc",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "b464bd6bff5cd89b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Redis/2-Redis实战.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "c5665a6c0d1838b7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0062ab00822b7b42",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "Redis/3-原理篇.md",
                 "mode": "preview",
                 "source": false
               }
@@ -181,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md",
+                "file": "Redis/3-原理篇.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -198,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md",
+                "file": "Redis/3-原理篇.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -229,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "mysql/MySQL性能优化-架构.md"
+                "file": "Redis/3-原理篇.md"
               }
             }
           },
@@ -271,9 +211,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "7bc80c8ba47cff26",
+  "active": "d45bec5608d01cb7",
   "lastOpenFiles": [
     "面试/Java面试汇总.md",
+    "mysql/MySQL性能优化-架构.md",
     "youdaonote-images/Pasted image 20230911234659.png",
     "JVM/JVM实战-1-加载链接初始化.md",
     "youdaonote-images/Pasted image 20230911230921.png",
@@ -294,7 +235,6 @@
     "youdaonote-images/Pasted image 20230828232217.png",
     "youdaonote-images/Pasted image 20230828231937.png",
     "youdaonote-images/Pasted image 20230828231744.png",
-    "mysql/MySQL性能优化-架构.md",
     "mysql/MySQL性能优化-事务.md",
     "多线程与高并发/多线程与并发编程.md",
     "image/1673857589195-279abdaf-6268-4f34-9cf1-0265227baf3a.png.md",
