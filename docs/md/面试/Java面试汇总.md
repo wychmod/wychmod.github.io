@@ -317,6 +317,12 @@ MyBatis 二级缓存是 MyBatis 中非常重要的一个特性，它的作用是
 docker run \ --name mn \ -v html:/root/html \ -p 8080:80 nginx \
 ```
 
+## Docker的底层原理
+
+Docker的底层原理是利用了linux的Cgroups和Namespace技术。cgroups是用来制造约束的主要手段，而namespace技术是用来修改进程视图（隔离）的主要方法。
+
+- 新创建的这个进程将会“看到”一个全新的进程空间，在这个进程空间里，它的 PID 是 1。
+- Cgroup的全称是Control Group，作用是限制一个进程组能够使用的资源上限，比如CPU，内存，磁盘，网络带宽等
 
 # Mysql
 
