@@ -1,12 +1,12 @@
 {
   "recentFiles": [
     {
-      "basename": "3-原理篇",
-      "path": "Redis/3-原理篇.md"
-    },
-    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
+    },
+    {
+      "basename": "3-原理篇",
+      "path": "Redis/3-原理篇.md"
     },
     {
       "basename": "MySQL性能优化-架构",
