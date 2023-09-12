@@ -20,6 +20,16 @@
             }
           },
           {
+            "id": "4d1be53a2f8c2dfa",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.4.11"
+              }
+            }
+          },
+          {
             "id": "de2f17e8311c3dac",
             "type": "leaf",
             "state": {
@@ -79,7 +89,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -227,6 +238,16 @@
               "type": "git-view",
               "state": {}
             }
+          },
+          {
+            "id": "a956002209a36f7a",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency"
+              }
+            }
           }
         ],
         "currentTab": 5
@@ -248,7 +269,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "dfcb06bc92ad3b68",
+  "active": "4d1be53a2f8c2dfa",
   "lastOpenFiles": [
     "youdaonote-images/Pasted image 20230911234659.png",
     "JVM/JVM实战-1-加载链接初始化.md",
