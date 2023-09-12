@@ -62,7 +62,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "布隆过滤器",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -97,8 +97,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -222,7 +221,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "dfcb06bc92ad3b68",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "mysql/MySQL性能优化-事务.md",
     "mysql/MySQL性能优化-索引.md",
