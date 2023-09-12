@@ -1035,6 +1035,13 @@ java使用quasar实现的，要设定vm options，使用instrumentation这个类
 
 - Redis、ElasticSearch、JWT、RabbitMQ、Kafka、RocketMQ、ActiveMQ、Redis、Dubbo
 
+## JWT是什么
+JWT 由 3 部分构成:
+
+1. **Header** : 描述 JWT 的元数据，定义了生成签名的算法以及 `Token` 的类型。
+2. **Payload** : 用来存放实际需要传递的数据
+3. **Signature（签名）** ：服务器通过`Payload`、`Header`和一个密钥(`secret`)使用 `Header` 里面指定的签名算法（默认是 HMAC SHA256）生成。
+
 ## java的消息队列
 kafka、rocketmq、rabbitmq
 
