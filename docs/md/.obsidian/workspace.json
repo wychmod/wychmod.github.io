@@ -55,8 +55,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -144,7 +143,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -161,7 +160,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -192,7 +191,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "算法/左神从0学算法/算法笔记·.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -234,8 +233,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "47f13ac705f766bf",
+  "active": "dfcb06bc92ad3b68",
   "lastOpenFiles": [
+    "算法/左神从0学算法/算法笔记·.md",
     "面试/Java面试汇总.md",
     "Redis/3-原理篇.md",
     "youdaonote-images/Pasted image 20230912232935.png",
@@ -246,7 +246,6 @@
     "JVM/JVM实战-1-加载链接初始化.md",
     "youdaonote-images/Pasted image 20230911230921.png",
     "youdaonote-images/Pasted image 20230911144241.png",
-    "算法/左神从0学算法/算法笔记·.md",
     "Redis/2-Redis实战.md",
     "系统设计/设计模式.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
