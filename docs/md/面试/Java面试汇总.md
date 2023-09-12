@@ -1620,3 +1620,7 @@ Rejected：如果认为不是 Bug，则拒绝修改
 Delay：确认是 Bug 之后，如果 Bug 优先级比较低且开发人员不能立即修复 Bug，状态改为 delay
 Closed：Bug 确认修复完成，测试人员将 Bug 改为 closed
 Reopen：Bug 确认修复未完成，测试人员将 Bug 状态改为 Reopen
+
+# RPC
+
+## 什么是RPC？
