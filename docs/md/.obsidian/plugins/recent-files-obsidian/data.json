@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "2-Redis实战",
+      "path": "Redis/2-Redis实战.md"
+    },
+    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
     },
@@ -31,10 +35,6 @@
     {
       "basename": "JVM实战-1-加载链接初始化",
       "path": "JVM/JVM实战-1-加载链接初始化.md"
-    },
-    {
-      "basename": "2-Redis实战",
-      "path": "Redis/2-Redis实战.md"
     },
     {
       "basename": "设计模式",
