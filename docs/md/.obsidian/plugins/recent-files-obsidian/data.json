@@ -9,6 +9,10 @@
       "path": "算法/左神从0学算法/算法笔记·.md"
     },
     {
+      "basename": "2-手写完整功能Spring",
+      "path": "spring源码/2-手写完整功能Spring.md"
+    },
+    {
       "basename": "3-原理篇",
       "path": "Redis/3-原理篇.md"
     },
@@ -123,10 +127,6 @@
     {
       "basename": "Pasted image 20221026154011",
       "path": "youdaonote-images/Pasted image 20221026154011.png"
-    },
-    {
-      "basename": "2-手写完整功能Spring",
-      "path": "spring源码/2-手写完整功能Spring.md"
     },
     {
       "basename": "3-Spring源码解析",
