@@ -20,6 +20,18 @@
             }
           },
           {
+            "id": "df6cd8eee610de5c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "8cfe98d29c2a6335",
             "type": "leaf",
             "state": {
@@ -67,7 +79,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -121,7 +134,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -139,7 +153,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 226.5
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -155,7 +169,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -172,7 +186,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -203,7 +217,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md"
               }
             }
           },
@@ -245,10 +259,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d37df121f795b463",
+  "active": "df6cd8eee610de5c",
   "lastOpenFiles": [
-    "JVM/JVM实战-3-GC.md",
     "面试/Java面试汇总.md",
+    "JVM/JVM实战-3-GC.md",
     "Redis/2-Redis实战.md",
     "youdaonote-images/Pasted image 20230913100918.png",
     "算法/左神从0学算法/算法笔记·.md",
