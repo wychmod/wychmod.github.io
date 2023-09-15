@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
                 "mode": "source",
                 "source": false
               }
@@ -169,7 +169,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -186,7 +186,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -217,7 +217,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md"
+                "file": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md"
               }
             }
           },
@@ -261,6 +261,7 @@
   },
   "active": "df6cd8eee610de5c",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "面试/Java面试汇总.md",
     "JVM/JVM实战-3-GC.md",
     "Redis/2-Redis实战.md",
