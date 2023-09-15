@@ -20,6 +20,18 @@
             }
           },
           {
+            "id": "d659dd8cff2fb301",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "JVM/JVM实战-3-GC.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "8cfe98d29c2a6335",
             "type": "leaf",
             "state": {
@@ -67,7 +79,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -139,8 +152,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 357.5,
-    "collapsed": true
+    "width": 226.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -156,7 +168,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "JVM/JVM实战-3-GC.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -173,7 +185,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "JVM/JVM实战-3-GC.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -204,7 +216,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "JVM/JVM实战-3-GC.md"
               }
             }
           },
@@ -246,10 +258,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d37df121f795b463",
+  "active": "d659dd8cff2fb301",
   "lastOpenFiles": [
-    "Redis/2-Redis实战.md",
     "面试/Java面试汇总.md",
+    "Redis/2-Redis实战.md",
     "youdaonote-images/Pasted image 20230913100918.png",
     "算法/左神从0学算法/算法笔记·.md",
     "spring源码/2-手写完整功能Spring.md",
