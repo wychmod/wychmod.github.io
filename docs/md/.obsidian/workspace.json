@@ -20,18 +20,6 @@
             }
           },
           {
-            "id": "d659dd8cff2fb301",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JVM/JVM实战-3-GC.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "8cfe98d29c2a6335",
             "type": "leaf",
             "state": {
@@ -79,8 +67,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -168,7 +155,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM实战-3-GC.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -185,7 +172,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM实战-3-GC.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -216,7 +203,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM实战-3-GC.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -258,8 +245,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d659dd8cff2fb301",
+  "active": "d37df121f795b463",
   "lastOpenFiles": [
+    "JVM/JVM实战-3-GC.md",
     "面试/Java面试汇总.md",
     "Redis/2-Redis实战.md",
     "youdaonote-images/Pasted image 20230913100918.png",
@@ -288,7 +276,6 @@
     "image/1673857589195-279abdaf-6268-4f34-9cf1-0265227baf3a.png.md",
     "image",
     "JVM/JVM实战-2-JMM.md",
-    "JVM/JVM实战-3-GC.md",
     "JVM/JVM实战-4-调优.md",
     "算法/蓝桥杯.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
