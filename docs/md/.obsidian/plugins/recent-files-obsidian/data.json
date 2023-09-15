@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "算法笔记·",
+      "path": "算法/左神从0学算法/算法笔记·.md"
+    },
+    {
       "basename": "Python源码剖析-7-内建对象list",
       "path": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md"
     },
@@ -19,10 +23,6 @@
     {
       "basename": "2-Redis实战",
       "path": "Redis/2-Redis实战.md"
-    },
-    {
-      "basename": "算法笔记·",
-      "path": "算法/左神从0学算法/算法笔记·.md"
     },
     {
       "basename": "2-手写完整功能Spring",
