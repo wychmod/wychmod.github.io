@@ -5,6 +5,10 @@
       "path": "面试/Java面试汇总.md"
     },
     {
+      "basename": "JVM实战-4-调优",
+      "path": "JVM/JVM实战-4-调优.md"
+    },
+    {
       "basename": "MySQL性能优化-事务",
       "path": "mysql/MySQL性能优化-事务.md"
     },
@@ -75,10 +79,6 @@
     {
       "basename": "JVM实战-2-JMM",
       "path": "JVM/JVM实战-2-JMM.md"
-    },
-    {
-      "basename": "JVM实战-4-调优",
-      "path": "JVM/JVM实战-4-调优.md"
     },
     {
       "basename": "蓝桥杯",
