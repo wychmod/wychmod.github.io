@@ -133,8 +133,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -259,7 +258,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d37df121f795b463",
+  "active": "3cc169e861738dfa",
   "lastOpenFiles": [
     "mysql/MySQL性能优化-事务.md",
     "算法/左神从0学算法/算法笔记·.md",
