@@ -1615,6 +1615,14 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 
 # linux
 
+## linux：如何从一个文件中，删除重复行？
+
+```shell
+uniq input.txt > output.txt
+
+sort input.txt | uniq > output.txt
+```
+
 ## linux 查询进程的命令
 
 - ps -ef
