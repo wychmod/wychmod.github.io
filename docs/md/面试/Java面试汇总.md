@@ -1615,6 +1615,18 @@ dubbo是一个rpc框架，可以定义了接口，然后在对外接口中引用
 
 # linux
 
+## 在 Linux 中如何获取一个目录（和子目录）下所有名字叫 ABC 的文件？
+
+```shell
+find . -type f -name "ABC"
+```
+
+## 在 Linux 中如何找出所有包含有 ABC 文本的文件？
+
+```shell
+grep -r "ABC" /path/to/directory
+```
+
 ## linux：如何从一个文件中，删除重复行？
 
 ```shell
