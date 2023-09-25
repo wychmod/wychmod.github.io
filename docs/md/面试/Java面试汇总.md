@@ -1127,7 +1127,7 @@ JWT 由 3 部分构成:
 2. **Payload** : 用来存放实际需要传递的数据
 3. **Signature（签名）** ：服务器通过`Payload`、`Header`和一个密钥(`secret`)使用 `Header` 里面指定的签名算法（默认是 HMAC SHA256）生成。
 
-> jwt的优点是调用服务器的cpu计算能力，减少对数据库的读取，jwt的缺点是
+> jwt的优点是调用服务器的cpu计算能力，减少对数据库的读取，jwt的缺点是无法废弃，当信息更新的时候只能进行重新签发，
 ## java的消息队列
 kafka、rocketmq、rabbitmq
 
