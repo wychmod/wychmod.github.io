@@ -1700,6 +1700,9 @@ Kafka在处理消息时，一般会采用以下几种方式来防止消息丢失
 
 # 场景题
 
+## 如何避免订单重复提交和支付
+
+
 ## 令牌桶算法（Token Bucket Algorithm）和漏桶算法（Leaky Bucket Algorithm）
 
 ## 如何查看日志文件中topK的错误日志？
