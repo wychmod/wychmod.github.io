@@ -1701,7 +1701,9 @@ Kafka在处理消息时，一般会采用以下几种方式来防止消息丢失
 # 场景题
 
 ## 如何避免订单重复提交和支付
-
+1. 前端防抖处理
+2. 后段生成token（令牌桶机制）
+3. 订单支付幂等
 
 ## 令牌桶算法（Token Bucket Algorithm）和漏桶算法（Leaky Bucket Algorithm）
 
