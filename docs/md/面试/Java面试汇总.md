@@ -1082,7 +1082,7 @@ collection接口里面有很多方法，例如size，isempty方法，继承了�
 
 ## Mond
 1. 目标：构造流计算
-2. t
+2. 特点 改变小类型，不变大泛型 Optional\<Integer\> 到Optional\<String\>
 
 
 ## Java8 Stream
