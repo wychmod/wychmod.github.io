@@ -1076,6 +1076,9 @@ collection接口里面有很多方法，例如size，isempty方法，继承了�
 	4. 安全
 	5. 复用
 
+## java8-11新特性
+
+1. lambda和function interface （threadl里面匿名函数其实没有生成runnable，）
 ## Optional
 1. 让程序更加安全，可以对空值处理
 2. 方便对流式计算
