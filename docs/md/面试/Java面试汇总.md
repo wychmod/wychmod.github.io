@@ -1070,7 +1070,7 @@ collection接口里面有很多方法，例如size，isempty方法，继承了�
 ## Java8 Stream
 1. 函数式编程 (Math::max)
 2. 提供管道运算能力
-3. 提供并行计算能力
+3. 提供并行计算能力(parallelStream)
 4. 提供大量操作(map, foreach, filter, reduce)
 
 ## 为什么要设计封装类
