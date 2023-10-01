@@ -1068,10 +1068,10 @@ collection继承了iterable接口，代表容器都可以迭代，谁实现了�
 collection接口里面有很多方法，例如size，isempty方法，继承了就可以定制出自己的容器，里面也有一些default修饰符的默认方法。
 
 ## Java8 Stream
-1. 函数式编程
+1. 函数式编程 (Math::max)
 2. 提供管道运算能力
 3. 提供并行计算能力
-4. 提供大量操作
+4. 提供大量操作(map, foreach, filter, reduce)
 
 ## 为什么要设计封装类
 
