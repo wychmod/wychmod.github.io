@@ -1382,11 +1382,18 @@ ConcurrentHashMap 在 JDK 1.7 时，使用的是分段锁(每个segment类似于
 ![](../youdaonote-images/Pasted%20image%2020230825225100.png)
 
 ## 线程的状态
-1. 初始化状态 new出来的时候
-2. 就绪状态 start以后做好准备，虚拟机会创建JVM虚拟机栈和程序计数器
-3. 运行状体 获得了CPU的执行资源
-4. 阻塞状态 由于某种原因放弃对cpu的使用权，等待进入就绪态
-5. 终止状态 线程正常结束 异常结束
+线程状态
+1. 运行态(Running)
+2. 就绪态(Ready)
+3. 休眠态(Sleeping)。我们通常说的阻塞态（Blocking）是休眠态的一种情况。
+
+jvm线程状态
+- 新建(NEW)：JVM自己的概念，Java构造Thread类实例的过程。
+- 运行（RUNAABLE)：对应上面的执行态和就绪态。 对应两个状态，所以叫做RUNNABLE。
+- 时钟等待(TIME_WATING)
+- 阻塞(BLOCKED)
+- 信号等待（WAITING)
+- 终止(TERMINATED)
 
 ## java的线程通信(线程同步)
 
