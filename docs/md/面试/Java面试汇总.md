@@ -1580,7 +1580,14 @@ CAS（Compare and Swap）是一种轻量级的同步操作，也是乐观锁的�
 ## Atomic操作
 Java中的Atomic操作就是基于CAS实现的，比如说AtomicInteger的写入就需要CAS操作。AtomicInteger内部需要维护一个状态，实际的程序AtomicInteger内部有一个`value` 变量。
 
-## ABA问题的
+## ABA问题的解决
+为了解决ABA问题，Java还提供了2个类。
+
+- AtomicMarkableReference
+- AtomicStampedReference
+
+解决ABA问题最核心的就是要进行版本控制。让此A非彼A。
+
 
 ## 什么是AQS？
 AQS（AbstractQueuedSynchronizer）是一个用于实现各种同步器的抽象类，是 JUC（java.util.concurrent）并发包中的核心类之一，JUC 中的许多并发工具类和接口都是基于 AQS 实现的。它提供了一种基于队列的、高效的、可扩展的同步机制，是实现锁、信号量、倒计时器等同步器的基础。
