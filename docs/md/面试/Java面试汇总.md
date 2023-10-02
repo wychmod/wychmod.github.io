@@ -1237,6 +1237,14 @@ HashMap 死循环发生在 JDK 1.7 版本中，形成死循环的原因是 HashM
 
 反射是指在运行时检查和操作类、接口、字段、方法等程序结构的能力。通过反射，可以在运行时获取类的信息，创建类的实例，调用类的方法，访问和修改类的字段等。通过反射可以提高程序的灵活性和可扩展性，可以实现更多的功能。但在使用反射时需要考虑性能问题以及安全等问题。
 
+## 代理模式的关键代码
+```java
+Proxy.newInstance(classloader, interfaces, InvocationHandler);
+```
+- classloader：用于创建InvocationHander和代理对象的ClassLoader
+- interfaces： 代理哪些接口
+- InvocationHandler： 代理方法触发后的实际执行者
+
 ## 说一下Java内存模型？
 
 Java 内存模型（Java Memory Model，JMM）是一种规范，定义了 Java 程序中多线程环境下内存访问和操作的规则和语义，开发者可以利用 JMM 提供的同步机制（如关键字 volatile、synchronized、Lock 等）来实现线程之间的同步和通信，以确保线程安全和数据一致性。主要是解决 CPU 缓存一致性问题和操作系统优化指令重排序的问题的。
