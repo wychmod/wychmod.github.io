@@ -1576,6 +1576,12 @@ CAS（Compare and Swap）是一种轻量级的同步操作，也是乐观锁的�
 - 在多线程并发执行的情况下，如果多个线程同时执行 CAS 操作，只有一个线程的 CAS 操作会成功，其他线程的 CAS 操作都会失败，这也是 CAS 的原子性保证。
 
 > Java有一个底层类，叫做UnSafe——jdk.internal.misc.Unsafe。这个类提供很多底层操作，比如 `cas` 。
+
+## Atomic操作
+Java中的Atomic操作就是基于CAS实现的，比如说AtomicInteger的写入就需要CAS操作。AtomicInteger内部需要维护一个状态，实际的程序AtomicInteger内部有一个`value` 变量。
+
+## ABA问题的
+
 ## 什么是AQS？
 AQS（AbstractQueuedSynchronizer）是一个用于实现各种同步器的抽象类，是 JUC（java.util.concurrent）并发包中的核心类之一，JUC 中的许多并发工具类和接口都是基于 AQS 实现的。它提供了一种基于队列的、高效的、可扩展的同步机制，是实现锁、信号量、倒计时器等同步器的基础。
 
