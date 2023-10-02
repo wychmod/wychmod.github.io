@@ -1089,6 +1089,9 @@ collection接口里面有很多方法，例如size，isempty方法，继承了�
 	1. 交互式编程环境JShell 类似于python
 	2. 新的HTTP客户端 2.0
 	3. 改进了Javadoc
+	4. 多版本Java工程化
+	5. 集合的工厂方法
+	6. Stream新方法
 ## Optional
 1. 让程序更加安全，可以对空值处理
 2. 方便对流式计算
