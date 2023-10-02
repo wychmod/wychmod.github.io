@@ -1098,6 +1098,8 @@ collection接口里面有很多方法，例如size，isempty方法，继承了�
 	3. 优化应用程序数据共享（多个jvm实例可以共享共同用到的类）
 4. Java11
 	1. NestedMembers (嵌套类和他父亲，可以互相访问元数据)
+	2. 增加无操作GC回收器：Epsilon
+	3. Lambda使用注解
 ## Optional
 1. 让程序更加安全，可以对空值处理
 2. 方便对流式计算
