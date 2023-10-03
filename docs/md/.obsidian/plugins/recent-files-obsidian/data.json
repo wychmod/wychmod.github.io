@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "Zookeeper基础",
+      "path": "zookeeper/Zookeeper基础.md"
+    },
+    {
       "basename": "kafka基础知识",
       "path": "消息队列/kafka/kafka基础知识.md"
     },
