@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "5cdfcad75f65cdaf",
+        "id": "0b72f850661ef98f",
         "type": "tabs",
         "children": [
           {
-            "id": "d37df121f795b463",
+            "id": "35634d88cdea899e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "消息队列/kafka/kafka基础知识.md",
                 "mode": "source",
                 "source": false
               }
@@ -73,7 +73,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -91,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -108,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "消息队列/kafka/kafka基础知识.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "消息队列/kafka/kafka基础知识.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "消息队列/kafka/kafka基础知识.md"
               }
             }
           },
@@ -198,11 +198,16 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d37df121f795b463",
+  "active": "35634d88cdea899e",
   "lastOpenFiles": [
+    "消息队列/kafka/kafka基础知识.md",
+    "消息队列/kafka",
+    "消息队列/RabbitMQ.md",
+    "面试/Java面试汇总.md",
+    "未命名",
+    "AliceBot 自动化测试设计与实现.md",
     "youdaonote-images/Pasted image 20231002162610.png",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
-    "面试/Java面试汇总.md",
     "JVM/JVM实战-4-调优.md",
     "youdaonote-images/Pasted image 20230928214454.png",
     "youdaonote-images/Pasted image 20230928204836.png",
@@ -225,7 +230,6 @@
     "youdaonote-images/Pasted image 20230911144241.png",
     "系统设计/设计模式.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
-    "youdaonote-images/Pasted image 20230831091221.png",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "面试/python面试.md",
     "mysql/MySQL性能优化-总结.md",
@@ -235,8 +239,6 @@
     "JVM/JVM实战-2-JMM.md",
     "算法/蓝桥杯.md",
     "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md",
-    "JVM/JVM-bak.md",
-    "cicd/2.安装docker、Portainer和jekins.md",
     "JVM",
     "spring源码",
     "未命名.canvas",
@@ -244,7 +246,6 @@
     "md/Python",
     "md",
     "k8s/assets",
-    "k8s",
-    "面试/春招 实习笔试.pdf"
+    "k8s"
   ]
 }

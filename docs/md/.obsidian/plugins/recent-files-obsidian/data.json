@@ -1,6 +1,14 @@
 {
   "recentFiles": [
     {
+      "basename": "kafka基础知识",
+      "path": "消息队列/kafka/kafka基础知识.md"
+    },
+    {
+      "basename": "RabbitMQ",
+      "path": "消息队列/RabbitMQ.md"
+    },
+    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
     },
