@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "Java面试汇总",
+      "path": "面试/Java面试汇总.md"
+    },
+    {
       "basename": "Zookeeper基础",
       "path": "zookeeper/Zookeeper基础.md"
     },
@@ -11,10 +15,6 @@
     {
       "basename": "RabbitMQ",
       "path": "消息队列/RabbitMQ.md"
-    },
-    {
-      "basename": "Java面试汇总",
-      "path": "面试/Java面试汇总.md"
     },
     {
       "basename": "Python源码剖析-7-内建对象list",
