@@ -65,7 +65,28 @@ https://zookeeper.apache.org/
 	3. 解压到指定目录
 ```bash
 tar -zxvf apache-zookeeper-3.5.7-bin.tar.gz -C /opt/module/
+mv apache-zookeeper-3.5.7 zookeeper-3.5.7
 ```
-		1. 修改名称
-[atguigu@hadoop102 module]$ mv apache-zookeeper-3.5.7 -bin/ 
-zookeeper-3.5.7
+2. 配置修改
+	1. 将/opt/module/zookeeper-3.5.7/conf 这个路径下的 zoo_sample.cfg 修改为 zoo.cfg；
+	2. 打开 zoo.cfg 文件，修改 dataDir 路径：
+	3. 在/opt/module/zookeeper-3.5.7/这个目录上创建 zkData 文件夹
+```bash
+dataDir=/opt/module/zookeeper-3.5.7/zkData
+mkdir zkData
+```
+3. 操作 Zookeeper
+	1. 启动 Zookeeper
+	2. 查看进程是否启动
+	3. 查看状态
+	4. 启动客户端
+	5. 退出客户端：
+	6. 停止 Zookeeper
+```bash
+./zkServer.sh start
+jps
+./zkServer.sh status
+./zkCli.sh
+quit
+./zkServer.sh stop
+```
