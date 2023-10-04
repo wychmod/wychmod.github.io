@@ -48,5 +48,24 @@ ZooKeeper 数据模型的结构与 Unix 文件系统很类似，整体上可以�
 
 ### 1.4.4 软负载均衡
 
+![](../youdaonote-images/Pasted%20image%2020231005001822.png)
 
 
+## 1.5 下载地址
+
+https://zookeeper.apache.org/
+
+## 2. 本地安装
+
+## 2.1 本地模式安装
+
+1. 安装前准备
+	1. 安装 JDK
+	2. 拷贝 apache-zookeeper-3.5.7-bin.tar.gz 安装包到 Linux 系统下
+	3. 解压到指定目录
+```bash
+tar -zxvf apache-zookeeper-3.5.7-bin.tar.gz -C /opt/module/
+```
+		1. 修改名称
+[atguigu@hadoop102 module]$ mv apache-zookeeper-3.5.7 -bin/ 
+zookeeper-3.5.7
