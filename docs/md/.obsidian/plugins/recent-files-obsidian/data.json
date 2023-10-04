@@ -1,12 +1,12 @@
 {
   "recentFiles": [
     {
-      "basename": "Java面试汇总",
-      "path": "面试/Java面试汇总.md"
-    },
-    {
       "basename": "Zookeeper基础",
       "path": "zookeeper/Zookeeper基础.md"
+    },
+    {
+      "basename": "Java面试汇总",
+      "path": "面试/Java面试汇总.md"
     },
     {
       "basename": "kafka基础知识",

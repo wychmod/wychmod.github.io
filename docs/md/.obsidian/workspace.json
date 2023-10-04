@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -121,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "zookeeper/Zookeeper基础.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "zookeeper/Zookeeper基础.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +168,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "zookeeper/Zookeeper基础.md"
               }
             }
           },
@@ -211,8 +210,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "409ad891d19a7a7b",
+  "active": "35634d88cdea899e",
   "lastOpenFiles": [
+    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20231004211845.png",
     "youdaonote-images/Pasted image 20231004205228.png",
     "youdaonote-images/Pasted image 20231004204707.png",
@@ -226,13 +226,11 @@
     "youdaonote-images/Pasted image 20231003120330.png",
     "消息队列/kafka",
     "消息队列/RabbitMQ.md",
-    "面试/Java面试汇总.md",
     "AliceBot 自动化测试设计与实现.md",
     "youdaonote-images/Pasted image 20231002162610.png",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
     "JVM/JVM实战-4-调优.md",
     "youdaonote-images/Pasted image 20230928214454.png",
-    "youdaonote-images/Pasted image 20230928204836.png",
     "mysql/MySQL性能优化-事务.md",
     "算法/左神从0学算法/算法笔记·.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
