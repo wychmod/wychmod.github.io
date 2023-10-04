@@ -339,6 +339,8 @@ Docker的底层原理是利用了linux的Cgroups和Namespace技术。cgroups是�
 
 # Mysql
 
+## mysql数据一致性，采用循环冗余校验法crc
+
 ## JOIN语句的底层原理
 1. 简单的嵌套循环连接
 2. 索引嵌套循环连接
