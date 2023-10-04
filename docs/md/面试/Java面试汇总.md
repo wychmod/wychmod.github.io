@@ -808,6 +808,8 @@ DNS解析域名为目的IP，通过IP找到服务器路径，客户端向服务�
 - 这两个配置项必须同时满足，不然主节点拒绝写入。
 - 在假故障期间满足min-slaves-to-write和min-slaves-max-lag的要求，那么主节点就会被禁止写入，脑裂造成的数据丢失情况自然也就解决了。
 
+> Redis脑裂可以采用min-slaves-to-write和min-slaves-max-lag合理配置尽量规避，但无法彻底解决，Redis脑裂最本质的问题是主从集群内部没有共识算法来维护多个节点的强一致性，它不像Zookeeper那样，每次写入必须大多数节点成功后才算成功，当脑裂发生时，Zookeeper节点被孤立，此时无法写入大多数节点，写请求会直接失败，因此Zookeeper才能保证集群的强一致性。
+
 ## Redis如何定位慢查询语句
 
 1. 使用Redis的命令`SLOWLOG GET`可以获取Redis的慢查询日志。
