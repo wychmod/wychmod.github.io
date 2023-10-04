@@ -793,6 +793,10 @@ DNS解析域名为目的IP，通过IP找到服务器路径，客户端向服务�
 
 # Redis
 
+## Redis脑裂现象
+- 当Redis主从集群环境出现两个主节点为客户端提供服务，这时客户端请求命令可能会发生数据丢失的情况。
+![](../youdaonote-images/Pasted%20image%2020231004204707.png)
+
 ## Redis如何定位慢查询语句
 
 1. 使用Redis的命令`SLOWLOG GET`可以获取Redis的慢查询日志。
