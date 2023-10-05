@@ -193,4 +193,18 @@ status"
 done
 };;
 esac
+
+
+chmod u+x zk.sh
+zk.sh start
+zk.sh stop
+```
+
+## 3.4 客户端命令操作
+```bash
+# 启动客户端
+./zkCli.sh -server hadoop102:2181
+
+# 显示所有操作命令
+
 ```
