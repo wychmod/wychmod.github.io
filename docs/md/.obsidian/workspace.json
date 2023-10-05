@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "zookeeper/Zookeeper源码.md",
+                "file": "面试/Java面试汇总.md",
                 "mode": "source",
                 "source": false
               }
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -109,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "zookeeper/Zookeeper源码.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "zookeeper/Zookeeper源码.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "zookeeper/Zookeeper源码.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -201,6 +200,7 @@
   },
   "active": "409ad891d19a7a7b",
   "lastOpenFiles": [
+    "zookeeper/Zookeeper源码.md",
     "youdaonote-images/Pasted image 20231005185225.png",
     "youdaonote-images/Pasted image 20231005185136.png",
     "youdaonote-images/Pasted image 20231005185126.png",
@@ -211,9 +211,7 @@
     "youdaonote-images/Pasted image 20231005184859.png",
     "youdaonote-images/Pasted image 20231005184623.png",
     "youdaonote-images/Pasted image 20231005184612.png",
-    "youdaonote-images/Pasted image 20231005184524.png",
     "zookeeper/Zookeeper基础.md",
-    "zookeeper/Zookeeper源码.md",
     "面试/Java面试汇总.md",
     "消息队列/kafka/kafka基础知识.md",
     "zookeeper",
