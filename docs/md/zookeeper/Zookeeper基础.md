@@ -513,3 +513,13 @@ public class DistributeClient {
     }  
 }
 ```
+
+# 5. ZooKeeper 分布式锁案例
+
+![](../youdaonote-images/Pasted%20image%2020231005154936.png)
+
+## 5.1 原生Zookeeper实现分布式锁
+
+1. 分布式锁实现
+```java
+```
