@@ -92,7 +92,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5
+    "width": 392.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -200,6 +201,7 @@
   },
   "active": "409ad891d19a7a7b",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20231005182417.png",
     "youdaonote-images/Pasted image 20231005173730.png",
     "youdaonote-images/Pasted image 20231005173329.png",
     "youdaonote-images/Pasted image 20231005172809.png",
@@ -213,7 +215,6 @@
     "youdaonote-images/Pasted image 20231005145901.png",
     "youdaonote-images/Pasted image 20231005140132.png",
     "youdaonote-images/Pasted image 20231005122422.png",
-    "youdaonote-images/Pasted image 20231005001822.png",
     "消息队列/kafka/kafka基础知识.md",
     "zookeeper",
     "消息队列/kafka",

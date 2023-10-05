@@ -71,3 +71,20 @@ Zab 借鉴了 Paxos 算法，是特别为 Zookeeper 设计的支持崩溃恢复�
 
 Zab 协议包括两种基本的模式：消息广播、崩溃恢复。
 
+1. **消息广播**
+![](../youdaonote-images/Pasted%20image%2020231005182417.png)
+
+1. 客户端发起一个写操作请求。
+2. Leader服务器将客户端的请求转化为事务Proposal 提案，同时为每个Proposal 分配一个全局的ID，即zxid。
+3. Leader服务器为每个Follower服务器分配一个单独的队列，然后将需要广播的 Proposal依次放到队列中去，并且根据FIFO策略进行消息发送。
+4. Follower接收到Proposal后，会首先将其以事务日志的方式写入本地磁盘中，写入成功后向Leader反馈一个Ack响应消息。
+5. Leader接收到超过半数以上Follower的Ack响应消息后，即认为消息发送成功，可以发送commit消息。
+6. Leader向所有Follower广播commit消息，同时自身也会完成事务提交。Follower 接收到commit消息后，会将上一条事务提交。
+7. Zookeeper采用Zab协议的核心，就是只要有一台服务器提交了Proposal，就要确保所有的服务器最终都能正确提交Proposal。
+
+> ZAB协议针对事务请求的处理过程类似于一个两阶段提交过程（1）广播事务阶段（2）广播提交操作。
+
+这两阶段提交模型如下，有可能因
+为Leader宕机带来数据不一致，比如
+（ 1 ） Leader发起一个事务Proposal1 后 就 宕 机 ， Follower 都 没 有Proposal1
+（2）Leader收到半数ACK宕机，没来得及向Follower发送Commit
