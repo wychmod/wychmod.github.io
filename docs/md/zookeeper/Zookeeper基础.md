@@ -97,3 +97,8 @@ Zookeeper中的配置文件zoo.cfg中参数含义解读如下：
 
 1. tickTime = 2000：通信心跳时间，Zookeeper服务器与客户端心跳时间，单位毫秒
 2. initLimit = 10：LF初始通信时限
+	Leader和Follower初始连接时能容忍的最多心跳数（tickTime的数量）
+3. syncLimit = 5：LF同步通信时限
+	Leader和Follower之间通信时间如果超过syncLimit * tickTime，Leader认为Follwer死掉，从服务器列表中删除Follwer。
+4. dataDir：保存Zookeeper中的数据(默认tmp目录会被定期删除)
+5. clientPort = 2181：客户端连接端口，通常不做修改。
