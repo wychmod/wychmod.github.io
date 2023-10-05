@@ -393,3 +393,9 @@ log4j.rootLogger=INFO, stdout  log4j.appender.stdout=org.apache.log4j.ConsoleApp
         System.out.println(stat==null? "not exist " : "exist");  
     }
 ```
+
+## 3.9 客户端向服务端写数据流程
+
+**写流程之写入请求直接发送给Leader节点**
+
+****
