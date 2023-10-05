@@ -27,4 +27,11 @@
 2. Promise: Acceptor收到Propose请求后，做出“两个承诺，一个应答”。
 	1. 不再接受Proposal ID小于等于（注意：这里是<= ）当前请求的Propose请求。
 	2. 不再接受Proposal ID小于（注意：这里是< ）当前请求的Accept请求。
-	3. 
+	3. 不违背以前做出的承诺下，回复已经Accept过的提案中Proposal ID最大的那个提案的Value和Proposal ID，没有则返回空值。
+3. Propose: Proposer收到多数Acceptor的Promise应答后，从应答中选择Proposal ID最大的提案的Value，作为本次要发起的提案。如果所有应答的提案Value均为空值，则可以自己随意决定提案Value。然后携带当前Proposal ID，向所有Acceptor发送Propose请求。
+4. Accept: Acceptor收到Propose请求后，在不违背自己之前做出的承诺下，接受并持久化当前Proposal ID和提案Value。
+5. Learn: Proposer收到多数Acceptor的Accept后，决议形成，将形成的决议发送给所有Learner。
+
+**情况1**
+- 有A1, A2, A3, A4, A5 5位议员，就税率问题进行决议。
+![](../youdaonote-images/Pasted%20image%2020231005173329.png)
