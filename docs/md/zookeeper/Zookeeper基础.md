@@ -251,4 +251,10 @@ numChildren = 1
 create /sanguo "diaochan"
 create /sanguo/shuguo "liubei"
 
+# 获得节点的值
+get -s /sanguo
+
+# 创建带序号的节点（永久节点 + 带序号）
+create -s /sanguo/weiguo/zhangliao "zhangliao"
+Created /sanguo/weiguo/zhangliao0000000000
 ```
