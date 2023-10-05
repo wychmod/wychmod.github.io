@@ -277,5 +277,18 @@ create -e -s /sanguo/wuguo "zhouyu"
 	6. listener线程内部调用了process()方法。
 
 2. 常见的监听
-	1. 监听节点数据变化
-	2. 监听
+	1. 监听节点数据变化 get path [watch]
+	2. 监听子节点增减变化 ls path [watch]
+
+![](../youdaonote-images/Pasted%20image%2020231005145901.png)
+
+```bash
+# 节点的值变化监听
+get -w /sanguo
+
+# 节点的子节点变化监听（路径变化）
+ls -w /sanguo
+```
+
+> 注册一次，生效一次。想多次生效，就需要多次注册。
+
