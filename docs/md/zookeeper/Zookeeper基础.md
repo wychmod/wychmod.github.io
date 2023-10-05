@@ -237,3 +237,18 @@ numChildren = 1
 9. ephemeralOwner：如果是临时节点，这个是 znode 拥有者的 session id。如果不是临时节点则是 0。
 10. dataLength：znode 的数据长度
 11. numChildren：znode 子节点数量
+
+## 3.5 节点类型（持久/短暂/有序号/无序号）
+
+- 持久（Persistent）：客户端和服务器端断开连接后，创建的节点不删除
+- 短暂（Ephemeral）：客户端和服务器端断开连接后，创建的节点自己删除
+- 有序号: 创建znode时设置顺序标识，znode名称后会附加一个值，顺序号是一个单调递增的计数器，由父节点维护。
+> 注意：在分布式系统中，顺序号可以被用于为所有的事件进行全局排序，这样客户端可以通过顺序号推断事件的顺序
+
+```bash
+# 创建两个普通节点（永久节点 + 不带序号）
+
+create /sanguo "diaochan"
+create /sanguo/shuguo "liubei"
+
+```
