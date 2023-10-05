@@ -35,3 +35,22 @@
 **情况1**
 - 有A1, A2, A3, A4, A5 5位议员，就税率问题进行决议。
 ![](../youdaonote-images/Pasted%20image%2020231005173329.png)
+
+- A1发起1号Proposal的Propose，等待Promise承诺；
+- A2-A5回应Promise；
+- A1在收到两份回复时就会发起税率10%的Proposal；
+- A2-A5回应Accept；
+- 通过Proposal，税率10%。
+
+**情况2**
+
+- 现在我们假设在A1提出提案的同时, A5决定将税率定为20%
+![](../youdaonote-images/Pasted%20image%2020231005173730.png)
+
+- A1，A5同时发起Propose（序号分别为1，2）
+- A2承诺A1，A4承诺A5，A3行为成为关键
+- 情况1：A3先收到A1消息，承诺A1。
+	- A1发起Proposal（1，10%），A2，A3接受。
+	- 之后A3又收到A5消息，回复A1：（1，10%），并承诺A5。
+	- A5发起Proposal（2，20%），A3，A4接受。之后A1，A5同时广播决议。
+	- 
