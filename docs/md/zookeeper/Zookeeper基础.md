@@ -90,3 +90,10 @@ jps
 quit
 ./zkServer.sh stop
 ```
+
+## 2.2 配置参数解读
+
+Zookeeper中的配置文件zoo.cfg中参数含义解读如下：
+
+1. tickTime = 2000：通信心跳时间，Zookeeper服务器与客户端心跳时间，单位毫秒
+2. initLimit = 10：LF初始通信时限
