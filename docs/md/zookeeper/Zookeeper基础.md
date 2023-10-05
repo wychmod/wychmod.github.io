@@ -123,4 +123,10 @@ server.A=B:C:D。
 **B 是这个服务器的地址**；
 **C 是这个服务器 Follower 与集群中的 Leader 服务器交换信息的端口**；
 D 是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的Leader，而这个端口就是用来执行选举时服务器相互通信的端口。
-
+4. 集群启动
+```bash
+# 三台机子都启动
+./zkServer.sh start
+./zkServer.sh start
+./zkServer.sh start
+```
