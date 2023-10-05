@@ -154,4 +154,43 @@ D 是万一集群中的 Leader 服务器挂了，需要一个端口来重新进�
 1. 当ZooKeeper集群中的一台服务器出现以下两种情况之一时，就会开始进入Leader选举：
 	- 服务器初始化启动。
 	- 服务器运行期间无法和Leader保持连接。
-2. 
+2. 当一台机器进入Leader选举流程时，当前集群也可能会处于以下两种状态：
+	- 集群中本来就已经存在一个Leader。
+		对于第一种已经存在Leader的情况，机器试图去选举Leader时，会被告知当前服务器的Leader信息，对于该机器来说，仅仅需要和Leader机器建立连接，并进行状态同步即可。
+	- 集群中确实不存在Leader。
+		假设ZooKeeper由5台服务器组成，SID分别为1、2、3、4、5，ZXID分别为8、8、8、7、7，并且此时SID为3的服务器是Leader。某一时刻，3和5服务器出现故障，因此开始进行Leader选举。
+		SID为1、2、4的机器投票情况： （1，8，1） （1，8，2） （1，7，4） (EPOCH，ZXID，SID)
+
+**选举Leader规则： ①EPOCH大的直接胜出 ②EPOCH相同，事务id大的胜出 ③事务id相同，服务器id大的胜出**
+
+## 3.3 启动停止脚本
+
+```bash
+#!/bin/bash
+case $1 in
+"start"){
+for i in hadoop102 hadoop103 hadoop104
+do
+ echo ---------- zookeeper $i 启动 ------------
+ssh $i "/opt/module/zookeeper-3.5.7/bin/zkServer.sh 
+start"
+done
+};;
+"stop"){
+for i in hadoop102 hadoop103 hadoop104
+do
+ echo ---------- zookeeper $i 停止 ------------ 
+ssh $i "/opt/module/zookeeper-3.5.7/bin/zkServer.sh 
+stop"
+done
+};;
+"status"){
+for i in hadoop102 hadoop103 hadoop104
+do
+ echo ---------- zookeeper $i 状态 ------------ 
+ssh $i "/opt/module/zookeeper-3.5.7/bin/zkServer.sh 
+status"
+done
+};;
+esac
+```
