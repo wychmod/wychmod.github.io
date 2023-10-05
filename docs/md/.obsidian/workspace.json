@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "zookeeper/Zookeeper基础.md",
+                "file": "zookeeper/Zookeeper源码.md",
                 "mode": "source",
                 "source": false
               }
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -109,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "zookeeper/Zookeeper基础.md",
+                "file": "zookeeper/Zookeeper源码.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "zookeeper/Zookeeper基础.md",
+                "file": "zookeeper/Zookeeper源码.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "zookeeper/Zookeeper基础.md"
+                "file": "zookeeper/Zookeeper源码.md"
               }
             }
           },
@@ -201,19 +200,19 @@
   },
   "active": "409ad891d19a7a7b",
   "lastOpenFiles": [
+    "zookeeper/Zookeeper基础.md",
+    "zookeeper/Zookeeper源码.md",
     "youdaonote-images/Pasted image 20231005154936.png",
     "youdaonote-images/Pasted image 20231005153558.png",
     "youdaonote-images/Pasted image 20231005153438.png",
     "youdaonote-images/Pasted image 20231005153413.png",
     "面试/Java面试汇总.md",
-    "zookeeper/Zookeeper基础.md",
     "youdaonote-images/Pasted image 20231005145901.png",
     "youdaonote-images/Pasted image 20231005140132.png",
     "youdaonote-images/Pasted image 20231005122422.png",
     "youdaonote-images/Pasted image 20231005001822.png",
     "youdaonote-images/Pasted image 20231005001509.png",
     "youdaonote-images/Pasted image 20231005001229.png",
-    "youdaonote-images/Pasted image 20231005001000.png",
     "消息队列/kafka/kafka基础知识.md",
     "zookeeper",
     "消息队列/kafka",
