@@ -397,5 +397,62 @@ log4j.rootLogger=INFO, stdout  log4j.appender.stdout=org.apache.log4j.ConsoleApp
 ## 3.9 客户端向服务端写数据流程
 
 **写流程之写入请求直接发送给Leader节点**
+![](../youdaonote-images/Pasted%20image%2020231005153413.png)
 
-****
+**写流程之写入请求发送给follower节点**
+![](../youdaonote-images/Pasted%20image%2020231005153438.png)
+
+# 4. 服务器动态上下线监听案例
+
+## 4.1 需求
+某分布式系统中，主节点可以有多台，可以动态上下线，任意一台客户端都能实时感知到主节点服务器的上下线。
+
+![](../youdaonote-images/Pasted%20image%2020231005153558.png)
+
+## 4.2 具体实现
+
+服务端代码：
+```java
+public class DistributeServer {  
+  
+    private String connectString = "hadoop102:2181,hadoop103:2181,hadoop104:2181";  
+    private int sessionTimeout = 2000;  
+    private ZooKeeper zk;  
+  
+    public static void main(String[] args) throws IOException, KeeperException, InterruptedException {  
+  
+        DistributeServer server = new DistributeServer();  
+        // 1 获取zk连接  
+        server.getConnect();  
+  
+        // 2 注册服务器到zk集群  
+        server.regist(args[0]);  
+  
+  
+        // 3 启动业务逻辑（睡觉）  
+        server.business();  
+  
+    }  
+  
+    private void business() throws InterruptedException {  
+        Thread.sleep(Long.MAX_VALUE);  
+    }  
+  
+    private void regist(String hostname) throws KeeperException, InterruptedException {  
+        String create = zk.create("/servers/"+hostname, hostname.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);  
+  
+        System.out.println(hostname +" is online") ;  
+    }  
+  
+    private void getConnect() throws IOException {  
+  
+        zk = new ZooKeeper(connectString, sessionTimeout, new Watcher() {  
+            @Override  
+            public void process(WatchedEvent watchedEvent) {  
+  
+            }        });  
+    }  
+}
+```
+
+客户端代码：
