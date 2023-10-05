@@ -663,3 +663,116 @@ public class DistributedLockTest {
 ```
 
 ## 5.2 Curator 框架实现分布式锁案例
+
+1. 原生的 Java API 开发存在的问题
+	1. 会话连接是异步的，需要自己去处理。比如使用 CountDownLatch
+	2. Watch 需要重复注册，不然就不能生效
+	3. 开发的复杂性还是比较高的
+	4. 不支持多节点删除和创建。需要自己去递归
+2. Curator 是一个专门解决分布式锁的框架，解决了原生 JavaAPI 开发分布式遇到的问题。
+	1. 详情请查看官方文档：https://curator.apache.org/index.html
+3. 实例操作
+```xml
+<dependency>  
+    <groupId>org.apache.curator</groupId>  
+    <artifactId>curator-framework</artifactId>  
+    <version>4.3.0</version>  
+</dependency>  
+<dependency>  
+    <groupId>org.apache.curator</groupId>  
+    <artifactId>curator-recipes</artifactId>  
+    <version>4.3.0</version>  
+</dependency>  
+<dependency>  
+    <groupId>org.apache.curator</groupId>  
+    <artifactId>curator-client</artifactId>  
+    <version>4.3.0</version>  
+</dependency>
+```
+
+```java
+package com.atguigu.case3;  
+  
+import org.apache.curator.framework.CuratorFramework;  
+import org.apache.curator.framework.CuratorFrameworkFactory;  
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;  
+import org.apache.curator.retry.ExponentialBackoffRetry;  
+  
+public class CuratorLockTest {  
+  
+    public static void main(String[] args) {  
+  
+        // 创建分布式锁1  
+        InterProcessMutex lock1 = new InterProcessMutex(getCuratorFramework(), "/locks");  
+  
+        // 创建分布式锁2  
+        InterProcessMutex lock2 = new InterProcessMutex(getCuratorFramework(), "/locks");  
+  
+        new Thread(new Runnable() {  
+            @Override            public void run() {  
+                try {  
+                    lock1.acquire();                    System.out.println("线程1 获取到锁");  
+  
+                    lock1.acquire();                    System.out.println("线程1 再次获取到锁");  
+  
+                    Thread.sleep(5 * 1000);  
+  
+                    lock1.release();                    System.out.println("线程1 释放锁");  
+  
+                    lock1.release();                    System.out.println("线程1  再次释放锁");  
+  
+                } catch (Exception e) {  
+                    e.printStackTrace();                }            }        }).start();  
+  
+        new Thread(new Runnable() {  
+            @Override            public void run() {  
+                try {  
+                    lock2.acquire();                    System.out.println("线程2 获取到锁");  
+  
+                    lock2.acquire();                    System.out.println("线程2 再次获取到锁");  
+  
+                    Thread.sleep(5 * 1000);  
+  
+                    lock2.release();                    System.out.println("线程2 释放锁");  
+  
+                    lock2.release();                    System.out.println("线程2  再次释放锁");  
+  
+                } catch (Exception e) {  
+                    e.printStackTrace();                }            }        }).start();  
+    }  
+  
+    private static CuratorFramework getCuratorFramework() {  
+
+		// 重试策略，初试时间 3 秒，重试 3 次
+        ExponentialBackoffRetry policy = new ExponentialBackoffRetry(3000, 3);  
+  
+        CuratorFramework client = CuratorFrameworkFactory.builder().connectString("hadoop102:2181,hadoop103:2181,hadoop104:2181")  
+                .connectionTimeoutMs(2000)  
+                .sessionTimeoutMs(2000)  
+                .retryPolicy(policy).build();  
+  
+        // 启动客户端  
+        client.start();  
+  
+        System.out.println("zookeeper 启动成功");  
+        return client;  
+    }  
+}
+```
+
+# 6. 企业面试题
+
+## 6.1 生产集群安装多少 zk 合适？
+安装奇数台。
+
+生产经验：
+
+- 10 台服务器：3 台 zk；
+
+- 20 台服务器：5 台 zk；
+
+- 100 台服务器：11 台 zk；
+
+- 200 台服务器：11 台 zk
+
+服务器台数多：好处，提高可靠性；坏处：提高通信延时
