@@ -257,4 +257,14 @@ get -s /sanguo
 # 创建带序号的节点（永久节点 + 带序号）
 create -s /sanguo/weiguo/zhangliao "zhangliao"
 Created /sanguo/weiguo/zhangliao0000000000
+
+# 创建短暂节点（短暂节点 + 不带序号 or 带序号）
+# 创建短暂的不带序号的节点
+create -e /sanguo/wuguo "zhouyu"
+
+# 创建短暂的带序号的节点
+create -e -s /sanguo/wuguo "zhouyu"
+
 ```
+
+## 3.6 监听器原理
