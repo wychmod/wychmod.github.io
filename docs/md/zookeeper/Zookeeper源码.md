@@ -125,3 +125,21 @@ Zab 协议包括两种基本的模式：消息广播、崩溃恢复。
 ## 1.4 ZooKeeper保证的是CP
 1. ZooKeeper不能保证每次服务请求的可用性。
 2. 进行Leader选举时集群都是不可用。
+
+# 2. 源码解析
+
+## 2.1 持久化源码
+
+在 org.apache.zookeeper.server.persistence 包下的相关类都是序列化相关的代码。
+![](../youdaonote-images/Pasted%20image%2020231005184416.png)
+
+## 2.2 序列化源码
+zookeeper-jute 代码是关于 Zookeeper 序列化相关源码
+![](../youdaonote-images/Pasted%20image%2020231005184449.png)
+
+## 2.3 ZK服务端初始化源码解析
+![](../youdaonote-images/Pasted%20image%2020231005184524.png)
+
+![](../youdaonote-images/Pasted%20image%2020231005184612.png)
+
+![](../youdaonote-images/Pasted%20image%2020231005184623.png)
