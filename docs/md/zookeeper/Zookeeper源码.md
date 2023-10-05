@@ -85,7 +85,7 @@ Zab 协议包括两种基本的模式：消息广播、崩溃恢复。
 > ZAB协议针对事务请求的处理过程类似于一个两阶段提交过程（1）广播事务阶段（2）广播提交操作。
 
 这两阶段提交模型如下，有可能因为Leader宕机带来数据不一致，比如
-（ 1 ） Leader发起一个事务Proposal1 后 就 宕 机 ， Follower 都 没 有Proposal1
+（ 1 ） Leader发起一个事务Proposal1 后 就 宕 机 ， Follower 都没有Proposal1
 （2）Leader收到半数ACK宕机，没来得及向Follower发送Commit
 
 2. **崩溃恢复——异常假设**
@@ -93,4 +93,19 @@ Zab 协议包括两种基本的模式：消息广播、崩溃恢复。
 
 1. 假设两种服务器异常情况：
 	1. 假设一个事务在Leader提出之后，Leader挂了。
-	2. 
+	2. 一个事务在Leader上提交了，并且过半的Follower都响应Ack了，但是Leader在Commit消息发出之前挂了。
+2. Zab协议崩溃恢复要求满足以下两个要求：
+	1. 确保已经被Leader提交的提案Proposal，必须最终被所有的Follower服务器提交。 （已经产生的提案，Follower必须执行）
+	2. 确保丢弃已经被Leader提出的，但是没有被提交的Proposal。（丢弃胎死腹中的提案）
+
+3. **崩溃恢复——Leader选举**
+崩溃恢复主要包括两部分：**Leader选举和数据恢复。**
+
+**Leader选举**：根据上述要求，Zab协议需要保证选举出来的Leader需要满足以下条件：
+	1. 新选举出来的Leader不能包含未提交的Proposal。即新Leader必须都是已经提交了Proposal的Follower服务器节点。
+	2. 新选举的Leader节点中含有最大的zxid。这样做的好处是可以避免Leader服务器检查Proposal的提交和丢弃工作。
+4. **崩溃恢复——数据恢复**
+**Zab如何数据同步**：
+	1. 完成Leader选举后，在正式开始工作之前（接收事务请求，然后提出新的Proposal），**Leader服务器会首先确认事务日志中的所有的Proposal 是否已经被集群中过半的服务器Commit。**
+	2. Leader服务器需要确保所有的Follower服务器能够接收到每一条事务的Proposal，并且能将所有已经提交的事务Proposal应用到内存数据中。**等到Follower将所有尚未同步的事务Proposal都从Leader服务器上同步过，且应用到内存数据中以后，Leader才会把该Follower加入到真正可用的Follower列表中**。
+
