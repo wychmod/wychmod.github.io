@@ -102,3 +102,25 @@ Zookeeper中的配置文件zoo.cfg中参数含义解读如下：
 	Leader和Follower之间通信时间如果超过syncLimit * tickTime，Leader认为Follwer死掉，从服务器列表中删除Follwer。
 4. dataDir：保存Zookeeper中的数据(默认tmp目录会被定期删除)
 5. clientPort = 2181：客户端连接端口，通常不做修改。
+
+# 3. 集群操作
+
+## 3.1 集群操作
+
+### 3.1.1 集群安装
+
+1. 大部分步骤和单机安装一样。
+2. 在/opt/module/zookeeper-3.5.7/zkData 目录下创建一个 myid 的文件。
+3. 配置zoo.cfg文件
+```bash
+server.2=hadoop102:2888:3888
+server.3=hadoop103:2888:3888
+server.4=hadoop104:2888:3888
+```
+server.A=B:C:D。
+
+**A 是一个数字，表示这个是第几号服务器**；集群模式下配置一个文件 myid，这个文件在 dataDir 目录下，这个文件里面有一个数据就是 A 的值，Zookeeper 启动时读取此文件，拿到里面的数据与 zoo.cfg 里面的配置信息比较从而判断到底是哪个 server。
+**B 是这个服务器的地址**；
+**C 是这个服务器 Follower 与集群中的 Leader 服务器交换信息的端口**；
+D 是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的Leader，而这个端口就是用来执行选举时服务器相互通信的端口。
+
