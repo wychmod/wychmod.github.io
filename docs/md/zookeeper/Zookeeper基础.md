@@ -292,3 +292,44 @@ ls -w /sanguo
 
 > 注册一次，生效一次。想多次生效，就需要多次注册。
 
+## 3.7 节点删除
+
+```bash
+delete /sanguo/jin
+
+deleteall /sanguo/shuguo
+
+stat /sanguo
+```
+
+
+## 3.8 客户端API操作
+
+### 3.8.1 IDEA环境
+
+```xml
+<dependency>  
+    <groupId>junit</groupId>  
+    <artifactId>junit</artifactId>  
+    <version>RELEASE</version>  
+</dependency>  
+  
+<dependency>  
+    <groupId>org.apache.logging.log4j</groupId>  
+    <artifactId>log4j-core</artifactId>  
+    <version>2.8.2</version>  
+</dependency>  
+  
+<dependency>  
+    <groupId>org.apache.zookeeper</groupId>  
+    <artifactId>zookeeper</artifactId>  
+    <version>3.5.7</version>  
+</dependency>
+```
+
+log4j.properties
+```properties
+log4j.rootLogger=INFO, stdout  log4j.appender.stdout=org.apache.log4j.ConsoleAppender  log4j.appender.stdout.layout=org.apache.log4j.PatternLayout  log4j.appender.stdout.layout.ConversionPattern=%d %p [%c] - %m%n  log4j.appender.logfile=org.apache.log4j.FileAppender  log4j.appender.logfile.File=target/spring.log  log4j.appender.logfile.layout=org.apache.log4j.PatternLayout  log4j.appender.logfile.layout.ConversionPattern=%d %p [%c] - %m%n
+```
+
+###
