@@ -143,3 +143,30 @@ zookeeper-jute 代码是关于 Zookeeper 序列化相关源码
 ![](../youdaonote-images/Pasted%20image%2020231005184612.png)
 
 ![](../youdaonote-images/Pasted%20image%2020231005184623.png)
+
+## 2.4 ZK选举源码解析
+
+![](../youdaonote-images/Pasted%20image%2020231005184859.png)
+
+![](../youdaonote-images/Pasted%20image%2020231005184922.png)
+
+![](../youdaonote-images/Pasted%20image%2020231005184955.png)
+
+## 2.5 Follower和Leader状态同步源码解析
+
+![](../youdaonote-images/Pasted%20image%2020231005185042.png)
+
+![](../youdaonote-images/Pasted%20image%2020231005185058.png)
+
+## 2.6 服务端Leader启动
+
+![](../youdaonote-images/Pasted%20image%2020231005185126.png)
+
+## 2.7 服务端Follower启动
+
+![](../youdaonote-images/Pasted%20image%2020231005185136.png)
+
+## 2.8 客户端初始化源码解析
+
+![](../youdaonote-images/Pasted%20image%2020231005185225.png)
+
