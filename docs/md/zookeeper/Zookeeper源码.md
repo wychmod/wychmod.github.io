@@ -109,3 +109,19 @@ Zab 协议包括两种基本的模式：消息广播、崩溃恢复。
 	1. 完成Leader选举后，在正式开始工作之前（接收事务请求，然后提出新的Proposal），**Leader服务器会首先确认事务日志中的所有的Proposal 是否已经被集群中过半的服务器Commit。**
 	2. Leader服务器需要确保所有的Follower服务器能够接收到每一条事务的Proposal，并且能将所有已经提交的事务Proposal应用到内存数据中。**等到Follower将所有尚未同步的事务Proposal都从Leader服务器上同步过，且应用到内存数据中以后，Leader才会把该Follower加入到真正可用的Follower列表中**。
 
+4. **崩溃恢复——异常提案处理**
+
+**Zab数据同步过程中，如何处理需要丢弃的Proposal**？
+
+1. 在Zab的事务编号zxid设计中，zxid是一个64位的数字。其中低32位可以看成一个简单的单增计数器，针对客户端每一个事务请求，Leader在产生新的Proposal事务时，都会对该计数器加1。而高32位则代表了Leader周期的epoch编号。
+
+2. epoch编号可以理解为当前集群所处的年代，或者周期。每次Leader变更之后都会在 epoch的基础上加1，这样旧的Leader崩溃恢复之后，其他Follower也不会听它的了，因为 Follower只服从epoch最高的Leader命令。
+3. 每当选举产生一个新的 Leader，就会从这个Leader服务器上取出本地事务日志充最大编号Proposal的zxid，并从zxid中解析得到对应的epoch编号，然后再对其加1，之后该编号就作为新的epoch 值，并将低32位数字归零，由0开始重新生成zxid。
+4. Zab协议通过epoch编号来区分Leader变化周期，能够有效避免不同的Leader错误的使用了相同的zxid编号提出了不一样的Proposal的异常情况。
+
+> 基于以上策略，当一个包含了上一个Leader周期中尚未提交过的事务Proposal的服务器启动时，当这台机器加入集群中，以Follower角色连上Leader服务器后，Leader 服务器会根据自己服务器上最后提交的 Proposal来和Follower服务器的Proposal进行比对，比对的结果肯定是Leader要求Follower进行一个回退操作，回退到一个确实已经被集群中过半机器Commit的最新Proposal。
+
+
+## 1.4 ZooKeeper保证的是CP
+1. ZooKeeper不能保证每次服务请求的可用性。
+2. 进行Leader选举时集群都是不可用。
