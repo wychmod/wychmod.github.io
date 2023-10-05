@@ -268,3 +268,14 @@ create -e -s /sanguo/wuguo "zhouyu"
 ```
 
 ## 3.6 监听器原理
+1. 监听原理详解 
+	1. 首先要有一个main()线程
+	2. 在main线程中创建Zookeeper客户端，这时就会创建两个线程，一个负责网络连接通信（connet），一个负责监听（listener）。
+	3. 通过connect线程将注册的监听事件发送给Zookeeper。
+	4. 在Zookeeper的注册监听器列表中将注册的监听事件添加到列表中。
+	5. Zookeeper监听到有数据或路径变化，就会将这个消息发送给listener线程。
+	6. listener线程内部调用了process()方法。
+
+2. 常见的监听
+	1. 监听节点数据变化
+	2. 监听
