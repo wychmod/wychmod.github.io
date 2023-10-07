@@ -1,12 +1,12 @@
 {
   "recentFiles": [
     {
-      "basename": "RabbitMQ",
-      "path": "消息队列/RabbitMQ.md"
-    },
-    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
+    },
+    {
+      "basename": "RabbitMQ",
+      "path": "消息队列/RabbitMQ.md"
     },
     {
       "basename": "Zookeeper源码",
