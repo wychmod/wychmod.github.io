@@ -133,3 +133,16 @@ Topic其实就是一个数据集合的意思，不同类型的数据你得放不
 
 ![](部署一个小规模的%20RocketMQ%20集群.pdf)
 
+# 如何对RocketMQ集群进行可视化的监控和管理？
+
+## RocketMQ的大优势：可视化的管理界面
+
+```shell
+git clone https://github.com/apache/rocketmq-externals.git
+
+cd rocketmq-externals/rocketmq-console
+
+mvn package -DskipTests
+
+java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.namesrvAddr=127.0.0.1:9876
+```
