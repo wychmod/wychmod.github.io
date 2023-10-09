@@ -39,3 +39,13 @@ NameServer一定会多机器部署，实现一个集群，起到高可用的效�
 
 ## 系统如何从NameServer获取Broker信息？
 - 系统主动去NameServer拉取Broker信息的。
+
+## 如果Broker挂了，NameServer是怎么感知到的？
+
+- 靠的是Broker跟NameServer之间的心跳机制，Broker会每隔30s给所有的NameServer发送心跳，告诉每个NameServer自己目前还活着。
+- 每次NameServer收到一个Broker的心跳，就可以更新一下他的最近一次心跳的时间
+- NameServer会每隔10s运行一个任务，去检查一下各个Broker的最近一次心跳时间，如果某个Broker超过120s都没发送心跳了，那么就认为这个Broker已经挂掉了。
+![](../youdaonote-images/Pasted%20image%2020231009134834.png)
+
+## Broker挂了，系统是怎么感知到的？
+
