@@ -215,4 +215,6 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 1. RocketMQ的TPS和消息延时
 2. cpu负载情况 (top、uptime)
 3. 内存使用率 (free)
-4. 
+4. JVM GC频率 (jstat)
+5. 磁盘IO负载 (top 可以看cpu 里的wa，如果过高说明cpu大部分时间在等待io，io负载过高。)
+6. 网卡流量 (sar -n DEV 1 2 通过这个命令就可以看到每秒钟网卡读写数据量。很多时候性能可以，但是网卡不可以。)
