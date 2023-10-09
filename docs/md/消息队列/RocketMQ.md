@@ -115,4 +115,13 @@ Topic其实就是一个数据集合的意思，不同类型的数据你得放不
 
 3. 选择一台Broker之后，就可以跟那个Broker也建立一个TCP长连接，然后通过长连接向Broker发送消息即可。
 
-4. 
+4. Broker收到消息之后就会存储在自己本地磁盘里去。
+
+![](../youdaonote-images/Pasted%20image%2020231009151730.png)
+
+## 消费者是如何从Broker上拉取消息的？
+
+消费者系统其实跟生产者系统原理是类似的，他们也会跟NameServer建立长连接，然后拉取路由信息，接着找到自己要获取消息的Topic在哪几台Broker上，就可以跟Broker建立长连接，从里面拉取消息了。
+
+![](../youdaonote-images/Pasted%20image%2020231009152028.png)
+
