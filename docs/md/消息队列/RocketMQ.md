@@ -153,3 +153,8 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 可以看见每台机器的生产消息TPS和消费消息TPS，还有消息总数。
 这是非常重要的，通过这个TPS统计，就是每秒写入或者被消费的消息数量，就可以看出RocketMQ集群的TPS和并发访问量。
 
+# 进行OS内核参数和JVM参数的调整
+
+## 压测前的准备工作
+
+1. 
