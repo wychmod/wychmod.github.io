@@ -128,3 +128,34 @@ Topic其实就是一个数据集合的意思，不同类型的数据你得放不
 # 部署一个小规模 RocketMQ 集群
 - Broker是最负载最高的，未来要承载高并发写入和海量数据存储，所以把最高配置的机器都会留给他
 - NameServer是核心的路由服务，一般就是承载Broker注册和心跳、系统的路由表拉取等请求，负载其实很低，因此不需要特别高的机器配置，部署三台也可以实现高可用的效果了。
+
+## 快速部署RocketMQ
+
+```shell 
+# 构建Dledger
+git clone https://github.com/openmessaging/openmessaging-storage-dledger.git
+cd openmessaging-storage-dledger
+mvn clean install -DskipTests
+
+# 构建RocketMQ
+git clone https://github.com/apache/rocketmq.git
+cd rocketmq
+git checkout -b store_with_dledger origin/store_with_dledger
+mvn -Prelease-all -DskipTests clean install -U
+
+cd distribution/target/apache-rocketmq
+
+# 在这个目录中，需要编辑三个文件，一个是bin/runserver.sh，一个是bin/runbroker.sh，另外一个是bin/tools.sh
+
+# 在里面找到如下三行，然后将第二行和第三行都删了，同时将第一行的值修改为你自己的JDK的主目录
+
+[ ! -e "$JAVA_HOME/bin/java" ] && JAVA_HOME=$HOME/jdk/java
+[ ! -e "$JAVA_HOME/bin/java" ] && JAVA_HOME=/usr/java
+[ ! -e "$JAVA_HOME/bin/java" ] && error_exit "Please set the JAVA_HOME variable in your environment, We need java(x64)!"
+
+# 注：如果要查看你的JDK装哪儿了，可以用命令：/usr/libexec/java_home -V，修改为你的Java主目录即可
+
+sh bin/dledger/fast-try.sh start
+
+
+```
