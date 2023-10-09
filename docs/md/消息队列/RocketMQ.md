@@ -30,7 +30,12 @@ NameServer一定会多机器部署，实现一个集群，起到高可用的效�
 - NameServer会每隔10s运行一个任务，去检查一下各个Broker的最近一次心跳时间，如果某个Broker超过120s都没发送心跳了，那么就认为这个Broker已经挂掉了。
 ![](../youdaonote-images/Pasted%20image%2020231009134834.png)
 
-## Broker挂了，系统是怎么感知到的？
+## Broker是如何跟NameServer进行通信的？
+
+- 在RocketMQ的实现中，采用的是**TCP长连接**进行通信。
+- **Broker会跟每个NameServer都建立一个TCP长连接，然后定时通过TCP长连接发送心跳请求过去**
+![](../youdaonote-images/Pasted%20image%2020231009145851.png)
+
 
 # Broker的主从架构原理是什么？
 
@@ -87,7 +92,7 @@ Slave Broker也是跟Master Broker一样有一份数据在的，只不过Slave B
 
 ![](../youdaonote-images/Pasted%20image%2020231009143944.png)
 
-# 设计一套高可用的消息中间件生产部署架构
+# MQ的核心数据模型：Topic到底是什么？
 
-## 
+**MQ中的核心数据模型，Topic**。
 
