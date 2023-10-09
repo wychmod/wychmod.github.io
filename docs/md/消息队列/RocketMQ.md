@@ -64,3 +64,7 @@ Master Broker收到消息之后会同步给Slave Broker，这样Slave Broker上�
 
 **有一点影响，但是影响不太大**
 
+因为消息写入全部是发送到Master Broker的，然后消息获取也可以走Master Broker。
+
+只不过少了Slave Broker，会导致所有读写压力都集中在Master Broker上。
+
