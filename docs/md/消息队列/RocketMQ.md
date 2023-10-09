@@ -58,4 +58,9 @@ Master Broker收到消息之后会同步给Slave Broker，这样Slave Broker上�
 **有可能从Master Broker获取消息，也有可能从Slave Broker获取消息**
 - Master Broker在返回消息给消费者系统的时候，会根据当时Master Broker的负载情况和Slave Broker的同步情况，向消费者系统建议下一次拉取消息的时候是从Master Broker拉取还是从Slave Broker拉取。
 ![](../youdaonote-images/Pasted%20image%2020231009140829.png)
-> 在写入消息的时候，通常来说肯定是选择Master Broker去写入的， 
+> 在写入消息的时候，通常来说肯定是选择Master Broker去写入的， **有可能从Master Broker获取消息，也有可能从Slave Broker获取消息**
+
+## 如果Slave Broke挂掉了有什么影响？
+
+**有一点影响，但是影响不太大**
+
