@@ -10,4 +10,19 @@
 
 ## 高可用保障：万一Broker宕机了怎么办？
 
-RocketMQ的解决思路是Broker主从架构以及多副本策略。
+RocketMQ的解决思路是**Broker主从架构以及多副本策略**。
+
+Master Broker收到消息之后会同步给Slave Broker，这样Slave Broker上就能有一模一样的一份副本数据。
+
+
+## 数据路由：怎么知道访问哪个Broker？
+
+有一个NameServer的概念，他也是独立部署在几台机器上的，然后所有的Broker都会把自己注册到NameServer上去。
+
+![](../youdaonote-images/Pasted%20image%2020231009133443.png)
+
+- 如果他要发送消息到Broker，会找NameServer去获取路由信息，就是集群里有哪些Broker等信息。
+- 如果系统要从Broker获取消息，也会找NameServer获取路由信息，去找到对应的Broker获取消息。
+
+![](../youdaonote-images/Pasted%20image%2020231009133726.png)
+
