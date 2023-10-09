@@ -203,3 +203,16 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 - 在下面的目录里有dledger的示例配置文件：rocketmq/distribution/target/apacherocketmq/conf/dledger
 - sendMessageThreadPoolNums=16 内部用来发送消息的线程池的线程数量，默认是16
 - 数可以根据你的机器的CPU核数进行适当增加，比如机器CPU是24核的，可以增加这个线程数量到24或者30
+
+# 压测为生产集群进行规划
+
+**在RocketMQ的TPS和机器的资源使用率和负载之间取得一个平衡**。
+
+比如RocketMQ集群在机器资源使用率极高的极端情况下可以扛到10万TPS，但是当他仅仅抗下8万TPS的时候，你会发现cpu负载、内存使用率、IO负载和网卡流量，都负载较高，但是可以接受，机器比较安全，不至于宕机。
+
+## 压测情况
+
+1. RocketMQ的TPS和消息延时
+2. cpu负载情况 (top、uptime)
+3. 内存使用率 (free)
+4. 
