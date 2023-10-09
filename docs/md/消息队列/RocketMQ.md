@@ -161,5 +161,9 @@ sh bin/dledger/fast-try.sh start
 
 # 接着使用下面的命令检查一下RocketMQ集群的状态：
 
+sh bin/mqadmin clusterList -n 127.0.0.1:9876
+
+此时你需要等待一会儿，这个命令执行的过程会有点缓慢，大概可能几秒到几十秒过后，你会看到三行记录，说是一个RaftCluster，Broker名称叫做RaftNode00，然后BID是0、1、2，也有可能是0、1、3
+
 
 ```
