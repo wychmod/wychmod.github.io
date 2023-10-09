@@ -230,3 +230,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 ## 消费模式
 1. push消费模式(Broker会主动把消息发送给你的消费者，你的消费者是被动的接收Broker推送给过来的消息，然后进行处理。)
 2. pull消费模式(消费者主动拉取过来)
+
+## 通过mysql binlog发送到rocketmq里面来进行数据统计
+
+![](../youdaonote-images/Pasted%20image%2020231009232931.png)
