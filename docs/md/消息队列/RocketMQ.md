@@ -131,39 +131,5 @@ Topic其实就是一个数据集合的意思，不同类型的数据你得放不
 
 ## 快速部署RocketMQ
 
-```shell 
-# 构建Dledger
-git clone https://github.com/openmessaging/openmessaging-storage-dledger.git
-cd openmessaging-storage-dledger
-mvn clean install -DskipTests
+![](部署一个小规模的%20RocketMQ%20集群.pdf)
 
-# 构建RocketMQ
-git clone https://github.com/apache/rocketmq.git
-cd rocketmq
-git checkout -b store_with_dledger origin/store_with_dledger
-mvn -Prelease-all -DskipTests clean install -U
-
-cd distribution/target/apache-rocketmq
-
-# 在这个目录中，需要编辑三个文件，一个是bin/runserver.sh，一个是bin/runbroker.sh，另外一个是bin/tools.sh
-
-# 在里面找到如下三行，然后将第二行和第三行都删了，同时将第一行的值修改为你自己的JDK的主目录
-
-[ ! -e "$JAVA_HOME/bin/java" ] && JAVA_HOME=$HOME/jdk/java
-[ ! -e "$JAVA_HOME/bin/java" ] && JAVA_HOME=/usr/java
-[ ! -e "$JAVA_HOME/bin/java" ] && error_exit "Please set the JAVA_HOME variable in your environment, We need java(x64)!"
-
-# 注：如果要查看你的JDK装哪儿了，可以用命令：/usr/libexec/java_home -V，修改为你的Java主目录即可
-
-sh bin/dledger/fast-try.sh start
-
-# 这个命令会在当前这台机器上启动一个NameServer和三个Broker，三个Broker其中一个是Master，另外两个是Slave，瞬间就可以组成一个最小可用的RocketMQ集群。
-
-# 接着使用下面的命令检查一下RocketMQ集群的状态：
-
-sh bin/mqadmin clusterList -n 127.0.0.1:9876
-
-此时你需要等待一会儿，这个命令执行的过程会有点缓慢，大概可能几秒到几十秒过后，你会看到三行记录，说是一个RaftCluster，Broker名称叫做RaftNode00，然后BID是0、1、2，也有可能是0、1、3
-
-
-```
