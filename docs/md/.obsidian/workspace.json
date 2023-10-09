@@ -200,6 +200,7 @@
   },
   "active": "409ad891d19a7a7b",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20231009202219.png",
     "消息队列/部署一个小规模的 RocketMQ 集群.pdf",
     "youdaonote-images/Pasted image 20231009152028.png",
     "youdaonote-images/Pasted image 20231009151730.png",
@@ -245,7 +246,6 @@
     "cicd",
     "md/Python",
     "md",
-    "k8s/assets",
-    "k8s"
+    "k8s/assets"
   ]
 }

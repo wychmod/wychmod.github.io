@@ -144,5 +144,12 @@ cd rocketmq-externals/rocketmq-console
 
 mvn package -DskipTests
 
+# 在启动的时候设置好NameServer的地址，如果有多个地址可以用分号隔开，接着就会看到工作台启动了
 java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.namesrvAddr=127.0.0.1:9876
 ```
+
+![](../youdaonote-images/Pasted%20image%2020231009202219.png)
+
+可以看见每台机器的生产消息TPS和消费消息TPS，还有消息总数。
+这是非常重要的，通过这个TPS统计，就是每秒写入或者被消费的消息数量，就可以看出RocketMQ集群的TPS和并发访问量。
+
