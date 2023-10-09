@@ -157,5 +157,9 @@ cd distribution/target/apache-rocketmq
 
 sh bin/dledger/fast-try.sh start
 
+# 这个命令会在当前这台机器上启动一个NameServer和三个Broker，三个Broker其中一个是Master，另外两个是Slave，瞬间就可以组成一个最小可用的RocketMQ集群。
+
+# 接着使用下面的命令检查一下RocketMQ集群的状态：
+
 
 ```
