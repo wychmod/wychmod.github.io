@@ -87,3 +87,5 @@ Slave Broker也是跟Master Broker一样有一份数据在的，只不过Slave B
 
 ![](../youdaonote-images/Pasted%20image%2020231009143944.png)
 
+# Broker主从同步数据不一致问题
+
