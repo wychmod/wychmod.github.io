@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/Java面试汇总.md",
-                "mode": "preview",
+                "file": "消息队列/RocketMQ.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -38,7 +38,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "RabbitMQ",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,7 +73,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -91,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -108,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "消息队列/RocketMQ.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "消息队列/RocketMQ.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "消息队列/RocketMQ.md"
               }
             }
           },
@@ -200,8 +200,9 @@
   },
   "active": "409ad891d19a7a7b",
   "lastOpenFiles": [
-    "消息队列/RabbitMQ.md",
     "面试/Java面试汇总.md",
+    "消息队列/RocketMQ.md",
+    "消息队列/RabbitMQ.md",
     "zookeeper/Zookeeper源码.md",
     "youdaonote-images/Pasted image 20231005185225.png",
     "youdaonote-images/Pasted image 20231005185136.png",
