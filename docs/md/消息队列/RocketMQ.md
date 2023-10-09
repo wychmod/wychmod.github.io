@@ -96,3 +96,11 @@ Slave Broker也是跟Master Broker一样有一份数据在的，只不过Slave B
 
 **MQ中的核心数据模型，Topic**。
 
+Topic就是主题，**数据集合**的意思。
+
+Topic其实就是一个数据集合的意思，不同类型的数据你得放不同的Topic里去。
+
+## Topic作为一个数据集合是怎么在Broker集群里存储的？
+
+我们可以在创建Topic的时候指定让他里面的数据分散存储在多台Broker机器上，比如一个Topic里有1000万条数据，此时有2台Broker，那么就可以让每台Broker上都放500万条数据。
+
