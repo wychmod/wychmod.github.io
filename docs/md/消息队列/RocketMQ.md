@@ -33,3 +33,9 @@ Master Broker收到消息之后会同步给Slave Broker，这样Slave Broker上�
 
 NameServer一定会多机器部署，实现一个集群，起到高可用的效果，保证任何一台机器宕机，其他机器上的NameServer可以继续对外提供服务！
 
+## Broker是把自己的信息注册到哪个NameServer上去？
+
+- 每个Broker启动都得向所有的NameServer进行注册
+
+## 系统如何从NameServer获取Broker信息？
+- 系统主动去NameServer拉取Broker信息的。
