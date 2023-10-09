@@ -157,4 +157,11 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 ## 压测前的准备工作
 
-1. 
+1. 对他部署的机器的OS内核参数进行一定的调整（也就是linux操作系统的一些内核参数）
+	- 因为OS内核参数很多默认值未必适合生产环境的系统运行，有些参数的值需要调整大一些，才能让中间件发挥出来性能
+![](../youdaonote-images/Pasted%20image%2020231009203738.png)
+
+2. JVM的各种参数，比如内存区域的大小分配，垃圾回收器以及对应的行为参数，GC日志存放地址，OOM自动导出内存快照的配置
+
+![](../youdaonote-images/Pasted%20image%2020231009204038.png)
+3. 中间件系统自己本身的一些核心参数的设置
