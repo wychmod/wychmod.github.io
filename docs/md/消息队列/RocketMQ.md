@@ -47,3 +47,15 @@ NameServer一定会多机器部署，实现一个集群，起到高可用的效�
 RocketMQ的解决思路是**Broker主从架构以及多副本策略**。
 
 Master Broker收到消息之后会同步给Slave Broker，这样Slave Broker上就能有一模一样的一份副本数据。
+
+## Master Broker是如何将消息同步给Slave Broker的？
+
+- RocketMQ的Master-Slave模式采取的是Slave Broker不停的发送请求到Master Broker去拉取消息。
+- 是RocketMQ自身的Master-Slave模式采取的是**Pull模式**拉取消息。
+
+## RocketMQ 实现读写分离了吗？
+
+**有可能从Master Broker获取消息，也有可能从Slave Broker获取消息**
+- Master Broker在返回消息给消费者系统的时候，会根据当时Master Broker的负载情况和Slave Broker的同步情况，向消费者系统建议下一次拉取消息的时候是从Master Broker拉取还是从Slave Broker拉取。
+![](../youdaonote-images/Pasted%20image%2020231009140829.png)
+> 在写入消息的时候，通常来说肯定是选择Master Broker去写入的， 
