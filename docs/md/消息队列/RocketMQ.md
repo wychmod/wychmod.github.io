@@ -245,3 +245,8 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 ## 基于DLedger技术部署的Broker高可用集群，如何进行数据同步
 
 ## 消费者基于什么策略选择Master或Slave拉取数据
+
+## 消费者是如何从Broker拉取消息回来，进行处理以及ACK的？
+
+
+## 如果消费者故障了会如何处理？
