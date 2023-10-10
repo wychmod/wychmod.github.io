@@ -184,6 +184,19 @@ vivo 也是分库分表减轻压力，存库扣件没有使用redis，直接分�
 
 # spring
 
+## AOP通知的执行顺序
+4.0
+正常执行：@Before(前置通知) ====>@After(后置通知) ====>@AfterReturning(正常返回) 
+异常执行：@Before(前置通知) ====>@After(后置通知) ====>@AfterThrowing(方法异常)
+5.0
+正常执行：@Before(前置通知) ====>@AfterReturning(正常返回) ====>@After(后置通知)
+异常执行：@Before(前置通知) ====>@AfterThrowing(方法异常) ====>@After(后置通知)
+
+ **多个切面之间的通知顺序**
+1. 切面级别的优先级可以通过注解 `@Order` 或是实现接口 `org.springframework.core.Ordered` ，数值越小优先级越高。
+2. 类似洋葱圈，前置方向的优先级越高，后置方向的优先级越低。
+
+
 ## spring不能解决构造器循环依赖的原因
 1. 如果是构造器注入的话(假如有A、B类，A先B后)，A第一次先把自己放入singletonsCurrentlyInCreation中，然后在createBeanInstance时会去调用@AutoWired标注的有参构造器(此时A没有实例化，连对象都没创建)，然后会去getBean(B)，这就回到了上方流程的开头，B在第一个getSingleton没有获取到A，然后就去getBean(A)，对于A来说已经是第二次了，于是在向singletonsCurrentlyInCreation添加的时候就会报错，因为该集合已经有了A，因此异常在此处抛出。
 2. 如果是set注入，A在createBeanInstance时则会调用无参构造方法，在populateBean(此时A已经放入三级缓存了)时调用getBean(B),而B再去getBean(A)的时候(无论B是在@AutoWired标注的有参构造器还是无参构造去获取A)，直接就能从三级缓存中得到，解决循环依赖。
