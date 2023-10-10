@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "JVM实战-4-调优",
+      "path": "JVM/JVM实战-4-调优.md"
+    },
+    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
     },
@@ -27,10 +31,6 @@
     {
       "basename": "Python源码剖析-7-内建对象list",
       "path": "Python/Python源码剖析/Python源码剖析-7-内建对象list.md"
-    },
-    {
-      "basename": "JVM实战-4-调优",
-      "path": "JVM/JVM实战-4-调优.md"
     },
     {
       "basename": "MySQL性能优化-事务",
