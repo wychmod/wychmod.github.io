@@ -44,7 +44,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -117,7 +117,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5
+    "width": 392.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -133,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md",
+                "file": "面试/Java面试汇总.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -150,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md",
+                "file": "面试/Java面试汇总.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -181,7 +182,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM实战-4-调优.md"
+                "file": "面试/Java面试汇总.md"
               }
             }
           },
@@ -223,8 +224,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "6f8d439326c0fe14",
+  "active": "e92fc84dba3fbec4",
   "lastOpenFiles": [
+    "JVM/JVM实战-4-调优.md",
     "面试/Java面试汇总.md",
     "消息队列/RocketMQ.md",
     "youdaonote-images/Pasted image 20231009232931.png",
@@ -246,7 +248,6 @@
     "消息队列/kafka",
     "AliceBot 自动化测试设计与实现.md",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
-    "JVM/JVM实战-4-调优.md",
     "mysql/MySQL性能优化-事务.md",
     "算法/左神从0学算法/算法笔记·.md",
     "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
