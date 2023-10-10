@@ -1542,6 +1542,13 @@ try {
 }
 ```
 
+
+## 线程池有几种？
+1. 固定线程池（FixedThreadPool）
+2. 缓存线程池（CachedThreadPool）
+3. 单线程线程池（SingleThreadExecutor）
+4. 定时线程池（ScheduledThreadPool）
+5. 工作窃取线程池（WorkStealingPool）
 ## 如何判断线程池执行完成？
 
 在实现判断线程池任务是否执行完成的方案中，通过统计线程池执行完任务的方式（getCompletedTaskCount() 统计已经执行完的任务，和 getTaskCount() 线程池的总任务进行对比），以及实现（CountDownLatch 或 CyclicBarrier）等统计，都是“不记名”的，只关注数量，不关注（具体）对象，所以这些方式都有可能受到外界代码的影响，因此使用 FutureTask 等待具体任务执行完的方式是最推荐的判断方法。
