@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -122,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "消息队列/RocketMQ.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "消息队列/RocketMQ.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "消息队列/RocketMQ.md"
               }
             }
           },
@@ -212,8 +211,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "e92fc84dba3fbec4",
+  "active": "409ad891d19a7a7b",
   "lastOpenFiles": [
+    "面试/Java面试汇总.md",
     "消息队列/RocketMQ.md",
     "youdaonote-images/Pasted image 20231009232931.png",
     "youdaonote-images/Pasted image 20231009204038.png",
@@ -226,7 +226,6 @@
     "youdaonote-images/Pasted image 20231009143944.png",
     "youdaonote-images/Pasted image 20231009140829.png",
     "youdaonote-images/Pasted image 20231009134834.png",
-    "面试/Java面试汇总.md",
     "消息队列/RabbitMQ.md",
     "zookeeper/Zookeeper源码.md",
     "zookeeper/Zookeeper基础.md",
