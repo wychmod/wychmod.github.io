@@ -790,6 +790,17 @@ TCP（Transmission Control Protocol，传输控制协议）和 UDP（User Data P
 5. **应用场景不同**：TCP 适用于要求数据传输可靠性高的场景，如网页浏览、文件下载、电子邮件等；而 UDP 适用于实时性要求较高的场景，如视频会议、在线游戏等。
 6. **服务对象**：tcp是一对一，udp是一对一，一对多，多对多。
 
+## HTTP请求报文结构
+1. 请求行（Request Line）：请求行包含请求方法、请求目标和HTTP协议版本。格式为：方法 目标 协议版本，例如：GET /index.html HTTP/1.1。
+2. 请求头部（Request Headers）：请求头部包含了对请求的描述和控制信息，以键值对的形式出现，每个键值对占据一行。常见的请求头部包括：
+    
+    - Host：请求的主机名。
+    - User-Agent：请求的客户端信息。
+    - Accept：客户端能够接受的响应内容类型。
+    - Content-Type：请求体的内容类型。
+    - Content-Length：请求体的长度。
+    - Cookie：请求携带的Cookie信息等。
+3. 请求体（Request Body）：请求体是可选的，用于传递请求的具体数据，例如表单数据、JSON数据等。请求体的格式和内容类型由Content-Type字段指定。
 ## HTTPS和http
 **HTTPS = HTTP + 加密 + 认证 + 完整性保护。**
 - HTTPS可以认为是HTP+TLS。TLS是传输层加密协议,它的前身是SSL协议。
