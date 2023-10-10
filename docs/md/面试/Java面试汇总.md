@@ -184,6 +184,9 @@ vivo 也是分库分表减轻压力，存库扣件没有使用redis，直接分�
 
 # spring
 
+## spring不能解决构造器循环依赖的原因
+
+
 ## SpringBoot事务失效的场景有哪些？
 
 当声明式事务 @Transactional 遇到以下场景时，事务会失效：
