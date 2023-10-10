@@ -185,7 +185,9 @@ vivo 也是分库分表减轻压力，存库扣件没有使用redis，直接分�
 # spring
 
 ## spring不能解决构造器循环依赖的原因
-
+1. 如果是构造器注入的话(假如有A、B类，A先B后)，A第一次先把自己放入singletonsCurrentlyInCreation中，然后在createBeanInstance时会去调用@AutoWired标注的有参构造器(此时A没有实例化，连对象都没创建)，然后会去getBean(B)，这就回到了上方流程的开头，B在第一个getSingleton没有获取到A，然后就去getBean(A)，对于A来说已经是第二次了，于是在向singletonsCurrentlyInCreation添加的时候就会报错，因为该集合已经有了A，因此异常在此处抛出。
+2. 如果是set注入，A在createBeanInstance时则会调用无参构造方法，在populateBean(此时A已经放入三级缓存了)时调用getBean(B),而B再去getBean(A)的时候(无论B是在@AutoWired标注的有参构造器还是无参构造去获取A)，直接就能从三级缓存中得到，解决循环依赖。
+3. A先B后，A用set注入，B是构造器注入，这样的循环依赖也是可以被解决的
 
 ## SpringBoot事务失效的场景有哪些？
 
