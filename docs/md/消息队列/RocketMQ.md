@@ -234,3 +234,14 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 ## 通过mysql binlog发送到rocketmq里面来进行数据统计
 
 ![](../youdaonote-images/Pasted%20image%2020231009232931.png)
+
+
+# RocketMQ底层原理和思路
+
+## 生产者往Broker集群发送消息的底层原理
+
+## Broker接收消息，如何存储到磁盘
+
+## 基于DLedger技术部署的Broker高可用集群，如何进行数据同步
+
+## 消费者基于什么策略选择Master或Slave拉取数据
