@@ -270,6 +270,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 	1. 是在Broker的磁盘上，会有这种格式的一系列文件：$HOME/store/consumequeue/{topic}/{queueId}/{fileName}
 	2. {topic}指代的就是某个Topic，{queueId}指代的就是某个MessageQueue。
 	3. **这个ConsumeQueue文件里，存储的是一条消息对应在CommitLog文件中的offset偏移量。**
+	4. **在ConsumeQueue中存储的每条数据不只是消息在CommitLog中的offset偏移量，还包含了消息的长度，以及taghashcode，一条数据是20个字节，每个ConsumeQueue文件保存30万条数据，大概每个文件是5.72MB。**
 ![](../youdaonote-images/Pasted%20image%2020231011220528.png)
 ![](../youdaonote-images/Pasted%20image%2020231011220753.png)
 
