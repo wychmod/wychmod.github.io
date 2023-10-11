@@ -259,7 +259,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 2. 在Producer中开启一个开关，就是sendLatencyFaultEnable
 3. 打开了会有自动容错机制，在某一次访问中发现有500ms延迟，以及访问不到，就会自动回避这个Broker一段时间。
 
-## Broker接收消息，如何存储到磁盘
+## Broker是如何持久化存储消息的
 
 ## 基于DLedger技术部署的Broker高可用集群，如何进行数据同步
 
