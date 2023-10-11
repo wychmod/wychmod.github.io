@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "通用面试技巧",
+      "path": "通用面试技巧.md"
+    },
+    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "Centos7安装Docker",
       "path": "docker/Centos7安装Docker.md"
-    },
-    {
-      "basename": "1-线性代数基础",
-      "path": "人工智能/人工智能-奈学/1-线性代数基础.md"
     }
   ],
   "omittedPaths": [],

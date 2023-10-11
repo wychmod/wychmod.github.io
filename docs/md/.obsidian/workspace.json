@@ -42,9 +42,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "a8cff3f6401b2301",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "通用面试技巧.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -134,7 +146,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "通用面试技巧.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +163,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "通用面试技巧.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -182,7 +194,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "通用面试技巧.md"
               }
             }
           },
@@ -224,10 +236,11 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "e92fc84dba3fbec4",
+  "active": "a8cff3f6401b2301",
   "lastOpenFiles": [
-    "消息队列/RocketMQ.md",
     "面试/Java面试汇总.md",
+    "通用面试技巧.md",
+    "消息队列/RocketMQ.md",
     "JVM/JVM实战-4-调优.md",
     "youdaonote-images/Pasted image 20231009232931.png",
     "youdaonote-images/Pasted image 20231009204038.png",
