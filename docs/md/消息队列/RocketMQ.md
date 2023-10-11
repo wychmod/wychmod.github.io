@@ -274,7 +274,13 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 ![](../youdaonote-images/Pasted%20image%2020231011220528.png)
 ![](../youdaonote-images/Pasted%20image%2020231011220753.png)
 
+3. Broker是基于OS操作系统的**PageCache和顺序写**两个机制，来提升写入CommitLog文件的性能
+	1. 每次写入就是在文件末尾追加一条数据，顺序写的性能要比对文件随机写的性能提升很多
+	2. 写入CommitLog文件的时候，其实不是直接写入底层的物理磁盘文件的，而是先进入OS的PageCache内存缓存中，然后后续由OS的后台线程选一个时间，异步化的将OS PageCache内存缓冲中的数据刷入底层的磁盘文件。
+	3. **采用磁盘文件顺序写+OS PageCache写入+OS异步刷盘的策略，基本上可以让消息写入CommitLog的性能**
 
+跟你直接写入内存里是差不多的
+![](../youdaonote-images/Pasted%20image%2020231011225023.png)
 
 ## 基于DLedger技术部署的Broker高可用集群，如何进行数据同步
 
