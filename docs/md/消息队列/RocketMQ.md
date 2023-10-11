@@ -249,7 +249,15 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 ![](../youdaonote-images/Pasted%20image%2020231011211750.png)
 
 ### 1.2 生产者发送消息的时候写入哪个MessageQueue？
+![](../youdaonote-images/Pasted%20image%2020231011211918.png)
 
+1. 暂时先认为生产者会均匀的把消息写入各个MessageQueue
+
+### 1.3 如果某个Broker出现故障该怎么办？
+![](../youdaonote-images/Pasted%20image%2020231011212141.png)
+1. master 挂了，这时正在等待slave切换，按照之前策略就会访问失败。
+2. 在Producer中开启一个开关，就是sendLatencyFaultEnable
+3. 打开了会有自动容错机制，在某一次访问中发现有500ms延迟，以及访问不到，就会自动回避这个Broker一段时间。
 
 ## Broker接收消息，如何存储到磁盘
 
