@@ -238,9 +238,18 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 # RocketMQ底层原理和思路
 
-## 生产者往Broker集群发送消息的底层原理
+## 1. 生产者往Broker集群发送消息的底层原理
 
-### Topic、MessageQueue以及Broker之间的关系
+### 1.1 Topic、MessageQueue以及Broker之间的关系
+1. 在创建Topic的时候需要指定一个很关键的参数，就是MessageQueue。
+2. 以在RocketMQ引入了MessageQueue的概念，本质上就是一个数据分片的机制。
+3. 假设Topic有1万条数据，Topic有4个MessageQueue，那么每个MessageQueue中2500条数据
+4. 很有可能就是在2个Broker上，每个Broker放两个MessageQueue
+
+![](../youdaonote-images/Pasted%20image%2020231011211750.png)
+
+### 1.2 生产者发送消息的时候写入哪个MessageQueue？
+
 
 ## Broker接收消息，如何存储到磁盘
 
