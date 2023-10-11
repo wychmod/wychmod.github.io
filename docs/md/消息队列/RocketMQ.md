@@ -264,6 +264,13 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 1. CommitLog消息顺序写入机制
 	1. 接收到了一条消息，会把这个消息直接写入磁盘上的一个日志文件，叫做CommitLog
+	2. 这个CommitLog是很多磁盘文件，每个文件限定最多1GB，写满就会新建
+![](../youdaonote-images/Pasted%20image%2020231011215632.png)
+2. Topic下的每个MessageQueue都会有一系列的ConsumeQueue文件
+	1. 是在Broker的磁盘上，会有这种格式的一系列文件：$HOME/store/consumequeue/{topic}/{queueId}/{fileName}
+	2. {topic}指代的就是某个Topic，{queueId}指代的就是某个MessageQueue。
+	3. **这个ConsumeQueue文件里，存储的是一条消息对应在CommitLog文件中的offset偏移量。**
+	4. 
 
 
 
