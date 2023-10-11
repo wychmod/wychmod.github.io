@@ -259,7 +259,13 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 2. 在Producer中开启一个开关，就是sendLatencyFaultEnable
 3. 打开了会有自动容错机制，在某一次访问中发现有500ms延迟，以及访问不到，就会自动回避这个Broker一段时间。
 
-## Broker是如何持久化存储消息的
+## 2. Broker是如何持久化存储消息的
+**Broker数据存储是一个MQ最核心的环节**，他决定了生产者消息写入的吞吐量，决定了消息不能丢失，决定了消费者获取消息的吞吐量
+
+1. CommitLog消息顺序写入机制
+	1. 接收到了一条消息，会把这个消息直接写入磁盘上的一个日志文件，叫做CommitLog
+
+
 
 ## 基于DLedger技术部署的Broker高可用集群，如何进行数据同步
 
