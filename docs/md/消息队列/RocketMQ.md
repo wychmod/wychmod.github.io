@@ -280,7 +280,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 	3. **采用磁盘文件顺序写+OS PageCache写入+OS异步刷盘的策略，基本上可以让消息写入CommitLog的性能**跟你直接写入内存里是差不多的
 ![](../youdaonote-images/Pasted%20image%2020231011225023.png)
 
-
+4. 同步刷盘和异步刷盘各自的优缺点：高吞吐写入+丢失数据风险(在缓存中，突然宕机)，写入吞吐量下降+数据不丢失
 
 ## 基于DLedger技术部署的Broker高可用集群，如何进行数据同步
 
