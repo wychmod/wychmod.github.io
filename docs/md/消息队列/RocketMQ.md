@@ -271,7 +271,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 	2. {topic}指代的就是某个Topic，{queueId}指代的就是某个MessageQueue。
 	3. **这个ConsumeQueue文件里，存储的是一条消息对应在CommitLog文件中的offset偏移量。**
 ![](../youdaonote-images/Pasted%20image%2020231011220528.png)
-
+![](../youdaonote-images/Pasted%20image%2020231011220753.png)
 
 
 
