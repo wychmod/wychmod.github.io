@@ -1776,7 +1776,9 @@ LockSupport.unpark( queue.remove())
 ## AQS队列（CLH）
 为了应对高并发场景，AQS的队列采用了CLH队列。CLH是Craig、Landin和Hagersten，该算法的3位作者。
 
+![](../youdaonote-images/Pasted%20image%2020231013233648.png)
 
+CHL认为Head总是指向哑巴节点，这样虽然没有真的删除掉线程，但是线程已经变成新的哑巴节点了。
 
 ## 进程的通讯方式
 
