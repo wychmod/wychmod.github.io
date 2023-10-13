@@ -1690,7 +1690,56 @@ AQS的性能问题
 AQS要实现的功能
 ![](../youdaonote-images/Pasted%20image%2020231013230642.png)
 
-AQS是一个Java的同步器开发框架。 用AQS开发的同步器比如说ReentrantLock区别于`synchronized` ，是纯Java的实现。`synchronized` 也被称为内部锁(build-in lock或者intrinsic lock)， 是C/C++实现的底层的Monitor。而AQS提供完整基于Java的实现
+
+
+```java
+public class Mutex {
+    private final Sync sync = new Sync();
+    static class Sync extends AbstractQueuedSynchronizer{
+        protected boolean tryAcquire(int arg) {
+            return compareAndSetState(0, 1);
+        }
+        protected boolean tryRelease(int arg) {
+            return compareAndSetState(1, 0);
+        }
+    }
+    public void lock(){
+        sync.acquire(0);
+    }
+    public void unlock(){
+        sync.release(0);
+    }
+
+    static int i;
+    public static void main(String[] argv) throws InterruptedException {
+        var mutex = new Mutex();
+        var t1 = new Thread(() -> {
+            for(int j = 0; j < 10000; j++) {
+                mutex.lock();
+                i++;
+                mutex.unlock();
+            }
+        });
+        var t2 = new Thread(() -> {
+            for(int j = 0; j < 10000; j++) {
+                mutex.lock();
+                i++;
+                mutex.unlock();
+            }
+        });
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+
+        System.out.println("i=" + i);
+
+
+    }
+}
+```
+
+
 
 ## 不用锁进行同步
 - LockSupport.park、LockSupport.unpark+uncafe.cas+loop循环
