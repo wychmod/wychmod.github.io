@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "技术写作指南",
+      "path": "博客写作内容/技术写作指南/技术写作指南.md"
+    },
+    {
       "basename": "通用面试技巧",
       "path": "博客写作内容/面试指南/通用面试技巧.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "spring",
       "path": "java/spring系列学习/spring.md"
-    },
-    {
-      "basename": "Centos7安装Docker",
-      "path": "docker/Centos7安装Docker.md"
     }
   ],
   "omittedPaths": [],
