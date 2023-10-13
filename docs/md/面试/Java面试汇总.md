@@ -1676,6 +1676,45 @@ Java中的Atomic操作就是基于CAS实现的，比如说AtomicInteger的写入
 ## 什么是AQS？
 AQS（AbstractQueuedSynchronizer）是一个用于实现各种同步器的抽象类，是 JUC（java.util.concurrent）并发包中的核心类之一，JUC 中的许多并发工具类和接口都是基于 AQS 实现的。它提供了一种基于队列的、高效的、可扩展的同步机制，是实现锁、信号量、倒计时器等同步器的基础。 **可以和cas相结合构造自己的同步器。**
 
+1. AQS内部实现了一个整数状态(state)，然后围绕这个状态提供了`cas` 操作。用户只需要提供关键的`cas` 状态操作步骤，AQS实现`cas loop` 。（具体见后续Mutex的代码示例）
+2. AQS内部实现了两个高性能的队列
+    1. 一个用于获取锁、信号量等线程失败后进行等待等待
+    2. 另一个用于线程们在某个条件变量上等待
+
+AQS是一个Java的同步器开发框架。 用AQS开发的同步器比如说ReentrantLock区别于`synchronized` ，是纯Java的实现。`synchronized` 也被称为内部锁(build-in lock或者intrinsic lock)， 是C/C++实现的底层的Monitor。而AQS提供完整基于Java的实现，且用户不需要使用底层API，比如说Unsafe和LockSuppot。
+
+## 不用锁进行同步
+- LockSupport.park、LockSupport.unpark+uncafe.cas+loop循环
+```java
+// 线程安全的queue
+queue = {}
+
+// state 初始值 ，最多允许3个线程通过
+int state = 3
+
+// 多线程并发控制的程序，Thread's
+// 进入临界区前执行do...while
+int localState
+do {
+   
+    localState = state
+  // invariant : localState >= 0
+  // 不会发生更新为-1的操作
+  if localState == 0 {
+      queue.add(Thread.currentThread())
+      LockSupport.park()
+  }
+} while( !UnSafe.cas(&state, localState, localState - 1) )
+
+
+// 临界区程序
+
+// 退出临界区
+while( !UnSafe.cas(&state, state, state+1) ){     
+}
+LockSupport.unpark( queue.remove())
+```
+
 ## 进程的通讯方式
 
 -   **管道/匿名管道(Pipes)** ：用于具有亲缘关系的父子进程间或者兄弟进程之间的通信。优点：简单易用。缺点：只能具有亲缘关系的进程用，无法在网洛上用
