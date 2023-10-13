@@ -1603,7 +1603,7 @@ synchronized 和 Lock 主要的区别有以下几个方面：
 5. 都提供锁的升级逻辑和队列
     1. monitor: 偏向锁->轻量级锁->重量级锁
     2. AQS: CAS竞争->休眠+排队竞争
-2. 都提供等待队列
+6. 都提供等待队列
     1. monitor: EntrySet, WaitSet
     2. AQS : CLH队列
 
@@ -1744,8 +1744,6 @@ public class Mutex {
     }
 }
 ```
-
-
 
 ## 不用锁进行同步
 - LockSupport.park、LockSupport.unpark+uncafe.cas+loop循环
