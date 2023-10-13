@@ -1600,6 +1600,12 @@ synchronized 和 Lock 主要的区别有以下几个方面：
 2. 锁的性质：synchronized 是可重入的互斥锁，即同一个线程可以多次获得同一把锁，而且锁的释放也只能由获得锁的线程来释放；Lock 可以是可重入的互斥锁，也可以是非可重入的互斥锁，还可以是读写锁。
 3. 锁的粒度：synchronized 是以代码块和方法为单位进行加锁和解锁，而 Lock 可以精确地控制锁的范围，可以支持多个条件变量。
 4. 性能：在低并发的情况下，synchronized 的性能优于 Lock，因为 Lock 需要显式地获取和释放锁，而 synchronized 是在 JVM 层面实现的；在高并发的情况下，Lock 的性能可能优于 synchronized，因为 Lock 可以更好地支持高并发和读写分离的场景。
+5. 都提供锁的升级逻辑和队列
+    1. monitor: 偏向锁->轻量级锁->重量级锁
+    2. AQS: CAS竞争->休眠+排队竞争
+2. 都提供等待队列
+    1. monitor: EntrySet, WaitSet
+    2. AQS : CLH队列
 
 ## synchronized底层是如何实现的？
 
@@ -1779,6 +1785,16 @@ LockSupport.unpark( queue.remove())
 ![](../youdaonote-images/Pasted%20image%2020231013233648.png)
 
 CHL认为Head总是指向哑巴节点，这样虽然没有真的删除掉线程，但是线程已经变成新的哑巴节点了。
+
+## 说6个Java的同步器？
+1. _ReentrantLock_
+2. _Semaphore_
+3. _CyclicBarrier_
+4. _CountDownLatch_
+5. _Phaser_
+6. _Exchanger_
+
+
 
 ## 进程的通讯方式
 
