@@ -1773,6 +1773,11 @@ while( !UnSafe.cas(&state, state, state+1) ){
 LockSupport.unpark( queue.remove())
 ```
 
+## AQS队列（CLH）
+为了应对高并发场景，AQS的队列采用了CLH队列。CLH是Craig、Landin和Hagersten，该算法的3位作者。
+
+
+
 ## 进程的通讯方式
 
 -   **管道/匿名管道(Pipes)** ：用于具有亲缘关系的父子进程间或者兄弟进程之间的通信。优点：简单易用。缺点：只能具有亲缘关系的进程用，无法在网洛上用
