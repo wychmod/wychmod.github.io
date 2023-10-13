@@ -43,7 +43,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -116,8 +117,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -133,7 +133,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "消息队列/RocketMQ.md",
+                "file": "JVM/JVM实战-4-调优.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -150,7 +150,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "消息队列/RocketMQ.md",
+                "file": "JVM/JVM实战-4-调优.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -181,7 +181,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "消息队列/RocketMQ.md"
+                "file": "JVM/JVM实战-4-调优.md"
               }
             }
           },
@@ -223,8 +223,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "409ad891d19a7a7b",
+  "active": "6f8d439326c0fe14",
   "lastOpenFiles": [
+    "消息队列/RocketMQ.md",
     "youdaonote-images/Pasted image 20231011225023.png",
     "youdaonote-images/Pasted image 20231011220753.png",
     "youdaonote-images/Pasted image 20231011220528.png",
@@ -234,12 +235,10 @@
     "youdaonote-images/Pasted image 20231011211750.png",
     "面试/Java面试汇总.md",
     "通用面试技巧.md",
-    "消息队列/RocketMQ.md",
     "JVM/JVM实战-4-调优.md",
     "youdaonote-images/Pasted image 20231009232931.png",
     "youdaonote-images/Pasted image 20231009204038.png",
     "youdaonote-images/Pasted image 20231009203738.png",
-    "youdaonote-images/Pasted image 20231009202219.png",
     "消息队列/部署一个小规模的 RocketMQ 集群.pdf",
     "消息队列/RabbitMQ.md",
     "zookeeper/Zookeeper源码.md",

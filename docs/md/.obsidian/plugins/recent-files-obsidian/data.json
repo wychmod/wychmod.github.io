@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "JVM实战-4-调优",
+      "path": "JVM/JVM实战-4-调优.md"
+    },
+    {
       "basename": "RocketMQ",
       "path": "消息队列/RocketMQ.md"
     },
@@ -11,10 +15,6 @@
     {
       "basename": "通用面试技巧",
       "path": "通用面试技巧.md"
-    },
-    {
-      "basename": "JVM实战-4-调优",
-      "path": "JVM/JVM实战-4-调优.md"
     },
     {
       "basename": "RabbitMQ",
