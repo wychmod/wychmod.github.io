@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "通用面试技巧",
+      "path": "通用面试技巧.md"
+    },
+    {
       "basename": "JVM实战-1-加载链接初始化",
       "path": "JVM/JVM实战-1-加载链接初始化.md"
     },
@@ -15,10 +19,6 @@
     {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
-    },
-    {
-      "basename": "通用面试技巧",
-      "path": "通用面试技巧.md"
     },
     {
       "basename": "RabbitMQ",

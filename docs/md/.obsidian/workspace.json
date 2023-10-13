@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "JVM/JVM实战-1-加载链接初始化.md",
+                "file": "通用面试技巧.md",
                 "mode": "source",
                 "source": false
               }
@@ -133,7 +133,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JVM/JVM实战-1-加载链接初始化.md",
+                "file": "通用面试技巧.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -150,7 +150,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JVM/JVM实战-1-加载链接初始化.md",
+                "file": "通用面试技巧.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -181,7 +181,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JVM/JVM实战-1-加载链接初始化.md"
+                "file": "通用面试技巧.md"
               }
             }
           },
@@ -225,6 +225,7 @@
   },
   "active": "6f8d439326c0fe14",
   "lastOpenFiles": [
+    "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM实战-4-调优.md",
     "消息队列/RocketMQ.md",
     "youdaonote-images/Pasted image 20231011225023.png",
@@ -257,7 +258,6 @@
     "Redis/3-原理篇.md",
     "mysql/MySQL性能优化-索引.md",
     "mysql/MySQL性能优化-架构.md",
-    "JVM/JVM实战-1-加载链接初始化.md",
     "系统设计/设计模式.md",
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
