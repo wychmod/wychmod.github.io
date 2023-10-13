@@ -1685,6 +1685,11 @@ AQS的性能问题
 ![](../youdaonote-images/Pasted%20image%2020231013230038.png)
 性能层面AQS使用高性能队列优化线程争夺自旋锁的场景。类似`synchronized` 关键字中从轻量级锁到重量级锁升级的逻辑。
 
+**让线程通过自旋锁进入一个等待队列，这样可以节省大量自旋的时间。大多数情况下，自旋进入等待队列，比自旋锁获取锁临界区容易太多。**
+
+AQS要实现的功能
+![](../youdaonote-images/Pasted%20image%2020231013230642.png)
+
 AQS是一个Java的同步器开发框架。 用AQS开发的同步器比如说ReentrantLock区别于`synchronized` ，是纯Java的实现。`synchronized` 也被称为内部锁(build-in lock或者intrinsic lock)， 是C/C++实现的底层的Monitor。而AQS提供完整基于Java的实现
 
 ## 不用锁进行同步
