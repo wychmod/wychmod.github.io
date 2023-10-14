@@ -364,5 +364,9 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 下次消费可以从Broker记录的消费位置开始继续拉取，不用重头开始拉取了。
 
+### 4.7 如果消费组中出现机器宕机或者扩容加机器，会怎么处理
+
+会进行rebalance， 重新给各个消费机器分配他们要处理的MessageQueue。
+
 ## 消费者基于什么策略选择Master或Slave拉取数据
 ## 如果消费者故障了会如何处理？
