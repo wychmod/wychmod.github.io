@@ -303,6 +303,16 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 4. 当其他人苏醒时看见自己有收到的选票，就会尊重这个人意见，投这个人。
 > **其实只要有（3台机器 / 2） + 1个人投票给某个人，就会选举他当Leader，这个（机器数量 / 2） + 1就是大多数的意思。**
 
+### 3.4 DLedger是如何基于Raft协议进行多副本同步的
+
+**数据同步会分为两个阶段，一个是uncommitted阶段，一个是commited阶段**
+
+1. Leader Broker上的DLedger收到一条数据之后，会标记为uncommitted状态，然后他会通过自己的DLedgerServer组件把这个uncommitted数据发送给Follower Broker的DLedgerServer
+2. 接着Follower Broker的DLedgerServer收到uncommitted消息之后，必须返回一个ack给Leader Broker的DLedgerServer，然后如果Leader Broker收到超过半数的Follower Broker返回ack之后，就会将消息标记为committed状态。
+3. 然后Leader Broker上的DLedgerServer就会发送commited消息给Follower Broker机器的DLedgerServer，让他们也把消息标记为comitted状态。
+
+![](../youdaonote-images/Pasted%20image%2020231014152836.png)
+
 ## 消费者基于什么策略选择Master或Slave拉取数据
 
 ## 消费者是如何从Broker拉取消息回来，进行处理以及ACK的？
