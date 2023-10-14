@@ -283,8 +283,16 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 4. 同步刷盘和异步刷盘各自的优缺点：高吞吐写入+丢失数据风险(在缓存中，突然宕机)，写入吞吐量下降+数据不丢失
 
 
-## 基于DLedger技术部署的Broker高可用集群，如何进行数据同步
+## 3. 基于DLedger技术部署的Broker高可用集群，如何进行数据同步
 
+### 3.1 Broker高可用架构原理
+如果要让Broker实现高可用，那么必须有一个Broker组，里面有一个是Leader Broker可以写入数据，然后让Leader Broker接收到数据之后，直接把数据同步给其他的Follower Broker
+![](../youdaonote-images/Pasted%20image%2020231014150554.png)
+
+## 3.2 基于DLedger技术替换Broker的CommitLog
+
+1. DLedger技术实际上首先他自己就有一个CommitLog机制，你把数据交给他，他会写入CommitLog磁盘文件里去。
+2. 如果基于DLedger技术来实现Broker高可用架构，实际上就是用DLedger先替换掉原来Broker自己管理的CommitLog，由DLedger来管理CommitLog
 
 
 ## 消费者基于什么策略选择Master或Slave拉取数据
