@@ -376,9 +376,11 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 ![](../youdaonote-images/Pasted%20image%2020231014233526.png)
 ### 5.2 CommitLog是基于os cache+磁盘一起读取的
+1. 读取刚刚写入CommitLog的内容，可能还在os cache里，相当于从内存读，性能高。
+2. 不在os cache里，只能从磁盘上读。
+![](../youdaonote-images/Pasted%20image%2020231014233700.png)
 
 
-
-
+> 如果读取速度很快，和生产速度同步，那么大概率可以一直从os cache里读。
 
 ## 如果消费者故障了会如何处理？
