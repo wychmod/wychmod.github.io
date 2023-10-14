@@ -319,9 +319,24 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 如果Leader Broker刚同步到一半挂了，收到一半以上的ack的时候挂了，超过半数的Follower Broker上也是有这个消息的，只不过是uncommitted状态，新选举的Leader Broker可以根据剩余Follower Broker上这个消息的状态去进行数据恢复，比如把消息状态调整为committed。
 
 ![](../youdaonote-images/Pasted%20image%2020231014153025.png)
+
+## 4. 消费者是如何从Broker拉取消息回来，进行处理以及ACK的
+
+### 4.1 消费者组
+
+消费者组就是一堆具有相同功能的机器组成的一个群组，例如营销系统有四台机器，他们就可以属于营销消费者组。
+
+不同的系统应该设置不同的消费组，如果不同的消费组订阅了同一个Topic，对Topic里的一条消息，每个消费组都会获取到这条消息。
+
+![](../youdaonote-images/Pasted%20image%2020231014154106.png)
+
+
+### 4.2 集群模式消费 vs 广播模式消费
+
+- 集群模式(默认): 一个消费组获取到一条消息，只会交给组内的一台机器去处理，不是每台机器都可以获取到这条消息的。
+- 广播模式: 对于消费组获取到的一条消息，组内每台机器都可以获取到这条消息。
+
+
+
 ## 消费者基于什么策略选择Master或Slave拉取数据
-
-## 消费者是如何从Broker拉取消息回来，进行处理以及ACK的？
-
-
 ## 如果消费者故障了会如何处理？
