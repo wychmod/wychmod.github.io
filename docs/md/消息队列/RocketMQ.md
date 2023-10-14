@@ -336,7 +336,12 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 - 集群模式(默认): 一个消费组获取到一条消息，只会交给组内的一台机器去处理，不是每台机器都可以获取到这条消息的。
 - 广播模式: 对于消费组获取到的一条消息，组内每台机器都可以获取到这条消息。
 
+### 4.3 MessageQueue与消费者的关系
+- 会均匀的将MessageQueue分配给消费组的多台机器来消费
+- 假设我们的“TopicOrderPaySuccess”有4个MessageQueue，这4个MessageQueue分布在两个Master Broker上，每个Master Broker上有2个MessageQueue。
+- 一个Topic的多个MessageQueue会均匀分摊给消费组内的多个机器去消费，这里的一个原则就是，**一个MessageQueue只能被一个消费机器去处理，但是一台消费者机器可以负责多个MessageQueue的消息处理。**
 
+![](../youdaonote-images/Pasted%20image%2020231014162140.png)
 
 ## 消费者基于什么策略选择Master或Slave拉取数据
 ## 如果消费者故障了会如何处理？
