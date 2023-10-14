@@ -369,4 +369,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 会进行rebalance， 重新给各个消费机器分配他们要处理的MessageQueue。
 
 ## 消费者基于什么策略选择Master或Slave拉取数据
+
+
+
 ## 如果消费者故障了会如何处理？
