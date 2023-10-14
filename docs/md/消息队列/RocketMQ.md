@@ -313,6 +313,12 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 ![](../youdaonote-images/Pasted%20image%2020231014152836.png)
 
+### 3.5 如果Leader Broker崩溃了怎么办？
+如果Leader Broker挂了，此时剩下的两个Follower Broker就会重新发起选举，他们会基于DLedger还是采用Raft协议的算法，去选举出来一个新的Leader Broker继续对外提供服务，而且会对没有完成的数据同步进行一些恢复性的操作，保证数据不会丢失。
+
+如果Leader Broker刚同步到一半挂了，收到一半以上的ack的时候挂了，超过半数的Follower Broker上也是有这个消息的，只不过是uncommitted状态，新选举的Leader Broker可以根据剩余Follower Broker上这个消息的状态去进行数据恢复，比如把消息状态调整为committed。
+
+![](../youdaonote-images/Pasted%20image%2020231014153025.png)
 ## 消费者基于什么策略选择Master或Slave拉取数据
 
 ## 消费者是如何从Broker拉取消息回来，进行处理以及ACK的？
