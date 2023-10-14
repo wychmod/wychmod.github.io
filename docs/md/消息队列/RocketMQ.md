@@ -352,7 +352,17 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 > 一般我们使用RocketMQ的时候，消费模式通常都是基于他的Push模式来做的，因为Pull模式的代码写起来更加的复杂和繁琐，而且Push模式底层本身就是基于消息拉取的方式来做的，只不过时效性更好而已。
 
 ### 4.5 Broker是如何将消息读取出来返回给消费机器的？
+**本质就是根据你要消费的MessageQueue以及开始消费的位置，去找到对应的ConsumeQueue读取里面对应位置的消息在CommitLog中的物理offset偏移量，然后到CommitLog中根据offset读取消息数据，返回给消费者机器。**
 
+### 4.6 消费者机器如何处理消息、进行ACK以及提交消费进度？
+
+当我们处理完这批消息之后，消费者机器就会提交我们目前的一个消费进度到Broker上去，然后Broker就会存储我们的消费进度
+
+比如我们现在对ConsumeQueue0的消费进度假设就是在offset=1的位置，那么他会记录下来一个ConsumeOffset的东西去标记我们的消费进度，如下图
+
+![](../youdaonote-images/Pasted%20image%2020231014164711.png)
+
+下次消费可以从Broker记录的消费位置开始继续拉取，不用重头开始拉取了。
 
 ## 消费者基于什么策略选择Master或Slave拉取数据
 ## 如果消费者故障了会如何处理？
