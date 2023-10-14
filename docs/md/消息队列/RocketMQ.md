@@ -343,5 +343,9 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 ![](../youdaonote-images/Pasted%20image%2020231014162140.png)
 
+### 4.4 Push模式 vs Pull模式
+
+
+
 ## 消费者基于什么策略选择Master或Slave拉取数据
 ## 如果消费者故障了会如何处理？
