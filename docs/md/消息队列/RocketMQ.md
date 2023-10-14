@@ -368,7 +368,16 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 会进行rebalance， 重新给各个消费机器分配他们要处理的MessageQueue。
 
-## 消费者基于什么策略选择Master或Slave拉取数据
+## 5. 消费者基于什么策略选择Master或Slave拉取数据
+### 5.1 ConsumeQueue文件也是基于os cache的读和写的
+1. ConsumeQueue会被大量的消费者发送的请求给高并发的读取，会极大的影响到消费者进行消息拉取的性能和消费吞吐量。
+2. os自己有一个优化机制，就是读取一个磁盘文件的时候，他会自动把磁盘文件的一些数据缓存到os cache中。
+3. **ConsumeQueue文件主要是存放消息的offset，所以每个文件很小，30万条消息的offset就只有5.72MB。**
+
+![](../youdaonote-images/Pasted%20image%2020231014233526.png)
+### 5.2 CommitLog是基于os cache+磁盘一起读取的
+
+
 
 
 
