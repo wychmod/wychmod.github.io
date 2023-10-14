@@ -293,7 +293,12 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 1. DLedger技术实际上首先他自己就有一个CommitLog机制，你把数据交给他，他会写入CommitLog磁盘文件里去。
 2. 如果基于DLedger技术来实现Broker高可用架构，实际上就是用DLedger先替换掉原来Broker自己管理的CommitLog，由DLedger来管理CommitLog
+![](../youdaonote-images/Pasted%20image%2020231014150754.png)
 
+### 3.3 DLedger是如何基于Raft协议选举Leader Broker的
+**基于Raft协议来进行Leader Broker选举的**
+1. 三台Broker机器启动的时候，他们都会投票自己作为Leader，然后把这个投票发送给其他Broker。
+2. 所以第一轮选举失败，然后大家会进入随机时间休眠，加入1号3s 2号4s 3号5s
 
 ## 消费者基于什么策略选择Master或Slave拉取数据
 
