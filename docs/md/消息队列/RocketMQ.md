@@ -390,3 +390,9 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 **本质是对比你当前没有拉取消息的数量和大小，以及最多可以存放在os cache内存里的消息的大小，如果你没拉取的消息超过了最大能使用的内存的量，那么说明你后续会频繁从磁盘加载数据，此时就让你从slave broker去加载数据了！**
 
+# RocketMQ黑科技
+
+## 1. 如何基于Netty扩展出高性能网络通信架构
+
+## 2. 基于mmap内存映射实现CommitLog磁盘文件的高性能读写
+
