@@ -459,3 +459,10 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 5. 执行commit操作之后，RocketMQ就会在OP_TOPIC里写入一条记录，标记half消息已经是commit状态了。接着需要把放在RMQ_SYS_TRANS_HALF_TOPIC中的half消息给写入到OrderPaySuccessTopic的ConsumeQueue里去，然后我们的红包系统可以就可以看到这条消息进行消费了，如下图。
 ![](../youdaonote-images/Pasted%20image%2020231015225529.png)
 
+## 4. 同步发送消息 + 反复多次重试方式的利弊
+**kafka是采用同步发送消息 + 反复多次重试方式**。
+使用这种方式的弊端有：
+1. 订单事务执行成功，结果消息没发送出去，redis es没法回退。
+2. 多次重试耗费时间。
+
+> 业内最佳的方案还是用基于RocketMQ的事务消息机制。
