@@ -403,3 +403,6 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 ## 2. 基于mmap内存映射实现CommitLog磁盘文件的高性能读写
 
+**传统文件IO操作会经过多次数据拷贝。**
+
+![](../youdaonote-images/Pasted%20image%2020231015135623.png)

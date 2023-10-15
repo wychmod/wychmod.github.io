@@ -31,8 +31,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -122,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "消息队列/RocketMQ.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "消息队列/RocketMQ.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "消息队列/RocketMQ.md"
               }
             }
           },
@@ -212,8 +211,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "e92fc84dba3fbec4",
+  "active": "409ad891d19a7a7b",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20231015135623.png",
+    "面试/Java面试汇总.md",
     "消息队列/RocketMQ.md",
     "youdaonote-images/Pasted image 20231014233700.png",
     "youdaonote-images/Pasted image 20231014233526.png",
@@ -224,7 +225,6 @@
     "youdaonote-images/Pasted image 20231014152836.png",
     "youdaonote-images/Pasted image 20231014150754.png",
     "youdaonote-images/Pasted image 20231014150554.png",
-    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20231013233648.png",
     "博客写作内容/技术写作指南/技术写作指南.md",
     "博客写作内容/面试指南/通用面试技巧.md",

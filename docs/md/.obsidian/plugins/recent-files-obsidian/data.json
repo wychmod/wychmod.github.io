@@ -1,12 +1,12 @@
 {
   "recentFiles": [
     {
-      "basename": "Java面试汇总",
-      "path": "面试/Java面试汇总.md"
-    },
-    {
       "basename": "RocketMQ",
       "path": "消息队列/RocketMQ.md"
+    },
+    {
+      "basename": "Java面试汇总",
+      "path": "面试/Java面试汇总.md"
     },
     {
       "basename": "技术写作指南",
