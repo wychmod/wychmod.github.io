@@ -417,4 +417,6 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 	2. PageCache技术在加载数据的时候，还会将你**加载的数据块的临近的其他数据块也一起加载到PageCache里去**。
 	3. 读取数据的时候，其实也仅仅发生了一次拷贝，而不是两次拷贝
 ![](../youdaonote-images/Pasted%20image%2020231015140139.png)
-3. 
+3. **预映射机制 + 文件预热机制**
+	1. **内存预映射机制**：Broker会针对磁盘上的各种CommitLog、ConsumeQueue文件预先分配好MappedFile，也就是提前对一些可能接下来要读写的磁盘文件，提前使用MappedByteBuffer执行map()函数完成映射，这样后续读写文件的时候，就可以直接执行了。
+	2. **文件预热**：在提前对一些文件完成映射之后，因为映射不会直接将数据加载到内存里来，那么后续在读取尤其是CommitLog、ConsumeQueue的时候，其实有可能会频繁的从磁盘里加载数据到内存中去。**其实在执行完map()函数之后，会进行madvise系统调用，就是提前尽可能多的把磁盘文件加载到内存里去。**
