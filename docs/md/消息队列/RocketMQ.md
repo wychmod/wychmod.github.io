@@ -476,6 +476,9 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 - 采用了主从架构的Broker集群，那么一条消息写入成功，就意味着多个Broker机器都写入了，此时任何一台机器的磁盘故障，数据也是不会丢失的。
 ## 6. Consumer消息零丢失方案：手动提交offset + 自动故障转移
 
+1. 在回调函数中处理完所有流程再返回处理完成。
+2. 当你某个机器正在处理宕机，会让该集群中的其他机器继续处理没处理过的。
+
 ![](../youdaonote-images/Pasted%20image%2020231016004529.png)
 
 ![](../youdaonote-images/Pasted%20image%2020231016004519.png)
