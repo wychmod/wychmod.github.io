@@ -442,3 +442,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 ![](../youdaonote-images/Pasted%20image%2020231015222251.png)
 
 ![](../youdaonote-images/Pasted%20image%2020231015223048.png)
+
+## 3. 事务消息机制的底层实现原理
+
+1. 
