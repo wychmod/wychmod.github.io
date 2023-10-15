@@ -406,3 +406,15 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 **传统文件IO操作会经过多次数据拷贝。**
 
 ![](../youdaonote-images/Pasted%20image%2020231015135623.png)
+
+1. 建立虚拟地址的映射。
+	1. **刚开始你建立映射的时候，并没有任何的数据拷贝操作，其实磁盘文件还是停留在那里**，只不过他把物理上的磁盘文件的一些地址和用户进程私有空间的一些虚拟内存地址进行了一个映射
+	2. JDK NIO包下的MappedByteBuffer.map()函数干的事情，底层就是基于mmap技术实现的。
+	3. mmap技术在进行文件映射的时候，一般有大小限制，在1.5GB~2GB之间，所以单个CommitLog文件的大小在1GB。
+![](../youdaonote-images/Pasted%20image%2020231015135955.png)
+2. 基于mmap技术+pagecache技术实现高性能的文件读写
+	1. 只有一次数据拷贝的过程，他就是从PageCache里拷贝到磁盘文件里而已！这个就是你使用mmap技术之后，相比于传统磁盘IO的一个性能优化。
+	2. PageCache技术在加载数据的时候，还会将你**加载的数据块的临近的其他数据块也一起加载到PageCache里去**。
+	3. 读取数据的时候，其实也仅仅发生了一次拷贝，而不是两次拷贝
+![](../youdaonote-images/Pasted%20image%2020231015140139.png)
+3. 
