@@ -466,3 +466,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 2. 多次重试耗费时间。
 
 > 业内最佳的方案还是用基于RocketMQ的事务消息机制。
+
+
+## 5. 消息零丢失方案：同步刷盘 + Raft协议主从同步
+
