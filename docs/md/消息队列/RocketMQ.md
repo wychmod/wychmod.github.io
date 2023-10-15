@@ -421,7 +421,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 	1. **内存预映射机制**：Broker会针对磁盘上的各种CommitLog、ConsumeQueue文件预先分配好MappedFile，也就是提前对一些可能接下来要读写的磁盘文件，提前使用MappedByteBuffer执行map()函数完成映射，这样后续读写文件的时候，就可以直接执行了。
 	2. **文件预热**：在提前对一些文件完成映射之后，因为映射不会直接将数据加载到内存里来，那么后续在读取尤其是CommitLog、ConsumeQueue的时候，其实有可能会频繁的从磁盘里加载数据到内存中去。**其实在执行完map()函数之后，会进行madvise系统调用，就是提前尽可能多的把磁盘文件加载到内存里去。**
 
-## 11. 发送消息零丢失方案
+## 11. 消息零丢失方案
 
 ## 1. 解决消息丢失的第一个问题：订单系统推送消息丢失
 
@@ -429,7 +429,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 在RocketMQ中，有一个非常强悍有力的功能，就是**事务消息的功能**，凭借这个事务级的消息机制，就可以让我们确保订单系统推送给出去的消息一定会成功写入MQ里，绝对不会半路就搞丢了。
 
-## 2. 事务消息的功能
+## 2. 发送消息零丢失方案:事务消息的功能
 1. 发送half消息(实际消息，状态是half)到MQ去，试探一下MQ是否正常
 	1. half消息写入失败了， 就要将业务回滚，比如订单关闭进行退款。
 	2. half消息成功之后，订单系统完成自己的任务
@@ -468,5 +468,10 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 > 业内最佳的方案还是用基于RocketMQ的事务消息机制。
 
 
-## 5. 消息零丢失方案：同步刷盘 + Raft协议主从同步
+## 5. Broker消息零丢失方案：同步刷盘 + Raft协议主从同步
 
+如果一定要确保数据零丢失的话，可以调整MQ的刷盘策略，我们需要调整broker的配置文件，将其中的flushDiskType配置设置为：SYNC_FLUSH，默认他的值是ASYNC_FLUSH，即默认是异步刷盘的。
+
+- Broker的刷盘策略调整为同步刷盘，那么绝对不会因为机器宕机而丢失数据
+- 采用了主从架构的Broker集群，那么一条消息写入成功，就意味着多个Broker机器都写入了，此时任何一台机器的磁盘故障，数据也是不会丢失的。
+## 6. Consumer消息零丢失方案：手动提交offset + 自动故障转移
