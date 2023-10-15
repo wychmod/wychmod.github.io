@@ -1,5 +1,5 @@
-# RocketMQ NameServer设计原理
-## 数据路由：怎么知道访问哪个Broker？
+# 1. RocketMQ NameServer设计原理
+## 1. 数据路由：怎么知道访问哪个Broker？
 
 有一个NameServer的概念，他也是独立部署在几台机器上的，然后所有的Broker都会把自己注册到NameServer上去。
 
@@ -10,36 +10,36 @@
 
 ![](../youdaonote-images/Pasted%20image%2020231009133726.png)
 
-## NameServer到底可以部署几台机器？
+## 2. NameServer到底可以部署几台机器？
 
 - NameServer是可以集群化部署的,为了**保证高可用性**
 
 NameServer一定会多机器部署，实现一个集群，起到高可用的效果，保证任何一台机器宕机，其他机器上的NameServer可以继续对外提供服务！
 
-## Broker是把自己的信息注册到哪个NameServer上去？
+## 3. Broker是把自己的信息注册到哪个NameServer上去？
 
 - 每个Broker启动都得向所有的NameServer进行注册
 
-## 系统如何从NameServer获取Broker信息？
+## 4. 系统如何从NameServer获取Broker信息？
 - 系统主动去NameServer拉取Broker信息的。
 
-## 如果Broker挂了，NameServer是怎么感知到的？
+## 5. 如果Broker挂了，NameServer是怎么感知到的？
 
 - 靠的是Broker跟NameServer之间的心跳机制，Broker会每隔30s给所有的NameServer发送心跳，告诉每个NameServer自己目前还活着。
 - 每次NameServer收到一个Broker的心跳，就可以更新一下他的最近一次心跳的时间
 - NameServer会每隔10s运行一个任务，去检查一下各个Broker的最近一次心跳时间，如果某个Broker超过120s都没发送心跳了，那么就认为这个Broker已经挂掉了。
 ![](../youdaonote-images/Pasted%20image%2020231009134834.png)
 
-## Broker是如何跟NameServer进行通信的？
+## 6. Broker是如何跟NameServer进行通信的？
 
 - 在RocketMQ的实现中，采用的是**TCP长连接**进行通信。
 - **Broker会跟每个NameServer都建立一个TCP长连接，然后定时通过TCP长连接发送心跳请求过去**
 ![](../youdaonote-images/Pasted%20image%2020231009145851.png)
 
 
-# Broker的主从架构原理是什么？
+# 2. Broker的主从架构原理是什么？
 
-## MQ如果要存储海量消息应该怎么做?
+## 1. MQ如果要存储海量消息应该怎么做?
 
 发送消息到MQ的系统会把消息分散发送给多台不同的机器，假设一共有1万条消息，分散发送给10台机器，可能每台机器就是接收到1000条消息，如下图：
 
@@ -47,25 +47,25 @@ NameServer一定会多机器部署，实现一个集群，起到高可用的效�
 
 每台机器上部署的RocketMQ进程一般称之为Broker，每个Broker都会收到不同的消息，然后就会把这批消息存储在自己本地的磁盘文件里。
 
-## 高可用保障：万一Broker宕机了怎么办？
+## 2. 高可用保障：万一Broker宕机了怎么办？
 
 RocketMQ的解决思路是**Broker主从架构以及多副本策略**。
 
 Master Broker收到消息之后会同步给Slave Broker，这样Slave Broker上就能有一模一样的一份副本数据。
 
-## Master Broker是如何将消息同步给Slave Broker的？
+## 3. Master Broker是如何将消息同步给Slave Broker的？
 
 - RocketMQ的Master-Slave模式采取的是Slave Broker不停的发送请求到Master Broker去拉取消息。
 - 是RocketMQ自身的Master-Slave模式采取的是**Pull模式**拉取消息。
 
-## RocketMQ 实现读写分离了吗？
+## 4. RocketMQ 实现读写分离了吗？
 
 **有可能从Master Broker获取消息，也有可能从Slave Broker获取消息**
 - Master Broker在返回消息给消费者系统的时候，会根据当时Master Broker的负载情况和Slave Broker的同步情况，向消费者系统建议下一次拉取消息的时候是从Master Broker拉取还是从Slave Broker拉取。
 ![](../youdaonote-images/Pasted%20image%2020231009140829.png)
 > 在写入消息的时候，通常来说肯定是选择Master Broker去写入的， **有可能从Master Broker获取消息，也有可能从Slave Broker获取消息**
 
-## 如果Slave Broke挂掉了有什么影响？
+## 5. 如果Slave Broke挂掉了有什么影响？
 
 **有一点影响，但是影响不太大**
 
@@ -73,7 +73,7 @@ Master Broker收到消息之后会同步给Slave Broker，这样Slave Broker上�
 
 只不过少了Slave Broker，会导致所有读写压力都集中在Master Broker上。
 
-## 如果Master Broker挂掉了该怎么办？
+## 6. 如果Master Broker挂掉了该怎么办？
 Slave Broker也是跟Master Broker一样有一份数据在的，只不过Slave Broker上的数据可能有部分没来得及从Master Broker同步。
 
 此时RocketMQ不可以实现直接自动将Slave Broker切换为Master Broker
@@ -84,7 +84,7 @@ Slave Broker也是跟Master Broker一样有一份数据在的，只不过Slave B
 
 > 这种Master-Slave模式**不是彻底的高可用模式，他没法实现自动把Slave切换为Master**
 
-## 基于Dledger实现RocketMQ高可用自动切换
+## 7. 基于Dledger实现RocketMQ高可用自动切换
 
 - 在RocketMQ 4.5之后，这种情况得到了改变，因为RocketMQ支持了一种新的机制，叫做Dledger
 - 把Dledger融入RocketMQ之后，就可以让一个Master Broker对应多个Slave Broker，也就是说一份数据可以有多份副本，比如一个Master Broker对应两个Slave Broker。
@@ -92,7 +92,7 @@ Slave Broker也是跟Master Broker一样有一份数据在的，只不过Slave B
 
 ![](../youdaonote-images/Pasted%20image%2020231009143944.png)
 
-# MQ的核心数据模型：Topic到底是什么？
+# 3. MQ的核心数据模型：Topic到底是什么？
 
 **MQ中的核心数据模型，Topic**。
 
@@ -100,14 +100,14 @@ Topic就是主题，**数据集合**的意思。
 
 Topic其实就是一个数据集合的意思，不同类型的数据你得放不同的Topic里去。
 
-## Topic作为一个数据集合是怎么在Broker集群里存储的？
+## 1. Topic作为一个数据集合是怎么在Broker集群里存储的？
 
 我们可以在创建Topic的时候指定让他里面的数据分散存储在多台Broker机器上，比如一个Topic里有1000万条数据，此时有2台Broker，那么就可以让每台Broker上都放500万条数据。
 
 - 每个Broke在进行定时的心跳汇报给NameServer的时候，都会告诉NameServer自己当前的数据情况，比如有哪些Topic的哪些数据在自己这里，这些信息都是属于路由信息的一部分。
 
 
-## 生产者系统是如何将消息发送给Broker的？
+## 2. 生产者系统是如何将消息发送给Broker的？
 
 1. 可以跟NameServer建立一个TCP长连接，然后定时从他那里拉取到最新的路由信息，包括集群里有哪些Broker，集群里有哪些Topic，每个Topic都存储在哪些Broker上。
 
@@ -119,13 +119,13 @@ Topic其实就是一个数据集合的意思，不同类型的数据你得放不
 
 ![](../youdaonote-images/Pasted%20image%2020231009151730.png)
 
-## 消费者是如何从Broker上拉取消息的？
+## 3. 消费者是如何从Broker上拉取消息的？
 
 消费者系统其实跟生产者系统原理是类似的，他们也会跟NameServer建立长连接，然后拉取路由信息，接着找到自己要获取消息的Topic在哪几台Broker上，就可以跟Broker建立长连接，从里面拉取消息了。
 
 ![](../youdaonote-images/Pasted%20image%2020231009152028.png)
 
-# 部署一个小规模 RocketMQ 集群
+# 4. 部署一个小规模 RocketMQ 集群
 - Broker是最负载最高的，未来要承载高并发写入和海量数据存储，所以把最高配置的机器都会留给他
 - NameServer是核心的路由服务，一般就是承载Broker注册和心跳、系统的路由表拉取等请求，负载其实很低，因此不需要特别高的机器配置，部署三台也可以实现高可用的效果了。
 
@@ -133,9 +133,9 @@ Topic其实就是一个数据集合的意思，不同类型的数据你得放不
 
 ![](部署一个小规模的%20RocketMQ%20集群.pdf)
 
-# 如何对RocketMQ集群进行可视化的监控和管理？
+# 5. 如何对RocketMQ集群进行可视化的监控和管理？
 
-## RocketMQ的大优势：可视化的管理界面
+## 1. RocketMQ的大优势：可视化的管理界面
 
 ```shell
 git clone https://github.com/apache/rocketmq-externals.git
@@ -153,9 +153,9 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 可以看见每台机器的生产消息TPS和消费消息TPS，还有消息总数。
 这是非常重要的，通过这个TPS统计，就是每秒写入或者被消费的消息数量，就可以看出RocketMQ集群的TPS和并发访问量。
 
-# 进行OS内核参数和JVM参数的调整
+# 6. 进行OS内核参数和JVM参数的调整
 
-## 压测前的准备工作
+## 1. 压测前的准备工作
 
 1. 对他部署的机器的OS内核参数进行一定的调整（也就是linux操作系统的一些内核参数）
 	- 因为OS内核参数很多默认值未必适合生产环境的系统运行，有些参数的值需要调整大一些，才能让中间件发挥出来性能
@@ -166,7 +166,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 ![](../youdaonote-images/Pasted%20image%2020231009204038.png)
 3. 中间件系统自己本身的一些核心参数的设置。比如你的机器配置很高，是24核CPU，结果你的中间件系统默认就开启了4个工作线程去处理请求。相当于24核CPU里很多都是空闲状态，是没有任何事情可以干的。
 
-## 对RocketMQ集群进行OS内核参数的调整
+## 2. 对RocketMQ集群进行OS内核参数的调整
 
 1. “vm.overcommit_memory”这个参数有三个值可以选择，0、1、2。
 	1. 如果值是0的话，在你的中间件系统申请内存的时候，os内核会检查可用内存是否足够，如果足够的话就分配内存给你，如果感觉剩余内存不是太够了，干脆就拒绝你的申请，导致你申请内存失败，进而导致中间件系统异常出错。
@@ -185,7 +185,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 	1. 对于一个中间件系统而言肯定是不能使用默认值的，如果你采用默认值，很可能在线上会出现如下错误：error: too many openfiles。
 	2. echo 'ulimit -n 1000000' >> /etc/profile。
 
-## 对JVM参数进行调整
+## 3. 对JVM参数进行调整
 
 “-server -Xms8g -Xmx8g -Xmn4g -XX:+UseG1GC -XX:G1HeapRegionSize=16m -XX:G1ReservePercent=25 -XX:InitiatingHeapOccupancyPercent=30 -XX:SoftRefLRUPolicyMSPerMB=0 -verbose:gc -Xloggc:/dev/shm/mq_gc_%p.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime -XX:+PrintAdaptiveSizePolicy -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m -XX:-OmitStackTraceInFastThrow -XX:+AlwaysPreTouch -XX:MaxDirectMemorySize=15g -XX:-UseLargePages -XX:-UseBiasedLocking”
 
@@ -198,13 +198,13 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 	默认值是45%，这里调低了一些，也就是提高了GC的频率，但是避免了垃圾对象过多，一次垃圾回收耗时过长的问题
 - -XX:SoftRefLRUPolicyMSPerMB=0：这个参数默认设置为0了，在JVM优化专栏中，救火队队长讲过这个参数引发的案例，其实建议这个参数不要设置为0，避免频繁回收一些软引用的Class对象，这里可以调整为比如1000
 
-## 对RocketMQ核心参数进行调整
+## 4. 对RocketMQ核心参数进行调整
 
 - 在下面的目录里有dledger的示例配置文件：rocketmq/distribution/target/apacherocketmq/conf/dledger
 - sendMessageThreadPoolNums=16 内部用来发送消息的线程池的线程数量，默认是16
 - 数可以根据你的机器的CPU核数进行适当增加，比如机器CPU是24核的，可以增加这个线程数量到24或者30
 
-# 压测为生产集群进行规划
+# 7. 压测为生产集群进行规划
 
 **在RocketMQ的TPS和机器的资源使用率和负载之间取得一个平衡**。
 
@@ -220,23 +220,23 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 6. 网卡流量 (sar -n DEV 1 2 通过这个命令就可以看到每秒钟网卡读写数据量。很多时候性能可以，但是网卡不可以。)
 
 
-# RocketMQ Java具体优化流程
+# 8. RocketMQ Java具体优化流程
 
-## 消息发送方式
+## 1. 消息发送方式
 1. 使用同步发送消息方式。
 2. 使用异步发送更加优化时间。
 3. 也可以发送单向消息，不需要回调。
 
-## 消费模式
+## 2. 消费模式
 1. push消费模式(Broker会主动把消息发送给你的消费者，你的消费者是被动的接收Broker推送给过来的消息，然后进行处理。)
 2. pull消费模式(消费者主动拉取过来)
 
-## 通过mysql binlog发送到rocketmq里面来进行数据统计
+## 3. 通过mysql binlog发送到rocketmq里面来进行数据统计
 
 ![](../youdaonote-images/Pasted%20image%2020231009232931.png)
 
 
-# RocketMQ底层原理和思路
+# 9. RocketMQ底层原理和思路
 
 ## 1. 生产者往Broker集群发送消息的底层原理
 
@@ -390,7 +390,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 **本质是对比你当前没有拉取消息的数量和大小，以及最多可以存放在os cache内存里的消息的大小，如果你没拉取的消息超过了最大能使用的内存的量，那么说明你后续会频繁从磁盘加载数据，此时就让你从slave broker去加载数据了！**
 
-# RocketMQ黑科技
+# 10. RocketMQ黑科技
 
 ## 1. 如何基于Netty扩展出高性能网络通信架构
 1. 专门分配一个Reactor主线程，专门负责跟各种Producer、Consumer之类的建立长连接。
@@ -420,3 +420,12 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 3. **预映射机制 + 文件预热机制**
 	1. **内存预映射机制**：Broker会针对磁盘上的各种CommitLog、ConsumeQueue文件预先分配好MappedFile，也就是提前对一些可能接下来要读写的磁盘文件，提前使用MappedByteBuffer执行map()函数完成映射，这样后续读写文件的时候，就可以直接执行了。
 	2. **文件预热**：在提前对一些文件完成映射之后，因为映射不会直接将数据加载到内存里来，那么后续在读取尤其是CommitLog、ConsumeQueue的时候，其实有可能会频繁的从磁盘里加载数据到内存中去。**其实在执行完map()函数之后，会进行madvise系统调用，就是提前尽可能多的把磁盘文件加载到内存里去。**
+
+## 11. 发送消息零丢失方案
+
+## 1. 解决消息丢失的第一个问题：订单系统推送消息丢失
+
+![](../youdaonote-images/Pasted%20image%2020231015221725.png)
+
+在RocketMQ中，有一个非常强悍有力的功能，就是**事务消息的功能**，凭借这个事务级的消息机制，就可以让我们确保订单系统推送给出去的消息一定会成功写入MQ里，绝对不会半路就搞丢了。
+
