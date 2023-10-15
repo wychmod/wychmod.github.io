@@ -435,8 +435,10 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 	2. half消息成功之后，订单系统完成自己的任务
 2. 如果订单系统的本地事务执行失败了，会给MQ发送一个回滚rollback请求，让他删除half请求。
 3. 如果订单系统完成了本地事务，发送请求让MQ对之前的half消息进行commit操作，消息被commit之后，红包系统才可以看到和获取这条消息进行后续处理。
-4. 
+4. 如果发送half消息成功了，但是没收到响应，就会过一段时间，去回调接口看这个消息是要提交还是回滚。比如这时查询订单，发现订单关闭，就需要回滚了。
 
-
+> 如果没收到half消息，那肯定是失败。如果收到了half消息，任何的失败都会回调接口。然后进行判断是回滚还是提交。
 
 ![](../youdaonote-images/Pasted%20image%2020231015222251.png)
+
+![](../youdaonote-images/Pasted%20image%2020231015223048.png)
