@@ -569,3 +569,13 @@ RocketMQ还是支持比较丰富的数据过滤语法的，如下所示：
 
 
 ![](../youdaonote-images/Pasted%20image%2020231016170501.png)
+
+## 3. 生产实践中积累的各种一手经验总结
+
+1. 灵活的运用 tags来过滤数据
+2. 基于消息key来定位消息是否丢失
+	1. message.setKeys(orderId), 这样这个消息就具备一个key了
+	2. 通过MQ提供的命令去根据key查询这个消息 mqadmin queryMsgByKey -n 127.0.0.1:9876 -t SCANRECORD -k orderId
+3. 消息零丢失方案的补充: 当MQ集群崩溃的时候，把消息写入到本地磁盘文件里去进行持久化，或者是写入数据库里去暂存起来，等待MQ恢复之后，然后再把持久化的消息继续投递到MQ里去。
+4. 提高消费者的吞吐量
+	1. 
