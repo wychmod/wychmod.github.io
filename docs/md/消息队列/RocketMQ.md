@@ -585,3 +585,90 @@ RocketMQ还是支持比较丰富的数据过滤语法的，如下所示：
 	1. CONSUME_FROM_LAST_OFFSET: 从Topic的第一条数据开始消费
 	2. CONSUME_FROM_FIRST_OFFSET: 从最后一次消费过的消息之后开始消费
 	3. 一般来说选择后者，这样每次重启都可以从上一次消费的位置开始消费。
+
+## 4. 权限机制
+
+**在每个Broker的配置文件里需要设置aclEnable=true这个配置，开启权限控制**
+
+在每个Broker部署机器的${ROCKETMQ_HOME}/store/config目录下，可以放一个plain_acl.yml的配置文件，这个里面就可以进行权限配置，类似下面这样子
+
+```yml
+# 这个参数就是全局性的白名单
+
+# 这里定义的ip地址，都是可以访问Topic的
+
+globalWhiteRemoteAddresses:
+
+- 13.21.33.*
+
+- 192.168.0.*
+
+# 这个accounts就是说，你在这里可以定义很多账号
+
+# 每个账号都可以在这里配置对哪些Topic具有一些操作权限
+
+accounts:
+
+# 这个accessKey其实就是用户名的意思，比如我们这里叫做“订单技术团队”
+
+- accessKey: OrderTeam
+
+# 这个secretKey其实就是这个用户名的密码
+
+secretKey: 123456
+
+# 下面这个是当前这个用户名下哪些机器要加入白名单的
+
+whiteRemoteAddress:
+
+# admin指的是这个账号是不是管理员账号
+
+admin: false
+
+# 这个指的是默认情况下这个账号的Topic权限和ConsumerGroup权限
+
+defaultTopicPerm: DENY
+
+defaultGroupPerm: SUB
+
+# 这个就是这个账号具体的堆一些账号的权限
+
+# 下面就是说当前这个账号对两个Topic，都具备PUB|SUB权限，就是发布和订阅的权限
+
+# PUB就是发布消息的权限，SUB就是订阅消息的权限
+
+# DENY就是拒绝你这个账号访问这个Topic
+
+topicPerms:
+
+- CreateOrderInformTopic=PUB|SUB
+
+- PaySuccessInformTopic=PUB|SUB
+
+# 下面就是对ConsumerGroup的权限，也是同理的
+
+groupPerms:
+
+- groupA=DENY
+
+- groupB=PUB|SUB
+
+- groupC=SUB
+
+# 下面就是另外一个账号了，比如是商品技术团队的账号
+
+- accessKey: ProductTeam
+
+secretKey: 12345678
+
+whiteRemoteAddress: 192.168.1.*
+
+# 如果admin设置为true，就是具备一切权限
+
+admin: true
+```
+
+如果没有对某个Topic显式的指定权限，那么就是会采用默认Topic权限。
+
+![](../youdaonote-images/Pasted%20image%2020231016222330.png)
+
