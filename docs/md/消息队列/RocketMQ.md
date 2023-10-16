@@ -512,3 +512,7 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 1. 让属于同一个订单的binlog进入一个MessageQueue(通过取模的方法)
 2. 获取binlog的时候也得有序（从mysql到canal 到 rocketmq）
+3. Consumer有序处理一个订单的binlog
+4. 对于有序消息的方案中，如果你遇到消息处理失败的场景，就必须返回SUSPEND_CURRENT_QUEUE_A_MOMENT这个状态，意思是先等一会儿，一会儿再继续处理这批消息，而不能把这批消息放入重试队列去，然后直接处理下一批消息。
+
+![](../youdaonote-images/Pasted%20image%2020231016162645.png)
