@@ -566,3 +566,6 @@ RocketMQ还是支持比较丰富的数据过滤语法的，如下所示：
 
 发送延迟消息的核心，就是设置消息的delayTimeLevel，也就是延迟级别。
 **16级就是30m RocketMQ默认支持一些延迟级别如下：1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h** 
+
+
+![](../youdaonote-images/Pasted%20image%2020231016170501.png)
