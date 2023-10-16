@@ -504,3 +504,11 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 # 12. 消息乱序的问题
 
 ## 1. 产生原因
+- 进入了不同的queue，然后被不同的机器订阅，然后时间上后者的先执行了。
+![](../youdaonote-images/Pasted%20image%2020231016161826.png)
+
+
+## 2. 解决方法
+
+1. 让属于同一个订单的binlog进入一个MessageQueue(通过取模的方法)
+2. 获取binlog的时候也得有序（从mysql到canal 到 rocketmq）
