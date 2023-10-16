@@ -524,8 +524,8 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 > MessageListenerOrderly这个东西，他里面有Orderly这个名称也就是说，Consumer会对每一个ConsumeQueue，都仅仅用一个线程来处理其中的消息。比如对ConsumeQueue01中的订单id=1100的多个binlog，会交给一个线程来按照binlog顺序来依次处理。否则如果多个binlog交给Consumer中的多个线程来处理的话，那还是会有消息乱序的问题。
 
-
-# 13. RocketMQ的数据过滤机制
+# 13. 生产环境解决方案
+## 1. RocketMQ的数据过滤机制
 
 1. 在发送消息的时候，给消息设置tag和属性
 
@@ -553,3 +553,10 @@ RocketMQ还是支持比较丰富的数据过滤语法的，如下所示：
 （7）NULL，特殊的常量
 
 （8）布尔值，TRUE 或 FALSE
+
+## 2. 延迟消息机制
+
+1. 延迟消息机制可以优化订单退款问题
+	1. 大量的定时扫描任务在分布式的数据库上面会非常不适用。
+	2. 使用延时消息，让订单扫描服务在30分钟后专门针对一条订单去查询即可。
+![](../youdaonote-images/Pasted%20image%2020231016165316.png)
