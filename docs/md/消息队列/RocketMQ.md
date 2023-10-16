@@ -578,4 +578,9 @@ RocketMQ还是支持比较丰富的数据过滤语法的，如下所示：
 	2. 通过MQ提供的命令去根据key查询这个消息 mqadmin queryMsgByKey -n 127.0.0.1:9876 -t SCANRECORD -k orderId
 3. 消息零丢失方案的补充: 当MQ集群崩溃的时候，把消息写入到本地磁盘文件里去进行持久化，或者是写入数据库里去暂存起来，等待MQ恢复之后，然后再把持久化的消息继续投递到MQ里去。
 4. 提高消费者的吞吐量
-	1. 
+	1. 提高消费者的并行度，常见的就是部署更多的consumer机器
+	2. **一个queue只能被一个consumer订阅，queue数量要大于等于consumer。**如果你的consumer机器有5台，然后MessageQueue只有4个，那么意味着有一个consumer机器是获取不到消息的。
+	3. 开启消费者的批量消费功能，就是设置consumeMessageBatchMaxSize参数，他默认是1。取到多条数据，可以对数据库进行批量数据处理。
+5. 消费历史消息
+	1. CONSUME_FROM_LAST_OFFSET: 从Topic的第一条数据开始消费
+	2. CONSUME_FROM_FIRST_OFFSET: 从最后一次消费过的消息之后开始消费
