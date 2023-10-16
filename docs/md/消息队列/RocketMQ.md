@@ -533,3 +533,23 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 
 2. 在消费数据的时候根据tag和属性进行过滤
 ![](../youdaonote-images/Pasted%20image%2020231016163812.png)
+
+![](../youdaonote-images/Pasted%20image%2020231016163819.png)
+
+RocketMQ还是支持比较丰富的数据过滤语法的，如下所示：
+
+（1）数值比较，比如：>，>=，<，<=，BETWEEN，=；
+
+（2）字符比较，比如：=，<>，IN；
+
+（3）IS NULL 或者 IS NOT NULL；
+
+（4）逻辑符号 AND，OR，NOT；
+
+（5）数值，比如：123，3.1415；
+
+（6）字符，比如：'abc'，必须用单引号包裹起来；
+
+（7）NULL，特殊的常量
+
+（8）布尔值，TRUE 或 FALSE
