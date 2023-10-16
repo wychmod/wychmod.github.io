@@ -522,4 +522,14 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 2. 消费者按照顺序来获取一个MessageQueue中的消息
 ![](../youdaonote-images/Pasted%20image%2020231016163027.png)
 
-> MessageListenerOrderly这个东西，他里面有Orderly这个名称也就是说，Consumer会对每一个ConsumeQueue，都仅仅用一个线程来处理其中的消息。比如对ConsumeQueue01中的订单id=1100的多个binlog，会交给一个线程来按照binlog顺序来依次处理。否则如果ConsumeQueue01中的订单id=1100的多个binlog交给Consumer中的多个线程来处理的话，那还是会有消息乱序的问题。
+> MessageListenerOrderly这个东西，他里面有Orderly这个名称也就是说，Consumer会对每一个ConsumeQueue，都仅仅用一个线程来处理其中的消息。比如对ConsumeQueue01中的订单id=1100的多个binlog，会交给一个线程来按照binlog顺序来依次处理。否则如果多个binlog交给Consumer中的多个线程来处理的话，那还是会有消息乱序的问题。
+
+
+# 13. RocketMQ的数据过滤机制
+
+1. 在发送消息的时候，给消息设置tag和属性
+
+![](../youdaonote-images/Pasted%20image%2020231016163756.png)
+
+2. 在消费数据的时候根据tag和属性进行过滤
+![](../youdaonote-images/Pasted%20image%2020231016163812.png)
