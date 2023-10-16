@@ -92,7 +92,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5
+    "width": 392.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -200,6 +201,8 @@
   },
   "active": "e92fc84dba3fbec4",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20231016163027.png",
+    "youdaonote-images/Pasted image 20231016162911.png",
     "youdaonote-images/Pasted image 20231016162645.png",
     "youdaonote-images/Pasted image 20231016161826.png",
     "面试/Java面试汇总.md",
@@ -211,8 +214,6 @@
     "youdaonote-images/Pasted image 20231015225432.png",
     "youdaonote-images/Pasted image 20231015225315.png",
     "youdaonote-images/Pasted image 20231015224947.png",
-    "youdaonote-images/Pasted image 20231015223048.png",
-    "youdaonote-images/Pasted image 20231015222251.png",
     "博客写作内容/技术写作指南/技术写作指南.md",
     "博客写作内容/面试指南/通用面试技巧.md",
     "博客写作内容/技术写作指南",

@@ -516,3 +516,10 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 4. 对于有序消息的方案中，如果你遇到消息处理失败的场景，就必须返回SUSPEND_CURRENT_QUEUE_A_MOMENT这个状态，意思是先等一会儿，一会儿再继续处理这批消息，而不能把这批消息放入重试队列去，然后直接处理下一批消息。
 
 ![](../youdaonote-images/Pasted%20image%2020231016162645.png)
+
+1. 进入一个MessageQueue
+![](../youdaonote-images/Pasted%20image%2020231016162911.png)
+2. 消费者按照顺序来获取一个MessageQueue中的消息
+![](../youdaonote-images/Pasted%20image%2020231016163027.png)
+
+> MessageListenerOrderly这个东西，他里面有Orderly这个名称也就是说，Consumer会对每一个ConsumeQueue，都仅仅用一个线程来处理其中的消息。比如对ConsumeQueue01中的订单id=1100的多个binlog，会交给一个线程来按照binlog顺序来依次处理。否则如果ConsumeQueue01中的订单id=1100的多个binlog交给Consumer中的多个线程来处理的话，那还是会有消息乱序的问题。
