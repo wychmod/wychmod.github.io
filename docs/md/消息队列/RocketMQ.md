@@ -499,3 +499,8 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 **消费者底层的一些依赖可能有故障了，比如数据库宕机，缓存宕机之类的，此时你就没办法完成消息的处理了，那么可以通过一些返回状态去让消息进入RocketMQ自带的重试队列，同时如果反复重试还是不行，可以让消息进入RocketMQ自带的死信队列，后续针对死信队列中的消息进行单独的处理就可以了。**
 
 ![](../youdaonote-images/Pasted%20image%2020231016155610.png)
+
+
+# 12. 消息乱序的问题
+
+## 1. 产生原因
