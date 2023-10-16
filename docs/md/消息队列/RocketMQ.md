@@ -584,3 +584,4 @@ RocketMQ还是支持比较丰富的数据过滤语法的，如下所示：
 5. 消费历史消息
 	1. CONSUME_FROM_LAST_OFFSET: 从Topic的第一条数据开始消费
 	2. CONSUME_FROM_FIRST_OFFSET: 从最后一次消费过的消息之后开始消费
+	3. 一般来说选择后者，这样每次重启都可以从上一次消费的位置开始消费。
