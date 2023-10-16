@@ -482,3 +482,4 @@ java -jar rocketmq-console-ng-1.0.1.jar --server.port=8080 --rocketmq.config.nam
 ![](../youdaonote-images/Pasted%20image%2020231016004529.png)
 
 ![](../youdaonote-images/Pasted%20image%2020231016004519.png)
+
