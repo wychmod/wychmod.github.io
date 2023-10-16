@@ -692,3 +692,25 @@ admin: true
 
 # 14. RocketMQ源码
 
+## 14.1 源码目录介绍
+- broker：顾名思义，这个里面存放的就是RocketMQ的Broker相关的代码，这里的代码可以用来启动Broker进程
+- client：顾名思义，这个里面就是RocketMQ的Producer、Consumer这些客户端的代码，生产消息、消费消息的代码都在里面
+- common：这里放的是一些公共的代码
+- dev：这里放的是开发相关的一些信息
+- distribution：这里放的就是用来部署RocketMQ的一些东西，比如bin目录 ，conf目录，等等
+- example：这里放的是RocketMQ的一些例子
+- filter：这里放的是RocketMQ的一些过滤器的东西
+
+logappender和logging：这里放的是RocketMQ的日志打印相关的东西
+
+namesvr：这里放的就是NameServer的源码
+
+openmessaging：这是开放消息标准，这个可以先忽略
+
+remoting：这个很重要，这里放的是RocketMQ的远程网络通信模块的代码，基于netty实现的
+
+srvutil：这里放的是一些工具类
+
+store：这个也很重要，这里放的是消息在Broker上进行存储相关的一些源码
+
+style、test、tools：这里放的是checkstyle代码检查的东西，一些测试相关的类，还有就是tools里放的一些命令行监控工具类
