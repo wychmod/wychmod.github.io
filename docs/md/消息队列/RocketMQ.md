@@ -672,3 +672,12 @@ admin: true
 
 ![](../youdaonote-images/Pasted%20image%2020231016222330.png)
 
+## 5. 消息轨迹追踪
+
+**配置文件里开启traceTopicEnable=true这个选项**
+
+- 启动这个Broker的时候会自动创建出来一个内部的Topic，就是RMQ_SYS_TRACE_TOPIC，这个Topic就是用来存储所有的消息轨迹追踪的数据的。
+
+![](../youdaonote-images/Pasted%20image%2020231016222732.png)
+
+生产者和消费者的第二个参数都设为True。
