@@ -716,3 +716,8 @@ admin: true
 ## 14.3 在Intellij IDEA中启动Broker
 
 ![](笔记引用/在Intellij%20IDEA中启动Broker.pdf)
+
+## 14.4 可视化rocketmq-dashboard
+
+https://github.com/apache/rocketmq-dashboard
+
