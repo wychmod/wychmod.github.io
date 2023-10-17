@@ -92,7 +92,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5
+    "width": 392.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -198,7 +199,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "62b967b1bdf672ea",
+  "active": "e92fc84dba3fbec4",
   "lastOpenFiles": [
     "消息队列/笔记引用/在Intellij IDEA中启动Broker.pdf",
     "消息队列/笔记引用/093 如何在Intellij IDEA中启动Broker以及本地调试源码？.pdf",
