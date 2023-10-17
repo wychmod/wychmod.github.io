@@ -131,7 +131,7 @@ Topic其实就是一个数据集合的意思，不同类型的数据你得放不
 
 ## 快速部署RocketMQ
 
-![](部署一个小规模的%20RocketMQ%20集群.pdf)
+![](笔记引用/部署一个小规模的%20RocketMQ%20集群.pdf)
 
 # 5. 如何对RocketMQ集群进行可视化的监控和管理？
 
@@ -710,5 +710,8 @@ admin: true
 
 ## 14.2 Intellij IDEA中启动NameServer
 
-https://blog.51cto.com/u_14724733/5978314
+
+![](笔记引用/在Intellij%20IDEA中启动NameServer.pdf)
+
+## 14.3 在Intellij IDEA中启动Broker
 
