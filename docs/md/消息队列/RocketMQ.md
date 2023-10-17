@@ -723,6 +723,8 @@ https://github.com/apache/rocketmq-dashboard
 
 ## 14.5 源码分析-NameServer的启动
 
+### 14.5.1 NameServer脚本的启动
+
 首先看启动脚本 mqnamesrv 
 ```shell
 # 在最后调用
@@ -748,3 +750,4 @@ java -server -Xms4g -Xmx4g -Xmn2g org.apache.rocketmq.namesrv.NamesrvStartup
 
 ![](../youdaonote-images/Pasted%20image%2020231017232635.png)
 
+### 14.5.2 NameServer启动时解析配置信息
