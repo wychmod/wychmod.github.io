@@ -723,7 +723,13 @@ https://github.com/apache/rocketmq-dashboard
 
 ## 14.5 源码分析-NameServer的启动
 
-首先看启动脚本 runserver.sh
+首先看启动脚本 mqnamesrv 
+```shell
+# 在最后调用
+sh ${ROCKETMQ_HOME}/bin/runserver.sh org.apache.rocketmq.namesrv.NamesrvStartup $@
+```
+
+然后看最后命令行中调用runserver.sh
 ```shell
 JAVA_OPT="${JAVA_OPT} -server -Xms4g -Xmx4g -Xmn2g -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=320m"JAVA_OPT="${JAVA_OPT} -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:CMSInitiatingOccupancyFraction=70 -XX:+CMSParallelRemarkEnabled -XX:SoftRefLRUPolicyMSPerMB=0 -XX:+CMSClassUnloadingEnabled -XX:SurvivorRatio=8  -XX:-UseParNewGC"JAVA_OPT="${JAVA_OPT} -verbose:gc -Xloggc:${GC_LOG_DIR}/rmq_srv_gc_%p_%t.log -XX:+PrintGCDetails"  
 JAVA_OPT="${JAVA_OPT} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=30m"JAVA_OPT="${JAVA_OPT} -XX:-OmitStackTraceInFastThrow"JAVA_OPT="${JAVA_OPT} -XX:-UseLargePages"JAVA_OPT="${JAVA_OPT} -Djava.ext.dirs=${JAVA_HOME}/jre/lib/ext:${BASE_DIR}/lib"  
@@ -739,4 +745,6 @@ $JAVA ${JAVA_OPT} $@
 java -server -Xms4g -Xmx4g -Xmn2g org.apache.rocketmq.namesrv.NamesrvStartup
 
 本质就是基于java命令启动了一个JVM进程，执行NamesrvStartup类中的main()方法，完成NameServer启动的全部流程和逻辑，同时启动NameServer这个JVM进程的时候，有一大堆的默认JVM参数，你当然可以在这里修改这些JVM参数，甚至进行优化。
+
+![](../youdaonote-images/Pasted%20image%2020231017232635.png)
 

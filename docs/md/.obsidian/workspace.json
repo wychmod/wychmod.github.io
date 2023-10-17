@@ -201,6 +201,7 @@
   },
   "active": "e92fc84dba3fbec4",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20231017232635.png",
     "消息队列/笔记引用/在Intellij IDEA中启动Broker.pdf",
     "消息队列/笔记引用/093 如何在Intellij IDEA中启动Broker以及本地调试源码？.pdf",
     "消息队列/笔记引用/在Intellij IDEA中启动NameServer.pdf",
@@ -231,7 +232,6 @@
     "zookeeper/Zookeeper源码.md",
     "zookeeper/Zookeeper基础.md",
     "消息队列/kafka/kafka基础知识.md",
-    "zookeeper",
     "AliceBot 自动化测试设计与实现.md",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
     "mysql/MySQL性能优化-事务.md",
