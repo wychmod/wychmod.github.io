@@ -200,6 +200,8 @@
   },
   "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
+    "消息队列/笔记引用/在Intellij IDEA中启动Broker.pdf",
+    "消息队列/笔记引用/093 如何在Intellij IDEA中启动Broker以及本地调试源码？.pdf",
     "消息队列/笔记引用/在Intellij IDEA中启动NameServer.pdf",
     "消息队列/笔记引用/092 如何在Intellij IDEA中启动NameServer以及本地调试源码？.pdf",
     "消息队列/笔记引用",
@@ -229,7 +231,6 @@
     "zookeeper/Zookeeper基础.md",
     "消息队列/kafka/kafka基础知识.md",
     "zookeeper",
-    "消息队列/kafka",
     "AliceBot 自动化测试设计与实现.md",
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
     "mysql/MySQL性能优化-事务.md",
@@ -245,7 +246,6 @@
     "java/抽奖系统/Lottery 抽奖系统-领域开发.md",
     "java/抽奖系统/Lottery 抽奖系统-项目信息.md",
     "面试/python面试.md",
-    "image",
     "未命名.canvas"
   ]
 }
