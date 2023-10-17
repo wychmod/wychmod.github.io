@@ -707,3 +707,8 @@ admin: true
 - **srvutil**：这里放的是一些工具类
 - **store**：这个也很重要，这里放的是消息在Broker上进行存储相关的一些源码
 - **style、test、tools**：这里放的是checkstyle代码检查的东西，一些测试相关的类，还有就是tools里放的一些命令行监控工具类
+
+## 14.2 Intellij IDEA中启动NameServer
+
+https://blog.51cto.com/u_14724733/5978314
+
