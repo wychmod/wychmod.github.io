@@ -753,6 +753,7 @@ java -server -Xms4g -Xmx4g -Xmn2g org.apache.rocketmq.namesrv.NamesrvStartup
 ### 14.5.2 NameServer启动时解析配置信息
 
 #### 14.5.2.1 NamesrvController组件
+- NameServer中的核心组件 用来接受网络请求  
 ```java
 public static void main(String[] args) {  
     main0(args);  
@@ -774,5 +775,64 @@ public static NamesrvController main0(String[] args) {
     }  
   
     return null;  
+}
+```
+
+![](../youdaonote-images/Pasted%20image%2020231018140716.png)
+- 创建 NamesrvController 的源码
+
+```java
+public static NamesrvController createNamesrvController(String[] args) throws IOException, JoranException {  
+    // 解析Commandline命令行参数，不重要  
+  
+    final NamesrvConfig namesrvConfig = new NamesrvConfig();  
+    final NettyServerConfig nettyServerConfig = new NettyServerConfig();  
+    nettyServerConfig.setListenPort(9876);  
+    if (commandLine.hasOption('c')) {  
+        String file = commandLine.getOptionValue('c');  
+        if (file != null) {  
+            InputStream in = new BufferedInputStream(new FileInputStream(file));  
+            properties = new Properties();  
+            properties.load(in);  
+            MixAll.properties2Object(properties, namesrvConfig);  
+            MixAll.properties2Object(properties, nettyServerConfig);  
+  
+            namesrvConfig.setConfigStorePath(file);  
+  
+            System.out.printf("load config properties file OK, %s%n", file);  
+            in.close();  
+        }  
+    }  
+    if (commandLine.hasOption('p')) {  
+        InternalLogger console = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_CONSOLE_NAME);  
+        MixAll.printObjectProperties(console, namesrvConfig);  
+        MixAll.printObjectProperties(console, nettyServerConfig);  
+        System.exit(0);  
+    }  
+  
+    MixAll.properties2Object(ServerUtil.commandLine2Properties(commandLine), namesrvConfig);  
+  
+    if (null == namesrvConfig.getRocketmqHome()) {  
+        System.out.printf("Please set the %s variable in your environment to match the location of the RocketMQ installation%n", MixAll.ROCKETMQ_HOME_ENV);  
+        System.exit(-2);  
+    }  
+  
+    LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();  
+    JoranConfigurator configurator = new JoranConfigurator();  
+    configurator.setContext(lc);  
+    lc.reset();  
+    configurator.doConfigure(namesrvConfig.getRocketmqHome() + "/conf/logback_namesrv.xml");  
+  
+    log = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);  
+  
+    MixAll.printObjectProperties(log, namesrvConfig);  
+    MixAll.printObjectProperties(log, nettyServerConfig);  
+  
+    final NamesrvController controller = new NamesrvController(namesrvConfig, nettyServerConfig);  
+  
+    // remember all configs to prevent discard  
+    controller.getConfiguration().registerConfig(properties);  
+  
+    return controller;  
 }
 ```
