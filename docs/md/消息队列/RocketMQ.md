@@ -1367,3 +1367,8 @@ this.configuration = new Configuration(
 > Broker在初始化的时候，内部会有一大堆的组件需要初始化，就是构造函数中显示的那些
 
 ![](../youdaonote-images/Pasted%20image%2020231018185742.png)
+
+### 14.6.2 BrokerController的初始化
+
+**Broker作为一个JVM进程启动之后，是BrokerStartup这个启动组件，负责初始化核心配置组件，然后启动了BrokerController这个管控组件。然后在BrokerController管控组件中，包含了一大堆的核心功能组件和后台线程池组件。**
+
