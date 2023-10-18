@@ -964,4 +964,33 @@ public boolean initialize() throws CloneNotSupportedException {
 
 ### 1.6.3 BrokerController的启动
 
-- 执行main里的start()方法
+- 执行main里的start()方法（基本没干什么）
+
+```java
+public static BrokerController start(BrokerController controller) {  
+    try {  
+  
+        controller.start();  
+  
+        String tip = "The broker[" + controller.getBrokerConfig().getBrokerName() + ", "  
+            + controller.getBrokerAddr() + "] boot success. serializeType=" + RemotingCommand.getSerializeTypeConfigInThisServer();  
+  
+        if (null != controller.getBrokerConfig().getNamesrvAddr()) {  
+            tip += " and name server is " + controller.getBrokerConfig().getNamesrvAddr();  
+        }  
+  
+        log.info(tip);  
+        System.out.printf("%s%n", tip);  
+        return controller;  
+    } catch (Throwable e) {  
+        e.printStackTrace();  
+        System.exit(-1);  
+    }  
+  
+    return null;  
+}
+```
+
+- BrokerContorller.start()方法
+```java
+```
