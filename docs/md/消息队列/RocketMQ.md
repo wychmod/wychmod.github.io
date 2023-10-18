@@ -960,4 +960,15 @@ public boolean initialize() {
 
 ![](../youdaonote-images/Pasted%20image%2020231018152638.png)
 
-- NettyRemotingServergou zao han
+- NettyRemotingServer构造函数
+```java
+public NettyRemotingServer(final NettyServerConfig nettyServerConfig,  
+    final ChannelEventListener channelEventListener) {  
+    super(nettyServerConfig.getServerOnewaySemaphoreValue(), nettyServerConfig.getServerAsyncSemaphoreValue());  
+    // Netty核心类代表启动了一个Netty  
+    this.serverBootstrap = new ServerBootstrap();
+}
+```
+> NettyRemotingServer是一个RocketMQ自己开发的网络服务器组件，但是其实底层就是基于Netty的原始API实现的一个ServerBootstrap。
+
+![](../youdaonote-images/Pasted%20image%2020231018152923.png)
