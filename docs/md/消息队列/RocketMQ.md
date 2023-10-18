@@ -866,3 +866,37 @@ if (commandLine.hasOption('c')) {
     }  
 }
 ```
+
+```java
+// 下面这段代码，其实就是说，你的mgnamesrv如果带了"-p"的选项  
+// 那么他的意思就是print,让你打印出来你的NameServer的所有的配置信息  
+if (commandLine.hasOption('p')) {  
+    InternalLogger console = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_CONSOLE_NAME);  
+    MixAll.printObjectProperties(console, namesrvConfig);  
+    MixAll.printObjectProperties(console, nettyServerConfig);  
+    System.exit(0);  
+}  
+  
+// 把在mqnamesrve命令行中带上的配置选项，都读取出来，然后覆盖到NamesrvConfig里去  
+MixAll.properties2Object(ServerUtil.commandLine2Properties(commandLine), namesrvConfig);  
+  
+// 如果你的ROCKETMQ_HOME发现是空的  
+// 那么就会输出一个异常日志，说让你设置一下ROCKETMQ HOME这个环境变量  
+if (null == namesrvConfig.getRocketmqHome()) {  
+    System.out.printf("Please set the %s variable in your environment to match the location of the RocketMQ installation%n", MixAll.ROCKETMQ_HOME_ENV);  
+    System.exit(-2);  
+}  
+  
+// 日志配置文件  
+LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();  
+JoranConfigurator configurator = new JoranConfigurator();  
+configurator.setContext(lc);  
+lc.reset();  
+configurator.doConfigure(namesrvConfig.getRocketmqHome() + "/conf/logback_namesrv.xml");  
+  
+// 日志里打印一下配置信息  
+log = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);  
+  
+MixAll.printObjectProperties(log, namesrvConfig);  
+MixAll.printObjectProperties(log, nettyServerConfig);
+```
