@@ -1065,3 +1065,6 @@ public void start() throws Exception {
 ```
 
 ![](../youdaonote-images/Pasted%20image%2020231019010014.png)
+
+**图片大致流程如下**：
+1. Broker启动，必然要去注册自己到NameServer去，所以BrokerOuterAPI这个组件必须要画到自己的图里去，这是一个核心组件
