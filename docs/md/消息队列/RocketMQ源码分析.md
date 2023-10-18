@@ -449,7 +449,7 @@ try {
   
 ```
 
-## 1.6 源码分析-Broker的启动
+## 1.6 源码分析-Broker的启动流程
 
 ### 1.6.1 BrokerController的创建
 - main方法调用start Controller
@@ -960,3 +960,8 @@ public boolean initialize() throws CloneNotSupportedException {
 ```
 
 ![](../youdaonote-images/Pasted%20image%2020231018233921.png)
+
+
+### 1.6.3 BrokerController的启动
+
+- 执行main里的start()方法
