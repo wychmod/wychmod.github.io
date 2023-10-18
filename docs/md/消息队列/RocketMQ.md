@@ -913,7 +913,7 @@ controller.getConfiguration().registerConfig(properties);
 
 ![](../youdaonote-images/Pasted%20image%2020231018151807.png)
 
-- NamesrvController构造函数（基本只有fu zhi）
+- NamesrvController构造函数（基本只有赋值功能）
 
 ```java
 public NamesrvController(NamesrvConfig namesrvConfig, NettyServerConfig nettyServerConfig) {  
@@ -929,3 +929,35 @@ public NamesrvController(NamesrvConfig namesrvConfig, NettyServerConfig nettySer
     this.configuration.setStorePathFromConfig(this.namesrvConfig, "configStorePath");  
 }
 ```
+
+- NamesrvController组件的启动，在main函数里start被调用
+```java
+public static NamesrvController start(final NamesrvController controller) throws Exception {  
+  
+    if (null == controller) {  
+        throw new IllegalArgumentException("NamesrvController is null");  
+    }  
+
+	// controller初始化 会初始化netty
+    boolean initResult = controller.initialize();  
+    if (!initResult) {  
+        controller.shutdown();  
+        System.exit(-3);  
+    }
+}
+```
+
+- initialize方法初始化Netty
+```java
+public boolean initialize() {  
+  
+    this.kvConfigManager.load();  
+
+	// 构造Netty远程服务器
+    this.remotingServer = new NettyRemotingServer(this.nettyServerConfig, this.brokerHousekeepingService);
+}
+```
+
+![](../youdaonote-images/Pasted%20image%2020231018152638.png)
+
+- NettyRemotingServergou zao han
