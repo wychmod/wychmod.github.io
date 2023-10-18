@@ -1106,11 +1106,14 @@ ServerBootstrap childHandler =
         .childOption(ChannelOption.TCP_NODELAY, true)  
         .childOption(ChannelOption.SO_SNDBUF, nettyServerConfig.getServerSocketSndBufSize())  
         .childOption(ChannelOption.SO_RCVBUF, nettyServerConfig.getServerSocketRcvBufSize())  
+        // 设置了Netty服务器要监听的端口号，默认就是9876
         .localAddress(new InetSocketAddress(this.nettyServerConfig.getListenPort()))
         // 下面设置了一大堆网络请求处理器
         // 只要Ntty服务器收到一个请求，那么就会依次使用下面的处理器来处理请求
         // 比如说handShakeHandler可能就是负责连接握手
-        // 
+        // NettyDecoder是负责编码解码的，IdleStateHandler是负责连接空闲管理的
+        // connectionManageHandler是负责网路连接管理的
+        // serverHandler是负责最关键的网络请求的处理的
         .childHandler(new ChannelInitializer<SocketChannel>() {  
             @Override  
             public void initChannel(SocketChannel ch) throws Exception {  
@@ -1126,11 +1129,9 @@ ServerBootstrap childHandler =
             }  
         });  
   
-if (nettyServerConfig.isServerPooledByteBufAllocatorEnable()) {  
-    childHandler.childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);  
-}  
   
-try {  
+try {
+	// 启动Netty服务器
     ChannelFuture sync = this.serverBootstrap.bind().sync();  
     InetSocketAddress addr = (InetSocketAddress) sync.channel().localAddress();  
     this.port = addr.getPort();  
