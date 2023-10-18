@@ -1094,8 +1094,10 @@ public void start() throws Exception {
 ```
 
 ```java
-
+// 核心就是基于Netty的API去配置和启动一个Netty网络服务器
 ServerBootstrap childHandler =  
+	// 基于Server Bootstrap的group方法对各种网络进行配置
+	// 比如看是不是epoll 不是就用nio
     this.serverBootstrap.group(this.eventLoopGroupBoss, this.eventLoopGroupSelector)  
         .channel(useEpoll() ? EpollServerSocketChannel.class : NioServerSocketChannel.class)  
         .option(ChannelOption.SO_BACKLOG, 1024)  
@@ -1104,7 +1106,11 @@ ServerBootstrap childHandler =
         .childOption(ChannelOption.TCP_NODELAY, true)  
         .childOption(ChannelOption.SO_SNDBUF, nettyServerConfig.getServerSocketSndBufSize())  
         .childOption(ChannelOption.SO_RCVBUF, nettyServerConfig.getServerSocketRcvBufSize())  
-        .localAddress(new InetSocketAddress(this.nettyServerConfig.getListenPort()))  
+        .localAddress(new InetSocketAddress(this.nettyServerConfig.getListenPort()))
+        // 下面设置了一大堆网络请求处理器
+        // 只要Ntty服务器收到一个请求，那么就会依次使用下面的处理器来处理请求
+        // 比如说handShakeHandler可能就是负责连接握手
+        // 
         .childHandler(new ChannelInitializer<SocketChannel>() {  
             @Override  
             public void initChannel(SocketChannel ch) throws Exception {  
