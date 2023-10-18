@@ -751,3 +751,28 @@ java -server -Xms4g -Xmx4g -Xmn2g org.apache.rocketmq.namesrv.NamesrvStartup
 ![](../youdaonote-images/Pasted%20image%2020231017232635.png)
 
 ### 14.5.2 NameServer启动时解析配置信息
+
+#### 14.5.2.1 NamesrvController组件
+```java
+public static void main(String[] args) {  
+    main0(args);  
+}  
+  
+public static NamesrvController main0(String[] args) {  
+  
+    try {  
+        // NameServer中的核心组件 用来接受网络请求  
+        NamesrvController controller = createNamesrvController(args);  
+        start(controller);  
+        String tip = "The Name Server boot success. serializeType=" + RemotingCommand.getSerializeTypeConfigInThisServer();  
+        log.info(tip);  
+        System.out.printf("%s%n", tip);  
+        return controller;  
+    } catch (Throwable e) {  
+        e.printStackTrace();  
+        System.exit(-1);  
+    }  
+  
+    return null;  
+}
+```
