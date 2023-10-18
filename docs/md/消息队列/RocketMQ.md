@@ -1142,3 +1142,16 @@ try {
 ```
 
 ## 14.6 源码分析-Broker的启动
+
+- main方法调用start Controller
+```java
+public static void main(String[] args) {  
+    start(createBrokerController(args));  
+}
+```
+
+- BrokerController的创建createBrokerController方法
+
+```java
+
+```
