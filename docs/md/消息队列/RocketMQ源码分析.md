@@ -993,4 +993,75 @@ public static BrokerController start(BrokerController controller) {
 
 - BrokerContorller.start()方法
 ```java
+
+public void start() throws Exception {  
+    // 启动消息存储组件  
+    if (this.messageStore != null) {  
+        this.messageStore.start();  
+    }  
+  
+    // 启动Netty服务器  
+    if (this.remotingServer != null) {  
+        this.remotingServer.start();  
+    }  
+  
+    if (this.fastRemotingServer != null) {  
+        this.fastRemotingServer.start();  
+    }  
+  
+    // 启动文件相关的服务组件  
+    if (this.fileWatchService != null) {  
+        this.fileWatchService.start();  
+    }  
+  
+    // BrokerOuterAPI是核心组件，让Broker通过Netty客户端去  
+    // 发送请求给别人，比如说Broker发送请求到NS去注册和发心跳  
+    if (this.brokerOuterAPI != null) {  
+        this.brokerOuterAPI.start();  
+    }  
+  
+    // 下面都是实现功能的核心组件  
+    if (this.pullRequestHoldService != null) {  
+        this.pullRequestHoldService.start();  
+    }  
+  
+    if (this.clientHousekeepingService != null) {  
+        this.clientHousekeepingService.start();  
+    }  
+  
+    if (this.filterServerManager != null) {  
+        this.filterServerManager.start();  
+    }  
+  
+    if (!messageStoreConfig.isEnableDLegerCommitLog()) {  
+        startProcessorByHa(messageStoreConfig.getBrokerRole());  
+        handleSlaveSynchronize(messageStoreConfig.getBrokerRole());  
+        this.registerBrokerAll(true, false, true);  
+    }  
+  
+    // 线程池提交了定时任务，让Broker去给ns注册  
+    this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+  
+        @Override  
+        public void run() {  
+            try {  
+                BrokerController.this.registerBrokerAll(true, false, brokerConfig.isForceRegister());  
+            } catch (Throwable e) {  
+                log.error("registerBrokerAll Exception", e);  
+            }  
+        }    }, 1000 * 10, Math.max(10000, Math.min(brokerConfig.getRegisterNameServerPeriod(), 60000)), TimeUnit.MILLISECONDS);  
+  
+    // 一些功能组件启动  
+    if (this.brokerStatsManager != null) {  
+        this.brokerStatsManager.start();  
+    }  
+  
+    if (this.brokerFastFailure != null) {  
+        this.brokerFastFailure.start();  
+    }  
+  
+  
+}
 ```
+
+![](../youdaonote-images/Pasted%20image%2020231019010014.png)
