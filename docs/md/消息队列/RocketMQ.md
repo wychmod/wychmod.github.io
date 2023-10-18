@@ -902,4 +902,30 @@ MixAll.printObjectProperties(log, nettyServerConfig);
 ```
 
 ![](../youdaonote-images/Pasted%20image%2020231018144230.png)
-## 
+- NamesrvController组件的创建
+
+```java
+final NamesrvController controller = new NamesrvController(namesrvConfig, nettyServerConfig);  
+  
+// remember all configs to prevent discard  
+controller.getConfiguration().registerConfig(properties);
+```
+
+![](../youdaonote-images/Pasted%20image%2020231018151807.png)
+
+- NamesrvController构造函数（基本只有fu zhi）
+
+```java
+public NamesrvController(NamesrvConfig namesrvConfig, NettyServerConfig nettyServerConfig) {  
+    this.namesrvConfig = namesrvConfig;  
+    this.nettyServerConfig = nettyServerConfig;  
+    this.kvConfigManager = new KVConfigManager(this);  
+    this.routeInfoManager = new RouteInfoManager();  
+    this.brokerHousekeepingService = new BrokerHousekeepingService(this);  
+    this.configuration = new Configuration(  
+        log,  
+        this.namesrvConfig, this.nettyServerConfig  
+    );  
+    this.configuration.setStorePathFromConfig(this.namesrvConfig, "configStorePath");  
+}
+```
