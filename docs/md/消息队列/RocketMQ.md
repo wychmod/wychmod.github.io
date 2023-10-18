@@ -1091,6 +1091,45 @@ public void start() throws Exception {
         this.fileWatchService.start();  
     }  
 }
+```
 
+```java
 
+ServerBootstrap childHandler =  
+    this.serverBootstrap.group(this.eventLoopGroupBoss, this.eventLoopGroupSelector)  
+        .channel(useEpoll() ? EpollServerSocketChannel.class : NioServerSocketChannel.class)  
+        .option(ChannelOption.SO_BACKLOG, 1024)  
+        .option(ChannelOption.SO_REUSEADDR, true)  
+        .option(ChannelOption.SO_KEEPALIVE, false)  
+        .childOption(ChannelOption.TCP_NODELAY, true)  
+        .childOption(ChannelOption.SO_SNDBUF, nettyServerConfig.getServerSocketSndBufSize())  
+        .childOption(ChannelOption.SO_RCVBUF, nettyServerConfig.getServerSocketRcvBufSize())  
+        .localAddress(new InetSocketAddress(this.nettyServerConfig.getListenPort()))  
+        .childHandler(new ChannelInitializer<SocketChannel>() {  
+            @Override  
+            public void initChannel(SocketChannel ch) throws Exception {  
+                ch.pipeline()  
+                    .addLast(defaultEventExecutorGroup, HANDSHAKE_HANDLER_NAME, handshakeHandler)  
+                    .addLast(defaultEventExecutorGroup,  
+                        encoder,  
+                        new NettyDecoder(),  
+                        new IdleStateHandler(0, 0, nettyServerConfig.getServerChannelMaxIdleTimeSeconds()),  
+                        connectionManageHandler,  
+                        serverHandler  
+                    );  
+            }  
+        });  
+  
+if (nettyServerConfig.isServerPooledByteBufAllocatorEnable()) {  
+    childHandler.childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);  
+}  
+  
+try {  
+    ChannelFuture sync = this.serverBootstrap.bind().sync();  
+    InetSocketAddress addr = (InetSocketAddress) sync.channel().localAddress();  
+    this.port = addr.getPort();  
+} catch (InterruptedException e1) {  
+    ...
+}  
+  
 ```
