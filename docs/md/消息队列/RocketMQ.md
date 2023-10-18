@@ -973,3 +973,85 @@ public NettyRemotingServer(final NettyServerConfig nettyServerConfig,
 
 ![](../youdaonote-images/Pasted%20image%2020231018152923.png)
 
+- NamesrvController初始化完整分析
+```java
+public boolean initialize() {  
+    // 加载kv配置  
+    this.kvConfigManager.load();  
+  
+    // 初始化Netty服务器  
+    this.remotingServer = new NettyRemotingServer(this.nettyServerConfig, this.brokerHousekeepingService);  
+  
+    // Netty服务器工作线程池  
+    this.remotingExecutor =  
+        Executors.newFixedThreadPool(nettyServerConfig.getServerWorkerThreads(), new ThreadFactoryImpl("RemotingExecutorThread_"));  
+  
+    // 把工作线程池给Netty服务器  
+    this.registerProcessor();  
+  
+    // 启动后台线程，执行定时任务  
+    // scanNotActiveBroker 定时扫描那些Broke没发送心跳，判断是否挂了  
+    this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+  
+        @Override  
+        public void run() {  
+            NamesrvController.this.routeInfoManager.scanNotActiveBroker();  
+        }  
+    }, 5, 10, TimeUnit.SECONDS);  
+  
+    // 启动后台线程，执行定时任务  
+    // 定时打印kv配置信息，不重要  
+    this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+  
+        @Override  
+        public void run() {  
+            NamesrvController.this.kvConfigManager.printAllPeriodically();  
+        }  
+    }, 1, 10, TimeUnit.MINUTES);  
+  
+    // filewatch相关，不重要的。  
+    if (TlsSystemConfig.tlsMode != TlsMode.DISABLED) {  
+        // Register a listener to reload SslContext  
+        try {  
+            fileWatchService = new FileWatchService(  
+                new String[] {  
+                    TlsSystemConfig.tlsServerCertPath,  
+                    TlsSystemConfig.tlsServerKeyPath,  
+                    TlsSystemConfig.tlsServerTrustCertPath  
+                },  
+                new FileWatchService.Listener() {  
+                    boolean certChanged, keyChanged = false;  
+                    @Override  
+                    public void onChanged(String path) {  
+                        if (path.equals(TlsSystemConfig.tlsServerTrustCertPath)) {  
+                            log.info("The trust certificate changed, reload the ssl context");  
+                            reloadServerSslContext();  
+                        }  
+                        if (path.equals(TlsSystemConfig.tlsServerCertPath)) {  
+                            certChanged = true;  
+                        }  
+                        if (path.equals(TlsSystemConfig.tlsServerKeyPath)) {  
+                            keyChanged = true;  
+                        }  
+                        if (certChanged && keyChanged) {  
+                            log.info("The certificate and private key changed, reload the ssl context");  
+                            certChanged = keyChanged = false;  
+                            reloadServerSslContext();  
+                        }  
+                    }                    private void reloadServerSslContext() {  
+                        ((NettyRemotingServer) remotingServer).loadSslContext();  
+                    }  
+                });  
+        } catch (Exception e) {  
+            log.warn("FileWatchService created error, can't load the certificate dynamically");  
+        }  
+    }  
+    return true;  
+}
+```
+
+- NamesrvController组件的启动全流程分析
+
+```java
+
+```
