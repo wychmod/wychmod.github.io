@@ -1143,7 +1143,7 @@ try {
 
 ## 14.6 源码分析-Broker的启动
 
-### 14.6.1 BrokerController的启动
+### 14.6.1 BrokerController的创建
 - main方法调用start Controller
 ```java
 public static void main(String[] args) {  
@@ -1154,8 +1154,190 @@ public static void main(String[] args) {
 - BrokerController的创建createBrokerController方法
 
 ```java
-
+public static BrokerController createBrokerController(String[] args) {  
+    // 设置配置参数  
+    // ...  
+  
+    try {  
+        // 读取命令行参数 并配置  
+        // ...  
+  
+        // broker的配置、netty服务器的配置、netty客户端的配置  
+        final BrokerConfig brokerConfig = new BrokerConfig();  
+        final NettyServerConfig nettyServerConfig = new NettyServerConfig();  
+        final NettyClientConfig nettyClientConfig = new NettyClientConfig();  
+  
+        // Netty是否设置TLS机制，类似于HTTPs的加密机制  
+        nettyClientConfig.setUseTLS(Boolean.parseBoolean(System.getProperty(TLS_ENABLE,  
+            String.valueOf(TlsSystemConfig.tlsMode == TlsMode.ENFORCING))));  
+        // 设置Netty服务器监听端口号  
+        nettyServerConfig.setListenPort(10911);  
+        // broker用来存储消息的一些配置信息  
+        final MessageStoreConfig messageStoreConfig = new MessageStoreConfig();  
+  
+        // 如果当前这个broker是slavel的话，那么这里就要设置一个特殊的参数  
+        if (BrokerRole.SLAVE == messageStoreConfig.getBrokerRole()) {  
+            int ratio = messageStoreConfig.getAccessMessageInMemoryMaxRatio() - 10;  
+            messageStoreConfig.setAccessMessageInMemoryMaxRatio(ratio);  
+        }  
+  
+        // 读取 -c 配置文件  
+        if (commandLine.hasOption('c')) {  
+            String file = commandLine.getOptionValue('c');  
+            if (file != null) {  
+                configFile = file;  
+                InputStream in = new BufferedInputStream(new FileInputStream(file));  
+                properties = new Properties();  
+                properties.load(in);  
+  
+                properties2SystemEnv(properties);  
+                MixAll.properties2Object(properties, brokerConfig);  
+                MixAll.properties2Object(properties, nettyServerConfig);  
+                MixAll.properties2Object(properties, nettyClientConfig);  
+                MixAll.properties2Object(properties, messageStoreConfig);  
+  
+                BrokerPathConfigHelper.setBrokerConfigPath(file);  
+                in.close();  
+            }  
+        }  
+        // 把命令行中的配置信息填充到brokerConfig  
+        MixAll.properties2Object(ServerUtil.commandLine2Properties(commandLine), brokerConfig);  
+  
+        // 检查有没有ROCKETMQ_HOME  
+        if (null == brokerConfig.getRocketmqHome()) {  
+            System.out.printf("Please set the %s variable in your environment to match the location of the RocketMQ installation", MixAll.ROCKETMQ_HOME_ENV);  
+            System.exit(-2);  
+        }  
+  
+        // 读取namesrvAddr的地址，分号是因为有可能有多个。  
+        String namesrvAddr = brokerConfig.getNamesrvAddr();  
+        if (null != namesrvAddr) {  
+            try {  
+                String[] addrArray = namesrvAddr.split(";");  
+                for (String addr : addrArray) {  
+                    RemotingUtil.string2SocketAddress(addr);  
+                }  
+            } catch (Exception e) {  
+                System.out.printf(  
+                    "The Name Server Address[%s] illegal, please set it as follows, \"127.0.0.1:9876;192.168.0.1:9876\"%n",  
+                    namesrvAddr);  
+                System.exit(-3);  
+            }  
+        }  
+        // 判断一下broker的角色  
+        switch (messageStoreConfig.getBrokerRole()) {  
+            case ASYNC_MASTER:  
+            case SYNC_MASTER:  
+                brokerConfig.setBrokerId(MixAll.MASTER_ID);  
+                break;  
+            case SLAVE:  
+                if (brokerConfig.getBrokerId() <= 0) {  
+                    System.out.printf("Slave's brokerId must be > 0");  
+                    System.exit(-3);  
+                }  
+  
+                break;  
+            default:  
+                break;  
+        }  
+  
+        // 判断是否基于DLeger技术来管理主从同步和commitlog 如果是的话，就把brokerid设置为-1  
+        if (messageStoreConfig.isEnableDLegerCommitLog()) {  
+            brokerConfig.setBrokerId(-1);  
+        }  
+  
+        // 设置HA监听端口号  
+        messageStoreConfig.setHaListenPort(nettyServerConfig.getListenPort() + 1);  
+        // 打印log日志  
+        LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();  
+        JoranConfigurator configurator = new JoranConfigurator();  
+        configurator.setContext(lc);  
+        lc.reset();  
+        configurator.doConfigure(brokerConfig.getRocketmqHome() + "/conf/logback_broker.xml");  
+  
+        // 如果有 -p 那就打印所有配置类  
+        if (commandLine.hasOption('p')) {  
+            InternalLogger console = InternalLoggerFactory.getLogger(LoggerName.BROKER_CONSOLE_NAME);  
+            MixAll.printObjectProperties(console, brokerConfig);  
+            MixAll.printObjectProperties(console, nettyServerConfig);  
+            MixAll.printObjectProperties(console, nettyClientConfig);  
+            MixAll.printObjectProperties(console, messageStoreConfig);  
+            System.exit(0);  
+            // 如果有 -m 那就打印所有配置类  
+        } else if (commandLine.hasOption('m')) {  
+            InternalLogger console = InternalLoggerFactory.getLogger(LoggerName.BROKER_CONSOLE_NAME);  
+            MixAll.printObjectProperties(console, brokerConfig, true);  
+            MixAll.printObjectProperties(console, nettyServerConfig, true);  
+            MixAll.printObjectProperties(console, nettyClientConfig, true);  
+            MixAll.printObjectProperties(console, messageStoreConfig, true);  
+            System.exit(0);  
+        }  
+  
+        log = InternalLoggerFactory.getLogger(LoggerName.BROKER_LOGGER_NAME);  
+        MixAll.printObjectProperties(log, brokerConfig);  
+        MixAll.printObjectProperties(log, nettyServerConfig);  
+        MixAll.printObjectProperties(log, nettyClientConfig);  
+        MixAll.printObjectProperties(log, messageStoreConfig);  
+  
+        // 创建了一个核心的BrokerController组件  
+        final BrokerController controller = new BrokerController(  
+            brokerConfig,  
+            nettyServerConfig,  
+            nettyClientConfig,  
+            messageStoreConfig);  
+        // remember all configs to prevent discard  
+        controller.getConfiguration().registerConfig(properties);  
+  
+        boolean initResult = controller.initialize();  
+        if (!initResult) {  
+            controller.shutdown();  
+            System.exit(-3);  
+        }  
+  
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {  
+            private volatile boolean hasShutdown = false;  
+            private AtomicInteger shutdownTimes = new AtomicInteger(0);  
+  
+            @Override  
+            public void run() {  
+                synchronized (this) {  
+                    log.info("Shutdown hook was invoked, {}", this.shutdownTimes.incrementAndGet());  
+                    if (!this.hasShutdown) {  
+                        this.hasShutdown = true;  
+                        long beginTime = System.currentTimeMillis();  
+                        controller.shutdown();  
+                        long consumingTimeTotal = System.currentTimeMillis() - beginTime;  
+                        log.info("Shutdown hook over, consuming total time(ms): {}", consumingTimeTotal);  
+                    }  
+                }            }        }, "ShutdownHook"));  
+  
+        return controller;  
+    } catch (Throwable e) {  
+        e.printStackTrace();  
+        System.exit(-1);  
+    }  
+  
+    return null;  
+}
 ```
 
 > Broker既是服务端也是客户端，服务端是接收消息，客户端是给NameServer发送消息。
 ![](../youdaonote-images/Pasted%20image%2020231018182900.png)
+
+- BrokerController的构造函数
+```java
+this.brokerConfig = brokerConfig;  
+this.nettyServerConfig = nettyServerConfig;  
+this.nettyClientConfig = nettyClientConfig;  
+this.messageStoreConfig = messageStoreConfig;  
+// 管理consumer消费offset  
+this.consumerOffsetManager = new ConsumerOffsetManager(this);  
+// topic配置管理  
+this.topicConfigManager = new TopicConfigManager(this);  
+// 处理consumer发送拉取消息的请求  
+this.pullMessageProcessor = new PullMessageProcessor(this);  
+this.pullRequestHoldService = new PullRequestHoldService(this);
+
+```
+
+> Broker在初始化的时候，内部会有一大堆的组件需要初始化，就是构造函数中显示的那些
