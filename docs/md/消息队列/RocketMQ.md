@@ -1338,6 +1338,30 @@ this.topicConfigManager = new TopicConfigManager(this);
 this.pullMessageProcessor = new PullMessageProcessor(this);  
 this.pullRequestHoldService = new PullRequestHoldService(this);
 
+// 用来实现某些功能的后台线程池的队列  
+// 不同的后台线程和处理请求的线程放在不同的线程池里去执行  
+// 有些Broker接收请求，会用到上面的一些组件来处理，实际上是自己的后台线程去执行的  
+this.sendThreadPoolQueue = new LinkedBlockingQueue<Runnable>(this.brokerConfig.getSendThreadPoolQueueCapacity());  
+this.pullThreadPoolQueue = new LinkedBlockingQueue<Runnable>(this.brokerConfig.getPullThreadPoolQueueCapacity());  
+this.replyThreadPoolQueue = new LinkedBlockingQueue<Runnable>(this.brokerConfig.getReplyThreadPoolQueueCapacity());  
+this.queryThreadPoolQueue = new LinkedBlockingQueue<Runnable>(this.brokerConfig.getQueryThreadPoolQueueCapacity());  
+this.clientManagerThreadPoolQueue = new LinkedBlockingQueue<Runnable>(this.brokerConfig.getClientManagerThreadPoolQueueCapacity());  
+this.consumerManagerThreadPoolQueue = new LinkedBlockingQueue<Runnable>(this.brokerConfig.getConsumerManagerThreadPoolQueueCapacity());  
+this.heartbeatThreadPoolQueue = new LinkedBlockingQueue<Runnable>(this.brokerConfig.getHeartbeatThreadPoolQueueCapacity());  
+this.endTransactionThreadPoolQueue = new LinkedBlockingQueue<Runnable>(this.brokerConfig.getEndTransactionPoolQueueCapacity());
+
+// 下面这些同样也是Broker的一些功能性组件  
+// 比如StatsManager就是metric统计组件，就是对Broker内进行统计的  
+// 还有比如BrokerFastFailure-一看就是用于处理Broker故障的组件  
+this.brokerStatsManager = new BrokerStatsManager(this.brokerConfig.getBrokerClusterName());  
+this.setStoreHost(new InetSocketAddress(this.getBrokerConfig().getBrokerIP1(), this.getNettyServerConfig().getListenPort()));  
+  
+this.brokerFastFailure = new BrokerFastFailure(this);  
+this.configuration = new Configuration(  
+    log,  
+    BrokerPathConfigHelper.getBrokerConfigPath(),  
+    this.brokerConfig, this.nettyServerConfig, this.nettyClientConfig, this.messageStoreConfig  
+);
 ```
 
 > Broker在初始化的时候，内部会有一大堆的组件需要初始化，就是构造函数中显示的那些
