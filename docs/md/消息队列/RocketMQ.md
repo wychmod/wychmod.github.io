@@ -1376,3 +1376,7 @@ this.configuration = new Configuration(
 
 **Broker作为一个JVM进程启动之后，是BrokerStartup这个启动组件，负责初始化核心配置组件，然后启动了BrokerController这个管控组件。然后在BrokerController管控组件中，包含了一大堆的核心功能组件和后台线程池组件。**
 
+```java
+```
+
+![](../youdaonote-images/Pasted%20image%2020231018233921.png)
