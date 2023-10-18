@@ -750,7 +750,7 @@ java -server -Xms4g -Xmx4g -Xmn2g org.apache.rocketmq.namesrv.NamesrvStartup
 
 ![](../youdaonote-images/Pasted%20image%2020231017232635.png)
 
-### 14.5.2 NameServer启动时解析配置信息
+### 14.5.2 NameServer启动时解析配置信息和Netty服务器启动
 
 #### 14.5.2.1 NamesrvController组件
 - NameServer中的核心组件 用来接受网络请求  
@@ -972,3 +972,4 @@ public NettyRemotingServer(final NettyServerConfig nettyServerConfig,
 > NettyRemotingServer是一个RocketMQ自己开发的网络服务器组件，但是其实底层就是基于Netty的原始API实现的一个ServerBootstrap。
 
 ![](../youdaonote-images/Pasted%20image%2020231018152923.png)
+
