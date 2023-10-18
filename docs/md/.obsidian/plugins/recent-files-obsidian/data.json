@@ -1,8 +1,16 @@
 {
   "recentFiles": [
     {
-      "basename": "RocketMQ",
-      "path": "消息队列/RocketMQ.md"
+      "basename": "RocketMQ源码分析",
+      "path": "消息队列/RocketMQ源码分析.md"
+    },
+    {
+      "basename": "RabbitMQ部署指南",
+      "path": "消息队列/RabbitMQ部署指南.md"
+    },
+    {
+      "basename": "RocketMQ 设计与原理",
+      "path": "消息队列/RocketMQ 设计与原理.md"
     },
     {
       "basename": "Java面试汇总",
@@ -191,14 +199,6 @@
     {
       "basename": "MySQL是怎样使用的",
       "path": "mysql/MySQL是怎样使用的.md"
-    },
-    {
-      "basename": "anaconda中使用虚拟环境",
-      "path": "Python/anaconda中使用虚拟环境.md"
-    },
-    {
-      "basename": "spring",
-      "path": "java/spring系列学习/spring.md"
     }
   ],
   "omittedPaths": [],

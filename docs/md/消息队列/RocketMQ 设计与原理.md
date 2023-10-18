@@ -1377,6 +1377,278 @@ this.configuration = new Configuration(
 **Broker作为一个JVM进程启动之后，是BrokerStartup这个启动组件，负责初始化核心配置组件，然后启动了BrokerController这个管控组件。然后在BrokerController管控组件中，包含了一大堆的核心功能组件和后台线程池组件。**
 
 ```java
+public boolean initialize() throws CloneNotSupportedException {  
+    // 加载Topic的配置、Consumer的消费offset、Consumeri订阅组、过滤器  
+    // 如果都加载成功,那么result必然是True  
+    boolean result = this.topicConfigManager.load();  
+    result = result && this.consumerOffsetManager.load();  
+    result = result && this.subscriptionGroupManager.load();  
+    result = result && this.consumerFilterManager.load();  
+  
+    // 加载成功触发  
+    if (result) {  
+        try {  
+            // 创建了消息存储的管理组件，管理磁盘上的  
+            this.messageStore =  
+                new DefaultMessageStore(this.messageStoreConfig, this.brokerStatsManager, this.messageArrivingListener,  
+                    this.brokerConfig);  
+            // 如果启用了dleger技术进行主从同步以及管理commitlog  
+            // 初始化一些dleger相关组件  
+            if (messageStoreConfig.isEnableDLegerCommitLog()) {  
+                DLedgerRoleChangeHandler roleChangeHandler = new DLedgerRoleChangeHandler(this, (DefaultMessageStore) messageStore);  
+                ((DLedgerCommitLog)((DefaultMessageStore) messageStore).getCommitLog()).getdLedgerServer().getdLedgerLeaderElector().addRoleChangeHandler(roleChangeHandler);  
+            }  
+            // Broker的统计组件  
+            this.brokerStats = new BrokerStats((DefaultMessageStore) this.messageStore);  
+            //load plugin  
+            MessageStorePluginContext context = new MessageStorePluginContext(messageStoreConfig, brokerStatsManager, messageArrivingListener, brokerConfig);  
+            this.messageStore = MessageStoreFactory.build(context, this.messageStore);  
+            this.messageStore.getDispatcherList().addFirst(new CommitLogDispatcherCalcBitMap(this.brokerConfig, this.consumerFilterManager));  
+        } catch (IOException e) {  
+            result = false;  
+            log.error("Failed to initialize", e);  
+        }  
+    }  
+    result = result && this.messageStore.load();  
+  
+    if (result) {  
+        // Broker的Netty服务器初始化，Broker也要接受请求。  
+        this.remotingServer = new NettyRemotingServer(this.nettyServerConfig, this.clientHousekeepingService);  
+        NettyServerConfig fastConfig = (NettyServerConfig) this.nettyServerConfig.clone();  
+        fastConfig.setListenPort(nettyServerConfig.getListenPort() - 2);  
+        this.fastRemotingServer = new NettyRemotingServer(fastConfig, this.clientHousekeepingService);  
+  
+        // 初始化一些线程池、有的是处理请求的、有的是后台运行的线程池  
+        // sendMessageExecutor 处理发送消息的线程池  
+        this.sendMessageExecutor = new BrokerFixedThreadPoolExecutor(  
+            this.brokerConfig.getSendMessageThreadPoolNums(),  
+            this.brokerConfig.getSendMessageThreadPoolNums(),  
+            1000 * 60,  
+            TimeUnit.MILLISECONDS,  
+            this.sendThreadPoolQueue,  
+            new ThreadFactoryImpl("SendMessageThread_"));  
+  
+        // 处理consumer拉取消息的线程池  
+        this.pullMessageExecutor = new BrokerFixedThreadPoolExecutor(  
+            this.brokerConfig.getPullMessageThreadPoolNums(),  
+            this.brokerConfig.getPullMessageThreadPoolNums(),  
+            1000 * 60,  
+            TimeUnit.MILLISECONDS,  
+            this.pullThreadPoolQueue,  
+            new ThreadFactoryImpl("PullMessageThread_"));  
+  
+        // 回复消息的线程池  
+        this.replyMessageExecutor = new BrokerFixedThreadPoolExecutor(  
+            this.brokerConfig.getProcessReplyMessageThreadPoolNums(),  
+            this.brokerConfig.getProcessReplyMessageThreadPoolNums(),  
+            1000 * 60,  
+            TimeUnit.MILLISECONDS,  
+            this.replyThreadPoolQueue,  
+            new ThreadFactoryImpl("ProcessReplyMessageThread_"));  
+  
+        // 查询消息的线程池  
+        this.queryMessageExecutor = new BrokerFixedThreadPoolExecutor(  
+            this.brokerConfig.getQueryMessageThreadPoolNums(),  
+            this.brokerConfig.getQueryMessageThreadPoolNums(),  
+            1000 * 60,  
+            TimeUnit.MILLISECONDS,  
+            this.queryThreadPoolQueue,  
+            new ThreadFactoryImpl("QueryMessageThread_"));  
+  
+        // 管理Broker一些命令的线程池  
+        this.adminBrokerExecutor =  
+            Executors.newFixedThreadPool(this.brokerConfig.getAdminBrokerThreadPoolNums(), new ThreadFactoryImpl(  
+                "AdminBrokerThread_"));  
+  
+        // 管理客户端的线程池  
+        this.clientManageExecutor = new ThreadPoolExecutor(  
+            this.brokerConfig.getClientManageThreadPoolNums(),  
+            this.brokerConfig.getClientManageThreadPoolNums(),  
+            1000 * 60,  
+            TimeUnit.MILLISECONDS,  
+            this.clientManagerThreadPoolQueue,  
+            new ThreadFactoryImpl("ClientManageThread_"));  
+  
+        // 后台线程池、负责给nameserver发送心跳的  
+        this.heartbeatExecutor = new BrokerFixedThreadPoolExecutor(  
+            this.brokerConfig.getHeartbeatThreadPoolNums(),  
+            this.brokerConfig.getHeartbeatThreadPoolNums(),  
+            1000 * 60,  
+            TimeUnit.MILLISECONDS,  
+            this.heartbeatThreadPoolQueue,  
+            new ThreadFactoryImpl("HeartbeatThread_", true));  
+  
+        // 结束事务的线程池，跟事务消息有关  
+        this.endTransactionExecutor = new BrokerFixedThreadPoolExecutor(  
+            this.brokerConfig.getEndTransactionThreadPoolNums(),  
+            this.brokerConfig.getEndTransactionThreadPoolNums(),  
+            1000 * 60,  
+            TimeUnit.MILLISECONDS,  
+            this.endTransactionThreadPoolQueue,  
+            new ThreadFactoryImpl("EndTransactionThread_"));  
+  
+        // 管理consumer的线程池  
+        this.consumerManageExecutor =  
+            Executors.newFixedThreadPool(this.brokerConfig.getConsumerManageThreadPoolNums(), new ThreadFactoryImpl(  
+                "ConsumerManageThread_"));  
+  
+        this.registerProcessor();  
+  
+        // 定时调度一些后台线程  
+        final long initialDelay = UtilAll.computeNextMorningTimeMillis() - System.currentTimeMillis();  
+        final long period = 1000 * 60 * 60 * 24;  
+  
+        // 定时进行broker统计的任务  
+        this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+            @Override  
+            public void run() {  
+                try {  
+                    BrokerController.this.getBrokerStats().record();  
+                } catch (Throwable e) {  
+                    log.error("schedule record error.", e);  
+                }  
+            }        }, initialDelay, period, TimeUnit.MILLISECONDS);  
+  
+        // 定时进行consumer消费的offset持久化到磁盘的任务  
+        this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+            @Override  
+            public void run() {  
+                try {  
+                    BrokerController.this.consumerOffsetManager.persist();  
+                } catch (Throwable e) {  
+                    log.error("schedule persist consumerOffset error.", e);  
+                }  
+            }        }, 1000 * 10, this.brokerConfig.getFlushConsumerOffsetInterval(), TimeUnit.MILLISECONDS);  
+  
+        // 定时对consumer filter过滤器进行持久化的任务  
+        this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+            @Override  
+            public void run() {  
+                try {  
+                    BrokerController.this.consumerFilterManager.persist();  
+                } catch (Throwable e) {  
+                    log.error("schedule persist consumer filter error.", e);  
+                }  
+            }        }, 1000 * 10, 1000 * 10, TimeUnit.MILLISECONDS);  
+  
+        // 定时进行broker保护任务  
+        this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+            @Override  
+            public void run() {  
+                try {  
+                    BrokerController.this.protectBroker();  
+                } catch (Throwable e) {  
+                    log.error("protectBroker error.", e);  
+                }  
+            }        }, 3, 3, TimeUnit.MINUTES);  
+  
+        // 定时打印watermark 水位的任务  
+        this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+            @Override  
+            public void run() {  
+                try {  
+                    BrokerController.this.printWaterMark();  
+                } catch (Throwable e) {  
+                    log.error("printWaterMark error.", e);  
+                }  
+            }        }, 10, 1, TimeUnit.SECONDS);  
+  
+        // 定时进行落后commitlog分发的任务  
+        this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+  
+            @Override  
+            public void run() {  
+                try {  
+                    log.info("dispatch behind commit log {} bytes", BrokerController.this.getMessageStore().dispatchBehindBytes());  
+                } catch (Throwable e) {  
+                    log.error("schedule dispatchBehindBytes error.", e);  
+                }  
+            }        }, 1000 * 10, 1000 * 60, TimeUnit.MILLISECONDS);  
+  
+        // 设置nameserver地址列表，可以支持不通过配置的方式来写入地址，可以发送请求获取  
+        if (this.brokerConfig.getNamesrvAddr() != null) {  
+            this.brokerOuterAPI.updateNameServerAddressList(this.brokerConfig.getNamesrvAddr());  
+            log.info("Set user specified name server address: {}", this.brokerConfig.getNamesrvAddr());  
+        } else if (this.brokerConfig.isFetchNamesrvAddrByAddressServer()) {  
+            this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+  
+                @Override  
+                public void run() {  
+                    try {  
+                        BrokerController.this.brokerOuterAPI.fetchNameServerAddr();  
+                    } catch (Throwable e) {  
+                        log.error("ScheduledTask fetchNameServerAddr exception", e);  
+                    }  
+                }            }, 1000 * 10, 1000 * 60 * 2, TimeUnit.MILLISECONDS);  
+        }  
+  
+        // 如果你开启了d1eger技术，那么其实在下面你会发现会有一些操作  
+        if (!messageStoreConfig.isEnableDLegerCommitLog()) {  
+            if (BrokerRole.SLAVE == this.messageStoreConfig.getBrokerRole()) {  
+                if (this.messageStoreConfig.getHaMasterAddress() != null && this.messageStoreConfig.getHaMasterAddress().length() >= 6) {  
+                    this.messageStore.updateHaMasterAddress(this.messageStoreConfig.getHaMasterAddress());  
+                    this.updateMasterHAServerAddrPeriodically = false;  
+                } else {  
+                    this.updateMasterHAServerAddrPeriodically = true;  
+                }  
+            } else {  
+                this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+                    @Override  
+                    public void run() {  
+                        try {  
+                            BrokerController.this.printMasterAndSlaveDiff();  
+                        } catch (Throwable e) {  
+                            log.error("schedule printMasterAndSlaveDiff error.", e);  
+                        }  
+                    }                }, 1000 * 10, 1000 * 60, TimeUnit.MILLISECONDS);  
+            }  
+        }  
+        // 与文件有关的处理  
+        if (TlsSystemConfig.tlsMode != TlsMode.DISABLED) {  
+            // Register a listener to reload SslContext  
+            try {  
+                fileWatchService = new FileWatchService(  
+                    new String[] {  
+                        TlsSystemConfig.tlsServerCertPath,  
+                        TlsSystemConfig.tlsServerKeyPath,  
+                        TlsSystemConfig.tlsServerTrustCertPath  
+                    },  
+                    new FileWatchService.Listener() {  
+                        boolean certChanged, keyChanged = false;  
+  
+                        @Override  
+                        public void onChanged(String path) {  
+                            if (path.equals(TlsSystemConfig.tlsServerTrustCertPath)) {  
+                                log.info("The trust certificate changed, reload the ssl context");  
+                                reloadServerSslContext();  
+                            }  
+                            if (path.equals(TlsSystemConfig.tlsServerCertPath)) {  
+                                certChanged = true;  
+                            }  
+                            if (path.equals(TlsSystemConfig.tlsServerKeyPath)) {  
+                                keyChanged = true;  
+                            }  
+                            if (certChanged && keyChanged) {  
+                                log.info("The certificate and private key changed, reload the ssl context");  
+                                certChanged = keyChanged = false;  
+                                reloadServerSslContext();  
+                            }  
+                        }  
+                        private void reloadServerSslContext() {  
+                            ((NettyRemotingServer) remotingServer).loadSslContext();  
+                            ((NettyRemotingServer) fastRemotingServer).loadSslContext();  
+                        }  
+                    });  
+            } catch (Exception e) {  
+                log.warn("FileWatchService created error, can't load the certificate dynamically");  
+            }  
+        }        // 初始化事务相关内容、初始化ACL权限控制和RPC钩子  
+        initialTransaction();  
+        initialAcl();  
+        initialRpcHooks();  
+    }  
+    return result;  
+}
 ```
 
 ![](../youdaonote-images/Pasted%20image%2020231018233921.png)
