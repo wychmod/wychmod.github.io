@@ -1067,4 +1067,6 @@ public void start() throws Exception {
 ![](../youdaonote-images/Pasted%20image%2020231019010014.png)
 
 **图片大致流程如下**：
-1. Broker启动，必然要去注册自己到NameServer去，所以BrokerOuterAPI这个组件必须要画到自己的图里去，这是一个核心组件
+1. Broker启动，注册自己到NameServer，所以BrokerOuterAPI这个组件就是做这个功能的。
+2. Broker启动之后，网络服务器要接收别人的请求，此时NettyServer这个组件是完成这个功能的。
+3. 当Broker接收到网络请求之后，需要有线程池来处理，需要处理各种请求的线程池
