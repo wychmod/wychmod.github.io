@@ -784,7 +784,8 @@ public static NamesrvController main0(String[] args) {
 ```java
 public static NamesrvController createNamesrvController(String[] args) throws IOException, JoranException {  
     // 解析Commandline命令行参数，不重要  
-  
+
+	// 初始化nameserver配置和netty配置，以及设置端口
     final NamesrvConfig namesrvConfig = new NamesrvConfig();  
     final NettyServerConfig nettyServerConfig = new NettyServerConfig();  
     nettyServerConfig.setListenPort(9876);  
@@ -836,3 +837,7 @@ public static NamesrvController createNamesrvController(String[] args) throws IO
     return controller;  
 }
 ```
+
+![](../youdaonote-images/Pasted%20image%2020231018141530.png)
+
+- NamesrvConfig和NettyServerConfig两个核心类的内容
