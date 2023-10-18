@@ -1365,3 +1365,5 @@ this.configuration = new Configuration(
 ```
 
 > Broker在初始化的时候，内部会有一大堆的组件需要初始化，就是构造函数中显示的那些
+
+![](../youdaonote-images/Pasted%20image%2020231018185742.png)
