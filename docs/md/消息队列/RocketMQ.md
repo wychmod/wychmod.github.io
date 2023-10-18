@@ -1051,7 +1051,46 @@ public boolean initialize() {
 ```
 
 - NamesrvController组件的启动全流程分析
+	- 先initialize
+	- 然后注册关闭钩子函数，在关闭时释放网络资源线程资源
+	- 然后启动Netty服务器
 
 ```java
+public static NamesrvController start(final NamesrvController controller) throws Exception {  
+  
+    if (null == controller) {  
+        throw new IllegalArgumentException("NamesrvController is null");  
+    }  
+  
+    boolean initResult = controller.initialize();  
+    if (!initResult) {  
+        controller.shutdown();  
+        System.exit(-3);  
+    }  
+  
+    Runtime.getRuntime().addShutdownHook(new ShutdownHookThread(log, new Callable<Void>() {  
+        @Override  
+        public Void call() throws Exception {  
+            controller.shutdown();  
+            return null;  
+        }  
+    }));  
+  
+    controller.start();  
+  
+    return controller;  
+}
+```
+
+- NamesrvController的start和remotingServer的start
+```java
+public void start() throws Exception {  
+    this.remotingServer.start();  
+  
+    if (this.fileWatchService != null) {  
+        this.fileWatchService.start();  
+    }  
+}
+
 
 ```
