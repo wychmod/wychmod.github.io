@@ -1155,3 +1155,6 @@ public static void main(String[] args) {
 ```java
 
 ```
+
+> Broker既是服务端也是客户端，服务端是接收消息，客户端是给NameServer发送消息。
+![](../youdaonote-images/Pasted%20image%2020231018182900.png)
