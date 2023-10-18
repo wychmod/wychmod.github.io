@@ -859,5 +859,30 @@ public class NamesrvConfig {
     private boolean orderMessageEnable = false;
 }
 
-
+public class NettyServerConfig implements Cloneable {  
+    // NettyServer默认的监听端口号，是8888，在代码里设置成9876了  
+    private int listenPort = 8888;  
+    // Netty工作线程的数量，默认是8  
+    private int serverWorkerThreads = 8;  
+    // Netty的public线程池的线程数量，默认是0  
+    private int serverCallbackExecutorThreads = 0;  
+    // 这是Netty的IO线程池的线程数量，默认是3，这里的线程是负责解析网路请求的  
+    // 他这里的线程解析完网铬请求之后，就会把请求转发给wok线程来处理  
+    private int serverSelectorThreads = 3;  
+    // brokeri端的参数  
+    // broker端在基于netty构建网络服务器的时候，会使用下面两个参数  
+    private int serverOnewaySemaphoreValue = 256;  
+    private int serverAsyncSemaphoreValue = 64;  
+    // 如果一个网路连接空闲超过120s,就会被关闭  
+    private int serverChannelMaxIdleTimeSeconds = 120;  
+  
+    // socket send buffer缓冲区以及receive buffer缓冲区的大小  
+    private int serverSocketSndBufSize = NettySystemConfig.socketSndbufSize;  
+    private int serverSocketRcvBufSize = NettySystemConfig.socketRcvbufSize;  
+    // ByteBuffer是否开启缓存，默认是开启的  
+    private boolean serverPooledByteBufAllocatorEnable = true;  
+  
+    // 是否启动epoll I0模型，默认是不开启的  
+    private boolean useEpollNativeSelector = false;
+    }
 ```
