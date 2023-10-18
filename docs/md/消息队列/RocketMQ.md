@@ -1288,12 +1288,16 @@ public static BrokerController createBrokerController(String[] args) {
         // remember all configs to prevent discard  
         controller.getConfiguration().registerConfig(properties);  
   
+        // BrokerController初始化  
         boolean initResult = controller.initialize();  
         if (!initResult) {  
             controller.shutdown();  
             System.exit(-3);  
         }  
   
+        // 注册了一个JVM的关闭钩子  
+        // 退出的时候，其实就会执行里面的回调函数，  
+        // 本质也是释放一堆资源  
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {  
             private volatile boolean hasShutdown = false;  
             private AtomicInteger shutdownTimes = new AtomicInteger(0);  
@@ -1310,7 +1314,7 @@ public static BrokerController createBrokerController(String[] args) {
                         log.info("Shutdown hook over, consuming total time(ms): {}", consumingTimeTotal);  
                     }  
                 }            }        }, "ShutdownHook"));  
-  
+        // 返回创建和初始化好的BrokerController  
         return controller;  
     } catch (Throwable e) {  
         e.printStackTrace();  
