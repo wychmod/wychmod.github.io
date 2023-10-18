@@ -789,52 +789,7 @@ public static NamesrvController createNamesrvController(String[] args) throws IO
     final NamesrvConfig namesrvConfig = new NamesrvConfig();  
     final NettyServerConfig nettyServerConfig = new NettyServerConfig();  
     nettyServerConfig.setListenPort(9876);  
-    if (commandLine.hasOption('c')) {  
-        String file = commandLine.getOptionValue('c');  
-        if (file != null) {  
-            InputStream in = new BufferedInputStream(new FileInputStream(file));  
-            properties = new Properties();  
-            properties.load(in);  
-            MixAll.properties2Object(properties, namesrvConfig);  
-            MixAll.properties2Object(properties, nettyServerConfig);  
-  
-            namesrvConfig.setConfigStorePath(file);  
-  
-            System.out.printf("load config properties file OK, %s%n", file);  
-            in.close();  
-        }  
-    }  
-    if (commandLine.hasOption('p')) {  
-        InternalLogger console = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_CONSOLE_NAME);  
-        MixAll.printObjectProperties(console, namesrvConfig);  
-        MixAll.printObjectProperties(console, nettyServerConfig);  
-        System.exit(0);  
-    }  
-  
-    MixAll.properties2Object(ServerUtil.commandLine2Properties(commandLine), namesrvConfig);  
-  
-    if (null == namesrvConfig.getRocketmqHome()) {  
-        System.out.printf("Please set the %s variable in your environment to match the location of the RocketMQ installation%n", MixAll.ROCKETMQ_HOME_ENV);  
-        System.exit(-2);  
-    }  
-  
-    LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();  
-    JoranConfigurator configurator = new JoranConfigurator();  
-    configurator.setContext(lc);  
-    lc.reset();  
-    configurator.doConfigure(namesrvConfig.getRocketmqHome() + "/conf/logback_namesrv.xml");  
-  
-    log = InternalLoggerFactory.getLogger(LoggerName.NAMESRV_LOGGER_NAME);  
-  
-    MixAll.printObjectProperties(log, namesrvConfig);  
-    MixAll.printObjectProperties(log, nettyServerConfig);  
-  
-    final NamesrvController controller = new NamesrvController(namesrvConfig, nettyServerConfig);  
-  
-    // remember all configs to prevent discard  
-    controller.getConfiguration().registerConfig(properties);  
-  
-    return controller;  
+    ...
 }
 ```
 
@@ -885,4 +840,29 @@ public class NettyServerConfig implements Cloneable {
     // 是否启动epoll I0模型，默认是不开启的  
     private boolean useEpollNativeSelector = false;
     }
+```
+
+- NameServer的核心配置如何进行解析
+```java
+// 这段代码意思就是说，如果你用mgnamesrv启动的时候，带上了“-c这个选项  
+// 那么“-c”这个选型意思就是带上一个配置文件的地址  
+// 接着他就可以读取那个配置文件里的内容了  
+if (commandLine.hasOption('c')) {  
+    String file = commandLine.getOptionValue('c');  
+    if (file != null) {  
+        // 基于输入流从配置文件里读取了配置  
+        // 读取的配置会放入一个Properties里去  
+        InputStream in = new BufferedInputStream(new FileInputStream(file));  
+        properties = new Properties();  
+        properties.load(in);  
+        // 基于工具类，把读取到的配置都放入到两个核心配置类里去了  
+        MixAll.properties2Object(properties, namesrvConfig);  
+        MixAll.properties2Object(properties, nettyServerConfig);  
+  
+        namesrvConfig.setConfigStorePath(file);  
+  
+        System.out.printf("load config properties file OK, %s%n", file);  
+        in.close();  
+    }  
+}
 ```
