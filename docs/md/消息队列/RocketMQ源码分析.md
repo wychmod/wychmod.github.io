@@ -1072,3 +1072,6 @@ public void start() throws Exception {
 3. 当Broker接收到网络请求之后，需要有线程池来处理，需要处理各种请求的线程池
 4. 处理请求的线程池在处理每个请求的时候，需要各种核心功能组件的协调。比如写入消息到commitlog，写入索引到indexfile和consumer queue文件里去，需要MessageStore之类的组件来配合。
 5. 后台定时调度运行的线程。比如定时发送心跳到NameServer。
+
+### 1.6.4 Broker的注册
+- 
