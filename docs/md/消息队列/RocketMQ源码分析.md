@@ -1141,3 +1141,7 @@ private void doRegisterBrokerAll(
         }    }}
 ```
 
+- brokerOuterAPI.registerBrokerAll()详细解析
+```java
+
+```
