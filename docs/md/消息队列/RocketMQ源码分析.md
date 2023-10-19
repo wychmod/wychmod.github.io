@@ -1074,4 +1074,36 @@ public void start() throws Exception {
 5. 后台定时调度运行的线程。比如定时发送心跳到NameServer。
 
 ### 1.6.4 Broker的注册
-- 
+- start()方法中的registerBrokerAll()
+```java
+public synchronized void registerBrokerAll(  
+        final boolean checkOrderConfig, boolean oneway, boolean forceRegister) {  
+  
+    // 进行topic配置  
+    TopicConfigSerializeWrapper topicConfigWrapper = this.getTopicConfigManager().buildTopicConfigSerializeWrapper();  
+  
+    // 处理topic config的一些东西  
+    if (!PermName.isWriteable(this.getBrokerConfig().getBrokerPermission())  
+        || !PermName.isReadable(this.getBrokerConfig().getBrokerPermission())) {  
+        ConcurrentHashMap<String, TopicConfig> topicConfigTable = new ConcurrentHashMap<String, TopicConfig>();  
+        for (TopicConfig topicConfig : topicConfigWrapper.getTopicConfigTable().values()) {  
+            TopicConfig tmp =  
+                new TopicConfig(topicConfig.getTopicName(), topicConfig.getReadQueueNums(), topicConfig.getWriteQueueNums(),  
+                    this.brokerConfig.getBrokerPermission());  
+            topicConfigTable.put(topicConfig.getTopicName(), tmp);  
+        }  
+        topicConfigWrapper.setTopicConfigTable(topicConfigTable);  
+    }  
+  
+    // 判断注册的前置条件满足吗，如果满足就调用doRegisterBrokerAll进行注册  
+    if (forceRegister || needRegister(this.brokerConfig.getBrokerClusterName(),  
+        this.getBrokerAddr(),  
+        this.brokerConfig.getBrokerName(),  
+        this.brokerConfig.getBrokerId(),  
+        this.brokerConfig.getRegisterBrokerTimeoutMills())) {  
+        doRegisterBrokerAll(checkOrderConfig, oneway, topicConfigWrapper);  
+    }  
+}
+```
+- 真正进行Broker注册的方法doRegisterBrokerAll()
+
