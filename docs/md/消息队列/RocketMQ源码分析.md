@@ -1214,3 +1214,4 @@ public List<RegisterBrokerResult> registerBrokerAll(
 
 ![](../youdaonote-images/Pasted%20image%2020231019170753.png)
 
+- BrokerOuter API是如何发送注册请求
