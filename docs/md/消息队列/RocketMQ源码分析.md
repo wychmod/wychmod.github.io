@@ -1143,5 +1143,71 @@ private void doRegisterBrokerAll(
 
 - brokerOuterAPI.registerBrokerAll()详细解析
 ```java
-
+public List<RegisterBrokerResult> registerBrokerAll(  
+    final String clusterName,  
+    final String brokerAddr,  
+    final String brokerName,  
+    final long brokerId,  
+    final String haServerAddr,  
+    final TopicConfigSerializeWrapper topicConfigWrapper,  
+    final List<String> filterServerList,  
+    final boolean oneway,  
+    final int timeoutMills,  
+    final boolean compressed) {  
+  
+    // 初始化一个list，用来存放向每个NameServer注册的结果  
+    final List<RegisterBrokerResult> registerBrokerResultList = Lists.newArrayList();  
+    // 这个list是NameServer的地址列表  
+    List<String> nameServerAddressList = this.remotingClient.getNameServerAddressList();  
+    if (nameServerAddressList != null && nameServerAddressList.size() > 0) {  
+  
+        // 下面这个很关键，是在构建注册的网铬请求  
+        // 首先他有一个请求头，在请求头里加入了很多的信息，比如broker的id和名称  
+        final RegisterBrokerRequestHeader requestHeader = new RegisterBrokerRequestHeader();  
+        requestHeader.setBrokerAddr(brokerAddr);  
+        requestHeader.setBrokerId(brokerId);  
+        requestHeader.setBrokerName(brokerName);  
+        requestHeader.setClusterName(clusterName);  
+        requestHeader.setHaServerAddr(haServerAddr);  
+        requestHeader.setCompressed(compressed);  
+  
+        // 请求体，请求体包含配置信息。  
+        RegisterBrokerBody requestBody = new RegisterBrokerBody();  
+        requestBody.setTopicConfigSerializeWrapper(topicConfigWrapper);  
+        requestBody.setFilterServerList(filterServerList);  
+        final byte[] body = requestBody.encode(compressed);  
+        final int bodyCrc32 = UtilAll.crc32(body);  
+        requestHeader.setBodyCrc32(bodyCrc32);  
+        // CountDownLatch 要求注册完全部的NS才能往下走  
+        final CountDownLatch countDownLatch = new CountDownLatch(nameServerAddressList.size());  
+        // 遍历nameserver地址列表，每个地址都要发送请求注册  
+        for (final String namesrvAddr : nameServerAddressList) {  
+            brokerOuterExecutor.execute(new Runnable() {  
+                @Override  
+                public void run() {  
+                    try {  
+                        // 真正执行注册  
+                        RegisterBrokerResult result = registerBroker(namesrvAddr,oneway, timeoutMills,requestHeader,body);  
+                        // 注册结果放到一个list里去  
+                        if (result != null) {  
+                            registerBrokerResultList.add(result);  
+                        }  
+  
+                        log.info("register broker[{}]to name server {} OK", brokerId, namesrvAddr);  
+                    } catch (Exception e) {  
+                        log.warn("registerBroker Exception, {}", namesrvAddr, e);  
+                    } finally {  
+                        // 都注册完了会执行countdown  
+                        countDownLatch.countDown();  
+                    }  
+                }            });  
+        }  
+  
+        // 等待所有的走完  
+        try {  
+            countDownLatch.await(timeoutMills, TimeUnit.MILLISECONDS);  
+        } catch (InterruptedException e) {  
+        }    }  
+    return registerBrokerResultList;  
+}
 ```
