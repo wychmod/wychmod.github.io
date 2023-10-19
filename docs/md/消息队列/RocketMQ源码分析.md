@@ -1106,4 +1106,38 @@ public synchronized void registerBrokerAll(
 }
 ```
 - 真正进行Broker注册的方法doRegisterBrokerAll()
+```java
+private void doRegisterBrokerAll(  
+        boolean checkOrderConfig, boolean oneway,  
+    TopicConfigSerializeWrapper topicConfigWrapper) {  
+    // 调用了BrokerOuterAPI去发送请求给NameServer  
+    // 这里就完成了Broker的注册，然后获取到了注册的结果  
+    // 为什么注册结果是个List呢？因为Broker会把自己注册给所有的NameServer!  
+    List<RegisterBrokerResult> registerBrokerResultList = this.brokerOuterAPI.registerBrokerAll(  
+        this.brokerConfig.getBrokerClusterName(),  
+        this.getBrokerAddr(),  
+        this.brokerConfig.getBrokerName(),  
+        this.brokerConfig.getBrokerId(),  
+        this.getHAServerAddr(),  
+        topicConfigWrapper,  
+        this.filterServerManager.buildNewFilterServerList(),  
+        oneway,  
+        this.brokerConfig.getRegisterBrokerTimeoutMills(),  
+        this.brokerConfig.isCompressedRegister());  
+  
+    // 如果说注册结果的数量大于0，那么就在这里对注册结果进行处理  
+    if (registerBrokerResultList.size() > 0) {  
+        RegisterBrokerResult registerBrokerResult = registerBrokerResultList.get(0);  
+        if (registerBrokerResult != null) {  
+            if (this.updateMasterHAServerAddrPeriodically && registerBrokerResult.getHaServerAddr() != null) {  
+                this.messageStore.updateHaMasterAddress(registerBrokerResult.getHaServerAddr());  
+            }  
+  
+            this.slaveSynchronize.setMasterAddr(registerBrokerResult.getMasterAddr());  
+  
+            if (checkOrderConfig) {  
+                this.getTopicConfigManager().updateOrderTopicConfig(registerBrokerResult.getKvTable());  
+            }  
+        }    }}
+```
 
