@@ -1267,5 +1267,37 @@ private RegisterBrokerResult registerBroker(
 - NettyClient的网络请求方法
 
 ```java
-
+@Override  
+public RemotingCommand invokeSync(String addr, final RemotingCommand request, long timeoutMillis)  
+    throws InterruptedException, RemotingConnectException, RemotingSendRequestException, RemotingTimeoutException {  
+  
+    // 下面代码就是获取一个当前时间  
+    long beginStartTime = System.currentTimeMillis();  
+  
+    // 获取了一个channel，就是Broker机器跟NameServert机器之间的一个连接  
+    // 连接建立之后，就是用一个Channel来代表这个网络连接  
+    final Channel channel = this.getAndCreateChannel(addr);  
+    // 如果连接channel没问题，就可以发送消息了  
+    if (channel != null && channel.isActive()) {  
+        try {  
+            doBeforeRpcHooks(addr, request);  
+            long costTime = System.currentTimeMillis() - beginStartTime;  
+            if (timeoutMillis < costTime) {  
+                throw new RemotingTimeoutException("invokeSync call timeout");  
+            }  
+  
+            // 真正发送网络请求出去的地方  
+            RemotingCommand response = this.invokeSyncImpl(channel, request, timeoutMillis - costTime);  
+            // 发送完请求的处理，不重要  
+            doAfterRpcHooks(RemotingHelper.parseChannelRemoteAddr(channel), request, response);  
+            return response;  
+        }  
+}
 ```
+
+Channel这个概念，表示出了Broker和NameServer之间的一个网络连接的概念，然后通过这个Channel就可以发送实际的网络请求出去。
+
+![](../youdaonote-images/Pasted%20image%2020231020170302.png)
+
+- 如何跟NameServer建立网络连接？
+	- 
