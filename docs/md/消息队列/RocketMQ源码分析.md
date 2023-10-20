@@ -1215,3 +1215,57 @@ public List<RegisterBrokerResult> registerBrokerAll(
 ![](../youdaonote-images/Pasted%20image%2020231019170753.png)
 
 - BrokerOuter API是如何发送注册请求
+```java
+private RegisterBrokerResult registerBroker(  
+    final String namesrvAddr,  
+    final boolean oneway,  
+    final int timeoutMills,  
+    final RegisterBrokerRequestHeader requestHeader,  
+    final byte[] body  
+) throws RemotingCommandException, MQBrokerException, RemotingConnectException, RemotingSendRequestException, RemotingTimeoutException,  
+    InterruptedException {  
+    // 搞了一个RemotingCommand  
+    // 然后把请求头和请求体封装成一个完整请求  
+    RemotingCommand request = RemotingCommand.createRequestCommand(RequestCode.REGISTER_BROKER, requestHeader);  
+    request.setBody(body);  
+  
+    // oneway是特殊情况，不用等待注册结果，属于特殊情况  
+    if (oneway) {  
+        try {  
+            this.remotingClient.invokeOneway(namesrvAddr, request, timeoutMills);  
+        } catch (RemotingTooMuchRequestException e) {  
+            // Ignore  
+        }  
+        return null;  
+    }  
+  
+    // 真正发送网络请求的逻辑,remotingClient就是NettyClient  
+    RemotingCommand response = this.remotingClient.invokeSync(namesrvAddr, request, timeoutMills);  
+  
+    // 处理网络请求的返回结果，把处理结果封装成了Result  
+    assert response != null;  
+    switch (response.getCode()) {  
+        case ResponseCode.SUCCESS: {  
+            RegisterBrokerResponseHeader responseHeader =  
+                (RegisterBrokerResponseHeader) response.decodeCommandCustomHeader(RegisterBrokerResponseHeader.class);  
+            RegisterBrokerResult result = new RegisterBrokerResult();  
+            result.setMasterAddr(responseHeader.getMasterAddr());  
+            result.setHaServerAddr(responseHeader.getHaServerAddr());  
+            if (response.getBody() != null) {  
+                result.setKvTable(KVTable.decode(response.getBody(), KVTable.class));  
+            }  
+            return result;  
+        }  
+        default:  
+            break;  
+    }  
+  
+    throw new MQBrokerException(response.getCode(), response.getRemark());  
+}
+```
+
+- NettyClient的网络请求方法
+
+```java
+
+```
