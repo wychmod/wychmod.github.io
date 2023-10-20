@@ -1300,4 +1300,8 @@ Channel这个概念，表示出了Broker和NameServer之间的一个网络连接
 ![](../youdaonote-images/Pasted%20image%2020231020170302.png)
 
 - 如何跟NameServer建立网络连接？
-	- 
+	- this.getAndCreateChannel(addr)实现的
+
+```java
+
+```
