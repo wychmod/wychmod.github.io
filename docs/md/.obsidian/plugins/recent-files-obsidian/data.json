@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "Java面试汇总",
+      "path": "面试/Java面试汇总.md"
+    },
+    {
       "basename": "RocketMQ源码分析",
       "path": "消息队列/RocketMQ源码分析.md"
     },
@@ -11,10 +15,6 @@
     {
       "basename": "RabbitMQ部署指南",
       "path": "消息队列/RabbitMQ部署指南.md"
-    },
-    {
-      "basename": "Java面试汇总",
-      "path": "面试/Java面试汇总.md"
     },
     {
       "basename": "技术写作指南",
