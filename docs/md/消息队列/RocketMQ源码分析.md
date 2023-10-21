@@ -1710,3 +1710,10 @@ producer.start();
 ```
 
 >最核心的是调用了这个DefaultMQProducer的start()方法去启动了这个消息生产组件。
+
+### 1.8.2 Producer启动准备好的相关资源
+
+### 1.8.1 如何创建Producer
+### 1.8.1 如何创建Producer
+### 1.8.1 如何创建Producer
+### 1.8.1 如何创建Producer
