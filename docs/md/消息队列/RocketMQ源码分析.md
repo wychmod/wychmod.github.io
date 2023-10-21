@@ -1698,5 +1698,15 @@ public void scanNotActiveBroker() {
     }}
 ```
 
-## 1.8 源码分析-如何创建Producer
+## 1.8 源码分析-Producer相关结构
+### 1.8.1 如何创建Producer
+**创建一个DefaultMQProducer对象实例，在其中传入你所属的Producer分组，然后设置一下NameServer的地址，最后调用他的start()方法，启动这个Producer就可以了。**
+```java
+DefaultMQProducer producer = new DefaultMQProducer("order_producer_group");
 
+producer.setNamesrvAddr("localhost:9876");
+
+producer.start();
+```
+
+>最核心的是调用了这个DefaultMQProducer的start()方法去启动了这个消息生产组件。
