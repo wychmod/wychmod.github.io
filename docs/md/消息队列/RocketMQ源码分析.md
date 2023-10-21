@@ -1384,3 +1384,47 @@ private Channel createChannel(final String addr) throws InterruptedException {
 
 - 如何通过Channel网络连接发送请求？
 	- this.invokeSyncImpl(channel, request, timeoutMillis - costTime);
+```java
+public RemotingCommand invokeSyncImpl(final Channel channel, final RemotingCommand request,  
+    final long timeoutMillis)  
+    throws InterruptedException, RemotingSendRequestException, RemotingTimeoutException {  
+    final int opaque = request.getOpaque();  
+  
+    try {  
+        final ResponseFuture responseFuture = new ResponseFuture(channel, opaque, timeoutMillis, null, null);  
+        this.responseTable.put(opaque, responseFuture);  
+        final SocketAddress addr = channel.remoteAddress();  
+        // 基于Netty来开发，核心就是基于Channel把你的请求写出去  
+        channel.writeAndFlush(request).addListener(new ChannelFutureListener() {  
+            @Override  
+            public void operationComplete(ChannelFuture f) throws Exception {  
+                if (f.isSuccess()) {  
+                    responseFuture.setSendRequestOK(true);  
+                    return;  
+                } else {  
+                    responseFuture.setSendRequestOK(false);  
+                }  
+  
+                responseTable.remove(opaque);  
+                responseFuture.setCause(f.cause());  
+                responseFuture.putResponse(null);  
+                log.warn("send a request command to channel <" + addr + "> failed.");  
+            }  
+        });  
+  
+        // 等待响应回来  
+        RemotingCommand responseCommand = responseFuture.waitResponse(timeoutMillis);  
+        if (null == responseCommand) {  
+            if (responseFuture.isSendRequestOK()) {  
+                throw new RemotingTimeoutException(RemotingHelper.parseSocketAddressAddr(addr), timeoutMillis,  
+                    responseFuture.getCause());  
+            } else {  
+                throw new RemotingSendRequestException(RemotingHelper.parseSocketAddressAddr(addr), responseFuture.getCause());  
+            }  
+        }  
+        return responseCommand;  
+    } finally {  
+        this.responseTable.remove(opaque);  
+    }  
+}
+```
