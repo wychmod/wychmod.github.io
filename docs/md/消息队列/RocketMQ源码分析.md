@@ -1720,6 +1720,12 @@ Producer发送消息，必然是知道Topic的一些路由数据的，比如Topi
 
 **并不是刚启动就回去拉取Topic消息，因为不知道要往哪个topic发送。所以是第一次发送消息的时候，才会拉取相关topic信息。**
 ### 1.8.3 Producer如何从NameServer拉取Topic元数据
+1. 当你调用Producer的send()方法发送消息的时候，最终会调用到DefaultMQProducerImpl类的sendDefaultImpl()方法里去
+2. 关键代码为：TopicPublishInfo topicPublishInfo = this.tryToFindTopicPublishInfo(msg.getTopic())
+3. 每次发送消息都会检查一下，看要发送的topic路由数据是否在客户端本地，如果不在就会发送请求到ns哪里拉取一下。
+![](../youdaonote-images/Pasted%20image%2020231021215541.png)
+4. 拉取数据使用这行代码：this.mQClientFactory.updateTopicRouteInfoFromNameServer(topic);
+![](../youdaonote-images/Pasted%20image%2020231021215712.png)
 ### 1.8.1 如何创建Producer
 ### 1.8.1 如何创建Producer
 ### 1.8.1 如何创建Producer
