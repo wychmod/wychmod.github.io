@@ -1771,7 +1771,7 @@ CommitLog文件的存储目录是在${ROCKETMQ_HOME}/store/commitlog下的，里
 
 ![](../youdaonote-images/Pasted%20image%2020231021224423.png)
 
-**cb.doAppend()这行代码，这行代码其实是把消息追加到MappedFile映射的一块内存里去，并没有直接刷入磁盘中。**
+**cb.doAppend()这行代码，这行代码其实是把消息追加到MappedFile映射的一块内存里去，并没有直接刷入磁盘中。后续根据刷盘策略刷盘。**
 
 
 ![](../youdaonote-images/Pasted%20image%2020231021224453.png)
@@ -1780,7 +1780,15 @@ CommitLog文件的存储目录是在${ROCKETMQ_HOME}/store/commitlog下的，里
 
 ### 1.9.2 消息写入CommitLog文件之后，如何实时更新索引文件
 
+Broker启动的时候会开启一个线程，ReputMessageService，他会把CommitLog更新事件转发出去，然后让任务处理器去更新ConsumeQueue和IndexFile，如下图。
 
+![](../youdaonote-images/Pasted%20image%2020231021225736.png)
+
+1. 在DefaultMessageStore的start()方法里，在里面就是启动了这个ReputMessageService线程。
+2. DefaultMessageStore的start()方法就是在Broker启动的时候调用的，所以相当于是Broker启动就会启动这个线程。
+![](../youdaonote-images/Pasted%20image%2020231021225900.png)
+3. 在这个线程里，每隔1毫秒，就会把最近写入CommitLog的消息进行一次转发，转发到ConsumeQueue和IndexFile里去，通过的是doReput()方法来实现的，再看doReput()方法里的实现逻辑。
+4. 
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
