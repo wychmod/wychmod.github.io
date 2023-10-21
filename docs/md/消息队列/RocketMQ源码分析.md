@@ -1767,4 +1767,11 @@ CommitLog文件的存储目录是在${ROCKETMQ_HOME}/store/commitlog下的，里
 
 **在把消息写入CommitLog文件的时候，会申请一个putMessageLock锁，都是串行，不会造成数据错乱。**
 
-接着会对消息做出一通处理，包括设置消息的存储时间、创建全局唯一的消息ID、计算消息的总长度，然后是关键源码，把消息写入到MappedFile里去，这个其实我们之前还讲解过里面的黑科技，看下面的源码。
+接着会对消息做出一通处理，包括设置消息的存储时间、创建全局唯一的消息ID、计算消息的总长度，然后是关键源码，把消息写入到MappedFile里去，这个是之前说过的内存映射的技术。
+
+![](../youdaonote-images/Pasted%20image%2020231021224423.png)
+
+**cb.doAppend()这行代码，这行代码其实是把消息追加到MappedFile映射的一块内存里去，并没有直接刷入磁盘中。**
+
+
+![](../youdaonote-images/Pasted%20image%2020231021224453.png)
