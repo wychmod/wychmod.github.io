@@ -1679,4 +1679,24 @@ this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
         NamesrvController.this.routeInfoManager.scanNotActiveBroker();  
     }  
 }, 5, 10, TimeUnit.SECONDS);
+
+
+public void scanNotActiveBroker() {  
+    // 遍历brokerLiveTable可以拿到BrokerLiveInfo中的最后一次发送心跳的时间。  
+    Iterator<Entry<String, BrokerLiveInfo>> it = this.brokerLiveTable.entrySet().iterator();  
+    while (it.hasNext()) {  
+        Entry<String, BrokerLiveInfo> next = it.next();  
+        long last = next.getValue().getLastUpdateTimestamp();  
+        // 如果最后一次时间加上120s发现小于当前时间，说明已经过期了，就要移除了  
+        if ((last + BROKER_CHANNEL_EXPIRED_TIME) < System.currentTimeMillis()) {  
+            RemotingUtil.closeChannel(next.getValue().getChannel());  
+            it.remove();  
+            log.warn("The broker channel expired, {} {}ms", next.getKey(), BROKER_CHANNEL_EXPIRED_TIME);  
+            // 在这里就会把这个Broker从路由数据表里都别除出去  
+            this.onChannelDestroy(next.getKey(), next.getValue().getChannel());  
+        }  
+    }}
 ```
+
+## 1.8 源码分析-如何创建Producer
+
