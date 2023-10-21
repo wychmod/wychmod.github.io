@@ -1788,7 +1788,11 @@ Broker启动的时候会开启一个线程，ReputMessageService，他会把Comm
 2. DefaultMessageStore的start()方法就是在Broker启动的时候调用的，所以相当于是Broker启动就会启动这个线程。
 ![](../youdaonote-images/Pasted%20image%2020231021225900.png)
 3. 在这个线程里，每隔1毫秒，就会把最近写入CommitLog的消息进行一次转发，转发到ConsumeQueue和IndexFile里去，通过的是doReput()方法来实现的，再看doReput()方法里的实现逻辑。
-4. 
+
+![](../youdaonote-images/Pasted%20image%2020231021232929.png)
+
+4. 从commitLog中去获取到一个DispatchRequest，拿到了一份需要进行转发的消息，也就是从CommitLog中读取的
+![](../youdaonote-images/Pasted%20image%2020231021232956.png)
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
