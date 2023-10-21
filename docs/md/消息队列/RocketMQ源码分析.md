@@ -1469,3 +1469,42 @@ private void registerProcessor() {
 ![](../youdaonote-images/Pasted%20image%2020231021161133.png)
 
 - DefaultRequestProcessor处理Broker注册请求
+```java
+@Override  
+public RemotingCommand processRequest(ChannelHandlerContext ctx,  
+    RemotingCommand request) throws RemotingCommandException {  
+  
+    // 打印调试日志  
+    if (ctx != null) {  
+        log.debug("receive request, {} {} {}",  
+            request.getCode(),  
+            RemotingHelper.parseChannelRemoteAddr(ctx.channel()),  
+            request);  
+    }  
+  
+  
+    // 根据请求类型，有不同的处理过程  
+    switch (request.getCode()) {  
+        case RequestCode.PUT_KV_CONFIG:  
+            return this.putKVConfig(ctx, request);  
+        case RequestCode.GET_KV_CONFIG:  
+            return this.getKVConfig(ctx, request);  
+        case RequestCode.DELETE_KV_CONFIG:  
+            return this.deleteKVConfig(ctx, request);  
+        case RequestCode.QUERY_DATA_VERSION:  
+            return queryBrokerTopicConfig(ctx, request);  
+        // 注册Broker的请求  
+        case RequestCode.REGISTER_BROKER:  
+            Version brokerVersion = MQVersion.value2Version(request.getVersion());  
+            if (brokerVersion.ordinal() >= MQVersion.Version.V3_0_11.ordinal()) {  
+                return this.registerBrokerWithFilterServer(ctx, request);  
+            } else {  
+                // 核心注册请求处理的逻辑  
+                return this.registerBroker(ctx, request);  
+            }
+```
+
+- this.registerBroker()
+```java
+
+```
