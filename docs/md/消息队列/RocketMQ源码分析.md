@@ -1756,3 +1756,15 @@ Broker通过Netty网络服务器获取到一条消息，接着就会把这条消
 ![](../youdaonote-images/Pasted%20image%2020231021222746.png)
 
 还会异步把消息写入一个IndexFile里，在里面主要就是把每条消息的key和消息在CommitLog中的offset偏移量做一个索引，这样后续如果要根据消息key从CommitLog文件里查询消息，就可以根据IndexFile的索引来了。
+
+![](../youdaonote-images/Pasted%20image%2020231021223640.png)
+
+CommitLog文件的存储目录是在${ROCKETMQ_HOME}/store/commitlog下的，里面会有很多的CommitLog文件，每个文件默认是1GB大小，一个文件写满了就创建一个新的文件，文件名的话，就是文件中的第一个偏移量，如下面所示。文件名如果不足20位的话，就用0来补齐就可以了。
+
+00000000000000000000
+
+000000000003052631924
+
+**在把消息写入CommitLog文件的时候，会申请一个putMessageLock锁，都是串行，不会造成数据错乱。**
+
+接着会对消息做出一通处理，包括设置消息的存储时间、创建全局唯一的消息ID、计算消息的总长度，然后是关键源码，把消息写入到MappedFile里去，这个其实我们之前还讲解过里面的黑科技，看下面的源码。
