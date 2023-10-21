@@ -1582,5 +1582,101 @@ this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
 - NameServer对后续重复发送过来的注册请求（也就是心跳）通过RouteInfoManager()来处理
 ```java
+public RegisterBrokerResult registerBroker(  
+    final String clusterName,  
+    final String brokerAddr,  
+    final String brokerName,  
+    final long brokerId,  
+    final String haServerAddr,  
+    final TopicConfigSerializeWrapper topicConfigWrapper,  
+    final List<String> filterServerList,  
+    final Channel channel) {  
+    RegisterBrokerResult result = new RegisterBrokerResult();  
+    try {  
+        try {  
+            // 这里加写锁，同一时间，只能一个线程执行  
+            this.lock.writeLock().lockInterruptibly();  
+  
+            // 下面这里是根据clusterName获取了一个set集合  
+            Set<String> brokerNames = this.clusterAddrTable.get(clusterName);  
+            if (null == brokerNames) {  
+                brokerNames = new HashSet<String>();  
+                this.clusterAddrTable.put(clusterName, brokerNames);  
+            }  
+            // 直接就把brokerName扔到了这个set集合里去  
+            // 这就是在维护一个集群里有哪些broker存在的一个set数据结构  
+            // 假如你后续每隔30s发送注册请求作为心跳，这里是没影响的  
+            // 因为同样一个brokerName反复发送，这里set集合是自动去重的  
+            brokerNames.add(brokerName);  
+  
+            boolean registerFirst = false;  
+  
+            // 这里是根据brokerName获取到BrokerData  
+            // 他用一个brokerAdderTable作为核心路由数据表  
+            // 这里存放了所有的Broker的详细的路由数据  
+            BrokerData brokerData = this.brokerAddrTable.get(brokerName);  
+  
+            // 如果第一次发送注册请求，这里就是null  
+            // 那么就会封装一个BrokerData,放入到这个路由数据表里去  
+            // 这个就是核心的Broker注册过程,如果后续每隔30s发送注册请求作为心跳，这里是没影响的  
+            // 因为明显你重复发送注册请求的时候，这个BrokerData已经存在了  
+            if (null == brokerData) {  
+                registerFirst = true;  
+                brokerData = new BrokerData(clusterName, brokerName, new HashMap<Long, String>());  
+                this.brokerAddrTable.put(brokerName, brokerData);  
+            }  
+            // 下面这里对路由数据做一些处理  
+            Map<Long, String> brokerAddrsMap = brokerData.getBrokerAddrs();  
+            //Switch slave to master: first remove <1, IP:PORT> in namesrv, then add <0, IP:PORT>  
+            //The same IP:PORT must only have one record in brokerAddrTable            Iterator<Entry<Long, String>> it = brokerAddrsMap.entrySet().iterator();  
+            while (it.hasNext()) {  
+                Entry<Long, String> item = it.next();  
+                if (null != brokerAddr && brokerAddr.equals(item.getValue()) && brokerId != item.getKey()) {  
+                    it.remove();  
+                }  
+            }  
+            String oldAddr = brokerData.getBrokerAddrs().put(brokerId, brokerAddr);  
+            registerFirst = registerFirst || (null == oldAddr);  
+  
+            if (null != topicConfigWrapper  
+                && MixAll.MASTER_ID == brokerId) {  
+                if (this.isBrokerTopicConfigChanged(brokerAddr, topicConfigWrapper.getDataVersion())  
+                    || registerFirst) {  
+                    ConcurrentMap<String, TopicConfig> tcTable =  
+                        topicConfigWrapper.getTopicConfigTable();  
+                    if (tcTable != null) {  
+                        for (Map.Entry<String, TopicConfig> entry : tcTable.entrySet()) {  
+                            this.createAndUpdateQueueData(brokerName, entry.getValue());  
+                        }  
+                    }                }            }  
+            // 核心的在这里，这就是每隔30s发送注册请求作为心跳的时候  
+            // 每隔3os都会封装一个新的BrokerLiveInfo放入Map  
+            // 每隔3Os,最新的BrokerLiveInfo都会覆盖之前上一次的BrokerLiveInfo  
+            // BrokerLiveInfo里，就有一个当前时间戳，代表你最近一次心跳的时间  
+            BrokerLiveInfo prevBrokerLiveInfo = this.brokerLiveTable.put(brokerAddr,  
+                new BrokerLiveInfo(  
+                    System.currentTimeMillis(),  
+                    topicConfigWrapper.getDataVersion(),  
+                    channel,  
+                    haServerAddr));  
+            if (null == prevBrokerLiveInfo) {  
+                log.info("new broker registered, {} HAServer: {}", brokerAddr, haServerAddr);  
+            }  
+  
+            // 暂时不用管
+```
 
+![](../youdaonote-images/Pasted%20image%2020231021210502.png)
+- 假如故障了，没法处理注册请求作为心跳，那么该如何感知呢。
+	- NamesrvController的initialize()方法里有一个RouteInfoManager的定时任务扫描不活跃的线程。
+```java
+// 启动后台线程，执行定时任务  
+// scanNotActiveBroker 定时扫描那些Broke没发送心跳，判断是否挂了  
+this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+  
+    @Override  
+    public void run() {  
+        NamesrvController.this.routeInfoManager.scanNotActiveBroker();  
+    }  
+}, 5, 10, TimeUnit.SECONDS);
 ```
