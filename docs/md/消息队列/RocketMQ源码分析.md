@@ -1556,3 +1556,11 @@ public RemotingCommand registerBroker(ChannelHandlerContext ctx,
 ```
 
 ![](../youdaonote-images/Pasted%20image%2020231021164423.png)
+
+## 1.7 源码分析-Broker发送定时心跳与故障感知
+
+- Broker中的发送注册请求给NameServer的一个源码入口，其实就是在BrokerController.start()方法
+- 在BrokerController启动的时候，他其实并不是仅仅发送一次注册请求，而是启动了一个定时任务，会每隔一段时间就发送一次注册请求。
+```java
+
+```
