@@ -1447,5 +1447,24 @@ public boolean initialize() {
     // 非常核心的是下面这行代码，他有一个注册ProcessorE的过程  
     // 这个Processor.其实就是请求处理器，是NameServer用来处理网络请求的组件  
     this.registerProcessor();
+	// ....
 }
 ```
+
+- registerProcessor()方法的源码
+```java
+private void registerProcessor() {  
+    if (namesrvConfig.isClusterTest()) {  
+        // 用于处理测试集群  
+        this.remotingServer.registerDefaultProcessor(new ClusterTestRequestProcessor(this, namesrvConfig.getProductEnvName()),  
+            this.remotingExecutor);  
+    } else {  
+        // 把NameServer的里默认请求处理组件注册了进去  
+        // NettyServer接收到的网路请求，都会由这个组件来处理  
+        this.remotingServer.registerDefaultProcessor(new DefaultRequestProcessor(this), this.remotingExecutor);  
+    }  
+}
+```
+
+![](../youdaonote-images/Pasted%20image%2020231021161133.png)
+
