@@ -1775,3 +1775,12 @@ CommitLog文件的存储目录是在${ROCKETMQ_HOME}/store/commitlog下的，里
 
 
 ![](../youdaonote-images/Pasted%20image%2020231021224453.png)
+
+不管是同步刷盘还是异步刷盘，假设你配置了主从同步，**一旦你写入完消息到CommitLog之后，接下来都会进行主从同步复制的。**
+
+### 1.9.2 消息写入CommitLog文件之后，如何实时更新索引文件
+
+
+### 1.9.1 Broker收到消息如何储存
+### 1.9.1 Broker收到消息如何储存
+### 1.9.1 Broker收到消息如何储存
