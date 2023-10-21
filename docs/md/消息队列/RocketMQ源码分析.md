@@ -1318,3 +1318,69 @@ private Channel getAndCreateChannel(final String addr) throws RemotingConnectExc
     return this.createChannel(addr);  
 }
 ```
+
+```java
+private Channel createChannel(final String addr) throws InterruptedException {  
+    // 如果没有缓存的话，就创建一个连接  
+    ChannelWrapper cw = this.channelTables.get(addr);  
+    if (cw != null && cw.isOK()) {  
+        return cw.getChannel();  
+    }  
+  
+    if (this.lockChannelTables.tryLock(LOCK_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)) {  
+        try {  
+            // 下面也是关于获取缓存的  
+            boolean createNewConnection;  
+            cw = this.channelTables.get(addr);  
+            if (cw != null) {  
+  
+                if (cw.isOK()) {  
+                    return cw.getChannel();  
+                } else if (!cw.getChannelFuture().isDone()) {  
+                    createNewConnection = false;  
+                } else {  
+                    this.channelTables.remove(addr);  
+                    createNewConnection = true;  
+                }  
+            } else {  
+                createNewConnection = true;  
+            }  
+  
+            if (createNewConnection) {  
+                // 这里是真正创建连接的地方  
+                // 基于Netty的BootStrapi这个类的connect()方法  
+                // 就构建出来了一个真正的Channel网铬连接  
+                ChannelFuture channelFuture = this.bootstrap.connect(RemotingHelper.string2SocketAddress(addr));  
+                log.info("createChannel: begin to connect remote host[{}] asynchronously", addr);  
+                cw = new ChannelWrapper(channelFuture);  
+                this.channelTables.put(addr, cw);  
+            }  
+        } catch (Exception e) {  
+            log.error("createChannel: create channel exception", e);  
+        } finally {  
+            this.lockChannelTables.unlock();  
+        }  
+    } else {  
+        log.warn("createChannel: try to lock channel table, but timeout, {}ms", LOCK_TIMEOUT_MILLIS);  
+    }  
+    // 返回channel  
+    if (cw != null) {  
+        ChannelFuture channelFuture = cw.getChannelFuture();  
+        if (channelFuture.awaitUninterruptibly(this.nettyClientConfig.getConnectTimeoutMillis())) {  
+            if (cw.isOK()) {  
+                log.info("createChannel: connect remote host[{}] success, {}", addr, channelFuture.toString());  
+                return cw.getChannel();  
+            } else {  
+                log.warn("createChannel: connect remote host[" + addr + "] failed, " + channelFuture.toString(), channelFuture.cause());  
+            }  
+        } else {  
+            log.warn("createChannel: connect remote host[{}] timeout {}ms, {}", addr, this.nettyClientConfig.getConnectTimeoutMillis(),  
+                channelFuture.toString());  
+        }  
+    }  
+    return null;  
+}
+```
+
+- 如何通过Channel网络连接发送请求？
+	- this.invokeSyncImpl(channel, request, timeoutMillis - costTime);
