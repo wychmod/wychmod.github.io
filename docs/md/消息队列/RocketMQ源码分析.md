@@ -1793,6 +1793,17 @@ Broker启动的时候会开启一个线程，ReputMessageService，他会把Comm
 
 4. 从commitLog中去获取到一个DispatchRequest，拿到了一份需要进行转发的消息，也就是从CommitLog中读取的
 ![](../youdaonote-images/Pasted%20image%2020231021232956.png)
+
+5. 调用doDispatch()方法去把消息进行转发，一个是转发到ConsumeQueue里去，一个是转发到IndexFile里去
+![](../youdaonote-images/Pasted%20image%2020231021233052.png)
+6. 说这个CommitLogDispatcher的实现类有两个，分别是CommitLogDispatcherBuildConsumeQueue和CommitLogDispatcherBuildIndex，他们俩分别会负责把消息转发到ConsumeQueue和IndexFile
+
+![](../youdaonote-images/Pasted%20image%2020231021233114.png)
+7. ConsumeQueueDispatche的源码实现逻辑，其实非常的简单，就是找到当前Topic的messageQueueId对应的一个ConsumeQueue文件
+
+8. **一个MessageQueue会对应多个ConsumeQueue文件，找到一个即可，然后消息写入其中**。
+
+![](../youdaonote-images/Pasted%20image%2020231021233329.png)
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
