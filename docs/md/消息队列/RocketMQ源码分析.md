@@ -1562,5 +1562,20 @@ public RemotingCommand registerBroker(ChannelHandlerContext ctx,
 - Broker中的发送注册请求给NameServer的一个源码入口，其实就是在BrokerController.start()方法
 - 在BrokerController启动的时候，他其实并不是仅仅发送一次注册请求，而是启动了一个定时任务，会每隔一段时间就发送一次注册请求。
 ```java
-
+this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {  
+  
+    @Override  
+    public void run() {  
+        try {  
+            BrokerController.this.registerBrokerAll(true, false, brokerConfig.isForceRegister());  
+        } catch (Throwable e) {  
+            log.error("registerBrokerAll Exception", e);  
+        }  
+    }}, 1000 * 10, Math.max(10000, Math.min(brokerConfig.getRegisterNameServerPeriod(), 60000)), TimeUnit.MILLISECONDS);
 ```
+
+启动了一个定时调度的任务，他默认是每隔30s就会执行一次Broker注册的过程，上面的registerNameServerPeriod是一个配置，他默认的值就是30s一次。
+
+默认情况下，第一次发送注册请求就是在进行注册，后续每隔30s他都会发送一次注册请求，这个注册请求就是心跳了。
+
+![](../youdaonote-images/Pasted%20image%2020231021165234.png)
