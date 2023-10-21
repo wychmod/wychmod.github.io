@@ -1506,5 +1506,53 @@ public RemotingCommand processRequest(ChannelHandlerContext ctx,
 
 - this.registerBroker()
 ```java
-
+public RemotingCommand registerBroker(ChannelHandlerContext ctx,  
+    RemotingCommand request) throws RemotingCommandException {  
+    final RemotingCommand response = RemotingCommand.createResponseCommand(RegisterBrokerResponseHeader.class);  
+    // 解析注册请求  
+    final RegisterBrokerResponseHeader responseHeader = (RegisterBrokerResponseHeader) response.readCustomHeader();  
+    final RegisterBrokerRequestHeader requestHeader =  
+        (RegisterBrokerRequestHeader) request.decodeCommandCustomHeader(RegisterBrokerRequestHeader.class);  
+  
+    if (!checksum(ctx, request, requestHeader)) {  
+        response.setCode(ResponseCode.SYSTEM_ERROR);  
+        response.setRemark("crc32 not match");  
+        return response;  
+    }  
+  
+    TopicConfigSerializeWrapper topicConfigWrapper;  
+    if (request.getBody() != null) {  
+        topicConfigWrapper = TopicConfigSerializeWrapper.decode(request.getBody(), TopicConfigSerializeWrapper.class);  
+    } else {  
+        topicConfigWrapper = new TopicConfigSerializeWrapper();  
+        topicConfigWrapper.getDataVersion().setCounter(new AtomicLong(0));  
+        topicConfigWrapper.getDataVersion().setTimestamp(0);  
+    }  
+  
+    // 核心其实在这里，就是调用了RouteInfoManageri这个核心功能组件  
+    // RouteInfoManager,顾名思义，就是路由信息管理组件，他是一个功能组件  
+    // 调用了这个功能组件的注册Broker的方法  
+    RegisterBrokerResult result = this.namesrvController.getRouteInfoManager().registerBroker(  
+        requestHeader.getClusterName(),  
+        requestHeader.getBrokerAddr(),  
+        requestHeader.getBrokerName(),  
+        requestHeader.getBrokerId(),  
+        requestHeader.getHaServerAddr(),  
+        topicConfigWrapper,  
+        null,  
+        ctx.channel()  
+    );  
+  
+    // 构造返回响应  
+    responseHeader.setHaServerAddr(result.getHaServerAddr());  
+    responseHeader.setMasterAddr(result.getMasterAddr());  
+  
+    byte[] jsonValue = this.namesrvController.getKvConfigManager().getKVListByNamespace(NamesrvUtil.NAMESPACE_ORDER_TOPIC_CONFIG);  
+    response.setBody(jsonValue);  
+    response.setCode(ResponseCode.SUCCESS);  
+    response.setRemark(null);  
+    return response;  
+}
 ```
+
+![](../youdaonote-images/Pasted%20image%2020231021164423.png)
