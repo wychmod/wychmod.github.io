@@ -1300,8 +1300,21 @@ Channel这个概念，表示出了Broker和NameServer之间的一个网络连接
 ![](../youdaonote-images/Pasted%20image%2020231020170302.png)
 
 - 如何跟NameServer建立网络连接？
-	- this.getAndCreateChannel(addr)实现的
+	- this.getAndCreateChannel(addr)实现的（如果没有缓存的话，就创建一个连接）
+	- createChannel()
 
 ```java
-
+private Channel getAndCreateChannel(final String addr) throws RemotingConnectException, InterruptedException {  
+    if (null == addr) {  
+        return getAndCreateNameserverChannel();  
+    }  
+  
+    // 如果没有缓存的话，就创建一个连接  
+    ChannelWrapper cw = this.channelTables.get(addr);  
+    if (cw != null && cw.isOK()) {  
+        return cw.getChannel();  
+    }  
+  
+    return this.createChannel(addr);  
+}
 ```
