@@ -1726,6 +1726,12 @@ Producer发送消息，必然是知道Topic的一些路由数据的，比如Topi
 ![](../youdaonote-images/Pasted%20image%2020231021215541.png)
 4. 拉取数据使用这行代码：this.mQClientFactory.updateTopicRouteInfoFromNameServer(topic);
 ![](../youdaonote-images/Pasted%20image%2020231021215712.png)
-### 1.8.1 如何创建Producer
+### 1.8.4 Producer如何选择MessageQueue去发送
+- 核心源码是在DefaultMQProducerImpl.sendDefaultImpl()方法中
+- MessageQueue mqSelected = this.selectOneMessageQueue(topicPublishInfo, lastBrokerName);
+
+![](../youdaonote-images/Pasted%20image%2020231021221318.png)
+
+
 ### 1.8.1 如何创建Producer
 ### 1.8.1 如何创建Producer
