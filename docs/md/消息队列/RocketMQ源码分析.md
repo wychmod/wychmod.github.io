@@ -1712,8 +1712,14 @@ producer.start();
 >最核心的是调用了这个DefaultMQProducer的start()方法去启动了这个消息生产组件。
 
 ### 1.8.2 Producer启动准备好的相关资源
+构造Producer的时候，他内部构造了一个真正用于执行消息发送逻辑的组件，就是DefaultMQProducerImpl这个类的实例对象。
 
-### 1.8.1 如何创建Producer
+Producer发送消息，必然是知道Topic的一些路由数据的，比如Topic有哪些MessageQueue，每个MessageQueue在哪些Broker上。
+
+![](../youdaonote-images/Pasted%20image%2020231021214844.png)
+
+**并不是刚启动就回去拉取Topic消息，因为不知道要往哪个topic发送。所以是第一次发送消息的时候，才会拉取相关topic信息。**
+### 1.8.3 Producer如何从NameServer拉取Topic元数据
 ### 1.8.1 如何创建Producer
 ### 1.8.1 如何创建Producer
 ### 1.8.1 如何创建Producer
