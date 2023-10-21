@@ -1428,3 +1428,24 @@ public RemotingCommand invokeSyncImpl(final Channel channel, final RemotingComma
     }  
 }
 ```
+
+### 1.6.5 NameServer处理Broker的注册请求
+- 回到NamesrvController的初始化方法中NamesrvController.initialize()
+
+```java
+public boolean initialize() {  
+    // 加载kv配置  
+    this.kvConfigManager.load();  
+  
+    // 初始化Netty服务器  
+    this.remotingServer = new NettyRemotingServer(this.nettyServerConfig, this.brokerHousekeepingService);  
+  
+    // Netty服务器工作线程池  
+    this.remotingExecutor =  
+        Executors.newFixedThreadPool(nettyServerConfig.getServerWorkerThreads(), new ThreadFactoryImpl("RemotingExecutorThread_"));  
+  
+    // 非常核心的是下面这行代码，他有一个注册ProcessorE的过程  
+    // 这个Processor.其实就是请求处理器，是NameServer用来处理网络请求的组件  
+    this.registerProcessor();
+}
+```
