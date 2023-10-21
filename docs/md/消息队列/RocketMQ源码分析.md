@@ -1740,6 +1740,8 @@ Producer发送消息，必然是知道Topic的一些路由数据的，比如Topi
 
 1. 在DefaultMQProducerImpl.sendDefaultImpl()方法中，先获取了MessageQueue所在的Broker名称。
 2. 通过brokerName去本地缓存找他的实际的地址，如果找不到，就找ns拉取新的数据缓存。
-3. 紧接着把消息投递到这个Broker上。
-4. 
+3. 给消息分配全局唯一ID、对超过4KB的消息体进行压缩，在消息Request中包含了生产者组、Topic名称、Topic的MessageQueue数量、MessageQueue的ID、消息发送时间、消息的flag、消息扩展属性、消息重试次数、是否是批量发送的消息、如果是事务消息则带上prepared标记，等等。
+4. 底层还是通过Netty把这个请求发送出去。
+
+![](../youdaonote-images/Pasted%20image%2020231021222048.png)
 ### 1.8.1 如何创建Producer
