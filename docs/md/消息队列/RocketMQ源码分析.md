@@ -1732,6 +1732,14 @@ Producer发送消息，必然是知道Topic的一些路由数据的，比如Topi
 
 ![](../youdaonote-images/Pasted%20image%2020231021221318.png)
 
+1. 先获取到了一个自增长的index，然后取模
+2. 遇到故障会使用规避机制。
 
-### 1.8.1 如何创建Producer
+![](../youdaonote-images/Pasted%20image%2020231021221440.png)
+### 1.8.5 Producer与RocketMQBroker之间进行网络通信
+
+1. 在DefaultMQProducerImpl.sendDefaultImpl()方法中，先获取了MessageQueue所在的Broker名称。
+2. 通过brokerName去本地缓存找他的实际的地址，如果找不到，就找ns拉取新的数据缓存。
+3. 紧接着把消息投递到这个Broker上。
+4. 
 ### 1.8.1 如何创建Producer
