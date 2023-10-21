@@ -1744,4 +1744,15 @@ Producer发送消息，必然是知道Topic的一些路由数据的，比如Topi
 4. 底层还是通过Netty把这个请求发送出去。
 
 ![](../youdaonote-images/Pasted%20image%2020231021222048.png)
-### 1.8.1 如何创建Producer
+
+## 1.9 源码分析-Broker收到消息流程
+### 1.9.1 Broker收到消息如何储存
+
+Broker通过Netty网络服务器获取到一条消息，接着就会把这条消息写入到一个CommitLog文件里去，一个Broker机器上就只有一个CommitLog文件，所有Topic的消息都会写入到一个文件里去。
+
+![](../youdaonote-images/Pasted%20image%2020231021222621.png)
+同时还会以异步的方式把消息写入到ConsumeQueue文件里去，因为一个Topic有多个MessageQueue，任何一条消息都是写入一个MessageQueue的，那个MessageQueue其实就是对应了一个ConsumeQueue文件。
+
+![](../youdaonote-images/Pasted%20image%2020231021222746.png)
+
+还会异步把消息写入一个IndexFile里，在里面主要就是把每条消息的key和消息在CommitLog中的offset偏移量做一个索引，这样后续如果要根据消息key从CommitLog文件里查询消息，就可以根据IndexFile的索引来了。
