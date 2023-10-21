@@ -1579,3 +1579,8 @@ this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 默认情况下，第一次发送注册请求就是在进行注册，后续每隔30s他都会发送一次注册请求，这个注册请求就是心跳了。
 
 ![](../youdaonote-images/Pasted%20image%2020231021165234.png)
+
+- NameServer对后续重复发送过来的注册请求（也就是心跳）通过RouteInfoManager()来处理
+```java
+
+```
