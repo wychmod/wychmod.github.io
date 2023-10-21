@@ -1468,4 +1468,4 @@ private void registerProcessor() {
 
 ![](../youdaonote-images/Pasted%20image%2020231021161133.png)
 
-- DefaultRequestProcessor处理Brokerzhu ce
+- DefaultRequestProcessor处理Broker注册请求
