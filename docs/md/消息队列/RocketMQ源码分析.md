@@ -1821,5 +1821,8 @@ Broker启动的时候会开启一个线程，ReputMessageService，他会把Comm
 7. 刷盘失败了，就打印日志。具体刷盘是由GroupCommitService执行的，他的doCommit()方法最终会执行同步刷盘的逻辑。
 ![](../youdaonote-images/Pasted%20image%2020231022143450.png)
 ![](../youdaonote-images/Pasted%20image%2020231022143455.png)
+8. 最终刷盘其实是靠的MappedByteBuffer的force()方法。这个MappedByteBuffer就是JDK NIO包下的API，他的force()方法就是强迫把你写入内存的数据刷入到磁盘文件里
+9. 如果是异步刷盘呢？我们先看CommitLog.handleDiskFlush()里的的代码片段。
+
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
