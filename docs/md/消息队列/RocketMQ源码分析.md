@@ -1880,6 +1880,10 @@ OffsetStore用来存储和管理Consumer消费进度offset的一个组件
 ![](../youdaonote-images/Pasted%20image%2020231022160125.png)
 
 ### 1.10.2 多个Consumer是如何均匀分配消息队列
+**RebalancerImpl重平衡组件是如何将多个MessageQueue均匀的分配给一个消费组内的多个Consumer**
+
+![](../youdaonote-images/Pasted%20image%2020231022162514.png)
+
 
 
 ### 1.10.1 Consumer如何创建出来
