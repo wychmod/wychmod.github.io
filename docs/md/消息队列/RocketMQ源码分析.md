@@ -1869,7 +1869,11 @@ RebalanceImpl是专门负责Consumer重平衡的。
 
 ![](../youdaonote-images/Pasted%20image%2020231022154911.png)
 
+![](../youdaonote-images/Pasted%20image%2020231022155254.png)
 
+PullAPIWrapper专门用来拉取消息的API组件
+
+![](../youdaonote-images/Pasted%20image%2020231022155316.png)
 
 ### 1.10.1 Consumer如何创建出来
 ### 1.10.1 Consumer如何创建出来
