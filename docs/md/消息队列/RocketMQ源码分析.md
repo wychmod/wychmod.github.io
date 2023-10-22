@@ -1884,8 +1884,19 @@ OffsetStore用来存储和管理Consumer消费进度offset的一个组件
 
 ![](../youdaonote-images/Pasted%20image%2020231022162514.png)
 
+**实际上，每个Consumer在启动之后，都会干一件事情，就是向所有的Broker进行注册，并且持续保持自己的心跳，让每个Broker都能感知到一个消费组内有哪些Consumer**
 
+![](../youdaonote-images/Pasted%20image%2020231022163024.png)
 
+每个Consumer在启动之后，其实重平衡组件都会随机挑选一个Broker，从里面获取到这个消费组里有哪些Consumer存在，如下图。
+
+![](../youdaonote-images/Pasted%20image%2020231022163118.png)
+
+此时重平衡组件一旦知道了消费组内有哪些Consumer之后，就可以根据算法对Consumer平均分配给MessageQueue。
+
+比如现在一共有3个MessageQueue，然后有2个Consumer，那么此时就会给1个Consumer分配2个MessageQueue，同时给另外1个Consumer分配剩余的1个MessageQueue。
+
+假设有4个MessageQueue的话，那么就可以2个Consumer每个人分配2个MessageQueue了
 ### 1.10.1 Consumer如何创建出来
 ### 1.10.1 Consumer如何创建出来
 ### 1.10.1 Consumer如何创建出来
