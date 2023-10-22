@@ -1831,5 +1831,7 @@ Broker启动的时候会开启一个线程，ReputMessageService，他会把Comm
 ![](../youdaonote-images/Pasted%20image%2020231022144602.png)
 
 11. 具体在子类线程的run()方法里就有定时刷新的逻辑，就是每隔一定时间执行一次刷盘，最大间隔是10s
-### 1.9.1 Broker收到消息如何储存
+### 1.9.4 Broker上数据存储超时之后，磁盘数据如何清理
+
+
 ### 1.9.1 Broker收到消息如何储存
