@@ -1874,6 +1874,10 @@ RebalanceImpl是专门负责Consumer重平衡的。
 PullAPIWrapper专门用来拉取消息的API组件
 
 ![](../youdaonote-images/Pasted%20image%2020231022155316.png)
+![](../youdaonote-images/Pasted%20image%2020231022160059.png)
+
+OffsetStore用来存储和管理Consumer消费进度offset的一个组件
+![](../youdaonote-images/Pasted%20image%2020231022160125.png)
 
 ### 1.10.1 Consumer如何创建出来
 ### 1.10.1 Consumer如何创建出来
