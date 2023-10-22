@@ -1879,7 +1879,9 @@ PullAPIWrapper专门用来拉取消息的API组件
 OffsetStore用来存储和管理Consumer消费进度offset的一个组件
 ![](../youdaonote-images/Pasted%20image%2020231022160125.png)
 
-### 1.10.1 Consumer如何创建出来
+### 1.10.2 多个Consumer是如何均匀分配消息队列
+
+
 ### 1.10.1 Consumer如何创建出来
 ### 1.10.1 Consumer如何创建出来
 ### 1.10.1 Consumer如何创建出来
