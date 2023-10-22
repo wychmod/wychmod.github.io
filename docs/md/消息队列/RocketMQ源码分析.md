@@ -1824,5 +1824,12 @@ Broker启动的时候会开启一个线程，ReputMessageService，他会把Comm
 8. 最终刷盘其实是靠的MappedByteBuffer的force()方法。这个MappedByteBuffer就是JDK NIO包下的API，他的force()方法就是强迫把你写入内存的数据刷入到磁盘文件里
 9. 如果是异步刷盘呢？我们先看CommitLog.handleDiskFlush()里的的代码片段。
 
+![](../youdaonote-images/Pasted%20image%2020231022144456.png)
+
+10. FlushCommitLogService其实是一个线程，他是个抽象父类，他的子类是CommitRealTimeService，所以真正唤醒的是他的子类代表的线程。
+
+![](../youdaonote-images/Pasted%20image%2020231022144602.png)
+
+11. 具体在子类线程的run()方法里就有定时刷新的逻辑，就是每隔一定时间执行一次刷盘，最大间隔是10s
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
