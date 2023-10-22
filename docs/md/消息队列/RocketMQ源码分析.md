@@ -1899,6 +1899,8 @@ OffsetStore用来存储和管理Consumer消费进度offset的一个组件
 假设有4个MessageQueue的话，那么就可以2个Consumer每个人分配2个MessageQueue了。
 
 一旦MessageQueue负载确定了之后，下一步其实Consumer就知道自己要消费哪几个MessageQueue的消息了，就可以连接到那个Broker上去，从里面不停的拉取消息过来进行消费了。
-### 1.10.1 Consumer如何创建出来
+### 1.10.3 Consumer是如何从Broker上拉取一批消息过来处理的
+
+
 ### 1.10.1 Consumer如何创建出来
 ### 1.10.1 Consumer如何创建出来
