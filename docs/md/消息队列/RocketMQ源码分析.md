@@ -1861,6 +1861,14 @@ DefaultMessageStore.this.cleanFilesPeriodically()方法，其实就是会去周�
 
 ![](../youdaonote-images/Pasted%20image%2020231022154730.png)
 
+![](../youdaonote-images/Pasted%20image%2020231022154814.png)
+
+RebalanceImpl是专门负责Consumer重平衡的。
+
+**假设你的ConsumerGroup里加入了一个新的Consumer，那么就会重新分配每个Consumer消费的MessageQueue，如果ConsumerGroup里某个Consumer宕机了，也会重新分配MessageQueue，这就是所谓的重平衡。**
+
+![](../youdaonote-images/Pasted%20image%2020231022154911.png)
+
 
 
 ### 1.10.1 Consumer如何创建出来
