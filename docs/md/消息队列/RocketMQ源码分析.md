@@ -1805,7 +1805,16 @@ Broker启动的时候会开启一个线程，ReputMessageService，他会把Comm
 
 ![](../youdaonote-images/Pasted%20image%2020231021233329.png)
 ### 1.9.3 如何实现同步刷盘以及异步刷盘两种策略
+1. 往CommitLog里写数据的时候，是调用的CommitLog类的putMessage()
+2. 在末尾有两个方法调用，一个是handleDishFlush()，一个是handleHA()
+3. 一个就是用于决定如何进行刷盘的，一个是用于决定如何把消息同步给Slave Broker的
+4. 进入到handleDiskFlush()方法里去，看看他是如何处理刷盘
 
+![](../youdaonote-images/Pasted%20image%2020231022142808.png)
 
+![](../youdaonote-images/Pasted%20image%2020231022143029.png)
+
+5. 根据你配置的两种不同的刷盘策略分别处理的，我们先看第一种，就是同步刷盘的策略是如何处理的。
+![](../youdaonote-images/Pasted%20image%2020231022143146.png)
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
