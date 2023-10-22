@@ -1804,6 +1804,8 @@ Broker启动的时候会开启一个线程，ReputMessageService，他会把Comm
 8. **一个MessageQueue会对应多个ConsumeQueue文件，找到一个即可，然后消息写入其中**。
 
 ![](../youdaonote-images/Pasted%20image%2020231021233329.png)
-### 1.9.1 Broker收到消息如何储存
+### 1.9.3 如何实现同步刷盘以及异步刷盘两种策略
+
+
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
