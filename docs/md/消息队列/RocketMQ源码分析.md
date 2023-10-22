@@ -1852,5 +1852,18 @@ DefaultMessageStore.this.cleanFilesPeriodically()方法，其实就是会去周�
 
 ## 1.10 源码分析-Consumer相关结构
 
+### 1.10.1 Consumer如何创建出来
+**平时创建的一般都是DefaultMQPushConsumerImpl，然后会调用他的start()方法来启动他**
 
-### 1.9.1 Broker收到消息如何储存
+![](../youdaonote-images/Pasted%20image%2020231022154703.png)
+
+- 这个MQClientFactory底层直觉上就应该封装了Netty网络通信的东西
+
+![](../youdaonote-images/Pasted%20image%2020231022154730.png)
+
+
+
+### 1.10.1 Consumer如何创建出来
+### 1.10.1 Consumer如何创建出来
+### 1.10.1 Consumer如何创建出来
+### 1.10.1 Consumer如何创建出来
