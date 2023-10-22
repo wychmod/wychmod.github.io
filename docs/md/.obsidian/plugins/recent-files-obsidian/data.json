@@ -1,12 +1,12 @@
 {
   "recentFiles": [
     {
-      "basename": "RocketMQ设计与原理",
-      "path": "消息队列/RocketMQ设计与原理.md"
-    },
-    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
+    },
+    {
+      "basename": "RocketMQ设计与原理",
+      "path": "消息队列/RocketMQ设计与原理.md"
     },
     {
       "basename": "RocketMQ源码分析",
