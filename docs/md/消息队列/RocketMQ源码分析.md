@@ -1816,5 +1816,10 @@ Broker启动的时候会开启一个线程，ReputMessageService，他会把Comm
 
 5. 根据你配置的两种不同的刷盘策略分别处理的，我们先看第一种，就是同步刷盘的策略是如何处理的。
 ![](../youdaonote-images/Pasted%20image%2020231022143146.png)
+
+6. 上面就是构建了一个GroupCommitRequest，然后提交给了GroupCommitService去进行处理，然后调用request.waitForFlush()方法等待同步刷盘成功
+7. 刷盘失败了，就打印日志。具体刷盘是由GroupCommitService执行的，他的doCommit()方法最终会执行同步刷盘的逻辑。
+![](../youdaonote-images/Pasted%20image%2020231022143450.png)
+![](../youdaonote-images/Pasted%20image%2020231022143455.png)
 ### 1.9.1 Broker收到消息如何储存
 ### 1.9.1 Broker收到消息如何储存
