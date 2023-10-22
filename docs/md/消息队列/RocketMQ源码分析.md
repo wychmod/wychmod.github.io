@@ -1844,5 +1844,5 @@ DefaultMessageStore.this.cleanFilesPeriodically()方法，其实就是会去周�
 
 ![](../youdaonote-images/Pasted%20image%2020231022152159.png)
 
-
+在清理文件时，会具体进行判断
 ### 1.9.1 Broker收到消息如何储存
