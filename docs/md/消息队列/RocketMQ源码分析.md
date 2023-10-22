@@ -1832,6 +1832,17 @@ Broker启动的时候会开启一个线程，ReputMessageService，他会把Comm
 
 11. 具体在子类线程的run()方法里就有定时刷新的逻辑，就是每隔一定时间执行一次刷盘，最大间隔是10s
 ### 1.9.4 Broker上数据存储超时之后，磁盘数据如何清理
+- 默认broker会启动后台线程，这个后台线程会自动去检查CommitLog、ConsumeQueue文件，因为这些文件都是多个的，比如CommitLog会有多个，ConsumeQueue也会有多个。
+- **超过72小时的文件，就会被删除掉，也就是说，默认来说，broker只会给你把数据保留3天**
+- 通过fileReservedTime来配置这个时间
+- 定时检查过期数据文件的线程代码，在DefaultMessageStore这个类里，他的start()方法中会调用一个addScheduleTask()方法，**里面会每隔10s定时调度执行一个后台检查任务**
+![](../youdaonote-images/Pasted%20image%2020231022151945.png)
+
+DefaultMessageStore.this.cleanFilesPeriodically()方法，其实就是会去周期性的清理掉磁盘上的数据文件，也就是超过72小时的CommitLog、ConsumeQueue文件
+
+![](../youdaonote-images/Pasted%20image%2020231022152129.png)
+
+![](../youdaonote-images/Pasted%20image%2020231022152159.png)
 
 
 ### 1.9.1 Broker收到消息如何储存
