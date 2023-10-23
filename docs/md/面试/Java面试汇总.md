@@ -1140,6 +1140,10 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 
 # Java基础
 
+## Java SPI
+一种基于接口的动态扩展机制
+比如java提供接口，第三方实现功能，类似于jdbc的Driver 由 mysql orcal分别实现。
+
 ## fail-fast和fail-safe
 快速失败：表示迭代的时候数值改变了就会报错
 失败安全：表示可以修改值，因为是复制了一份出来进行遍历。copyonwritearraylist
