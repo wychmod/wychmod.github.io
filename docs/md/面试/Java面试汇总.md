@@ -1140,6 +1140,8 @@ FAST模式执行频率不固定，但两次间隔不低于2ms，每次耗时不�
 
 # Java基础
 
+## fail
+
 ## 容器collection和iterable接口
 collection继承了iterable接口，代表容器都可以迭代，谁实现了都可以迭代。
 collection接口里面有很多方法，例如size，isempty方法，继承了就可以定制出自己的容器，里面也有一些default修饰符的默认方法。
