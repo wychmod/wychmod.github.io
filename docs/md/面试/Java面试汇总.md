@@ -186,11 +186,11 @@ vivo 也是分库分表减轻压力，存库扣件没有使用redis，直接分�
 
 ## AOP通知的执行顺序
 4.0
-正常执行：@Before(前置通知) ====>@After(后置通知) ====>@AfterReturning(正常返回) 
-异常执行：@Before(前置通知) ====>@After(后置通知) ====>@AfterThrowing(方法异常)
+正常执行：环绕====>@Before(前置通知) ====>@After(后置通知) ====>@AfterReturning(正常返回) 
+异常执行：环绕====>@Before(前置通知) ====>@After(后置通知) ====>@AfterThrowing(方法异常)
 5.0
-正常执行：@Before(前置通知) ====>@AfterReturning(正常返回) ====>@After(后置通知)
-异常执行：@Before(前置通知) ====>@AfterThrowing(方法异常) ====>@After(后置通知)
+正常执行：环绕====>@Before(前置通知) ====>@AfterReturning(正常返回) ====>@After(后置通知)
+异常执行：环绕====>@Before(前置通知) ====>@AfterThrowing(方法异常) ====>@After(后置通知)
 
  **多个切面之间的通知顺序**
 1. 切面级别的优先级可以通过注解 `@Order` 或是实现接口 `org.springframework.core.Ordered` ，数值越小优先级越高。
