@@ -1353,6 +1353,10 @@ ClassPointer指针: 8 -> 4(指针压缩)
 
 一共16字节
 
+## 伪共享问题
+
+cpu缓存从内存读一次要读64字节，long 类型8字节，需要八个。如果两个cpu核心都操作同一64字节里的数据，一个成功，另一个就会失效，要重新读取。会降低效率，所以需要对齐填充的方式来进行填充。
+
 ## JVM是如何运行的？
 JVM 整体的大概执行流程是这样的：
 
@@ -1564,7 +1568,7 @@ try {
 
 ## 线程池有几种？
 1. 固定线程池（FixedThreadPool）
-2. 缓存线程池（CachedThreadPool）
+2. 缓存线程池（CachedThreadPool）（队列用的是锁队列，队列里不能东西，每次都必须由线程来运行任务。）
 3. 单线程线程池（SingleThreadExecutor）
 4. 定时线程池（ScheduledThreadPool）
 5. 工作窃取线程池（WorkStealingPool）
