@@ -1452,6 +1452,10 @@ JVM 常见的垃圾回收器有以下几个：
 
 # juc
 
+## wait 和 sleep的区别
+
+object.wait() thread.sleep() wait会释放锁和cpu sleep只释放cpu不释放锁。
+
 ## 为什么HashMap线程不安全？
 
 > 线程安全是指在多线程（并发）环境下，多个线程同时操作同一个对象时，不会出现不符合预期的错误结果。
