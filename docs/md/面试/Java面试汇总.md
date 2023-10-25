@@ -1452,6 +1452,10 @@ JVM 常见的垃圾回收器有以下几个：
 
 # juc
 
+## cyclicbarrier和countdownlatch的区别
+
+本质都是解决线程同步的，让所有线程到同一个点。
+cyc可以重复使用，countdown不能。cyc适合更复杂的业务，可以在错误时进行一些处理。cyc可以获得线程数量和判断有没有中断。countdown能阻止主线程，cyc不会阻止主线程。
 ## completableFuture 的含义
 更强大的Future 可以让两个任务一个接一个执行，也可以让第一个任务的结果当作第二个任务的参数，两个任务运行完可以选择返回和不返回结果
 
