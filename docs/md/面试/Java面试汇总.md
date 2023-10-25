@@ -1452,6 +1452,9 @@ JVM 常见的垃圾回收器有以下几个：
 
 # juc
 
+## completableFuture 的含义
+更强大的Future 可以让两个任务一个接一个执行，也可以让第一个任务的结果当作第二个任务的参数，两个任务运行完可以选择返回和不返回结果
+
 ## wait 和 sleep的区别
 
 object.wait() thread.sleep() wait会释放锁和cpu sleep只释放cpu不释放锁。
