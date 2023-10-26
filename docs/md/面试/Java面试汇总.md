@@ -282,7 +282,8 @@ Spring中的Bean是否线程安全和Spring无关，和你自己写的代码有�
 
 ## ThreadLocal会造成内存泄漏
 threadlocal本身不存储数据，它调用线程中的threadlocals属性，是一个map对象，自身引用作为key，用户传入的值为value。
-其中
+
+map内部维护entry类型的数组table，是弱引用，相当于key是弱引用，一旦没有实际引用就会被gc，而value被entry引用着，就会造成value无法被回收，造成内存泄漏，所以最好把threadlocal定义成static final类型，或者每次remove方法来清除数据。
 
 ## 如何保证线程安全？
 
