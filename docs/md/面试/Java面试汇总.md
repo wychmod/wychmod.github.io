@@ -280,6 +280,10 @@ Spring中的Bean是否线程安全和Spring无关，和你自己写的代码有�
 ## 单例Bean线程安全吗？
 无状态的单例 Bean 是线程安全的，而有状态的单例 Bean 是非线程安全的，所以总的来说单例 Bean 还是非线程安全的。
 
+## ThreadLocal会造成内存泄漏
+threadlocal本身不存储数据，它调用线程中的threadlocals属性，是一个map对象，自身引用作为key，用户传入的值为value。
+其中
+
 ## 如何保证线程安全？
 
 Spring 中保证单例 Bean 线程安全的手段有以下几个：
