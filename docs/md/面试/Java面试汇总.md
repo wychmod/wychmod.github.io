@@ -1486,7 +1486,7 @@ ConcurrentHashMap 在 JDK 1.7 时，使用的是分段锁(每个segment类似于
 > 不允许存入null，因为多线程下不要有歧义
 
 
-> 
+> 扩容使用多线程扩容，每个线程负责一部分数据的迁移。
 
 ![](../youdaonote-images/Pasted%20image%2020230825224740.png)
 
