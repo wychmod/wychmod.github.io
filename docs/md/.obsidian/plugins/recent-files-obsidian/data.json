@@ -1,6 +1,38 @@
 {
   "recentFiles": [
     {
+      "basename": "Python源码剖析-14-虚拟机和CPU",
+      "path": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md"
+    },
+    {
+      "basename": "MySQL性能优化-架构",
+      "path": "mysql/MySQL性能优化-架构.md"
+    },
+    {
+      "basename": "Python源码剖析-9-内建对象背后的思想-面试",
+      "path": "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md"
+    },
+    {
+      "basename": "Python源码剖析-6-内建对象str",
+      "path": "Python/Python源码剖析/Python源码剖析-6-内建对象str.md"
+    },
+    {
+      "basename": "Python源码剖析-4-内建对象int",
+      "path": "Python/Python源码剖析/Python源码剖析-4-内建对象int.md"
+    },
+    {
+      "basename": "fastapi规范",
+      "path": "Python/fastapi规范.md"
+    },
+    {
+      "basename": "asyncio详解",
+      "path": "Python/asyncio详解.md"
+    },
+    {
+      "basename": "Python源码剖析-35-内存泄露诊断",
+      "path": "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md"
+    },
+    {
       "basename": "Python源码剖析-1-对象模型",
       "path": "Python/Python源码剖析/Python源码剖析-1-对象模型.md"
     },
@@ -15,10 +47,6 @@
     {
       "basename": "Python源码剖析-28-类和继承相关面试题",
       "path": "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md"
-    },
-    {
-      "basename": "fastapi规范",
-      "path": "Python/fastapi规范.md"
     },
     {
       "basename": "RocketMQ源码分析",
@@ -97,10 +125,6 @@
       "path": "mysql/MySQL性能优化-索引.md"
     },
     {
-      "basename": "MySQL性能优化-架构",
-      "path": "mysql/MySQL性能优化-架构.md"
-    },
-    {
       "basename": "设计模式",
       "path": "系统设计/设计模式.md"
     },
@@ -175,30 +199,6 @@
     {
       "basename": "dubbo调用过程",
       "path": "youdaonote-images/dubbo调用过程.png"
-    },
-    {
-      "basename": "Pasted image 20221026154023",
-      "path": "youdaonote-images/Pasted image 20221026154023.png"
-    },
-    {
-      "basename": "Pasted image 20221026154011",
-      "path": "youdaonote-images/Pasted image 20221026154011.png"
-    },
-    {
-      "basename": "3-Spring源码解析",
-      "path": "spring源码/3-Spring源码解析.md"
-    },
-    {
-      "basename": "Pasted image 20230718003858",
-      "path": "youdaonote-images/Pasted image 20230718003858.png"
-    },
-    {
-      "basename": "Pasted image 20230717232226",
-      "path": "youdaonote-images/Pasted image 20230717232226.png"
-    },
-    {
-      "basename": "4-Spring事务传播原理及数据库事务操作原理",
-      "path": "spring源码/4-Spring事务传播原理及数据库事务操作原理.md"
     }
   ],
   "omittedPaths": [],
