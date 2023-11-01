@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
+                "file": "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
                 "mode": "source",
                 "source": false
               }
@@ -92,7 +92,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5
+    "width": 392.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -108,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
+                "file": "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
+                "file": "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md"
+                "file": "Python/Python源码剖析/Python源码剖析-1-对象模型.md"
               }
             }
           },
@@ -200,6 +201,7 @@
   },
   "active": "02de012634591562",
   "lastOpenFiles": [
+    "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
     "mysql/MySQL性能优化-架构.md",
     "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md",
     "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
@@ -245,7 +247,6 @@
     "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
     "mysql/MySQL性能优化-事务.md",
     "算法/左神从0学算法/算法笔记·.md",
-    "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md",
     "未命名.canvas"
   ]
 }

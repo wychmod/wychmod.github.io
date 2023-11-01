@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "Python源码剖析-1-对象模型",
+      "path": "Python/Python源码剖析/Python源码剖析-1-对象模型.md"
+    },
+    {
       "basename": "Python源码剖析-14-虚拟机和CPU",
       "path": "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md"
     },
@@ -31,10 +35,6 @@
     {
       "basename": "Python源码剖析-35-内存泄露诊断",
       "path": "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md"
-    },
-    {
-      "basename": "Python源码剖析-1-对象模型",
-      "path": "Python/Python源码剖析/Python源码剖析-1-对象模型.md"
     },
     {
       "basename": "RocketMQ设计与原理",
