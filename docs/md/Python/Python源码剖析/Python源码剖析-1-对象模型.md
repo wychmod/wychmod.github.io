@@ -250,7 +250,7 @@ typedef struct {
 } PyListObject;
 ```
 
-![图片描述](http://img1.sycdn.imooc.com/5eb9092600013a1e10680535.png)
+![](../../youdaonote-images/Pasted%20image%2020231101233218.png)
 
 如图， _PyListObject_ 底层由一个数组实现，关键字段是以下 _3_ 个：
 
