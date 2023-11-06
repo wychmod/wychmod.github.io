@@ -73,7 +73,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -197,7 +198,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "02de012634591562",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
     "youdaonote-images/Pasted image 20231101233218.png",
     "youdaonote-images/Pasted image 20221205163824的副本.png",
