@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "Go语言上手-基础语言",
+      "path": "go/Go语言上手-基础语言.md"
+    },
+    {
       "basename": "Python源码剖析-1-对象模型",
       "path": "Python/Python源码剖析/Python源码剖析-1-对象模型.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "Pasted image 20221027232642",
       "path": "youdaonote-images/Pasted image 20221027232642.png"
-    },
-    {
-      "basename": "dubbo调用过程",
-      "path": "youdaonote-images/dubbo调用过程.png"
     }
   ],
   "omittedPaths": [],
