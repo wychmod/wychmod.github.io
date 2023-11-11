@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "云原生应用架构",
+      "path": "云原生/云原生应用架构.md"
+    },
+    {
       "basename": "Java面试汇总",
       "path": "面试/Java面试汇总.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "Pasted image 20221029195803",
       "path": "youdaonote-images/Pasted image 20221029195803.png"
-    },
-    {
-      "basename": "Pasted image 20221027232642",
-      "path": "youdaonote-images/Pasted image 20221027232642.png"
     }
   ],
   "omittedPaths": [],

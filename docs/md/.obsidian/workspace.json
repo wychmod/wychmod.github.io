@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试/Java面试汇总.md",
-                "mode": "preview",
+                "file": "云原生/云原生应用架构.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -109,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "云原生/云原生应用架构.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "面试/Java面试汇总.md",
+                "file": "云原生/云原生应用架构.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试/Java面试汇总.md"
+                "file": "云原生/云原生应用架构.md"
               }
             }
           },
@@ -201,6 +200,10 @@
   },
   "active": "02de012634591562",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20231111235155.png",
+    "面试/Java面试汇总.md",
+    "云原生/云原生应用架构.md",
+    "云原生",
     "go/Go语言上手-基础语言.md",
     "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
     "youdaonote-images/Pasted image 20231101233218.png",
@@ -215,7 +218,6 @@
     "Python/asyncio详解.md",
     "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
     "消息队列/RocketMQ设计与原理.md",
-    "面试/Java面试汇总.md",
     "youdaonote-images/Pasted image 20231101203658.png",
     "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md",
     "消息队列/RocketMQ源码分析.md",
@@ -239,14 +241,11 @@
     "博客写作内容",
     "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM实战-4-调优.md",
-    "消息队列/笔记引用/部署一个小规模的 RocketMQ 集群.pdf",
     "消息队列/RabbitMQ.md",
     "zookeeper/Zookeeper源码.md",
     "zookeeper/Zookeeper基础.md",
     "消息队列/kafka/kafka基础知识.md",
     "AliceBot 自动化测试设计与实现.md",
-    "Python/Python源码剖析/Python源码剖析-7-内建对象list.md",
-    "mysql/MySQL性能优化-事务.md",
     "未命名.canvas"
   ]
 }
