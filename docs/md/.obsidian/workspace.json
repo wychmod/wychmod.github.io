@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件测试/软件测试.md",
+                "file": "软件测试/软件测试基本概念.md",
                 "mode": "source",
                 "source": false
               }
@@ -121,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "软件测试/软件测试.md",
+                "file": "软件测试/软件测试基本概念.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "软件测试/软件测试.md",
+                "file": "软件测试/软件测试基本概念.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软件测试/软件测试.md"
+                "file": "软件测试/软件测试基本概念.md"
               }
             }
           },
@@ -214,7 +214,7 @@
   "active": "e6d2a6ac2e153d84",
   "lastOpenFiles": [
     "人工智能/深度学习报错解决方案.md",
-    "软件测试/软件测试.md",
+    "软件测试/软件测试基本概念.md",
     "软件测试",
     "面试/Java面试汇总.md",
     "云原生/云原生应用架构.md",
