@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md",
+                "file": "软件测试/软件测试.md",
                 "mode": "source",
                 "source": false
               }
@@ -51,7 +51,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "nvi",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -86,7 +86,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       },
       {
         "id": "d0bd5622ff9ae4dd",
@@ -120,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md",
+                "file": "软件测试/软件测试.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -137,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md",
+                "file": "软件测试/软件测试.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -168,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "人工智能/深度学习报错解决方案.md"
+                "file": "软件测试/软件测试.md"
               }
             }
           },
@@ -212,6 +213,9 @@
   },
   "active": "e6d2a6ac2e153d84",
   "lastOpenFiles": [
+    "人工智能/深度学习报错解决方案.md",
+    "软件测试/软件测试.md",
+    "软件测试",
     "面试/Java面试汇总.md",
     "云原生/云原生应用架构.md",
     "youdaonote-images/Pasted image 20231112191639.png",
@@ -249,14 +253,12 @@
     "博客写作内容/面试指南/通用面试技巧.md",
     "博客写作内容/技术写作指南",
     "博客写作内容/面试指南",
-    "博客写作内容",
     "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM实战-4-调优.md",
     "消息队列/RabbitMQ.md",
     "zookeeper/Zookeeper源码.md",
     "zookeeper/Zookeeper基础.md",
     "消息队列/kafka/kafka基础知识.md",
-    "AliceBot 自动化测试设计与实现.md",
     "未命名.canvas"
   ]
 }

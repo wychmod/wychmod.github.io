@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "软件测试",
+      "path": "软件测试/软件测试.md"
+    },
+    {
       "basename": "深度学习报错解决方案",
       "path": "人工智能/深度学习报错解决方案.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "Pasted image 20230727150332",
       "path": "youdaonote-images/Pasted image 20230727150332.png"
-    },
-    {
-      "basename": "Pasted image 20221029213034",
-      "path": "youdaonote-images/Pasted image 20221029213034.png"
     }
   ],
   "omittedPaths": [],
