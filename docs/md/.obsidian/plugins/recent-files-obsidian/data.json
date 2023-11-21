@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "测试用例设计方法",
+      "path": "软件测试/测试用例设计方法.md"
+    },
+    {
       "basename": "软件测试基础知识",
       "path": "软件测试/软件测试基础知识.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "Pasted image 20221101165259",
       "path": "youdaonote-images/Pasted image 20221101165259.png"
-    },
-    {
-      "basename": "Pasted image 20230727150332",
-      "path": "youdaonote-images/Pasted image 20230727150332.png"
     }
   ],
   "omittedPaths": [],
