@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件测试/测试用例设计方法.md",
+                "file": "软件测试/执行测试用例.md",
                 "mode": "source",
                 "source": false
               }
@@ -105,8 +105,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -122,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "软件测试/测试用例设计方法.md",
+                "file": "软件测试/执行测试用例.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "软件测试/测试用例设计方法.md",
+                "file": "软件测试/执行测试用例.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +169,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软件测试/测试用例设计方法.md"
+                "file": "软件测试/执行测试用例.md"
               }
             }
           },
@@ -214,19 +213,20 @@
   },
   "active": "e6d2a6ac2e153d84",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20231123104548.png",
+    "软件测试/测试用例设计方法.md",
+    "软件测试/执行测试用例.md",
+    "软件测试/软件测试基础知识.md",
     "youdaonote-images/Pasted image 20231123000539.png",
     "youdaonote-images/Pasted image 20231123000311.png",
     "youdaonote-images/Pasted image 20231122235336.png",
     "youdaonote-images/Pasted image 20231122233031.png",
-    "软件测试/软件测试基础知识.md",
-    "软件测试/测试用例设计方法.md",
     "youdaonote-images/Pasted image 20231121215028.png",
     "youdaonote-images/Pasted image 20231121211751.png",
     "youdaonote-images/Pasted image 20231121203523.png",
     "youdaonote-images/Pasted image 20231121165846.png",
     "youdaonote-images/Pasted image 20231121114903.png",
     "youdaonote-images/Pasted image 20231121000712.png",
-    "youdaonote-images/Pasted image 20231120230441.png",
     "人工智能/深度学习报错解决方案.md",
     "软件测试",
     "面试/Java面试汇总.md",
@@ -259,7 +259,6 @@
     "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM实战-4-调优.md",
     "消息队列/RabbitMQ.md",
-    "zookeeper/Zookeeper源码.md",
     "未命名.canvas"
   ]
 }
