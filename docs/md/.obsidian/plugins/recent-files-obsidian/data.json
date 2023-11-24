@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "测试进阶提升",
+      "path": "软件测试/测试进阶提升.md"
+    },
+    {
       "basename": "执行测试用例",
       "path": "软件测试/执行测试用例.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "Pasted image 20221104221008",
       "path": "youdaonote-images/Pasted image 20221104221008.png"
-    },
-    {
-      "basename": "Pasted image 20221103112752",
-      "path": "youdaonote-images/Pasted image 20221103112752.png"
     }
   ],
   "omittedPaths": [],

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件测试/执行测试用例.md",
+                "file": "软件测试/测试进阶提升.md",
                 "mode": "source",
                 "source": false
               }
@@ -108,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "软件测试/执行测试用例.md",
+                "file": "软件测试/测试进阶提升.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "软件测试/执行测试用例.md",
+                "file": "软件测试/测试进阶提升.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软件测试/执行测试用例.md"
+                "file": "软件测试/测试进阶提升.md"
               }
             }
           },
@@ -200,12 +200,13 @@
   },
   "active": "e6d2a6ac2e153d84",
   "lastOpenFiles": [
+    "软件测试/执行测试用例.md",
+    "软件测试/测试进阶提升.md",
     "软件测试/测试用例.csv",
     "软件测试/测试计划.doc",
     "youdaonote-images/Pasted image 20231123210011.png",
     "youdaonote-images/Pasted image 20231123104548.png",
     "软件测试/测试用例设计方法.md",
-    "软件测试/执行测试用例.md",
     "软件测试/软件测试基础知识.md",
     "youdaonote-images/Pasted image 20231123000539.png",
     "youdaonote-images/Pasted image 20231123000311.png",
@@ -242,7 +243,6 @@
     "微信小程序/笔记引用",
     "博客写作内容/技术写作指南/技术写作指南.md",
     "博客写作内容/面试指南/通用面试技巧.md",
-    "博客写作内容/技术写作指南",
     "JVM/JVM实战-1-加载链接初始化.md",
     "JVM/JVM实战-4-调优.md",
     "消息队列/RabbitMQ.md",
