@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "571afd8a7ff58aba",
+        "id": "8440d1ec1e030245",
         "type": "tabs",
         "children": [
           {
-            "id": "48635d49ee974dee",
+            "id": "0013d720a9b93b63",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -88,8 +88,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -191,8 +190,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "48635d49ee974dee",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
+    "人工智能/chatgpt大模型",
+    "人工智能/批标准化 (Batch Normalization).md",
     "软件测试/测试进阶提升.md",
     "youdaonote-images/Pasted image 20231124225856.png",
     "youdaonote-images/Pasted image 20231124225400.png",
@@ -237,7 +238,6 @@
     "博客写作内容/技术写作指南/技术写作指南.md",
     "博客写作内容/面试指南/通用面试技巧.md",
     "JVM/JVM实战-1-加载链接初始化.md",
-    "JVM/JVM实战-4-调优.md",
     "未命名.canvas"
   ]
 }

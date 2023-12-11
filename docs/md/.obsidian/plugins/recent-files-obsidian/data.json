@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "批标准化 (Batch Normalization)",
+      "path": "人工智能/批标准化 (Batch Normalization).md"
+    },
+    {
       "basename": "测试进阶提升",
       "path": "软件测试/测试进阶提升.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "2.安装docker、Portainer和jekins",
       "path": "cicd/2.安装docker、Portainer和jekins.md"
-    },
-    {
-      "basename": "Pasted image 20221104221008",
-      "path": "youdaonote-images/Pasted image 20221104221008.png"
     }
   ],
   "omittedPaths": [],
