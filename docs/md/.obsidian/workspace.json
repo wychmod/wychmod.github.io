@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md",
+                "file": "人工智能/gpt大模型应用/1-大模型基础：理论与技术的演进.md",
                 "mode": "source",
                 "source": false
               }
@@ -108,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md",
+                "file": "人工智能/gpt大模型应用/1-大模型基础：理论与技术的演进.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md",
+                "file": "人工智能/gpt大模型应用/1-大模型基础：理论与技术的演进.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md"
+                "file": "人工智能/gpt大模型应用/1-大模型基础：理论与技术的演进.md"
               }
             }
           },
@@ -198,12 +198,12 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "b8a88504ca32c511",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
-    "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md",
+    "人工智能/gpt大模型应用/1-大模型基础：理论与技术的演进.md",
     "未命名 1.canvas",
     "未命名.canvas",
-    "人工智能/chatgpt大模型",
+    "人工智能/gpt大模型应用",
     "人工智能/批标准化 (Batch Normalization).md",
     "软件测试/测试进阶提升.md",
     "youdaonote-images/Pasted image 20231124225856.png",
