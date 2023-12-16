@@ -149,7 +149,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "未命名 1.canvas"
+              }
             }
           },
           {
@@ -190,7 +192,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "b8a88504ca32c511",
+  "active": "f86f3baafd8ee047",
   "lastOpenFiles": [
     "未命名 1.canvas",
     "未命名.canvas",
