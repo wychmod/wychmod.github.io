@@ -1,6 +1,14 @@
 {
   "recentFiles": [
     {
+      "basename": "未命名 1",
+      "path": "未命名 1.canvas"
+    },
+    {
+      "basename": "未命名",
+      "path": "未命名.canvas"
+    },
+    {
       "basename": "批标准化 (Batch Normalization)",
       "path": "人工智能/批标准化 (Batch Normalization).md"
     },
@@ -191,14 +199,6 @@
     {
       "basename": "Python源码剖析-2-对象的生命周期",
       "path": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md"
-    },
-    {
-      "basename": "JVM-bak",
-      "path": "JVM/JVM-bak.md"
-    },
-    {
-      "basename": "2.安装docker、Portainer和jekins",
-      "path": "cicd/2.安装docker、Portainer和jekins.md"
     }
   ],
   "omittedPaths": [],
