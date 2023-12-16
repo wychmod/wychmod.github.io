@@ -11,8 +11,12 @@
             "id": "b8a88504ca32c511",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -104,6 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,6 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "未命名 1.canvas"
+                "file": "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md"
               }
             }
           },
@@ -192,8 +198,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "f86f3baafd8ee047",
+  "active": "b8a88504ca32c511",
   "lastOpenFiles": [
+    "人工智能/chatgpt大模型/1-大模型基础：理论与技术的演进.md",
     "未命名 1.canvas",
     "未命名.canvas",
     "人工智能/chatgpt大模型",
