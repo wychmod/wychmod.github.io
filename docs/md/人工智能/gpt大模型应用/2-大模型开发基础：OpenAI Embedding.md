@@ -30,4 +30,12 @@
 
 # 聚焦 Word Embedding
 
-## 
+## Word Embedding
+
+![](../../youdaonote-images/Pasted%20image%2020231219235039.png)
+
+## Word Embedding vs Language Model
+
+![](../../youdaonote-images/Pasted%20image%2020231219235148.png)
+
+![](../../youdaonote-images/Pasted%20image%2020231219235302.png)
