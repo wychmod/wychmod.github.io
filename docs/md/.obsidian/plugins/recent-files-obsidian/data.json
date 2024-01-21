@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "jacoco工具",
+      "path": "软件测试/jacoco/jacoco工具.md"
+    },
+    {
       "basename": "chrome浏览器使用技巧",
       "path": "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "JVM实战-2-JMM",
       "path": "JVM/JVM实战-2-JMM.md"
-    },
-    {
-      "basename": "蓝桥杯",
-      "path": "算法/蓝桥杯.md"
     }
   ],
   "omittedPaths": [],

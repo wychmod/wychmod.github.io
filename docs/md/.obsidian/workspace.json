@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md",
+                "file": "软件测试/jacoco/jacoco工具.md",
                 "mode": "source",
                 "source": false
               }
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -109,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md",
+                "file": "软件测试/jacoco/jacoco工具.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md",
+                "file": "软件测试/jacoco/jacoco工具.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md"
+                "file": "软件测试/jacoco/jacoco工具.md"
               }
             }
           },
@@ -201,8 +200,10 @@
   },
   "active": "b8a88504ca32c511",
   "lastOpenFiles": [
-    "人工智能/gpt大模型应用/2-大模型开发基础：OpenAI Embedding.md",
     "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md",
+    "软件测试/jacoco/jacoco工具.md",
+    "软件测试/jacoco",
+    "人工智能/gpt大模型应用/2-大模型开发基础：OpenAI Embedding.md",
     "软件测试/chrome浏览器使用技巧",
     "软件测试/测试基础",
     "youdaonote-images/Pasted image 20231219235302.png",
@@ -246,8 +247,6 @@
     "消息队列/RocketMQ源码分析.md",
     "消息队列/RabbitMQ部署指南.md",
     "消息队列/笔记引用/在Intellij IDEA中启动Broker.pdf",
-    "消息队列/笔记引用/093 如何在Intellij IDEA中启动Broker以及本地调试源码？.pdf",
-    "消息队列/笔记引用/在Intellij IDEA中启动NameServer.pdf",
-    "博客写作内容/技术写作指南/技术写作指南.md"
+    "消息队列/笔记引用/093 如何在Intellij IDEA中启动Broker以及本地调试源码？.pdf"
   ]
 }
