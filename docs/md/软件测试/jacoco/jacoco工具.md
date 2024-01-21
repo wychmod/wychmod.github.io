@@ -42,8 +42,13 @@ java -jar cli-0.8.7.jar report jacoco-demo.exec --classfiles D:\xxx\target\class
 ```java
 java -jar cli-0.8.7-diff.jar dump --address 127.0.0.1 --port 6300 --destfile jacoco-demo.exec
 ```
+5. 获取两次提交代码差异
+```java
+java -jar code-diff.jar 
+8085/doc.html
+```
 
-5. exec生产report报表(增量)
+7. exec生产report报表(增量)
 ```java
 java -jar cli-0.8.7-diff.jar report jacoco-demo.exec --classfiles D:\xxx\target\classes --sourcefiles D:\xxx\src\main\java --html html-report-diff --xml report-diff.xml --diffCode "[{\"classFile\":\"me/xz/controller/UserController\",\"lines\":[{\"endLineNum\":74,\"startLineNum\":69,\"type\":\"INSERT\"}],\"methodInfos\":[{\"methodName\":\"login\",\"parameters\":\"User\"}],\"moduleName\":\"src\",\"type\":\"MODIFY\"}]" --encoding=utf-8
 ```
