@@ -27,3 +27,18 @@ java -javaagent:jacocoagent.jar=includes=*,output=tcpserver,port=6300,address=lo
 ```java
 java -jar cli-0.8.7.jar dump --address 127.0.0.1 --port 6300 --destfile jacoco-demo.exec
 ```
+
+3. exec生产report报表(全量)
+```java
+java -jar cli-0.8.7.jar report jacoco-demo.exec --classfiles D:\xxx\target\classes --sourcefiles D:\xxx\src\main\java --html html-report --xml report.xml --encoding=utf-8
+```
+
+4. dump生产exec文件(增量)
+```java
+java -jar cli-0.8.7-diff.jar dump --address 127.0.0.1 --port 6300 --destfile jacoco-demo.exec
+```
+
+5. exec生产report报表(增量)
+```java
+java -jar cli-0.8.7-diff.jar report jacoco-demo.exec --classfiles D:\xxx\target\classes --sourcefiles D:\xxx\src\main\java --html html-report-diff --xml report-diff.xml --diffCode "[{\"classFile\":\"me/xz/controller/UserController\",\"lines\":[{\"endLineNum\":74,\"startLineNum\":69,\"type\":\"INSERT\"}],\"methodInfos\":[{\"methodName\":\"login\",\"parameters\":\"User\"}],\"moduleName\":\"src\",\"type\":\"MODIFY\"}]" --encoding=utf-8
+```
