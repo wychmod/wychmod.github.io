@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "chrome浏览器使用技巧",
+      "path": "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md"
+    },
+    {
       "basename": "2-大模型开发基础：OpenAI Embedding",
       "path": "人工智能/gpt大模型应用/2-大模型开发基础：OpenAI Embedding.md"
     },
@@ -14,19 +18,19 @@
     },
     {
       "basename": "测试进阶提升",
-      "path": "软件测试/测试进阶提升.md"
+      "path": "软件测试/测试基础/测试进阶提升.md"
     },
     {
       "basename": "执行测试用例",
-      "path": "软件测试/执行测试用例.md"
+      "path": "软件测试/测试基础/执行测试用例.md"
     },
     {
       "basename": "测试用例设计方法",
-      "path": "软件测试/测试用例设计方法.md"
+      "path": "软件测试/测试基础/测试用例设计方法.md"
     },
     {
       "basename": "软件测试基础知识",
-      "path": "软件测试/软件测试基础知识.md"
+      "path": "软件测试/测试基础/软件测试基础知识.md"
     },
     {
       "basename": "深度学习报错解决方案",
@@ -195,10 +199,6 @@
     {
       "basename": "蓝桥杯",
       "path": "算法/蓝桥杯.md"
-    },
-    {
-      "basename": "Python源码剖析-2-对象的生命周期",
-      "path": "Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md"
     }
   ],
   "omittedPaths": [],
