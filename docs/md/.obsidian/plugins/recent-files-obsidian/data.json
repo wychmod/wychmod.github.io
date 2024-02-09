@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "测试全链路",
+      "path": "软件测试/测试全链路/测试全链路.md"
+    },
+    {
       "basename": "jacoco工具",
       "path": "软件测试/jacoco/jacoco工具.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "多线程与并发编程",
       "path": "多线程与高并发/多线程与并发编程.md"
-    },
-    {
-      "basename": "JVM实战-2-JMM",
-      "path": "JVM/JVM实战-2-JMM.md"
     }
   ],
   "omittedPaths": [],
