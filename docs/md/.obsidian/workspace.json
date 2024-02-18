@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "dcae84829650c0e7",
+        "id": "74e91a62972c5cfc",
         "type": "tabs",
         "children": [
           {
-            "id": "b8a88504ca32c511",
+            "id": "f01b79e1c1ed8979",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "软件测试/测试全链路/测试全链路.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -108,7 +104,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "软件测试/测试全链路/测试全链路.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +120,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "软件测试/测试全链路/测试全链路.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -155,9 +149,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "软件测试/测试全链路/测试全链路.md"
-              }
+              "state": {}
             }
           },
           {
@@ -200,11 +192,14 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "b8a88504ca32c511",
+  "active": "62b967b1bdf672ea",
   "lastOpenFiles": [
-    "youdaonote-images/Pasted image 20240209202546.png",
+    "博客写作内容/大论文/未命名",
+    "博客写作内容/大论文",
+    "未命名",
     "软件测试/jacoco/jacoco工具.md",
     "软件测试/测试全链路/测试全链路.md",
+    "youdaonote-images/Pasted image 20240209202546.png",
     "软件测试/测试全链路",
     "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md",
     "软件测试/jacoco",
@@ -221,7 +216,6 @@
     "youdaonote-images/Pasted image 20231219234030.png",
     "人工智能/gpt大模型应用/1-大模型基础：理论与技术的演进.md",
     "youdaonote-images/Pasted image 20231217222947.png",
-    "youdaonote-images/Pasted image 20231217222248.png",
     "未命名 1.canvas",
     "未命名.canvas",
     "人工智能/gpt大模型应用",
@@ -236,7 +230,6 @@
     "软件测试",
     "面试/Java面试汇总.md",
     "云原生/云原生应用架构.md",
-    "云原生",
     "go/Go语言上手-基础语言.md",
     "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
     "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
@@ -248,7 +241,6 @@
     "Python/asyncio详解.md",
     "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
     "消息队列/RocketMQ设计与原理.md",
-    "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md",
-    "消息队列/笔记引用/在Intellij IDEA中启动Broker.pdf"
+    "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md"
   ]
 }
