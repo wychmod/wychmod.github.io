@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "基于多形态智能分析的自动化心电诊断系统的研究与实现",
+      "path": "博客写作内容/大论文/基于多形态智能分析的自动化心电诊断系统的研究与实现.md"
+    },
+    {
       "basename": "jacoco工具",
       "path": "软件测试/jacoco/jacoco工具.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "MySQL性能优化-总结",
       "path": "mysql/MySQL性能优化-总结.md"
-    },
-    {
-      "basename": "多线程与并发编程",
-      "path": "多线程与高并发/多线程与并发编程.md"
     }
   ],
   "omittedPaths": [],
