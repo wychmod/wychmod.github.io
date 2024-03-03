@@ -203,6 +203,7 @@
   },
   "active": "f01b79e1c1ed8979",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20240303121421.png",
     "博客写作内容/大论文/基于多形态智能分析的自动化心电诊断系统的研究与实现.md",
     "博客写作内容/大论文/未命名",
     "博客写作内容/大论文",
@@ -249,7 +250,6 @@
     "Python/fastapi规范.md",
     "Python/asyncio详解.md",
     "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md",
-    "消息队列/RocketMQ设计与原理.md",
-    "Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md"
+    "消息队列/RocketMQ设计与原理.md"
   ]
 }
