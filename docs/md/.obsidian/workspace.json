@@ -18,19 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "d347d170f4287ac3",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.5.12"
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -211,7 +200,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d347d170f4287ac3",
+  "active": "f01b79e1c1ed8979",
   "lastOpenFiles": [
     "youdaonote-images/Pasted image 20240406105423.png",
     "博客写作内容/大论文/基于多形态智能分析的自动化心电诊断系统的研究与实现.md",
