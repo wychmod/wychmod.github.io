@@ -1,5 +1,22 @@
 {
-  "recentFiles": [],
+  "recentFiles": [
+    {
+      "basename": "手写数据库",
+      "path": "md/mysql/手写数据库.md"
+    },
+    {
+      "basename": "MySQL性能优化-总结",
+      "path": "md/mysql/MySQL性能优化-总结.md"
+    },
+    {
+      "basename": "MySQL是怎样运行的",
+      "path": "md/mysql/MySQL是怎样运行的.md"
+    },
+    {
+      "basename": "MySQL性能优化-索引",
+      "path": "md/mysql/MySQL性能优化-索引.md"
+    }
+  ],
   "omittedPaths": [],
   "maxLength": null,
   "openType": "split"

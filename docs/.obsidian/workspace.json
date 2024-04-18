@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "54094fb135279f3a",
+        "id": "90ec18b768bb3b1d",
         "type": "tabs",
         "children": [
           {
-            "id": "c7a00621220b7fdd",
+            "id": "b885766f842de7be",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "md/mysql/手写数据库.md",
+                "mode": "preview",
+                "source": true
+              }
             }
           }
         ]
@@ -95,6 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "md/mysql/手写数据库.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -111,6 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "md/mysql/手写数据库.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -132,7 +138,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "md/mysql/手写数据库.md"
+              }
             }
           }
         ]
@@ -153,6 +161,14 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "fdb638e0ba4f78d6",
-  "lastOpenFiles": []
+  "active": "b885766f842de7be",
+  "lastOpenFiles": [
+    "md/youdaonote-images/aefbf44e4a6f43a631ef3328f241c19.png",
+    "md/youdaonote-images/adf303c470f1e562bbd211062504fc9.png",
+    "md/youdaonote-images/ec3e515806d4e01ec21d16f163f3255.png",
+    "md/mysql/手写数据库.md",
+    "md/mysql/MySQL性能优化-总结.md",
+    "md/mysql/MySQL是怎样运行的.md",
+    "md/mysql/MySQL性能优化-索引.md"
+  ]
 }
