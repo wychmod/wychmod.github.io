@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/mysql/手写数据库.md",
-                "mode": "preview",
+                "file": "md/博客写作内容/环球影城.md",
+                "mode": "source",
                 "source": true
               }
             }
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/mysql/手写数据库.md",
+                "file": "md/博客写作内容/环球影城.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "md/mysql/手写数据库.md",
+                "file": "md/博客写作内容/环球影城.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -139,7 +139,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "md/mysql/手写数据库.md"
+                "file": "md/博客写作内容/环球影城.md"
               }
             }
           }
@@ -163,10 +163,11 @@
   },
   "active": "b885766f842de7be",
   "lastOpenFiles": [
+    "md/mysql/手写数据库.md",
+    "md/博客写作内容/环球影城.md",
     "md/youdaonote-images/aefbf44e4a6f43a631ef3328f241c19.png",
     "md/youdaonote-images/adf303c470f1e562bbd211062504fc9.png",
     "md/youdaonote-images/ec3e515806d4e01ec21d16f163f3255.png",
-    "md/mysql/手写数据库.md",
     "md/mysql/MySQL性能优化-总结.md",
     "md/mysql/MySQL是怎样运行的.md",
     "md/mysql/MySQL性能优化-索引.md"
