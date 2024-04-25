@@ -14,8 +14,8 @@
               "type": "markdown",
               "state": {
                 "file": "md/博客写作内容/环球影城.md",
-                "mode": "preview",
-                "source": true
+                "mode": "source",
+                "source": false
               }
             }
           }
