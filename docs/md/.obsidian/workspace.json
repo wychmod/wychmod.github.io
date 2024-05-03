@@ -11,8 +11,12 @@
             "id": "cefe151ed187004c",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "博客写作内容/南方旅行.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -104,6 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "博客写作内容/南方旅行.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,6 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "博客写作内容/南方旅行.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +155,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "博客写作内容/南方旅行.md"
+              }
             }
           },
           {
@@ -194,6 +202,7 @@
   },
   "active": "cefe151ed187004c",
   "lastOpenFiles": [
+    "博客写作内容/南方旅行.md",
     "博客写作内容/环球影城.md",
     "youdaonote-images/ec3e515806d4e01ec21d16f163f3255.png",
     "youdaonote-images/aefbf44e4a6f43a631ef3328f241c19.png",
@@ -240,7 +249,6 @@
     "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
     "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
     "Python/fastapi规范.md",
-    "Python/asyncio详解.md",
-    "Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md"
+    "Python/asyncio详解.md"
   ]
 }
