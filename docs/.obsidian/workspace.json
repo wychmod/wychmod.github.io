@@ -1,0 +1,177 @@
+{
+  "main": {
+    "id": "b9c4c0b1782af83b",
+    "type": "split",
+    "children": [
+      {
+        "id": "90ec18b768bb3b1d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b885766f842de7be",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "md/博客写作内容/环球影城.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a179fd8cfa1e0293",
+    "type": "split",
+    "children": [
+      {
+        "id": "15f28d1197ba5541",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d629d094469d6b1b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "7e65123783e8149d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "4cbe980d331b1b30",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      },
+      {
+        "id": "ebd46d0531aa4c3c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fdb638e0ba4f78d6",
+            "type": "leaf",
+            "state": {
+              "type": "recent-files",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d5455ead81092fa8",
+    "type": "split",
+    "children": [
+      {
+        "id": "923fd3b67825bf8d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "555792c31ce15d39",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "md/博客写作内容/环球影城.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "c7d5ba90b9ccf12a",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "md/博客写作内容/环球影城.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "f6adbe15c64424a9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "3f069a68c3d6b225",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "md/博客写作内容/环球影城.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false
+    }
+  },
+  "active": "b885766f842de7be",
+  "lastOpenFiles": [
+    "md/youdaonote-images/Pasted image 20240419180652.png",
+    "md/youdaonote-images/Pasted image 20240419180533.png",
+    "md/mysql/手写数据库.md",
+    "md/博客写作内容/环球影城.md",
+    "md/youdaonote-images/aefbf44e4a6f43a631ef3328f241c19.png",
+    "md/youdaonote-images/adf303c470f1e562bbd211062504fc9.png",
+    "md/youdaonote-images/ec3e515806d4e01ec21d16f163f3255.png",
+    "md/mysql/MySQL性能优化-总结.md",
+    "md/mysql/MySQL是怎样运行的.md",
+    "md/mysql/MySQL性能优化-索引.md"
+  ]
+}
