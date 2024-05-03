@@ -195,10 +195,6 @@
     {
       "basename": "python面试",
       "path": "面试/python面试.md"
-    },
-    {
-      "basename": "MySQL性能优化-总结",
-      "path": "mysql/MySQL性能优化-总结.md"
     }
   ],
   "omittedPaths": [],
