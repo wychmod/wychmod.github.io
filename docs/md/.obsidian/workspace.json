@@ -11,9 +11,11 @@
             "id": "251aab2b319241c2",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.6.3"
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -106,6 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -122,6 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -151,7 +155,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md"
+              }
             }
           },
           {
@@ -196,6 +202,8 @@
   },
   "active": "251aab2b319241c2",
   "lastOpenFiles": [
+    "java/监控系统/1-javaagent字节码插桩机制详解.md",
+    "java/监控系统",
     "博客写作内容/南方旅行.md",
     "youdaonote-images/Pasted image 20240506175105.png",
     "youdaonote-images/Pasted image 20240506175013.png",
@@ -230,7 +238,6 @@
     "软件测试/测试基础/测试进阶提升.md",
     "软件测试/测试基础/执行测试用例.md",
     "软件测试/测试用例.csv",
-    "软件测试/测试计划.doc",
     "软件测试/测试基础/测试用例设计方法.md",
     "软件测试/测试基础/软件测试基础知识.md",
     "面试/Java面试汇总.md",
