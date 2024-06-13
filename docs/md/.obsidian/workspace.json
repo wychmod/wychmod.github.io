@@ -203,6 +203,7 @@
   },
   "active": "251aab2b319241c2",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20240613112926.png",
     "java/监控系统/1-javaagent字节码插桩机制详解.md",
     "java/监控系统",
     "博客写作内容/南方旅行.md",
@@ -249,7 +250,6 @@
     "mysql/MySQL性能优化-架构.md",
     "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md",
     "Python/Python源码剖析/Python源码剖析-6-内建对象str.md",
-    "Python/Python源码剖析/Python源码剖析-4-内建对象int.md",
-    "Python/fastapi规范.md"
+    "Python/Python源码剖析/Python源码剖析-4-内建对象int.md"
   ]
 }
