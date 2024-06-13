@@ -116,6 +116,9 @@ public static void agentmain(String args,
 
 在上述应⽤中⾸先获取本机所有jvm进程，然后当⽤户选择指定进程后附着相对应的agent.jar
 包。
+
+### 两种启动⽅式的区别
+两种启动⽅式区别在于加载时机，premain⽅式启动可以在类加载前进⾏启动，进⽽可以完整的修改类。agentmain是在系统运⾏中启动，其只能修改类的部分逻辑，监控上是有限制的。其它的API应⽤都是⼀样的。
 # javaagent核⼼应⽤
 
 # javaagent实践
