@@ -444,6 +444,7 @@ public class Jad {
         }    };  
   
     public static String decompiler(String className) throws Exception {  
+	    // 将编译后的类文件（.class）转换回Java源代码的类
         ClassFileToJavaSourceDecompiler decompiler = new ClassFileToJavaSourceDecompiler();  
         decompiler.decompile(loader, printer, className);  
         String source = printer.toString();  
