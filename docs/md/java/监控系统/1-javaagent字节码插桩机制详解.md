@@ -24,6 +24,24 @@ JVMTI代理与⽬标JVM运⾏在同⼀个进程中，通过JVMTI进⾏通信，�
 
 javaagent是java1.5之后引入的特性，基于JVMTIS实现，支持JVMTI部分功能。主要应用场景是对类加载进行拦截修改，和对已加载的类进行重定义。此外还支持获取已加载的类，以及实例内存占用计算等。
 
+## javaagent启动
+
+javaagent的表现形式是⼀个监听JAR包，⽤于监听⽬标应⽤，它有两种启动⽅式分别是：
+1. 加载启动：即跟着监听⽬标应⽤⼀起启动，通过设置⽬标应⽤的jvm参数-javaagent:,即可加载javaagent监听jar包。
+2. 附着启动：在⽬标应⽤的运⾏过程中去加载agent包，借助jvm tools⼯具包可将agent包注⼊到⽬标应⽤中。
+
+## 加载启动(premain)
+
+加载启动项⽬的agent jar包与运⾏时JAR包有什么区别，通过下表可以看出：
+
+![](../../youdaonote-images/Pasted%20image%2020240613114549.png)
+
+通过⼀个示例 让我们更好的去理解javaagent属性。
+
+### 启动类
+```java
+
+```
 
 # javaagent核⼼应⽤
 
