@@ -248,5 +248,206 @@ public class ToolServiceImpl extends UnicastRemoteObject implements ToolService 
     }}
 
 
+public class Agent {  
+  public static Instrumentation instrumentation;  
+    public static void agentmain(String args, Instrumentation instrumentation) {  
+                // 启动远程服务  
+        Agent.instrumentation=instrumentation;  
+        try {  
+            startRmiService(Integer.parseInt(args));  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }  
+    }  
+    private static void startRmiService(int port) throws RemoteException, AlreadyBoundException, MalformedURLException {  
+        ToolServiceImpl userService =new ToolServiceImpl();  
+        LocateRegistry.createRegistry(port);  
+        Naming.bind("rmi://localhost:"+port+"/ToolService", userService);  
+        System.out.println("rmi 已启动："+port);  
+    }  
+  
+}
 
+public class Bootstrap {  
+  
+    static int port = 7766;  
+    private final ToolService toolService;  
+  
+    public Bootstrap() throws RemoteException, NotBoundException, MalformedURLException {  
+        // 加载远程服务  
+        toolService = (ToolService) Naming.lookup("rmi://localhost:" + port + "/ToolService");  
+    }  
+  
+    public static void main(String[] args) throws Exception {  
+        // 获取jvm进程列表  
+        List<VirtualMachineDescriptor> list = VirtualMachine.list();  
+        for (int i = 0; i < list.size(); i++) {  
+            System.out.println(String.format("[%s] %s", i, list.get(i).displayName()));  
+        }  
+        // 选择jvm进程  
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));  
+        String line = read.readLine();  
+        int i = Integer.parseInt(line);  
+        // 附着agent  
+        VirtualMachine virtualMachine = VirtualMachine.attach(list.get(i));  
+        virtualMachine.loadAgent("/Users/tommy/temp/coderead-cbtu/javaagent/target/javaagent-1.0-SNAPSHOT.jar", String.valueOf(port));  
+        virtualMachine.detach();  
+        System.out.println("加载成功");  
+  
+        Bootstrap bootstrap = new Bootstrap();  
+        while (true) {  
+            line = read.readLine().trim();  
+            if (line.equals("exit")) {  
+                break;  
+            }  
+            try {  
+                bootstrap.runCommand(line);  
+            } catch (RemoteException e) {  
+                e.printStackTrace();  
+            }  
+        }    }  
+    private void runCommand(String cmdAndParams) throws RemoteException {  
+        String[] s = cmdAndParams.split(" ");  
+        String cmd = s[0];  
+        String result;  
+        if (cmd.equals("sc")) {  
+            result = toolService.findClassName(s[1]);  
+        } else if (cmd.equals("jad")) {  
+            result = toolService.jadClass(s[1]);  
+        } else {  
+            System.err.println("不支持的命令:" + cmdAndParams);  
+            return;  
+        }  
+        System.out.println(result);  
+    }  
+  
+}
+
+public class Jad {  
+    static Loader loader = new Loader() {  
+        @Override  
+        public byte[] load(String internalName) throws LoaderException {  
+            InputStream is = loadClass(internalName);  
+            if (is == null) {  
+                return null;  
+            } else {  
+                try (InputStream in = is; ByteArrayOutputStream out = new ByteArrayOutputStream()) {  
+                    byte[] buffer = new byte[1024];  
+                    int read = in.read(buffer);  
+  
+                    while (read > 0) {  
+                        out.write(buffer, 0, read);  
+                        read = in.read(buffer);  
+                    }  
+  
+                    return out.toByteArray();  
+                } catch (IOException e) {  
+                    throw new LoaderException(e);  
+                }  
+            }        }  
+        @Override  
+        public boolean canLoad(String internalName) {  
+            return loadClass(internalName) != null;  
+        }  
+  
+        private InputStream loadClass(String internalName) {  
+            InputStream is = this.getClass().getResourceAsStream("/" + internalName.replaceAll("\\.", "/") + ".class");  
+            if (is == null && Agent.instrumentation != null) {  
+                for (Class allLoadedClass : Agent.instrumentation.getAllLoadedClasses()) {  
+                    if (allLoadedClass.getName().equals(internalName)) {  
+                        is = allLoadedClass.getResourceAsStream("/" + internalName.replaceAll("\\.", "/") + ".class");  
+                        break;  
+                    }  
+                }            }            return is;  
+        }  
+    };  
+  
+  
+    static Printer printer = new Printer() {  
+        protected static final String TAB = "  ";  
+        protected static final String NEWLINE = "\n";  
+  
+        protected int indentationCount = 0;  
+        protected StringBuilder sb = new StringBuilder();  
+  
+        @Override  
+        public String toString() {  
+            return sb.toString();  
+        }  
+  
+        @Override  
+        public void start(int maxLineNumber, int majorVersion, int minorVersion) {  
+        }  
+        @Override  
+        public void end() {  
+        }  
+        @Override  
+        public void printText(String text) {  
+            sb.append(text);  
+        }  
+  
+        @Override  
+        public void printNumericConstant(String constant) {  
+            sb.append(constant);  
+        }  
+  
+        @Override  
+        public void printStringConstant(String constant, String ownerInternalName) {  
+            sb.append(constant);  
+        }  
+  
+        @Override  
+        public void printKeyword(String keyword) {  
+            sb.append(keyword);  
+        }  
+  
+        @Override  
+        public void printDeclaration(int type, String internalTypeName, String name, String descriptor) {  
+            sb.append(name);  
+        }  
+  
+        @Override  
+        public void printReference(int type, String internalTypeName, String name, String descriptor, String ownerInternalName) {  
+            sb.append(name);  
+        }  
+  
+        @Override  
+        public void indent() {  
+            this.indentationCount++;  
+        }  
+  
+        @Override  
+        public void unindent() {  
+            this.indentationCount--;  
+        }  
+  
+        @Override  
+        public void startLine(int lineNumber) {  
+            for (int i = 0; i < indentationCount; i++) sb.append(TAB);  
+        }  
+  
+        @Override  
+        public void endLine() {  
+            sb.append(NEWLINE);  
+        }  
+  
+        @Override  
+        public void extraLine(int count) {  
+            while (count-- > 0) sb.append(NEWLINE);  
+        }  
+  
+        @Override  
+        public void startMarker(int type) {  
+        }  
+        @Override  
+        public void endMarker(int type) {  
+        }    };  
+  
+    public static String decompiler(String className) throws Exception {  
+        ClassFileToJavaSourceDecompiler decompiler = new ClassFileToJavaSourceDecompiler();  
+        decompiler.decompile(loader, printer, className);  
+        String source = printer.toString();  
+        return source;  
+    }  
+}
 ```
