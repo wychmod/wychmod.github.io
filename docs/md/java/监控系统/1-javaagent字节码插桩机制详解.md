@@ -214,3 +214,39 @@ getObjectSize
 1.查找类
 2.反编译类
 3.临时监控方法性能
+
+```java
+public interface ToolService  extends Remote {  
+  
+    //  查找类  
+    String findClassName(String name) throws RemoteException;  
+    //  反编译类  
+    String jadClass(String className) throws RemoteException;  
+}
+
+public class ToolServiceImpl extends UnicastRemoteObject implements ToolService {  
+    public ToolServiceImpl() throws RemoteException {  
+    }  
+  
+    @Override  
+    public String findClassName(String name) throws RemoteException {  
+        return Arrays.stream(Agent.instrumentation.getAllLoadedClasses())  
+                .filter(s -> s.getName().toUpperCase().contains(name.toUpperCase()))  
+                .limit(20)  
+                .map(Class::getName)  
+                .collect(Collectors.joining("\r\n"));  
+    }  
+  
+    @Override  
+    public String jadClass(String className) throws RemoteException {  
+        try {  
+            return Jad.decompiler(className);  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+            return e.getMessage();  
+        }  
+    }}
+
+
+
+```
