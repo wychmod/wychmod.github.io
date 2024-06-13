@@ -184,4 +184,33 @@ try {
     e.printStackTrace();  
 }
 ```
+
+## 获取所有类
+
+getAllLoadedClasses
+## 获取已实例化的类
+
+getlnitiatedClasses
+
+## 计算对象大小
+
+getObjectSize
+
+
 # javaagent实践
+
+## 方法执行性能统计
+
+基于premain机制监控指定方法的执行性能，并打印出日志。
+
+## 仿arthas⼯具
+
+仿照arthas实现一个JVM工具，支持查找指定JWM进程中的类，并反编译查看类。
+
+![](../../youdaonote-images/Pasted%20image%2020240613165849.png)
+
+## 实现功能
+
+1.查找类
+2.反编译类
+3.临时监控方法性能
