@@ -76,8 +76,46 @@ public class MyAgent {
 }
 ```
 
+###  MANIFEST.MF ⽂件
+
+![](../../youdaonote-images/Pasted%20image%2020240613115330.png)
+
+### 启动方式
+
+其必须通过jvm/lib/tools.jar 中的API注⼊⾄⽬标应⽤:
+
+```java
+public class AttachStart {  
+    public static void main(String[] args) throws Exception {  
+        // 获取jvm进程列表  
+        List<VirtualMachineDescriptor> list = VirtualMachine.list();  
+        for (int i = 0; i < list.size(); i++) {  
+            System.out.println(String.format("[%s] %s", i, list.get(i).displayName()));  
+        }  
+        System.out.println("输入数字指定要attach的进程");  
+  
+        // 选择jvm进程  
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));  
+        String line = read.readLine();  
+        int i = Integer.parseInt(line);  
+        // 附着agent  
+        VirtualMachine virtualMachine = VirtualMachine.attach(list.get(i));  
+        virtualMachine.loadAgent("/Users/tommy/temp/coderead-cbtu/javaagent/target/javaagent-1.0-SNAPSHOT.jar","111");  
+        virtualMachine.detach();  
+        System.out.println("加载成功");  
+    }  
+}
 
 
+// 运行时启动  
+public static void agentmain(String args,  
+                             Instrumentation instrumentation) {  
+    System.out.println("agentmain");  
+}
+```
+
+在上述应⽤中⾸先获取本机所有jvm进程，然后当⽤户选择指定进程后附着相对应的agent.jar
+包。
 # javaagent核⼼应⽤
 
 # javaagent实践
