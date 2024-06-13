@@ -19,7 +19,11 @@ JVMTI代理与⽬标JVM运⾏在同⼀个进程中，通过JVMTI进⾏通信，�
 
 > JDI代表Java调试接口（Java Debug Interface）。它是Java平台调试架构（JPDA）的一部分，允许开发人员在Java应用程序中构建调试工具。JDI提供了一组API，使得开发人员可以控制程序的执行，检查程序状态，以及在运行时修改程序行为。
 
-> 
+> JDWP，全称Java Debug Wire Protocol，是Java平台调试架构（JPDA）的一部分，用于定义调试器（Debugger）和被调试应用（Debuggee）之间的通信协议。
+> JDWP规定了调试信息的传输格式，例如请求、回复和事件。它并不关心信息的具体传输方式，可以通过套接字（socket）或共享内存等方式进行。
+
+javaagent是java1.5之后引入的特性，基于JVMTIS实现，支持JVMTI部分功能。主要应用场景是对类加载进行拦截修改，和对已加载的类进行重定义。此外还支持获取已加载的类，以及实例内存占用计算等。
+
 
 # javaagent核⼼应⽤
 
