@@ -121,4 +121,53 @@ public static void agentmain(String args,
 两种启动⽅式区别在于加载时机，premain⽅式启动可以在类加载前进⾏启动，进⽽可以完整的修改类。agentmain是在系统运⾏中启动，其只能修改类的部分逻辑，监控上是有限制的。其它的API应⽤都是⼀样的。
 # javaagent核⼼应⽤
 
+## 类加载拦截
+addTransformer 添加类加载拦截器，可重定义加载的类。
+```java
+public static void premain(String args,  
+                           Instrumentation instrumentation) {  
+    System.out.println("premain");  
+    HelloWorld helloWorld = new HelloWorld();  
+    // 添加类加载过滤器  
+    instrumentation.addTransformer(new ClassFileTransformer() {  
+        @Override  
+        public byte[] transform(ClassLoader loader, String className,  
+                                Class<?> classBeingRedefined,  
+                                ProtectionDomain protectionDomain,  
+                                byte[] classfileBuffer) throws IllegalClassFormatException {  
+  
+            if (!"coderead/agent/HelloWorld".equals(className)) {  
+                return null;  
+            }  
+  
+            // javassist  
+            try {  
+                ClassPool pool=new ClassPool();  
+                pool.appendSystemPath();  
+                CtClass ctClass = pool.get("coderead.agent.HelloWorld");  
+                CtMethod ctMethod = ctClass.getDeclaredMethod("hello");  
+                ctMethod.insertBefore("System.out.println(\"插入前置逻辑\");");  
+                return ctClass.toBytecode();  
+            } catch (NotFoundException | CannotCompileException | IOException e) {  
+                e.printStackTrace();  
+            }  
+            return null;  
+        }  
+    },true);
+```
+
+## 类重新加载
+
+retransformClasses 重新触发类的加载，类加载后⽆法被addTransformer 拦截，该⽅法可重新触发拦截，进⾏进⼆次加载类。注意加载的类是有限制的，仅可对运⾏指令码进⾏修改：不可修改类结构如继承、接⼝、类符、变更属性、变更⽅法等。可以新增private static/final 的方法； 必须添加 Can-Retransform-Classes=true 该⽅法执⾏才有效，且addTransformer⽅法的canRetransform参数也为true。
+
+```java
+// 重新走过滤器  
+try {  
+    instrumentation.retransformClasses(HelloWorld.class);  
+} catch (UnmodifiableClassException e) {  
+    e.printStackTrace();  
+}
+```
+
+###
 # javaagent实践
