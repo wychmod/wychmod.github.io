@@ -40,8 +40,43 @@ javaagent的表现形式是⼀个监听JAR包，⽤于监听⽬标应⽤，它�
 
 ### 启动类
 ```java
-
+public class MyAgent {  
+    // 加载时启动  
+    public static void premain(String args,  
+                               Instrumentation instrumentation) {  
+        System.out.println("premain");
+        }
+    }
 ```
+
+### MANIFEST.MF ⽂件
+
+构建好的javaagent.jar/MANIFEST.MF⽂件示例：
+![](../../youdaonote-images/Pasted%20image%2020240613114856.png)
+
+### 启动⽅式
+javaagent jar包不能直接启动，只能附着于其它JVM进⾏程启动。附着⽅式是添加jvm启动参数。如：
+```java
+java -javaagent:<agent包> -jar <运行时包>
+```
+
+## 附着启动(agentmain)
+
+如果想要在应⽤运⾏之后去监听它，⽽⼜不去重启它，就可以采⽤另⼀种⽅式附着启动。其相关属性通过以表来⽐对：
+
+![](../../youdaonote-images/Pasted%20image%2020240613115123.png)
+
+### 启动类与方法
+
+```java
+public class MyAgent {
+	public static void agentmain(String args, Instrumentation instrumentatio
+		System.out.println("hello agentmain");
+	}
+}
+```
+
+
 
 # javaagent核⼼应⽤
 
