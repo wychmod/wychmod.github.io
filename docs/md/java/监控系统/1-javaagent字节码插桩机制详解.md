@@ -169,5 +169,19 @@ try {
 }
 ```
 
-###
+## 类重定义
+redefineClasses 重新定义类。该⽅法会触发retransformClasses 类似的逻辑。
+
+```java
+try {  
+    ClassPool pool=new ClassPool();  
+    pool.appendSystemPath();  
+    CtClass ctClass = pool.get("coderead.agent.HelloWorld");  
+    CtMethod ctMethod = ctClass.getDeclaredMethod("hello");  
+    ctMethod.insertAfter("System.out.println(\"插入后置逻辑\");");  
+    instrumentation.redefineClasses(new ClassDefinition(HelloWorld.class,ctClass.toBytecode()));  
+} catch (NotFoundException | CannotCompileException | IOException | UnmodifiableClassException | ClassNotFoundException e) {  
+    e.printStackTrace();  
+}
+```
 # javaagent实践
