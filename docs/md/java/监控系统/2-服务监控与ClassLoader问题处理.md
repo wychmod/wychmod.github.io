@@ -137,3 +137,26 @@ public class MyBatisAgent implements ClassFileTransformer {
   
 }
 ```
+
+
+## 相关问题
+
+监控实现之后直接在Idea中启动Spring Boot启动，其业务逻辑可正常执⾏，脱离IDEA启动会报
+找不到类的错误。这与插桩的ClassLoader 有关。下⾯就重点探讨⼀下。
+
+
+# 三、ClassLoader问题处理
+
+## ClassLoader 基本概念
+
+类加载器（class loader）用来加载 Java 类到 Java 虚拟机中。一般来说，Java 虚拟机使用 Java 类的方式如下：Java 源程序（.java 文件）在经过 Java 编译器编译之后就被转换成 Java 字节代码（.class 文件）。类加载器负责读取 Java 字节代码，并转换成java.lang.Class 类的一个实例。每个这样的实例用来表示一个 Java 类。通过此实例的newInstance() 方法就可以创建出该类的一个对象。实际的情况可能更加复杂，比如Java 字节代码可能是通过工具动态生成的，也可能是通过网络下载的。
+
+## 组织结构
+
+Java 中的类加载器⼤致可以分成两类，⼀类是系统提供的，另外⼀类则是由 Java 应⽤开发⼈员编写的。系统提供的类加载器主要有下⾯三个：
+
+1. 引导类加载器（Bootstrap）：它⽤来加载 Java 的核⼼库，是⽤原⽣代码来实现的，并不继承⾃ java.lang.ClassLoader。负责加载 Java 核心库。核心库是 Java 程序运行的基础，包括了 Java 语言的基础类和接口，例如 `java.lang.Object` 和 `java.io` 包等。
+2. 扩展类加载器（ExtClassLoader）：它⽤来加载 Java 的扩展库。Java 虚拟机的实现会提供⼀个扩展库⽬录。该类加载器在此⽬录⾥⾯查找并加载 Java 类。
+3. 系统类加载器（AppClassLoader）：它根据 Java 应⽤的类路径（CLASSPATH）来加载Java 类。⼀般来说，Java 应⽤的类都是由它来完成加载的。可以通过ClassLoader.getSystemClassLoader()来获取它。
+
+![](../../youdaonote-images/Pasted%20image%2020240618120523.png)
