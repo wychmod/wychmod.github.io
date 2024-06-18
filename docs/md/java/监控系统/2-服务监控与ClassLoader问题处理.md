@@ -176,3 +176,121 @@ Java 中的类加载器⼤致可以分成两类，⼀类是系统提供的，另
 ![](../../youdaonote-images/Pasted%20image%2020240618120744.png)
 
 
+## 解决方案
+通过添加资源到类加载器可以解决tomcat
+通过反射可以解决springboot
+```java
+public class MyBatisAgent3 implements ClassFileTransformer {
+
+    @Override
+    public byte[] transform(ClassLoader loader, String className,
+                            Class<?> classBeingRedefined,
+                            ProtectionDomain protectionDomain,
+                            byte[] classfileBuffer) {
+        if (!"org/apache/ibatis/executor/BaseExecutor".equals(className)) {
+            return null;
+        }
+
+        try {
+            // tomcat 中可行，在Spring boot中不可行
+            appendToLoader(loader);
+        } catch (Exception e) {
+            System.err.println("jar 注入失败");
+            e.printStackTrace();
+            return null;
+        }
+
+        try {
+            ClassPool pool = new ClassPool();
+            pool.appendSystemPath();
+            pool.appendClassPath(new LoaderClassPath(loader));
+            CtClass ctClass = pool.get("org.apache.ibatis.executor.BaseExecutor");
+            // 查询
+            CtMethod ctMethod = ctClass.getDeclaredMethods("query")[1];
+            ctMethod.addLocalVariable("info", pool.get(SqlInfo.class.getName()));
+            ctMethod.insertBefore("info=coderead.agent1.MyBatisAgent3.begin($args);");
+            ctMethod.insertAfter("coderead.agent1.MyBatisAgent3.end(info);");
+            System.out.println("插桩成功：" + ctClass.getName());
+            return ctClass.toBytecode();
+        } catch (NotFoundException | CannotCompileException | IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 该Java函数appendToLoader的主要功能是动态地向给定的ClassLoader（类加载器）中添加一个URL，
+     * 以便该加载器能够从这个新指定的URL路径中加载额外的类或资源。
+     */
+    private void appendToLoader(ClassLoader loader) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, MalformedURLException {
+        URLClassLoader urlClassLoader = (URLClassLoader) loader;
+        Method addURL = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
+        addURL.setAccessible(true);
+        String path = MyBatisAgent3.class.getResource("").getPath();
+        path = path.substring(0, path.indexOf("!/"));
+        addURL.invoke(urlClassLoader, new URL(path));
+    }
+
+    public static SqlInfo begin(Object[] params) {
+        SqlInfo info = new SqlInfo();
+        info.beginTime = System.currentTimeMillis();
+        BoundSqlAdapter adapter = new BoundSqlAdapter(params[5]);
+        info.sql = adapter.getSql();
+        return info;
+    }
+
+    public static void end(SqlInfo info) {
+        info.useTime = System.currentTimeMillis() - info.beginTime;
+        System.out.println(info);
+    }
+
+    public static class SqlInfo {
+        public long beginTime;
+        public long useTime;
+        public String sql;
+
+        @Override
+        public String toString() {
+            return "SqlInfo{" +
+                    "beginTime=" + new Date(beginTime) +
+                    ", useTime=" + useTime +
+                    ", sql='" + sql + '\'' +
+                    '}';
+        }
+    }
+
+    public static class BoundSqlAdapter {
+        Object target;
+        private static Method getSql;
+        private static Class aClass;
+
+        private synchronized static void init(Class cls) {
+            try {
+                aClass = cls;
+                getSql = cls.getDeclaredMethod("getSql");
+                getSql.setAccessible(true);
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        public BoundSqlAdapter(Object target) {
+            this.target = target;
+            if (aClass == null) {
+                init(target.getClass());
+            }
+            this.target = target;
+        }
+
+        public String getSql() {
+            try {
+                return (String) getSql.invoke(target);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+}
+
+```
