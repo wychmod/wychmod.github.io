@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "2-服务监控与ClassLoader问题处理",
+      "path": "java/监控系统/2-服务监控与ClassLoader问题处理.md"
+    },
+    {
       "basename": "1-javaagent字节码插桩机制详解",
       "path": "java/监控系统/1-javaagent字节码插桩机制详解.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "Lottery 抽奖系统-领域开发",
       "path": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
-    },
-    {
-      "basename": "Lottery 抽奖系统-项目信息",
-      "path": "java/抽奖系统/Lottery 抽奖系统-项目信息.md"
     }
   ],
   "omittedPaths": [],

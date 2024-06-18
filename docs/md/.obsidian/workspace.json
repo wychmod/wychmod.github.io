@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
+                "file": "java/监控系统/2-服务监控与ClassLoader问题处理.md",
                 "mode": "source",
                 "source": false
               }
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
+                "file": "java/监控系统/2-服务监控与ClassLoader问题处理.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
+                "file": "java/监控系统/2-服务监控与ClassLoader问题处理.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md"
+                "file": "java/监控系统/2-服务监控与ClassLoader问题处理.md"
               }
             }
           },
@@ -203,6 +203,8 @@
   },
   "active": "251aab2b319241c2",
   "lastOpenFiles": [
+    "java/监控系统/1-javaagent字节码插桩机制详解.md",
+    "java/监控系统/2-服务监控与ClassLoader问题处理.md",
     "youdaonote-images/Pasted image 20240613165849.png",
     "youdaonote-images/Pasted image 20240613165829.png",
     "youdaonote-images/Pasted image 20240613115330.png",
@@ -210,13 +212,11 @@
     "youdaonote-images/Pasted image 20240613114856.png",
     "youdaonote-images/Pasted image 20240613114549.png",
     "youdaonote-images/Pasted image 20240613112926.png",
-    "java/监控系统/1-javaagent字节码插桩机制详解.md",
     "java/监控系统",
     "博客写作内容/南方旅行.md",
     "youdaonote-images/Pasted image 20240506175105.png",
     "youdaonote-images/Pasted image 20240506175013.png",
     "youdaonote-images/Pasted image 20240506174647.png",
-    "youdaonote-images/Pasted image 20240506174450.png",
     "博客写作内容/环球影城.md",
     "mysql/手写数据库.md",
     "未命名.canvas",
