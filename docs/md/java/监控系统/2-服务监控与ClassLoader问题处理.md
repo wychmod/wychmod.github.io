@@ -160,3 +160,19 @@ Java 中的类加载器⼤致可以分成两类，⼀类是系统提供的，另
 3. 系统类加载器（AppClassLoader）：它根据 Java 应⽤的类路径（CLASSPATH）来加载Java 类。⼀般来说，Java 应⽤的类都是由它来完成加载的。可以通过ClassLoader.getSystemClassLoader()来获取它。
 
 ![](../../youdaonote-images/Pasted%20image%2020240618120523.png)
+
+# 常⽤架构的ClassLoader结构
+
+## 普通运⾏时JAR
+
+![](../../youdaonote-images/Pasted%20image%2020240618120710.png)
+
+## Spring Boot 运⾏时JAR
+
+![](../../youdaonote-images/Pasted%20image%2020240618120727.png)
+
+# Tomcat
+
+![](../../youdaonote-images/Pasted%20image%2020240618120744.png)
+
+
