@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "3-http协议监控",
+      "path": "java/监控系统/3-http协议监控.md"
+    },
+    {
       "basename": "2-服务监控与ClassLoader问题处理",
       "path": "java/监控系统/2-服务监控与ClassLoader问题处理.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "设计模式",
       "path": "系统设计/设计模式.md"
-    },
-    {
-      "basename": "Lottery 抽奖系统-领域开发",
-      "path": "java/抽奖系统/Lottery 抽奖系统-领域开发.md"
     }
   ],
   "omittedPaths": [],
