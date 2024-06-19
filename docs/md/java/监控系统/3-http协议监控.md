@@ -216,3 +216,58 @@ http api 调⽤有三种⽅式：
 
 ![](../../youdaonote-images/Pasted%20image%2020240620002839.png)
 
+通过分析，Http 调⽤实现并没有集中的点，只能针对这些框架⼀个个实现采集插桩，根据通⽤程度先实现URL采集监控。
+
+## URL Http调⽤分析
+
+先看来⼀段基于URL http调⽤代码，是基于输⼊输出流的⽅式，写⼊请求并读取结果。并没有具体的⽅法来控制参数的输⼊，与结果输出。
+
+```java
+URL url = new URL("https://www.baidu.com");
+URLConnection conn = url.openConnection();
+conn.connect();
+InputStream input = conn.getInputStream();
+byte[] bytes = IOUtils.readFully(input, -1, false);
+System.out.println(new String(bytes));
+```
+
+为了找到监控点，就必须深⼊URL的内部实现：
+
+![](../../youdaonote-images/Pasted%20image%2020240620005321.png)
+
+URL协议完整交互流程是：
+1. 构造URL对象，获取协议处理器(UrlStreamHandler)
+2. 处理器打开链连接(openConnection)
+3. 获取输出流，写⼊请求数据
+4. 获取输⼊流，读取结果
+只要在源头去控制 处理器的⽣成，就可以从头⾄尾代理整个URL的处理过程，并获取性能数据。
+
+![](../../youdaonote-images/Pasted%20image%2020240620005408.png)
+
+如何去控制处理器(UrlStreamHandler)对照像呢?有三种⽅式可构建处理器,优先级从⾼⾄低
+1. 基于⾃定义的 URLStreamHandlerFactory 获取
+2. 基于⾃定义包前缀获取:java.protocol.handler.pkgs
+3. 基于默认包前缀获取：sun.net.www.protocol
+
+为了保持统⼀ 在JVM进程中URL Handler只能被设置⼀次，URLStreamHandlerFactory 也只能被设置⼀次，多次设置会出现 "factory already defined" 的异常， 不确定业务⽅，或者第三⽅容器是否有调⽤该⽅法的需求，所以对该⽅法的调⽤存在兼容性的⻛险。这⾥我们可以⽤采⽤第⼆种⽅法的⽅式 来修改改UrlStreamHandler 实例。
+
+```java
+
+public class HttpProxy2 {  
+  
+    private static String PROTOCOL_HANDLER = "java.protocol.handler.pkgs";  
+    private static String HANDLERS_PACKAGE = "coderead.agent1.httpInvoker";  
+  
+    public static void registerProtocol() {  
+        String handlers = System.getProperty(PROTOCOL_HANDLER, "");  
+        System.setProperty(PROTOCOL_HANDLER,  
+                ((handlers == null || handlers.isEmpty()) ?  
+                        HANDLERS_PACKAGE : handlers + "|" + HANDLERS_PACKAGE));  
+    }  
+  
+  
+}
+
+
+
+```
