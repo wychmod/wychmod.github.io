@@ -203,6 +203,7 @@
   },
   "active": "251aab2b319241c2",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20240620001255.png",
     "java/监控系统/2-服务监控与ClassLoader问题处理.md",
     "java/监控系统/3-http协议监控.md",
     "youdaonote-images/Pasted image 20240618120744.png",
@@ -249,7 +250,6 @@
     "Python/Python源码剖析/Python源码剖析-1-对象模型.md",
     "Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md",
     "mysql/MySQL性能优化-架构.md",
-    "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md",
-    "Python/Python源码剖析/Python源码剖析-6-内建对象str.md"
+    "Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md"
   ]
 }
