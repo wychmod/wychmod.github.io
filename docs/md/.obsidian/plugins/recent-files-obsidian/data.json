@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "Java面试汇总",
+      "path": "面试/Java面试汇总.md"
+    },
+    {
       "basename": "3-http协议监控",
       "path": "java/监控系统/3-http协议监控.md"
     },
@@ -63,10 +67,6 @@
     {
       "basename": "软件测试基础知识",
       "path": "软件测试/测试基础/软件测试基础知识.md"
-    },
-    {
-      "basename": "Java面试汇总",
-      "path": "面试/Java面试汇总.md"
     },
     {
       "basename": "云原生应用架构",
