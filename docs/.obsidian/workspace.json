@@ -25,9 +25,9 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/AIcloud项目/4.MyBatisPlus学习资料.md",
-                "mode": "preview",
-                "source": true
+                "file": "md/java/AIcloud项目/5.JWT学习资料.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -112,7 +112,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/java/AIcloud项目/4.MyBatisPlus学习资料.md",
+                "file": "md/java/AIcloud项目/5.JWT学习资料.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -129,7 +129,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "md/java/AIcloud项目/4.MyBatisPlus学习资料.md",
+                "file": "md/java/AIcloud项目/5.JWT学习资料.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -152,7 +152,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "md/java/AIcloud项目/4.MyBatisPlus学习资料.md"
+                "file": "md/java/AIcloud项目/5.JWT学习资料.md"
               }
             }
           }
@@ -176,13 +176,15 @@
   },
   "active": "fbbbe3a41950664c",
   "lastOpenFiles": [
+    "md/youdaonote-images/Pasted image 20240714222348.png",
+    "md/java/AIcloud项目/4.MyBatisPlus学习资料.md",
+    "md/java/AIcloud项目/5.JWT学习资料.md",
     "md/youdaonote-images/Pasted image 20240713192727.png",
     "md/youdaonote-images/Pasted image 20240713192723.png",
     "md/youdaonote-images/Pasted image 20240713192718.png",
     "md/youdaonote-images/Pasted image 20240713192650.png",
     "md/youdaonote-images/Pasted image 20240713192612.png",
     "md/java/AIcloud项目/3.MinIO使用文档.md",
-    "md/java/AIcloud项目/4.MyBatisPlus学习资料.md",
     "md/youdaonote-images/Pasted image 20240709235611.png",
     "md/youdaonote-images/Pasted image 20240709235602.png",
     "md/java/AIcloud项目/2.SpringAI中文参考文档.md",
@@ -191,7 +193,6 @@
     "md/youdaonote-images/Pasted image 20240620005408.png",
     "md/youdaonote-images/Pasted image 20240620005321.png",
     "md/youdaonote-images/Pasted image 20240620002839.png",
-    "md/youdaonote-images/Pasted image 20240620001255.png",
     "md/java/监控系统/3-http协议监控.md",
     "md/java/监控系统/1-javaagent字节码插桩机制详解.md",
     "md/java/监控系统/2-服务监控与ClassLoader问题处理.md",
