@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "1. 消息系统架构",
+      "path": "md/java/统一消息系统/1. 消息系统架构.md"
+    },
+    {
       "basename": "3. 性能测试引擎的构建",
       "path": "md/java/自动化测试平台/3. 性能测试引擎的构建.md"
     },

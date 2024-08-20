@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
+                "file": "md/java/统一消息系统/1. 消息系统架构.md",
                 "mode": "source",
                 "source": false
               }
@@ -112,7 +112,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
+                "file": "md/java/统一消息系统/1. 消息系统架构.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -129,7 +129,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
+                "file": "md/java/统一消息系统/1. 消息系统架构.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -152,7 +152,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "md/java/自动化测试平台/3. 性能测试引擎的构建.md"
+                "file": "md/java/统一消息系统/1. 消息系统架构.md"
               }
             }
           }
@@ -174,11 +174,13 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d629d094469d6b1b",
+  "active": "fbbbe3a41950664c",
   "lastOpenFiles": [
+    "md/youdaonote-images/Pasted image 20240821004604.png",
+    "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
+    "md/java/统一消息系统/1. 消息系统架构.md",
     "md/java/统一消息系统",
     "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
-    "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/java/自动化测试平台/1. 测试平台架构.md",
     "md/youdaonote-images/Pasted image 20240729235501.png",
     "md/博客写作内容/架构图如何画.md",
