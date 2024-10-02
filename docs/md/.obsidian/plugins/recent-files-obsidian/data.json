@@ -191,14 +191,6 @@
     {
       "basename": "3-原理篇",
       "path": "Redis/3-原理篇.md"
-    },
-    {
-      "basename": "MySQL性能优化-索引",
-      "path": "mysql/MySQL性能优化-索引.md"
-    },
-    {
-      "basename": "设计模式",
-      "path": "系统设计/设计模式.md"
     }
   ],
   "omittedPaths": [],
