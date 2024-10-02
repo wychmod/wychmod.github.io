@@ -92,7 +92,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5
+    "width": 392.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -202,6 +203,7 @@
   },
   "active": "d1004f12ae57f23c",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20241002151849.png",
     "java/手写RPC/1-RPC架构设计.md",
     "java/手写RPC",
     "博客写作内容/架构图如何画.md",
@@ -248,7 +250,6 @@
     "软件测试/测试全链路",
     "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md",
     "软件测试/jacoco",
-    "人工智能/gpt大模型应用/2-大模型开发基础：OpenAI Embedding.md",
-    "人工智能/gpt大模型应用/1-大模型基础：理论与技术的演进.md"
+    "人工智能/gpt大模型应用/2-大模型开发基础：OpenAI Embedding.md"
   ]
 }
