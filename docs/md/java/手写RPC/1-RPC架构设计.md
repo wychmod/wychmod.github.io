@@ -69,3 +69,5 @@ RPC框架最主要的功能就是实现RPC远程过程调用，涉及到远程�
 据或者超时异常后，会执行Callback回调。一般在定义和实现Callback接口时，都要实现处理成功
 的方法和异常方法。例如success(Object result)方法和fail(Exception e)方法。
 
+![](../../youdaonote-images/Pasted%20image%2020241004010832.png)
+
