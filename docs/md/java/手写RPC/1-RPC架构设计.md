@@ -103,61 +103,37 @@ JDK动态代理在运行时可以动态生成代理对象，但是使用JDK动�
 
 Cglib动态代理是通过ASM字节码生成框架实现的，通过ASM字节码技术生成代理类，并且生成的代理类会继承被代理类，所以，代理类的类型不受限制。因为生成的代理类会继承被代理类，这就要求被代理类不能使用final关键字修饰。Cglib动态代理是通过FastClass利用index索引直接定位要调用的方法进行直接调用，在性能上比JDK动态代理高。
 
-
-#### 6.3 Javassist和ASM
-
-  
+### 6.3 Javassist和ASM
 
 Javassist和ASM都是操作Java字节码的框架，使用这两个框架时，需要开发人员对Class文件的结构以及一些JVM的知识有所了解。但是这两种框架生成的代理对象的执行性能都比反射要高。
 
-  
-
-#### 6.4 Byte Buddy
-
-  
+### 6.4 Byte Buddy
 
 Byte Buddy也是一个操作字节码的类库，Byte Buddy的功能强大，相比Javassist和ASM来说，Byte Buddy提供了更加方便的API来创建和修改Java的字节码，并且使用Byte Buddy时，不需要理解字节码的格式，性能也更加优越。
 
-  
-
-### 7.负载均衡
-
-  
+## 7.负载均衡
 
 在分布式系统中，往往服务提供者和服务消费者都不会存在单点的情况，二者在实现上都会存在多个节点，那服务消费者如何从多个服务提供者节点中选择一个进行远程调用呢？这就要求RPC框架在实现上支持负载均衡。
 
-  
 
 在RPC框架的实现中，负载均衡策略和算法也是影响RPC框架吞吐量的一个重要因素。常用的负载均衡算法包括：轮询（Round-Robin）、加权轮询（Weighted Round-Robin）、最少连接数（Least Connections）、一致性Hash（Consistent Hash）。
 
-  
 
-#### 7.1 轮询（Round-Robin）
-
-  
+### 7.1 轮询（Round-Robin）
 
 轮询（Round-Robin）负载均衡算法是依次轮询服务提供者节点，并且不会考虑服务提供者节点的实际负载情况。
 
-  
-
-#### 7.2 加权轮询（Weighted Round-Robin）
-
-  
+### 7.2 加权轮询（Weighted Round-Robin）
 
 加权轮询（Weighted Round-Robin）负载均衡算法在轮询（Round-Robin）算法的基础上，为每个服务提供者节点增加了权重系数，根据权重系数来为每个服务提供者节点分配不同比例的流量。并且权重系数可以根据服务提供者节点的实时负载情况进行调整，使集群节点的负载相对来说比较均衡。
 
-  
+### 7.3 最少连接数（Least Connections）
 
-#### 7.3 最少连接数（Least Connections）
-
-  
 
 最少连接数（Least Connections）负载均衡算法是服务消费者根据服务提供者节点当前的连接数进行负载均衡，服务消费者会选择连接数最少的一个服务提供者节点进行调用。
 
-  
-
-#### 7.4 一致性Hash（Consistent Hash）
-
-  
+### 7.4 一致性Hash（Consistent Hash）
 
 一致性Hash（Consistent Hash）负载均衡算法是一种特殊的Hash算法，它在逻辑上采用Hash环实现，通过Hash算法将对象和服务提供者节点放在Hash环上，为对象选择对应的服务提供者节点，例如，在Hash环上按照顺时针查找距离对象的Hash值最近的服务提供者节点。使用一致性Hash算法使得当服务提供者上线或下线时，不会造成Hash环上对象的大规模移动。
+
+
