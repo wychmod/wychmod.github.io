@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "90ec18b768bb3b1d",
+        "id": "86a5aa060c082b59",
         "type": "tabs",
         "children": [
           {
-            "id": "fbbbe3a41950664c",
+            "id": "c8c3dc699531197a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/统一消息系统/1. 消息系统架构.md",
+                "file": "md/java/手写RPC/2-RPC设计实现.md",
                 "mode": "source",
                 "source": false
               }
@@ -99,7 +99,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/java/统一消息系统/1. 消息系统架构.md",
+                "file": "md/java/手写RPC/2-RPC设计实现.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +116,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "md/java/统一消息系统/1. 消息系统架构.md",
+                "file": "md/java/手写RPC/2-RPC设计实现.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -139,7 +139,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "md/java/统一消息系统/1. 消息系统架构.md"
+                "file": "md/java/手写RPC/2-RPC设计实现.md"
               }
             }
           }
@@ -161,10 +161,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "fbbbe3a41950664c",
+  "active": "c8c3dc699531197a",
   "lastOpenFiles": [
-    "md/博客写作内容/南方旅行.md",
     "md/java/统一消息系统/1. 消息系统架构.md",
+    "md/博客写作内容/南方旅行.md",
     "md/youdaonote-images/Pasted image 20240821004604.png",
     "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/java/统一消息系统",
