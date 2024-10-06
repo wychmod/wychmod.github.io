@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/手写RPC/1-RPC架构设计.md",
+                "file": "java/手写RPC/2-RPC设计实现.md",
                 "mode": "source",
                 "source": false
               }
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5,
-    "collapsed": true
+    "width": 392.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -109,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/手写RPC/1-RPC架构设计.md",
+                "file": "java/手写RPC/2-RPC设计实现.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +125,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/手写RPC/1-RPC架构设计.md",
+                "file": "java/手写RPC/2-RPC设计实现.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/手写RPC/1-RPC架构设计.md"
+                "file": "java/手写RPC/2-RPC设计实现.md"
               }
             }
           },
@@ -203,12 +202,13 @@
   },
   "active": "d1004f12ae57f23c",
   "lastOpenFiles": [
+    "java/手写RPC/1-RPC架构设计.md",
+    "java/手写RPC/2-RPC设计实现.md",
     "youdaonote-images/Pasted image 20241005081105.png",
     "youdaonote-images/Pasted image 20241004010832.png",
     "youdaonote-images/Pasted image 20241004010632.png",
     "youdaonote-images/Pasted image 20241004010512.png",
     "youdaonote-images/Pasted image 20241002151849.png",
-    "java/手写RPC/1-RPC架构设计.md",
     "java/手写RPC",
     "博客写作内容/架构图如何画.md",
     "youdaonote-images/Pasted image 20240821004604.png",
@@ -216,7 +216,6 @@
     "youdaonote-images/Pasted image 20240729235318.png",
     "youdaonote-images/Pasted image 20240729235139.png",
     "youdaonote-images/Pasted image 20240714222512.png",
-    "youdaonote-images/Pasted image 20240714222348.png",
     "java/自动化测试平台/3. 性能测试引擎的构建.md",
     "java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
     "java/自动化测试平台/1. 测试平台架构.md",
