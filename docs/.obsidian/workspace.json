@@ -16,7 +16,9 @@
                 "file": "md/java/手写RPC-netty/1.Netty入门.md",
                 "mode": "source",
                 "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "1.Netty入门"
             }
           }
         ]
@@ -39,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
             }
           },
           {
@@ -54,7 +58,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
             }
           },
           {
@@ -62,7 +68,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
             }
           }
         ]
@@ -76,7 +84,9 @@
             "type": "leaf",
             "state": {
               "type": "recent-files",
-              "state": {}
+              "state": {},
+              "icon": "clock",
+              "title": "Recent Files"
             }
           }
         ]
@@ -107,7 +117,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "1.Netty入门 的反向链接列表"
             }
           },
           {
@@ -119,7 +131,9 @@
                 "file": "md/java/手写RPC-netty/1.Netty入门.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "1.Netty入门 的出链列表"
             }
           },
           {
@@ -130,7 +144,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
             }
           },
           {
@@ -140,7 +156,9 @@
               "type": "outline",
               "state": {
                 "file": "md/java/手写RPC-netty/1.Netty入门.md"
-              }
+              },
+              "icon": "lucide-list",
+              "title": "1.Netty入门 的大纲"
             }
           }
         ]
@@ -163,6 +181,8 @@
   },
   "active": "c8c3dc699531197a",
   "lastOpenFiles": [
+    "md/youdaonote-images/image-20211017174533658.png",
+    "md/youdaonote-images/image-20211011205715492.png",
     "md/youdaonote-images/image-20211011204533693.png",
     "md/youdaonote-images/image-20211011195026941.png",
     "md/youdaonote-images/image-20211010204520156.png",
@@ -182,11 +202,9 @@
     "md/youdaonote-images/Pasted image 20240729235501.png",
     "md/博客写作内容/架构图如何画.md",
     "md/youdaonote-images/Pasted image 20240729235318.png",
-    "md/youdaonote-images/Pasted image 20240729235139.png",
     "md/java/AIcloud项目/6.SpringSecurity使用.md",
     "md/java/自动化测试平台",
     "md/java/AIcloud项目/5.JWT学习资料.md",
-    "md/youdaonote-images/Pasted image 20240714222512.png",
     "md/java/AIcloud项目/4.MyBatisPlus学习资料.md",
     "md/java/AIcloud项目/3.MinIO使用文档.md",
     "md/java/AIcloud项目/2.SpringAI中文参考文档.md",
