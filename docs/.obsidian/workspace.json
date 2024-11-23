@@ -35,8 +35,7 @@
               "title": "Java面试汇总"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -194,10 +193,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "b5b847a29a3fef89",
+  "active": "c8c3dc699531197a",
   "lastOpenFiles": [
-    "md/java/手写RPC-netty/1.Netty入门.md",
     "md/面试/Java面试汇总.md",
+    "md/java/手写RPC-netty/1.Netty入门.md",
     "md/youdaonote-images/image-20211017174533658.png",
     "md/youdaonote-images/image-20211011205715492.png",
     "md/youdaonote-images/image-20211011204533693.png",

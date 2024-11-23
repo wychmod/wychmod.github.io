@@ -1,12 +1,12 @@
 {
   "recentFiles": [
     {
-      "basename": "Java面试汇总",
-      "path": "md/面试/Java面试汇总.md"
-    },
-    {
       "basename": "1.Netty入门",
       "path": "md/java/手写RPC-netty/1.Netty入门.md"
+    },
+    {
+      "basename": "Java面试汇总",
+      "path": "md/面试/Java面试汇总.md"
     },
     {
       "basename": "2-RPC设计实现",
