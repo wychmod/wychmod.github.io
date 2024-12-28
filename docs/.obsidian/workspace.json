@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/手写RPC-netty/1.Netty入门.md",
+                "file": "md/java/手写mysql/1.表、索引、事务和锁.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1.Netty入门"
+              "title": "1.表、索引、事务和锁"
             }
           },
           {
@@ -195,19 +195,20 @@
   },
   "active": "c8c3dc699531197a",
   "lastOpenFiles": [
+    "md/java/手写RPC-netty/1.Netty入门.md",
+    "md/java/手写mysql/1.表、索引、事务和锁.md",
+    "md/java/手写mysql",
     "md/youdaonote-images/image-20211022113956631.png",
     "md/youdaonote-images/image-20211021180235057.png",
     "md/youdaonote-images/image-20211021175117874.png",
     "md/youdaonote-images/image-20211021172950973.png",
     "md/youdaonote-images/image-20211021165201859.png",
     "md/面试/Java面试汇总.md",
-    "md/java/手写RPC-netty/1.Netty入门.md",
     "md/youdaonote-images/image-20211017174533658.png",
     "md/youdaonote-images/image-20211011205715492.png",
     "md/youdaonote-images/image-20211011204533693.png",
     "md/youdaonote-images/image-20211011195026941.png",
     "md/youdaonote-images/image-20211010204520156.png",
-    "md/youdaonote-images/image-20211010200211732.png",
     "md/java/手写RPC/2-RPC设计实现.md",
     "md/java/手写RPC-netty",
     "md/java/统一消息系统/1. 消息系统架构.md",
