@@ -1,6 +1,6 @@
 {
 	"nodes":[
-		{"id":"c21357d2758e71ba","x":-260,"y":-52,"width":480,"height":50,"type":"text","text":""},
+		{"id":"c21357d2758e71ba","x":-260,"y":-100,"width":480,"height":98,"color":"1","type":"text","text":"Y25：\n- 日常：保障工作中的突出表现，保证年度晋升\n- 大局：以掌握技能、创造产品"},
 		{"id":"1810f3a2aedd732c","type":"text","text":"","x":-260,"y":240,"width":240,"height":242},
 		{"id":"871e2692bb7e8754","x":-260,"y":-2,"width":240,"height":242,"type":"text","text":""},
 		{"id":"dffeb0d04221ea4c","type":"text","text":"","x":-20,"y":-2,"width":240,"height":242},
