@@ -2,8 +2,8 @@
 	"nodes":[
 		{"id":"c21357d2758e71ba","x":-260,"y":-120,"width":580,"height":118,"color":"1","type":"text","text":"Y25：\n- 日常：保障工作中的突出表现，保证年度晋升\n- 大局：以掌握技能、创造产品、摄影采风为目标"},
 		{"id":"1810f3a2aedd732c","type":"text","text":"","x":-260,"y":240,"width":300,"height":242},
-		{"id":"871e2692bb7e8754","x":-260,"y":-2,"width":300,"height":242,"type":"text","text":"A1\n- 公司：完成第一次晋升\n- "},
-		{"id":"dffeb0d04221ea4c","type":"text","text":"","x":40,"y":-2,"width":280,"height":242},
+		{"id":"871e2692bb7e8754","x":-260,"y":-2,"width":300,"height":242,"type":"text","text":"A1\n基本目标\n- 公司：完成第一次晋升\n- 完成mini-mysql项目的学习\n- 完成产品设计\n\n进阶目标\n- 完成网关项目"},
+		{"id":"dffeb0d04221ea4c","type":"text","text":"A2\n基本目标\n - 完成产品的初版开发\n - 完成网关项目\n - 完成rpc项目\n 进阶目标\n - 产品优化推广","x":40,"y":-2,"width":280,"height":242},
 		{"id":"5e6dd68bd1b8a949","type":"text","text":"","x":40,"y":240,"width":280,"height":242}
 	],
 	"edges":[]
