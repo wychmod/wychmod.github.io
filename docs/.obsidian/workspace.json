@@ -4,21 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "ff1873e0d0dd07c5",
+        "id": "75e50d2bfeb8d0a8",
         "type": "tabs",
         "children": [
           {
-            "id": "fddfc2639ad2bc1e",
+            "id": "b0953a2abfca29a4",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "md/mysql/MySQL性能优化-索引.md",
-                "mode": "source",
-                "source": false
+                "file": "md/2025年计划.canvas",
+                "viewState": {
+                  "x": -140,
+                  "y": 398,
+                  "zoom": 0
+                }
               },
-              "icon": "lucide-file",
-              "title": "MySQL性能优化-索引"
+              "icon": "lucide-layout-dashboard",
+              "title": "2025年计划"
             }
           }
         ]
@@ -52,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "frm",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,8 +76,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "ebd46d0531aa4c3c",
@@ -180,8 +182,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "fddfc2639ad2bc1e",
+  "active": "b0953a2abfca29a4",
   "lastOpenFiles": [
+    "md/2025年计划.canvas",
+    "md/mysql/MySQL性能优化-索引.md",
     "md/java/手写RPC-netty/1.Netty入门.md",
     "md/面试/Java面试汇总.md",
     "md/java/手写mysql/1.表、索引、事务和锁.md",
@@ -221,7 +225,6 @@
     "md/博客写作内容/环球影城.md",
     "md/mysql/手写数据库.md",
     "md/mysql/MySQL性能优化-总结.md",
-    "md/mysql/MySQL是怎样运行的.md",
-    "md/mysql/MySQL性能优化-索引.md"
+    "md/mysql/MySQL是怎样运行的.md"
   ]
 }
