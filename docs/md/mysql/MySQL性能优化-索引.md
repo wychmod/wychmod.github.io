@@ -113,7 +113,7 @@ show VARIABLES LIKE 'datadir';
 ```
 
 每张InnoDB的表有两个文件(.frm和.ibd),MylSAM的表有三个文件(.frm、.MYD、.MYI) 
-.frm是MySQL里面表结构定义的文件，不管你建表的时候选用任何一个存储引擎都会生成
+.frm是MySQL里面表结构定义的文件（8.0以前）8.0以后都存在数据字典中了，不管你建表的时候选用任何一个存储引擎都会生成
 
 ### 3.1.1 MyISAM
 

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/手写RPC-netty/1.Netty入门.md",
+                "file": "md/mysql/MySQL性能优化-索引.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1.Netty入门"
+              "title": "MySQL性能优化-索引"
             }
           }
         ]
@@ -52,7 +52,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "间隙锁",
+                "query": "frm",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -182,8 +182,8 @@
   },
   "active": "fddfc2639ad2bc1e",
   "lastOpenFiles": [
-    "md/面试/Java面试汇总.md",
     "md/java/手写RPC-netty/1.Netty入门.md",
+    "md/面试/Java面试汇总.md",
     "md/java/手写mysql/1.表、索引、事务和锁.md",
     "md/java/手写mysql",
     "md/youdaonote-images/image-20211022113956631.png",
