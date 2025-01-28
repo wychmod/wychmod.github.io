@@ -13,28 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/手写RPC/2-RPC设计实现.md",
-                "mode": "source",
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2-RPC设计实现"
-            }
-          },
-          {
-            "id": "a6b2a5ed7669e90d",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.7.7"
-              },
-              "icon": "lucide-file",
-              "title": "Release Notes 1.7.7"
+              "title": "1-javaagent字节码插桩机制详解"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -117,7 +104,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 392.5
+    "width": 276.5
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -133,6 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -142,7 +130,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "反向链接"
+              "title": "1-javaagent字节码插桩机制详解 的反向链接列表"
             }
           },
           {
@@ -151,11 +139,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "出链"
+              "title": "1-javaagent字节码插桩机制详解 的出链列表"
             }
           },
           {
@@ -186,9 +175,11 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {},
+              "state": {
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md"
+              },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "1-javaagent字节码插桩机制详解 的大纲"
             }
           },
           {
@@ -235,8 +226,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "62b967b1bdf672ea",
+  "active": "d1004f12ae57f23c",
   "lastOpenFiles": [
+    "java/手写RPC/2-RPC设计实现.md",
+    "软件测试/jacoco/jacoco工具.md",
     "软件测试/chrome插件设计/测试助手chrome插件设计文档.md",
     "软件测试/chrome插件设计",
     "youdaonote-images/image-20211022113956631.png",
@@ -253,7 +246,6 @@
     "java/手写RPC-netty",
     "2025年计划.canvas",
     "java/手写RPC/1-RPC架构设计.md",
-    "java/手写RPC/2-RPC设计实现.md",
     "java/手写RPC",
     "博客写作内容/架构图如何画.md",
     "java/自动化测试平台/3. 性能测试引擎的构建.md",
@@ -284,7 +276,6 @@
     "博客写作内容/大论文/未命名",
     "博客写作内容/大论文",
     "未命名",
-    "软件测试/jacoco/jacoco工具.md",
     "软件测试/测试全链路/测试全链路.md"
   ]
 }
