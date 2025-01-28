@@ -4,19 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "90ec18b768bb3b1d",
+        "id": "75e50d2bfeb8d0a8",
         "type": "tabs",
         "children": [
           {
-            "id": "fbbbe3a41950664c",
+            "id": "b0953a2abfca29a4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/统一消息系统/1. 消息系统架构.md",
+                "file": "md/软件测试/chrome插件设计/测试助手chrome插件设计文档.md",
                 "mode": "source",
                 "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "测试助手chrome插件设计文档"
             }
           }
         ]
@@ -39,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
             }
           },
           {
@@ -54,7 +58,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
             }
           },
           {
@@ -62,7 +68,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
             }
           }
         ]
@@ -76,7 +84,9 @@
             "type": "leaf",
             "state": {
               "type": "recent-files",
-              "state": {}
+              "state": {},
+              "icon": "clock",
+              "title": "Recent Files"
             }
           }
         ]
@@ -99,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/java/统一消息系统/1. 消息系统架构.md",
+                "file": "md/java/手写RPC-netty/1.Netty入门.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -107,7 +117,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "1.Netty入门 的反向链接列表"
             }
           },
           {
@@ -116,10 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "md/java/统一消息系统/1. 消息系统架构.md",
+                "file": "md/java/手写RPC-netty/1.Netty入门.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "1.Netty入门 的出链列表"
             }
           },
           {
@@ -130,7 +144,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
             }
           },
           {
@@ -139,8 +155,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "md/java/统一消息系统/1. 消息系统架构.md"
-              }
+                "file": "md/java/手写RPC-netty/1.Netty入门.md"
+              },
+              "icon": "lucide-list",
+              "title": "1.Netty入门 的大纲"
             }
           }
         ]
@@ -161,29 +179,40 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "fbbbe3a41950664c",
+  "active": "b0953a2abfca29a4",
   "lastOpenFiles": [
-    "md/博客写作内容/南方旅行.md",
+    "md/2025年计划.canvas",
+    "md/软件测试/chrome插件设计/测试助手chrome插件设计文档.md",
+    "md/软件测试/chrome插件设计",
+    "md/未命名",
+    "md/mysql/MySQL性能优化-索引.md",
+    "md/java/手写RPC-netty/1.Netty入门.md",
+    "md/面试/Java面试汇总.md",
+    "md/java/手写mysql/1.表、索引、事务和锁.md",
+    "md/java/手写mysql",
+    "md/youdaonote-images/image-20211022113956631.png",
+    "md/youdaonote-images/image-20211021180235057.png",
+    "md/youdaonote-images/image-20211021175117874.png",
+    "md/youdaonote-images/image-20211021172950973.png",
+    "md/youdaonote-images/image-20211021165201859.png",
+    "md/youdaonote-images/image-20211017174533658.png",
+    "md/youdaonote-images/image-20211011205715492.png",
+    "md/youdaonote-images/image-20211011204533693.png",
+    "md/youdaonote-images/image-20211011195026941.png",
+    "md/youdaonote-images/image-20211010204520156.png",
+    "md/java/手写RPC/2-RPC设计实现.md",
+    "md/java/手写RPC-netty",
     "md/java/统一消息系统/1. 消息系统架构.md",
-    "md/youdaonote-images/Pasted image 20240821004604.png",
+    "md/博客写作内容/南方旅行.md",
     "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/java/统一消息系统",
     "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
     "md/java/自动化测试平台/1. 测试平台架构.md",
-    "md/youdaonote-images/Pasted image 20240729235501.png",
     "md/博客写作内容/架构图如何画.md",
-    "md/youdaonote-images/Pasted image 20240729235318.png",
-    "md/youdaonote-images/Pasted image 20240729235139.png",
     "md/java/AIcloud项目/6.SpringSecurity使用.md",
     "md/java/自动化测试平台",
     "md/java/AIcloud项目/5.JWT学习资料.md",
-    "md/youdaonote-images/Pasted image 20240714222512.png",
-    "md/youdaonote-images/Pasted image 20240714222348.png",
     "md/java/AIcloud项目/4.MyBatisPlus学习资料.md",
-    "md/youdaonote-images/Pasted image 20240713192727.png",
-    "md/youdaonote-images/Pasted image 20240713192723.png",
-    "md/youdaonote-images/Pasted image 20240713192718.png",
-    "md/youdaonote-images/Pasted image 20240713192650.png",
     "md/java/AIcloud项目/3.MinIO使用文档.md",
     "md/java/AIcloud项目/2.SpringAI中文参考文档.md",
     "md/java/AIcloud项目/1.项目基本信息和亮点.md",
@@ -195,8 +224,6 @@
     "md/博客写作内容/南方南方.md",
     "md/博客写作内容/环球影城.md",
     "md/mysql/手写数据库.md",
-    "md/mysql/MySQL性能优化-总结.md",
-    "md/mysql/MySQL是怎样运行的.md",
-    "md/mysql/MySQL性能优化-索引.md"
+    "md/mysql/MySQL性能优化-总结.md"
   ]
 }

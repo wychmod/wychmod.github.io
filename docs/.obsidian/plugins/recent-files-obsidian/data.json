@@ -1,6 +1,30 @@
 {
   "recentFiles": [
     {
+      "basename": "测试助手chrome插件设计文档",
+      "path": "md/软件测试/chrome插件设计/测试助手chrome插件设计文档.md"
+    },
+    {
+      "basename": "2025年计划",
+      "path": "md/2025年计划.canvas"
+    },
+    {
+      "basename": "MySQL性能优化-索引",
+      "path": "md/mysql/MySQL性能优化-索引.md"
+    },
+    {
+      "basename": "1.Netty入门",
+      "path": "md/java/手写RPC-netty/1.Netty入门.md"
+    },
+    {
+      "basename": "Java面试汇总",
+      "path": "md/面试/Java面试汇总.md"
+    },
+    {
+      "basename": "2-RPC设计实现",
+      "path": "md/java/手写RPC/2-RPC设计实现.md"
+    },
+    {
       "basename": "1. 消息系统架构",
       "path": "md/java/统一消息系统/1. 消息系统架构.md"
     },
@@ -67,10 +91,6 @@
     {
       "basename": "MySQL是怎样运行的",
       "path": "md/mysql/MySQL是怎样运行的.md"
-    },
-    {
-      "basename": "MySQL性能优化-索引",
-      "path": "md/mysql/MySQL性能优化-索引.md"
     }
   ],
   "omittedPaths": [],
