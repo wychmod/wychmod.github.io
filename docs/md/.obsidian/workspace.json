@@ -13,10 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/手写RPC/2-RPC设计实现.md",
-                "mode": "source",
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
+                "mode": "preview",
                 "source": false
-              }
+              },
+              "icon": "lucide-file",
+              "title": "1-javaagent字节码插桩机制详解"
             }
           }
         ]
@@ -44,7 +46,9 @@
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
             }
           },
           {
@@ -54,7 +58,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical"
-              }
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
             }
           },
           {
@@ -62,7 +68,9 @@
             "type": "leaf",
             "state": {
               "type": "starred",
-              "state": {}
+              "state": {},
+              "icon": "lucide-file",
+              "title": "插件不再活动"
             }
           },
           {
@@ -70,7 +78,9 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {}
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
             }
           }
         ],
@@ -85,14 +95,17 @@
             "type": "leaf",
             "state": {
               "type": "recent-files",
-              "state": {}
+              "state": {},
+              "icon": "clock",
+              "title": "Recent Files"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 392.5
+    "width": 276.5,
+    "collapsed": true
   },
   "right": {
     "id": "86b8855ffb1e2918",
@@ -108,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java/手写RPC/2-RPC设计实现.md",
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -116,7 +129,9 @@
                 "searchQuery": "",
                 "backlinkCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-coming-in",
+              "title": "1-javaagent字节码插桩机制详解 的反向链接列表"
             }
           },
           {
@@ -125,10 +140,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "java/手写RPC/2-RPC设计实现.md",
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
-              }
+              },
+              "icon": "links-going-out",
+              "title": "1-javaagent字节码插桩机制详解 的出链列表"
             }
           },
           {
@@ -139,7 +156,9 @@
               "state": {
                 "sortOrder": "frequency",
                 "useHierarchy": true
-              }
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
             }
           },
           {
@@ -147,7 +166,9 @@
             "type": "leaf",
             "state": {
               "type": "advanced-tables-toolbar",
-              "state": {}
+              "state": {},
+              "icon": "spreadsheet",
+              "title": "Advanced Tables"
             }
           },
           {
@@ -156,8 +177,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java/手写RPC/2-RPC设计实现.md"
-              }
+                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md"
+              },
+              "icon": "lucide-list",
+              "title": "1-javaagent字节码插桩机制详解 的大纲"
             }
           },
           {
@@ -165,7 +188,9 @@
             "type": "leaf",
             "state": {
               "type": "git-view",
-              "state": {}
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
             }
           },
           {
@@ -177,7 +202,9 @@
                 "sortOrder": "frequency",
                 "showSearch": false,
                 "searchQuery": ""
-              }
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
             }
           }
         ],
@@ -202,20 +229,26 @@
   },
   "active": "d1004f12ae57f23c",
   "lastOpenFiles": [
-    "java/手写RPC/1-RPC架构设计.md",
     "java/手写RPC/2-RPC设计实现.md",
-    "youdaonote-images/Pasted image 20241005081105.png",
-    "youdaonote-images/Pasted image 20241004010832.png",
-    "youdaonote-images/Pasted image 20241004010632.png",
-    "youdaonote-images/Pasted image 20241004010512.png",
-    "youdaonote-images/Pasted image 20241002151849.png",
+    "软件测试/jacoco/jacoco工具.md",
+    "软件测试/chrome插件设计/测试助手chrome插件设计文档.md",
+    "软件测试/chrome插件设计",
+    "youdaonote-images/image-20211022113956631.png",
+    "youdaonote-images/image-20211021180235057.png",
+    "youdaonote-images/image-20211021175117874.png",
+    "youdaonote-images/image-20211021172950973.png",
+    "youdaonote-images/image-20211021165201859.png",
+    "youdaonote-images/image-20211017174533658.png",
+    "youdaonote-images/image-20211011205715492.png",
+    "youdaonote-images/image-20211011204533693.png",
+    "youdaonote-images/image-20211011195026941.png",
+    "youdaonote-images/image-20211010204520156.png",
+    "java/手写RPC-netty/1.Netty入门.md",
+    "java/手写RPC-netty",
+    "2025年计划.canvas",
+    "java/手写RPC/1-RPC架构设计.md",
     "java/手写RPC",
     "博客写作内容/架构图如何画.md",
-    "youdaonote-images/Pasted image 20240821004604.png",
-    "youdaonote-images/Pasted image 20240729235501.png",
-    "youdaonote-images/Pasted image 20240729235318.png",
-    "youdaonote-images/Pasted image 20240729235139.png",
-    "youdaonote-images/Pasted image 20240714222512.png",
     "java/自动化测试平台/3. 性能测试引擎的构建.md",
     "java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
     "java/自动化测试平台/1. 测试平台架构.md",
@@ -244,11 +277,6 @@
     "博客写作内容/大论文/未命名",
     "博客写作内容/大论文",
     "未命名",
-    "软件测试/jacoco/jacoco工具.md",
-    "软件测试/测试全链路/测试全链路.md",
-    "软件测试/测试全链路",
-    "软件测试/chrome浏览器使用技巧/chrome浏览器使用技巧.md",
-    "软件测试/jacoco",
-    "人工智能/gpt大模型应用/2-大模型开发基础：OpenAI Embedding.md"
+    "软件测试/测试全链路/测试全链路.md"
   ]
 }
