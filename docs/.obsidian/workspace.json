@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "2-服务监控与ClassLoader问题处理"
             }
+          },
+          {
+            "id": "b6ff437de0afb5a2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "md/软件测试/chrome插件设计/测试助手chrome插件设计文档.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "测试助手chrome插件设计文档"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -40,7 +55,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
@@ -179,7 +195,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d629d094469d6b1b",
+  "active": "b6ff437de0afb5a2",
   "lastOpenFiles": [
     "md/软件测试/chrome插件设计/测试助手chrome插件设计文档.md",
     "md/2025年计划.canvas",
