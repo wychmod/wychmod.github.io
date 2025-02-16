@@ -163,7 +163,7 @@ Java 中的类加载器⼤致可以分成两类，⼀类是系统提供的，另
 
 # 常⽤架构的ClassLoader结构
 
-## 普通运⾏时JAR
+## IDEA运⾏时JAR
 
 ![](../../youdaonote-images/Pasted%20image%2020240618120710.png)
 
