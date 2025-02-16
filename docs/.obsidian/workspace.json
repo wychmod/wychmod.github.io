@@ -35,8 +35,7 @@
               "title": "测试助手chrome插件设计文档"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -195,7 +194,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "b6ff437de0afb5a2",
+  "active": "b0953a2abfca29a4",
   "lastOpenFiles": [
     "md/软件测试/chrome插件设计/测试助手chrome插件设计文档.md",
     "md/2025年计划.canvas",
