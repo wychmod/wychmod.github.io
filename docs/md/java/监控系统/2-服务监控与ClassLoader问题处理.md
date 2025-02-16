@@ -173,6 +173,10 @@ Java 中的类加载器⼤致可以分成两类，⼀类是系统提供的，另
 
 # Tomcat
 打破了双亲委派，可以先访问下面的包
+// tomcat 中可行，在Spring boot中不可行,下面为tomcat类加载器结构  
+// tomcat打破了双亲委派，可以先找自己的类，找不到再去父类加载器中找  
+// 这个时候mybatis和agent都加载在WebappClassLoader，便能互相调用正确  
+addURL.invoke(urlClassLoader, new URL(path));
 
 ![](../../youdaonote-images/Pasted%20image%2020240618120744.png)
 
