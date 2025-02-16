@@ -172,6 +172,7 @@ Java 中的类加载器⼤致可以分成两类，⼀类是系统提供的，另
 ![](../../youdaonote-images/Pasted%20image%2020240618120727.png)
 
 # Tomcat
+打破了双亲委派，可以先访问下面的包
 
 ![](../../youdaonote-images/Pasted%20image%2020240618120744.png)
 
