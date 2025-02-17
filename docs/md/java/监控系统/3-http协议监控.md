@@ -17,7 +17,7 @@
 
 ![](../../youdaonote-images/Pasted%20image%2020240620001255.png)
 
-Http 服务实现分为两部分， ⼀种是⽀持Servlet规范的，另⼀种是不⽀持Servlet规范的第三⽅实现，绝⼤部分业务都是基于⼀种实现的，所以不⽀持Servlet规范基本先不考虑。在Servlet规范这边，⼜划分成Mvc框架层、Servlet层、容器层，除了中间Servlet层其它两层的实现都是多样的，为了保证通⽤性在Servlet层插桩是最佳选择。
+Http 服务实现分为两部分， ⼀种是⽀持Servlet规范的，另⼀种是不⽀持Servlet规范的第三⽅实现，绝⼤部分业务都是基于⼀种实现的，所以不⽀持Servlet规范基本先不考虑。在Servlet规范这边，⼜划分成Mvc框架层、Servlet层、容器层，除了中间Servlet层其它两层的实现都是多样的，为了**保证通⽤性在Servlet层插桩是最佳选择。**
 
 ## Servlet 插桩的实现
 
