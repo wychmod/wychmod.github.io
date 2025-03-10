@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/软件测试/chrome插件设计/网页标签管理设计文档.md",
+                "file": "md/博客写作内容/摄影.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "网页标签管理设计文档"
+              "title": "摄影"
             }
           }
         ],
@@ -197,13 +197,14 @@
   },
   "active": "b6ff437de0afb5a2",
   "lastOpenFiles": [
+    "md/软件测试/chrome插件设计/网页标签管理设计文档.md",
+    "md/博客写作内容/摄影.md",
     "md/youdaonote-images/Pasted image 20250303010024.png",
     "md/youdaonote-images/Pasted image 20250303002856.png",
     "md/youdaonote-images/Pasted image 20250223230641.png",
     "md/youdaonote-images/Pasted image 20250223225305.png",
     "md/youdaonote-images/Pasted image 20250223225302.png",
     "md/软件测试/chrome插件设计/测试助手chrome插件设计文档.md",
-    "md/软件测试/chrome插件设计/网页标签管理设计文档.md",
     "md/java/监控系统/3-http协议监控.md",
     "md/java/监控系统/2-服务监控与ClassLoader问题处理.md",
     "md/2025年计划.canvas",
@@ -219,7 +220,6 @@
     "md/youdaonote-images/image-20211021175117874.png",
     "md/youdaonote-images/image-20211021172950973.png",
     "md/youdaonote-images/image-20211021165201859.png",
-    "md/youdaonote-images/image-20211017174533658.png",
     "md/java/手写RPC/2-RPC设计实现.md",
     "md/java/手写RPC-netty",
     "md/java/统一消息系统/1. 消息系统架构.md",
