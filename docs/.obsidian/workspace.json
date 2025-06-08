@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
+                "file": "md/java/自动化测试平台/1. 测试平台架构.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3. 性能测试引擎的构建"
+              "title": "1. 测试平台架构"
             }
           }
         ]
@@ -183,6 +183,7 @@
   "active": "c0779dd896d21ad2",
   "lastOpenFiles": [
     "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
+    "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/java/自动化测试平台/1. 测试平台架构.md",
     "md/java/监控系统/3-http协议监控.md",
     "md/博客写作内容/摄影.md",
@@ -211,7 +212,6 @@
     "md/java/手写RPC-netty",
     "md/java/统一消息系统/1. 消息系统架构.md",
     "md/博客写作内容/南方旅行.md",
-    "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/java/统一消息系统",
     "md/博客写作内容/架构图如何画.md",
     "md/java/AIcloud项目/6.SpringSecurity使用.md",
