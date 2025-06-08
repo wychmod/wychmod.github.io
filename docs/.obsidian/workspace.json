@@ -4,39 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "75e50d2bfeb8d0a8",
+        "id": "e53423277f970933",
         "type": "tabs",
         "children": [
           {
-            "id": "b0953a2abfca29a4",
+            "id": "c0779dd896d21ad2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/监控系统/3-http协议监控.md",
+                "file": "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3-http协议监控"
-            }
-          },
-          {
-            "id": "b6ff437de0afb5a2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "md/博客写作内容/摄影.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "摄影"
+              "title": "2. 性能测试工具Jmeter核心知识"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -195,8 +180,9 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "b6ff437de0afb5a2",
+  "active": "c0779dd896d21ad2",
   "lastOpenFiles": [
+    "md/java/自动化测试平台/1. 测试平台架构.md",
     "md/java/监控系统/3-http协议监控.md",
     "md/博客写作内容/摄影.md",
     "md/软件测试/chrome插件设计/网页标签管理设计文档.md",
@@ -227,7 +213,6 @@
     "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/java/统一消息系统",
     "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
-    "md/java/自动化测试平台/1. 测试平台架构.md",
     "md/博客写作内容/架构图如何画.md",
     "md/java/AIcloud项目/6.SpringSecurity使用.md",
     "md/java/自动化测试平台",
