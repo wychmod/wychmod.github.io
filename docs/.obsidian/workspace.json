@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/短链系统/数据库设计.md",
+                "file": "md/java/短链系统/开发核心点梳理.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "数据库设计"
+              "title": "开发核心点梳理"
             }
           }
         ]
@@ -182,10 +182,10 @@
   },
   "active": "c0779dd896d21ad2",
   "lastOpenFiles": [
+    "md/java/短链系统/短链系统架构设计.md",
+    "md/java/短链系统/数据库设计.md",
     "md/java/短链系统/分库分表.md",
     "md/java/短链系统/开发核心点梳理.md",
-    "md/java/短链系统/数据库设计.md",
-    "md/java/短链系统/短链系统架构设计.md",
     "md/java/短链系统/未命名",
     "md/java/短链系统/环境搭建.md",
     "md/java/短链系统/产品文档.md",
