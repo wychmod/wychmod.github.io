@@ -20,8 +20,21 @@
               "icon": "lucide-file",
               "title": "1. 测试平台架构"
             }
+          },
+          {
+            "id": "71bf24b6344e22e4",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.12"
+              },
+              "icon": "lucide-book-up",
+              "title": "版本说明 1.9.12"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -171,6 +184,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:创建新数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -180,7 +194,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "c0779dd896d21ad2",
+  "active": "71bf24b6344e22e4",
   "lastOpenFiles": [
     "md/java/自动化测试平台/0.系统架构设计.md",
     "md/java/短链系统/开发核心点梳理.md",
