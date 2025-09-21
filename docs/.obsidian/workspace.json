@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/自动化测试平台/4. linux基础环境配置.md",
+                "file": "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4. linux基础环境配置"
+              "title": "2. 性能测试工具Jmeter核心知识"
             }
           }
         ]
@@ -183,8 +183,9 @@
   },
   "active": "c0779dd896d21ad2",
   "lastOpenFiles": [
+    "md/youdaonote-images/Pasted image 20250921150536.png",
+    "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md",
     "md/java/自动化测试平台/1. 测试平台架构.md",
-    "md/java/自动化测试平台/4. linux基础环境配置.md",
     "未命名",
     "md/java/自动化测试平台/0.系统架构设计.md",
     "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
@@ -227,7 +228,6 @@
     "md/博客写作内容/南方旅行.md",
     "md/java/统一消息系统",
     "md/博客写作内容/架构图如何画.md",
-    "md/java/AIcloud项目/6.SpringSecurity使用.md",
     "md/java/自动化测试平台",
     "md/java/AIcloud项目"
   ]
