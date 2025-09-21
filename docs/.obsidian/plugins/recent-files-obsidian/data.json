@@ -5,12 +5,12 @@
       "path": "md/java/自动化测试平台/3. 性能测试引擎的构建.md"
     },
     {
-      "basename": "2. 性能测试工具Jmeter核心知识",
-      "path": "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md"
-    },
-    {
       "basename": "4. linux基础环境配置-nacos mysql",
       "path": "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md"
+    },
+    {
+      "basename": "2. 性能测试工具Jmeter核心知识",
+      "path": "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md"
     },
     {
       "basename": "1. 测试平台架构",
