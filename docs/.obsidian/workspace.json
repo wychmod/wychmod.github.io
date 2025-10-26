@@ -35,7 +35,8 @@
               "title": "4. linux基础环境配置-nacos mysql"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -195,10 +196,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "c0779dd896d21ad2",
+  "active": "4711d36360288f77",
   "lastOpenFiles": [
-    "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md",
     "md/java/短链系统/环境搭建.md",
+    "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md",
     "md/java/自动化测试平台/0.系统架构设计.md",
     "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/youdaonote-images/Pasted image 20251011011148.png",
