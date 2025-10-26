@@ -20,8 +20,21 @@
               "icon": "lucide-file",
               "title": "3. 性能测试引擎的构建"
             }
+          },
+          {
+            "id": "649e4e685acb5af4",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.14"
+              },
+              "icon": "lucide-book-up",
+              "title": "版本说明 1.9.14"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -181,7 +194,7 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "c0779dd896d21ad2",
+  "active": "649e4e685acb5af4",
   "lastOpenFiles": [
     "md/youdaonote-images/Pasted image 20251011011148.png",
     "md/youdaonote-images/Pasted image 20251011010644.png",
