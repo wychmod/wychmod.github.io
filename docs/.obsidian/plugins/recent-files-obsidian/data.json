@@ -1,6 +1,18 @@
 {
   "recentFiles": [
     {
+      "basename": "4. linux基础环境配置-nacos mysql",
+      "path": "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md"
+    },
+    {
+      "basename": "环境搭建",
+      "path": "md/java/短链系统/环境搭建.md"
+    },
+    {
+      "basename": "0.系统架构设计",
+      "path": "md/java/自动化测试平台/0.系统架构设计.md"
+    },
+    {
       "basename": "3. 性能测试引擎的构建",
       "path": "md/java/自动化测试平台/3. 性能测试引擎的构建.md"
     },
@@ -9,16 +21,8 @@
       "path": "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md"
     },
     {
-      "basename": "4. linux基础环境配置-nacos mysql",
-      "path": "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md"
-    },
-    {
       "basename": "1. 测试平台架构",
       "path": "md/java/自动化测试平台/1. 测试平台架构.md"
-    },
-    {
-      "basename": "0.系统架构设计",
-      "path": "md/java/自动化测试平台/0.系统架构设计.md"
     },
     {
       "basename": "开发核心点梳理",
@@ -35,10 +39,6 @@
     {
       "basename": "分库分表",
       "path": "md/java/短链系统/分库分表.md"
-    },
-    {
-      "basename": "环境搭建",
-      "path": "md/java/短链系统/环境搭建.md"
     },
     {
       "basename": "产品文档",

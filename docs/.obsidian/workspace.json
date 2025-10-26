@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
+                "file": "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3. 性能测试引擎的构建"
+              "title": "4. linux基础环境配置-nacos mysql"
             }
           },
           {
@@ -33,8 +33,7 @@
               "title": "版本说明 1.9.14"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -194,27 +193,27 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "649e4e685acb5af4",
+  "active": "c0779dd896d21ad2",
   "lastOpenFiles": [
+    "md/java/短链系统/环境搭建.md",
+    "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md",
+    "md/java/自动化测试平台/0.系统架构设计.md",
+    "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/youdaonote-images/Pasted image 20251011011148.png",
     "md/youdaonote-images/Pasted image 20251011010644.png",
     "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
-    "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/youdaonote-images/Pasted image 20250921215609.png",
     "md/youdaonote-images/Pasted image 20250921215608.png",
     "md/youdaonote-images/Pasted image 20250921214951.png",
     "md/youdaonote-images/Pasted image 20250921192049.png",
-    "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md",
     "md/youdaonote-images/Pasted image 20250921150536.png",
     "md/java/自动化测试平台/1. 测试平台架构.md",
     "未命名",
-    "md/java/自动化测试平台/0.系统架构设计.md",
     "md/java/短链系统/开发核心点梳理.md",
     "md/java/短链系统/短链系统架构设计.md",
     "md/java/短链系统/数据库设计.md",
     "md/java/短链系统/分库分表.md",
     "md/java/短链系统/未命名",
-    "md/java/短链系统/环境搭建.md",
     "md/java/短链系统/产品文档.md",
     "md/youdaonote-images/Pasted image 20250619005807.png",
     "md/youdaonote-images/短链系统架构设计 - visual selection (1).svg",
@@ -222,7 +221,6 @@
     "md/管理",
     "md/youdaonote-images/短链系统架构设计 - visual selection.svg",
     "md/java/短链系统",
-    "md/youdaonote-images/云测试平台产品设计文档 - visual selection.svg",
     "md/java/监控系统/3-http协议监控.md",
     "md/博客写作内容/摄影.md",
     "md/软件测试/chrome插件设计/网页标签管理设计文档.md",
