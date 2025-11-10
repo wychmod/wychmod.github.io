@@ -125,7 +125,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/java/手写RPC-netty/1.Netty入门.md",
+                "file": "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +135,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "1.Netty入门 的反向链接列表"
+              "title": "3. 性能测试引擎的构建 的反向链接列表"
             }
           },
           {
@@ -181,8 +181,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
