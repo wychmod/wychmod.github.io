@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java/监控系统/1-javaagent字节码插桩机制详解.md",
+                "file": "agent/agent五种设计模式.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1-javaagent字节码插桩机制详解"
+              "title": "agent五种设计模式"
             }
           }
         ]
@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "面试section:()",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -226,8 +226,10 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "62b967b1bdf672ea",
+  "active": "d1004f12ae57f23c",
   "lastOpenFiles": [
+    "java/监控系统/1-javaagent字节码插桩机制详解.md",
+    "agent/agent五种设计模式.md",
     "agent",
     "软件测试/chrome插件设计/网页标签管理设计文档.md",
     "管理/软实力精进.md",
@@ -271,11 +273,9 @@
     "java/AIcloud项目/6.SpringSecurity使用.md",
     "java/AIcloud项目/5.JWT学习资料.md",
     "java/AIcloud项目/4.MyBatisPlus学习资料.md",
-    "java/AIcloud项目/3.MinIO使用文档.md",
     "java/AIcloud项目",
     "未命名.canvas",
     "未命名 1.canvas",
-    "java/监控系统",
-    "博客写作内容/大论文/未命名"
+    "java/监控系统"
   ]
 }

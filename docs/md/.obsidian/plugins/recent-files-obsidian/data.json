@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "agent五种设计模式",
+      "path": "agent/agent五种设计模式.md"
+    },
+    {
       "basename": "1-javaagent字节码插桩机制详解",
       "path": "java/监控系统/1-javaagent字节码插桩机制详解.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "2-手写完整功能Spring",
       "path": "spring源码/2-手写完整功能Spring.md"
-    },
-    {
-      "basename": "3-原理篇",
-      "path": "Redis/3-原理篇.md"
     }
   ],
   "omittedPaths": [],
