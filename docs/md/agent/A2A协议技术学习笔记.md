@@ -212,12 +212,14 @@ A2A协议通常采用分层的协议栈结构，主要包括：
 
 ```mermaid
 sequenceDiagram
+    participant A as Agent A
+    participant B as Agent B
+    participant M as 消息中间件
+    
     A->>M: 发送消息(包含目标B、内容、类型)
     M->>B: 转发消息
     B->>M: 返回响应
     M->>A: 转发响应
-    
-    Note over A,M,B: A: Agent A, M: 消息中间件, B: Agent B
 ```
 
 ### 5.2 多Agent协作决策流程
