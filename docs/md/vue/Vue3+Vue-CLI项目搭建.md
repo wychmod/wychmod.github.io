@@ -1,5 +1,5 @@
 # Vue3 + Vue CLI项目搭建
-[toc]
+
 ## 介绍Vue和VueCLI简介
 Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统。
 ## 创建VueCLI项目

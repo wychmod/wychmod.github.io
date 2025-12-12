@@ -1,5 +1,5 @@
 # spring-依赖注入
-[toc]
+
 ## 依赖注入-属性注入&SpEL表达式
 ### 1. setter属性注入
 xml方式的setter注入

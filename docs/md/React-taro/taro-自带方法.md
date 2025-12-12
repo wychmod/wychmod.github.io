@@ -1,4 +1,4 @@
-[toc]
+
 # 1.Taro.showToast(OBJECT)
 
 显示消息提示框，支持 `Promise` 化使用。

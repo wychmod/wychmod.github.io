@@ -1,5 +1,5 @@
 # Taro基本知识
-[toc]
+
 ## 一、Taro核心转化图
 
 ![image](../youdaonote-images/C6A31D3909274DDAA8A43F1D83CB2812.png)

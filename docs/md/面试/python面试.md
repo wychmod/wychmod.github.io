@@ -1,5 +1,5 @@
 # python 面试
-[toc]
+
 ## 自我介绍
 
 # list append 时间复杂度

@@ -1,5 +1,5 @@
 # Django 高级Advaced
-[toc]
+
 ## 一、静态文件 static
 
 Static files (CSS, JavaScript, Images)

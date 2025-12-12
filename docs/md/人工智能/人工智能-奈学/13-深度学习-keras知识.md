@@ -1,5 +1,5 @@
 # 人工智能-深度学习-keras知识-13
-[toc]
+
 ## Keras简介
 英文官网 https://keras.io/
 

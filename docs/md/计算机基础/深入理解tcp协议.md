@@ -1,5 +1,5 @@
 # 深入理解tcp协议
-[toc]
+
 ## TCP/IP 网络分层
 ![image](../youdaonote-images/30A005C96B004CE79BB0F66CDD78286F.png)
 ### 应用层（Application Layer）

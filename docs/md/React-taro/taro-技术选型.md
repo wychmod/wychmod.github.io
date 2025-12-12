@@ -1,5 +1,5 @@
 ## 流行的小程序开发框架
-[toc]
+
 
 目前比较流行的小程序开发框架主要有[WePY](https://tencent.github.io/wepy/)、[mpvue](https://github.com/Meituan-Dianping/mpvue)、[Taro](https://github.com/NervJS/taro)，我们简单对比下。
 

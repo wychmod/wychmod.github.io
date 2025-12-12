@@ -1,5 +1,5 @@
 # 并发和Goroutine
-[toc]
+
 ## Goroutine
 - go语言的go关键字跑的就是协程，我们称为goroutine。
 

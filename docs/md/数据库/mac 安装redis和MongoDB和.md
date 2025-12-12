@@ -1,5 +1,5 @@
 # mac 安装redis
-[toc]
+
 ## 使用Homebrew安装Redis/MongoDB/activemq/elasticsearch
 ```
 brew install redis

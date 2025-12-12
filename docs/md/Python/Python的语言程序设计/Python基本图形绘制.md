@@ -1,4 +1,4 @@
-[toc]
+
 ## 1.Python 蟒蛇绘制
 ```
 import turtle

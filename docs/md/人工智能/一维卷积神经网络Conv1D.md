@@ -1,5 +1,5 @@
 # 一维卷积神经网络Conv1D
-[toc]
+
 ## 一维卷积的定义
 一维卷积的输入是一个向量和一个**卷积核**，输出也是一个向量。
 ![image.png](https://note.youdao.com/yws/res/3/WEBRESOURCE2e37ccb42a63ed0c9c09a02f8dae44e3)

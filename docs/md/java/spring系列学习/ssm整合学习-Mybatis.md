@@ -1,4 +1,4 @@
-[toc]
+
 # ssm整合学习-Mybatis
 ## 1，Mybatis
 

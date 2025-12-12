@@ -1,5 +1,5 @@
 # Redux教程
-[toc]
+
 > ## Redux简介
 ==Redux== 是目前React生态中，最好的数据层框架，所以单独拿出一个文章来系统的讲解Redux。
 

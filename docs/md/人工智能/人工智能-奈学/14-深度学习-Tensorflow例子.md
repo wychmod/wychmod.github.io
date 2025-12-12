@@ -1,5 +1,5 @@
 # 人工智能-深度学习-Tensorflow例子-14
-[toc]
+
 ## 回归Basic regression
 https://tensorflow.google.cn/tutorials/keras/regression
 ```

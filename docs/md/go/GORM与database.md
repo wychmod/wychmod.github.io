@@ -1,4 +1,4 @@
-[toc]
+
 ![image.png](https://note.youdao.com/yws/res/d/WEBRESOURCE3c3e8090461ef82b5bcca39c199fd1bd)
 ## database/sql
 database/sql是Go语言提供的一个用来访问面向行的数据库的包，提供了非常轻量级的通用接口来访问各种不同的底层关系型数据库。

@@ -1,5 +1,5 @@
 # 文件I/O效率相关问题与解决技巧
-[toc]
+
 
 ## 一、读写文本文件
 ![image](../../youdaonote-images/6FA8B948AEC041CCB51D6AB1389AF062.png)

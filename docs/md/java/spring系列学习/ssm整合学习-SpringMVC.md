@@ -1,5 +1,5 @@
 # ssm整合学习-SpringMVC
-[toc]
+
 ## 一、SpringMVC简介
 
 ### 1 SpringMVC概述

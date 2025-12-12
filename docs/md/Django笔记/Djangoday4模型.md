@@ -1,5 +1,5 @@
 # day4 模型 Model
-[toc]
+
 ## 一、ORM
 
 使用ORM模型：

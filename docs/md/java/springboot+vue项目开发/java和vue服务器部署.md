@@ -1,4 +1,4 @@
-[toc]
+
 # 安装jdk
 ```
 tar -zxvf jdkxxx

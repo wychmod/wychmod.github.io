@@ -1,5 +1,5 @@
 # python 命名规范
-[toc]
+
 ## 1.项目名称
 首字母大写+大写式驼峰，
 ProjectName

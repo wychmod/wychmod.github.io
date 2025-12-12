@@ -1,4 +1,4 @@
-[toc]
+
 ## 1、用conda创建Python虚拟环境（在conda prompt环境下完成）
 ```
 conda create -n environment_name python=X.X

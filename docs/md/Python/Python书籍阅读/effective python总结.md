@@ -1,5 +1,5 @@
 # effective python总结
-[toc]
+
 ## 1. unpacking直接拆分到多个变量里
 ```
 item = ('a', 'b')

@@ -1,5 +1,5 @@
 # ssm整合学习-MabtisPlus
-[toc]
+
 ## 一、MyBatisPlus简介
 
 ### 1. 入门案例

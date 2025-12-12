@@ -1,5 +1,5 @@
 # 远程连接和SSH
-[toc]
+
 > ## FTP协议
 - 其他常见的网络协议有FTP
 - 是英语 File Transfer Protococol的简称,表示“文件传输协议"

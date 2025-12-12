@@ -1,5 +1,5 @@
 # django rest framework开发笔记
-[toc]
+
 ## 项目初始化
 ### 创建虚拟环境安装django包：
 ```

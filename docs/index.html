@@ -392,6 +392,94 @@
       color: var(--theme-color);
       margin-bottom: 12px;
     }
+    
+    /* Mermaid 流程图样式优化 */
+    .mermaid {
+      text-align: center;
+      margin: 2em 0;
+    }
+    
+    .mermaid svg {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    /* TOC 目录样式优化 */
+    .page_toc {
+      position: fixed;
+      right: 20px;
+      top: 100px;
+      width: 250px;
+      max-height: calc(100vh - 150px);
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(102, 126, 234, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
+      backdrop-filter: blur(10px);
+    }
+    
+    .page_toc .toc-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+    }
+    
+    .page_toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .page_toc li {
+      margin: 8px 0;
+    }
+    
+    .page_toc a {
+      color: #5a5a5a;
+      text-decoration: none;
+      font-size: 14px;
+      display: block;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      border-left: 3px solid transparent;
+    }
+    
+    .page_toc a:hover {
+      color: #667eea;
+      background: rgba(102, 126, 234, 0.08);
+      border-left-color: #667eea;
+      transform: translateX(4px);
+    }
+    
+    .page_toc a.active {
+      color: #667eea;
+      background: rgba(102, 126, 234, 0.1);
+      border-left-color: #667eea;
+      font-weight: 600;
+    }
+    
+    /* 移动端隐藏TOC */
+    @media screen and (max-width: 1400px) {
+      .page_toc {
+        display: none;
+      }
+    }
+    
+    /* TOC 滚动条样式 */
+    .page_toc::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .page_toc::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 2px;
+    }
   </style>
   
   <!-- 百度统计 -->
@@ -457,6 +545,33 @@
         buttonText: '📋 复制',
         errorText: '✗ 复制失败',
         successText: '✓ 复制成功'
+      },
+      
+      // Mermaid 流程图配置
+      mermaid: {
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#667eea',
+          primaryTextColor: '#fff',
+          primaryBorderColor: '#764ba2',
+          lineColor: '#667eea',
+          secondaryColor: '#f5f5f5',
+          tertiaryColor: '#fff'
+        },
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
+        }
+      },
+      
+      // TOC 目录配置
+      toc: {
+        scope: '.markdown-section',
+        headings: 'h1, h2, h3, h4',
+        title: '📚 目录',
+        tocClassName: 'toc-nav',
+        tocTitleClassName: 'toc-title'
       },
       
       // 页面标题配置
@@ -526,6 +641,18 @@
 <script src="/assets/js/zoom-image.js"></script>
 <script src="/assets/js/prism-bash.js"></script>
 <script src="/assets/js/prism-java.min.js"></script>
+
+<!-- Mermaid 流程图插件 -->
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: true });
+  window.mermaid = mermaid;
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify-mermaid@2/dist/docsify-mermaid.js"></script>
+
+<!-- TOC 目录插件 -->
+<script src="https://unpkg.com/docsify-plugin-toc@1.3.1/dist/docsify-plugin-toc.min.js"></script>
+
 <!--在所有的代码块上添加一个简单的Click to copy按钮来允许用户从你的文档中轻易地复制代码-->
 <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
 </body>

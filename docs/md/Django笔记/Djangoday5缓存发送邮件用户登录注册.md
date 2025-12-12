@@ -1,5 +1,5 @@
 # Day5  Django
-[toc]
+
 ## 一、Django-cache 缓存
 
 **概述：**
