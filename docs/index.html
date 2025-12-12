@@ -1,13 +1,269 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>CodeGuide | 程序员学习笔记</title>
+  <title>wychmod 技术知识库 | 全栈开发学习笔记</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
+  <meta name="description" content="wychmod的全栈技术学习笔记，涵盖Java、Python、前端、人工智能、云原生等领域，包含源码剖析、项目实战、面试准备等内容">
+  <meta name="keywords" content="Java,Python,Spring,Django,前端,React,Vue,人工智能,深度学习,Kubernetes,Docker,Redis,MySQL,面试">
+  <meta name="author" content="wychmod">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="/assets/css/vue.css">
+  
+  <!-- 主题样式 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- Gitalk 样式 -->
   <link rel="stylesheet" href="/assets/css/gitalk.css">
+  
+  <!-- 自定义样式 -->
+  <style>
+    /* 全局样式优化 */
+    :root {
+      --theme-color: #667eea;
+      --theme-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --accent-color: #42b983;
+    }
+    
+    /* 封面页样式优化 */
+    .cover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    }
+    
+    .cover-main > p:last-child a {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid #fff;
+      border-radius: 25px;
+      padding: 12px 30px;
+      margin: 0 8px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .cover-main > p:last-child a:hover {
+      background: #fff;
+      color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    
+    /* 侧边栏样式优化 */
+    .sidebar {
+      background: #f8f9fa;
+      border-right: 1px solid #e9ecef;
+    }
+    
+    .sidebar-nav > ul > li {
+      margin: 6px 0;
+    }
+    
+    .sidebar-nav li {
+      transition: all 0.2s ease;
+    }
+    
+    .sidebar-nav li:hover {
+      padding-left: 4px;
+    }
+    
+    .sidebar-nav > ul > li > p,
+    .sidebar-nav > ul > li > a {
+      font-weight: 600;
+      font-size: 15px;
+      color: #2c3e50;
+    }
+    
+    /* 导航栏样式优化 */
+    .app-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .app-nav li a {
+      transition: all 0.3s ease;
+    }
+    
+    .app-nav li a:hover {
+      color: var(--theme-color);
+    }
+    
+    /* 内容区域样式优化 */
+    .markdown-section {
+      max-width: 900px;
+      padding: 30px 50px 40px;
+    }
+    
+    .markdown-section h1,
+    .markdown-section h2,
+    .markdown-section h3,
+    .markdown-section h4 {
+      font-weight: 600;
+      margin-top: 2em;
+      padding-bottom: 0.3em;
+    }
+    
+    .markdown-section h1 {
+      font-size: 2.2em;
+      border-bottom: 2px solid var(--theme-color);
+    }
+    
+    .markdown-section h2 {
+      font-size: 1.8em;
+      border-bottom: 1px solid #eee;
+    }
+    
+    /* 链接样式优化 */
+    .markdown-section a {
+      color: var(--theme-color);
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .markdown-section a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+    
+    /* 代码块样式优化 */
+    .markdown-section pre {
+      background-color: #f6f8fa;
+      border-radius: 6px;
+      padding: 16px;
+      margin: 1.5em 0;
+    }
+    
+    .markdown-section code {
+      border-radius: 3px;
+      padding: 3px 6px;
+      background-color: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      font-weight: 500;
+    }
+    
+    /* 引用样式优化 */
+    .markdown-section blockquote {
+      border-left: 4px solid var(--theme-color);
+      background-color: rgba(102, 126, 234, 0.05);
+      padding: 1em;
+      border-radius: 4px;
+    }
+    
+    /* 表格样式优化 */
+    .markdown-section table {
+      border-collapse: collapse;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .markdown-section table th {
+      background: var(--theme-gradient);
+      color: white;
+      font-weight: 600;
+    }
+    
+    .markdown-section table tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+    
+    /* 滚动条样式优化 */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #764ba2;
+    }
+    
+    /* 搜索框样式优化 */
+    .search input {
+      border: 2px solid #e9ecef;
+      border-radius: 25px;
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .search input:focus {
+      border-color: var(--theme-color);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    /* 分页样式优化 */
+    .pagination-item {
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    
+    .pagination-item:hover {
+      background: var(--theme-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    /* 响应式设计 */
+    @media screen and (max-width: 768px) {
+      .markdown-section {
+        padding: 20px 16px;
+      }
+    }
+    
+    /* 加载动画 */
+    .app-nav,
+    .github-corner,
+    .sidebar,
+    .markdown-section {
+      animation: fadeIn 0.6s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* details 样式优化 */
+    details {
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin: 1em 0;
+      transition: all 0.3s ease;
+    }
+    
+    details:hover {
+      border-color: var(--theme-color);
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+    }
+    
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #2c3e50;
+      user-select: none;
+    }
+    
+    details[open] summary {
+      color: var(--theme-color);
+      margin-bottom: 12px;
+    }
+  </style>
+  
+  <!-- 百度统计 -->
   <script>
       var _hmt = _hmt || [];
       (function() {
@@ -19,7 +275,7 @@
   </script>
 </head>
 <body>
-<div id="app"></div>
+<div id="app">👋 加载中...</div>
 <script>
     var gitalkConfig = {
       clientID: '4a657aa4ae6c0f1862a1',
@@ -30,25 +286,52 @@
       distractionFreeMode: false
     };
     window.$docsify = {
-      name: 'Tots-and',
+      name: 'wychmod 技术知识库',
       repo: 'https://github.com/wychmod/wychmod.github.io',
       auto2top: true,
       coverpage: true,
       loadSidebar: true,
       loadNavbar: true,
       maxLevel: 4,
-      subMaxLevel: 2,
+      subMaxLevel: 3,
+      
+      // 搜索配置
       search: {
         paths: 'auto',
-        placeholder: '🔍 Type to search ',
-        noData: '😞 No Results! ',
-        depth: 6
+        placeholder: '🔍 搜索文档...',
+        noData: '😞 未找到相关内容',
+        depth: 6,
+        maxAge: 86400000,
+        hideOtherSidebarContent: false
       },
+      
+      // 分页配置
       pagination: {
-        previousText: 'PREVIOUS',
-        nextText: 'NEXT',
-        crossChapter: true
+        previousText: '← 上一章',
+        nextText: '下一章 →',
+        crossChapter: true,
+        crossChapterText: true
       },
+      
+      // 字数统计
+      count: {
+        countable: true,
+        fontsize: '0.9em',
+        color: 'rgb(90,90,90)',
+        language: 'chinese'
+      },
+      
+      // 复制代码配置
+      copyCode: {
+        buttonText: '📋 复制',
+        errorText: '✗ 复制失败',
+        successText: '✓ 复制成功'
+      },
+      
+      // 页面标题配置
+      formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}',
+      
+      // Gitalk 插件
       plugins: [
         function (hook, vm) {
           hook.doneEach(function() {
@@ -73,6 +356,30 @@
               Object.assign(gitalkConfig, { id: !label ? "home" : label })
             );
             gitalk.render("gitalk-container-" + label);
+          });
+        },
+        
+        // 页脚插件
+        function(hook) {
+          var footer = [
+            '<hr/>',
+            '<footer>',
+            '<span>© 2024 <a href="https://github.com/wychmod" target="_blank">wychmod</a>. All Rights Reserved.</span>',
+            '<span style="float: right;">♥️ Powered by <a href="https://docsify.js.org" target="_blank">docsify</a></span>',
+            '</footer>'
+          ].join('');
+
+          hook.afterEach(function(html) {
+            return html + footer;
+          });
+        },
+        
+        // 页面加载进度条
+        function(hook, vm) {
+          hook.beforeEach(function(html) {
+            var url = 'https://github.com/wychmod/wychmod.github.io/blob/main/docs/' + vm.route.file;
+            var editHtml = '<p style="text-align: right; margin-top: -20px;"><a href="' + url + '" target="_blank" style="font-size: 14px; color: #667eea;">✏️ 编辑此页</a></p>';
+            return editHtml + html;
           });
         }
       ]
