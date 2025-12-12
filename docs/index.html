@@ -77,7 +77,7 @@
       }
     }
     
-    /* 侧边栏样式优化 */
+    /* 侧边栏样式优化 - 与主题颜色协调 */
     .sidebar {
       background: #f8f9fa;
       border-right: 1px solid #e9ecef;
@@ -95,27 +95,86 @@
       padding-left: 4px;
     }
     
+    /* 一级菜单样式 */
     .sidebar-nav > ul > li > p,
     .sidebar-nav > ul > li > a {
       font-weight: 600;
       font-size: 15px;
-      color: #2c3e50;
+      color: #667eea;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
     }
     
-    /* 导航栏样式优化 */
+    .sidebar-nav > ul > li > p:hover,
+    .sidebar-nav > ul > li > a:hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: #764ba2;
+    }
+    
+    /* 激活菜单样式 */
+    .sidebar-nav .active {
+      color: #667eea !important;
+      font-weight: 600;
+      border-right: 3px solid #667eea;
+      background: rgba(102, 126, 234, 0.08);
+    }
+    
+    /* 侧边栏链接颜色 */
+    .sidebar-nav a {
+      color: #5a5a5a;
+    }
+    
+    .sidebar-nav a:hover {
+      color: #667eea;
+      text-decoration: none;
+    }
+    
+    /* 导航栏样式优化 - 与封面页统一紫色主题 */
     .app-nav {
-      background: rgba(255, 255, 255, 0.95);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border-bottom: none;
+      box-shadow: 0 2px 15px rgba(102, 126, 234, 0.3);
+      padding: 0 20px;
     }
     
-    .app-nav li a {
+    .app-nav a {
+      color: #ffffff !important;
+      font-weight: 500;
+      padding: 10px 15px;
+      border-radius: 6px;
       transition: all 0.3s ease;
     }
     
     .app-nav li a:hover {
-      color: var(--theme-color);
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff !important;
+      transform: translateY(-2px);
+    }
+    
+    /* 导航栏下拉菜单样式 */
+    .app-nav li ul {
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      padding: 8px 0;
+    }
+    
+    .app-nav li ul li {
+      margin: 0;
+    }
+    
+    .app-nav li ul li a {
+      color: #ffffff !important;
+      padding: 10px 20px;
+      border-radius: 0;
+    }
+    
+    .app-nav li ul li a:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: none;
     }
     
     /* 内容区域样式优化 */
@@ -216,29 +275,70 @@
       background: #764ba2;
     }
     
-    /* 搜索框样式优化 */
+    /* 搜索框样式优化 - 与主题颜色协调 */
+    .search {
+      margin: 20px 0;
+    }
+    
     .search input {
       border: 2px solid #e9ecef;
       border-radius: 25px;
       padding: 10px 20px;
       transition: all 0.3s ease;
+      width: 100%;
+      background: #ffffff;
     }
     
     .search input:focus {
-      border-color: var(--theme-color);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+      outline: none;
     }
     
-    /* 分页样式优化 */
-    .pagination-item {
-      border-radius: 6px;
+    .search input::-webkit-input-placeholder {
+      color: #999;
+    }
+    
+    /* 搜索结果样式 */
+    .matching-post {
+      border-left: 3px solid #667eea;
       transition: all 0.2s ease;
     }
     
+    .matching-post:hover {
+      background: rgba(102, 126, 234, 0.05);
+    }
+    
+    /* 分页样式优化 - 与主题颜色协调 */
+    .pagination-item {
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      color: #667eea;
+      border: 1px solid #e9ecef;
+      padding: 8px 16px;
+      margin: 10px 5px;
+    }
+    
     .pagination-item:hover {
-      background: var(--theme-color);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       transform: translateY(-2px);
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    
+    .pagination-item-title {
+      font-weight: 500;
+    }
+    
+    /* GitHub Corner 样式 */
+    .github-corner svg {
+      fill: #667eea;
+      color: #fff;
+    }
+    
+    .github-corner:hover .octo-arm {
+      animation: octocat-wave 560ms ease-in-out;
     }
     
     /* 响应式设计 */
