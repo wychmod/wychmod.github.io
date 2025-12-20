@@ -14,7 +14,7 @@
 - ☁️ 云原生
   - [Docker](/md/docker/docker.md)
   - [Kubernetes](/md/k8s/1-k8s的介绍.md)
-  - [CI/CD](/md/cicd/1. 什么是CI和CD，为什么要学CI和CD.md)
+  - [CI/CD](/md/cicd/1.什么是CI和CD，为什么要学CI和CD.md)
 
 - ⚛️ 前端开发
   - [React](/md/React/React基础（技术胖）/React16基础.md)
