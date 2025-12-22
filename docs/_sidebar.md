@@ -120,6 +120,7 @@
       - [flask上线部署](/md/flask笔记/flask上线部署.md)
     
     - Python 其他
+      - [UV工具使用指南](/md/Python/UV工具使用指南.md)
       - [anaconda中使用虚拟环境](/md/Python/anaconda中使用虚拟环境.md)
       - [python命名规范](/md/Python/python命名规范.md)
       - [asyncio详解](/md/Python/asyncio详解.md)
