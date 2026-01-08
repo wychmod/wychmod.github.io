@@ -16,56 +16,75 @@
   
   <!-- 自定义样式 -->
   <style>
-    /* 全局样式优化 */
+    /* 主体背景色 - 黑色 */
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    /* 内容区域背景 */
+    .content {
+      background: var(--bg-primary);
+    }
+    
+    /* 全局样式优化 - 黑金主题 */
     :root {
-      --theme-color: #667eea;
-      --theme-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --accent-color: #42b983;
+      --theme-color: #d4af37;
+      --theme-gradient: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      --accent-color: #f4d03f;
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #2a2a2a;
+      --text-primary: #e0e0e0;
+      --text-secondary: #a0a0a0;
+      --gold-main: #d4af37;
+      --gold-light: #f4d03f;
+      --gold-dark: #b8960f;
     }
     
-    /* 封面页样式优化 */
+    /* 封面页样式优化 - 黑金渐变 */
     .cover {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%) !important;
     }
     
-    /* 封面页标题样式 */
+    /* 封面页标题样式 - 金色主题 */
     .cover h1 {
-      color: #ffffff !important;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      color: var(--gold-light) !important;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
       font-weight: 700;
     }
     
     .cover h2 {
-      color: #ffffff !important;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      color: var(--gold-main) !important;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     }
     
     .cover p {
-      color: #f5f5f5 !important;
+      color: var(--text-primary) !important;
     }
     
-    /* 封面按钮样式优化 - 更醒目的设计 */
+    /* 封面按钮样式优化 - 黑金风格 */
     .cover-main > p:last-child a {
       display: inline-block;
-      color: #667eea !important;
-      background: #ffffff !important;
-      border: 2px solid #ffffff !important;
+      color: #000000 !important;
+      background: var(--gold-main) !important;
+      border: 2px solid var(--gold-main) !important;
       border-radius: 30px;
       padding: 14px 32px;
       margin: 8px 10px;
       font-size: 16px;
       font-weight: 600;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
       text-decoration: none;
     }
     
     .cover-main > p:last-child a:hover {
-      background: rgba(255, 255, 255, 0.15) !important;
-      color: #ffffff !important;
-      border: 2px solid #ffffff !important;
+      background: var(--gold-light) !important;
+      color: #000000 !important;
+      border: 2px solid var(--gold-light) !important;
       transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 8px 25px rgba(244, 208, 63, 0.6);
     }
     
     /* 封面按钮响应式优化 */
@@ -77,10 +96,10 @@
       }
     }
     
-    /* 侧边栏样式优化 - 与主题颜色协调 */
+    /* 侧边栏样式优化 - 黑金主题 */
     .sidebar {
-      background: #f8f9fa;
-      border-right: 1px solid #e9ecef;
+      background: var(--bg-primary);
+      border-right: 1px solid var(--gold-dark);
     }
     
     .sidebar-nav > ul > li {
@@ -95,12 +114,12 @@
       padding-left: 4px;
     }
     
-    /* 一级菜单样式 */
+    /* 一级菜单样式 - 金色主题 */
     .sidebar-nav > ul > li > p,
     .sidebar-nav > ul > li > a {
       font-weight: 600;
       font-size: 15px;
-      color: #667eea;
+      color: var(--gold-main);
       padding: 8px 12px;
       border-radius: 6px;
       transition: all 0.2s ease;
@@ -108,39 +127,39 @@
     
     .sidebar-nav > ul > li > p:hover,
     .sidebar-nav > ul > li > a:hover {
-      background: rgba(102, 126, 234, 0.1);
-      color: #764ba2;
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-light);
     }
     
-    /* 激活菜单样式 */
+    /* 激活菜单样式 - 金色标记 */
     .sidebar-nav .active {
-      color: #667eea !important;
+      color: var(--gold-main) !important;
       font-weight: 600;
-      border-right: 3px solid #667eea;
-      background: rgba(102, 126, 234, 0.08);
+      border-right: 3px solid var(--gold-main);
+      background: rgba(212, 175, 55, 0.1);
     }
     
-    /* 侧边栏链接颜色 */
+    /* 侧边栏链接颜色 - 浅灰与金色 */
     .sidebar-nav a {
-      color: #5a5a5a;
+      color: var(--text-secondary);
     }
     
     .sidebar-nav a:hover {
-      color: #667eea;
+      color: var(--gold-main);
       text-decoration: none;
     }
     
-    /* 导航栏样式优化 - 与封面页统一紫色主题 */
+    /* 导航栏样式优化 - 黑金渐变 */
     .app-nav {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%) !important;
       backdrop-filter: blur(10px);
-      border-bottom: none;
-      box-shadow: 0 2px 15px rgba(102, 126, 234, 0.3);
+      border-bottom: 1px solid var(--gold-dark);
+      box-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
       padding: 0 20px;
     }
     
     .app-nav a {
-      color: #ffffff !important;
+      color: var(--gold-main) !important;
       font-weight: 500;
       padding: 10px 15px;
       border-radius: 6px;
@@ -148,17 +167,17 @@
     }
     
     .app-nav li a:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: #ffffff !important;
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--gold-light) !important;
       transform: translateY(-2px);
     }
     
-    /* 导航栏下拉菜单样式 */
+    /* 导航栏下拉菜单样式 - 黑金主题 */
     .app-nav li ul {
-      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: var(--bg-secondary);
+      border: 1px solid var(--gold-dark);
       border-radius: 8px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
       padding: 8px 0;
     }
     
@@ -167,20 +186,23 @@
     }
     
     .app-nav li ul li a {
-      color: #ffffff !important;
+      color: var(--text-primary) !important;
       padding: 10px 20px;
       border-radius: 0;
     }
     
     .app-nav li ul li a:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--gold-light) !important;
       transform: none;
     }
     
-    /* 内容区域样式优化 */
+    /* 内容区域样式优化 - 黑色背景 */
     .markdown-section {
       max-width: 900px;
       padding: 30px 50px 40px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
     }
     
     .markdown-section h1,
@@ -194,147 +216,163 @@
     
     .markdown-section h1 {
       font-size: 2.2em;
-      border-bottom: 2px solid var(--theme-color);
+      border-bottom: 2px solid var(--gold-main);
+      color: var(--gold-light);
     }
     
     .markdown-section h2 {
       font-size: 1.8em;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--gold-dark);
+      color: var(--gold-main);
     }
     
-    /* 链接样式优化 */
+    .markdown-section h3,
+    .markdown-section h4 {
+      color: var(--text-primary);
+    }
+    
+    /* 链接样式优化 - 金色 */
     .markdown-section a {
-      color: var(--theme-color);
+      color: var(--gold-main);
       font-weight: 500;
       transition: all 0.2s ease;
     }
     
     .markdown-section a:hover {
-      color: #764ba2;
+      color: var(--gold-light);
       text-decoration: underline;
     }
     
-    /* 代码块样式优化 */
+    /* 代码块样式优化 - 深色主题 */
     .markdown-section pre {
-      background-color: #f6f8fa;
+      background-color: var(--bg-secondary);
       border-radius: 6px;
       padding: 16px;
       margin: 1.5em 0;
+      border: 1px solid var(--bg-tertiary);
     }
     
     .markdown-section code {
       border-radius: 3px;
       padding: 3px 6px;
-      background-color: rgba(102, 126, 234, 0.1);
-      color: #667eea;
+      background-color: rgba(212, 175, 55, 0.15);
+      color: var(--gold-main);
       font-weight: 500;
     }
     
-    /* 引用样式优化 */
+    /* 引用样式优化 - 金色边框 */
     .markdown-section blockquote {
-      border-left: 4px solid var(--theme-color);
-      background-color: rgba(102, 126, 234, 0.05);
+      border-left: 4px solid var(--gold-main);
+      background-color: rgba(212, 175, 55, 0.1);
       padding: 1em;
       border-radius: 4px;
+      color: var(--text-primary);
     }
     
-    /* 表格样式优化 */
+    /* 表格样式优化 - 金色表头 */
     .markdown-section table {
       border-collapse: collapse;
       border-radius: 6px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     
     .markdown-section table th {
       background: var(--theme-gradient);
-      color: white;
+      color: var(--gold-light);
       font-weight: 600;
     }
     
     .markdown-section table tr:nth-child(even) {
-      background-color: #f8f9fa;
+      background-color: var(--bg-secondary);
     }
     
-    /* 滚动条样式优化 */
+    .markdown-section table tr {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    
+    /* 滚动条样式优化 - 金色渐变 */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
     }
     
     ::-webkit-scrollbar-track {
-      background: #f1f1f1;
+      background: var(--bg-secondary);
     }
     
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
       border-radius: 4px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-      background: #764ba2;
+      background: var(--gold-light);
     }
     
-    /* 搜索框样式优化 - 与主题颜色协调 */
+    /* 搜索框样式优化 - 黑金主题 */
     .search {
       margin: 20px 0;
     }
     
     .search input {
-      border: 2px solid #e9ecef;
+      border: 2px solid var(--gold-dark);
       border-radius: 25px;
       padding: 10px 20px;
       transition: all 0.3s ease;
       width: 100%;
-      background: #ffffff;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
     }
     
     .search input:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+      border-color: var(--gold-main);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
       outline: none;
     }
     
     .search input::-webkit-input-placeholder {
-      color: #999;
+      color: var(--text-secondary);
     }
     
-    /* 搜索结果样式 */
+    /* 搜索结果样式 - 金色标记 */
     .matching-post {
-      border-left: 3px solid #667eea;
+      border-left: 3px solid var(--gold-main);
       transition: all 0.2s ease;
     }
     
     .matching-post:hover {
-      background: rgba(102, 126, 234, 0.05);
+      background: rgba(212, 175, 55, 0.1);
     }
     
-    /* 分页样式优化 - 与主题颜色协调 */
+    /* 分页样式优化 - 黑金主题 */
     .pagination-item {
       border-radius: 6px;
       transition: all 0.2s ease;
-      color: #667eea;
-      border: 1px solid #e9ecef;
+      color: var(--gold-main);
+      border: 1px solid var(--gold-dark);
       padding: 8px 16px;
       margin: 10px 5px;
+      background: var(--bg-primary);
     }
     
     .pagination-item:hover {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+      background: var(--theme-gradient);
+      color: var(--gold-light);
       transform: translateY(-2px);
       border-color: transparent;
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
     }
     
     .pagination-item-title {
       font-weight: 500;
     }
     
-    /* GitHub Corner 样式 */
+    /* GitHub Corner 样式 - 金色 */
     .github-corner svg {
-      fill: #667eea;
-      color: #fff;
+      fill: var(--gold-main);
+      color: var(--bg-primary);
     }
     
     .github-corner:hover .octo-arm {
@@ -367,29 +405,30 @@
       }
     }
     
-    /* details 样式优化 */
+    /* details 样式优化 - 黑金主题 */
     details {
-      border: 1px solid #e9ecef;
+      border: 1px solid var(--gold-dark);
       border-radius: 6px;
       padding: 12px 16px;
       margin: 1em 0;
       transition: all 0.3s ease;
+      background: var(--bg-primary);
     }
     
     details:hover {
-      border-color: var(--theme-color);
-      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+      border-color: var(--gold-main);
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
     }
     
     details summary {
       cursor: pointer;
       font-weight: 600;
-      color: #2c3e50;
+      color: var(--text-primary);
       user-select: none;
     }
     
     details[open] summary {
-      color: var(--theme-color);
+      color: var(--gold-main);
       margin-bottom: 12px;
     }
     
@@ -404,7 +443,7 @@
       height: auto;
     }
     
-    /* TOC 目录样式优化 */
+    /* TOC 目录样式优化 - 黑金主题 */
     .page_toc {
       position: fixed;
       right: 20px;
@@ -412,21 +451,21 @@
       width: 250px;
       max-height: calc(100vh - 150px);
       overflow-y: auto;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(102, 126, 234, 0.15);
+      background: var(--bg-secondary);
+      border: 1px solid var(--gold-dark);
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
     }
     
     .page_toc .toc-title {
       font-size: 16px;
       font-weight: 600;
-      color: #667eea;
+      color: var(--gold-main);
       margin-bottom: 15px;
       padding-bottom: 10px;
-      border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+      border-bottom: 2px solid var(--gold-dark);
     }
     
     .page_toc ul {
@@ -440,7 +479,7 @@
     }
     
     .page_toc a {
-      color: #5a5a5a;
+      color: var(--text-secondary);
       text-decoration: none;
       font-size: 14px;
       display: block;
@@ -451,16 +490,16 @@
     }
     
     .page_toc a:hover {
-      color: #667eea;
-      background: rgba(102, 126, 234, 0.08);
-      border-left-color: #667eea;
+      color: var(--gold-main);
+      background: rgba(212, 175, 55, 0.1);
+      border-left-color: var(--gold-main);
       transform: translateX(4px);
     }
     
     .page_toc a.active {
-      color: #667eea;
-      background: rgba(102, 126, 234, 0.1);
-      border-left-color: #667eea;
+      color: var(--gold-main);
+      background: rgba(212, 175, 55, 0.15);
+      border-left-color: var(--gold-main);
       font-weight: 600;
     }
     
@@ -471,14 +510,240 @@
       }
     }
     
-    /* TOC 滚动条样式 */
+    /* TOC 滚动条样式 - 金色 */
     .page_toc::-webkit-scrollbar {
       width: 4px;
     }
     
     .page_toc::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
       border-radius: 2px;
+    }
+    
+    /* ==================== 命令行终端样式 ==================== */
+    
+    /* 终端触发按钮 */
+    #terminal-trigger {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: var(--theme-gradient);
+      border: 2px solid var(--gold-main);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+      transition: all 0.3s ease;
+      z-index: 999;
+      font-size: 24px;
+      color: var(--gold-light);
+    }
+    
+    #terminal-trigger:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(244, 208, 63, 0.6);
+    }
+    
+    /* 终端遮罩层 */
+    #terminal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9998;
+      backdrop-filter: blur(5px);
+    }
+    
+    #terminal-overlay.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    /* 终端窗口 */
+    #terminal-window {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 900px;
+      height: 70%;
+      max-height: 600px;
+      background: #000000;
+      border: 2px solid var(--gold-main);
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.1);
+      z-index: 9999;
+      overflow: hidden;
+    }
+    
+    #terminal-window.active {
+      display: flex;
+      flex-direction: column;
+      animation: terminalOpen 0.3s ease;
+    }
+    
+    @keyframes terminalOpen {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+    
+    /* 终端窗口标题栏 */
+    #terminal-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gold-dark);
+    }
+    
+    #terminal-controls {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .terminal-control-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    .terminal-control-btn.close { background: #ff5f57; }
+    .terminal-control-btn.minimize { background: #ffbd2e; }
+    .terminal-control-btn.maximize { background: #28ca42; }
+    
+    #terminal-title {
+      color: var(--gold-main);
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    
+    /* 终端内容区域 */
+    #terminal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    /* 终端输出历史 */
+    #terminal-output {
+      color: var(--text-primary);
+    }
+    
+    .terminal-line {
+      margin: 4px 0;
+      word-wrap: break-word;
+    }
+    
+    .terminal-prompt {
+      color: var(--gold-main);
+      font-weight: bold;
+    }
+    
+    .terminal-command {
+      color: var(--gold-light);
+    }
+    
+    .terminal-result {
+      color: var(--text-primary);
+      margin-left: 0;
+    }
+    
+    .terminal-error {
+      color: #ff4444;
+    }
+    
+    .terminal-success {
+      color: #00ff00;
+    }
+    
+    .terminal-warning {
+      color: #ffaa00;
+    }
+    
+    .terminal-info {
+      color: var(--text-secondary);
+    }
+    
+    .terminal-directory {
+      color: var(--gold-main);
+      font-weight: bold;
+    }
+    
+    .terminal-file {
+      color: #00ff00;
+    }
+    
+    /* 终端输入区 */
+    #terminal-input-line {
+      display: flex;
+      align-items: center;
+      margin-top: 8px;
+    }
+    
+    #terminal-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--gold-light);
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      padding: 0 8px;
+    }
+    
+    /* 光标闪烁动画 */
+    #terminal-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: var(--gold-main);
+      animation: cursorBlink 1s infinite;
+    }
+    
+    @keyframes cursorBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    
+    /* 响应式设计 */
+    @media screen and (max-width: 768px) {
+      #terminal-window {
+        width: 95%;
+        height: 80%;
+      }
+      
+      #terminal-trigger {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 20px;
+      }
+      
+      #terminal-body {
+        font-size: 12px;
+      }
     }
   </style>
   
@@ -495,6 +760,34 @@
 </head>
 <body>
 <div id="app">👋 加载中...</div>
+
+<!-- 终端触发按钮 -->
+<div id="terminal-trigger" title="打开命令行 (Ctrl+K)">►_</div>
+
+<!-- 终端遮罩层 -->
+<div id="terminal-overlay"></div>
+
+<!-- 终端窗口 -->
+<div id="terminal-window">
+  <div id="terminal-header">
+    <div id="terminal-controls">
+      <div class="terminal-control-btn close"></div>
+      <div class="terminal-control-btn minimize"></div>
+      <div class="terminal-control-btn maximize"></div>
+    </div>
+    <div id="terminal-title">wychmod@knowledge-base:~</div>
+    <div></div>
+  </div>
+  <div id="terminal-body">
+    <div id="terminal-output"></div>
+    <div id="terminal-input-line">
+      <span class="terminal-prompt" id="terminal-prompt">$ </span>
+      <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+      <span id="terminal-cursor"></span>
+    </div>
+  </div>
+</div>
+
 <script>
     var gitalkConfig = {
       clientID: '4a657aa4ae6c0f1862a1',
@@ -547,16 +840,16 @@
         successText: '✓ 复制成功'
       },
       
-      // Mermaid 流程图配置
+      // Mermaid 流程图配置 - 黑金主题
       mermaid: {
-        theme: 'default',
+        theme: 'dark',
         themeVariables: {
-          primaryColor: '#667eea',
-          primaryTextColor: '#fff',
-          primaryBorderColor: '#764ba2',
-          lineColor: '#667eea',
-          secondaryColor: '#f5f5f5',
-          tertiaryColor: '#fff'
+          primaryColor: '#d4af37',
+          primaryTextColor: '#000',
+          primaryBorderColor: '#f4d03f',
+          lineColor: '#d4af37',
+          secondaryColor: '#1a1a1a',
+          tertiaryColor: '#2a2a2a'
         },
         flowchart: {
           useMaxWidth: true,
@@ -655,5 +948,671 @@
 
 <!--在所有的代码块上添加一个简单的Click to copy按钮来允许用户从你的文档中轻易地复制代码-->
 <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+
+<!-- 命令行终端系统 -->
+<script>
+(function() {
+  'use strict';
+  
+  // 终端状态管理
+  const TerminalState = {
+    currentPath: '/',
+    commandHistory: [],
+    historyIndex: -1,
+    docTree: null,
+    pathMap: new Map()
+  };
+  
+  // DOM 元素引用
+  const Elements = {
+    trigger: null,
+    overlay: null,
+    window: null,
+    output: null,
+    input: null,
+    prompt: null
+  };
+  
+  // 初始化
+  function init() {
+    // 获取 DOM 元素
+    Elements.trigger = document.getElementById('terminal-trigger');
+    Elements.overlay = document.getElementById('terminal-overlay');
+    Elements.window = document.getElementById('terminal-window');
+    Elements.output = document.getElementById('terminal-output');
+    Elements.input = document.getElementById('terminal-input');
+    Elements.prompt = document.getElementById('terminal-prompt');
+    
+    // 绑定事件
+    bindEvents();
+    
+    // 加载历史命令
+    loadHistory();
+    
+    // 延迟解析文档树（等待 Docsify 加载完成）
+    setTimeout(parseDocumentTree, 2000);
+  }
+  
+  // 绑定事件
+  function bindEvents() {
+    // 触发按钮点击
+    Elements.trigger.addEventListener('click', toggleTerminal);
+    
+    // 遮罩层点击关闭
+    Elements.overlay.addEventListener('click', closeTerminal);
+    
+    // 关闭按钮
+    const closeBtn = document.querySelector('.terminal-control-btn.close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeTerminal);
+    }
+    
+    // 输入框回车
+    Elements.input.addEventListener('keydown', handleKeyDown);
+    
+    // 全局快捷键
+    document.addEventListener('keydown', handleGlobalKeyDown);
+  }
+  
+  // 切换终端显示
+  function toggleTerminal() {
+    const isActive = Elements.window.classList.contains('active');
+    if (isActive) {
+      closeTerminal();
+    } else {
+      openTerminal();
+    }
+  }
+  
+  // 打开终端
+  function openTerminal() {
+    Elements.overlay.classList.add('active');
+    Elements.window.classList.add('active');
+    Elements.input.focus();
+    
+    // 如果是首次打开，显示欢迎信息
+    if (Elements.output.children.length === 0) {
+      showWelcome();
+    }
+  }
+  
+  // 关闭终端
+  function closeTerminal() {
+    Elements.overlay.classList.remove('active');
+    Elements.window.classList.remove('active');
+  }
+  
+  // 显示欢迎信息
+  function showWelcome() {
+    const welcome = [
+      '<span class="terminal-success">欢迎使用 wychmod 技术知识库命令行导航系统</span>',
+      '',
+      '输入 <span class="terminal-command">help</span> 查看可用命令',
+      '输入 <span class="terminal-command">ls</span> 查看当前目录内容',
+      '使用 <span class="terminal-info">Tab</span> 键自动补全，<span class="terminal-info">↑↓</span> 键浏览历史命令',
+      ''
+    ];
+    welcome.forEach(line => addOutput(line));
+  }
+  
+  // 处理键盘按下
+  function handleKeyDown(e) {
+    switch(e.key) {
+      case 'Enter':
+        e.preventDefault();
+        executeCommand();
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        navigateHistory(-1);
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        navigateHistory(1);
+        break;
+      case 'Tab':
+        e.preventDefault();
+        autoComplete();
+        break;
+      case 'l':
+        if (e.ctrlKey) {
+          e.preventDefault();
+          clearTerminal();
+        }
+        break;
+    }
+  }
+  
+  // 全局快捷键
+  function handleGlobalKeyDown(e) {
+    // Ctrl+K 或 Cmd+K 打开/关闭终端
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      toggleTerminal();
+    }
+    // Esc 关闭终端
+    if (e.key === 'Escape' && Elements.window.classList.contains('active')) {
+      e.preventDefault();
+      closeTerminal();
+    }
+  }
+  
+  // 执行命令
+  function executeCommand() {
+    const input = Elements.input.value.trim();
+    if (!input) return;
+    
+    // 显示命令
+    addOutput(`<span class="terminal-prompt">$</span> <span class="terminal-command">${escapeHtml(input)}</span>`);
+    
+    // 添加到历史
+    TerminalState.commandHistory.push(input);
+    TerminalState.historyIndex = TerminalState.commandHistory.length;
+    saveHistory();
+    
+    // 清空输入
+    Elements.input.value = '';
+    
+    // 解析并执行命令
+    const parts = parseCommand(input);
+    const cmd = parts[0].toLowerCase();
+    const args = parts.slice(1);
+    
+    const command = Commands[cmd];
+    if (command) {
+      command(args);
+    } else {
+      addOutput(`<span class="terminal-error">Error: Command not found: '${escapeHtml(cmd)}'. Type 'help' to see available commands.</span>`);
+    }
+    
+    // 滚动到底部
+    scrollToBottom();
+  }
+  
+  // 解析命令
+  function parseCommand(input) {
+    const parts = [];
+    let current = '';
+    let inQuote = false;
+    
+    for (let i = 0; i < input.length; i++) {
+      const char = input[i];
+      if (char === '"' || char === "'") {
+        inQuote = !inQuote;
+      } else if (char === ' ' && !inQuote) {
+        if (current) {
+          parts.push(current);
+          current = '';
+        }
+      } else {
+        current += char;
+      }
+    }
+    if (current) parts.push(current);
+    return parts;
+  }
+  
+  // 命令集合
+  const Commands = {
+    help: function(args) {
+      const help = [
+        '<span class="terminal-success">可用命令列表：</span>',
+        '',
+        '<span class="terminal-command">cd &lt;目录&gt;</span>      - 切换到指定文档分类',
+        '<span class="terminal-command">ls [path]</span>      - 列出当前或指定目录内容',
+        '<span class="terminal-command">pwd</span>            - 显示当前所在路径',
+        '<span class="terminal-command">cat &lt;文件&gt;</span>     - 打开指定文档',
+        '<span class="terminal-command">find &lt;关键词&gt;</span>  - 搜索文档',
+        '<span class="terminal-command">tree [path]</span>    - 显示目录树',
+        '<span class="terminal-command">clear</span>          - 清空终端屏幕',
+        '<span class="terminal-command">history</span>        - 显示命令历史',
+        '<span class="terminal-command">help</span>           - 显示此帮助信息',
+        '',
+        '<span class="terminal-info">小提示：</span>',
+        '  - 使用 Tab 键自动补全命令和路径',
+        '  - 使用 ↑↓ 键浏览历史命令',
+        '  - 按 Esc 或 Ctrl+K 关闭终端'
+      ];
+      help.forEach(line => addOutput(line));
+    },
+    
+    clear: function() {
+      clearTerminal();
+    },
+    
+    pwd: function() {
+      addOutput(`<span class="terminal-directory">${TerminalState.currentPath}</span>`);
+    },
+    
+    ls: function(args) {
+      const path = args[0] || TerminalState.currentPath;
+      const targetPath = resolvePath(path);
+      const node = findNode(targetPath);
+      
+      if (!node) {
+        addOutput(`<span class="terminal-error">Error: No such directory: '${escapeHtml(path)}'</span>`);
+        return;
+      }
+      
+      if (node.type === 'file') {
+        addOutput(`<span class="terminal-file">${node.name}.md</span>`);
+        return;
+      }
+      
+      if (!node.children || node.children.length === 0) {
+        addOutput('<span class="terminal-info">Empty directory</span>');
+        return;
+      }
+      
+      node.children.forEach(child => {
+        if (child.type === 'directory') {
+          addOutput(`<span class="terminal-directory">${child.name}/</span>`);
+        } else {
+          addOutput(`<span class="terminal-file">${child.name}.md</span>`);
+        }
+      });
+    },
+    
+    cd: function(args) {
+      if (!args[0]) {
+        TerminalState.currentPath = '/';
+        updatePrompt();
+        return;
+      }
+      
+      const targetPath = resolvePath(args[0]);
+      const node = findNode(targetPath);
+      
+      if (!node) {
+        addOutput(`<span class="terminal-error">Error: No such directory: '${escapeHtml(args[0])}'</span>`);
+        return;
+      }
+      
+      if (node.type === 'file') {
+        addOutput(`<span class="terminal-error">Error: Not a directory: '${escapeHtml(args[0])}'</span>`);
+        return;
+      }
+      
+      TerminalState.currentPath = targetPath;
+      updatePrompt();
+    },
+    
+    cat: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Error: Missing argument. Usage: cat &lt;file&gt;</span>');
+        return;
+      }
+      
+      const targetPath = resolvePath(args[0]);
+      const node = findNode(targetPath);
+      
+      if (!node) {
+        addOutput(`<span class="terminal-error">Error: File not found: '${escapeHtml(args[0])}'</span>`);
+        return;
+      }
+      
+      if (node.type === 'directory') {
+        addOutput(`<span class="terminal-error">Error: '${escapeHtml(args[0])}' is a directory</span>`);
+        return;
+      }
+      
+      // 跳转到文档
+      addOutput(`<span class="terminal-success">Opening: ${node.name}</span>`);
+      setTimeout(() => {
+        window.location.hash = '#' + node.url;
+        closeTerminal();
+      }, 500);
+    },
+    
+    find: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Error: Missing argument. Usage: find &lt;keyword&gt;</span>');
+        return;
+      }
+      
+      const keyword = args.join(' ').toLowerCase();
+      const results = [];
+      
+      function search(node, path) {
+        if (node.name.toLowerCase().includes(keyword)) {
+          results.push({ path: path + '/' + node.name, node: node });
+        }
+        if (node.children) {
+          node.children.forEach(child => {
+            search(child, path + '/' + node.name);
+          });
+        }
+      }
+      
+      if (TerminalState.docTree) {
+        search(TerminalState.docTree, '');
+      }
+      
+      if (results.length === 0) {
+        addOutput(`<span class="terminal-warning">No results found for: '${escapeHtml(keyword)}'</span>`);
+      } else {
+        addOutput(`<span class="terminal-success">Found ${results.length} result(s):</span>`);
+        results.forEach(r => {
+          const icon = r.node.type === 'directory' ? '<span class="terminal-directory">📁</span>' : '<span class="terminal-file">📄</span>';
+          addOutput(`${icon} ${r.path}`);
+        });
+      }
+    },
+    
+    tree: function(args) {
+      const path = args[0] || TerminalState.currentPath;
+      const targetPath = resolvePath(path);
+      const node = findNode(targetPath);
+      
+      if (!node) {
+        addOutput(`<span class="terminal-error">Error: No such directory: '${escapeHtml(path)}'</span>`);
+        return;
+      }
+      
+      addOutput(`<span class="terminal-directory">${node.name || '根目录'}</span>`);
+      printTree(node, '', true);
+    },
+    
+    history: function() {
+      if (TerminalState.commandHistory.length === 0) {
+        addOutput('<span class="terminal-info">No command history</span>');
+        return;
+      }
+      
+      TerminalState.commandHistory.forEach((cmd, i) => {
+        addOutput(`<span class="terminal-info">${i + 1}</span> ${escapeHtml(cmd)}`);
+      });
+    },
+    
+    whoami: function() {
+      addOutput('<span class="terminal-success">wychmod - 24届计算机研究生 | JD测开从业者</span>');
+      addOutput('<span class="terminal-info">Java/Python 全栈开发者</span>');
+    },
+    
+    about: function() {
+      const stats = getStats();
+      addOutput('<span class="terminal-success">=== wychmod 技术知识库 ===</span>');
+      addOutput('');
+      addOutput(`<span class="terminal-info">📚 文档数量：</span> ${stats.totalDocs} 篇`);
+      addOutput(`<span class="terminal-info">📁 分类数量：</span> ${stats.totalCategories} 个`);
+      addOutput(`<span class="terminal-info">💻 技术栈：</span> Java, Python, React, Vue, Redis, MySQL, K8s...`);
+      addOutput(`<span class="terminal-info">🔥 核心特色：</span> 源码级学习、实战导向、深度剖析`);
+      addOutput('');
+      addOutput('<span class="terminal-success">🚀 欢迎探索知识海洋！</span>');
+    },
+    
+    echo: function(args) {
+      if (args.length === 0) return;
+      const text = args.join(' ');
+      addOutput(escapeHtml(text));
+    },
+    
+    fortune: function() {
+      const fortunes = [
+        '💡 深入理解一个技术，胜过浅尝多个框架。',
+        '💪 每天进步一点点，就是成功的开始。',
+        '🤓 源码之下，再无秘密。',
+        '🎯 好的代码不是写出来的，而是重构出来的。',
+        '🚀 持续学习，永不止步。',
+        '📖 阅读优秀源码，提升编程思维。',
+        '✨ 细节决定成败，严谨造就卓越。',
+        '🔍 理解原理，才能举一反三。',
+        '🎓 知识体系化，学习更高效。',
+        '🛠️ 工欲善其事，必先利其器。'
+      ];
+      const random = fortunes[Math.floor(Math.random() * fortunes.length)];
+      addOutput(`<span class="terminal-success">${random}</span>`);
+    },
+    
+    neofetch: function() {
+      addOutput('<span class="terminal-success">                    </span>');
+      addOutput('<span class="terminal-success">    .---.          </span> <span class="terminal-info">OS:</span> Knowledge Base System');
+      addOutput('<span class="terminal-success">   /     \\         </span> <span class="terminal-info">Host:</span> wychmod.github.io');
+      addOutput('<span class="terminal-success">   \\.@-@./         </span> <span class="terminal-info">Kernel:</span> Docsify 4.x');
+      addOutput('<span class="terminal-success">   /`\\_/`\\        </span> <span class="terminal-info">Shell:</span> Terminal.js');
+      addOutput('<span class="terminal-success">  //  _  \\\\       </span> <span class="terminal-info">Theme:</span> Black & Gold');
+      addOutput('<span class="terminal-success"> | \\     )|_      </span> <span class="terminal-info">Uptime:</span> ' + new Date().toLocaleDateString());
+      addOutput('<span class="terminal-success">/`\\_`>  <_/ \\     </span> <span class="terminal-info">Packages:</span> ' + getStats().totalDocs + ' docs');
+      addOutput('<span class="terminal-success">\\__/\'---\'\\__/    </span>');
+    }
+  };
+  
+  // 打印目录树
+  function printTree(node, prefix, isLast, depth = 0) {
+    if (depth > 3) return; // 限制深度
+    
+    if (!node.children) return;
+    
+    node.children.forEach((child, index) => {
+      const isLastChild = index === node.children.length - 1;
+      const connector = isLastChild ? '└── ' : '├── ';
+      const icon = child.type === 'directory' ? '📁' : '📄';
+      const color = child.type === 'directory' ? 'terminal-directory' : 'terminal-file';
+      
+      addOutput(`${prefix}${connector}${icon} <span class="${color}">${child.name}${child.type === 'directory' ? '/' : ''}</span>`);
+      
+      if (child.children) {
+        const newPrefix = prefix + (isLastChild ? '    ' : '│   ');
+        printTree(child, newPrefix, isLastChild, depth + 1);
+      }
+    });
+  }
+  
+  // 解析路径
+  function resolvePath(path) {
+    if (path === '/') return '/';
+    if (path.startsWith('/')) return path;
+    
+    let result = TerminalState.currentPath;
+    const parts = path.split('/').filter(p => p);
+    
+    for (const part of parts) {
+      if (part === '..') {
+        result = result.split('/').slice(0, -1).join('/') || '/';
+      } else if (part !== '.') {
+        result = result === '/' ? '/' + part : result + '/' + part;
+      }
+    }
+    
+    return result || '/';
+  }
+  
+  // 查找节点
+  function findNode(path) {
+    if (!TerminalState.docTree) return null;
+    if (path === '/') return TerminalState.docTree;
+    
+    const parts = path.split('/').filter(p => p);
+    let current = TerminalState.docTree;
+    
+    for (const part of parts) {
+      if (!current.children) return null;
+      const partLower = part.toLowerCase();
+      current = current.children.find(c => c.name.toLowerCase() === partLower);
+      if (!current) return null;
+    }
+    
+    return current;
+  }
+  
+  // 添加输出
+  function addOutput(html) {
+    const line = document.createElement('div');
+    line.className = 'terminal-line';
+    line.innerHTML = html;
+    Elements.output.appendChild(line);
+  }
+  
+  // 清空终端
+  function clearTerminal() {
+    Elements.output.innerHTML = '';
+  }
+  
+  // 滚动到底部
+  function scrollToBottom() {
+    Elements.output.parentElement.scrollTop = Elements.output.parentElement.scrollHeight;
+  }
+  
+  // 更新提示符
+  function updatePrompt() {
+    const displayPath = TerminalState.currentPath === '/' ? '~' : '~' + TerminalState.currentPath;
+    Elements.prompt.textContent = `$ `;
+  }
+  
+  // 历史命令导航
+  function navigateHistory(direction) {
+    if (TerminalState.commandHistory.length === 0) return;
+    
+    TerminalState.historyIndex += direction;
+    
+    if (TerminalState.historyIndex < 0) {
+      TerminalState.historyIndex = 0;
+    } else if (TerminalState.historyIndex >= TerminalState.commandHistory.length) {
+      TerminalState.historyIndex = TerminalState.commandHistory.length;
+      Elements.input.value = '';
+      return;
+    }
+    
+    Elements.input.value = TerminalState.commandHistory[TerminalState.historyIndex] || '';
+  }
+  
+  // 自动补全
+  function autoComplete() {
+    const input = Elements.input.value;
+    const parts = input.split(' ');
+    
+    if (parts.length === 1) {
+      // 补全命令
+      const matches = Object.keys(Commands).filter(cmd => cmd.startsWith(parts[0].toLowerCase()));
+      if (matches.length === 1) {
+        Elements.input.value = matches[0] + ' ';
+      } else if (matches.length > 1) {
+        addOutput(`<span class="terminal-info">${matches.join('  ')}</span>`);
+        scrollToBottom();
+      }
+    }
+  }
+  
+  // 加载历史
+  function loadHistory() {
+    try {
+      const history = localStorage.getItem('terminalHistory');
+      if (history) {
+        TerminalState.commandHistory = JSON.parse(history);
+      }
+    } catch (e) {
+      console.error('Failed to load history:', e);
+    }
+  }
+  
+  // 保存历史
+  function saveHistory() {
+    try {
+      const history = TerminalState.commandHistory.slice(-100); // 只保存最近100条
+      localStorage.setItem('terminalHistory', JSON.stringify(history));
+    } catch (e) {
+      console.error('Failed to save history:', e);
+    }
+  }
+  
+  // 获取统计信息
+  function getStats() {
+    let totalDocs = 0;
+    let totalCategories = 0;
+    
+    function count(node) {
+      if (node.type === 'file') {
+        totalDocs++;
+      } else if (node.type === 'directory') {
+        totalCategories++;
+      }
+      if (node.children) {
+        node.children.forEach(count);
+      }
+    }
+    
+    if (TerminalState.docTree) {
+      count(TerminalState.docTree);
+    }
+    
+    return { totalDocs, totalCategories };
+  }
+  
+  // HTML 转义
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  
+  // 解析文档树
+  function parseDocumentTree() {
+    const sidebar = document.querySelector('.sidebar-nav');
+    if (!sidebar) {
+      setTimeout(parseDocumentTree, 1000);
+      return;
+    }
+    
+    TerminalState.docTree = {
+      name: '根目录',
+      type: 'directory',
+      path: '/',
+      children: []
+    };
+    
+    const ul = sidebar.querySelector('ul');
+    if (ul) {
+      parseList(ul, TerminalState.docTree);
+    }
+  }
+  
+  // 解析列表
+  function parseList(ul, parent) {
+    const items = ul.children;
+    
+    for (let i = 0; i < items.length; i++) {
+      const li = items[i];
+      const link = li.querySelector('a');
+      const subList = li.querySelector('ul');
+      const paragraph = li.querySelector('p');
+      
+      if (link && !subList) {
+        // 文件
+        const text = link.textContent.trim();
+        const href = link.getAttribute('href');
+        if (text && href) {
+          parent.children.push({
+            name: text,
+            type: 'file',
+            url: href.replace(/^#/, '')
+          });
+        }
+      } else if (paragraph || (link && subList)) {
+        // 目录
+        const text = (paragraph || link).textContent.trim();
+        if (text && text !== '首页') {
+          const dirNode = {
+            name: text,
+            type: 'directory',
+            children: []
+          };
+          parent.children.push(dirNode);
+          
+          if (subList) {
+            parseList(subList, dirNode);
+          }
+        }
+      }
+    }
+  }
+  
+  // 页面加载完成后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
 </html>
