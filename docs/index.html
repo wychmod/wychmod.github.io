@@ -18,13 +18,13 @@
   <style>
     /* 主体背景色 - 黑色 */
     body {
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      background: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
     }
     
     /* 内容区域背景 */
     .content {
-      background: var(--bg-primary);
+      background: var(--bg-primary) !important;
     }
     
     /* 全局样式优化 - 黑金主题 */
@@ -36,10 +36,19 @@
       --bg-secondary: #1a1a1a;
       --bg-tertiary: #2a2a2a;
       --text-primary: #e0e0e0;
-      --text-secondary: #a0a0a0;
+      --text-secondary: #c5c5c5;
+      --text-tertiary: #b8b8b8;
       --gold-main: #d4af37;
       --gold-light: #f4d03f;
       --gold-dark: #b8960f;
+    }
+
+    .anchor span {
+      color: var(--gold-main) !important;
+    }
+
+    .sidebar {
+      color: var(--text-primary) !important;
     }
     
     /* 封面页样式优化 - 黑金渐变 */
@@ -98,55 +107,55 @@
     
     /* 侧边栏样式优化 - 黑金主题 */
     .sidebar {
-      background: var(--bg-primary);
-      border-right: 1px solid var(--gold-dark);
+      background: var(--bg-primary) !important;
+      border-right: 1px solid var(--gold-dark) !important;
     }
     
     .sidebar-nav > ul > li {
-      margin: 6px 0;
+      margin: 6px 0 !important;
     }
     
     .sidebar-nav li {
-      transition: all 0.2s ease;
+      transition: all 0.2s ease !important;
     }
     
     .sidebar-nav li:hover {
-      padding-left: 4px;
+      padding-left: 4px !important;
     }
     
     /* 一级菜单样式 - 金色主题 */
     .sidebar-nav > ul > li > p,
     .sidebar-nav > ul > li > a {
-      font-weight: 600;
-      font-size: 15px;
-      color: var(--gold-main);
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: all 0.2s ease;
+      font-weight: 600 !important;
+      font-size: 15px !important;
+      color: var(--gold-main) !important;
+      padding: 8px 12px !important;
+      border-radius: 6px !important;
+      transition: all 0.2s ease !important;
     }
     
     .sidebar-nav > ul > li > p:hover,
     .sidebar-nav > ul > li > a:hover {
-      background: rgba(212, 175, 55, 0.15);
-      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.15) !important;
+      color: var(--gold-light) !important;
     }
     
     /* 激活菜单样式 - 金色标记 */
     .sidebar-nav .active {
       color: var(--gold-main) !important;
-      font-weight: 600;
-      border-right: 3px solid var(--gold-main);
-      background: rgba(212, 175, 55, 0.1);
+      font-weight: 600 !important;
+      border-right: 3px solid var(--gold-main) !important;
+      background: rgba(212, 175, 55, 0.1) !important;
     }
     
     /* 侧边栏链接颜色 - 浅灰与金色 */
     .sidebar-nav a {
-      color: var(--text-secondary);
+      color: var(--text-secondary) !important;
     }
     
     .sidebar-nav a:hover {
-      color: var(--gold-main);
-      text-decoration: none;
+      color: var(--gold-main) !important;
+      text-decoration: none !important;
     }
     
     /* 导航栏样式优化 - 黑金渐变 */
@@ -199,190 +208,190 @@
     
     /* 内容区域样式优化 - 黑色背景 */
     .markdown-section {
-      max-width: 900px;
-      padding: 30px 50px 40px;
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      max-width: 900px !important;
+      padding: 30px 50px 40px !important;
+      background: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
     }
     
     .markdown-section h1,
     .markdown-section h2,
     .markdown-section h3,
     .markdown-section h4 {
-      font-weight: 600;
-      margin-top: 2em;
-      padding-bottom: 0.3em;
+      font-weight: 600 !important;
+      margin-top: 2em !important;
+      padding-bottom: 0.3em !important;
     }
     
     .markdown-section h1 {
-      font-size: 2.2em;
-      border-bottom: 2px solid var(--gold-main);
-      color: var(--gold-light);
+      font-size: 2.2em !important;
+      border-bottom: 2px solid var(--gold-main) !important;
+      color: var(--gold-light) !important;
     }
     
     .markdown-section h2 {
-      font-size: 1.8em;
-      border-bottom: 1px solid var(--gold-dark);
-      color: var(--gold-main);
+      font-size: 1.8em !important;
+      border-bottom: 1px solid var(--gold-dark) !important;
+      color: var(--gold-main) !important;
     }
     
     .markdown-section h3,
     .markdown-section h4 {
-      color: var(--text-primary);
+      color: var(--text-primary) !important;
     }
     
     /* 链接样式优化 - 金色 */
     .markdown-section a {
-      color: var(--gold-main);
-      font-weight: 500;
-      transition: all 0.2s ease;
+      color: var(--gold-main) !important;
+      font-weight: 500 !important;
+      transition: all 0.2s ease !important;
     }
     
     .markdown-section a:hover {
-      color: var(--gold-light);
-      text-decoration: underline;
+      color: var(--gold-light) !important;
+      text-decoration: underline !important;
     }
     
     /* 代码块样式优化 - 深色主题 */
     .markdown-section pre {
-      background-color: var(--bg-secondary);
-      border-radius: 6px;
-      padding: 16px;
-      margin: 1.5em 0;
-      border: 1px solid var(--bg-tertiary);
+      background-color: var(--bg-secondary) !important;
+      border-radius: 6px !important;
+      padding: 16px !important;
+      margin: 1.5em 0 !important;
+      border: 1px solid var(--bg-tertiary) !important;
     }
     
     .markdown-section code {
-      border-radius: 3px;
-      padding: 3px 6px;
-      background-color: rgba(212, 175, 55, 0.15);
-      color: var(--gold-main);
-      font-weight: 500;
+      border-radius: 3px !important;
+      padding: 3px 6px !important;
+      background-color: rgba(212, 175, 55, 0.15) !important;
+      color: var(--gold-main) !important;
+      font-weight: 500 !important;
     }
     
     /* 引用样式优化 - 金色边框 */
     .markdown-section blockquote {
-      border-left: 4px solid var(--gold-main);
-      background-color: rgba(212, 175, 55, 0.1);
-      padding: 1em;
-      border-radius: 4px;
-      color: var(--text-primary);
+      border-left: 4px solid var(--gold-main) !important;
+      background-color: rgba(212, 175, 55, 0.1) !important;
+      padding: 1em !important;
+      border-radius: 4px !important;
+      color: var(--text-primary) !important;
     }
     
     /* 表格样式优化 - 金色表头 */
     .markdown-section table {
-      border-collapse: collapse;
-      border-radius: 6px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      border-collapse: collapse !important;
+      border-radius: 6px !important;
+      overflow: hidden !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
     }
     
     .markdown-section table th {
-      background: var(--theme-gradient);
-      color: var(--gold-light);
-      font-weight: 600;
+      background: var(--theme-gradient) !important;
+      color: var(--gold-light) !important;
+      font-weight: 600 !important;
     }
     
     .markdown-section table tr:nth-child(even) {
-      background-color: var(--bg-secondary);
+      background-color: var(--bg-secondary) !important;
     }
     
     .markdown-section table tr {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
+      background-color: var(--bg-primary) !important;
+      color: var(--text-primary) !important;
     }
     
     /* 滚动条样式优化 - 金色渐变 */
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 8px !important;
+      height: 8px !important;
     }
     
     ::-webkit-scrollbar-track {
-      background: var(--bg-secondary);
+      background: var(--bg-secondary) !important;
     }
     
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
-      border-radius: 4px;
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%) !important;
+      border-radius: 4px !important;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-      background: var(--gold-light);
+      background: var(--gold-light) !important;
     }
     
     /* 搜索框样式优化 - 黑金主题 */
     .search {
-      margin: 20px 0;
+      margin: 20px 0 !important;
     }
     
     .search input {
-      border: 2px solid var(--gold-dark);
-      border-radius: 25px;
-      padding: 10px 20px;
-      transition: all 0.3s ease;
-      width: 100%;
-      background: var(--bg-secondary);
-      color: var(--text-primary);
+      border: 2px solid var(--gold-dark) !important;
+      border-radius: 25px !important;
+      padding: 10px 20px !important;
+      transition: all 0.3s ease !important;
+      width: 100% !important;
+      background: var(--bg-secondary) !important;
+      color: var(--text-primary) !important;
     }
     
     .search input:focus {
-      border-color: var(--gold-main);
-      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
-      outline: none;
+      border-color: var(--gold-main) !important;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2) !important;
+      outline: none !important;
     }
     
     .search input::-webkit-input-placeholder {
-      color: var(--text-secondary);
+      color: var(--text-tertiary) !important;
     }
     
     /* 搜索结果样式 - 金色标记 */
     .matching-post {
-      border-left: 3px solid var(--gold-main);
-      transition: all 0.2s ease;
+      border-left: 3px solid var(--gold-main) !important;
+      transition: all 0.2s ease !important;
     }
     
     .matching-post:hover {
-      background: rgba(212, 175, 55, 0.1);
+      background: rgba(212, 175, 55, 0.1) !important;
     }
     
     /* 分页样式优化 - 黑金主题 */
     .pagination-item {
-      border-radius: 6px;
-      transition: all 0.2s ease;
-      color: var(--gold-main);
-      border: 1px solid var(--gold-dark);
-      padding: 8px 16px;
-      margin: 10px 5px;
-      background: var(--bg-primary);
+      border-radius: 6px !important;
+      transition: all 0.2s ease !important;
+      color: var(--gold-main) !important;
+      border: 1px solid var(--gold-dark) !important;
+      padding: 8px 16px !important;
+      margin: 10px 5px !important;
+      background: var(--bg-primary) !important;
     }
     
     .pagination-item:hover {
-      background: var(--theme-gradient);
-      color: var(--gold-light);
-      transform: translateY(-2px);
-      border-color: transparent;
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+      background: var(--theme-gradient) !important;
+      color: var(--gold-light) !important;
+      transform: translateY(-2px) !important;
+      border-color: transparent !important;
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4) !important;
     }
     
     .pagination-item-title {
-      font-weight: 500;
+      font-weight: 500 !important;
     }
     
     /* GitHub Corner 样式 - 金色 */
     .github-corner svg {
-      fill: var(--gold-main);
-      color: var(--bg-primary);
+      fill: var(--gold-main) !important;
+      color: var(--bg-primary) !important;
     }
     
     .github-corner:hover .octo-arm {
-      animation: octocat-wave 560ms ease-in-out;
+      animation: octocat-wave 560ms ease-in-out !important;
     }
     
     /* 响应式设计 */
     @media screen and (max-width: 768px) {
       .markdown-section {
-        padding: 20px 16px;
+        padding: 20px 16px !important;
       }
     }
     
@@ -391,358 +400,416 @@
     .github-corner,
     .sidebar,
     .markdown-section {
-      animation: fadeIn 0.6s ease-in;
+      animation: fadeIn 0.6s ease-in !important;
     }
     
     @keyframes fadeIn {
       from {
-        opacity: 0;
-        transform: translateY(10px);
+        opacity: 0 !important;
+        transform: translateY(10px) !important;
       }
       to {
-        opacity: 1;
-        transform: translateY(0);
+        opacity: 1 !important;
+        transform: translateY(0) !important;
       }
     }
     
     /* details 样式优化 - 黑金主题 */
     details {
-      border: 1px solid var(--gold-dark);
-      border-radius: 6px;
-      padding: 12px 16px;
-      margin: 1em 0;
-      transition: all 0.3s ease;
-      background: var(--bg-primary);
+      border: 1px solid var(--gold-dark) !important;
+      border-radius: 6px !important;
+      padding: 12px 16px !important;
+      margin: 1em 0 !important;
+      transition: all 0.3s ease !important;
+      background: var(--bg-primary) !important;
     }
     
     details:hover {
-      border-color: var(--gold-main);
-      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+      border-color: var(--gold-main) !important;
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2) !important;
     }
     
     details summary {
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--text-primary);
-      user-select: none;
+      cursor: pointer !important;
+      font-weight: 600 !important;
+      color: var(--text-primary) !important;
+      user-select: none !important;
     }
     
     details[open] summary {
-      color: var(--gold-main);
-      margin-bottom: 12px;
+      color: var(--gold-main) !important;
+      margin-bottom: 12px !important;
     }
     
     /* Mermaid 流程图样式优化 */
     .mermaid {
-      text-align: center;
-      margin: 2em 0;
+      text-align: center !important;
+      margin: 2em 0 !important;
     }
     
     .mermaid svg {
-      max-width: 100%;
-      height: auto;
+      max-width: 100% !important;
+      height: auto !important;
     }
     
     /* TOC 目录样式优化 - 黑金主题 */
     .page_toc {
-      position: fixed;
-      right: 20px;
-      top: 100px;
-      width: 250px;
-      max-height: calc(100vh - 150px);
-      overflow-y: auto;
-      background: var(--bg-secondary);
-      border: 1px solid var(--gold-dark);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
+      position: fixed !important;
+      right: 20px !important;
+      top: 100px !important;
+      width: 250px !important;
+      max-height: calc(100vh - 150px) !important;
+      overflow-y: auto !important;
+      background: var(--bg-secondary) !important;
+      border: 1px solid var(--gold-dark) !important;
+      border-radius: 12px !important;
+      padding: 20px !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+      backdrop-filter: blur(10px) !important;
     }
     
     .page_toc .toc-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--gold-main);
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--gold-dark);
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      color: var(--gold-main) !important;
+      margin-bottom: 15px !important;
+      padding-bottom: 10px !important;
+      border-bottom: 2px solid var(--gold-dark) !important;
     }
     
     .page_toc ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
     }
     
     .page_toc li {
-      margin: 8px 0;
+      margin: 8px 0 !important;
     }
     
     .page_toc a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 14px;
-      display: block;
-      padding: 6px 10px;
-      border-radius: 6px;
-      transition: all 0.2s ease;
-      border-left: 3px solid transparent;
+      color: var(--text-secondary) !important;
+      text-decoration: none !important;
+      font-size: 14px !important;
+      display: block !important;
+      padding: 6px 10px !important;
+      border-radius: 6px !important;
+      transition: all 0.2s ease !important;
+      border-left: 3px solid transparent !important;
     }
     
     .page_toc a:hover {
-      color: var(--gold-main);
-      background: rgba(212, 175, 55, 0.1);
-      border-left-color: var(--gold-main);
-      transform: translateX(4px);
+      color: var(--gold-main) !important;
+      background: rgba(212, 175, 55, 0.1) !important;
+      border-left-color: var(--gold-main) !important;
+      transform: translateX(4px) !important;
     }
     
     .page_toc a.active {
-      color: var(--gold-main);
-      background: rgba(212, 175, 55, 0.15);
-      border-left-color: var(--gold-main);
-      font-weight: 600;
+      color: var(--gold-main) !important;
+      background: rgba(212, 175, 55, 0.15) !important;
+      border-left-color: var(--gold-main) !important;
+      font-weight: 600 !important;
     }
     
     /* 移动端隐藏TOC */
     @media screen and (max-width: 1400px) {
       .page_toc {
-        display: none;
+        display: none !important;
       }
     }
     
     /* TOC 滚动条样式 - 金色 */
     .page_toc::-webkit-scrollbar {
-      width: 4px;
+      width: 4px !important;
     }
     
     .page_toc::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
-      border-radius: 2px;
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%) !important;
+      border-radius: 2px !important;
     }
     
     /* ==================== 命令行终端样式 ==================== */
     
     /* 终端触发按钮 */
     #terminal-trigger {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 60px;
-      height: 60px;
-      background: var(--theme-gradient);
-      border: 2px solid var(--gold-main);
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
-      transition: all 0.3s ease;
-      z-index: 999;
-      font-size: 24px;
-      color: var(--gold-light);
+      position: fixed !important;
+      bottom: 30px !important;
+      right: 30px !important;
+      width: 60px !important;
+      height: 60px !important;
+      background: var(--theme-gradient) !important;
+      border: 2px solid var(--gold-main) !important;
+      border-radius: 50% !important;
+      cursor: pointer !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4) !important;
+      transition: all 0.3s ease !important;
+      z-index: 999 !important;
+      font-size: 24px !important;
+      color: var(--gold-light) !important;
     }
     
     #terminal-trigger:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 8px 30px rgba(244, 208, 63, 0.6);
+      transform: translateY(-3px) scale(1.05) !important;
+      box-shadow: 0 8px 30px rgba(244, 208, 63, 0.6) !important;
     }
     
     /* 终端遮罩层 */
     #terminal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 9998;
-      backdrop-filter: blur(5px);
+      display: none !important;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: rgba(0, 0, 0, 0.85) !important;
+      z-index: 9998 !important;
+      backdrop-filter: blur(5px) !important;
     }
     
     #terminal-overlay.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
+      display: block !important;
+      animation: fadeIn 0.3s ease !important;
     }
     
     /* 终端窗口 */
     #terminal-window {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%;
-      max-width: 900px;
-      height: 70%;
-      max-height: 600px;
-      background: #000000;
-      border: 2px solid var(--gold-main);
-      border-radius: 12px;
-      box-shadow: 0 0 40px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.1);
-      z-index: 9999;
-      overflow: hidden;
+      display: none !important;
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 80% !important;
+      max-width: 900px !important;
+      height: 70% !important;
+      max-height: 600px !important;
+      background: #000000 !important;
+      border: 2px solid var(--gold-main) !important;
+      border-radius: 12px !important;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.1) !important;
+      z-index: 9999 !important;
+      overflow: hidden !important;
     }
     
     #terminal-window.active {
-      display: flex;
-      flex-direction: column;
-      animation: terminalOpen 0.3s ease;
+      display: flex !important;
+      flex-direction: column !important;
+      animation: terminalOpen 0.3s ease !important;
     }
     
     @keyframes terminalOpen {
       from {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0 !important;
+        transform: translate(-50%, -50%) scale(0.9) !important;
       }
       to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
+        opacity: 1 !important;
+        transform: translate(-50%, -50%) scale(1) !important;
       }
     }
     
     /* 终端窗口标题栏 */
     #terminal-header {
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%);
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--gold-dark);
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%) !important;
+      padding: 12px 16px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      border-bottom: 1px solid var(--gold-dark) !important;
     }
     
     #terminal-controls {
-      display: flex;
-      gap: 8px;
+      display: flex !important;
+      gap: 8px !important;
     }
     
     .terminal-control-btn {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      cursor: pointer;
+      width: 12px !important;
+      height: 12px !important;
+      border-radius: 50% !important;
+      cursor: pointer !important;
     }
     
-    .terminal-control-btn.close { background: #ff5f57; }
-    .terminal-control-btn.minimize { background: #ffbd2e; }
-    .terminal-control-btn.maximize { background: #28ca42; }
+    .terminal-control-btn.close { background: #ff5f57 !important; }
+    .terminal-control-btn.minimize { background: #ffbd2e !important; }
+    .terminal-control-btn.maximize { background: #28ca42 !important; }
     
     #terminal-title {
-      color: var(--gold-main);
-      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-      font-size: 13px;
-      font-weight: 600;
+      color: var(--gold-main) !important;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
     }
     
     /* 终端内容区域 */
     #terminal-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-      font-size: 14px;
-      line-height: 1.6;
+      flex: 1 !important;
+      overflow-y: auto !important;
+      padding: 16px !important;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
     }
     
     /* 终端输出历史 */
     #terminal-output {
-      color: var(--text-primary);
+      color: var(--text-primary) !important;
     }
     
     .terminal-line {
-      margin: 4px 0;
-      word-wrap: break-word;
+      margin: 4px 0 !important;
+      word-wrap: break-word !important;
     }
     
     .terminal-prompt {
-      color: var(--gold-main);
-      font-weight: bold;
+      color: var(--gold-main) !important;
+      font-weight: bold !important;
     }
     
     .terminal-command {
-      color: var(--gold-light);
+      color: var(--gold-light) !important;
     }
     
     .terminal-result {
-      color: var(--text-primary);
-      margin-left: 0;
+      color: var(--text-primary) !important;
+      margin-left: 0 !important;
     }
     
     .terminal-error {
-      color: #ff4444;
+      color: #ff4444 !important;
     }
     
     .terminal-success {
-      color: #00ff00;
+      color: #00ff00 !important;
     }
     
     .terminal-warning {
-      color: #ffaa00;
+      color: #ffaa00 !important;
     }
     
     .terminal-info {
-      color: var(--text-secondary);
+      color: var(--text-secondary) !important;
     }
     
     .terminal-directory {
-      color: var(--gold-main);
-      font-weight: bold;
+      color: var(--gold-main) !important;
+      font-weight: bold !important;
     }
     
     .terminal-file {
-      color: #00ff00;
+      color: #00ff00 !important;
     }
     
     /* 终端输入区 */
     #terminal-input-line {
-      display: flex;
-      align-items: center;
-      margin-top: 8px;
+      display: flex !important;
+      align-items: center !important;
+      margin-top: 8px !important;
     }
     
     #terminal-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--gold-light);
-      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-      font-size: 14px;
-      padding: 0 8px;
+      flex: 1 !important;
+      background: transparent !important;
+      border: none !important;
+      outline: none !important;
+      color: var(--gold-light) !important;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+      font-size: 14px !important;
+      padding: 0 8px !important;
     }
     
     /* 光标闪烁动画 */
     #terminal-cursor {
-      display: inline-block;
-      width: 8px;
-      height: 16px;
-      background: var(--gold-main);
-      animation: cursorBlink 1s infinite;
+      display: inline-block !important;
+      width: 8px !important;
+      height: 16px !important;
+      background: var(--gold-main) !important;
+      animation: cursorBlink 1s infinite !important;
     }
     
     @keyframes cursorBlink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
+      0%, 49% { opacity: 1 !important; }
+      50%, 100% { opacity: 0 !important; }
     }
     
     /* 响应式设计 */
     @media screen and (max-width: 768px) {
       #terminal-window {
-        width: 95%;
-        height: 80%;
+        width: 95% !important;
+        height: 80% !important;
       }
       
       #terminal-trigger {
-        width: 50px;
-        height: 50px;
-        bottom: 20px;
-        right: 20px;
-        font-size: 20px;
+        width: 50px !important;
+        height: 50px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        font-size: 20px !important;
       }
       
       #terminal-body {
-        font-size: 12px;
+        font-size: 12px !important;
+      }
+    }
+    
+    /* ==================== 阅读进度条 ==================== */
+    
+    #reading-progress {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      height: 3px !important;
+      width: 0% !important;
+      background: linear-gradient(90deg, #b8960f, #d4af37, #f4d03f) !important;
+      z-index: 1001 !important;
+      transition: width 0.2s ease !important;
+      box-shadow: 0 2px 4px rgba(212, 175, 55, 0.3) !important;
+    }
+    
+    /* ==================== 返回顶部按钮 ==================== */
+    
+    #back-to-top {
+      position: fixed !important;
+      bottom: 110px !important;
+      right: 30px !important;
+      width: 50px !important;
+      height: 50px !important;
+      background: var(--theme-gradient) !important;
+      border: 2px solid var(--gold-main) !important;
+      border-radius: 50% !important;
+      cursor: pointer !important;
+      display: none !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4) !important;
+      transition: all 0.3s ease !important;
+      z-index: 998 !important;
+      font-size: 24px !important;
+      color: var(--gold-light) !important;
+      opacity: 0 !important;
+    }
+    
+    #back-to-top.visible {
+      display: flex !important;
+      opacity: 1 !important;
+      animation: fadeIn 0.3s ease !important;
+    }
+    
+    #back-to-top:hover {
+      transform: translateY(-3px) scale(1.05) !important;
+      box-shadow: 0 8px 30px rgba(244, 208, 63, 0.6) !important;
+    }
+    
+    @media screen and (max-width: 768px) {
+      #back-to-top {
+        width: 45px !important;
+        height: 45px !important;
+        bottom: 90px !important;
+        right: 20px !important;
+        font-size: 20px !important;
       }
     }
   </style>
@@ -760,6 +827,12 @@
 </head>
 <body>
 <div id="app">👋 加载中...</div>
+
+<!-- 阅读进度条 -->
+<div id="reading-progress"></div>
+
+<!-- 返回顶部按钮 -->
+<div id="back-to-top" title="返回顶部">↑</div>
 
 <!-- 终端触发按钮 -->
 <div id="terminal-trigger" title="打开命令行 (Ctrl+K)">►_</div>
@@ -1048,6 +1121,7 @@
       '<span class="terminal-success">欢迎使用 wychmod 技术知识库命令行导航系统</span>',
       '',
       '输入 <span class="terminal-command">help</span> 查看可用命令',
+      '输入 <span class="terminal-command">readme</span> 查看知识库简介',
       '输入 <span class="terminal-command">ls</span> 查看当前目录内容',
       '使用 <span class="terminal-info">Tab</span> 键自动补全，<span class="terminal-info">↑↓</span> 键浏览历史命令',
       ''
@@ -1158,26 +1232,35 @@
       const help = [
         '<span class="terminal-success">可用命令列表：</span>',
         '',
+        '<span class="terminal-warning">📁 文件系统命令：</span>',
         '<span class="terminal-command">cd &lt;目录&gt;</span>      - 切换到指定文档分类',
         '<span class="terminal-command">ls [path]</span>      - 列出当前或指定目录内容',
         '<span class="terminal-command">pwd</span>            - 显示当前所在路径',
         '<span class="terminal-command">cat &lt;文件&gt;</span>     - 打开指定文档',
-        '<span class="terminal-command">find &lt;关键词&gt;</span>  - 搜索文档',
         '<span class="terminal-command">tree [path]</span>    - 显示目录树',
+        '',
+        '<span class="terminal-warning">🔍 搜索与导航：</span>',
+        '<span class="terminal-command">find &lt;关键词&gt;</span>  - 搜索文档',
+        '<span class="terminal-command">readme</span>         - 查看知识库简介',
+        '<span class="terminal-command">stats</span>          - 显示统计信息',
+        '<span class="terminal-command">recent</span>         - 显示最近访问',
+        '',
+        '<span class="terminal-warning">🛠️ 系统命令：</span>',
         '<span class="terminal-command">man &lt;命令&gt;</span>     - 显示命令手册',
         '<span class="terminal-command">clear</span>          - 清空终端屏幕',
         '<span class="terminal-command">history</span>        - 显示命令历史',
         '<span class="terminal-command">whoami</span>         - 显示用户信息',
-        '<span class="terminal-command">about</span>          - 显示知识库统计',
+        '<span class="terminal-command">about</span>          - 显示关于信息',
         '<span class="terminal-command">fortune</span>        - 随机技术名言',
         '<span class="terminal-command">neofetch</span>       - 系统信息面板',
         '<span class="terminal-command">help</span>           - 显示此帮助信息',
         '',
         '<span class="terminal-info">小提示：</span>',
-        '  - 使用 Tab 键自动补全命令和路径',
-        '  - 使用 ↑↓ 键浏览历史命令',
-        '  - 按 Esc 或 Ctrl+K 关闭终端',
-        '  - 输入 <span class="terminal-command">man &lt;命令&gt;</span> 查看命令详细说明'
+        '  • 使用 Tab 键自动补全命令和路径',
+        '  • 使用 ↑↓ 键浏览历史命令',
+        '  • 按 Esc 或 Ctrl+K 关闭终端',
+        '  • cat 命令支持带或不带 .md 后缀',
+        '  • 输入 <span class="terminal-command">man &lt;命令&gt;</span> 查看命令详细说明'
       ];
       help.forEach(line => addOutput(line));
     },
@@ -1261,7 +1344,13 @@
         return;
       }
       
-      const targetPath = resolvePath(args[0]);
+      // 标准化文件名：移除 .md 后缀（如果存在）
+      let fileName = args[0];
+      if (fileName.toLowerCase().endsWith('.md')) {
+        fileName = fileName.slice(0, -3);
+      }
+      
+      const targetPath = resolvePath(fileName);
       const node = findNode(targetPath);
       
       if (!node) {
@@ -1519,6 +1608,63 @@
     
     quit: function() {
       Commands.exit();
+    },
+    
+    readme: function() {
+      addOutput('<span class="terminal-success">========== wychmod 技术知识库 ==========</span>');
+      addOutput('');
+      addOutput('<span class="terminal-info">👨‍💻 关于我：</span>24届计算机研究生，Java与Python双语言全栈开发者');
+      addOutput('<span class="terminal-info">📚 知识范围：</span>涵盖后端、前端、算法、系统设计、AI等全栈知识');
+      addOutput('<span class="terminal-info">🎯 学习目标：</span>源码剖析与实战结合，手写Spring、协程库，打造系统化技术体系');
+      addOutput('');
+      addOutput('<span class="terminal-warning">⚡ 快速开始：</span>');
+      addOutput('  • 输入 <span class="terminal-command">ls</span> 查看所有分类');
+      addOutput('  • 输入 <span class="terminal-command">cd 后端开发</span> 进入分类');
+      addOutput('  • 输入 <span class="terminal-command">find Spring</span> 搜索文档');
+      addOutput('  • 输入 <span class="terminal-command">stats</span> 查看统计信息');
+    },
+    
+    stats: function() {
+      const stats = getStats();
+      addOutput('<span class="terminal-success">========== 知识库统计信息 ==========</span>');
+      addOutput('');
+      addOutput(`<span class="terminal-info">📚 文档总数：</span> <span class="terminal-success">${stats.totalDocs}</span> 篇`);
+      addOutput(`<span class="terminal-info">📁 分类数量：</span> <span class="terminal-success">${stats.totalCategories}</span> 个`);
+      addOutput('');
+      addOutput('<span class="terminal-info">💻 技术栈分布：</span>');
+      addOutput('  • Java: Spring, SpringBoot, SpringCloud, JVM调优');
+      addOutput('  • Python: Django, Flask, 源码剖析, 异步编程');
+      addOutput('  • 前端: React, Vue, Taro小程序');
+      addOutput('  • 中间件: Redis, MySQL, RabbitMQ, Elasticsearch');
+      addOutput('  • 云原生: Docker, Kubernetes, CI/CD');
+      addOutput('  • AI: 机器学习, 深度学习, Agent系统');
+      addOutput('');
+      addOutput('<span class="terminal-warning">🎯 核心特色：</span>');
+      addOutput('  • 源码级学习：深入分析框架内部原理');
+      addOutput('  • 实战导向：手写Spring、RPC、协程库');
+      addOutput('  • 系统化体系：从基础到高级全面覆盖');
+    },
+    
+    recent: function() {
+      try {
+        const history = JSON.parse(localStorage.getItem('readingHistory') || '[]');
+        if (history.length === 0) {
+          addOutput('<span class="terminal-warning">暂无最近访问记录</span>');
+          return;
+        }
+        
+        addOutput('<span class="terminal-success">🕒 最近访问的文档：</span>');
+        addOutput('');
+        
+        const recentItems = history.slice(-5).reverse();
+        recentItems.forEach((item, index) => {
+          const time = new Date(item.time).toLocaleString('zh-CN');
+          addOutput(`<span class="terminal-info">${index + 1}.</span> <span class="terminal-file">${item.title}</span>`);
+          addOutput(`   <span class="terminal-info">访问时间: ${time}</span>`);
+        });
+      } catch (e) {
+        addOutput('<span class="terminal-error">读取历史记录失败</span>');
+      }
     }
   };
   
@@ -1717,13 +1863,23 @@
     
     for (let i = 0; i < items.length; i++) {
       const li = items[i];
+      
+      // 跳过分隔符（hr 标签）
+      if (li.querySelector('hr')) {
+        continue;
+      }
+      
       const link = li.querySelector('a');
       const subList = li.querySelector('ul');
       const paragraph = li.querySelector('p');
       
       if (link && !subList) {
-        // 文件
-        const text = link.textContent.trim();
+        // 文件节点
+        let text = link.textContent.trim();
+        // 移除 emoji 和特殊字符
+        text = text.replace(/[\uD83C-\uDBFF\uDC00-\uDFFF]+|[\u2600-\u27FF]|[\u{1F300}-\u{1F9FF}]/gu, '').trim();
+        text = text.replace(/^[\s\u00A0]+|[\s\u00A0]+$/g, '').trim();
+        
         const href = link.getAttribute('href');
         if (text && href) {
           parent.children.push({
@@ -1733,9 +1889,14 @@
           });
         }
       } else if (paragraph || (link && subList)) {
-        // 目录
-        const text = (paragraph || link).textContent.trim();
-        if (text && text !== '首页') {
+        // 目录节点
+        let text = (paragraph || link).textContent.trim();
+        // 移除 emoji 和特殊字符
+        text = text.replace(/[\uD83C-\uDBFF\uDC00-\uDFFF]+|[\u2600-\u27FF]|[\u{1F300}-\u{1F9FF}]/gu, '').trim();
+        text = text.replace(/^[\s\u00A0]+|[\s\u00A0]+$/g, '').trim();
+        
+        // 不过滤任何目录，包括“首页”
+        if (text) {
           const dirNode = {
             name: text,
             type: 'directory',
@@ -1757,6 +1918,83 @@
   } else {
     init();
   }
+  
+  // 记录阅读历史
+  function trackReading() {
+    if (window.$docsify && window.$docsify.router) {
+      try {
+        const title = document.querySelector('.markdown-section h1')?.textContent || '未知文档';
+        const path = window.location.hash;
+        
+        if (path && path !== '#/' && path !== '#/README') {
+          let history = JSON.parse(localStorage.getItem('readingHistory') || '[]');
+          
+          // 移除重复项
+          history = history.filter(item => item.path !== path);
+          
+          // 添加新记录
+          history.push({
+            title: title,
+            path: path,
+            time: Date.now()
+          });
+          
+          // 只保留最近 20 条
+          if (history.length > 20) {
+            history = history.slice(-20);
+          }
+          
+          localStorage.setItem('readingHistory', JSON.stringify(history));
+        }
+      } catch (e) {
+        console.error('Failed to track reading:', e);
+      }
+    }
+  }
+  
+  // 监听路由变化
+  window.addEventListener('hashchange', () => {
+    setTimeout(trackReading, 1000);
+  });
+})();
+
+// 阅读进度条和返回顶部按钮
+(function() {
+  'use strict';
+  
+  const progressBar = document.getElementById('reading-progress');
+  const backToTopBtn = document.getElementById('back-to-top');
+  
+  // 更新阅读进度
+  function updateReadingProgress() {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    
+    const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+    progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+    
+    // 控制返回顶部按钮显示
+    if (scrollTop > 800) {
+      backToTopBtn.classList.add('visible');
+    } else {
+      backToTopBtn.classList.remove('visible');
+    }
+  }
+  
+  // 返回顶部
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+  
+  // 监听滚动
+  window.addEventListener('scroll', updateReadingProgress);
+  
+  // 初始化
+  updateReadingProgress();
 })();
 </script>
 </body>
