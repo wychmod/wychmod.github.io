@@ -1164,14 +1164,20 @@
         '<span class="terminal-command">cat &lt;文件&gt;</span>     - 打开指定文档',
         '<span class="terminal-command">find &lt;关键词&gt;</span>  - 搜索文档',
         '<span class="terminal-command">tree [path]</span>    - 显示目录树',
+        '<span class="terminal-command">man &lt;命令&gt;</span>     - 显示命令手册',
         '<span class="terminal-command">clear</span>          - 清空终端屏幕',
         '<span class="terminal-command">history</span>        - 显示命令历史',
+        '<span class="terminal-command">whoami</span>         - 显示用户信息',
+        '<span class="terminal-command">about</span>          - 显示知识库统计',
+        '<span class="terminal-command">fortune</span>        - 随机技术名言',
+        '<span class="terminal-command">neofetch</span>       - 系统信息面板',
         '<span class="terminal-command">help</span>           - 显示此帮助信息',
         '',
         '<span class="terminal-info">小提示：</span>',
         '  - 使用 Tab 键自动补全命令和路径',
         '  - 使用 ↑↓ 键浏览历史命令',
-        '  - 按 Esc 或 Ctrl+K 关闭终端'
+        '  - 按 Esc 或 Ctrl+K 关闭终端',
+        '  - 输入 <span class="terminal-command">man &lt;命令&gt;</span> 查看命令详细说明'
       ];
       help.forEach(line => addOutput(line));
     },
@@ -1204,13 +1210,25 @@
         return;
       }
       
+      // 统计文件和目录数量
+      let dirCount = 0;
+      let fileCount = 0;
       node.children.forEach(child => {
         if (child.type === 'directory') {
-          addOutput(`<span class="terminal-directory">${child.name}/</span>`);
-        } else {
-          addOutput(`<span class="terminal-file">${child.name}.md</span>`);
+          dirCount++;
+          addOutput(`<span class="terminal-directory">📁 ${child.name}/</span>`);
         }
       });
+      node.children.forEach(child => {
+        if (child.type === 'file') {
+          fileCount++;
+          addOutput(`<span class="terminal-file">📄 ${child.name}.md</span>`);
+        }
+      });
+      
+      // 显示统计信息
+      addOutput('');
+      addOutput(`<span class="terminal-info">总计: ${dirCount} 个目录, ${fileCount} 个文件</span>`);
     },
     
     cd: function(args) {
@@ -1374,6 +1392,133 @@
       addOutput('<span class="terminal-success"> | \\     )|_      </span> <span class="terminal-info">Uptime:</span> ' + new Date().toLocaleDateString());
       addOutput('<span class="terminal-success">/`\\_`>  <_/ \\     </span> <span class="terminal-info">Packages:</span> ' + getStats().totalDocs + ' docs');
       addOutput('<span class="terminal-success">\\__/\'---\'\\__/    </span>');
+    },
+    
+    man: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Usage: man <command></span>');
+        return;
+      }
+      
+      const cmd = args[0].toLowerCase();
+      const manuals = {
+        ls: [
+          '<span class="terminal-success">NAME</span>',
+          '    ls - list directory contents',
+          '',
+          '<span class="terminal-success">SYNOPSIS</span>',
+          '    ls [path]',
+          '',
+          '<span class="terminal-success">DESCRIPTION</span>',
+          '    List information about files and directories.',
+          '    By default, lists current directory.',
+          '',
+          '<span class="terminal-success">EXAMPLES</span>',
+          '    ls              List current directory',
+          '    ls 后端开发      List specific directory'
+        ],
+        cd: [
+          '<span class="terminal-success">NAME</span>',
+          '    cd - change directory',
+          '',
+          '<span class="terminal-success">SYNOPSIS</span>',
+          '    cd [directory]',
+          '',
+          '<span class="terminal-success">DESCRIPTION</span>',
+          '    Change the current working directory.',
+          '',
+          '<span class="terminal-success">EXAMPLES</span>',
+          '    cd Java技术栈    Change to Java directory',
+          '    cd ..           Go to parent directory',
+          '    cd /            Go to root directory'
+        ],
+        cat: [
+          '<span class="terminal-success">NAME</span>',
+          '    cat - view document',
+          '',
+          '<span class="terminal-success">SYNOPSIS</span>',
+          '    cat <file>',
+          '',
+          '<span class="terminal-success">DESCRIPTION</span>',
+          '    Open and navigate to the specified document.',
+          '',
+          '<span class="terminal-success">EXAMPLES</span>',
+          '    cat Java基本功     Open Java basics document'
+        ],
+        find: [
+          '<span class="terminal-success">NAME</span>',
+          '    find - search documents',
+          '',
+          '<span class="terminal-success">SYNOPSIS</span>',
+          '    find <keyword>',
+          '',
+          '<span class="terminal-success">DESCRIPTION</span>',
+          '    Search for documents containing the keyword.',
+          '',
+          '<span class="terminal-success">EXAMPLES</span>',
+          '    find Redis      Find Redis-related documents',
+          '    find Spring     Find Spring-related documents'
+        ]
+      };
+      
+      if (manuals[cmd]) {
+        manuals[cmd].forEach(line => addOutput(line));
+      } else {
+        addOutput(`<span class="terminal-error">No manual entry for ${escapeHtml(cmd)}</span>`);
+      }
+    },
+    
+    open: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Usage: open <file></span>');
+        return;
+      }
+      
+      // 别名命令，调用 cat
+      Commands.cat(args);
+    },
+    
+    view: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Usage: view <file></span>');
+        return;
+      }
+      
+      // 别名命令，调用 cat
+      Commands.cat(args);
+    },
+    
+    ll: function(args) {
+      // 别名命令，调用 ls 显示详细信息
+      Commands.ls(args);
+    },
+    
+    dir: function(args) {
+      // Windows 风格别名
+      Commands.ls(args);
+    },
+    
+    grep: function(args) {
+      if (args.length < 2) {
+        addOutput('<span class="terminal-error">Usage: grep <pattern> <command></span>');
+        addOutput('<span class="terminal-info">Example: ls | grep Redis</span>');
+        return;
+      }
+      
+      const pattern = args[0].toLowerCase();
+      addOutput(`<span class="terminal-info">Searching for: '${escapeHtml(pattern)}'...</span>`);
+      
+      // 调用 find 命令
+      Commands.find([pattern]);
+    },
+    
+    exit: function() {
+      addOutput('<span class="terminal-success">Goodbye! 按 Esc 或 Ctrl+K 关闭终端</span>');
+      setTimeout(closeTerminal, 1000);
+    },
+    
+    quit: function() {
+      Commands.exit();
     }
   };
   

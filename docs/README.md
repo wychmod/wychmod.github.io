@@ -17,6 +17,45 @@
 
 ---
 
+## 💻 交互式命令行导航
+
+<div id="home-terminal" style="background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%); border: 2px solid #d4af37; border-radius: 12px; padding: 20px; margin: 30px 0; box-shadow: 0 0 40px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(212, 175, 55, 0.1); font-family: 'Consolas', 'Monaco', 'Courier New', monospace; color: #e0e0e0;">
+  <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); padding: 12px 16px; margin: -20px -20px 20px -20px; border-radius: 10px 10px 0 0; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #b8960f;">
+    <div style="display: flex; gap: 8px;">
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f57;"></div>
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: #28ca42;"></div>
+    </div>
+    <div style="color: #d4af37; font-size: 13px; font-weight: 600;">wychmod@knowledge-base:~</div>
+    <div style="width: 60px;"></div>
+  </div>
+  <div style="line-height: 1.8;">
+    <div style="color: #00ff00; margin-bottom: 10px;">👋 欢迎使用命令行导航系统！</div>
+    <div style="margin-bottom: 15px;"><span style="color: #d4af37; font-weight: bold;">$</span><span style="color: #f4d03f;"> help</span></div>
+    <div style="margin-left: 20px; color: #a0a0a0;">
+      <div>可用命令：</div>
+      <div style="margin-top: 8px;">
+        <span style="color: #d4af37;">● ls</span> - 列出文档目录<br/>
+        <span style="color: #d4af37;">● cd &lt;目录&gt;</span> - 切换目录<br/>
+        <span style="color: #d4af37;">● cat &lt;文件&gt;</span> - 查看文档内容<br/>
+        <span style="color: #d4af37;">● find &lt;关键词&gt;</span> - 搜索文档<br/>
+        <span style="color: #d4af37;">● tree</span> - 显示目录树<br/>
+      </div>
+    </div>
+    <div style="margin-top: 20px; padding: 15px; background: rgba(212, 175, 55, 0.1); border-left: 3px solid #d4af37; border-radius: 4px;">
+      <div style="color: #f4d03f; font-weight: bold; margin-bottom: 8px;">⚡ 快速开始</div>
+      <div style="color: #e0e0e0;">
+        1. 点击右下角金色按钮 <span style="color: #f4d03f; font-weight: bold;">►_</span> 打开终端<br/>
+        2. 或按 <span style="color: #f4d03f; font-weight: bold;">Ctrl+K</span> 快捷键<br/>
+        3. 输入 <span style="color: #d4af37; font-weight: bold;">ls</span> 查看所有分类<br/>
+        4. 输入 <span style="color: #d4af37; font-weight: bold;">fortune</span> 获取技术名言
+      </div>
+    </div>
+  </div>
+</div>
+
+---
+
 ## 📖 快速导航
 
 ### 📚 后端开发
