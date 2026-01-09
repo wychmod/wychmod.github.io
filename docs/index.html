@@ -1006,6 +1006,7 @@
 
 <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
 <script src="/assets/js/md5.js"></script>
+<script src="/assets/js/ai-assistant.js"></script>
 <script src="/assets/js/docsify.min.js"></script>
 <script src="/assets/js/gitalk.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
@@ -1129,6 +1130,11 @@
       '输入 <span class="terminal-command">help</span> 查看可用命令',
       '输入 <span class="terminal-command">readme</span> 查看知识库简介',
       '输入 <span class="terminal-command">ls</span> 查看当前目录内容',
+      '',
+      '<span class="terminal-warning">🤖 新功能：AI智能问答</span>',
+      '输入 <span class="terminal-command">ai 你的问题</span> 获取AI技术指导和文档推荐',
+      '输入 <span class="terminal-command">aiconfig</span> 查看AI配置状态',
+      '',
       '使用 <span class="terminal-info">Tab</span> 键自动补全，<span class="terminal-info">↑↓</span> 键浏览历史命令',
       ''
     ];
@@ -1250,6 +1256,11 @@
         '<span class="terminal-command">readme</span>         - 查看知识库简介',
         '<span class="terminal-command">stats</span>          - 显示统计信息',
         '<span class="terminal-command">recent</span>         - 显示最近访问',
+        '',
+        '<span class="terminal-warning">🤖 AI智能助手：</span>',
+        '<span class="terminal-command">ai &lt;问题&gt;</span>     - AI技术问答和文档推荐',
+        '<span class="terminal-command">aiconfig [key] [value]</span> - 配置或查看AI设置',
+        '<span class="terminal-command">aisearch &lt;关键词&gt;</span> - 本地智能文档搜索',
         '',
         '<span class="terminal-warning">🛠️ 系统命令：</span>',
         '<span class="terminal-command">man &lt;命令&gt;</span>     - 显示命令手册',
@@ -1671,6 +1682,99 @@
       } catch (e) {
         addOutput('<span class="terminal-error">读取历史记录失败</span>');
       }
+    },
+    
+    // ==================== AI智能助手命令 ====================
+    
+    ai: function(args) {
+      if (!args || args.length === 0) {
+        addOutput('<span class="terminal-error">Usage: ai <你的技术问题></span>');
+        addOutput('<span class="terminal-info">示例: ai Spring Bean的生命周期是什么？</span>');
+        addOutput('<span class="terminal-info">示例: ai 如何优化MySQL查询性能？</span>');
+        addOutput('<span class="terminal-info">示例: ai Python协程和线程有什么区别？</span>');
+        return;
+      }
+      
+      const question = args.join(' ');
+      addOutput(`<span class="terminal-info">🤔 正在思考您的问题...</span>`);
+      addOutput('');
+      
+      // 调用AI助手
+      if (window.AIAssistant) {
+        window.AIAssistant.ask(question).then(result => {
+          if (result.success) {
+            const formatted = window.AIAssistant.format(result.data);
+            formatted.forEach(line => addOutput(line));
+          } else {
+            addOutput(`<span class="terminal-error">${result.error}</span>`);
+          }
+          scrollToBottom();
+        }).catch(error => {
+          addOutput(`<span class="terminal-error">❌ AI请求失败: ${error.message}</span>`);
+          scrollToBottom();
+        });
+      } else {
+        addOutput('<span class="terminal-error">❌ AI助手模块未加载</span>');
+        scrollToBottom();
+      }
+    },
+    
+    aiconfig: function(args) {
+      if (!window.AIAssistant) {
+        addOutput('<span class="terminal-error">❌ AI助手模块未加载</span>');
+        return;
+      }
+      
+      if (args.length === 0) {
+        // 显示配置状态
+        const status = window.AIAssistant.getConfigStatus();
+        status.forEach(line => addOutput(line));
+      } else if (args.length === 2) {
+        // 设置配置
+        const [key, value] = args;
+        const result = window.AIAssistant.setConfig(key, value);
+        addOutput(result);
+      } else {
+        addOutput('<span class="terminal-error">Usage: aiconfig [key] [value]</span>');
+        addOutput('<span class="terminal-info">查看配置: aiconfig</span>');
+        addOutput('<span class="terminal-info">设置配置: aiconfig apikey YOUR_KEY</span>');
+        addOutput('<span class="terminal-info">          aiconfig apiurl YOUR_URL</span>');
+      }
+    },
+    
+    aisearch: function(args) {
+      if (!args || args.length === 0) {
+        addOutput('<span class="terminal-error">Usage: aisearch <关键词></span>');
+        addOutput('<span class="terminal-info">示例: aisearch Spring</span>');
+        return;
+      }
+      
+      const keyword = args.join(' ');
+      
+      if (window.AIAssistant) {
+        const results = window.AIAssistant.search(keyword);
+        
+        if (results.length === 0) {
+          addOutput(`<span class="terminal-warning">未找到包含 "${escapeHtml(keyword)}" 的文档</span>`);
+        } else {
+          addOutput(`<span class="terminal-success">🔍 找到 ${results.length} 个相关文档：</span>`);
+          addOutput('');
+          
+          results.forEach((doc, index) => {
+            addOutput(`<span class="terminal-warning">${index + 1}. ${escapeHtml(doc.title)}</span>`);
+            addOutput(`   <span class="terminal-info">分类: ${escapeHtml(doc.category)}</span>`);
+            addOutput(`   <span class="terminal-command">打开: cat ${escapeHtml(doc.path)}</span>`);
+            addOutput('');
+          });
+        }
+      } else {
+        addOutput('<span class="terminal-error">❌ AI助手模块未加载</span>');
+      }
+    },
+    
+    ask: function(args) {
+      // ai命令的别名
+      Commands.ai(args);
     }
   };
   

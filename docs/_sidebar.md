@@ -1,4 +1,5 @@
 - [:octocat: 首页](/README)
+- [🤖 AI智能助手使用指南](/AI-ASSISTANT-GUIDE)
 
 ---
 

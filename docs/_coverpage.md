@@ -18,7 +18,8 @@
   <p style="font-size: 17px; color: #f5f5f5; line-height: 2; font-weight: 400; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
     📚 涵盖后端、前端、算法、系统设计、AI等全栈知识<br/>
     🔍 强调源码剖析与实战结合，手写Spring、协程库等<br/>
-    💡 系统化整理，助力高效复习、面试准备与项目开发
+    💡 系统化整理，助力高效复习、面试准备与项目开发<br/>
+    🤖 <strong style="color: #f4d03f;">新增 AI智能问答！</strong>打开命令行（右下角按钮或 Ctrl+K），输入 <code style="background: rgba(244, 208, 63, 0.2); padding: 2px 8px; border-radius: 4px; color: #f4d03f;">ai 你的问题</code>
   </p>
 </div>
 
