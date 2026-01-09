@@ -8,9 +8,9 @@
     - Java 基础
       - [Java基本功](/md/java/Java学习路线/Java基本功.md)
       - [Java集合框架](/md/java/Java学习路线/Java集合框架.md)
-      - [IOC和AOP](/md/java/IOC和AOP.md)
-      - [MVC模式](/md/java/MVC模式.md)
-      - [Servlet](/md/java/Servlet.md)
+      - [IOC和AOP](/md/java/spring系列学习/IOC和AOP.md)
+      - [MVC模式](/md/java/Java学习路线/MVC模式.md)
+      - [Servlet](/md/java/Java学习路线/Servlet.md)
     
     - Spring 源码解析
       - [1-300行手写简易Spring](/md/spring源码/1-300行手写简易Spring.md)

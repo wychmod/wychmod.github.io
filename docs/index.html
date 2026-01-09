@@ -1857,9 +1857,20 @@
       children: []
     };
     
-    const ul = sidebar.querySelector('ul');
-    if (ul) {
-      parseList(ul, TerminalState.docTree);
+    // 处理侧边栏中可能存在的多个顶层 <ul>
+    const uls = Array.from(sidebar.children).filter(function(el) {
+      return el.tagName && el.tagName.toLowerCase() === 'ul';
+    });
+    
+    if (uls.length > 0) {
+      uls.forEach(function(ul) {
+        parseList(ul, TerminalState.docTree);
+      });
+    } else {
+      const ul = sidebar.querySelector('ul');
+      if (ul) {
+        parseList(ul, TerminalState.docTree);
+      }
     }
   }
   
