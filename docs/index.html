@@ -1367,6 +1367,17 @@
         fileName = fileName.slice(0, -3);
       }
       
+      // 尝试直接作为URL路径处理（对于根级文档）
+      if (fileName.startsWith('/')) {
+        // 直接使用URL跳转
+        addOutput(`<span class="terminal-success">Opening: ${fileName}</span>`);
+        setTimeout(() => {
+          window.location.hash = '#' + fileName;
+          closeTerminal();
+        }, 500);
+        return;
+      }
+      
       const targetPath = resolvePath(fileName);
       const node = findNode(targetPath);
       
