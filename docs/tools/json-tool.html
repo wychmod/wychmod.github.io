@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON 处理工具 - AI智能技术知识平台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      color: #e0e0e0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 30px 0;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #d4af37;
+    }
+
+    .header h1 {
+      color: #f4d03f;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #c5c5c5;
+      font-size: 1.1em;
+    }
+
+    .tip-box {
+      background: rgba(244, 208, 63, 0.15);
+      border: 2px solid #f4d03f;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .tip-icon {
+      font-size: 48px;
+    }
+
+    .tip-content h3 {
+      color: #f4d03f;
+      margin-bottom: 8px;
+    }
+
+    .tip-content p {
+      color: #c5c5c5;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .tool-container {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+      justify-content: center;
+    }
+
+    button {
+      background: linear-gradient(135deg, #d4af37, #f4d03f);
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
+    }
+
+    button.clear-btn {
+      background: rgba(255, 77, 77, 0.8);
+      color: #fff;
+    }
+
+    .input-section, .output-section {
+      margin-bottom: 20px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .section-label {
+      color: #d4af37;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .status {
+      color: #c5c5c5;
+      font-size: 14px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      background: #0a0a0a;
+      border: 2px solid #b8960f;
+      border-radius: 8px;
+      padding: 15px;
+      color: #e0e0e0;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 14px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .copy-btn {
+      background: rgba(212, 175, 55, 0.3);
+      color: #f4d03f;
+      border: 1px solid #d4af37;
+      padding: 6px 15px;
+      font-size: 13px;
+    }
+
+    .stats {
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 8px;
+      color: #c5c5c5;
+      font-size: 14px;
+      display: none;
+    }
+
+    .stats.show {
+      display: block;
+    }
+
+    .stats-content {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item strong {
+      color: #f4d03f;
+    }
+
+    .message {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 10000;
+      animation: slideIn 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .message.success {
+      background: rgba(0, 255, 0, 0.2);
+      color: #00ff00;
+      border: 2px solid #00ff00;
+    }
+
+    .message.error {
+      background: rgba(255, 68, 68, 0.2);
+      color: #ff4444;
+      border: 2px solid #ff4444;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover {
+      color: #f4d03f;
+    }
+
+    @media screen and (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      .button-group {
+        justify-content: center;
+      }
+
+      button {
+        padding: 10px 16px;
+        font-size: 12px;
+      }
+
+      textarea {
+        height: 250px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../#/md/tools/README" class="back-link">← 返回工具站</a>
+    
+    <div class="header">
+      <h1>⚡ 智能 JSON 处理工具</h1>
+      <p>高效、专业的JSON数据处理解决方案</p>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">🎯</div>
+      <div class="tip-content">
+        <h3>👉 快速开始 - 已为您准备好测试示例！</h3>
+        <p>
+          • 输入框中已预置<strong style="color: #f4d03f;">丰富的测试数据</strong>，包含嵌套对象、数组、中文、Unicode、特殊字符等<br/>
+          • 直接点击下方<strong style="color: #f4d03f;">任意功能按钮</strong>，即可查看处理效果（推荐先试试"格式化"）<br/>
+          • 也可以<strong style="color: #f4d03f;">替换为您自己的JSON数据</strong>进行处理
+        </p>
+      </div>
+    </div>
+
+    <div class="tool-container">
+      <div class="button-group">
+        <button onclick="formatJSON()">✨ 格式化</button>
+        <button onclick="compressJSON()">🗜️ 压缩</button>
+        <button onclick="escapeJSON()">🔐 转义</button>
+        <button onclick="unescapeJSON()">🔓 去转义</button>
+        <button onclick="unicodeToChinese()">🀄 Unicode→中文</button>
+        <button onclick="chineseToUnicode()">🀄 中文→Unicode</button>
+        <button onclick="jsonToGetParams()">🔗 转GET参数</button>
+        <button onclick="clearInput()" class="clear-btn">🗑️ 清空</button>
+      </div>
+
+      <div class="input-section">
+        <div class="section-header">
+          <span class="section-label">📝 输入JSON数据</span>
+          <span class="status" id="status">等待输入...</span>
+        </div>
+        <textarea id="input" placeholder="请输入或粘贴JSON数据..."></textarea>
+      </div>
+
+      <div class="output-section">
+        <div class="section-header">
+          <span class="section-label">📤 处理结果</span>
+          <button onclick="copyResult()" class="copy-btn">📋 复制结果</button>
+        </div>
+        <textarea id="output" placeholder="处理结果将显示在这里..." readonly></textarea>
+      </div>
+
+      <div class="stats" id="stats">
+        <div class="stats-content">
+          <span class="stat-item">📊 字符数: <strong id="charCount">0</strong></span>
+          <span class="stat-item">📏 行数: <strong id="lineCount">0</strong></span>
+          <span class="stat-item">⏱️ 处理时间: <strong id="processTime">0ms</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 示例JSON数据
+    const exampleJSON = {
+      "platform": "AI智能技术知识平台",
+      "version": "2.0.0",
+      "releaseDate": "2026-01-11",
+      "author": {
+        "name": "开发者",
+        "email": "developer@example.com",
+        "role": "全栈工程师"
+      },
+      "features": [
+        "JSON格式化与美化",
+        "数据压缩优化",
+        "Unicode编码转换",
+        "实时语法验证",
+        "转义字符处理",
+        "URL参数转换"
+      ],
+      "modules": {
+        "tools": {
+          "json": "JSON处理工具",
+          "base64": "Base64编解码",
+          "timestamp": "时间戳转换"
+        },
+        "knowledge": {
+          "ai": "人工智能",
+          "backend": "后端开发",
+          "frontend": "前端技术",
+          "cloud": "云原生架构"
+        }
+      },
+      "config": {
+        "theme": "dark-gold",
+        "language": "zh-CN",
+        "autoSave": true,
+        "maxFileSize": 10485760,
+        "timeout": 30000
+      },
+      "statistics": {
+        "totalUsers": 10000,
+        "dailyVisits": 5000,
+        "satisfaction": 4.8
+      },
+      "tags": ["开发工具", "JSON", "格式化", "在线工具"],
+      "description": "这是一个功能完整的JSON处理工具，支持格式化、压缩、转义、Unicode转换等多种操作。",
+      "unicode": "Unicode测试: 你好世界 Hello World 🚀",
+      "numbers": {
+        "integer": 42,
+        "float": 3.14159,
+        "negative": -100
+      },
+      "booleans": {
+        "isActive": true,
+        "isDisabled": false
+      },
+      "nullValue": null
+    };
+
+    // 获取元素
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+    const status = document.getElementById('status');
+    const stats = document.getElementById('stats');
+
+    // 初始化
+    input.value = JSON.stringify(exampleJSON, null, 2);
+    validateJSON();
+
+    // 实时验证
+    input.addEventListener('input', validateJSON);
+
+    function validateJSON() {
+      const value = input.value.trim();
+      if (!value) {
+        status.textContent = '等待输入...';
+        status.style.color = '#c5c5c5';
+        return;
+      }
+
+      try {
+        JSON.parse(value);
+        status.textContent = '✓ JSON格式正确';
+        status.style.color = '#00ff00';
+      } catch (e) {
+        status.textContent = '✗ JSON格式错误: ' + e.message;
+        status.style.color = '#ff4444';
+      }
+    }
+
+    function showStats(startTime) {
+      const endTime = performance.now();
+      const processTime = (endTime - startTime).toFixed(2);
+      const charCount = output.value.length;
+      const lineCount = output.value.split('\n').length;
+
+      document.getElementById('charCount').textContent = charCount;
+      document.getElementById('lineCount').textContent = lineCount;
+      document.getElementById('processTime').textContent = processTime + 'ms';
+      stats.classList.add('show');
+    }
+
+    function formatJSON() {
+      const startTime = performance.now();
+      try {
+        const json = JSON.parse(input.value);
+        output.value = JSON.stringify(json, null, 2);
+        showMessage('✓ 格式化成功', 'success');
+        showStats(startTime);
+      } catch (e) {
+        showMessage('✗ 格式化失败: ' + e.message, 'error');
+      }
+    }
+
+    function compressJSON() {
+      const startTime = performance.now();
+      try {
+        const json = JSON.parse(input.value);
+        output.value = JSON.stringify(json);
+        showMessage('✓ 压缩成功', 'success');
+        showStats(startTime);
+      } catch (e) {
+        showMessage('✗ 压缩失败: ' + e.message, 'error');
+      }
+    }
+
+    function escapeJSON() {
+      const startTime = performance.now();
+      try {
+        const json = JSON.parse(input.value);
+        const jsonStr = JSON.stringify(json);
+        output.value = JSON.stringify(jsonStr);
+        showMessage('✓ 转义成功', 'success');
+        showStats(startTime);
+      } catch (e) {
+        showMessage('✗ 转义失败: ' + e.message, 'error');
+      }
+    }
+
+    function unescapeJSON() {
+      const startTime = performance.now();
+      try {
+        let str = input.value.trim();
+        if (str.startsWith('"') && str.endsWith('"')) {
+          str = str.slice(1, -1);
+        }
+        str = str.replace(/\\"/g, '"')
+                 .replace(/\\\\/g, '\\')
+                 .replace(/\\n/g, '\n')
+                 .replace(/\\r/g, '\r')
+                 .replace(/\\t/g, '\t');
+        
+        const json = JSON.parse(str);
+        output.value = JSON.stringify(json, null, 2);
+        showMessage('✓ 去转义成功', 'success');
+        showStats(startTime);
+      } catch (e) {
+        showMessage('✗ 去转义失败: ' + e.message, 'error');
+      }
+    }
+
+    function unicodeToChinese() {
+      const startTime = performance.now();
+      try {
+        let str = input.value;
+        str = str.replace(/\\u[\dA-Fa-f]{4}/g, function(match) {
+          return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
+        });
+        
+        const json = JSON.parse(str);
+        output.value = JSON.stringify(json, null, 2);
+        showMessage('✓ Unicode转中文成功', 'success');
+        showStats(startTime);
+      } catch (e) {
+        showMessage('✗ 转换失败: ' + e.message, 'error');
+      }
+    }
+
+    function chineseToUnicode() {
+      const startTime = performance.now();
+      try {
+        const json = JSON.parse(input.value);
+        let result = JSON.stringify(json, null, 2);
+        
+        result = result.replace(/[\u4e00-\u9fa5]/g, function(match) {
+          return '\\u' + match.charCodeAt(0).toString(16).padStart(4, '0');
+        });
+        
+        output.value = result;
+        showMessage('✓ 中文转Unicode成功', 'success');
+        showStats(startTime);
+      } catch (e) {
+        showMessage('✗ 转换失败: ' + e.message, 'error');
+      }
+    }
+
+    function jsonToGetParams() {
+      const startTime = performance.now();
+      try {
+        const json = JSON.parse(input.value);
+        
+        function flattenObject(obj, prefix = '') {
+          let params = [];
+          for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              const fullKey = prefix ? `${prefix}[${key}]` : key;
+              const value = obj[key];
+              
+              if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                params = params.concat(flattenObject(value, fullKey));
+              } else if (Array.isArray(value)) {
+                value.forEach((item, index) => {
+                  if (typeof item === 'object' && item !== null) {
+                    params = params.concat(flattenObject(item, `${fullKey}[${index}]`));
+                  } else {
+                    params.push(`${fullKey}[${index}]=${encodeURIComponent(item)}`);
+                  }
+                });
+              } else {
+                params.push(`${fullKey}=${encodeURIComponent(value)}`);
+              }
+            }
+          }
+          return params;
+        }
+        
+        const params = flattenObject(json);
+        output.value = params.join('&');
+        showMessage('✓ 转换GET参数成功', 'success');
+        showStats(startTime);
+      } catch (e) {
+        showMessage('✗ 转换失败: ' + e.message, 'error');
+      }
+    }
+
+    function clearInput() {
+      input.value = '';
+      output.value = '';
+      stats.classList.remove('show');
+      status.textContent = '等待输入...';
+      status.style.color = '#c5c5c5';
+      showMessage('✓ 已清空', 'success');
+    }
+
+    function copyResult() {
+      if (!output.value) {
+        showMessage('✗ 没有可复制的内容', 'error');
+        return;
+      }
+
+      output.select();
+      document.execCommand('copy');
+      showMessage('✓ 已复制到剪贴板', 'success');
+    }
+
+    function showMessage(message, type) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      messageDiv.textContent = message;
+
+      document.body.appendChild(messageDiv);
+
+      setTimeout(() => {
+        messageDiv.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          document.body.removeChild(messageDiv);
+        }, 300);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
