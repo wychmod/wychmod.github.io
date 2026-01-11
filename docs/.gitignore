@@ -1,0 +1,5 @@
+# Qoder IDE files
+.qoder/
+
+# macOS system files
+.DS_Store
