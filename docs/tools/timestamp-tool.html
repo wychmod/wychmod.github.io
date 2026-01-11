@@ -171,12 +171,15 @@
       cursor: pointer;
       transition: all 0.3s;
       box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
-      width: 100%;
     }
 
     button:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
+    }
+
+    .converter-box button {
+      width: 100%;
     }
 
     .result-box {
@@ -189,6 +192,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s;
     }
 
     .result-text {
@@ -256,6 +260,9 @@
       font-size: 13px;
       line-height: 1.6;
       margin: 0;
+      white-space: pre;
+      word-wrap: normal;
+      overflow-x: auto;
     }
 
     .code-header {
@@ -263,6 +270,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
+      gap: 10px;
     }
 
     .code-lang {
@@ -275,11 +283,13 @@
       background: rgba(212, 175, 55, 0.3);
       color: #f4d03f;
       border: 1px solid #d4af37;
-      padding: 6px 16px;
+      padding: 6px 12px;
       font-size: 12px;
       cursor: pointer;
       border-radius: 4px;
-      min-width: 80px;
+      width: auto;
+      min-width: 60px;
+      max-width: 80px;
       transition: all 0.3s;
       white-space: nowrap;
     }
@@ -288,6 +298,7 @@
       background: rgba(212, 175, 55, 0.5);
       border-color: #f4d03f;
       transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
     }
 
     .tip-box {
@@ -348,6 +359,20 @@
 
       .time-value {
         font-size: 20px;
+      }
+
+      .code-block {
+        padding: 10px;
+      }
+
+      .code-block pre {
+        font-size: 12px;
+      }
+
+      .copy-code-btn {
+        font-size: 11px;
+        padding: 4px 8px;
+        min-width: 50px;
       }
     }
   </style>
@@ -556,7 +581,7 @@ func main() {
           <span class="code-lang">PHP</span>
           <button class="copy-code-btn" onclick="copyCode(this, 'php-code')">复制</button>
         </div>
-        <pre id="php-code"><?php
+        <pre id="php-code">&lt;?php
 // 获取当前时间戳（秒）
 $timestamp = time();
 echo $timestamp; // 1736559600
@@ -572,7 +597,7 @@ echo $date; // 2026-01-11 08:00:00
 // 日期时间转时间戳
 $dt = strtotime('2026-01-11 08:00:00');
 echo $dt; // 1736559600
-?></pre>
+?&gt;</pre>
       </div>
 
       <h3>⚠️ 注意事项</h3>
