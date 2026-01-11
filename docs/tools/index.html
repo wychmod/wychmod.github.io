@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开发工具集 - AI智能技术知识平台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      color: #e0e0e0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 40px 0;
+      margin-bottom: 40px;
+      border-bottom: 2px solid #d4af37;
+    }
+
+    .header h1 {
+      color: #f4d03f;
+      font-size: 3em;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(244, 208, 63, 0.3);
+    }
+
+    .header p {
+      color: #c5c5c5;
+      font-size: 1.3em;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+      font-size: 16px;
+    }
+
+    .back-link:hover {
+      color: #f4d03f;
+    }
+
+    /* 工具卡片网格 */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .tool-card {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      padding: 30px;
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+      border-color: #f4d03f;
+    }
+
+    .tool-card.disabled {
+      border-color: #666;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .tool-card.disabled:hover {
+      transform: none;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .tool-icon {
+      font-size: 56px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .tool-title {
+      color: #f4d03f;
+      font-size: 1.5em;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .tool-card.disabled .tool-title {
+      color: #999;
+    }
+
+    .tool-description {
+      color: #c5c5c5;
+      line-height: 1.6;
+      text-align: center;
+      margin-bottom: 20px;
+      min-height: 60px;
+    }
+
+    .tool-card.disabled .tool-description {
+      color: #888;
+    }
+
+    .tool-status {
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .tool-card .tool-status {
+      background: rgba(212, 175, 55, 0.2);
+      color: #d4af37;
+    }
+
+    .tool-card.disabled .tool-status {
+      background: rgba(102, 102, 102, 0.2);
+      color: #666;
+    }
+
+    /* 特色说明区 */
+    .features-section {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      padding: 35px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .features-section h2 {
+      color: #f4d03f;
+      font-size: 1.8em;
+      margin-bottom: 25px;
+      text-align: center;
+      border-bottom: 2px solid #d4af37;
+      padding-bottom: 15px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-item {
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid #b8960f;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .feature-item h3 {
+      color: #d4af37;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+
+    .feature-item p {
+      color: #c5c5c5;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* 未来计划区 */
+    .roadmap-section {
+      background: rgba(212, 175, 55, 0.1);
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      padding: 35px;
+      margin-bottom: 40px;
+    }
+
+    .roadmap-section h2 {
+      color: #f4d03f;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .roadmap-list {
+      color: #c5c5c5;
+      line-height: 2;
+      font-size: 16px;
+    }
+
+    .roadmap-list li {
+      margin-bottom: 10px;
+    }
+
+    /* 响应式设计 */
+    @media screen and (max-width: 768px) {
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .header p {
+        font-size: 1em;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">← 返回主站</a>
+    
+    <div class="header">
+      <h1>⚡ 智能开发工具集</h1>
+      <p>专为开发者打造的高效工具平台</p>
+    </div>
+
+    <!-- 工具卡片区 -->
+    <div class="tools-grid">
+      <!-- JSON工具 -->
+      <a href="json-tool.html" class="tool-card">
+        <div class="tool-icon">📊</div>
+        <div class="tool-title">JSON 处理工具</div>
+        <div class="tool-description">
+          格式化、压缩、转义、Unicode转换等全方位JSON处理功能，支持实时验证
+        </div>
+        <div class="tool-status">立即使用 →</div>
+      </a>
+
+      <!-- 时间戳工具 -->
+      <a href="timestamp-tool.html" class="tool-card">
+        <div class="tool-icon">⏰</div>
+        <div class="tool-title">时间戳转换</div>
+        <div class="tool-description">
+          Unix时间戳与日期时间的双向转换，实时显示当前时间，支持多种编程语言示例
+        </div>
+        <div class="tool-status">立即使用 →</div>
+      </a>
+
+      <!-- Base64工具 - 开发中 -->
+      <div class="tool-card disabled">
+        <div class="tool-icon">🔐</div>
+        <div class="tool-title">Base64 编解码</div>
+        <div class="tool-description">
+          支持文本、图片的Base64编码和解码，便于数据传输和存储
+        </div>
+        <div class="tool-status">正在开发中...</div>
+      </div>
+
+      <!-- 正则表达式工具 - 开发中 -->
+      <div class="tool-card disabled">
+        <div class="tool-icon">🔍</div>
+        <div class="tool-title">正则表达式测试</div>
+        <div class="tool-description">
+          实时测试正则表达式，提供匹配结果、捕获组和性能分析
+        </div>
+        <div class="tool-status">正在开发中...</div>
+      </div>
+
+      <!-- Markdown编辑器 - 开发中 -->
+      <div class="tool-card disabled">
+        <div class="tool-icon">📝</div>
+        <div class="tool-title">Markdown 编辑器</div>
+        <div class="tool-description">
+          实时预览的Markdown编辑器，支持导出HTML、PDF等多种格式
+        </div>
+        <div class="tool-status">正在开发中...</div>
+      </div>
+
+      <!-- URL编解码 - 开发中 -->
+      <div class="tool-card disabled">
+        <div class="tool-icon">🔗</div>
+        <div class="tool-title">URL 编解码</div>
+        <div class="tool-description">
+          URL参数的编码和解码，支持批量处理和格式化显示
+        </div>
+        <div class="tool-status">正在开发中...</div>
+      </div>
+
+      <!-- 颜色转换工具 - 开发中 -->
+      <div class="tool-card disabled">
+        <div class="tool-icon">🎨</div>
+        <div class="tool-title">颜色转换</div>
+        <div class="tool-description">
+          RGB、HEX、HSL等多种颜色格式互转，实时预览颜色效果
+        </div>
+        <div class="tool-status">正在开发中...</div>
+      </div>
+
+      <!-- 代码格式化 - 开发中 -->
+      <div class="tool-card disabled">
+        <div class="tool-icon">📐</div>
+        <div class="tool-title">代码格式化</div>
+        <div class="tool-description">
+          支持多种编程语言的代码格式化和美化，统一代码风格
+        </div>
+        <div class="tool-status">正在开发中...</div>
+      </div>
+
+      <!-- 进制转换 - 开发中 -->
+      <div class="tool-card disabled">
+        <div class="tool-icon">🔢</div>
+        <div class="tool-title">进制转换</div>
+        <div class="tool-description">
+          二进制、八进制、十进制、十六进制等多种进制互相转换
+        </div>
+        <div class="tool-status">正在开发中...</div>
+      </div>
+    </div>
+
+    <!-- 特色说明 -->
+    <div class="features-section">
+      <h2>💡 工具特色</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <h3>✨ 纯前端实现</h3>
+          <p>所有工具都在浏览器本地运行，数据不会上传到服务器，保证您的数据安全和隐私</p>
+        </div>
+        <div class="feature-item">
+          <h3>⚡ 高性能处理</h3>
+          <p>采用优化的算法，支持大数据量处理，响应迅速，体验流畅</p>
+        </div>
+        <div class="feature-item">
+          <h3>🎨 简洁易用</h3>
+          <p>精心设计的用户界面，操作直观，功能一目了然，上手即用</p>
+        </div>
+        <div class="feature-item">
+          <h3>🔄 实时反馈</h3>
+          <p>提供即时的操作反馈和错误提示，帮助您快速完成工作</p>
+        </div>
+        <div class="feature-item">
+          <h3>📱 响应式设计</h3>
+          <p>完美适配PC端和移动端，随时随地使用开发工具</p>
+        </div>
+        <div class="feature-item">
+          <h3>🆓 完全免费</h3>
+          <p>所有工具完全免费使用，无需注册，无需付费，无任何限制</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 未来计划 -->
+    <div class="roadmap-section">
+      <h2>🚀 即将推出</h2>
+      <div class="roadmap-list">
+        <p style="color: #c5c5c5; text-align: center; margin-bottom: 20px;">
+          我们正在积极开发更多实用的开发工具，让您的开发工作更加高效便捷：
+        </p>
+        <ul style="max-width: 800px; margin: 0 auto; color: #c5c5c5;">
+          <li>🔐 加密解密工具（MD5、SHA、AES等常用算法）</li>
+          <li>📊 数据对比工具（文本差异对比、JSON对比）</li>
+          <li>📱 二维码生成器（支持自定义样式和Logo）</li>
+          <li>🖼️ 图片处理工具（压缩、裁剪、格式转换）</li>
+          <li>📐 CSS工具集（渐变生成器、阴影生成器、动画生成器）</li>
+          <li>🔤 文本处理工具（大小写转换、去重、排序）</li>
+          <li>📋 剪贴板增强（历史记录、格式转换）</li>
+          <li>🌐 IP地址查询（IP定位、端口扫描）</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div style="text-align: center; padding: 20px; color: #888; border-top: 1px solid #333;">
+      <p>© 2024 AI智能技术知识平台 | 持续更新中</p>
+      <p style="margin-top: 10px;">
+        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank" style="color: #d4af37; text-decoration: none;">
+          ⭐ GitHub
+        </a>
+        <span style="margin: 0 10px;">|</span>
+        <a href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" style="color: #d4af37; text-decoration: none;">
+          📧 反馈建议
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // 阻止禁用卡片的点击
+    document.querySelectorAll('.tool-card.disabled').forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('该工具正在开发中，敬请期待！');
+      });
+    });
+  </script>
+</body>
+</html>

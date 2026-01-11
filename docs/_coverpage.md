@@ -35,5 +35,5 @@
 </div>
 
 [🚀 开始探索](README.md)
-[🛠️ 开发工具](md/tools/json-tool.md)
+[🛠️ 开发工具](/tools/index.html)
 [📂 GitHub 仓库](https://github.com/wychmod/wychmod.github.io)

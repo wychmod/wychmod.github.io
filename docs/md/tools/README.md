@@ -35,17 +35,19 @@
     </div>
   </div>
 
-  <!-- 时间戳工具 - 即将推出 -->
-  <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
-    <div style="font-size: 48px; margin-bottom: 15px;">⏰</div>
-    <h3 style="color: #999; margin: 0 0 12px 0;">时间戳转换</h3>
-    <p style="color: #888; margin: 0; line-height: 1.6;">
-      Unix时间戳与日期时间的双向转换
-    </p>
-    <div style="margin-top: 15px; color: #666; font-weight: 600;">
-      即将推出...
+  <!-- 时间戳工具 -->
+  <a href="../../tools/timestamp-tool.html" target="_blank" style="text-decoration: none;">
+    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #d4af37; border-radius: 12px; padding: 25px; transition: all 0.3s; cursor: pointer; height: 100%;">
+      <div style="font-size: 48px; margin-bottom: 15px;">⏰</div>
+      <h3 style="color: #f4d03f; margin: 0 0 12px 0;">时间戳转换</h3>
+      <p style="color: #c5c5c5; margin: 0; line-height: 1.6;">
+        Unix时间戳与日期时间的双向转换，支持多种编程语言示例
+      </p>
+      <div style="margin-top: 15px; color: #d4af37; font-weight: 600;">
+        立即使用 →
+      </div>
     </div>
-  </div>
+  </a>
 
   <!-- 正则表达式工具 - 即将推出 -->
   <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
