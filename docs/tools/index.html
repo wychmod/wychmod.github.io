@@ -73,8 +73,10 @@
       transition: all 0.3s;
       cursor: pointer;
       text-decoration: none;
-      display: block;
+      display: flex;
+      flex-direction: column;
       box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+      height: 100%;
     }
 
     .tool-card:hover {
@@ -117,7 +119,37 @@
       line-height: 1.6;
       text-align: center;
       margin-bottom: 20px;
-      min-height: 60px;
+      min-height: 48px;
+      max-height: 48px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      position: relative;
+      cursor: help;
+    }
+
+    /* Tooltip样式 */
+    .tooltip {
+      position: fixed;
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      border: 2px solid #d4af37;
+      border-radius: 8px;
+      padding: 15px 20px;
+      color: #e0e0e0;
+      max-width: 350px;
+      z-index: 10000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+      line-height: 1.6;
+      font-size: 14px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .tooltip.show {
+      opacity: 1;
     }
 
     .tool-card.disabled .tool-description {
@@ -132,6 +164,7 @@
       border-radius: 20px;
       display: inline-block;
       width: 100%;
+      margin-top: auto;
     }
 
     .tool-card .tool-status {
@@ -232,7 +265,7 @@
 </head>
 <body>
   <div class="container">
-    <a href="../index.html" class="back-link">← 返回主站</a>
+    <a href="/#/" class="back-link">← 返回主站</a>
     
     <div class="header">
       <h1>⚡ 智能开发工具集</h1>
@@ -245,7 +278,7 @@
       <a href="/tools/json-tool.html" class="tool-card">
         <div class="tool-icon">📊</div>
         <div class="tool-title">JSON 处理工具</div>
-        <div class="tool-description">
+        <div class="tool-description" data-full-text="格式化、压缩、转义、Unicode转换等全方位JSON处理功能，支持实时验证">
           格式化、压缩、转义、Unicode转换等全方位JSON处理功能，支持实时验证
         </div>
         <div class="tool-status">立即使用 →</div>
@@ -255,27 +288,27 @@
       <a href="/tools/timestamp-tool.html" class="tool-card">
         <div class="tool-icon">⏰</div>
         <div class="tool-title">时间戳转换</div>
-        <div class="tool-description">
+        <div class="tool-description" data-full-text="Unix时间戳与日期时间的双向转换，实时显示当前时间，支持多种编程语言示例">
           Unix时间戳与日期时间的双向转换，实时显示当前时间，支持多种编程语言示例
         </div>
         <div class="tool-status">立即使用 →</div>
       </a>
 
-      <!-- Base64工具 - 开发中 -->
-      <div class="tool-card disabled">
+      <!-- Base64工具 -->
+      <a href="/tools/base64-tool.html" class="tool-card">
         <div class="tool-icon">🔐</div>
         <div class="tool-title">Base64 编解码</div>
-        <div class="tool-description">
+        <div class="tool-description" data-full-text="支持文本、图片的Base64编码和解码，便于数据传输和存储">
           支持文本、图片的Base64编码和解码，便于数据传输和存储
         </div>
-        <div class="tool-status">正在开发中...</div>
-      </div>
+        <div class="tool-status">立即使用 →</div>
+      </a>
 
       <!-- 正则表达式工具 - 开发中 -->
       <div class="tool-card disabled">
         <div class="tool-icon">🔍</div>
         <div class="tool-title">正则表达式测试</div>
-        <div class="tool-description">
+        <div class="tool-description" data-full-text="实时测试正则表达式，提供匹配结果、捕获组和性能分析">
           实时测试正则表达式，提供匹配结果、捕获组和性能分析
         </div>
         <div class="tool-status">正在开发中...</div>
@@ -285,7 +318,7 @@
       <div class="tool-card disabled">
         <div class="tool-icon">📝</div>
         <div class="tool-title">Markdown 编辑器</div>
-        <div class="tool-description">
+        <div class="tool-description" data-full-text="实时预览的Markdown编辑器，支持导出HTML、PDF等多种格式">
           实时预览的Markdown编辑器，支持导出HTML、PDF等多种格式
         </div>
         <div class="tool-status">正在开发中...</div>
@@ -295,7 +328,7 @@
       <div class="tool-card disabled">
         <div class="tool-icon">🔗</div>
         <div class="tool-title">URL 编解码</div>
-        <div class="tool-description">
+        <div class="tool-description" data-full-text="URL参数的编码和解码，支持批量处理和格式化显示">
           URL参数的编码和解码，支持批量处理和格式化显示
         </div>
         <div class="tool-status">正在开发中...</div>
@@ -305,7 +338,7 @@
       <div class="tool-card disabled">
         <div class="tool-icon">🎨</div>
         <div class="tool-title">颜色转换</div>
-        <div class="tool-description">
+        <div class="tool-description" data-full-text="RGB、HEX、HSL等多种颜色格式互转，实时预览颜色效果">
           RGB、HEX、HSL等多种颜色格式互转，实时预览颜色效果
         </div>
         <div class="tool-status">正在开发中...</div>
@@ -315,7 +348,7 @@
       <div class="tool-card disabled">
         <div class="tool-icon">📐</div>
         <div class="tool-title">代码格式化</div>
-        <div class="tool-description">
+        <div class="tool-description" data-full-text="支持多种编程语言的代码格式化和美化，统一代码风格">
           支持多种编程语言的代码格式化和美化，统一代码风格
         </div>
         <div class="tool-status">正在开发中...</div>
@@ -325,7 +358,7 @@
       <div class="tool-card disabled">
         <div class="tool-icon">🔢</div>
         <div class="tool-title">进制转换</div>
-        <div class="tool-description">
+        <div class="tool-description" data-full-text="二进制、八进制、十进制、十六进制等多种进制互相转换">
           二进制、八进制、十进制、十六进制等多种进制互相转换
         </div>
         <div class="tool-status">正在开发中...</div>
@@ -405,6 +438,78 @@
         e.preventDefault();
         alert('该工具正在开发中，敬请期待！');
       });
+    });
+
+    // Tooltip功能
+    let tooltip = null;
+
+    // 创建tooltip元素
+    function createTooltip() {
+      if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        document.body.appendChild(tooltip);
+      }
+      return tooltip;
+    }
+
+    // 显示tooltip
+    function showTooltip(element, text) {
+      const tip = createTooltip();
+      tip.textContent = text;
+      tip.classList.add('show');
+
+      // 获取元素位置
+      const rect = element.getBoundingClientRect();
+      const tooltipRect = tip.getBoundingClientRect();
+
+      // 计算位置（显示在元素下方，居中对齐）
+      let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+      let top = rect.bottom + 10;
+
+      // 确保不超出屏幕
+      if (left < 10) left = 10;
+      if (left + tooltipRect.width > window.innerWidth - 10) {
+        left = window.innerWidth - tooltipRect.width - 10;
+      }
+
+      if (top + tooltipRect.height > window.innerHeight - 10) {
+        top = rect.top - tooltipRect.height - 10;
+      }
+
+      tip.style.left = left + 'px';
+      tip.style.top = top + 'px';
+    }
+
+    // 隐藏tooltip
+    function hideTooltip() {
+      if (tooltip) {
+        tooltip.classList.remove('show');
+      }
+    }
+
+    // 为所有描述元素添加事件监听
+    document.addEventListener('DOMContentLoaded', function() {
+      const descriptions = document.querySelectorAll('.tool-description[data-full-text]');
+      
+      descriptions.forEach(desc => {
+        const fullText = desc.getAttribute('data-full-text');
+        
+        desc.addEventListener('mouseenter', function(e) {
+          // 检查文本是否被截断
+          if (this.scrollHeight > this.clientHeight || this.textContent.trim() !== fullText) {
+            showTooltip(this, fullText);
+          }
+        });
+
+        desc.addEventListener('mouseleave', function() {
+          hideTooltip();
+        });
+      });
+
+      // 滚动时隐藏tooltip
+      window.addEventListener('scroll', hideTooltip);
+      window.addEventListener('resize', hideTooltip);
     });
   </script>
 </body>
