@@ -1,7 +1,8 @@
 - 🛠️ 开发工具
   - <a href="/tools/json-tool.html" target="_blank">JSON处理工具</a>
   - <a href="/tools/timestamp-tool.html" target="_blank">时间戳转换工具</a>
-  - [更多工具敯请期待...]
+  - <a href="/tools/base64-tool.html" target="_blank">Base64编解码工具</a>
+  - [更多工具敬请期待...]
 
 - 📚 后端开发
   - [Java技术栈](/md/java/Java学习路线/Java基本功.md)
