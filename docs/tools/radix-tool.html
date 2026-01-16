@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>进制转换工具 - AI智能技术知识平台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      color: #e0e0e0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 30px 0;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #d4af37;
+    }
+
+    .header h1 {
+      color: #f4d03f;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #c5c5c5;
+      font-size: 1.1em;
+    }
+
+    .back-links {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .back-link {
+      display: inline-block;
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover {
+      color: #f4d03f;
+    }
+
+    /* 进制卡片区 */
+    .radix-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .radix-card {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      transition: all 0.3s;
+    }
+
+    .radix-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+    }
+
+    .radix-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .radix-title {
+      color: #f4d03f;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .radix-base {
+      background: rgba(212, 175, 55, 0.2);
+      color: #f4d03f;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .radix-input {
+      width: 100%;
+      background: #0a0a0a;
+      border: 2px solid #b8960f;
+      border-radius: 8px;
+      padding: 12px;
+      color: #e0e0e0;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 14px;
+      transition: all 0.3s;
+      margin-bottom: 10px;
+    }
+
+    .radix-input:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .radix-input.error {
+      border-color: #ff4444;
+    }
+
+    .radix-prefix {
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 10px;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+
+    .copy-btn {
+      width: 100%;
+      background: rgba(212, 175, 55, 0.3);
+      color: #f4d03f;
+      border: 1px solid #d4af37;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .copy-btn:hover {
+      background: rgba(212, 175, 55, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* 位运算区 */
+    .bitwise-section {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .section-title {
+      color: #f4d03f;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bitwise-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 2fr;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .bitwise-input {
+      width: 100%;
+      background: #0a0a0a;
+      border: 2px solid #b8960f;
+      border-radius: 8px;
+      padding: 12px;
+      color: #e0e0e0;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .bitwise-input:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .operator-select {
+      width: 100%;
+      background: #0a0a0a;
+      border: 2px solid #b8960f;
+      border-radius: 8px;
+      padding: 12px;
+      color: #e0e0e0;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .operator-select:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .result-box {
+      background: rgba(212, 175, 55, 0.1);
+      border: 2px solid #d4af37;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .result-label {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .result-value {
+      color: #f4d03f;
+      font-size: 24px;
+      font-weight: 700;
+      font-family: 'Consolas', 'Monaco', monospace;
+      word-break: break-all;
+    }
+
+    /* 提示框 */
+    .tip-box {
+      background: rgba(244, 208, 63, 0.15);
+      border: 2px solid #f4d03f;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .tip-icon {
+      font-size: 36px;
+    }
+
+    .tip-content {
+      flex: 1;
+    }
+
+    .tip-content h3 {
+      color: #f4d03f;
+      margin-bottom: 8px;
+    }
+
+    .tip-content p {
+      color: #c5c5c5;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .message {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 10000;
+      animation: slideIn 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .message.success {
+      background: rgba(0, 255, 0, 0.2);
+      color: #00ff00;
+      border: 2px solid #00ff00;
+    }
+
+    .message.error {
+      background: rgba(255, 68, 68, 0.2);
+      color: #ff4444;
+      border: 2px solid #ff4444;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .radix-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .bitwise-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="back-links">
+      <a href="/#/" class="back-link">← 返回主站</a>
+      <a href="index.html" class="back-link">← 返回工具集</a>
+    </div>
+    
+    <div class="header">
+      <h1>🔢 进制转换工具</h1>
+      <p>二进制、八进制、十进制、十六进制快速转换</p>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">💡</div>
+      <div class="tip-content">
+        <h3>使用说明</h3>
+        <p>
+          在任意进制输入框中输入数值，其他进制会自动转换。支持正整数转换，位运算仅支持32位整数。
+        </p>
+      </div>
+    </div>
+
+    <!-- 进制转换卡片 -->
+    <div class="radix-cards">
+      <!-- 二进制 -->
+      <div class="radix-card">
+        <div class="radix-header">
+          <div class="radix-title">💾 二进制</div>
+          <div class="radix-base">BIN</div>
+        </div>
+        <div class="radix-prefix">前缀: 0b</div>
+        <input type="text" id="binInput" class="radix-input" placeholder="输入二进制..." value="1010">
+        <button class="copy-btn" onclick="copyValue('binInput')">📋 复制</button>
+      </div>
+
+      <!-- 八进制 -->
+      <div class="radix-card">
+        <div class="radix-header">
+          <div class="radix-title">🔷 八进制</div>
+          <div class="radix-base">OCT</div>
+        </div>
+        <div class="radix-prefix">前缀: 0o</div>
+        <input type="text" id="octInput" class="radix-input" placeholder="输入八进制..." value="12">
+        <button class="copy-btn" onclick="copyValue('octInput')">📋 复制</button>
+      </div>
+
+      <!-- 十进制 -->
+      <div class="radix-card">
+        <div class="radix-header">
+          <div class="radix-title">🔟 十进制</div>
+          <div class="radix-base">DEC</div>
+        </div>
+        <div class="radix-prefix">无前缀</div>
+        <input type="text" id="decInput" class="radix-input" placeholder="输入十进制..." value="10">
+        <button class="copy-btn" onclick="copyValue('decInput')">📋 复制</button>
+      </div>
+
+      <!-- 十六进制 -->
+      <div class="radix-card">
+        <div class="radix-header">
+          <div class="radix-title">🔶 十六进制</div>
+          <div class="radix-base">HEX</div>
+        </div>
+        <div class="radix-prefix">前缀: 0x</div>
+        <input type="text" id="hexInput" class="radix-input" placeholder="输入十六进制..." value="A">
+        <button class="copy-btn" onclick="copyValue('hexInput')">📋 复制</button>
+      </div>
+    </div>
+
+    <!-- 位运算区 -->
+    <div class="bitwise-section">
+      <div class="section-title">⚙️ 位运算工具</div>
+      
+      <div class="bitwise-grid">
+        <div>
+          <label style="color: #d4af37; font-size: 13px; display: block; margin-bottom: 8px;">操作数 A (十进制)</label>
+          <input type="text" id="operandA" class="bitwise-input" placeholder="输入第一个数" value="10">
+        </div>
+        
+        <div>
+          <label style="color: #d4af37; font-size: 13px; display: block; margin-bottom: 8px;">运算符</label>
+          <select id="operator" class="operator-select" onchange="calculateBitwise()">
+            <option value="and">& (AND)</option>
+            <option value="or">| (OR)</option>
+            <option value="xor">^ (XOR)</option>
+            <option value="not">~ (NOT)</option>
+            <option value="lshift"><< (左移)</option>
+            <option value="rshift">>> (右移)</option>
+          </select>
+        </div>
+        
+        <div id="operandBContainer">
+          <label style="color: #d4af37; font-size: 13px; display: block; margin-bottom: 8px;">操作数 B (十进制)</label>
+          <input type="text" id="operandB" class="bitwise-input" placeholder="输入第二个数" value="6">
+        </div>
+      </div>
+
+      <div class="result-box" style="margin-top: 20px;">
+        <div class="result-label">运算结果</div>
+        <div class="result-value" id="bitwiseResult">-</div>
+        <div style="margin-top: 15px; font-size: 13px; color: #888;" id="bitwiseDetails"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isConverting = false;
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 绑定输入事件
+      document.getElementById('binInput').addEventListener('input', () => convertFrom('bin', 2));
+      document.getElementById('octInput').addEventListener('input', () => convertFrom('oct', 8));
+      document.getElementById('decInput').addEventListener('input', () => convertFrom('dec', 10));
+      document.getElementById('hexInput').addEventListener('input', () => convertFrom('hex', 16));
+      
+      // 绑定位运算输入
+      document.getElementById('operandA').addEventListener('input', calculateBitwise);
+      document.getElementById('operandB').addEventListener('input', calculateBitwise);
+      
+      // 初始转换
+      convertFrom('dec', 10);
+      calculateBitwise();
+    });
+
+    // 从指定进制转换
+    function convertFrom(sourceType, sourceBase) {
+      if (isConverting) return;
+      isConverting = true;
+
+      const inputId = sourceType + 'Input';
+      const input = document.getElementById(inputId);
+      let value = input.value.trim().toUpperCase();
+      
+      // 移除前缀
+      value = value.replace(/^0[BbXx]/, '');
+      value = value.replace(/^0[Oo]/, '');
+      
+      if (!value) {
+        clearAllExcept(sourceType);
+        isConverting = false;
+        return;
+      }
+
+      try {
+        // 验证输入
+        if (!isValidInput(value, sourceBase)) {
+          input.classList.add('error');
+          isConverting = false;
+          return;
+        }
+
+        input.classList.remove('error');
+
+        // 转换为十进制
+        const decimalValue = parseInt(value, sourceBase);
+        
+        if (isNaN(decimalValue) || decimalValue < 0) {
+          input.classList.add('error');
+          isConverting = false;
+          return;
+        }
+
+        // 更新其他进制
+        if (sourceType !== 'bin') {
+          document.getElementById('binInput').value = decimalValue.toString(2);
+          document.getElementById('binInput').classList.remove('error');
+        }
+        if (sourceType !== 'oct') {
+          document.getElementById('octInput').value = decimalValue.toString(8);
+          document.getElementById('octInput').classList.remove('error');
+        }
+        if (sourceType !== 'dec') {
+          document.getElementById('decInput').value = decimalValue.toString(10);
+          document.getElementById('decInput').classList.remove('error');
+        }
+        if (sourceType !== 'hex') {
+          document.getElementById('hexInput').value = decimalValue.toString(16).toUpperCase();
+          document.getElementById('hexInput').classList.remove('error');
+        }
+
+      } catch (e) {
+        input.classList.add('error');
+      }
+
+      isConverting = false;
+    }
+
+    // 验证输入
+    function isValidInput(value, base) {
+      const validChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, base);
+      for (let char of value) {
+        if (!validChars.includes(char)) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // 清空除指定类型外的所有输入
+    function clearAllExcept(exceptType) {
+      if (exceptType !== 'bin') document.getElementById('binInput').value = '';
+      if (exceptType !== 'oct') document.getElementById('octInput').value = '';
+      if (exceptType !== 'dec') document.getElementById('decInput').value = '';
+      if (exceptType !== 'hex') document.getElementById('hexInput').value = '';
+    }
+
+    // 复制值
+    function copyValue(inputId) {
+      const input = document.getElementById(inputId);
+      if (!input.value) {
+        showMessage('没有可复制的内容', 'error');
+        return;
+      }
+
+      input.select();
+      document.execCommand('copy');
+      showMessage('✓ 已复制到剪贴板', 'success');
+    }
+
+    // 位运算计算
+    function calculateBitwise() {
+      const aValue = parseInt(document.getElementById('operandA').value) || 0;
+      const bValue = parseInt(document.getElementById('operandB').value) || 0;
+      const operator = document.getElementById('operator').value;
+
+      let result;
+      let details = '';
+
+      // NOT运算只需要一个操作数
+      if (operator === 'not') {
+        document.getElementById('operandBContainer').style.display = 'none';
+        result = ~aValue;
+        details = `二进制: ~${aValue.toString(2)} = ${result.toString(2)}`;
+      } else {
+        document.getElementById('operandBContainer').style.display = 'block';
+        
+        switch (operator) {
+          case 'and':
+            result = aValue & bValue;
+            details = `二进制: ${aValue.toString(2)} & ${bValue.toString(2)} = ${result.toString(2)}`;
+            break;
+          case 'or':
+            result = aValue | bValue;
+            details = `二进制: ${aValue.toString(2)} | ${bValue.toString(2)} = ${result.toString(2)}`;
+            break;
+          case 'xor':
+            result = aValue ^ bValue;
+            details = `二进制: ${aValue.toString(2)} ^ ${bValue.toString(2)} = ${result.toString(2)}`;
+            break;
+          case 'lshift':
+            result = aValue << bValue;
+            details = `二进制: ${aValue.toString(2)} << ${bValue} = ${result.toString(2)}`;
+            break;
+          case 'rshift':
+            result = aValue >> bValue;
+            details = `二进制: ${aValue.toString(2)} >> ${bValue} = ${result.toString(2)}`;
+            break;
+        }
+      }
+
+      document.getElementById('bitwiseResult').textContent = result;
+      document.getElementById('bitwiseDetails').textContent = details;
+    }
+
+    // 显示消息
+    function showMessage(message, type) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      messageDiv.textContent = message;
+      document.body.appendChild(messageDiv);
+      
+      setTimeout(() => {
+        messageDiv.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => document.body.removeChild(messageDiv), 300);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
