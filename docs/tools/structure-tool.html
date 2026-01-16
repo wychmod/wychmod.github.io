@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>项目结构分析工具 - AI智能技术知识平台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      color: #e0e0e0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 30px 0;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #d4af37;
+    }
+
+    .header h1 {
+      color: #f4d03f;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: #c5c5c5;
+      font-size: 1.1em;
+    }
+
+    .tip-box {
+      background: rgba(244, 208, 63, 0.15);
+      border: 2px solid #f4d03f;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .tip-icon {
+      font-size: 48px;
+    }
+
+    .tip-content h3 {
+      color: #f4d03f;
+      margin-bottom: 8px;
+    }
+
+    .tip-content p {
+      color: #c5c5c5;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .tool-container {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      border: 2px solid #d4af37;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .tool-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+      grid-column: 1 / -1;
+      justify-content: center;
+    }
+
+    button {
+      background: linear-gradient(135deg, #d4af37, #f4d03f);
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
+    }
+
+    button.secondary-btn {
+      background: rgba(212, 175, 55, 0.2);
+      color: #f4d03f;
+      border: 1px solid #d4af37;
+    }
+
+    button.clear-btn {
+      background: rgba(255, 77, 77, 0.8);
+      color: #fff;
+    }
+
+    .input-section, .output-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .section-label {
+      color: #d4af37;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .status {
+      color: #c5c5c5;
+      font-size: 14px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 500px;
+      background: #0a0a0a;
+      border: 2px solid #b8960f;
+      border-radius: 8px;
+      padding: 15px;
+      color: #e0e0e0;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 14px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .tree-view {
+      height: 500px;
+      background: #0a0a0a;
+      border: 2px solid #b8960f;
+      border-radius: 8px;
+      padding: 15px;
+      overflow: auto;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .tree-node {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+
+    .tree-content {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .tree-content:hover {
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .tree-icon {
+      margin-right: 8px;
+      width: 20px;
+      text-align: center;
+      color: #f4d03f;
+    }
+
+    .tree-label {
+      color: #e0e0e0;
+    }
+
+    .tree-children {
+      display: none;
+    }
+
+    .tree-children.expanded {
+      display: block;
+    }
+
+    .tree-toggle {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      transition: transform 0.2s;
+    }
+
+    .tree-toggle.expanded {
+      transform: rotate(90deg);
+    }
+
+    .stats {
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 8px;
+      color: #c5c5c5;
+      font-size: 14px;
+      grid-column: 1 / -1;
+      display: none;
+    }
+
+    .stats.show {
+      display: block;
+    }
+
+    .stats-content {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item strong {
+      color: #f4d03f;
+    }
+
+    .message {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 10000;
+      animation: slideIn 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .message.success {
+      background: rgba(0, 255, 0, 0.2);
+      color: #00ff00;
+      border: 2px solid #00ff00;
+    }
+
+    .message.error {
+      background: rgba(255, 68, 68, 0.2);
+      color: #ff4444;
+      border: 2px solid #ff4444;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover {
+      color: #f4d03f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+      <a href="/#/" class="back-link">← 返回主站</a>
+      <a href="index.html" class="back-link">← 返回工具集</a>
+    </div>
+    
+    <div class="header">
+      <h1>📂 项目结构分析工具</h1>
+      <p>智能解析项目文件结构，可视化分析与统计</p>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">💡</div>
+      <div class="tip-content">
+        <h3>支持多种格式输入</h3>
+        <p>
+          • <strong>JSON格式</strong>：标准的嵌套JSON对象<br/>
+          • <strong>Tree命令输出</strong>：支持 `tree` 命令生成的文本树形结构<br/>
+          • <strong>缩进文本</strong>：使用空格或制表符缩进表示层级
+        </p>
+      </div>
+    </div>
+
+    <div class="tool-container">
+      <div class="button-group">
+        <button onclick="parseInput()">🚀 解析结构</button>
+        <button onclick="loadExample('json')" class="secondary-btn">📄 示例JSON</button>
+        <button onclick="loadExample('tree')" class="secondary-btn">🌳 示例Tree</button>
+        <button onclick="expandAll()" class="secondary-btn">➕ 展开所有</button>
+        <button onclick="collapseAll()" class="secondary-btn">➖ 收起所有</button>
+        <button onclick="runSelfTest()" class="secondary-btn">🧪 运行自测</button>
+        <button onclick="clearAll()" class="clear-btn">🗑️ 清空</button>
+      </div>
+
+      <div class="input-section">
+        <div class="section-header">
+          <span class="section-label">📝 输入结构数据</span>
+          <span class="status" id="status">等待输入...</span>
+        </div>
+        <textarea id="input" placeholder="请粘贴 JSON 或 Tree 命令输出..."></textarea>
+      </div>
+
+      <div class="output-section">
+        <div class="section-header">
+          <span class="section-label">👀 可视化预览</span>
+          <button onclick="exportJSON()" class="secondary-btn" style="padding: 4px 10px; font-size: 12px;">📤 导出JSON</button>
+        </div>
+        <div id="treeView" class="tree-view"></div>
+      </div>
+
+      <div class="stats" id="stats">
+        <div class="stats-content">
+          <span class="stat-item">📁 目录数: <strong id="dirCount">0</strong></span>
+          <span class="stat-item">📄 文件数: <strong id="fileCount">0</strong></span>
+          <span class="stat-item">📏 最大深度: <strong id="maxDepth">0</strong></span>
+          <span class="stat-item">⏱️ 解析耗时: <strong id="parseTime">0ms</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 示例数据
+    const examples = {
+      json: JSON.stringify({
+        "project": {
+          "src": {
+            "components": {
+              "Button.js": {},
+              "Header.js": {}
+            },
+            "utils": {
+              "api.js": {},
+              "format.js": {}
+            },
+            "App.js": {},
+            "index.js": {}
+          },
+          "public": {
+            "index.html": {},
+            "favicon.ico": {}
+          },
+          "package.json": {},
+          "README.md": {}
+        }
+      }, null, 2),
+      
+      tree: `project
+├── src
+│   ├── components
+│   │   ├── Button.js
+│   │   └── Header.js
+│   ├── utils
+│   │   ├── api.js
+│   │   └── format.js
+│   ├── App.js
+│   └── index.js
+├── public
+│   ├── index.html
+│   └── favicon.ico
+├── package.json
+└── README.md`
+    };
+
+    let currentData = null;
+
+    // 加载示例
+    function loadExample(type) {
+      document.getElementById('input').value = examples[type];
+      parseInput();
+    }
+
+    // 清空
+    function clearAll() {
+      document.getElementById('input').value = '';
+      document.getElementById('treeView').innerHTML = '';
+      document.getElementById('stats').classList.remove('show');
+      document.getElementById('status').textContent = '等待输入...';
+      document.getElementById('status').style.color = '#c5c5c5';
+      currentData = null;
+    }
+
+    // 解析入口
+    function parseInput() {
+      const input = document.getElementById('input').value.trim();
+      const startTime = performance.now();
+      
+      if (!input) {
+        showMessage('请输入内容', 'error');
+        return;
+      }
+
+      try {
+        // 尝试JSON解析
+        if (input.startsWith('{')) {
+          currentData = JSON.parse(input);
+          renderTree(currentData);
+          updateStats(currentData, startTime);
+          showMessage('JSON解析成功', 'success');
+        } else {
+          // 尝试Tree解析
+          currentData = parseTreeString(input);
+          renderTree(currentData);
+          updateStats(currentData, startTime);
+          showMessage('Tree解析成功', 'success');
+        }
+        document.getElementById('status').textContent = '✓ 解析成功';
+        document.getElementById('status').style.color = '#00ff00';
+      } catch (e) {
+        showMessage('解析失败: ' + e.message, 'error');
+        document.getElementById('status').textContent = '✗ 解析失败';
+        document.getElementById('status').style.color = '#ff4444';
+        console.error(e);
+      }
+    }
+
+    // Tree字符串解析逻辑
+    function parseTreeString(str) {
+      const lines = str.split('\n').filter(line => line.trim());
+      const root = {};
+      const stack = [{ node: root, level: -1 }];
+
+      lines.forEach(line => {
+        // 计算层级：检测缩进或特殊符号
+        // tree命令通常使用 │   , ├── , └── 
+        // 简单策略：计算前导非文件名字符的长度
+        const match = line.match(/^([│\s├└─]*)(.*)/);
+        if (!match) return;
+
+        let prefix = match[1];
+        let name = match[2].trim();
+        
+        // 估算层级：每4个字符一层，或者根据├──结构
+        // 这里简化处理：直接统计前导特殊字符数量
+        // 对于标准tree输出，每层通常是4个字符 "│   " 或 "├── "
+        let level = Math.floor(prefix.length / 4);
+        
+        // 根节点特殊处理
+        if (level === 0 && prefix.length === 0) {
+          level = 0;
+        }
+
+        const newNode = {};
+        
+        // 找到父节点
+        while (stack.length > 0 && stack[stack.length - 1].level >= level) {
+          stack.pop();
+        }
+
+        const parent = stack[stack.length - 1].node;
+        
+        // 如果parent是空对象（可能是文件），则不能添加子节点，这在标准Tree中不应发生
+        // 但为了容错，我们假设它变成了目录
+        parent[name] = newNode;
+        stack.push({ node: newNode, level: level });
+      });
+
+      // 如果只有一个根节点，返回该根节点的内容，或者保留根节点
+      // 为了统一，我们返回整个结构
+      return root;
+    }
+
+    // 渲染树
+    function renderTree(data) {
+      const container = document.getElementById('treeView');
+      container.innerHTML = '';
+      container.appendChild(createTreeNode(data, 'root', true));
+    }
+
+    function createTreeNode(node, name, isRoot = false) {
+      const isDir = Object.keys(node).length > 0;
+      const div = document.createElement('div');
+      div.className = 'tree-node';
+
+      const content = document.createElement('div');
+      content.className = 'tree-content';
+      
+      const toggle = document.createElement('span');
+      toggle.className = 'tree-toggle' + (isDir ? ' expanded' : '');
+      toggle.textContent = isDir ? '▶' : '';
+      
+      const icon = document.createElement('span');
+      icon.className = 'tree-icon';
+      icon.textContent = isDir ? '📂' : '📄';
+
+      const label = document.createElement('span');
+      label.className = 'tree-label';
+      label.textContent = name === 'root' && isRoot ? 'Project Root' : name;
+
+      content.appendChild(toggle);
+      content.appendChild(icon);
+      content.appendChild(label);
+      div.appendChild(content);
+
+      if (isDir) {
+        const childrenContainer = document.createElement('div');
+        childrenContainer.className = 'tree-children expanded';
+        
+        for (const [key, value] of Object.entries(node)) {
+          childrenContainer.appendChild(createTreeNode(value, key));
+        }
+        
+        div.appendChild(childrenContainer);
+
+        content.addEventListener('click', (e) => {
+          e.stopPropagation();
+          childrenContainer.classList.toggle('expanded');
+          toggle.classList.toggle('expanded');
+          icon.textContent = childrenContainer.classList.contains('expanded') ? '📂' : '📁';
+        });
+      }
+
+      return div;
+    }
+
+    // 统计更新
+    function updateStats(data, startTime) {
+      let files = 0;
+      let dirs = 0;
+      let maxDepth = 0;
+
+      function traverse(node, depth) {
+        const keys = Object.keys(node);
+        if (keys.length > 0) {
+          dirs++;
+          if (depth > maxDepth) maxDepth = depth;
+          keys.forEach(key => traverse(node[key], depth + 1));
+        } else {
+          files++;
+          if (depth > maxDepth) maxDepth = depth;
+        }
+      }
+
+      // 如果根节点包含多个项目，视作第一层
+      traverse(data, 0);
+      // 根节点本身不算目录，减1
+      dirs = Math.max(0, dirs - 1);
+
+      document.getElementById('dirCount').textContent = dirs;
+      document.getElementById('fileCount').textContent = files;
+      document.getElementById('maxDepth').textContent = maxDepth;
+      
+      const endTime = performance.now();
+      document.getElementById('parseTime').textContent = (endTime - startTime).toFixed(2) + 'ms';
+      document.getElementById('stats').classList.add('show');
+    }
+
+    // 展开/收起
+    function expandAll() {
+      document.querySelectorAll('.tree-children').forEach(el => el.classList.add('expanded'));
+      document.querySelectorAll('.tree-toggle').forEach(el => el.classList.add('expanded'));
+    }
+
+    function collapseAll() {
+      document.querySelectorAll('.tree-children').forEach(el => el.classList.remove('expanded'));
+      document.querySelectorAll('.tree-toggle').forEach(el => el.classList.remove('expanded'));
+    }
+
+    // 导出
+    function exportJSON() {
+      if (!currentData) {
+        showMessage('没有数据可导出', 'error');
+        return;
+      }
+      const jsonStr = JSON.stringify(currentData, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'project-structure.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showMessage('JSON导出成功', 'success');
+    }
+
+    // 消息提示
+    function showMessage(message, type) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      messageDiv.textContent = message;
+      document.body.appendChild(messageDiv);
+      setTimeout(() => {
+        messageDiv.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => document.body.removeChild(messageDiv), 300);
+      }, 2000);
+    }
+
+    // 自测功能
+    function runSelfTest() {
+      const tests = [
+        {
+          name: 'JSON Parse Test',
+          input: '{"a": {"b": {}}}',
+          expect: (res) => res.a && res.a.b
+        },
+        {
+          name: 'Tree Parse Test',
+          input: 'root\n├── a\n│   └── b',
+          expect: (res) => res.root && res.root.a && res.root.a.b
+        }
+      ];
+
+      let passed = 0;
+      tests.forEach(test => {
+        try {
+          let res;
+          if (test.input.startsWith('{')) {
+            res = JSON.parse(test.input);
+          } else {
+            res = parseTreeString(test.input);
+          }
+          
+          if (test.expect(res)) {
+            console.log(`✅ ${test.name} Passed`);
+            passed++;
+          } else {
+            console.error(`❌ ${test.name} Failed`);
+          }
+        } catch (e) {
+          console.error(`❌ ${test.name} Error:`, e);
+        }
+      });
+
+      if (passed === tests.length) {
+        showMessage(`自测通过: ${passed}/${tests.length}`, 'success');
+      } else {
+        showMessage(`自测失败: ${passed}/${tests.length}`, 'error');
+      }
+    }
+  </script>
+</body>
+</html>

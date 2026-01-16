@@ -35,6 +35,20 @@
     </div>
   </div>
 
+  <!-- 项目结构分析工具 -->
+  <a href="../../tools/structure-tool.html" target="_blank" style="text-decoration: none;">
+    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #d4af37; border-radius: 12px; padding: 25px; transition: all 0.3s; cursor: pointer; height: 100%;">
+      <div style="font-size: 48px; margin-bottom: 15px;">📂</div>
+      <h3 style="color: #f4d03f; margin: 0 0 12px 0;">项目结构分析</h3>
+      <p style="color: #c5c5c5; margin: 0; line-height: 1.6;">
+        智能解析项目文件结构，支持JSON/Tree格式，提供可视化分析
+      </p>
+      <div style="margin-top: 15px; color: #d4af37; font-weight: 600;">
+        立即使用 →
+      </div>
+    </div>
+  </a>
+
   <!-- 时间戳工具 -->
   <a href="../../tools/timestamp-tool.html" target="_blank" style="text-decoration: none;">
     <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #d4af37; border-radius: 12px; padding: 25px; transition: all 0.3s; cursor: pointer; height: 100%;">
