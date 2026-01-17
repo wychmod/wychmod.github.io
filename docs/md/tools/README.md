@@ -75,18 +75,6 @@
     </div>
   </div>
 
-  <!-- Markdown编辑器 - 即将推出 -->
-  <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
-    <div style="font-size: 48px; margin-bottom: 15px;">📝</div>
-    <h3 style="color: #999; margin: 0 0 12px 0;">Markdown 编辑器</h3>
-    <p style="color: #888; margin: 0; line-height: 1.6;">
-      实时预览的Markdown编辑器，支持导出
-    </p>
-    <div style="margin-top: 15px; color: #666; font-weight: 600;">
-      即将推出...
-    </div>
-  </div>
-
   <!-- URL编解码 - 即将推出 -->
   <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
     <div style="font-size: 48px; margin-bottom: 15px;">🔗</div>
@@ -124,7 +112,6 @@
 我们正在积极开发更多实用的开发工具，包括但不限于：
 
 - 🎨 颜色转换工具（RGB、HEX、HSL等格式互转）
-- 📐 代码格式化工具（支持多种编程语言）
 - 🔢 进制转换工具（二进制、十进制、十六进制等）
 - 📊 数据对比工具（文本差异对比）
 - 🔐 加密解密工具（MD5、SHA等常用算法）

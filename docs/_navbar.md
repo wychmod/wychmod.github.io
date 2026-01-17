@@ -2,7 +2,12 @@
   - <a href="/tools/json-tool.html" target="_blank">JSON处理工具</a>
   - <a href="/tools/timestamp-tool.html" target="_blank">时间戳转换工具</a>
   - <a href="/tools/base64-tool.html" target="_blank">Base64编解码工具</a>
-  - [更多工具敬请期待...]
+  - <a href="/tools/structure-tool.html" target="_blank">项目结构分析</a>
+  - <a href="/tools/regex-tool.html" target="_blank">正则表达式测试</a>
+  - <a href="/tools/url-tool.html" target="_blank">URL编解码</a>
+  - <a href="/tools/color-tool.html" target="_blank">颜色转换工具</a>
+  - <a href="/tools/radix-tool.html" target="_blank">进制转换工具</a>
+  - [更多工具持续开发中...]
 
 - 📚 后端开发
   - [Java技术栈](/md/java/Java学习路线/Java基本功.md)
