@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI应用推荐导航 - AI智能技术知识平台</title>
+  <meta name="description" content="精选全球热门AI应用工具和平台导航，包括AI编程助手、对话机器人、图像生成、视频处理等前沿AI产品推荐">
+  <meta name="keywords" content="AI工具,人工智能应用,ChatGPT,Claude,Qoder,AI编程,AI绘图,AI导航">
+  <link rel="canonical" href="https://wychmod.github.io/tools/ai-recommend.html">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold-main: #d4af37;
+      --gold-light: #f4d03f;
+      --gold-dark: #b8960f;
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #2a2a2a;
+      --text-primary: #e0e0e0;
+      --text-secondary: #c5c5c5;
+      --text-tertiary: #b8b8b8;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* 滚动条样式 */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-light);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* 导航区 */
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: 2px solid var(--gold-dark);
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .back-link:hover {
+      color: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: translateX(-5px);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .quick-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .quick-nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      border: 1px solid var(--bg-tertiary);
+    }
+
+    .quick-nav a:hover {
+      color: var(--gold-main);
+      border-color: var(--gold-main);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    /* 头部区域 */
+    .header {
+      text-align: center;
+      padding: 50px 20px;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+      border-radius: 20px;
+      border: 2px solid var(--gold-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.3; }
+    }
+
+    .header h1 {
+      color: var(--gold-light);
+      font-size: 3.2em;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(244, 208, 63, 0.4);
+      position: relative;
+      z-index: 1;
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 1.3em;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: var(--gold-main);
+      display: block;
+    }
+
+    .stat-label {
+      color: var(--text-tertiary);
+      font-size: 14px;
+    }
+
+    /* 区块标题 */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--gold-dark);
+    }
+
+    .section-title h2 {
+      color: var(--gold-light);
+      font-size: 1.8em;
+      font-weight: 600;
+    }
+
+    .section-title .badge {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      color: #000;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* 分类标签 */
+    .category-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .category-tab {
+      padding: 12px 24px;
+      background: var(--bg-secondary);
+      border: 2px solid var(--bg-tertiary);
+      border-radius: 30px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .category-tab:hover {
+      border-color: var(--gold-dark);
+      color: var(--gold-main);
+    }
+
+    .category-tab.active {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      border-color: var(--gold-main);
+      color: #000;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+    }
+
+    /* AI应用卡片网格 */
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+      margin-bottom: 60px;
+    }
+
+    .ai-card {
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      border: 2px solid var(--bg-tertiary);
+      border-radius: 16px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .ai-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold-main);
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+    }
+
+    .ai-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* 首推卡片特殊样式 */
+    .ai-card.featured {
+      border-color: var(--gold-main);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, var(--bg-secondary) 100%);
+      grid-column: span 1;
+    }
+
+    .ai-card.featured::after {
+      content: '⭐ 首推';
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      color: #000;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+      border: 1px solid var(--bg-tertiary);
+      flex-shrink: 0;
+    }
+
+    .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-title {
+      color: var(--gold-light);
+      font-size: 1.3em;
+      font-weight: 600;
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-company {
+      color: var(--text-tertiary);
+      font-size: 13px;
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 15px;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .card-tag {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-main);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid var(--bg-tertiary);
+    }
+
+    .card-link {
+      color: var(--gold-main);
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .ai-card:hover .card-link {
+      color: var(--gold-light);
+      gap: 10px;
+    }
+
+    .card-rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--gold-main);
+      font-size: 14px;
+    }
+
+    /* 时间线区域 */
+    .timeline-section {
+      margin-top: 80px;
+      padding: 50px 0;
+    }
+
+    .timeline-container {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    /* 时间线主轴 */
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--gold-dark) 0%, var(--gold-main) 50%, var(--gold-dark) 100%);
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 50%;
+      position: relative;
+      margin-bottom: 50px;
+    }
+
+    .timeline-item:nth-child(even) {
+      justify-content: flex-start;
+      padding-right: 0;
+      padding-left: 50%;
+    }
+
+    .timeline-content {
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      border: 2px solid var(--bg-tertiary);
+      border-radius: 16px;
+      padding: 25px;
+      max-width: 420px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      border-color: var(--gold-main);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-right: 30px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-left: 30px;
+    }
+
+    /* 时间线节点 */
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      border-radius: 50%;
+      border: 4px solid var(--bg-primary);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      z-index: 1;
+    }
+
+    .timeline-year {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -35px;
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      color: #000;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .timeline-title {
+      color: var(--gold-light);
+      font-size: 1.2em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .timeline-desc {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .timeline-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    /* 页脚 */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 60px;
+      border-top: 2px solid var(--bg-tertiary);
+    }
+
+    .footer p {
+      color: var(--text-tertiary);
+      margin-bottom: 15px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--gold-main);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold-light);
+    }
+
+    /* 响应式设计 */
+    @media screen and (max-width: 900px) {
+      .timeline-container::before {
+        left: 20px;
+      }
+
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-left: 50px;
+        padding-right: 0;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 20px;
+        margin-right: 0;
+        max-width: 100%;
+      }
+
+      .timeline-dot {
+        left: 20px;
+      }
+
+      .timeline-year {
+        left: 20px;
+        transform: translateX(-50%);
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .header p {
+        font-size: 1em;
+      }
+
+      .header-stats {
+        gap: 20px;
+      }
+
+      .stat-number {
+        font-size: 1.8em;
+      }
+
+      .ai-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .quick-nav {
+        justify-content: center;
+      }
+
+      .category-tabs {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 10px;
+      }
+
+      .category-tab {
+        flex-shrink: 0;
+      }
+    }
+
+    /* 搜索框 */
+    .search-box {
+      max-width: 500px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 15px 20px 15px 50px;
+      background: var(--bg-secondary);
+      border: 2px solid var(--bg-tertiary);
+      border-radius: 30px;
+      color: var(--text-primary);
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .search-input:focus {
+      border-color: var(--gold-main);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      font-size: 18px;
+    }
+
+    /* 动画 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ai-card {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .ai-card:nth-child(1) { animation-delay: 0.1s; }
+    .ai-card:nth-child(2) { animation-delay: 0.15s; }
+    .ai-card:nth-child(3) { animation-delay: 0.2s; }
+    .ai-card:nth-child(4) { animation-delay: 0.25s; }
+    .ai-card:nth-child(5) { animation-delay: 0.3s; }
+    .ai-card:nth-child(6) { animation-delay: 0.35s; }
+
+    /* 回到顶部按钮 */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-size: 20px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+    }
+
+    .back-to-top.visible {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 导航区 -->
+    <nav class="nav-bar">
+      <a href="/#/" class="back-link">← 返回主站</a>
+      <div class="quick-nav">
+        <a href="#ai-apps">AI应用</a>
+        <a href="#ai-history">发展简史</a>
+        <a href="/tools/">开发工具</a>
+      </div>
+    </nav>
+
+    <!-- 头部区域 -->
+    <header class="header">
+      <h1>🤖 AI 应用推荐导航</h1>
+      <p>精选全球顶尖人工智能应用与工具，助力您的工作与创作效率飞跃提升</p>
+      <div class="header-stats">
+        <div class="stat-item">
+          <span class="stat-number" id="appCount">20+</span>
+          <span class="stat-label">精选应用</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">8</span>
+          <span class="stat-label">应用分类</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">2026</span>
+          <span class="stat-label">持续更新</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 搜索框 -->
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索 AI 应用..." autocomplete="off">
+    </div>
+
+    <!-- AI应用区域 -->
+    <section id="ai-apps">
+      <div class="section-title">
+        <h2>🚀 热门 AI 应用推荐</h2>
+        <span class="badge">精选推荐</span>
+      </div>
+
+      <!-- 分类标签 -->
+      <div class="category-tabs">
+        <button class="category-tab active" data-category="all">全部</button>
+        <button class="category-tab" data-category="coding">AI 编程</button>
+        <button class="category-tab" data-category="chat">AI 对话</button>
+        <button class="category-tab" data-category="image">AI 绘图</button>
+        <button class="category-tab" data-category="video">AI 视频</button>
+        <button class="category-tab" data-category="writing">AI 写作</button>
+        <button class="category-tab" data-category="audio">AI 音频</button>
+        <button class="category-tab" data-category="search">AI 搜索</button>
+      </div>
+
+      <!-- AI应用卡片 -->
+      <div class="ai-grid" id="aiGrid">
+        <!-- Qoder - 首推 -->
+        <a href="https://qoder.com" target="_blank" class="ai-card featured" data-category="coding">
+          <div class="card-header">
+            <div class="card-icon">⚡</div>
+            <div class="card-info">
+              <div class="card-title">Qoder</div>
+              <div class="card-company">Qodo</div>
+            </div>
+          </div>
+          <div class="card-description">
+            革命性的AI编程助手，提供智能代码补全、代码审查、自动化测试生成等功能。深度理解代码上下文，帮助开发者提升10倍编程效率。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">代码补全</span>
+            <span class="card-tag">代码审查</span>
+            <span class="card-tag">测试生成</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 首选推荐</span>
+          </div>
+        </a>
+
+        <!-- Claude -->
+        <a href="https://claude.ai" target="_blank" class="ai-card" data-category="chat">
+          <div class="card-header">
+            <div class="card-icon">🧠</div>
+            <div class="card-info">
+              <div class="card-title">Claude</div>
+              <div class="card-company">Anthropic</div>
+            </div>
+          </div>
+          <div class="card-description">
+            Anthropic开发的下一代AI助手，以安全、有用、诚实为设计理念。擅长长文本处理、复杂推理和编程任务，支持200K上下文窗口。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">长文本</span>
+            <span class="card-tag">代码生成</span>
+            <span class="card-tag">逻辑推理</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.9</span>
+          </div>
+        </a>
+
+        <!-- ChatGPT -->
+        <a href="https://chat.openai.com" target="_blank" class="ai-card" data-category="chat">
+          <div class="card-header">
+            <div class="card-icon">💬</div>
+            <div class="card-info">
+              <div class="card-title">ChatGPT</div>
+              <div class="card-company">OpenAI</div>
+            </div>
+          </div>
+          <div class="card-description">
+            OpenAI推出的革命性AI对话产品，基于GPT-4模型。能够进行自然对话、内容创作、代码编写、数据分析等多种任务。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">对话AI</span>
+            <span class="card-tag">多模态</span>
+            <span class="card-tag">插件生态</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.8</span>
+          </div>
+        </a>
+
+        <!-- GitHub Copilot -->
+        <a href="https://github.com/features/copilot" target="_blank" class="ai-card" data-category="coding">
+          <div class="card-header">
+            <div class="card-icon">🐙</div>
+            <div class="card-info">
+              <div class="card-title">GitHub Copilot</div>
+              <div class="card-company">GitHub / Microsoft</div>
+            </div>
+          </div>
+          <div class="card-description">
+            GitHub与OpenAI联合打造的AI编程助手，深度集成IDE。根据注释和代码上下文自动生成代码，支持数十种编程语言。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">代码补全</span>
+            <span class="card-tag">IDE集成</span>
+            <span class="card-tag">多语言</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.7</span>
+          </div>
+        </a>
+
+        <!-- Cursor -->
+        <a href="https://cursor.sh" target="_blank" class="ai-card" data-category="coding">
+          <div class="card-header">
+            <div class="card-icon">🖱️</div>
+            <div class="card-info">
+              <div class="card-title">Cursor</div>
+              <div class="card-company">Anysphere</div>
+            </div>
+          </div>
+          <div class="card-description">
+            专为AI编程设计的新一代代码编辑器，基于VSCode构建。集成GPT-4，支持自然语言编程、智能重构和代码解释。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">AI编辑器</span>
+            <span class="card-tag">自然语言</span>
+            <span class="card-tag">代码重构</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.8</span>
+          </div>
+        </a>
+
+        <!-- Midjourney -->
+        <a href="https://midjourney.com" target="_blank" class="ai-card" data-category="image">
+          <div class="card-header">
+            <div class="card-icon">🎨</div>
+            <div class="card-info">
+              <div class="card-title">Midjourney</div>
+              <div class="card-company">Midjourney Inc</div>
+            </div>
+          </div>
+          <div class="card-description">
+            顶级AI图像生成工具，以其独特的艺术风格和高质量输出著称。通过文字描述即可创作精美艺术作品，V6版本更加逼真。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">图像生成</span>
+            <span class="card-tag">艺术创作</span>
+            <span class="card-tag">Discord</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.9</span>
+          </div>
+        </a>
+
+        <!-- DALL·E 3 -->
+        <a href="https://openai.com/dall-e-3" target="_blank" class="ai-card" data-category="image">
+          <div class="card-header">
+            <div class="card-icon">🖼️</div>
+            <div class="card-info">
+              <div class="card-title">DALL·E 3</div>
+              <div class="card-company">OpenAI</div>
+            </div>
+          </div>
+          <div class="card-description">
+            OpenAI最新图像生成模型，与ChatGPT深度集成。精准理解复杂提示词，生成高质量、细节丰富的图像，支持文字渲染。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">图像生成</span>
+            <span class="card-tag">ChatGPT集成</span>
+            <span class="card-tag">文字渲染</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.8</span>
+          </div>
+        </a>
+
+        <!-- Stable Diffusion -->
+        <a href="https://stability.ai" target="_blank" class="ai-card" data-category="image">
+          <div class="card-header">
+            <div class="card-icon">🌟</div>
+            <div class="card-info">
+              <div class="card-title">Stable Diffusion</div>
+              <div class="card-company">Stability AI</div>
+            </div>
+          </div>
+          <div class="card-description">
+            开源的图像生成模型，可本地部署运行。拥有丰富的社区生态，支持LoRA、ControlNet等扩展，高度可定制化。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">开源</span>
+            <span class="card-tag">本地部署</span>
+            <span class="card-tag">高度定制</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.7</span>
+          </div>
+        </a>
+
+        <!-- Sora -->
+        <a href="https://openai.com/sora" target="_blank" class="ai-card" data-category="video">
+          <div class="card-header">
+            <div class="card-icon">🎬</div>
+            <div class="card-info">
+              <div class="card-title">Sora</div>
+              <div class="card-company">OpenAI</div>
+            </div>
+          </div>
+          <div class="card-description">
+            OpenAI革命性的文生视频模型，能够根据文字描述生成长达60秒的高质量视频，具备惊人的物理世界理解能力。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">文生视频</span>
+            <span class="card-tag">高清输出</span>
+            <span class="card-tag">物理模拟</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.9</span>
+          </div>
+        </a>
+
+        <!-- Runway -->
+        <a href="https://runwayml.com" target="_blank" class="ai-card" data-category="video">
+          <div class="card-header">
+            <div class="card-icon">🎥</div>
+            <div class="card-info">
+              <div class="card-title">Runway</div>
+              <div class="card-company">Runway AI</div>
+            </div>
+          </div>
+          <div class="card-description">
+            专业级AI视频编辑平台，提供Gen-2文生视频、视频风格迁移、智能抠像等功能。好莱坞级别的AI创作工具。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">视频生成</span>
+            <span class="card-tag">视频编辑</span>
+            <span class="card-tag">专业级</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.7</span>
+          </div>
+        </a>
+
+        <!-- Pika -->
+        <a href="https://pika.art" target="_blank" class="ai-card" data-category="video">
+          <div class="card-header">
+            <div class="card-icon">✨</div>
+            <div class="card-info">
+              <div class="card-title">Pika</div>
+              <div class="card-company">Pika Labs</div>
+            </div>
+          </div>
+          <div class="card-description">
+            创新的AI视频生成平台，支持文字和图片生成视频，简单易用。Pika 1.0带来更高质量的视频输出和编辑功能。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">视频生成</span>
+            <span class="card-tag">图生视频</span>
+            <span class="card-tag">易用</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.6</span>
+          </div>
+        </a>
+
+        <!-- Notion AI -->
+        <a href="https://notion.so" target="_blank" class="ai-card" data-category="writing">
+          <div class="card-header">
+            <div class="card-icon">📝</div>
+            <div class="card-info">
+              <div class="card-title">Notion AI</div>
+              <div class="card-company">Notion Labs</div>
+            </div>
+          </div>
+          <div class="card-description">
+            Notion内置的AI写作助手，支持文档总结、内容生成、语法修正、翻译等功能。无缝融入知识管理工作流。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">AI写作</span>
+            <span class="card-tag">文档处理</span>
+            <span class="card-tag">知识管理</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.6</span>
+          </div>
+        </a>
+
+        <!-- Jasper -->
+        <a href="https://jasper.ai" target="_blank" class="ai-card" data-category="writing">
+          <div class="card-header">
+            <div class="card-icon">✍️</div>
+            <div class="card-info">
+              <div class="card-title">Jasper</div>
+              <div class="card-company">Jasper AI</div>
+            </div>
+          </div>
+          <div class="card-description">
+            企业级AI内容创作平台，专注营销文案、博客文章、社交媒体内容生成。支持品牌语调定制和团队协作。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">营销文案</span>
+            <span class="card-tag">内容生成</span>
+            <span class="card-tag">企业级</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.5</span>
+          </div>
+        </a>
+
+        <!-- ElevenLabs -->
+        <a href="https://elevenlabs.io" target="_blank" class="ai-card" data-category="audio">
+          <div class="card-header">
+            <div class="card-icon">🎙️</div>
+            <div class="card-info">
+              <div class="card-title">ElevenLabs</div>
+              <div class="card-company">ElevenLabs</div>
+            </div>
+          </div>
+          <div class="card-description">
+            最先进的AI语音合成平台，支持克隆任意声音、多语言配音、情感表达。生成的语音自然逼真，广泛用于内容创作。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">语音合成</span>
+            <span class="card-tag">声音克隆</span>
+            <span class="card-tag">多语言</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.8</span>
+          </div>
+        </a>
+
+        <!-- Suno -->
+        <a href="https://suno.ai" target="_blank" class="ai-card" data-category="audio">
+          <div class="card-header">
+            <div class="card-icon">🎵</div>
+            <div class="card-info">
+              <div class="card-title">Suno</div>
+              <div class="card-company">Suno AI</div>
+            </div>
+          </div>
+          <div class="card-description">
+            革命性的AI音乐创作平台，只需输入文字描述即可生成完整歌曲，包括人声、伴奏和歌词。让每个人都能成为音乐创作者。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">音乐生成</span>
+            <span class="card-tag">歌曲创作</span>
+            <span class="card-tag">AI作曲</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.8</span>
+          </div>
+        </a>
+
+        <!-- Perplexity -->
+        <a href="https://perplexity.ai" target="_blank" class="ai-card" data-category="search">
+          <div class="card-header">
+            <div class="card-icon">🔎</div>
+            <div class="card-info">
+              <div class="card-title">Perplexity</div>
+              <div class="card-company">Perplexity AI</div>
+            </div>
+          </div>
+          <div class="card-description">
+            AI驱动的对话式搜索引擎，实时联网获取最新信息并提供带来源引用的答案。重新定义信息获取方式。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">AI搜索</span>
+            <span class="card-tag">实时联网</span>
+            <span class="card-tag">来源引用</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.7</span>
+          </div>
+        </a>
+
+        <!-- Gemini -->
+        <a href="https://gemini.google.com" target="_blank" class="ai-card" data-category="chat">
+          <div class="card-header">
+            <div class="card-icon">💎</div>
+            <div class="card-info">
+              <div class="card-title">Gemini</div>
+              <div class="card-company">Google</div>
+            </div>
+          </div>
+          <div class="card-description">
+            Google最强大的多模态AI模型，原生支持文本、图像、音频、视频理解。深度整合Google生态，提供强大的推理能力。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">多模态</span>
+            <span class="card-tag">Google集成</span>
+            <span class="card-tag">强推理</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.7</span>
+          </div>
+        </a>
+
+        <!-- 通义千问 -->
+        <a href="https://tongyi.aliyun.com" target="_blank" class="ai-card" data-category="chat">
+          <div class="card-header">
+            <div class="card-icon">🌐</div>
+            <div class="card-info">
+              <div class="card-title">通义千问</div>
+              <div class="card-company">阿里云</div>
+            </div>
+          </div>
+          <div class="card-description">
+            阿里云推出的大语言模型，支持中英文对话、内容创作、代码生成。拥有强大的中文理解能力，免费开放使用。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">中文优化</span>
+            <span class="card-tag">免费使用</span>
+            <span class="card-tag">多功能</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.5</span>
+          </div>
+        </a>
+
+        <!-- 文心一言 -->
+        <a href="https://yiyan.baidu.com" target="_blank" class="ai-card" data-category="chat">
+          <div class="card-header">
+            <div class="card-icon">🔮</div>
+            <div class="card-info">
+              <div class="card-title">文心一言</div>
+              <div class="card-company">百度</div>
+            </div>
+          </div>
+          <div class="card-description">
+            百度基于文心大模型打造的AI对话产品，深度理解中文语境。支持文字、图片、代码生成，持续迭代升级。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">中文AI</span>
+            <span class="card-tag">多模态</span>
+            <span class="card-tag">国产</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.4</span>
+          </div>
+        </a>
+
+        <!-- DeepSeek -->
+        <a href="https://deepseek.com" target="_blank" class="ai-card" data-category="chat">
+          <div class="card-header">
+            <div class="card-icon">🔬</div>
+            <div class="card-info">
+              <div class="card-title">DeepSeek</div>
+              <div class="card-company">深度求索</div>
+            </div>
+          </div>
+          <div class="card-description">
+            国产开源大模型的佼佼者，在代码和数学推理方面表现出色。提供API服务，支持企业级应用部署，性价比极高。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">开源</span>
+            <span class="card-tag">代码能力</span>
+            <span class="card-tag">高性价比</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 4.6</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- AI发展简史时间线 -->
+    <section id="ai-history" class="timeline-section">
+      <div class="section-title">
+        <h2>📜 人工智能发展简史</h2>
+        <span class="badge">里程碑</span>
+      </div>
+
+      <div class="timeline-container">
+        <!-- 1950年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">1950</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🧪</div>
+            <div class="timeline-title">图灵测试诞生</div>
+            <div class="timeline-desc">
+              艾伦·图灵发表《计算机器与智能》论文，提出著名的"图灵测试"，为人工智能研究奠定了理论基础，被誉为"人工智能之父"。
+            </div>
+          </div>
+        </div>
+
+        <!-- 1956年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">1956</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🎓</div>
+            <div class="timeline-title">AI正式诞生</div>
+            <div class="timeline-desc">
+              达特茅斯会议召开，约翰·麦卡锡首次提出"人工智能"(Artificial Intelligence)术语，标志着AI作为独立学科正式诞生。
+            </div>
+          </div>
+        </div>
+
+        <!-- 1966年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">1966</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">💬</div>
+            <div class="timeline-title">ELIZA聊天机器人</div>
+            <div class="timeline-desc">
+              MIT的约瑟夫·维森鲍姆创造了ELIZA，这是历史上第一个聊天机器人，能够模拟心理治疗师与人对话，开创了人机对话的先河。
+            </div>
+          </div>
+        </div>
+
+        <!-- 1997年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">1997</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">♟️</div>
+            <div class="timeline-title">深蓝战胜棋王</div>
+            <div class="timeline-desc">
+              IBM的深蓝(Deep Blue)超级计算机击败国际象棋世界冠军卡斯帕罗夫，首次证明AI在特定领域可以超越人类顶尖水平。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2012年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2012</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🧠</div>
+            <div class="timeline-title">深度学习突破</div>
+            <div class="timeline-desc">
+              AlexNet在ImageNet竞赛中大幅领先，深度学习迎来爆发。GPU加速和大数据时代的到来，推动AI进入新纪元。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2016年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2016</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🎮</div>
+            <div class="timeline-title">AlphaGo击败李世石</div>
+            <div class="timeline-desc">
+              Google DeepMind的AlphaGo以4:1战胜围棋世界冠军李世石，展示了深度强化学习的强大能力，引发全球AI热潮。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2017年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2017</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🔄</div>
+            <div class="timeline-title">Transformer架构问世</div>
+            <div class="timeline-desc">
+              Google发表《Attention Is All You Need》论文，提出Transformer架构，彻底改变了自然语言处理领域，为GPT等模型奠定基础。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2020年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2020</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">📚</div>
+            <div class="timeline-title">GPT-3震撼发布</div>
+            <div class="timeline-desc">
+              OpenAI发布拥有1750亿参数的GPT-3，展现出惊人的语言理解和生成能力，预示着大语言模型时代的来临。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2022年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2022</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">💥</div>
+            <div class="timeline-title">ChatGPT引爆全球</div>
+            <div class="timeline-desc">
+              OpenAI发布ChatGPT，两个月内用户突破1亿，成为史上增长最快的应用。AI进入大众视野，掀起全球AI创业浪潮。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2023年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2023</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🚀</div>
+            <div class="timeline-title">GPT-4与多模态AI</div>
+            <div class="timeline-desc">
+              GPT-4发布，支持图像输入的多模态能力。同年Claude、Gemini等模型相继推出，AI进入多模态、多厂商竞争的新阶段。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2024年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2024</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🎬</div>
+            <div class="timeline-title">Sora视频生成革命</div>
+            <div class="timeline-desc">
+              OpenAI发布Sora文生视频模型，能够生成60秒高质量视频，展示对物理世界的深度理解。AI创作进入视频新纪元。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2025年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2025</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🤖</div>
+            <div class="timeline-title">AI Agent崛起</div>
+            <div class="timeline-desc">
+              AI Agent成为热点，能够自主规划、执行复杂任务。AI从工具向智能体演进，开始深度参与人类工作流程。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2026年 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2026</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🌟</div>
+            <div class="timeline-title">AI新纪元</div>
+            <div class="timeline-desc">
+              AI技术持续突破，在科研、医疗、教育等领域深度应用。人机协作成为常态，AI正在重塑人类社会的方方面面。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <p>© 2024-2026 AI智能技术知识平台 | 持续更新中</p>
+      <div class="footer-links">
+        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">⭐ GitHub</a>
+        <a href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank">📧 反馈建议</a>
+        <a href="/#/" target="_blank">📚 知识库</a>
+        <a href="/tools/" target="_blank">🛠️ 开发工具</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 回到顶部按钮 -->
+  <button class="back-to-top" id="backToTop" title="回到顶部">↑</button>
+
+  <script>
+    // 分类筛选功能
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    const aiCards = document.querySelectorAll('.ai-card');
+
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // 更新活动标签
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const category = tab.dataset.category;
+
+        // 筛选卡片
+        aiCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'flex';
+            card.style.animation = 'fadeInUp 0.5s ease forwards';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // 更新计数
+        updateAppCount(category);
+      });
+    });
+
+    // 更新应用计数
+    function updateAppCount(category) {
+      let count = 0;
+      aiCards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          count++;
+        }
+      });
+      document.getElementById('appCount').textContent = count + '+';
+    }
+
+    // 搜索功能
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const keyword = e.target.value.toLowerCase().trim();
+
+      aiCards.forEach(card => {
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        const company = card.querySelector('.card-company').textContent.toLowerCase();
+        const desc = card.querySelector('.card-description').textContent.toLowerCase();
+        const tags = Array.from(card.querySelectorAll('.card-tag')).map(t => t.textContent.toLowerCase()).join(' ');
+
+        if (keyword === '' || title.includes(keyword) || company.includes(keyword) || desc.includes(keyword) || tags.includes(keyword)) {
+          card.style.display = 'flex';
+          card.style.animation = 'fadeInUp 0.5s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // 重置分类标签状态
+      if (keyword !== '') {
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        categoryTabs[0].classList.add('active');
+      }
+    });
+
+    // 回到顶部功能
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // 平滑滚动到锚点
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // 初始化计数
+    updateAppCount('all');
+  </script>
+</body>
+</html>
