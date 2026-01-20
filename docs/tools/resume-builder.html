@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>程序员简历制作工具 - AI智能技术知识平台</title>
+  <meta name="description" content="专为程序员打造的在线简历生成器，支持多种专业模板、技术技能展示、项目经验、GitHub链接等，一键导出PDF">
+  <meta name="keywords" content="程序员简历,简历生成器,技术简历,简历模板,PDF简历,开发者简历,IT简历">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold-main: #d4af37;
+      --gold-light: #f4d03f;
+      --gold-dark: #b8960f;
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #2a2a2a;
+      --text-primary: #e0e0e0;
+      --text-secondary: #c5c5c5;
+      --text-tertiary: #999;
+      --success: #28a745;
+      --danger: #dc3545;
+      --info: #17a2b8;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* 导航链接 */
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 20px;
+      border: 2px solid var(--gold-dark);
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .back-link:hover {
+      color: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: translateX(-3px);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    /* 头部 */
+    .header {
+      text-align: center;
+      padding: 30px 0;
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--gold-main);
+    }
+
+    .header h1 {
+      color: var(--gold-light);
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(244, 208, 63, 0.3);
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 1.1em;
+    }
+
+    /* 工具栏 */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border: 2px solid var(--gold-dark);
+      border-radius: 12px;
+      align-items: center;
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toolbar-group label {
+      color: var(--gold-main);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    select {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--gold-dark);
+      border-radius: 8px;
+      padding: 10px 15px;
+      color: var(--text-primary);
+      font-size: 14px;
+      cursor: pointer;
+      min-width: 150px;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--gold-main);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold-main));
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-light));
+    }
+
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      color: var(--gold-main);
+      border: 2px solid var(--gold-dark);
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: var(--gold-main);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #1e7e34, var(--success));
+      color: #fff;
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, var(--success), #34ce57);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #bd2130, var(--danger));
+      color: #fff;
+    }
+
+    .btn-danger:hover {
+      background: linear-gradient(135deg, var(--danger), #e4606d);
+    }
+
+    /* 主编辑区 */
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    @media (max-width: 1200px) {
+      .main-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 编辑面板 */
+    .edit-panel {
+      background: var(--bg-secondary);
+      border: 2px solid var(--gold-main);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+      padding: 15px 20px;
+      border-bottom: 2px solid var(--gold-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-title {
+      color: var(--gold-light);
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
+    .panel-content {
+      padding: 20px;
+      max-height: calc(100vh - 350px);
+      overflow-y: auto;
+    }
+
+    /* 表单分组 */
+    .form-section {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--bg-tertiary);
+    }
+
+    .form-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      color: var(--gold-main);
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg-primary);
+      border: 2px solid var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 12px 15px;
+      color: var(--text-primary);
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold-main);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 技能标签输入 */
+    .skills-input-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--bg-primary);
+      border: 2px solid var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 10px;
+      min-height: 50px;
+      cursor: text;
+    }
+
+    .skills-input-container:focus-within {
+      border-color: var(--gold-main);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--gold-main);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .skill-tag .remove-skill {
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      opacity: 0.7;
+    }
+
+    .skill-tag .remove-skill:hover {
+      opacity: 1;
+    }
+
+    .skills-input {
+      flex: 1;
+      min-width: 100px;
+      border: none !important;
+      background: transparent !important;
+      padding: 6px !important;
+      box-shadow: none !important;
+    }
+
+    /* 动态列表项 */
+    .list-item {
+      background: var(--bg-primary);
+      border: 1px solid var(--bg-tertiary);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .list-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .list-item-title {
+      color: var(--gold-main);
+      font-weight: 600;
+    }
+
+    .list-item-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 14px;
+    }
+
+    .add-item-btn {
+      width: 100%;
+      padding: 12px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 2px dashed var(--gold-dark);
+      border-radius: 8px;
+      color: var(--gold-main);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .add-item-btn:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: var(--gold-main);
+    }
+
+    /* 预览面板 */
+    .preview-panel {
+      background: #fff;
+      border: 2px solid var(--gold-main);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .preview-content {
+      background: #fff;
+      color: #333;
+      padding: 40px;
+      min-height: calc(100vh - 350px);
+      max-height: calc(100vh - 350px);
+      overflow-y: auto;
+    }
+
+    /* 简历模板样式 - 经典模板 */
+    .resume-template.classic {
+      font-family: 'Georgia', serif;
+    }
+
+    .resume-template.classic .resume-header {
+      text-align: center;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #333;
+      margin-bottom: 25px;
+    }
+
+    .resume-template.classic .resume-name {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .resume-template.classic .resume-title {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .resume-template.classic .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .resume-template.classic .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .resume-template.classic .section {
+      margin-bottom: 25px;
+    }
+
+    .resume-template.classic .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+    }
+
+    .resume-template.classic .summary-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    .resume-template.classic .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .resume-template.classic .skill-category h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .resume-template.classic .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .resume-template.classic .skill-tag-preview {
+      background: #f0f0f0;
+      color: #333;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .resume-template.classic .experience-item,
+    .resume-template.classic .project-item,
+    .resume-template.classic .education-item {
+      margin-bottom: 20px;
+    }
+
+    .resume-template.classic .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .resume-template.classic .item-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .resume-template.classic .item-subtitle {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .resume-template.classic .item-date {
+      font-size: 13px;
+      color: #666;
+      white-space: nowrap;
+    }
+
+    .resume-template.classic .item-description {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.7;
+    }
+
+    .resume-template.classic .item-description ul {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+
+    .resume-template.classic .item-description li {
+      margin-bottom: 4px;
+    }
+
+    .resume-template.classic .project-links {
+      margin-top: 8px;
+    }
+
+    .resume-template.classic .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #0066cc;
+      text-decoration: none;
+      margin-right: 15px;
+    }
+
+    .resume-template.classic .tech-stack {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .resume-template.classic .tech-stack strong {
+      color: #333;
+    }
+
+    /* 简历模板样式 - 现代模板 */
+    .resume-template.modern {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .resume-template.modern .resume-header {
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: #fff;
+      padding: 30px;
+      margin: -40px -40px 30px -40px;
+    }
+
+    .resume-template.modern .resume-name {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .resume-template.modern .resume-title {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .resume-template.modern .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 14px;
+    }
+
+    .resume-template.modern .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.9;
+    }
+
+    .resume-template.modern .section {
+      margin-bottom: 30px;
+    }
+
+    .resume-template.modern .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      padding-left: 15px;
+      border-left: 4px solid #3498db;
+    }
+
+    .resume-template.modern .summary-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #555;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .resume-template.modern .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .resume-template.modern .skill-category {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .resume-template.modern .skill-category h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .resume-template.modern .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .resume-template.modern .skill-tag-preview {
+      background: #3498db;
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .resume-template.modern .experience-item,
+    .resume-template.modern .project-item,
+    .resume-template.modern .education-item {
+      margin-bottom: 25px;
+      padding-left: 20px;
+      border-left: 2px solid #e0e0e0;
+    }
+
+    .resume-template.modern .item-header {
+      margin-bottom: 10px;
+    }
+
+    .resume-template.modern .item-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .resume-template.modern .item-subtitle {
+      font-size: 14px;
+      color: #3498db;
+    }
+
+    .resume-template.modern .item-date {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .resume-template.modern .item-description {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .resume-template.modern .item-description ul {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    .resume-template.modern .item-description li {
+      margin-bottom: 5px;
+    }
+
+    .resume-template.modern .project-links {
+      margin-top: 10px;
+    }
+
+    .resume-template.modern .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: #3498db;
+      text-decoration: none;
+      margin-right: 20px;
+    }
+
+    .resume-template.modern .tech-stack {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #666;
+      background: #f0f0f0;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+
+    /* 简历模板样式 - 简约模板 */
+    .resume-template.minimal {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .resume-template.minimal .resume-header {
+      margin-bottom: 30px;
+    }
+
+    .resume-template.minimal .resume-name {
+      font-size: 28px;
+      font-weight: 300;
+      color: #1a1a1a;
+      margin-bottom: 5px;
+    }
+
+    .resume-template.minimal .resume-title {
+      font-size: 16px;
+      color: #888;
+      font-weight: 300;
+      margin-bottom: 15px;
+    }
+
+    .resume-template.minimal .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .resume-template.minimal .section {
+      margin-bottom: 25px;
+    }
+
+    .resume-template.minimal .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .resume-template.minimal .summary-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #444;
+    }
+
+    .resume-template.minimal .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .resume-template.minimal .skill-tag-preview {
+      border: 1px solid #ddd;
+      color: #555;
+      padding: 5px 12px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+
+    .resume-template.minimal .experience-item,
+    .resume-template.minimal .project-item,
+    .resume-template.minimal .education-item {
+      margin-bottom: 20px;
+    }
+
+    .resume-template.minimal .item-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .resume-template.minimal .item-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    .resume-template.minimal .item-subtitle {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .resume-template.minimal .item-date {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .resume-template.minimal .item-description {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .resume-template.minimal .item-description ul {
+      padding-left: 18px;
+      margin: 8px 0;
+    }
+
+    .resume-template.minimal .project-link {
+      font-size: 12px;
+      color: #0066cc;
+      text-decoration: none;
+      margin-right: 15px;
+    }
+
+    .resume-template.minimal .tech-stack {
+      font-size: 12px;
+      color: #888;
+      margin-top: 5px;
+    }
+
+    /* 空状态提示 */
+    .empty-hint {
+      color: #aaa;
+      font-style: italic;
+      font-size: 13px;
+    }
+
+    /* Toast 通知 */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 15px 30px;
+      border-radius: 8px;
+      border: 2px solid var(--gold-main);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      border-color: var(--success);
+    }
+
+    .toast.error {
+      border-color: var(--danger);
+    }
+
+    /* 页脚 */
+    .footer {
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 40px;
+      border-top: 1px solid var(--bg-tertiary);
+      color: var(--text-tertiary);
+    }
+
+    .footer a {
+      color: var(--gold-main);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: var(--gold-light);
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .toolbar-group {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .preview-content {
+        padding: 20px;
+      }
+
+      .resume-template.modern .resume-header {
+        margin: -20px -20px 20px -20px;
+        padding: 20px;
+      }
+
+      .resume-template .skills-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* 打印样式 */
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .nav-links,
+      .header,
+      .toolbar,
+      .edit-panel,
+      .footer,
+      .panel-header {
+        display: none !important;
+      }
+
+      .main-content {
+        display: block;
+      }
+
+      .preview-panel {
+        border: none;
+        box-shadow: none;
+      }
+
+      .preview-content {
+        max-height: none;
+        overflow: visible;
+      }
+    }
+
+    /* 滚动条样式 */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold-main));
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-light);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 导航 -->
+    <div class="nav-links">
+      <a href="/#/" class="back-link">← 返回主站</a>
+      <a href="/tools/" class="back-link">← 返回工具集</a>
+    </div>
+
+    <!-- 头部 -->
+    <div class="header">
+      <h1>📄 程序员简历制作工具</h1>
+      <p>专为技术人员打造的专业简历生成器，一键导出精美PDF</p>
+    </div>
+
+    <!-- 工具栏 -->
+    <div class="toolbar">
+      <div class="toolbar-group">
+        <label>选择模板：</label>
+        <select id="templateSelect" onchange="changeTemplate()">
+          <option value="classic">经典模板</option>
+          <option value="modern">现代模板</option>
+          <option value="minimal">简约模板</option>
+        </select>
+      </div>
+      <div class="toolbar-group" style="flex: 1; justify-content: center; gap: 15px;">
+        <button class="btn btn-secondary" onclick="loadSampleData()">
+          <span>📋</span> 加载示例
+        </button>
+        <button class="btn btn-secondary" onclick="saveDraft()">
+          <span>💾</span> 保存草稿
+        </button>
+        <button class="btn btn-secondary" onclick="loadDraft()">
+          <span>📂</span> 加载草稿
+        </button>
+        <button class="btn btn-danger" onclick="clearAll()">
+          <span>🗑️</span> 清空
+        </button>
+      </div>
+      <div class="toolbar-group">
+        <button class="btn btn-success" onclick="exportPDF()">
+          <span>📥</span> 导出PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+      <!-- 编辑面板 -->
+      <div class="edit-panel">
+        <div class="panel-header">
+          <span class="panel-title">✏️ 编辑简历内容</span>
+        </div>
+        <div class="panel-content">
+          <!-- 基本信息 -->
+          <div class="form-section">
+            <div class="section-title">👤 基本信息</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>姓名 *</label>
+                <input type="text" id="name" placeholder="请输入姓名" oninput="updatePreview()">
+              </div>
+              <div class="form-group">
+                <label>求职岗位 *</label>
+                <input type="text" id="title" placeholder="如：Java高级开发工程师" oninput="updatePreview()">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>电话</label>
+                <input type="tel" id="phone" placeholder="手机号码" oninput="updatePreview()">
+              </div>
+              <div class="form-group">
+                <label>邮箱</label>
+                <input type="email" id="email" placeholder="email@example.com" oninput="updatePreview()">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>所在城市</label>
+                <input type="text" id="location" placeholder="如：北京" oninput="updatePreview()">
+              </div>
+              <div class="form-group">
+                <label>个人网站/博客</label>
+                <input type="url" id="website" placeholder="https://your-blog.com" oninput="updatePreview()">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>GitHub</label>
+              <input type="url" id="github" placeholder="https://github.com/username" oninput="updatePreview()">
+            </div>
+          </div>
+
+          <!-- 个人简介 -->
+          <div class="form-section">
+            <div class="section-title">📝 个人简介</div>
+            <div class="form-group">
+              <label>自我介绍（突出技术亮点和项目经验）</label>
+              <textarea id="summary" placeholder="简要介绍您的技术背景、核心优势和职业目标..." oninput="updatePreview()"></textarea>
+            </div>
+          </div>
+
+          <!-- 技术技能 -->
+          <div class="form-section">
+            <div class="section-title">💻 技术技能</div>
+            <div class="form-group">
+              <label>编程语言</label>
+              <div class="skills-input-container" onclick="this.querySelector('input').focus()">
+                <div id="languagesTags"></div>
+                <input type="text" class="skills-input" id="languagesInput" placeholder="输入后按Enter添加" onkeydown="handleSkillInput(event, 'languages')">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>框架/库</label>
+              <div class="skills-input-container" onclick="this.querySelector('input').focus()">
+                <div id="frameworksTags"></div>
+                <input type="text" class="skills-input" id="frameworksInput" placeholder="输入后按Enter添加" onkeydown="handleSkillInput(event, 'frameworks')">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>数据库</label>
+              <div class="skills-input-container" onclick="this.querySelector('input').focus()">
+                <div id="databasesTags"></div>
+                <input type="text" class="skills-input" id="databasesInput" placeholder="输入后按Enter添加" onkeydown="handleSkillInput(event, 'databases')">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>工具/平台</label>
+              <div class="skills-input-container" onclick="this.querySelector('input').focus()">
+                <div id="toolsTags"></div>
+                <input type="text" class="skills-input" id="toolsInput" placeholder="输入后按Enter添加" onkeydown="handleSkillInput(event, 'tools')">
+              </div>
+            </div>
+          </div>
+
+          <!-- 工作经历 -->
+          <div class="form-section">
+            <div class="section-title">💼 工作经历</div>
+            <div id="experienceList"></div>
+            <button class="add-item-btn" onclick="addExperience()">+ 添加工作经历</button>
+          </div>
+
+          <!-- 项目经验 -->
+          <div class="form-section">
+            <div class="section-title">🚀 项目经验</div>
+            <div id="projectList"></div>
+            <button class="add-item-btn" onclick="addProject()">+ 添加项目经验</button>
+          </div>
+
+          <!-- 教育背景 -->
+          <div class="form-section">
+            <div class="section-title">🎓 教育背景</div>
+            <div id="educationList"></div>
+            <button class="add-item-btn" onclick="addEducation()">+ 添加教育经历</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 预览面板 -->
+      <div class="preview-panel">
+        <div class="panel-header">
+          <span class="panel-title">👁️ 实时预览</span>
+          <span style="color: var(--text-tertiary); font-size: 13px;">当前模板：<span id="currentTemplate">经典模板</span></span>
+        </div>
+        <div class="preview-content" id="previewContent">
+          <div class="resume-template classic" id="resumePreview">
+            <!-- 简历内容将在这里渲染 -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+      <p>© 2024-2026 AI智能技术知识平台 | 
+        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">GitHub</a> | 
+        <a href="/tools/">更多工具</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 数据存储
+    const resumeData = {
+      name: '',
+      title: '',
+      phone: '',
+      email: '',
+      location: '',
+      website: '',
+      github: '',
+      summary: '',
+      skills: {
+        languages: [],
+        frameworks: [],
+        databases: [],
+        tools: []
+      },
+      experiences: [],
+      projects: [],
+      education: []
+    };
+
+    let currentTemplate = 'classic';
+    let experienceCounter = 0;
+    let projectCounter = 0;
+    let educationCounter = 0;
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 尝试加载草稿
+      const savedDraft = localStorage.getItem('resumeDraft');
+      if (savedDraft) {
+        try {
+          const draft = JSON.parse(savedDraft);
+          Object.assign(resumeData, draft);
+          loadDataToForm();
+          showToast('已自动加载上次保存的草稿', 'success');
+        } catch (e) {
+          console.error('加载草稿失败:', e);
+        }
+      }
+      updatePreview();
+    });
+
+    // 显示Toast
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'toast ' + type;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 更新预览
+    function updatePreview() {
+      // 收集基本信息
+      resumeData.name = document.getElementById('name').value;
+      resumeData.title = document.getElementById('title').value;
+      resumeData.phone = document.getElementById('phone').value;
+      resumeData.email = document.getElementById('email').value;
+      resumeData.location = document.getElementById('location').value;
+      resumeData.website = document.getElementById('website').value;
+      resumeData.github = document.getElementById('github').value;
+      resumeData.summary = document.getElementById('summary').value;
+
+      // 收集工作经历
+      resumeData.experiences = collectListData('experience');
+      
+      // 收集项目经验
+      resumeData.projects = collectListData('project');
+      
+      // 收集教育背景
+      resumeData.education = collectListData('education');
+
+      // 渲染预览
+      renderPreview();
+    }
+
+    // 收集列表数据
+    function collectListData(type) {
+      const list = document.getElementById(type + 'List');
+      const items = list.querySelectorAll('.list-item');
+      const data = [];
+
+      items.forEach(item => {
+        const id = item.dataset.id;
+        if (type === 'experience') {
+          data.push({
+            company: document.getElementById(`exp_company_${id}`)?.value || '',
+            position: document.getElementById(`exp_position_${id}`)?.value || '',
+            startDate: document.getElementById(`exp_start_${id}`)?.value || '',
+            endDate: document.getElementById(`exp_end_${id}`)?.value || '',
+            description: document.getElementById(`exp_desc_${id}`)?.value || ''
+          });
+        } else if (type === 'project') {
+          data.push({
+            name: document.getElementById(`proj_name_${id}`)?.value || '',
+            role: document.getElementById(`proj_role_${id}`)?.value || '',
+            startDate: document.getElementById(`proj_start_${id}`)?.value || '',
+            endDate: document.getElementById(`proj_end_${id}`)?.value || '',
+            description: document.getElementById(`proj_desc_${id}`)?.value || '',
+            techStack: document.getElementById(`proj_tech_${id}`)?.value || '',
+            github: document.getElementById(`proj_github_${id}`)?.value || '',
+            demo: document.getElementById(`proj_demo_${id}`)?.value || ''
+          });
+        } else if (type === 'education') {
+          data.push({
+            school: document.getElementById(`edu_school_${id}`)?.value || '',
+            degree: document.getElementById(`edu_degree_${id}`)?.value || '',
+            major: document.getElementById(`edu_major_${id}`)?.value || '',
+            startDate: document.getElementById(`edu_start_${id}`)?.value || '',
+            endDate: document.getElementById(`edu_end_${id}`)?.value || ''
+          });
+        }
+      });
+
+      return data;
+    }
+
+    // 渲染预览
+    function renderPreview() {
+      const preview = document.getElementById('resumePreview');
+      preview.className = 'resume-template ' + currentTemplate;
+
+      let html = '';
+
+      // 头部信息
+      html += '<div class="resume-header">';
+      html += `<div class="resume-name">${resumeData.name || '您的姓名'}</div>`;
+      html += `<div class="resume-title">${resumeData.title || '求职岗位'}</div>`;
+      html += '<div class="contact-info">';
+      if (resumeData.phone) html += `<span class="contact-item">📱 ${resumeData.phone}</span>`;
+      if (resumeData.email) html += `<span class="contact-item">📧 ${resumeData.email}</span>`;
+      if (resumeData.location) html += `<span class="contact-item">📍 ${resumeData.location}</span>`;
+      if (resumeData.website) html += `<span class="contact-item">🌐 <a href="${resumeData.website}" target="_blank">${resumeData.website.replace(/^https?:\/\//, '')}</a></span>`;
+      if (resumeData.github) html += `<span class="contact-item">💻 <a href="${resumeData.github}" target="_blank">${resumeData.github.replace(/^https?:\/\//, '')}</a></span>`;
+      html += '</div>';
+      html += '</div>';
+
+      // 个人简介
+      if (resumeData.summary) {
+        html += '<div class="section">';
+        html += '<div class="section-title">个人简介</div>';
+        html += `<div class="summary-text">${resumeData.summary.replace(/\n/g, '<br>')}</div>`;
+        html += '</div>';
+      }
+
+      // 技术技能
+      const hasSkills = resumeData.skills.languages.length || resumeData.skills.frameworks.length || 
+                        resumeData.skills.databases.length || resumeData.skills.tools.length;
+      if (hasSkills) {
+        html += '<div class="section">';
+        html += '<div class="section-title">技术技能</div>';
+        if (currentTemplate === 'minimal') {
+          html += '<div class="skills-grid">';
+          [...resumeData.skills.languages, ...resumeData.skills.frameworks, 
+           ...resumeData.skills.databases, ...resumeData.skills.tools].forEach(skill => {
+            html += `<span class="skill-tag-preview">${skill}</span>`;
+          });
+          html += '</div>';
+        } else {
+          html += '<div class="skills-grid">';
+          if (resumeData.skills.languages.length) {
+            html += '<div class="skill-category"><h4>编程语言</h4><div class="skill-tags">';
+            resumeData.skills.languages.forEach(s => html += `<span class="skill-tag-preview">${s}</span>`);
+            html += '</div></div>';
+          }
+          if (resumeData.skills.frameworks.length) {
+            html += '<div class="skill-category"><h4>框架/库</h4><div class="skill-tags">';
+            resumeData.skills.frameworks.forEach(s => html += `<span class="skill-tag-preview">${s}</span>`);
+            html += '</div></div>';
+          }
+          if (resumeData.skills.databases.length) {
+            html += '<div class="skill-category"><h4>数据库</h4><div class="skill-tags">';
+            resumeData.skills.databases.forEach(s => html += `<span class="skill-tag-preview">${s}</span>`);
+            html += '</div></div>';
+          }
+          if (resumeData.skills.tools.length) {
+            html += '<div class="skill-category"><h4>工具/平台</h4><div class="skill-tags">';
+            resumeData.skills.tools.forEach(s => html += `<span class="skill-tag-preview">${s}</span>`);
+            html += '</div></div>';
+          }
+          html += '</div>';
+        }
+        html += '</div>';
+      }
+
+      // 工作经历
+      if (resumeData.experiences.length) {
+        html += '<div class="section">';
+        html += '<div class="section-title">工作经历</div>';
+        resumeData.experiences.forEach(exp => {
+          if (exp.company || exp.position) {
+            html += '<div class="experience-item">';
+            html += '<div class="item-header">';
+            html += '<div>';
+            html += `<div class="item-title">${exp.company || '公司名称'}</div>`;
+            html += `<div class="item-subtitle">${exp.position || '职位'}</div>`;
+            html += '</div>';
+            html += `<div class="item-date">${exp.startDate || '开始时间'} - ${exp.endDate || '结束时间'}</div>`;
+            html += '</div>';
+            if (exp.description) {
+              html += `<div class="item-description">${formatDescription(exp.description)}</div>`;
+            }
+            html += '</div>';
+          }
+        });
+        html += '</div>';
+      }
+
+      // 项目经验
+      if (resumeData.projects.length) {
+        html += '<div class="section">';
+        html += '<div class="section-title">项目经验</div>';
+        resumeData.projects.forEach(proj => {
+          if (proj.name || proj.description) {
+            html += '<div class="project-item">';
+            html += '<div class="item-header">';
+            html += '<div>';
+            html += `<div class="item-title">${proj.name || '项目名称'}</div>`;
+            if (proj.role) html += `<div class="item-subtitle">${proj.role}</div>`;
+            html += '</div>';
+            if (proj.startDate || proj.endDate) {
+              html += `<div class="item-date">${proj.startDate || ''} - ${proj.endDate || ''}</div>`;
+            }
+            html += '</div>';
+            if (proj.description) {
+              html += `<div class="item-description">${formatDescription(proj.description)}</div>`;
+            }
+            if (proj.techStack) {
+              html += `<div class="tech-stack"><strong>技术栈：</strong>${proj.techStack}</div>`;
+            }
+            if (proj.github || proj.demo) {
+              html += '<div class="project-links">';
+              if (proj.github) html += `<a href="${proj.github}" target="_blank" class="project-link">📦 GitHub</a>`;
+              if (proj.demo) html += `<a href="${proj.demo}" target="_blank" class="project-link">🔗 在线演示</a>`;
+              html += '</div>';
+            }
+            html += '</div>';
+          }
+        });
+        html += '</div>';
+      }
+
+      // 教育背景
+      if (resumeData.education.length) {
+        html += '<div class="section">';
+        html += '<div class="section-title">教育背景</div>';
+        resumeData.education.forEach(edu => {
+          if (edu.school || edu.major) {
+            html += '<div class="education-item">';
+            html += '<div class="item-header">';
+            html += '<div>';
+            html += `<div class="item-title">${edu.school || '学校名称'}</div>`;
+            html += `<div class="item-subtitle">${edu.degree || ''} ${edu.major || ''}</div>`;
+            html += '</div>';
+            html += `<div class="item-date">${edu.startDate || ''} - ${edu.endDate || ''}</div>`;
+            html += '</div>';
+            html += '</div>';
+          }
+        });
+        html += '</div>';
+      }
+
+      preview.innerHTML = html || '<p class="empty-hint">开始填写左侧表单，预览将实时更新...</p>';
+    }
+
+    // 格式化描述（支持换行和列表）
+    function formatDescription(text) {
+      if (!text) return '';
+      
+      // 检测是否有列表项（以 - 或 * 开头的行）
+      const lines = text.split('\n');
+      const hasList = lines.some(line => /^\s*[-*•]\s/.test(line));
+      
+      if (hasList) {
+        let html = '<ul>';
+        lines.forEach(line => {
+          const trimmed = line.trim();
+          if (trimmed) {
+            const content = trimmed.replace(/^[-*•]\s*/, '');
+            html += `<li>${content}</li>`;
+          }
+        });
+        html += '</ul>';
+        return html;
+      }
+      
+      return text.replace(/\n/g, '<br>');
+    }
+
+    // 技能输入处理
+    function handleSkillInput(event, category) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const input = event.target;
+        const value = input.value.trim();
+        
+        if (value && !resumeData.skills[category].includes(value)) {
+          resumeData.skills[category].push(value);
+          renderSkillTags(category);
+          input.value = '';
+          updatePreview();
+        }
+      }
+    }
+
+    // 渲染技能标签
+    function renderSkillTags(category) {
+      const container = document.getElementById(category + 'Tags');
+      container.innerHTML = resumeData.skills[category].map((skill, index) => 
+        `<span class="skill-tag">${skill}<span class="remove-skill" onclick="removeSkill('${category}', ${index})">×</span></span>`
+      ).join('');
+    }
+
+    // 移除技能
+    function removeSkill(category, index) {
+      resumeData.skills[category].splice(index, 1);
+      renderSkillTags(category);
+      updatePreview();
+    }
+
+    // 添加工作经历
+    function addExperience() {
+      const id = ++experienceCounter;
+      const list = document.getElementById('experienceList');
+      
+      const item = document.createElement('div');
+      item.className = 'list-item';
+      item.dataset.id = id;
+      item.innerHTML = `
+        <div class="list-item-header">
+          <span class="list-item-title">工作经历 #${id}</span>
+          <div class="list-item-actions">
+            <button class="btn btn-icon btn-danger" onclick="removeItem(this)" title="删除">🗑️</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>公司名称</label>
+            <input type="text" id="exp_company_${id}" placeholder="公司名称" oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>职位</label>
+            <input type="text" id="exp_position_${id}" placeholder="职位名称" oninput="updatePreview()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>开始时间</label>
+            <input type="text" id="exp_start_${id}" placeholder="如：2020.06" oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>结束时间</label>
+            <input type="text" id="exp_end_${id}" placeholder="如：至今" oninput="updatePreview()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>工作内容（每行一条，以 - 开头可生成列表）</label>
+          <textarea id="exp_desc_${id}" placeholder="- 负责核心业务模块的开发和维护\n- 优化系统性能，提升响应速度50%\n- 参与技术方案设计和代码评审" oninput="updatePreview()"></textarea>
+        </div>
+      `;
+      
+      list.appendChild(item);
+      updatePreview();
+    }
+
+    // 添加项目经验
+    function addProject() {
+      const id = ++projectCounter;
+      const list = document.getElementById('projectList');
+      
+      const item = document.createElement('div');
+      item.className = 'list-item';
+      item.dataset.id = id;
+      item.innerHTML = `
+        <div class="list-item-header">
+          <span class="list-item-title">项目 #${id}</span>
+          <div class="list-item-actions">
+            <button class="btn btn-icon btn-danger" onclick="removeItem(this)" title="删除">🗑️</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>项目名称</label>
+            <input type="text" id="proj_name_${id}" placeholder="项目名称" oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>担任角色</label>
+            <input type="text" id="proj_role_${id}" placeholder="如：技术负责人" oninput="updatePreview()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>开始时间</label>
+            <input type="text" id="proj_start_${id}" placeholder="如：2021.01" oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>结束时间</label>
+            <input type="text" id="proj_end_${id}" placeholder="如：2021.06" oninput="updatePreview()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>项目描述（每行一条，以 - 开头可生成列表）</label>
+          <textarea id="proj_desc_${id}" placeholder="- 项目背景和目标\n- 主要负责的功能模块\n- 技术难点和解决方案\n- 项目成果和数据指标" oninput="updatePreview()"></textarea>
+        </div>
+        <div class="form-group">
+          <label>技术栈</label>
+          <input type="text" id="proj_tech_${id}" placeholder="如：Spring Boot, Vue.js, MySQL, Redis" oninput="updatePreview()">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>GitHub 链接</label>
+            <input type="url" id="proj_github_${id}" placeholder="https://github.com/..." oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>在线演示</label>
+            <input type="url" id="proj_demo_${id}" placeholder="https://demo.example.com" oninput="updatePreview()">
+          </div>
+        </div>
+      `;
+      
+      list.appendChild(item);
+      updatePreview();
+    }
+
+    // 添加教育经历
+    function addEducation() {
+      const id = ++educationCounter;
+      const list = document.getElementById('educationList');
+      
+      const item = document.createElement('div');
+      item.className = 'list-item';
+      item.dataset.id = id;
+      item.innerHTML = `
+        <div class="list-item-header">
+          <span class="list-item-title">教育经历 #${id}</span>
+          <div class="list-item-actions">
+            <button class="btn btn-icon btn-danger" onclick="removeItem(this)" title="删除">🗑️</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>学校名称</label>
+            <input type="text" id="edu_school_${id}" placeholder="学校名称" oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>学历</label>
+            <input type="text" id="edu_degree_${id}" placeholder="如：本科、硕士" oninput="updatePreview()">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>专业</label>
+            <input type="text" id="edu_major_${id}" placeholder="专业名称" oninput="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>时间</label>
+            <div class="form-row" style="gap: 10px;">
+              <input type="text" id="edu_start_${id}" placeholder="开始" oninput="updatePreview()">
+              <input type="text" id="edu_end_${id}" placeholder="结束" oninput="updatePreview()">
+            </div>
+          </div>
+        </div>
+      `;
+      
+      list.appendChild(item);
+      updatePreview();
+    }
+
+    // 移除列表项
+    function removeItem(button) {
+      const item = button.closest('.list-item');
+      item.remove();
+      updatePreview();
+    }
+
+    // 切换模板
+    function changeTemplate() {
+      currentTemplate = document.getElementById('templateSelect').value;
+      document.getElementById('currentTemplate').textContent = 
+        currentTemplate === 'classic' ? '经典模板' : 
+        currentTemplate === 'modern' ? '现代模板' : '简约模板';
+      updatePreview();
+    }
+
+    // 加载示例数据
+    function loadSampleData() {
+      // 基本信息
+      document.getElementById('name').value = '张三';
+      document.getElementById('title').value = 'Java高级开发工程师';
+      document.getElementById('phone').value = '13800138000';
+      document.getElementById('email').value = 'zhangsan@example.com';
+      document.getElementById('location').value = '北京';
+      document.getElementById('website').value = 'https://zhangsan.dev';
+      document.getElementById('github').value = 'https://github.com/zhangsan';
+      document.getElementById('summary').value = '5年Java开发经验，精通Spring全家桶、微服务架构设计。曾主导多个核心系统重构，具备优秀的问题分析和解决能力。热爱技术，持续学习，活跃于开源社区。';
+
+      // 技能
+      resumeData.skills = {
+        languages: ['Java', 'Python', 'JavaScript', 'SQL', 'Go'],
+        frameworks: ['Spring Boot', 'Spring Cloud', 'MyBatis', 'Vue.js', 'React'],
+        databases: ['MySQL', 'Redis', 'MongoDB', 'Elasticsearch'],
+        tools: ['Git', 'Docker', 'Kubernetes', 'Jenkins', 'Linux']
+      };
+      Object.keys(resumeData.skills).forEach(renderSkillTags);
+
+      // 清空现有列表
+      document.getElementById('experienceList').innerHTML = '';
+      document.getElementById('projectList').innerHTML = '';
+      document.getElementById('educationList').innerHTML = '';
+      experienceCounter = 0;
+      projectCounter = 0;
+      educationCounter = 0;
+
+      // 添加工作经历
+      addExperience();
+      document.getElementById('exp_company_1').value = '阿里巴巴集团';
+      document.getElementById('exp_position_1').value = '高级Java开发工程师';
+      document.getElementById('exp_start_1').value = '2021.06';
+      document.getElementById('exp_end_1').value = '至今';
+      document.getElementById('exp_desc_1').value = '- 负责淘宝商品中心核心业务开发，日均处理订单量超1000万\n- 主导商品搜索服务重构，QPS从5000提升到20000\n- 设计并实现分布式缓存方案，降低数据库负载60%\n- 参与技术方案评审，指导初级工程师成长';
+
+      addExperience();
+      document.getElementById('exp_company_2').value = '字节跳动';
+      document.getElementById('exp_position_2').value = 'Java开发工程师';
+      document.getElementById('exp_start_2').value = '2019.07';
+      document.getElementById('exp_end_2').value = '2021.05';
+      document.getElementById('exp_desc_2').value = '- 负责抖音直播打赏系统开发，保障大促期间系统稳定\n- 优化支付链路，将支付成功率从99.5%提升到99.9%\n- 参与服务化拆分，将单体应用拆分为15个微服务';
+
+      // 添加项目经验
+      addProject();
+      document.getElementById('proj_name_1').value = '分布式任务调度平台';
+      document.getElementById('proj_role_1').value = '技术负责人';
+      document.getElementById('proj_start_1').value = '2022.03';
+      document.getElementById('proj_end_1').value = '2022.09';
+      document.getElementById('proj_desc_1').value = '- 从零搭建分布式任务调度平台，支持定时任务、延时任务、工作流编排\n- 基于ZooKeeper实现分布式锁和Leader选举\n- 支持任务分片执行，单任务最大支持1000个分片\n- 提供可视化管理界面，支持任务监控、告警配置';
+      document.getElementById('proj_tech_1').value = 'Spring Boot, ZooKeeper, MySQL, Redis, Vue.js';
+      document.getElementById('proj_github_1').value = 'https://github.com/zhangsan/task-scheduler';
+
+      addProject();
+      document.getElementById('proj_name_2').value = '开源RPC框架';
+      document.getElementById('proj_role_2').value = '核心开发者';
+      document.getElementById('proj_start_2').value = '2021.10';
+      document.getElementById('proj_end_2').value = '2022.02';
+      document.getElementById('proj_desc_2').value = '- 实现高性能RPC框架，支持多种序列化协议\n- 基于Netty实现NIO通信，单机QPS达到10万\n- 支持服务注册发现、负载均衡、熔断限流\n- GitHub Star 2000+，被多家公司生产环境使用';
+      document.getElementById('proj_tech_2').value = 'Netty, ZooKeeper, Protobuf, SPI';
+      document.getElementById('proj_github_2').value = 'https://github.com/zhangsan/simple-rpc';
+
+      // 添加教育背景
+      addEducation();
+      document.getElementById('edu_school_1').value = '清华大学';
+      document.getElementById('edu_degree_1').value = '硕士';
+      document.getElementById('edu_major_1').value = '计算机科学与技术';
+      document.getElementById('edu_start_1').value = '2017.09';
+      document.getElementById('edu_end_1').value = '2019.06';
+
+      addEducation();
+      document.getElementById('edu_school_2').value = '北京理工大学';
+      document.getElementById('edu_degree_2').value = '本科';
+      document.getElementById('edu_major_2').value = '软件工程';
+      document.getElementById('edu_start_2').value = '2013.09';
+      document.getElementById('edu_end_2').value = '2017.06';
+
+      updatePreview();
+      showToast('示例数据已加载', 'success');
+    }
+
+    // 保存草稿
+    function saveDraft() {
+      updatePreview(); // 确保数据是最新的
+      localStorage.setItem('resumeDraft', JSON.stringify(resumeData));
+      showToast('草稿已保存到本地', 'success');
+    }
+
+    // 加载草稿
+    function loadDraft() {
+      const savedDraft = localStorage.getItem('resumeDraft');
+      if (!savedDraft) {
+        showToast('没有找到保存的草稿', 'error');
+        return;
+      }
+
+      try {
+        const draft = JSON.parse(savedDraft);
+        Object.assign(resumeData, draft);
+        loadDataToForm();
+        showToast('草稿已加载', 'success');
+      } catch (e) {
+        showToast('加载草稿失败', 'error');
+      }
+    }
+
+    // 将数据加载到表单
+    function loadDataToForm() {
+      // 基本信息
+      document.getElementById('name').value = resumeData.name || '';
+      document.getElementById('title').value = resumeData.title || '';
+      document.getElementById('phone').value = resumeData.phone || '';
+      document.getElementById('email').value = resumeData.email || '';
+      document.getElementById('location').value = resumeData.location || '';
+      document.getElementById('website').value = resumeData.website || '';
+      document.getElementById('github').value = resumeData.github || '';
+      document.getElementById('summary').value = resumeData.summary || '';
+
+      // 技能
+      Object.keys(resumeData.skills).forEach(renderSkillTags);
+
+      // 清空现有列表
+      document.getElementById('experienceList').innerHTML = '';
+      document.getElementById('projectList').innerHTML = '';
+      document.getElementById('educationList').innerHTML = '';
+      experienceCounter = 0;
+      projectCounter = 0;
+      educationCounter = 0;
+
+      // 工作经历
+      resumeData.experiences.forEach(exp => {
+        addExperience();
+        const id = experienceCounter;
+        document.getElementById(`exp_company_${id}`).value = exp.company || '';
+        document.getElementById(`exp_position_${id}`).value = exp.position || '';
+        document.getElementById(`exp_start_${id}`).value = exp.startDate || '';
+        document.getElementById(`exp_end_${id}`).value = exp.endDate || '';
+        document.getElementById(`exp_desc_${id}`).value = exp.description || '';
+      });
+
+      // 项目经验
+      resumeData.projects.forEach(proj => {
+        addProject();
+        const id = projectCounter;
+        document.getElementById(`proj_name_${id}`).value = proj.name || '';
+        document.getElementById(`proj_role_${id}`).value = proj.role || '';
+        document.getElementById(`proj_start_${id}`).value = proj.startDate || '';
+        document.getElementById(`proj_end_${id}`).value = proj.endDate || '';
+        document.getElementById(`proj_desc_${id}`).value = proj.description || '';
+        document.getElementById(`proj_tech_${id}`).value = proj.techStack || '';
+        document.getElementById(`proj_github_${id}`).value = proj.github || '';
+        document.getElementById(`proj_demo_${id}`).value = proj.demo || '';
+      });
+
+      // 教育背景
+      resumeData.education.forEach(edu => {
+        addEducation();
+        const id = educationCounter;
+        document.getElementById(`edu_school_${id}`).value = edu.school || '';
+        document.getElementById(`edu_degree_${id}`).value = edu.degree || '';
+        document.getElementById(`edu_major_${id}`).value = edu.major || '';
+        document.getElementById(`edu_start_${id}`).value = edu.startDate || '';
+        document.getElementById(`edu_end_${id}`).value = edu.endDate || '';
+      });
+
+      updatePreview();
+    }
+
+    // 清空所有
+    function clearAll() {
+      if (!confirm('确定要清空所有内容吗？此操作不可撤销。')) return;
+
+      // 重置数据
+      Object.keys(resumeData).forEach(key => {
+        if (key === 'skills') {
+          resumeData.skills = { languages: [], frameworks: [], databases: [], tools: [] };
+        } else if (Array.isArray(resumeData[key])) {
+          resumeData[key] = [];
+        } else {
+          resumeData[key] = '';
+        }
+      });
+
+      // 清空表单
+      document.querySelectorAll('input, textarea').forEach(el => el.value = '');
+      document.getElementById('experienceList').innerHTML = '';
+      document.getElementById('projectList').innerHTML = '';
+      document.getElementById('educationList').innerHTML = '';
+      Object.keys(resumeData.skills).forEach(renderSkillTags);
+      
+      experienceCounter = 0;
+      projectCounter = 0;
+      educationCounter = 0;
+
+      updatePreview();
+      showToast('已清空所有内容', 'success');
+    }
+
+    // 导出PDF
+    function exportPDF() {
+      updatePreview();
+      
+      if (!resumeData.name) {
+        showToast('请至少填写姓名后再导出', 'error');
+        return;
+      }
+
+      showToast('正在生成PDF，请稍候...', 'info');
+
+      // 创建打印样式
+      const printWindow = window.open('', '_blank');
+      const resumeHtml = document.getElementById('resumePreview').outerHTML;
+      
+      // 根据模板选择打印样式
+      let printStyles = `
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+          line-height: 1.6;
+          color: #333;
+          padding: 40px;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+        a { color: #0066cc; text-decoration: none; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 5px; }
+      `;
+
+      // 添加模板特定样式
+      if (currentTemplate === 'classic') {
+        printStyles += `
+          .resume-header { text-align: center; padding-bottom: 20px; border-bottom: 2px solid #333; margin-bottom: 25px; }
+          .resume-name { font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+          .resume-title { font-size: 16px; color: #555; margin-bottom: 15px; }
+          .contact-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; font-size: 12px; color: #666; }
+          .section { margin-bottom: 20px; }
+          .section-title { font-size: 14px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; border-bottom: 1px solid #ccc; padding-bottom: 6px; margin-bottom: 12px; }
+          .summary-text { font-size: 13px; line-height: 1.8; color: #444; }
+          .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+          .skill-category h4 { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
+          .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+          .skill-tag-preview { background: #f0f0f0; color: #333; padding: 3px 8px; border-radius: 3px; font-size: 11px; }
+          .experience-item, .project-item, .education-item { margin-bottom: 15px; }
+          .item-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+          .item-title { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+          .item-subtitle { font-size: 13px; color: #555; }
+          .item-date { font-size: 12px; color: #666; }
+          .item-description { font-size: 12px; color: #444; line-height: 1.7; }
+          .tech-stack { margin-top: 6px; font-size: 11px; color: #666; }
+          .project-links { margin-top: 6px; }
+          .project-link { font-size: 11px; color: #0066cc; margin-right: 15px; }
+        `;
+      } else if (currentTemplate === 'modern') {
+        printStyles += `
+          .resume-header { background: linear-gradient(135deg, #2c3e50, #3498db); color: #fff; padding: 25px; margin: -40px -40px 25px -40px; }
+          .resume-name { font-size: 32px; font-weight: 700; margin-bottom: 5px; }
+          .resume-title { font-size: 16px; opacity: 0.9; margin-bottom: 15px; }
+          .contact-info { display: flex; flex-wrap: wrap; gap: 15px; font-size: 13px; }
+          .contact-item { opacity: 0.9; }
+          .section { margin-bottom: 25px; }
+          .section-title { font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 12px; padding-left: 12px; border-left: 3px solid #3498db; }
+          .summary-text { font-size: 13px; line-height: 1.8; color: #555; background: #f8f9fa; padding: 12px; border-radius: 6px; }
+          .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+          .skill-category { background: #f8f9fa; padding: 12px; border-radius: 6px; }
+          .skill-category h4 { font-size: 13px; font-weight: 600; color: #2c3e50; margin-bottom: 8px; }
+          .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+          .skill-tag-preview { background: #3498db; color: #fff; padding: 4px 10px; border-radius: 15px; font-size: 11px; }
+          .experience-item, .project-item, .education-item { margin-bottom: 20px; padding-left: 15px; border-left: 2px solid #e0e0e0; }
+          .item-title { font-size: 15px; font-weight: 600; color: #2c3e50; }
+          .item-subtitle { font-size: 13px; color: #3498db; }
+          .item-date { font-size: 12px; color: #888; }
+          .item-description { font-size: 13px; color: #555; line-height: 1.7; }
+          .tech-stack { margin-top: 8px; font-size: 12px; color: #666; background: #f0f0f0; padding: 6px 10px; border-radius: 4px; }
+          .project-link { font-size: 12px; color: #3498db; margin-right: 15px; }
+        `;
+      } else {
+        printStyles += `
+          .resume-header { margin-bottom: 25px; }
+          .resume-name { font-size: 26px; font-weight: 300; color: #1a1a1a; margin-bottom: 5px; }
+          .resume-title { font-size: 15px; color: #888; font-weight: 300; margin-bottom: 12px; }
+          .contact-info { display: flex; flex-wrap: wrap; gap: 15px; font-size: 12px; color: #666; }
+          .section { margin-bottom: 20px; }
+          .section-title { font-size: 10px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+          .summary-text { font-size: 13px; line-height: 1.8; color: #444; }
+          .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+          .skill-tag-preview { border: 1px solid #ddd; color: #555; padding: 4px 10px; border-radius: 3px; font-size: 11px; }
+          .experience-item, .project-item, .education-item { margin-bottom: 15px; }
+          .item-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+          .item-title { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+          .item-subtitle { font-size: 13px; color: #666; }
+          .item-date { font-size: 12px; color: #888; }
+          .item-description { font-size: 12px; color: #555; line-height: 1.7; }
+          .tech-stack { font-size: 11px; color: #888; margin-top: 5px; }
+          .project-link { font-size: 11px; color: #0066cc; margin-right: 12px; }
+        `;
+      }
+
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>${resumeData.name}的简历</title>
+          <style>${printStyles}</style>
+        </head>
+        <body>
+          ${resumeHtml}
+          <script>
+            window.onload = function() {
+              setTimeout(function() {
+                window.print();
+              }, 500);
+            };
+          <\/script>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
+    }
+  </script>
+</body>
+</html>
