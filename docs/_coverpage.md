@@ -62,5 +62,4 @@
 [🚀 开始探索](README.md)
 [🤖 AI应用推荐](/tools/ai-recommend.html)
 [🛠️ 开发工具](/tools/index.html)
-
-<a href="/tools/resume-builder.html" target="_blank" class="cover-btn" style="display: inline-block; padding: 0.8em 2em; margin: 0.5em; background: linear-gradient(135deg, rgba(212, 175, 55, 0.4) 0%, rgba(212, 175, 55, 0.2) 100%); border: 2px solid #d4af37; border-radius: 2em; color: #f4d03f; text-decoration: none; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);">📄 简历制作</a>
+[📄 简历制作](/tools/resume-builder.html ":ignore :target=_blank")
