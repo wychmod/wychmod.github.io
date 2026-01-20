@@ -6,7 +6,7 @@
 
 ## <span style="color: #ffffff; font-weight: 600;">🚀 引领技术认知升级 · 赋能开发者成长 · 构建智能工具生态</span>
 
-<div style="margin: 2.5em 0;">
+<div style="margin: 2em 0;">
   <span style="display: inline-block; padding: 10px 20px; margin: 6px; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); color: white; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);">🤖 AI技术</span>
   <span style="display: inline-block; padding: 10px 20px; margin: 6px; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); color: white; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);">🔥 全栈开发</span>
   <span style="display: inline-block; padding: 10px 20px; margin: 6px; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); color: white; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);">☁️ 云原生架构</span>
@@ -14,8 +14,33 @@
   <span style="display: inline-block; padding: 10px 20px; margin: 6px; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); color: white; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);">📊 系统架构</span>
 </div>
 
-<div style="margin: 2.5em 0;">
-  <p style="font-size: 17px; color: #f5f5f5; line-height: 2; font-weight: 400; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+<!-- 热门AI应用快速入口 -->
+<div style="margin: 2.5em auto; max-width: 900px;">
+  <p style="color: #f4d03f; font-size: 16px; font-weight: 600; margin-bottom: 16px; text-shadow: 0 2px 8px rgba(244, 208, 63, 0.3);">⭐ 热门 AI 应用推荐</p>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
+    <a href="https://qoder.com" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0.15) 100%); border: 2px solid #d4af37; border-radius: 12px; color: #f4d03f; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);">
+      <span style="font-size: 20px;">⚡</span> Qoder <span style="background: #d4af37; color: #000; padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-left: 4px;">首推</span>
+    </a>
+    <a href="https://claude.ai" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: #fff; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
+      <span style="font-size: 20px;">🧠</span> Claude
+    </a>
+    <a href="https://chat.openai.com" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: #fff; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
+      <span style="font-size: 20px;">💬</span> ChatGPT
+    </a>
+    <a href="https://cursor.sh" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: #fff; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
+      <span style="font-size: 20px;">🖱️</span> Cursor
+    </a>
+    <a href="https://midjourney.com" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: #fff; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
+      <span style="font-size: 20px;">🎨</span> Midjourney
+    </a>
+    <a href="https://deepseek.com" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; color: #fff; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
+      <span style="font-size: 20px;">🔬</span> DeepSeek
+    </a>
+  </div>
+</div>
+
+<div style="margin: 2em 0;">
+  <p style="font-size: 16px; color: #f5f5f5; line-height: 2; font-weight: 400; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
     🎯 <strong>权威技术体系</strong> - 深度整合AI、全栈开发、云原生等前沿技术领域<br/>
     💎 <strong>源码级洞察</strong> - 剖析核心框架底层原理，掌握架构设计精髓<br/>
     ⚡ <strong>智能化工具</strong> - 集成高效开发工具集，提升研发效能与代码质量<br/>
@@ -23,7 +48,7 @@
   </p>
 </div>
 
-<div style="margin: 2.5em 0;">
+<div style="margin: 2em 0;">
   <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">
     <img src="https://badgen.net/github/stars/wychmod/wychmod.github.io?icon=github&color=4ab8a1" alt="stars" style="margin: 4px;"/>
   </a>
@@ -35,5 +60,6 @@
 </div>
 
 [🚀 开始探索](README.md)
+[🤖 AI应用推荐](/tools/ai-recommend.html)
 [🛠️ 开发工具](/tools/index.html)
-[📂 GitHub 仓库](https://github.com/wychmod/wychmod.github.io)
+[📂 GitHub](https://github.com/wychmod/wychmod.github.io)

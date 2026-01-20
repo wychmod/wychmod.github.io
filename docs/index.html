@@ -57,6 +57,23 @@
       color: var(--text-primary) !important;
     }
     
+    /* 封面页AI应用卡片样式 */
+    .cover a[href*="qoder.com"]:hover,
+    .cover a[href*="claude.ai"]:hover,
+    .cover a[href*="chat.openai.com"]:hover,
+    .cover a[href*="cursor.sh"]:hover,
+    .cover a[href*="midjourney.com"]:hover,
+    .cover a[href*="deepseek.com"]:hover {
+      transform: translateY(-4px) scale(1.02) !important;
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4) !important;
+      border-color: var(--gold-main) !important;
+      color: var(--gold-light) !important;
+    }
+    
+    .cover a[href*="qoder.com"]:hover {
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6) !important;
+    }
+    
     /* 封面页样式优化 - 黑金渐变 */
     .cover {
       background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%) !important;
@@ -108,6 +125,16 @@
         display: block;
         margin: 10px auto;
         max-width: 200px;
+      }
+      
+      /* 移动端AI应用卡片优化 */
+      .cover div[style*="flex-wrap"] {
+        gap: 8px !important;
+      }
+      
+      .cover div[style*="flex-wrap"] a {
+        padding: 10px 14px !important;
+        font-size: 13px !important;
       }
     }
     
