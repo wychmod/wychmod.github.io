@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown 编辑器 - AI智能技术知识平台</title>
+  <meta name="description" content="在线Markdown编辑器，支持实时预览、语法高亮、导出HTML和PDF功能">
+  <meta name="keywords" content="Markdown编辑器,Markdown预览,在线编辑,HTML导出,PDF导出">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold-main: #d4af37;
+      --gold-light: #f4d03f;
+      --gold-dark: #b8960f;
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-tertiary: #2a2a2a;
+      --text-primary: #e0e0e0;
+      --text-secondary: #c5c5c5;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      color: var(--text-primary);
+      padding: 20px;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: 2px solid var(--gold-dark);
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      background: rgba(212, 175, 55, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .back-link:hover {
+      color: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: translateX(-5px);
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .header {
+      text-align: center;
+      padding: 25px 0;
+      margin-bottom: 25px;
+      border-bottom: 2px solid var(--gold-main);
+    }
+
+    .header h1 {
+      color: var(--gold-light);
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(244, 208, 63, 0.3);
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 1.1em;
+    }
+
+    /* 工具栏 */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 15px;
+      background: var(--bg-tertiary);
+      border-radius: 12px 12px 0 0;
+      border: 2px solid var(--gold-dark);
+      border-bottom: none;
+      align-items: center;
+    }
+
+    .toolbar-group {
+      display: flex;
+      gap: 5px;
+      padding-right: 15px;
+      border-right: 1px solid var(--gold-dark);
+    }
+
+    .toolbar-group:last-child {
+      border-right: none;
+      margin-left: auto;
+    }
+
+    .toolbar button {
+      background: var(--bg-secondary);
+      color: var(--gold-main);
+      border: 1px solid var(--gold-dark);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .toolbar button:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: var(--gold-main);
+      transform: translateY(-1px);
+    }
+
+    .toolbar button.primary {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold-main));
+      color: #000;
+      font-weight: 600;
+    }
+
+    .toolbar button.primary:hover {
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-light));
+    }
+
+    /* 编辑器容器 */
+    .editor-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--bg-secondary);
+      border: 2px solid var(--gold-dark);
+      border-radius: 0 0 12px 12px;
+      overflow: hidden;
+      min-height: 600px;
+    }
+
+    @media (max-width: 1024px) {
+      .editor-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+      }
+    }
+
+    /* 编辑面板 */
+    .editor-panel, .preview-panel {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .editor-panel {
+      border-right: 2px solid var(--gold-dark);
+    }
+
+    @media (max-width: 1024px) {
+      .editor-panel {
+        border-right: none;
+        border-bottom: 2px solid var(--gold-dark);
+      }
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background: var(--bg-tertiary);
+      border-bottom: 1px solid var(--gold-dark);
+    }
+
+    .panel-title {
+      color: var(--gold-main);
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-info {
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    /* Markdown编辑器 */
+    .markdown-input {
+      flex: 1;
+      width: 100%;
+      background: var(--bg-primary);
+      border: none;
+      padding: 20px;
+      color: var(--text-primary);
+      font-family: 'Consolas', 'Monaco', 'Fira Code', monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      resize: none;
+      tab-size: 2;
+    }
+
+    .markdown-input:focus {
+      outline: none;
+    }
+
+    /* 预览区域 */
+    .preview-content {
+      flex: 1;
+      padding: 20px;
+      background: var(--bg-primary);
+      overflow-y: auto;
+      color: var(--text-primary);
+    }
+
+    /* Markdown 渲染样式 */
+    .preview-content h1 {
+      color: var(--gold-light);
+      font-size: 2em;
+      margin: 0 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--gold-main);
+    }
+
+    .preview-content h2 {
+      color: var(--gold-main);
+      font-size: 1.6em;
+      margin: 25px 0 15px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--gold-dark);
+    }
+
+    .preview-content h3 {
+      color: var(--gold-main);
+      font-size: 1.3em;
+      margin: 20px 0 12px 0;
+    }
+
+    .preview-content h4, .preview-content h5, .preview-content h6 {
+      color: var(--text-primary);
+      margin: 15px 0 10px 0;
+    }
+
+    .preview-content p {
+      margin: 12px 0;
+      line-height: 1.8;
+    }
+
+    .preview-content a {
+      color: var(--gold-main);
+      text-decoration: none;
+    }
+
+    .preview-content a:hover {
+      color: var(--gold-light);
+      text-decoration: underline;
+    }
+
+    .preview-content strong {
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    .preview-content em {
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .preview-content code {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-main);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.9em;
+    }
+
+    .preview-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--gold-dark);
+      border-radius: 8px;
+      padding: 15px;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+
+    .preview-content pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+    }
+
+    .preview-content blockquote {
+      border-left: 4px solid var(--gold-main);
+      background: rgba(212, 175, 55, 0.1);
+      padding: 15px 20px;
+      margin: 15px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .preview-content blockquote p {
+      margin: 0;
+    }
+
+    .preview-content ul, .preview-content ol {
+      padding-left: 25px;
+      margin: 12px 0;
+    }
+
+    .preview-content li {
+      margin: 8px 0;
+      line-height: 1.6;
+    }
+
+    .preview-content hr {
+      border: none;
+      border-top: 2px solid var(--gold-dark);
+      margin: 25px 0;
+    }
+
+    .preview-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    .preview-content th {
+      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+      color: var(--gold-main);
+      font-weight: 600;
+      padding: 12px;
+      text-align: left;
+      border: 1px solid var(--gold-dark);
+    }
+
+    .preview-content td {
+      padding: 10px 12px;
+      border: 1px solid var(--gold-dark);
+    }
+
+    .preview-content tr:nth-child(even) {
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    .preview-content img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    .preview-content .task-list-item {
+      list-style: none;
+      margin-left: -25px;
+    }
+
+    .preview-content .task-list-item input {
+      margin-right: 8px;
+    }
+
+    /* Toast通知 */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+      border: 2px solid var(--gold-main);
+      border-radius: 12px;
+      padding: 15px 25px;
+      color: var(--text-primary);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      border-color: #4caf50;
+    }
+
+    .toast.error {
+      border-color: #f44336;
+    }
+
+    /* 帮助提示 */
+    .help-section {
+      margin-top: 25px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 2px solid var(--gold-dark);
+      border-radius: 12px;
+      padding: 25px;
+    }
+
+    .help-section h3 {
+      color: var(--gold-light);
+      margin-bottom: 15px;
+      font-size: 1.2em;
+    }
+
+    .syntax-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .syntax-item {
+      background: var(--bg-secondary);
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--gold-dark);
+    }
+
+    .syntax-item code {
+      color: var(--gold-main);
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .syntax-item span {
+      color: var(--text-secondary);
+      font-size: 12px;
+      display: block;
+      margin-top: 5px;
+    }
+
+    /* 页脚 */
+    .footer {
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+      border-top: 1px solid var(--bg-tertiary);
+      color: var(--text-secondary);
+    }
+
+    .footer a {
+      color: var(--gold-main);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: var(--gold-light);
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      .toolbar {
+        padding: 10px;
+      }
+
+      .toolbar-group {
+        padding-right: 10px;
+      }
+
+      .toolbar button {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+
+      .editor-container {
+        min-height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/tools/" class="back-link">← 返回工具集</a>
+
+    <div class="header">
+      <h1>📝 Markdown 编辑器</h1>
+      <p>实时预览 · 语法高亮 · 一键导出</p>
+    </div>
+
+    <!-- 工具栏 -->
+    <div class="toolbar">
+      <div class="toolbar-group">
+        <button onclick="insertText('**', '**')" title="加粗 (Ctrl+B)"><b>B</b></button>
+        <button onclick="insertText('*', '*')" title="斜体 (Ctrl+I)"><i>I</i></button>
+        <button onclick="insertText('~~', '~~')" title="删除线"><s>S</s></button>
+        <button onclick="insertText('`', '`')" title="行内代码">&lt;/&gt;</button>
+      </div>
+      <div class="toolbar-group">
+        <button onclick="insertHeading(1)" title="一级标题">H1</button>
+        <button onclick="insertHeading(2)" title="二级标题">H2</button>
+        <button onclick="insertHeading(3)" title="三级标题">H3</button>
+      </div>
+      <div class="toolbar-group">
+        <button onclick="insertList('ul')" title="无序列表">• 列表</button>
+        <button onclick="insertList('ol')" title="有序列表">1. 列表</button>
+        <button onclick="insertList('task')" title="任务列表">☐ 任务</button>
+      </div>
+      <div class="toolbar-group">
+        <button onclick="insertLink()" title="插入链接">🔗 链接</button>
+        <button onclick="insertImage()" title="插入图片">🖼️ 图片</button>
+        <button onclick="insertTable()" title="插入表格">📊 表格</button>
+        <button onclick="insertCodeBlock()" title="代码块">📦 代码块</button>
+      </div>
+      <div class="toolbar-group">
+        <button onclick="insertQuote()" title="引用块">💬 引用</button>
+        <button onclick="insertHr()" title="分隔线">— 分隔</button>
+      </div>
+      <div class="toolbar-group">
+        <button onclick="exportHTML()" class="primary" title="导出为HTML">📄 导出HTML</button>
+        <button onclick="exportPDF()" class="primary" title="导出为PDF">📑 导出PDF</button>
+        <button onclick="clearEditor()" title="清空编辑器">🗑️ 清空</button>
+      </div>
+    </div>
+
+    <!-- 编辑器容器 -->
+    <div class="editor-container">
+      <!-- 编辑面板 -->
+      <div class="editor-panel">
+        <div class="panel-header">
+          <span class="panel-title">📝 Markdown 编辑</span>
+          <span class="panel-info" id="charCount">0 字符</span>
+        </div>
+        <textarea 
+          class="markdown-input" 
+          id="markdownInput" 
+          placeholder="在此输入 Markdown 内容..."
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <!-- 预览面板 -->
+      <div class="preview-panel">
+        <div class="panel-header">
+          <span class="panel-title">👁️ 实时预览</span>
+          <span class="panel-info" id="wordCount">0 字</span>
+        </div>
+        <div class="preview-content" id="previewContent"></div>
+      </div>
+    </div>
+
+    <!-- 语法帮助 -->
+    <div class="help-section">
+      <h3>📖 Markdown 语法速查</h3>
+      <div class="syntax-grid">
+        <div class="syntax-item">
+          <code># 标题</code>
+          <span>一级到六级标题 (# ~ ######)</span>
+        </div>
+        <div class="syntax-item">
+          <code>**粗体** 或 *斜体*</code>
+          <span>文本格式化</span>
+        </div>
+        <div class="syntax-item">
+          <code>[链接文本](URL)</code>
+          <span>超链接</span>
+        </div>
+        <div class="syntax-item">
+          <code>![图片描述](URL)</code>
+          <span>图片</span>
+        </div>
+        <div class="syntax-item">
+          <code>`代码` 或 ```代码块```</code>
+          <span>代码展示</span>
+        </div>
+        <div class="syntax-item">
+          <code>> 引用文本</code>
+          <span>引用块</span>
+        </div>
+        <div class="syntax-item">
+          <code>- 或 * 或 1.</code>
+          <span>列表</span>
+        </div>
+        <div class="syntax-item">
+          <code>| 表头 | 表头 |</code>
+          <span>表格</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2024-2026 AI智能技术知识平台 | 
+        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">GitHub</a> | 
+        <a href="/tools/">更多工具</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Toast 通知 -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // 默认Markdown示例
+    const defaultMarkdown = `# Markdown 编辑器演示
+
+欢迎使用 **Markdown 编辑器**！这是一个功能强大的在线编辑工具。
+
+## 基本语法示例
+
+### 文本格式
+
+这是一段普通文本。你可以使用 **粗体**、*斜体*、~~删除线~~ 来强调文本。
+
+也可以使用 \`行内代码\` 来展示代码片段。
+
+### 列表
+
+无序列表：
+- 项目 1
+- 项目 2
+  - 嵌套项目 2.1
+  - 嵌套项目 2.2
+- 项目 3
+
+有序列表：
+1. 第一步
+2. 第二步
+3. 第三步
+
+任务列表：
+- [x] 已完成的任务
+- [ ] 待办任务
+- [ ] 另一个待办
+
+### 引用
+
+> 这是一段引用文本。
+> Markdown 让写作变得更加简单和优雅。
+> — 作者
+
+### 代码块
+
+\`\`\`javascript
+function greet(name) {
+  console.log(\`Hello, \${name}!\`);
+  return true;
+}
+
+greet('World');
+\`\`\`
+
+### 表格
+
+| 功能 | 快捷键 | 说明 |
+|------|--------|------|
+| 加粗 | Ctrl+B | 将选中文本加粗 |
+| 斜体 | Ctrl+I | 将选中文本变为斜体 |
+| 链接 | Ctrl+K | 插入超链接 |
+
+### 链接和图片
+
+这是一个 [链接示例](https://github.com)。
+
+图片示例：
+![示例图片](https://via.placeholder.com/400x200/1a1a1a/d4af37?text=Markdown+Editor)
+
+### 分隔线
+
+---
+
+## 高级功能
+
+本编辑器支持：
+- ✅ 实时预览
+- ✅ 语法高亮
+- ✅ 导出 HTML
+- ✅ 导出 PDF
+- ✅ 快捷键操作
+
+开始你的创作吧！🚀
+`;
+
+    // DOM元素
+    const markdownInput = document.getElementById('markdownInput');
+    const previewContent = document.getElementById('previewContent');
+    const charCount = document.getElementById('charCount');
+    const wordCount = document.getElementById('wordCount');
+    const toast = document.getElementById('toast');
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      markdownInput.value = defaultMarkdown;
+      updatePreview();
+      updateCounts();
+      
+      // 实时预览
+      markdownInput.addEventListener('input', function() {
+        updatePreview();
+        updateCounts();
+      });
+      
+      // 快捷键支持
+      markdownInput.addEventListener('keydown', handleKeyboard);
+      
+      // Tab键支持
+      markdownInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          insertAtCursor('  ');
+        }
+      });
+    });
+
+    // 更新预览
+    function updatePreview() {
+      const markdown = markdownInput.value;
+      const html = parseMarkdown(markdown);
+      previewContent.innerHTML = html;
+    }
+
+    // 更新字数统计
+    function updateCounts() {
+      const text = markdownInput.value;
+      charCount.textContent = `${text.length.toLocaleString()} 字符`;
+      
+      // 统计中文字数和英文单词数
+      const chineseChars = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
+      const englishWords = (text.match(/[a-zA-Z]+/g) || []).length;
+      wordCount.textContent = `${chineseChars} 字 / ${englishWords} 词`;
+    }
+
+    // Markdown解析器
+    function parseMarkdown(md) {
+      let html = md;
+      
+      // 转义HTML特殊字符（在代码块之外）
+      // 先处理代码块，保护其内容
+      const codeBlocks = [];
+      html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, (match, lang, code) => {
+        const index = codeBlocks.length;
+        codeBlocks.push(`<pre><code class="language-${lang}">${escapeHtml(code.trim())}</code></pre>`);
+        return `___CODEBLOCK_${index}___`;
+      });
+      
+      // 行内代码
+      const inlineCodes = [];
+      html = html.replace(/`([^`]+)`/g, (match, code) => {
+        const index = inlineCodes.length;
+        inlineCodes.push(`<code>${escapeHtml(code)}</code>`);
+        return `___INLINECODE_${index}___`;
+      });
+
+      // 标题
+      html = html.replace(/^###### (.+)$/gm, '<h6>$1</h6>');
+      html = html.replace(/^##### (.+)$/gm, '<h5>$1</h5>');
+      html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+      html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+      html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+      html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+      // 分隔线
+      html = html.replace(/^---+$/gm, '<hr>');
+      html = html.replace(/^\*\*\*+$/gm, '<hr>');
+
+      // 引用块
+      html = html.replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
+      html = html.replace(/<\/blockquote>\n<blockquote>/g, '\n');
+
+      // 任务列表
+      html = html.replace(/^- \[x\] (.+)$/gm, '<li class="task-list-item"><input type="checkbox" checked disabled> $1</li>');
+      html = html.replace(/^- \[ \] (.+)$/gm, '<li class="task-list-item"><input type="checkbox" disabled> $1</li>');
+
+      // 无序列表
+      html = html.replace(/^[\*\-] (.+)$/gm, '<li>$1</li>');
+      html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+
+      // 有序列表
+      html = html.replace(/^\d+\. (.+)$/gm, '<oli>$1</oli>');
+      html = html.replace(/(<oli>.*<\/oli>\n?)+/g, match => {
+        return '<ol>' + match.replace(/<\/?oli>/g, m => m === '<oli>' ? '<li>' : '</li>') + '</ol>';
+      });
+
+      // 表格
+      html = html.replace(/^\|(.+)\|\n\|[-:\| ]+\|\n((\|.+\|\n?)+)/gm, (match, header, sep, body) => {
+        const headers = header.split('|').filter(h => h.trim()).map(h => `<th>${h.trim()}</th>`).join('');
+        const rows = body.trim().split('\n').map(row => {
+          const cells = row.split('|').filter(c => c.trim()).map(c => `<td>${c.trim()}</td>`).join('');
+          return `<tr>${cells}</tr>`;
+        }).join('');
+        return `<table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
+      });
+
+      // 图片
+      html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+
+      // 链接
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+      // 粗体和斜体
+      html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      html = html.replace(/~~(.+?)~~/g, '<del>$1</del>');
+
+      // 段落
+      html = html.replace(/\n\n+/g, '</p><p>');
+      html = '<p>' + html + '</p>';
+      html = html.replace(/<p>\s*<(h[1-6]|ul|ol|blockquote|pre|hr|table)/g, '<$1');
+      html = html.replace(/<\/(h[1-6]|ul|ol|blockquote|pre|hr|table)>\s*<\/p>/g, '</$1>');
+      html = html.replace(/<p>\s*<\/p>/g, '');
+
+      // 还原代码块
+      codeBlocks.forEach((block, index) => {
+        html = html.replace(`___CODEBLOCK_${index}___`, block);
+      });
+      
+      // 还原行内代码
+      inlineCodes.forEach((code, index) => {
+        html = html.replace(`___INLINECODE_${index}___`, code);
+      });
+
+      return html;
+    }
+
+    // HTML转义
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    // 在光标位置插入文本
+    function insertAtCursor(text) {
+      const start = markdownInput.selectionStart;
+      const end = markdownInput.selectionEnd;
+      const value = markdownInput.value;
+      
+      markdownInput.value = value.substring(0, start) + text + value.substring(end);
+      markdownInput.selectionStart = markdownInput.selectionEnd = start + text.length;
+      markdownInput.focus();
+      updatePreview();
+      updateCounts();
+    }
+
+    // 插入包围文本
+    function insertText(before, after) {
+      const start = markdownInput.selectionStart;
+      const end = markdownInput.selectionEnd;
+      const value = markdownInput.value;
+      const selectedText = value.substring(start, end) || '文本';
+      
+      markdownInput.value = value.substring(0, start) + before + selectedText + after + value.substring(end);
+      markdownInput.selectionStart = start + before.length;
+      markdownInput.selectionEnd = start + before.length + selectedText.length;
+      markdownInput.focus();
+      updatePreview();
+      updateCounts();
+    }
+
+    // 插入标题
+    function insertHeading(level) {
+      const prefix = '#'.repeat(level) + ' ';
+      const start = markdownInput.selectionStart;
+      const value = markdownInput.value;
+      
+      // 找到当前行的开始
+      let lineStart = start;
+      while (lineStart > 0 && value[lineStart - 1] !== '\n') {
+        lineStart--;
+      }
+      
+      // 检查是否已有标题符号
+      const lineContent = value.substring(lineStart);
+      const existingMatch = lineContent.match(/^#+\s*/);
+      
+      if (existingMatch) {
+        // 替换现有标题符号
+        markdownInput.value = value.substring(0, lineStart) + prefix + lineContent.substring(existingMatch[0].length);
+      } else {
+        // 添加标题符号
+        markdownInput.value = value.substring(0, lineStart) + prefix + value.substring(lineStart);
+      }
+      
+      markdownInput.focus();
+      updatePreview();
+      updateCounts();
+    }
+
+    // 插入列表
+    function insertList(type) {
+      let prefix;
+      switch(type) {
+        case 'ul': prefix = '- '; break;
+        case 'ol': prefix = '1. '; break;
+        case 'task': prefix = '- [ ] '; break;
+      }
+      insertAtCursor('\n' + prefix + '列表项\n');
+    }
+
+    // 插入链接
+    function insertLink() {
+      const url = prompt('请输入链接地址:', 'https://');
+      if (url) {
+        insertText('[', `](${url})`);
+      }
+    }
+
+    // 插入图片
+    function insertImage() {
+      const url = prompt('请输入图片地址:', 'https://');
+      if (url) {
+        insertAtCursor(`![图片描述](${url})`);
+      }
+    }
+
+    // 插入表格
+    function insertTable() {
+      const table = `
+| 表头1 | 表头2 | 表头3 |
+|-------|-------|-------|
+| 单元格 | 单元格 | 单元格 |
+| 单元格 | 单元格 | 单元格 |
+`;
+      insertAtCursor(table);
+    }
+
+    // 插入代码块
+    function insertCodeBlock() {
+      const lang = prompt('请输入编程语言 (如 javascript, python):', 'javascript');
+      insertAtCursor('\n```' + (lang || '') + '\n// 代码\n```\n');
+    }
+
+    // 插入引用
+    function insertQuote() {
+      insertAtCursor('\n> 引用文本\n');
+    }
+
+    // 插入分隔线
+    function insertHr() {
+      insertAtCursor('\n---\n');
+    }
+
+    // 快捷键处理
+    function handleKeyboard(e) {
+      if (e.ctrlKey || e.metaKey) {
+        switch(e.key.toLowerCase()) {
+          case 'b':
+            e.preventDefault();
+            insertText('**', '**');
+            break;
+          case 'i':
+            e.preventDefault();
+            insertText('*', '*');
+            break;
+          case 'k':
+            e.preventDefault();
+            insertLink();
+            break;
+        }
+      }
+    }
+
+    // 导出HTML
+    function exportHTML() {
+      const markdown = markdownInput.value;
+      const htmlContent = parseMarkdown(markdown);
+      
+      const fullHtml = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown 导出<\/title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+    h1 { border-bottom: 2px solid #d4af37; padding-bottom: 10px; }
+    h2 { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+    code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
+    pre { background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto; }
+    pre code { background: none; padding: 0; }
+    blockquote { border-left: 4px solid #d4af37; padding-left: 20px; margin-left: 0; color: #666; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 10px; }
+    th { background: #f5f5f5; }
+    img { max-width: 100%; }
+    a { color: #d4af37; }
+  <\/style>
+<\/head>
+<body>
+${htmlContent}
+<\/body>
+<\/html>`;
+      
+      downloadFile(fullHtml, 'markdown-export.html', 'text/html');
+      showToast('HTML 导出成功', 'success');
+    }
+
+    // 导出PDF
+    function exportPDF() {
+      const markdown = markdownInput.value;
+      const htmlContent = parseMarkdown(markdown);
+      
+      // 创建打印窗口
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>Markdown 导出<\/title>
+          <style>
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+              max-width: 800px;
+              margin: 0 auto;
+              padding: 40px;
+              line-height: 1.6;
+              color: #333;
+            }
+            h1 { border-bottom: 2px solid #d4af37; padding-bottom: 10px; }
+            h2 { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+            code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
+            pre { background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto; }
+            pre code { background: none; padding: 0; }
+            blockquote { border-left: 4px solid #d4af37; padding-left: 20px; margin-left: 0; color: #666; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #ddd; padding: 10px; }
+            th { background: #f5f5f5; }
+            img { max-width: 100%; }
+            a { color: #d4af37; }
+            @media print {
+              body { padding: 20px; }
+            }
+          <\/style>
+        <\/head>
+        <body>
+          ${htmlContent}
+          <script>
+            window.onload = function() {
+              window.print();
+            };
+          <\/script>
+        <\/body>
+        <\/html>
+      `);
+      printWindow.document.close();
+      
+      showToast('请在打印对话框中选择"保存为PDF"', 'success');
+    }
+
+    // 下载文件
+    function downloadFile(content, filename, type) {
+      const blob = new Blob([content], { type: type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // 清空编辑器
+    function clearEditor() {
+      if (confirm('确定要清空编辑器吗？')) {
+        markdownInput.value = '';
+        updatePreview();
+        updateCounts();
+        showToast('编辑器已清空', 'success');
+      }
+    }
+
+    // Toast通知
+    function showToast(message, type = 'success') {
+      toast.textContent = message;
+      toast.className = 'toast ' + type + ' show';
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
