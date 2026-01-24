@@ -305,6 +305,7 @@
     - [agent五种设计模式](/md/agent/agent五种设计模式.md)
     - [A2A协议技术学习笔记](/md/agent/A2A协议技术学习笔记.md)
     - [多Agent协作系统优劣势与性能](/md/agent/多Agent协作系统优劣势与性能.md)
+    - [领域驱动设计DDD架构初识与落地](/md/agent/领域驱动设计DDD架构初识与落地.md)
 
 ---
 
