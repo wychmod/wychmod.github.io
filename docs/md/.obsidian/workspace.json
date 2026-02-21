@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "agent/agent五种设计模式.md",
-                "mode": "preview",
+                "file": "agent/manus架构设计.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "agent五种设计模式"
+              "title": "manus架构设计"
             }
           }
         ]
@@ -57,7 +57,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
@@ -69,8 +70,8 @@
             "state": {
               "type": "starred",
               "state": {},
-              "icon": "lucide-file",
-              "title": "插件不再活动"
+              "icon": "lucide-ghost",
+              "title": "starred"
             }
           },
           {
@@ -216,6 +217,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:创建新数据库": false,
       "canvas:新建白板": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
@@ -228,8 +230,10 @@
   },
   "active": "d1004f12ae57f23c",
   "lastOpenFiles": [
-    "java/监控系统/1-javaagent字节码插桩机制详解.md",
+    "youdaonote-images/7-2 【资料】LLM可视化&任务流拆解.jpg",
     "agent/agent五种设计模式.md",
+    "agent/manus架构设计.md",
+    "java/监控系统/1-javaagent字节码插桩机制详解.md",
     "agent",
     "软件测试/chrome插件设计/网页标签管理设计文档.md",
     "管理/软实力精进.md",
@@ -271,8 +275,6 @@
     "java/统一消息系统/1. 消息系统架构.md",
     "java/统一消息系统",
     "java/AIcloud项目/6.SpringSecurity使用.md",
-    "java/AIcloud项目/5.JWT学习资料.md",
-    "java/AIcloud项目/4.MyBatisPlus学习资料.md",
     "java/AIcloud项目",
     "未命名.canvas",
     "未命名 1.canvas",
