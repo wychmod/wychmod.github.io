@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "manus架构设计",
+      "path": "agent/manus架构设计.md"
+    },
+    {
       "basename": "agent五种设计模式",
       "path": "agent/agent五种设计模式.md"
     },
@@ -195,10 +199,6 @@
     {
       "basename": "2-Redis实战",
       "path": "Redis/2-Redis实战.md"
-    },
-    {
-      "basename": "2-手写完整功能Spring",
-      "path": "spring源码/2-手写完整功能Spring.md"
     }
   ],
   "omittedPaths": [],

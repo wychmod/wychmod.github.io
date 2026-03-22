@@ -187,6 +187,18 @@
 - [动深-8-计算性能](/md/人工智能/动手学深度学习/动深-8-计算性能.md)
 - [动深-9-计算机视觉](/md/人工智能/动手学深度学习/动深-9-计算机视觉.md)
 
+## Agent（智能体）
+- [A2A协议技术学习笔记](/md/agent/A2A协议技术学习笔记.md)
+- [MCP协议完整教程：从入门到实践](/md/agent/MCP协议完整教程：从入门到实践.md)
+- [agent五种设计模式](/md/agent/agent五种设计模式.md)
+- [多Agent协作系统优劣势与性能](/md/agent/多Agent协作系统优劣势与性能.md)
+- [领域驱动设计DDD架构初识与落地](/md/agent/领域驱动设计DDD架构初识与落地.md)
+- [Alembic数据库迁移完整教程](/md/agent/Alembic数据库迁移完整教程.md)
+
+### MCP协议系列教程（PDF）
+- [MCP协议简化了哪些流程？为什么需要MCP协议？](/md/agent/6-2%20MCP协议简化了哪些流程？为什么需要MCP协议？.pdf)
+- [MCP架构全解析：Host、Client与Server的协同机制](/md/agent/6-3%20MCP架构全解析：Host、Client与Server的协同机制.pdf)
+
 ## 面试
 
 - [python面试](/md/面试/python面试.md)
