@@ -1,8 +1,8 @@
 # 🛠️ 开发工具集
 
-<div style="background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%); border: 2px solid #d4af37; border-radius: 12px; padding: 30px; margin: 20px 0; box-shadow: 0 0 40px rgba(212, 175, 55, 0.3); text-align: center;">
-  <h1 style="color: #f4d03f; margin: 0 0 15px 0; font-size: 2.5em;">⚡ 智能开发工具集</h1>
-  <p style="color: #c5c5c5; font-size: 18px; margin: 0;">专为开发者打造的高效工具平台</p>
+<div style="background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 30px; margin: 20px 0; box-shadow: 0 0 40px rgba(59, 130, 246, 0.3); text-align: center;">
+  <h1 style="color: #60a5fa; margin: 0 0 15px 0; font-size: 2.5em;">⚡ 智能开发工具集</h1>
+  <p style="color: #94a3b8; font-size: 18px; margin: 0;">专为开发者打造的高效工具平台</p>
 </div>
 
 ## 🎯 工具导航
@@ -11,20 +11,20 @@
   
   <!-- JSON工具 -->
   <a href="../../tools/json-tool.html" target="_blank" style="text-decoration: none;">
-    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #d4af37; border-radius: 12px; padding: 25px; transition: all 0.3s; cursor: pointer; height: 100%;">
+    <div style="background: linear-gradient(135deg, #111827 0%, #0f1a2e 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 25px; transition: all 0.3s; cursor: pointer; height: 100%;">
       <div style="font-size: 48px; margin-bottom: 15px;">📊</div>
-      <h3 style="color: #f4d03f; margin: 0 0 12px 0;">JSON 处理工具</h3>
-      <p style="color: #c5c5c5; margin: 0; line-height: 1.6;">
+      <h3 style="color: #60a5fa; margin: 0 0 12px 0;">JSON 处理工具</h3>
+      <p style="color: #94a3b8; margin: 0; line-height: 1.6;">
         格式化、压缩、转义、Unicode转换等全方位JSON处理功能
       </p>
-      <div style="margin-top: 15px; color: #d4af37; font-weight: 600;">
+      <div style="margin-top: 15px; color: #3b82f6; font-weight: 600;">
         立即使用 →
       </div>
     </div>
   </a>
 
   <!-- Base64工具 - 即将推出 -->
-  <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
+  <div style="background: linear-gradient(135deg, #111827 0%, #0f1a2e 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
     <div style="font-size: 48px; margin-bottom: 15px;">🔐</div>
     <h3 style="color: #999; margin: 0 0 12px 0;">Base64 编解码</h3>
     <p style="color: #888; margin: 0; line-height: 1.6;">
@@ -37,13 +37,13 @@
 
   <!-- 项目结构分析工具 -->
   <a href="../../tools/structure-tool.html" target="_blank" style="text-decoration: none;">
-    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #d4af37; border-radius: 12px; padding: 25px; transition: all 0.3s; cursor: pointer; height: 100%;">
+    <div style="background: linear-gradient(135deg, #111827 0%, #0f1a2e 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 25px; transition: all 0.3s; cursor: pointer; height: 100%;">
       <div style="font-size: 48px; margin-bottom: 15px;">📂</div>
-      <h3 style="color: #f4d03f; margin: 0 0 12px 0;">项目结构分析</h3>
-      <p style="color: #c5c5c5; margin: 0; line-height: 1.6;">
+      <h3 style="color: #60a5fa; margin: 0 0 12px 0;">项目结构分析</h3>
+      <p style="color: #94a3b8; margin: 0; line-height: 1.6;">
         智能解析项目文件结构，支持JSON/Tree格式，提供可视化分析
       </p>
-      <div style="margin-top: 15px; color: #d4af37; font-weight: 600;">
+      <div style="margin-top: 15px; color: #3b82f6; font-weight: 600;">
         立即使用 →
       </div>
     </div>
@@ -51,20 +51,20 @@
 
   <!-- 时间戳工具 -->
   <a href="../../tools/timestamp-tool.html" target="_blank" style="text-decoration: none;">
-    <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #d4af37; border-radius: 12px; padding: 25px; transition: all 0.3s; cursor: pointer; height: 100%;">
+    <div style="background: linear-gradient(135deg, #111827 0%, #0f1a2e 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 25px; transition: all 0.3s; cursor: pointer; height: 100%;">
       <div style="font-size: 48px; margin-bottom: 15px;">⏰</div>
-      <h3 style="color: #f4d03f; margin: 0 0 12px 0;">时间戳转换</h3>
-      <p style="color: #c5c5c5; margin: 0; line-height: 1.6;">
+      <h3 style="color: #60a5fa; margin: 0 0 12px 0;">时间戳转换</h3>
+      <p style="color: #94a3b8; margin: 0; line-height: 1.6;">
         Unix时间戳与日期时间的双向转换，支持多种编程语言示例
       </p>
-      <div style="margin-top: 15px; color: #d4af37; font-weight: 600;">
+      <div style="margin-top: 15px; color: #3b82f6; font-weight: 600;">
         立即使用 →
       </div>
     </div>
   </a>
 
   <!-- 正则表达式工具 - 即将推出 -->
-  <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
+  <div style="background: linear-gradient(135deg, #111827 0%, #0f1a2e 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
     <div style="font-size: 48px; margin-bottom: 15px;">🔍</div>
     <h3 style="color: #999; margin: 0 0 12px 0;">正则表达式测试</h3>
     <p style="color: #888; margin: 0; line-height: 1.6;">
@@ -76,7 +76,7 @@
   </div>
 
   <!-- URL编解码 - 即将推出 -->
-  <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
+  <div style="background: linear-gradient(135deg, #111827 0%, #0f1a2e 100%); border: 2px solid #666; border-radius: 12px; padding: 25px; opacity: 0.6; height: 100%;">
     <div style="font-size: 48px; margin-bottom: 15px;">🔗</div>
     <h3 style="color: #999; margin: 0 0 12px 0;">URL 编解码</h3>
     <p style="color: #888; margin: 0; line-height: 1.6;">
@@ -91,7 +91,7 @@
 
 ## 💡 工具特色
 
-<div style="background: rgba(212, 175, 55, 0.1); border-left: 4px solid #d4af37; padding: 20px; margin: 30px 0; border-radius: 8px;">
+<div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 20px; margin: 30px 0; border-radius: 8px;">
   
   ### ✨ 纯前端实现
   所有工具都在浏览器本地运行，数据不会上传到服务器，保证您的数据安全和隐私。
@@ -135,9 +135,9 @@
 
 ---
 
-<div style="text-align: center; margin: 40px 0; padding: 25px; background: linear-gradient(135deg, #1a1a1a 0%, #2d1f0c 100%); border: 2px solid #d4af37; border-radius: 12px;">
-  <p style="color: #f4d03f; font-size: 20px; font-weight: 700; margin-bottom: 12px;">🎯 持续更新中</p>
-  <p style="color: #c5c5c5; margin: 0; line-height: 1.8;">
+<div style="text-align: center; margin: 40px 0; padding: 25px; background: linear-gradient(135deg, #111827 0%, #0f1a2e 100%); border: 2px solid #3b82f6; border-radius: 12px;">
+  <p style="color: #60a5fa; font-size: 20px; font-weight: 700; margin-bottom: 12px;">🎯 持续更新中</p>
+  <p style="color: #94a3b8; margin: 0; line-height: 1.8;">
     我们致力于为开发者提供更多实用、高效的开发工具<br/>
     让开发工作变得更加简单和愉快
   </p>
@@ -147,7 +147,7 @@
 /* 工具卡片悬停效果 */
 a > div:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5) !important;
-  border-color: #f4d03f !important;
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5) !important;
+  border-color: #60a5fa !important;
 }
 </style>

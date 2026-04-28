@@ -14,14 +14,14 @@
     }
 
     :root {
-      --gold-main: #d4af37;
-      --gold-light: #f4d03f;
-      --gold-dark: #b8960f;
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #1a1a1a;
-      --bg-tertiary: #2a2a2a;
-      --text-primary: #e0e0e0;
-      --text-secondary: #c5c5c5;
+      --accent-main: #3b82f6;
+      --accent-light: #60a5fa;
+      --accent-dark: #2563eb;
+      --bg-primary: #0b1120;
+      --bg-secondary: #111827;
+      --bg-tertiary: #1a2236;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
       --text-tertiary: #999;
       --success: #28a745;
       --danger: #dc3545;
@@ -30,7 +30,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%);
       color: var(--text-primary);
       min-height: 100vh;
       line-height: 1.6;
@@ -54,22 +54,22 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: var(--gold-main);
+      color: var(--accent-main);
       text-decoration: none;
       font-weight: 600;
       font-size: 14px;
       padding: 10px 20px;
-      border: 2px solid var(--gold-dark);
+      border: 2px solid var(--accent-dark);
       border-radius: 25px;
       transition: all 0.3s ease;
-      background: rgba(212, 175, 55, 0.1);
+      background: rgba(59, 130, 246, 0.1);
     }
 
     .back-link:hover {
-      color: var(--gold-light);
-      border-color: var(--gold-light);
+      color: var(--accent-light);
+      border-color: var(--accent-light);
       transform: translateX(-3px);
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
     /* 头部 */
@@ -77,14 +77,14 @@
       text-align: center;
       padding: 30px 0;
       margin-bottom: 30px;
-      border-bottom: 2px solid var(--gold-main);
+      border-bottom: 2px solid var(--accent-main);
     }
 
     .header h1 {
-      color: var(--gold-light);
+      color: var(--accent-light);
       font-size: 2.5em;
       margin-bottom: 10px;
-      text-shadow: 0 2px 10px rgba(244, 208, 63, 0.3);
+      text-shadow: 0 2px 10px rgba(96, 165, 250, 0.3);
     }
 
     .header p {
@@ -100,7 +100,7 @@
       margin-bottom: 25px;
       padding: 20px;
       background: var(--bg-secondary);
-      border: 2px solid var(--gold-dark);
+      border: 2px solid var(--accent-dark);
       border-radius: 12px;
       align-items: center;
     }
@@ -112,14 +112,14 @@
     }
 
     .toolbar-group label {
-      color: var(--gold-main);
+      color: var(--accent-main);
       font-weight: 600;
       font-size: 14px;
     }
 
     select {
       background: var(--bg-tertiary);
-      border: 2px solid var(--gold-dark);
+      border: 2px solid var(--accent-dark);
       border-radius: 8px;
       padding: 10px 15px;
       color: var(--text-primary);
@@ -130,11 +130,11 @@
 
     select:focus {
       outline: none;
-      border-color: var(--gold-main);
+      border-color: var(--accent-main);
     }
 
     .btn {
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold-main));
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent-main));
       color: #000;
       border: none;
       padding: 12px 24px;
@@ -143,7 +143,7 @@
       font-size: 14px;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -151,20 +151,20 @@
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
-      background: linear-gradient(135deg, var(--gold-main), var(--gold-light));
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.6);
+      background: linear-gradient(135deg, var(--accent-main), var(--accent-light));
     }
 
     .btn-secondary {
       background: var(--bg-tertiary);
-      color: var(--gold-main);
-      border: 2px solid var(--gold-dark);
+      color: var(--accent-main);
+      border: 2px solid var(--accent-dark);
       box-shadow: none;
     }
 
     .btn-secondary:hover {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: var(--gold-main);
+      background: rgba(59, 130, 246, 0.2);
+      border-color: var(--accent-main);
     }
 
     .btn-success {
@@ -201,7 +201,7 @@
     /* 编辑面板 */
     .edit-panel {
       background: var(--bg-secondary);
-      border: 2px solid var(--gold-main);
+      border: 2px solid var(--accent-main);
       border-radius: 12px;
       overflow: hidden;
     }
@@ -209,14 +209,14 @@
     .panel-header {
       background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
       padding: 15px 20px;
-      border-bottom: 2px solid var(--gold-dark);
+      border-bottom: 2px solid var(--accent-dark);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .panel-title {
-      color: var(--gold-light);
+      color: var(--accent-light);
       font-size: 1.2em;
       font-weight: 600;
     }
@@ -240,7 +240,7 @@
     }
 
     .section-title {
-      color: var(--gold-main);
+      color: var(--accent-main);
       font-size: 1.1em;
       font-weight: 600;
       margin-bottom: 15px;
@@ -276,8 +276,8 @@
     .form-group input:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: var(--gold-main);
-      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+      border-color: var(--accent-main);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
     }
 
     .form-group textarea {
@@ -311,16 +311,16 @@
     }
 
     .skills-input-container:focus-within {
-      border-color: var(--gold-main);
-      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+      border-color: var(--accent-main);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
     }
 
     .skill-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(212, 175, 55, 0.2);
-      color: var(--gold-main);
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--accent-main);
       padding: 6px 12px;
       border-radius: 20px;
       font-size: 13px;
@@ -365,7 +365,7 @@
     }
 
     .list-item-title {
-      color: var(--gold-main);
+      color: var(--accent-main);
       font-weight: 600;
     }
 
@@ -388,24 +388,24 @@
     .add-item-btn {
       width: 100%;
       padding: 12px;
-      background: rgba(212, 175, 55, 0.1);
-      border: 2px dashed var(--gold-dark);
+      background: rgba(59, 130, 246, 0.1);
+      border: 2px dashed var(--accent-dark);
       border-radius: 8px;
-      color: var(--gold-main);
+      color: var(--accent-main);
       cursor: pointer;
       transition: all 0.3s ease;
       font-weight: 600;
     }
 
     .add-item-btn:hover {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: var(--gold-main);
+      background: rgba(59, 130, 246, 0.2);
+      border-color: var(--accent-main);
     }
 
     /* 预览面板 */
     .preview-panel {
       background: #fff;
-      border: 2px solid var(--gold-main);
+      border: 2px solid var(--accent-main);
       border-radius: 12px;
       overflow: hidden;
     }
@@ -434,7 +434,7 @@
     .resume-template.classic .resume-name {
       font-size: 32px;
       font-weight: 700;
-      color: #1a1a1a;
+      color: #111827;
       margin-bottom: 8px;
     }
 
@@ -466,7 +466,7 @@
     .resume-template.classic .section-title {
       font-size: 16px;
       font-weight: 700;
-      color: #1a1a1a;
+      color: #111827;
       text-transform: uppercase;
       border-bottom: 1px solid #ccc;
       padding-bottom: 8px;
@@ -522,7 +522,7 @@
     .resume-template.classic .item-title {
       font-size: 15px;
       font-weight: 600;
-      color: #1a1a1a;
+      color: #111827;
     }
 
     .resume-template.classic .item-subtitle {
@@ -673,7 +673,7 @@
     .resume-template.modern .education-item {
       margin-bottom: 25px;
       padding-left: 20px;
-      border-left: 2px solid #e0e0e0;
+      border-left: 2px solid #e2e8f0;
     }
 
     .resume-template.modern .item-header {
@@ -746,7 +746,7 @@
     .resume-template.minimal .resume-name {
       font-size: 28px;
       font-weight: 300;
-      color: #1a1a1a;
+      color: #111827;
       margin-bottom: 5px;
     }
 
@@ -813,7 +813,7 @@
     .resume-template.minimal .item-title {
       font-size: 15px;
       font-weight: 500;
-      color: #1a1a1a;
+      color: #111827;
     }
 
     .resume-template.minimal .item-subtitle {
@@ -867,7 +867,7 @@
       color: var(--text-primary);
       padding: 15px 30px;
       border-radius: 8px;
-      border: 2px solid var(--gold-main);
+      border: 2px solid var(--accent-main);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
       z-index: 10000;
       opacity: 0;
@@ -897,12 +897,12 @@
     }
 
     .footer a {
-      color: var(--gold-main);
+      color: var(--accent-main);
       text-decoration: none;
     }
 
     .footer a:hover {
-      color: var(--gold-light);
+      color: var(--accent-light);
     }
 
     /* 响应式 */
@@ -981,12 +981,12 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold-main));
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent-main));
       border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: var(--gold-light);
+      background: var(--accent-light);
     }
   </style>
 </head>
@@ -1895,11 +1895,11 @@
       if (currentTemplate === 'classic') {
         printStyles += `
           .resume-header { text-align: center; padding-bottom: 20px; border-bottom: 2px solid #333; margin-bottom: 25px; }
-          .resume-name { font-size: 28px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+          .resume-name { font-size: 28px; font-weight: 700; color: #111827; margin-bottom: 8px; }
           .resume-title { font-size: 16px; color: #555; margin-bottom: 15px; }
           .contact-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; font-size: 12px; color: #666; }
           .section { margin-bottom: 20px; }
-          .section-title { font-size: 14px; font-weight: 700; color: #1a1a1a; text-transform: uppercase; border-bottom: 1px solid #ccc; padding-bottom: 6px; margin-bottom: 12px; }
+          .section-title { font-size: 14px; font-weight: 700; color: #111827; text-transform: uppercase; border-bottom: 1px solid #ccc; padding-bottom: 6px; margin-bottom: 12px; }
           .summary-text { font-size: 13px; line-height: 1.8; color: #444; }
           .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
           .skill-category h4 { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
@@ -1907,7 +1907,7 @@
           .skill-tag-preview { background: #f0f0f0; color: #333; padding: 3px 8px; border-radius: 3px; font-size: 11px; }
           .experience-item, .project-item, .education-item { margin-bottom: 15px; }
           .item-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
-          .item-title { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+          .item-title { font-size: 14px; font-weight: 600; color: #111827; }
           .item-subtitle { font-size: 13px; color: #555; }
           .item-date { font-size: 12px; color: #666; }
           .item-description { font-size: 12px; color: #444; line-height: 1.7; }
@@ -1930,7 +1930,7 @@
           .skill-category h4 { font-size: 13px; font-weight: 600; color: #2c3e50; margin-bottom: 8px; }
           .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
           .skill-tag-preview { background: #3498db; color: #fff; padding: 4px 10px; border-radius: 15px; font-size: 11px; }
-          .experience-item, .project-item, .education-item { margin-bottom: 20px; padding-left: 15px; border-left: 2px solid #e0e0e0; }
+          .experience-item, .project-item, .education-item { margin-bottom: 20px; padding-left: 15px; border-left: 2px solid #e2e8f0; }
           .item-title { font-size: 15px; font-weight: 600; color: #2c3e50; }
           .item-subtitle { font-size: 13px; color: #3498db; }
           .item-date { font-size: 12px; color: #888; }
@@ -1941,7 +1941,7 @@
       } else {
         printStyles += `
           .resume-header { margin-bottom: 25px; }
-          .resume-name { font-size: 26px; font-weight: 300; color: #1a1a1a; margin-bottom: 5px; }
+          .resume-name { font-size: 26px; font-weight: 300; color: #111827; margin-bottom: 5px; }
           .resume-title { font-size: 15px; color: #888; font-weight: 300; margin-bottom: 12px; }
           .contact-info { display: flex; flex-wrap: wrap; gap: 15px; font-size: 12px; color: #666; }
           .section { margin-bottom: 20px; }
@@ -1951,7 +1951,7 @@
           .skill-tag-preview { border: 1px solid #ddd; color: #555; padding: 4px 10px; border-radius: 3px; font-size: 11px; }
           .experience-item, .project-item, .education-item { margin-bottom: 15px; }
           .item-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
-          .item-title { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+          .item-title { font-size: 14px; font-weight: 500; color: #111827; }
           .item-subtitle { font-size: 13px; color: #666; }
           .item-date { font-size: 12px; color: #888; }
           .item-description { font-size: 12px; color: #555; line-height: 1.7; }

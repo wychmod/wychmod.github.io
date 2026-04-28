@@ -15,20 +15,20 @@
     }
 
     :root {
-      --gold-main: #d4af37;
-      --gold-light: #f4d03f;
-      --gold-dark: #b8960f;
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #1a1a1a;
-      --bg-tertiary: #2a2a2a;
-      --text-primary: #e0e0e0;
-      --text-secondary: #c5c5c5;
-      --text-tertiary: #b8b8b8;
+      --accent-main: #3b82f6;
+      --accent-light: #60a5fa;
+      --accent-dark: #2563eb;
+      --bg-primary: #0b1120;
+      --bg-secondary: #111827;
+      --bg-tertiary: #1a2236;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-tertiary: #64748b;
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
+      background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%);
       color: var(--text-primary);
       min-height: 100vh;
       line-height: 1.6;
@@ -45,12 +45,12 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-main) 100%);
       border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: var(--gold-light);
+      background: var(--accent-light);
     }
 
     .container {
@@ -73,22 +73,22 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: var(--gold-main);
+      color: var(--accent-main);
       text-decoration: none;
       font-weight: 600;
       font-size: 16px;
       padding: 10px 20px;
-      border: 2px solid var(--gold-dark);
+      border: 2px solid var(--accent-dark);
       border-radius: 25px;
       transition: all 0.3s ease;
-      background: rgba(212, 175, 55, 0.1);
+      background: rgba(59, 130, 246, 0.1);
     }
 
     .back-link:hover {
-      color: var(--gold-light);
-      border-color: var(--gold-light);
+      color: var(--accent-light);
+      border-color: var(--accent-light);
       transform: translateX(-5px);
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
     }
 
     .quick-nav {
@@ -108,9 +108,9 @@
     }
 
     .quick-nav a:hover {
-      color: var(--gold-main);
-      border-color: var(--gold-main);
-      background: rgba(212, 175, 55, 0.1);
+      color: var(--accent-main);
+      border-color: var(--accent-main);
+      background: rgba(59, 130, 246, 0.1);
     }
 
     /* 头部区域 */
@@ -118,9 +118,9 @@
       text-align: center;
       padding: 50px 20px;
       margin-bottom: 50px;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
       border-radius: 20px;
-      border: 2px solid var(--gold-dark);
+      border: 2px solid var(--accent-dark);
       position: relative;
       overflow: hidden;
     }
@@ -132,7 +132,7 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
       animation: pulse 4s ease-in-out infinite;
     }
 
@@ -142,10 +142,10 @@
     }
 
     .header h1 {
-      color: var(--gold-light);
+      color: var(--accent-light);
       font-size: 3.2em;
       margin-bottom: 20px;
-      text-shadow: 0 4px 20px rgba(244, 208, 63, 0.4);
+      text-shadow: 0 4px 20px rgba(96, 165, 250, 0.4);
       position: relative;
       z-index: 1;
     }
@@ -175,7 +175,7 @@
     .stat-number {
       font-size: 2.5em;
       font-weight: 700;
-      color: var(--gold-main);
+      color: var(--accent-main);
       display: block;
     }
 
@@ -191,17 +191,17 @@
       gap: 15px;
       margin-bottom: 30px;
       padding-bottom: 15px;
-      border-bottom: 2px solid var(--gold-dark);
+      border-bottom: 2px solid var(--accent-dark);
     }
 
     .section-title h2 {
-      color: var(--gold-light);
+      color: var(--accent-light);
       font-size: 1.8em;
       font-weight: 600;
     }
 
     .section-title .badge {
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-main) 100%);
       color: #000;
       padding: 5px 15px;
       border-radius: 20px;
@@ -231,15 +231,15 @@
     }
 
     .category-tab:hover {
-      border-color: var(--gold-dark);
-      color: var(--gold-main);
+      border-color: var(--accent-dark);
+      color: var(--accent-main);
     }
 
     .category-tab.active {
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
-      border-color: var(--gold-main);
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-main) 100%);
+      border-color: var(--accent-main);
       color: #000;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
     }
 
     /* AI应用卡片网格 */
@@ -271,15 +271,15 @@
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent-light), var(--accent-dark));
       transform: scaleX(0);
       transition: transform 0.3s ease;
     }
 
     .ai-card:hover {
       transform: translateY(-8px);
-      border-color: var(--gold-main);
-      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+      border-color: var(--accent-main);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
     }
 
     .ai-card:hover::before {
@@ -288,8 +288,8 @@
 
     /* 首推卡片特殊样式 */
     .ai-card.featured {
-      border-color: var(--gold-main);
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, var(--bg-secondary) 100%);
+      border-color: var(--accent-main);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, var(--bg-secondary) 100%);
       grid-column: span 1;
     }
 
@@ -298,7 +298,7 @@
       position: absolute;
       top: 15px;
       right: 15px;
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-main) 100%);
       color: #000;
       padding: 5px 12px;
       border-radius: 15px;
@@ -332,7 +332,7 @@
     }
 
     .card-title {
-      color: var(--gold-light);
+      color: var(--accent-light);
       font-size: 1.3em;
       font-weight: 600;
       margin-bottom: 5px;
@@ -366,8 +366,8 @@
     }
 
     .card-tag {
-      background: rgba(212, 175, 55, 0.15);
-      color: var(--gold-main);
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-main);
       padding: 4px 12px;
       border-radius: 12px;
       font-size: 12px;
@@ -384,7 +384,7 @@
     }
 
     .card-link {
-      color: var(--gold-main);
+      color: var(--accent-main);
       font-weight: 600;
       font-size: 14px;
       display: flex;
@@ -394,7 +394,7 @@
     }
 
     .ai-card:hover .card-link {
-      color: var(--gold-light);
+      color: var(--accent-light);
       gap: 10px;
     }
 
@@ -402,7 +402,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      color: var(--gold-main);
+      color: var(--accent-main);
       font-size: 14px;
     }
 
@@ -428,7 +428,7 @@
       top: 0;
       bottom: 0;
       width: 4px;
-      background: linear-gradient(180deg, var(--gold-dark) 0%, var(--gold-main) 50%, var(--gold-dark) 100%);
+      background: linear-gradient(180deg, var(--accent-dark) 0%, var(--accent-main) 50%, var(--accent-dark) 100%);
       border-radius: 2px;
     }
 
@@ -457,8 +457,8 @@
     }
 
     .timeline-content:hover {
-      border-color: var(--gold-main);
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+      border-color: var(--accent-main);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
       transform: translateY(-5px);
     }
 
@@ -477,10 +477,10 @@
       transform: translateX(-50%);
       width: 20px;
       height: 20px;
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-main) 100%);
       border-radius: 50%;
       border: 4px solid var(--bg-primary);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
       z-index: 1;
     }
 
@@ -489,7 +489,7 @@
       left: 50%;
       transform: translateX(-50%);
       top: -35px;
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-main) 100%);
       color: #000;
       padding: 6px 16px;
       border-radius: 20px;
@@ -499,7 +499,7 @@
     }
 
     .timeline-title {
-      color: var(--gold-light);
+      color: var(--accent-light);
       font-size: 1.2em;
       font-weight: 600;
       margin-bottom: 10px;
@@ -537,13 +537,13 @@
     }
 
     .footer-links a {
-      color: var(--gold-main);
+      color: var(--accent-main);
       text-decoration: none;
       transition: color 0.3s ease;
     }
 
     .footer-links a:hover {
-      color: var(--gold-light);
+      color: var(--accent-light);
     }
 
     /* 响应式设计 */
@@ -642,8 +642,8 @@
     }
 
     .search-input:focus {
-      border-color: var(--gold-main);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+      border-color: var(--accent-main);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
     }
 
     .search-icon {
@@ -685,7 +685,7 @@
       right: 30px;
       width: 50px;
       height: 50px;
-      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-main) 100%);
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-main) 100%);
       border: none;
       border-radius: 50%;
       cursor: pointer;
@@ -694,14 +694,14 @@
       justify-content: center;
       color: #000;
       font-size: 20px;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
       transition: all 0.3s ease;
       z-index: 1000;
     }
 
     .back-to-top:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
     }
 
     .back-to-top.visible {

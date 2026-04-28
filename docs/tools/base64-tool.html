@@ -13,8 +13,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d1f0c 100%);
-      color: #e0e0e0;
+      background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%);
+      color: #e2e8f0;
       padding: 20px;
       min-height: 100vh;
     }
@@ -28,17 +28,17 @@
       text-align: center;
       padding: 30px 0;
       margin-bottom: 30px;
-      border-bottom: 2px solid #d4af37;
+      border-bottom: 2px solid #3b82f6;
     }
 
     .header h1 {
-      color: #f4d03f;
+      color: #60a5fa;
       font-size: 2.5em;
       margin-bottom: 10px;
     }
 
     .header p {
-      color: #c5c5c5;
+      color: #94a3b8;
       font-size: 1.1em;
     }
 
@@ -51,14 +51,14 @@
 
     .back-link {
       display: inline-block;
-      color: #d4af37;
+      color: #3b82f6;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s;
     }
 
     .back-link:hover {
-      color: #f4d03f;
+      color: #60a5fa;
     }
 
     /* 模式选择区 */
@@ -71,9 +71,9 @@
     }
 
     .mode-btn {
-      background: rgba(212, 175, 55, 0.2);
-      color: #d4af37;
-      border: 2px solid #b8960f;
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+      border: 2px solid #2563eb;
       padding: 12px 30px;
       border-radius: 8px;
       font-weight: 600;
@@ -82,25 +82,25 @@
     }
 
     .mode-btn:hover {
-      background: rgba(212, 175, 55, 0.3);
-      border-color: #d4af37;
+      background: rgba(59, 130, 246, 0.3);
+      border-color: #3b82f6;
     }
 
     .mode-btn.active {
-      background: linear-gradient(135deg, #d4af37, #f4d03f);
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
       color: #000;
-      border-color: #f4d03f;
-      box-shadow: 0 2px 15px rgba(212, 175, 55, 0.5);
+      border-color: #60a5fa;
+      box-shadow: 0 2px 15px rgba(59, 130, 246, 0.5);
     }
 
     /* 转换工具区 */
     .converter-section {
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-      border: 2px solid #d4af37;
+      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
+      border: 2px solid #3b82f6;
       border-radius: 12px;
       padding: 30px;
       margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
     }
 
     .converter-grid {
@@ -116,7 +116,7 @@
     }
 
     .area-label {
-      color: #f4d03f;
+      color: #60a5fa;
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 10px;
@@ -128,11 +128,11 @@
     textarea {
       width: 100%;
       height: 200px;
-      background: #0a0a0a;
-      border: 2px solid #b8960f;
+      background: #0b1120;
+      border: 2px solid #2563eb;
       border-radius: 8px;
       padding: 15px;
-      color: #e0e0e0;
+      color: #e2e8f0;
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: 13px;
       resize: vertical;
@@ -141,8 +141,8 @@
 
     textarea:focus {
       outline: none;
-      border-color: #d4af37;
-      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
     }
 
     textarea:read-only {
@@ -151,8 +151,8 @@
     }
 
     .file-upload-area {
-      background: #0a0a0a;
-      border: 2px dashed #b8960f;
+      background: #0b1120;
+      border: 2px dashed #2563eb;
       border-radius: 8px;
       padding: 30px;
       text-align: center;
@@ -166,13 +166,13 @@
     }
 
     .file-upload-area:hover {
-      border-color: #d4af37;
+      border-color: #3b82f6;
       background: #0f0f0f;
     }
 
     .file-upload-area.drag-over {
-      border-color: #f4d03f;
-      background: rgba(212, 175, 55, 0.1);
+      border-color: #60a5fa;
+      background: rgba(59, 130, 246, 0.1);
     }
 
     .file-upload-icon {
@@ -181,7 +181,7 @@
     }
 
     .file-upload-text {
-      color: #d4af37;
+      color: #3b82f6;
       font-size: 14px;
       margin-bottom: 10px;
     }
@@ -196,18 +196,18 @@
     }
 
     .file-info {
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid #b8960f;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid #2563eb;
       border-radius: 6px;
       padding: 10px;
       margin-top: 10px;
       font-size: 13px;
-      color: #c5c5c5;
+      color: #94a3b8;
     }
 
     .preview-area {
-      background: #0a0a0a;
-      border: 2px solid #b8960f;
+      background: #0b1120;
+      border: 2px solid #2563eb;
       border-radius: 8px;
       padding: 15px;
       min-height: 200px;
@@ -236,7 +236,7 @@
     }
 
     button {
-      background: linear-gradient(135deg, #d4af37, #f4d03f);
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
       color: #000;
       border: none;
       padding: 12px 24px;
@@ -245,14 +245,14 @@
       font-size: 14px;
       cursor: pointer;
       transition: all 0.3s;
-      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
       flex: 1;
       min-width: 120px;
     }
 
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.6);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.6);
     }
 
     button:active {
@@ -266,48 +266,48 @@
     }
 
     .secondary-btn {
-      background: rgba(212, 175, 55, 0.3);
-      color: #f4d03f;
-      border: 1px solid #d4af37;
+      background: rgba(59, 130, 246, 0.3);
+      color: #60a5fa;
+      border: 1px solid #3b82f6;
     }
 
     .secondary-btn:hover {
-      background: rgba(212, 175, 55, 0.5);
+      background: rgba(59, 130, 246, 0.5);
     }
 
     /* 说明文档区 */
     .docs-section {
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-      border: 2px solid #d4af37;
+      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
+      border: 2px solid #3b82f6;
       border-radius: 12px;
       padding: 30px;
       margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
     }
 
     .docs-section h2 {
-      color: #f4d03f;
+      color: #60a5fa;
       margin-bottom: 20px;
       font-size: 1.8em;
-      border-bottom: 2px solid #d4af37;
+      border-bottom: 2px solid #3b82f6;
       padding-bottom: 10px;
     }
 
     .docs-section h3 {
-      color: #d4af37;
+      color: #3b82f6;
       margin-top: 25px;
       margin-bottom: 15px;
       font-size: 1.3em;
     }
 
     .docs-section p {
-      color: #c5c5c5;
+      color: #94a3b8;
       line-height: 1.8;
       margin-bottom: 15px;
     }
 
     .docs-section ul {
-      color: #c5c5c5;
+      color: #94a3b8;
       line-height: 1.8;
       margin-left: 25px;
       margin-bottom: 15px;
@@ -318,8 +318,8 @@
     }
 
     .code-block {
-      background: #0a0a0a;
-      border: 1px solid #b8960f;
+      background: #0b1120;
+      border: 1px solid #2563eb;
       border-radius: 8px;
       padding: 15px;
       margin: 15px 0;
@@ -327,7 +327,7 @@
     }
 
     .code-block pre {
-      color: #e0e0e0;
+      color: #e2e8f0;
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: 13px;
       line-height: 1.6;
@@ -346,15 +346,15 @@
     }
 
     .code-lang {
-      color: #d4af37;
+      color: #3b82f6;
       font-weight: 600;
       font-size: 14px;
     }
 
     .copy-code-btn {
-      background: rgba(212, 175, 55, 0.3);
-      color: #f4d03f;
-      border: 1px solid #d4af37;
+      background: rgba(59, 130, 246, 0.3);
+      color: #60a5fa;
+      border: 1px solid #3b82f6;
       padding: 6px 12px;
       font-size: 12px;
       cursor: pointer;
@@ -368,22 +368,22 @@
     }
 
     .copy-code-btn:hover {
-      background: rgba(212, 175, 55, 0.5);
-      border-color: #f4d03f;
+      background: rgba(59, 130, 246, 0.5);
+      border-color: #60a5fa;
       transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
     }
 
     .tip-box {
-      background: rgba(244, 208, 63, 0.15);
-      border: 2px solid #f4d03f;
+      background: rgba(96, 165, 250, 0.15);
+      border: 2px solid #60a5fa;
       border-radius: 8px;
       padding: 15px;
       margin: 20px 0;
     }
 
     .tip-box strong {
-      color: #f4d03f;
+      color: #60a5fa;
     }
 
     .warning-box {
@@ -798,10 +798,10 @@ function isBase64($string) {
       <p><strong>HTML中使用Data URI：</strong></p>
       <p>
         Data URI允许在HTML中直接嵌入Base64编码的图片，格式为：
-        <code style="color: #d4af37;">data:[&lt;mediatype&gt;][;base64],&lt;data&gt;</code>
+        <code style="color: #3b82f6;">data:[&lt;mediatype&gt;][;base64],&lt;data&gt;</code>
       </p>
       <p>
-        例如：<code style="color: #d4af37;">data:image/png;base64,iVBORw0KG...</code>
+        例如：<code style="color: #3b82f6;">data:image/png;base64,iVBORw0KG...</code>
       </p>
       <p>
         <strong>优点：</strong>减少HTTP请求，适合小图片；<br/>
