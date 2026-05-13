@@ -116,5 +116,17 @@ Hify 是一个简版的 AI Agent 开发平台（参考 Dify），可本地部署
 
 
 ```
+Controller 只做两件事：参数校验和调用 Service。不写业务逻辑、不做数据查询、不处理事务。为什么要这么严格？因为 Claude Code 特别喜欢在 Controller 里“顺手”加逻辑，它觉得方便，但你后面测试、重构、拆分全部受影响。
 
+Service 处理所有业务逻辑，包括事务管理、数据校验、业务规则。Service 之间可以互相调用，但只能调接口（interface），不能直接 new 实现类。
+
+Mapper 只做数据库操作。不要在 Mapper 的 XML 里写业务逻辑（比如复杂的条件判断），那是 Service 的事。
+
+Entity 和数据库表一一对应。DTO 是给接口用的请求 / 响应对象。Entity 和 DTO 之间要做转换，不要把 Entity 直接返回给前端——Entity 里可能有敏感字段（API Key），DTO 可以控制暴露哪些字段。
 ```
+
+## 6. 外部调用设计（开发中的其他情况）
+
+> Hify 要调用多个外部 LLM API（OpenAI、Claude、Gemini、Ollama），这些调用慢且不稳定。从线程管理、容错、超时、重试四个维度，给出完整的技术方案。
+
+
