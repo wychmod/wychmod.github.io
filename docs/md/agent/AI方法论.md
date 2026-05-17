@@ -305,6 +305,3 @@ POST   /api/v1/providers/{id}/test-connection  # 非 CRUD 操作用动词
 > 我在做一个叫 Hify 的项目，以下是前期做的所有决策。另外请基于阿里巴巴 Java 开发手册，补充编码规范部分。请帮我合并生成一份完整的 CLAUDE.md。要求：结构清晰，从项目概述到行为指令，规范要具体到 AI 能直接执行。
 
 claude.md
-```
-
-```

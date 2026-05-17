@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/agent/AI方法论.md",
+                "file": "md/agent/claude.md模板.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "AI方法论"
+              "title": "claude.md模板"
             }
           }
         ],
@@ -125,7 +125,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/agent/AI方法论.md",
+                "file": "md/agent/claude.md模板.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +135,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "AI方法论 的反向链接列表"
+              "title": "claude.md模板 的反向链接列表"
             }
           },
           {
@@ -197,9 +197,10 @@
   },
   "active": "4711d36360288f77",
   "lastOpenFiles": [
+    "md/agent/AI方法论.md",
+    "md/agent/claude.md模板.md",
     "md/youdaonote-images/Pasted image 20260517191601.png",
     "md/agent/A2A协议技术学习笔记.md",
-    "md/agent/AI方法论.md",
     "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
     "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md",
@@ -224,7 +225,6 @@
     "md/youdaonote-images/短链系统架构设计 - visual selection (1).svg",
     "md/管理/软实力精进.md",
     "md/管理",
-    "md/youdaonote-images/短链系统架构设计 - visual selection.svg",
     "md/java/短链系统",
     "md/java/监控系统/3-http协议监控.md",
     "md/博客写作内容/摄影.md",
