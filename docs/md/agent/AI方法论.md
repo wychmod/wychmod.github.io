@@ -165,3 +165,10 @@ Entity 和数据库表一一对应。DTO 是给接口用的请求 / 响应对象
 - 流式响应使用 SseEmitter + 独立线程池，不引入 WebFlux
 ```
 
+## 7. 部署架构
+
+> Hify 是模块化单体，技术栈 Spring Boot + Vue + MySQL + Redis + pgvector。目标 50 人内部使用，生产环境用 Docker + K8s 部署。帮我设计当前阶段的部署架构：有哪些组件、请求怎么流转、每个组件的职责是什么。
+
+
+## 8. 性能瓶颈
+
