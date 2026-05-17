@@ -305,3 +305,12 @@ POST   /api/v1/providers/{id}/test-connection  # 非 CRUD 操作用动词
 > 我在做一个叫 Hify 的项目，以下是前期做的所有决策。另外请基于阿里巴巴 Java 开发手册，补充编码规范部分。请帮我合并生成一份完整的 CLAUDE.md。要求：结构清晰，从项目概述到行为指令，规范要具体到 AI 能直接执行。
 
 claude.md
+
+
+# 项目实战
+## 1. 后端骨架初始化
+
+1. Maven 多模块骨架（父 pom +  子模块 pom +  目录结构）
+2. hify-common 公共基础设施（Result、BizException、全局异常处理、配置类）
+3. 业务模块空壳（每个模块的 package 结构和启动验证）
+4. 验收，启动项目，确认一切正常
