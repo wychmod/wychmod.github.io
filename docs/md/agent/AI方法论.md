@@ -331,7 +331,13 @@ claude.md
 
 在 hify-app 中创建 Spring Boot 启动类 HifyApplication，以及 application.yml 配置文件。配置项包括：数据库连接、Redis 连接、MyBatis-Plus 配置、服务端口 8080。
 ```
+## 2. 前端框架初始化
 
+分成三步：项目骨架、axios 统一请求层、路由和页面空壳。
+
+```
+初始化 Hify 前端项目 hify-web。Vue 3 + TypeScript + Vite + Element Plus。目录结构按 CLAUDE.md 中定义的前端结构来。Vite 开发服务器配置代理：/api 请求转发到 localhost:8080。
+```
 
 
 
