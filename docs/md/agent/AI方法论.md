@@ -314,3 +314,7 @@ claude.md
 2. hify-common 公共基础设施（Result、BizException、全局异常处理、配置类）
 3. 业务模块空壳（每个模块的 package 结构和启动验证）
 4. 验收，启动项目，确认一切正常
+
+> 按照 CLAUDE.md 中的项目结构和技术栈，创建 Hify 的 Maven 多模块工程骨架。父 pom 声明所有子模块，统一管理 Spring Boot、MyBatis-Plus、Redis 等版本号。子模块之间的依赖关系按 CLAUDE.md 中定义的架构来。只创建 pom 和目录结构，不需要写 Java 代码。
+
+
