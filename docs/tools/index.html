@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>开发工具集 - AI智能技术知识平台</title>
+  <title>开发工具集 - wychmod Developer Workspace</title>
   <style>
     * {
       margin: 0;
@@ -13,8 +13,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%);
-      color: #e2e8f0;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
+      color: #37352f;
       padding: 20px;
       min-height: 100vh;
     }
@@ -28,25 +28,25 @@
       text-align: center;
       padding: 40px 0;
       margin-bottom: 40px;
-      border-bottom: 2px solid #3b82f6;
+      border-bottom: 2px solid #6d4aff;
     }
 
     .header h1 {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 3em;
       margin-bottom: 15px;
       text-shadow: 0 2px 10px rgba(96, 165, 250, 0.3);
     }
 
     .header p {
-      color: #94a3b8;
+      color: #5f5d57;
       font-size: 1.3em;
     }
 
     .back-link {
       display: inline-block;
       margin-bottom: 20px;
-      color: #3b82f6;
+      color: #6d4aff;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s;
@@ -54,7 +54,7 @@
     }
 
     .back-link:hover {
-      color: #60a5fa;
+      color: #0b6bcb;
     }
 
     /* 工具卡片网格 */
@@ -66,8 +66,8 @@
     }
 
     .tool-card {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 30px;
       transition: all 0.3s;
@@ -75,14 +75,14 @@
       text-decoration: none;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.10);
       height: 100%;
     }
 
     .tool-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
-      border-color: #60a5fa;
+      border-color: #0b6bcb;
     }
 
     .tool-card.disabled {
@@ -93,7 +93,7 @@
 
     .tool-card.disabled:hover {
       transform: none;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.10);
     }
 
     .tool-icon {
@@ -103,7 +103,7 @@
     }
 
     .tool-title {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 1.5em;
       font-weight: 600;
       margin-bottom: 15px;
@@ -115,7 +115,7 @@
     }
 
     .tool-description {
-      color: #94a3b8;
+      color: #5f5d57;
       line-height: 1.6;
       text-align: center;
       margin-bottom: 20px;
@@ -134,11 +134,11 @@
     /* Tooltip样式 */
     .tooltip {
       position: fixed;
-      background: linear-gradient(135deg, #111827 0%, #0b1120 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #fbfaf8 0%, #f7f6f3 100%);
+      border: 2px solid #6d4aff;
       border-radius: 8px;
       padding: 15px 20px;
-      color: #e2e8f0;
+      color: #37352f;
       max-width: 350px;
       z-index: 10000;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
@@ -169,8 +169,8 @@
     }
 
     .tool-card .tool-status {
-      background: rgba(59, 130, 246, 0.2);
-      color: #3b82f6;
+      background: rgba(109, 74, 255, 0.10);
+      color: #6d4aff;
     }
 
     .tool-card.disabled .tool-status {
@@ -180,20 +180,20 @@
 
     /* 特色说明区 */
     .features-section {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 35px;
       margin-bottom: 40px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
     }
 
     .features-section h2 {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 1.8em;
       margin-bottom: 25px;
       text-align: center;
-      border-bottom: 2px solid #3b82f6;
+      border-bottom: 2px solid #6d4aff;
       padding-bottom: 15px;
     }
 
@@ -205,19 +205,19 @@
 
     .feature-item {
       background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #2563eb;
+      border: 1px solid #5636d7;
       border-radius: 8px;
       padding: 20px;
     }
 
     .feature-item h3 {
-      color: #3b82f6;
+      color: #6d4aff;
       font-size: 1.2em;
       margin-bottom: 10px;
     }
 
     .feature-item p {
-      color: #94a3b8;
+      color: #5f5d57;
       line-height: 1.6;
       margin: 0;
     }
@@ -225,21 +225,21 @@
     /* 未来计划区 */
     .roadmap-section {
       background: rgba(59, 130, 246, 0.1);
-      border: 2px solid #3b82f6;
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 35px;
       margin-bottom: 40px;
     }
 
     .roadmap-section h2 {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 1.8em;
       margin-bottom: 20px;
       text-align: center;
     }
 
     .roadmap-list {
-      color: #94a3b8;
+      color: #5f5d57;
       line-height: 2;
       font-size: 16px;
     }
@@ -263,6 +263,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
 <body>
   <div class="container">
@@ -427,35 +428,33 @@
       </div>
     </div>
 
-    <!-- 未来计划 -->
+    <!-- 当前可用场景 -->
     <div class="roadmap-section">
-      <h2>🚀 即将推出</h2>
+      <h2>🧭 高频使用场景</h2>
       <div class="roadmap-list">
-        <p style="color: #94a3b8; text-align: center; margin-bottom: 20px;">
-          我们正在积极开发更多实用的开发工具，让您的开发工作更加高效便捷：
+        <p style="color: #5f5d57; text-align: center; margin-bottom: 20px;">
+          这些入口都已经接入本地工具页，适合日常开发、排障、写文档和面试材料整理：
         </p>
-        <ul style="max-width: 800px; margin: 0 auto; color: #94a3b8;">
-          <li>🔐 加密解密工具（MD5、SHA、AES等常用算法）</li>
-          <li>📊 数据对比工具（文本差异对比、JSON对比）</li>
-          <li>📱 二维码生成器（支持自定义样式和Logo）</li>
-          <li>🖼️ 图片处理工具（压缩、裁剪、格式转换）</li>
-          <li>📐 CSS工具集（渐变生成器、阴影生成器、动画生成器）</li>
-          <li>🔤 文本处理工具（大小写转换、去重、排序）</li>
-          <li>📋 剪贴板增强（历史记录、格式转换）</li>
-          <li>🌐 IP地址查询（IP定位、端口扫描）</li>
+        <ul style="max-width: 800px; margin: 0 auto; color: #5f5d57;">
+          <li>📊 接口联调前，用 JSON、URL、Base64 工具快速清洗和转换数据。</li>
+          <li>🧪 排查文本匹配问题时，用正则工具实时查看匹配结果和捕获组。</li>
+          <li>📝 写技术文章时，用 Markdown 编辑器完成实时预览和 HTML 导出。</li>
+          <li>🗂️ 评审项目结构时，用 Tree 分析工具生成目录视图和统计结果。</li>
+          <li>🎨 做前端标注时，用颜色与进制工具统一设计稿和代码里的取值。</li>
+          <li>📄 求职准备时，用简历工具维护项目经历、技能栈和 PDF 输出。</li>
         </ul>
       </div>
     </div>
 
     <!-- 页脚 -->
     <div style="text-align: center; padding: 20px; color: #888; border-top: 1px solid #333;">
-      <p>© 2024 AI智能技术知识平台 | 持续更新中</p>
+      <p>© 2024 wychmod Developer Workspace | 持续更新中</p>
       <p style="margin-top: 10px;">
-        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank" style="color: #3b82f6; text-decoration: none;">
+        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank" style="color: #6d4aff; text-decoration: none;">
           ⭐ GitHub
         </a>
         <span style="margin: 0 10px;">|</span>
-        <a href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" style="color: #3b82f6; text-decoration: none;">
+        <a href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" style="color: #6d4aff; text-decoration: none;">
           📧 反馈建议
         </a>
       </p>
@@ -463,14 +462,6 @@
   </div>
 
   <script>
-    // 阻止禁用卡片的点击
-    document.querySelectorAll('.tool-card.disabled').forEach(card => {
-      card.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('该工具正在开发中，敬请期待！');
-      });
-    });
-
     // Tooltip功能
     let tooltip = null;
 

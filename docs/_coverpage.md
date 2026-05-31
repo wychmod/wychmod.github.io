@@ -1,65 +1,103 @@
-![logo](_media/logo.png)
+# wychmod Developer Workspace
 
-# 🤖 AI智能技术知识平台
+## 把 Java、Python、云原生、AI Agent 与开发工具统一在一个清爽、可检索、可执行的技术工作台里。
 
-> <span style="color: #cbd5e1; font-size: 1.1em; font-weight: 500;">打造前沿技术知识生态 | 智能化学习体验 | 专业开发者工具集</span>
+<form class="cover-search" id="cover-search" role="search">
+  <span class="cover-search-icon" aria-hidden="true"></span>
+  <input id="cover-search-input" type="search" placeholder="搜索 Spring、Redis、AI Agent、Kubernetes..." autocomplete="off">
+</form>
 
-## <span style="color: #f1f5f9; font-weight: 600;">🚀 引领技术认知升级 · 赋能开发者成长 · 构建智能工具生态</span>
-
-<div style="margin: 2em 0;">
-  <span style="display: inline-block; padding: 10px 20px; margin: 6px; background: rgba(59, 130, 246, 0.15); backdrop-filter: blur(10px); color: #93c5fd; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(59, 130, 246, 0.25);">🤖 AI技术</span>
-  <span style="display: inline-block; padding: 10px 20px; margin: 6px; background: rgba(59, 130, 246, 0.15); backdrop-filter: blur(10px); color: #93c5fd; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(59, 130, 246, 0.25);">🔥 全栈开发</span>
-  <span style="display: inline-block; padding: 10px 20px; margin: 6px; background: rgba(59, 130, 246, 0.15); backdrop-filter: blur(10px); color: #93c5fd; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(59, 130, 246, 0.25);">☁️ 云原生架构</span>
-  <span style="display: inline-block; padding: 10px 20px; margin: 6px; background: rgba(59, 130, 246, 0.15); backdrop-filter: blur(10px); color: #93c5fd; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(59, 130, 246, 0.25);">🛠️ 智能工具</span>
-  <span style="display: inline-block; padding: 10px 20px; margin: 6px; background: rgba(59, 130, 246, 0.15); backdrop-filter: blur(10px); color: #93c5fd; border-radius: 25px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); border: 1px solid rgba(59, 130, 246, 0.25);">📊 系统架构</span>
+<div class="notion-chips">
+  <span class="notion-chip">AI 技术</span>
+  <span class="notion-chip">全栈开发</span>
+  <span class="notion-chip">云原生架构</span>
+  <span class="notion-chip">源码级笔记</span>
+  <span class="notion-chip">开发者工具集</span>
 </div>
 
-<!-- 热门AI应用快速入口 -->
-<div style="margin: 2.5em auto; max-width: 900px;">
-  <p style="color: #60a5fa; font-size: 16px; font-weight: 600; margin-bottom: 16px;">⭐ 热门 AI 应用推荐</p>
-  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;">
-    <a href="https://qoder.com" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.1) 100%); border: 2px solid #3b82f6; border-radius: 12px; color: #93c5fd; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25);">
-      <span style="font-size: 20px;">⚡</span> Qoder <span style="background: #3b82f6; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-left: 4px;">首推</span>
-    </a>
-    <a href="https://claude.ai" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 12px; color: #e2e8f0; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
-      <span style="font-size: 20px;">🧠</span> Claude
-    </a>
-    <a href="https://chat.openai.com" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 12px; color: #e2e8f0; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
-      <span style="font-size: 20px;">💬</span> ChatGPT
-    </a>
-    <a href="https://cursor.sh" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 12px; color: #e2e8f0; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
-      <span style="font-size: 20px;">🖱️</span> Cursor
-    </a>
-    <a href="https://midjourney.com" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 12px; color: #e2e8f0; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
-      <span style="font-size: 20px;">🎨</span> Midjourney
-    </a>
-    <a href="https://deepseek.com" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 12px; color: #e2e8f0; text-decoration: none; font-weight: 500; font-size: 14px; transition: all 0.3s ease;">
-      <span style="font-size: 20px;">🔬</span> DeepSeek
-    </a>
+<div class="cover-actions">
+  <a href="#/README">开始探索</a>
+  <a href="/tools/index.html">打开工具箱</a>
+  <a href="#/AI-ASSISTANT-GUIDE">AI 助手指南</a>
+</div>
+
+<div class="workspace-mockup">
+  <div class="workspace-topbar">
+    <div class="workspace-title">wychmod HQ · 知识看板</div>
+    <div class="workspace-tabs">
+      <span>后端</span><span>AI</span><span>工具</span>
+    </div>
+  </div>
+  <div class="workspace-grid">
+    <div class="workspace-panel workspace-panel--roadmap">
+      <div class="workspace-panel-head">
+        <strong><i class="status-dot sky"></i>推荐学习路线</strong>
+        <span class="workspace-count">4 paths</span>
+      </div>
+      <div class="workspace-roadmap">
+        <a class="workspace-route" href="#/md/java/Java学习路线/Java基本功">
+          <span class="route-track route-java">Java</span>
+          <span class="route-body"><b>Java 基本功 → JVM → Spring</b><small>从语法、集合到 Spring 源码与微服务</small></span>
+          <span class="route-meta"><b>42</b><small>篇</small></span>
+          <span class="route-progress"><i class="p-86"></i></span>
+        </a>
+        <a class="workspace-route" href="#/md/Python/Python高级/8.迭代器和生成器">
+          <span class="route-track route-python">Py</span>
+          <span class="route-body"><b>高级语法 → 源码剖析 → 异步</b><small>对象模型、GIL、协程库与 asyncio</small></span>
+          <span class="route-meta"><b>38</b><small>篇</small></span>
+          <span class="route-progress"><i class="p-72"></i></span>
+        </a>
+        <a class="workspace-route" href="#/md/go/Go语言上手-基础语言">
+          <span class="route-track route-go">Go</span>
+          <span class="route-body"><b>Go 基础 → 工程实践 → 性能调优</b><small>编码规范、GORM、发行版优化实践</small></span>
+          <span class="route-meta"><b>5</b><small>篇</small></span>
+          <span class="route-progress"><i class="p-58"></i></span>
+        </a>
+        <a class="workspace-route" href="#/md/k8s/1-k8s的介绍">
+          <span class="route-track route-cloud">Ops</span>
+          <span class="route-body"><b>Docker → Kubernetes → CI/CD</b><small>集群搭建、灰度发布、配置与探针</small></span>
+          <span class="route-meta"><b>24</b><small>篇</small></span>
+          <span class="route-progress"><i class="p-64"></i></span>
+        </a>
+      </div>
+      <div class="workspace-tags"><span>可点击跳转</span><span>按主题串联</span><span>已接入侧边栏</span></div>
+    </div>
+    <div class="workspace-panel">
+      <div class="workspace-panel-head">
+        <strong><i class="status-dot yellow"></i>源码剖析</strong>
+        <span class="workspace-count">Deep dive</span>
+      </div>
+      <div class="workspace-doc-list">
+        <a class="workspace-doc-row" href="#/md/spring源码/3-Spring源码解析">
+          <i class="doc-mark doc-spring"></i><span><b>Spring 源码解析</b><small>IOC / AOP / 容器生命周期</small></span>
+        </a>
+        <a class="workspace-doc-row" href="#/md/JVM/JVM实战-3-GC">
+          <i class="doc-mark doc-jvm"></i><span><b>JVM GC 实战</b><small>内存模型 / 调优 / 排障</small></span>
+        </a>
+        <a class="workspace-doc-row" href="#/md/Python/Python源码剖析/Python源码剖析-1-对象模型">
+          <i class="doc-mark doc-python"></i><span><b>CPython 对象模型</b><small>类型系统 / 生命周期</small></span>
+        </a>
+      </div>
+      <div class="workspace-tags"><span>Spring</span><span>JVM</span><span>CPython</span></div>
+    </div>
+    <div class="workspace-panel">
+      <div class="workspace-panel-head">
+        <strong><i class="status-dot mint"></i>效率工具</strong>
+        <span class="workspace-count">Live</span>
+      </div>
+      <div class="workspace-tool-grid">
+        <a class="workspace-tool-card" href="/tools/json-tool.html"><b>JSON</b><span>校验 / 格式化</span></a>
+        <a class="workspace-tool-card" href="/tools/regex-tool.html"><b>Regex</b><span>匹配测试</span></a>
+        <a class="workspace-tool-card" href="/tools/markdown-editor.html"><b>Markdown</b><span>实时预览</span></a>
+        <a class="workspace-tool-card" href="/tools/structure-tool.html"><b>Tree</b><span>结构分析</span></a>
+      </div>
+      <div class="workspace-tags"><span>JSON</span><span>Regex</span><span>Markdown</span></div>
+    </div>
   </div>
 </div>
 
-<div style="margin: 2em 0;">
-  <p style="font-size: 16px; color: #cbd5e1; line-height: 2; font-weight: 400;">
-    🎯 <strong>权威技术体系</strong> - 深度整合AI、全栈开发、云原生等前沿技术领域<br/>
-    💎 <strong>源码级洞察</strong> - 剖析核心框架底层原理，掌握架构设计精髓<br/>
-    ⚡ <strong>智能化工具</strong> - 集成高效开发工具集，提升研发效能与代码质量<br/>
-    🤖 <strong style="color: #60a5fa;">AI智能助手</strong> - 打开终端（右下角或 Ctrl+K），输入 <code style="background: rgba(59, 130, 246, 0.2); padding: 2px 8px; border-radius: 4px; color: #93c5fd;">ai 你的问题</code> 获取智能指导
-  </p>
+<div class="cover-stats">
+  <div class="cover-stat"><b>300+</b><span>沉淀式技术文档</span></div>
+  <div class="cover-stat"><b>10+</b><span>即用型开发工具</span></div>
+  <div class="cover-stat"><b>24/7</b><span>命令行式知识导航</span></div>
 </div>
-
-<div style="margin: 2em 0;">
-  <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">
-    <img src="https://badgen.net/github/stars/wychmod/wychmod.github.io?icon=github&color=3b82f6" alt="stars" style="margin: 4px;"/>
-  </a>
-  <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">
-    <img src="https://badgen.net/github/forks/wychmod/wychmod.github.io?icon=github&color=3b82f6" alt="forks" style="margin: 4px;"/>
-  </a>
-  <img src="https://badgen.net/badge/AI驱动/智能平台/3b82f6" alt="AI驱动" style="margin: 4px;"/>
-  <img src="https://badgen.net/badge/技术栈/全栈+AI/10b981" alt="技术栈" style="margin: 4px;"/>
-</div>
-
-[🚀 开始探索](README.md)
-[🤖 AI应用推荐](/tools/ai-recommend.html)
-[🛠️ 开发工具](/tools/index.html)
-[📄 简历制作](/tools/resume-builder.html ":ignore :target=_blank")

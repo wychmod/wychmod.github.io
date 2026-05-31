@@ -1,62 +1,71 @@
-# 💻 wychmod 技术知识库
-
-<div align="center">
-  <p>
-    <img src="https://badgen.net/github/stars/wychmod/wychmod.github.io?icon=github&color=4ab8a1" alt="stars"/>
-    <img src="https://badgen.net/github/forks/wychmod/wychmod.github.io?icon=github&color=4ab8a1" alt="forks"/>
-    <img src="https://badgen.net/badge/24届/应届生/orange" alt="24届"/>
-    <img src="https://badgen.net/badge/语言/Java+Python/blue" alt="语言"/>
-  </p>
-</div>
-
-> 👨‍💻 **关于我**：24届计算机研究生，Java与Python双语言全栈开发者
-> 
-> 📚 **知识范围**：涵盖后端、前端、算法、系统设计、AI等全栈知识
-> 
-> 🎯 **学习目标**：源码剖析与实战结合，手写Spring、协程库，打造系统化技术体系
-
----
-
-## 💻 交互式命令行导航
-
-<div id="home-terminal" style="background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 20px; margin: 30px 0; box-shadow: 0 0 40px rgba(59, 130, 246, 0.3), inset 0 0 20px rgba(59, 130, 246, 0.1); font-family: 'Consolas', 'Monaco', 'Courier New', monospace; color: #e2e8f0;">
-  <div style="background: linear-gradient(135deg, #111827 0%, #2d1f0c 100%); padding: 12px 16px; margin: -20px -20px 20px -20px; border-radius: 10px 10px 0 0; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #2563eb;">
-    <div style="display: flex; gap: 8px;">
-      <div style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f57;"></div>
-      <div style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e;"></div>
-      <div style="width: 12px; height: 12px; border-radius: 50%; background: #28ca42;"></div>
+<div class="home-dashboard">
+  <section class="home-band home-band-plain">
+    <div class="home-section-head">
+      <h1>让学习路线持续推进。</h1>
+      <p>把后端、云原生、AI Agent、测试、工具链这些分散知识收敛到一个可检索、可导航、可执行的个人技术工作区。</p>
     </div>
-    <div style="color: #3b82f6; font-size: 13px; font-weight: 600;">wychmod@knowledge-base:~</div>
-    <div style="width: 60px;"></div>
-  </div>
-  <div style="line-height: 1.8;">
-    <div style="color: #00ff00; margin-bottom: 10px;">👋 欢迎使用命令行导航系统！</div>
-    <div style="margin-bottom: 15px;"><span style="color: #3b82f6; font-weight: bold;">$</span><span style="color: #60a5fa;"> help</span></div>
-    <div style="margin-left: 20px; color: #a0a0a0;">
-      <div>可用命令：</div>
-      <div style="margin-top: 8px;">
-        <span style="color: #3b82f6;">● ls</span> - 列出文档目录<br/>
-        <span style="color: #3b82f6;">● cd &lt;目录&gt;</span> - 切换目录<br/>
-        <span style="color: #3b82f6;">● cat &lt;文件&gt;</span> - 查看文档内容<br/>
-        <span style="color: #3b82f6;">● find &lt;关键词&gt;</span> - 搜索文档<br/>
-        <span style="color: #3b82f6;">● tree</span> - 显示目录树<br/>
+    <div class="home-feature-grid home-feature-grid-3">
+      <a class="notion-card sky" href="/md/java/Java学习路线/Java基本功.md">
+        <span class="card-index">01</span>
+        <h3>后端路线</h3>
+        <p>Java、Spring、JVM、MySQL、Redis 与分布式系统的主线知识。</p>
+      </a>
+      <a class="notion-card mint" href="/md/agent/agent五种设计模式.md">
+        <span class="card-index">02</span>
+        <h3>AI Agent</h3>
+        <p>Agent 设计模式、A2A、MCP、领域架构与智能系统实践。</p>
+      </a>
+      <a class="notion-card lavender" href="/tools/index.html">
+        <span class="card-index">03</span>
+        <h3>开发工具</h3>
+        <p>JSON、Base64、Regex、Markdown、时间戳、项目结构分析等即用工具。</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="assistant-banner">
+    <div>
+      <h2>随时唤起技术助手。</h2>
+      <p>终端式知识导航支持 <code>help</code>、<code>ls</code>、<code>find</code>、<code>cat</code>、<code>ai</code> 等命令。点击右下角 <code>&gt;_</code> 或按 <code>Ctrl + K</code>，在当前文档库里快速定位路径、主题和推荐内容。</p>
+    </div>
+    <div class="assistant-terminal" aria-hidden="true">
+      <div class="assistant-terminal-bar"><span></span><span></span><span></span><b>wychmod@knowledge-base:~</b></div>
+      <pre>$ find Spring
+Spring 源码解析
+SpringBoot 实战和原理
+SpringCloud 微服务
+
+$ ai Redis 缓存一致性</pre>
+    </div>
+  </section>
+
+  <section class="home-band">
+    <div class="home-section-head compact">
+      <h2>把文档、工具和路线放在一起。</h2>
+      <p>文档、工具、路线、代码片段和评论区使用统一的 Notion 风格组件系统。</p>
+    </div>
+    <div class="home-feature-grid home-feature-grid-4">
+      <div class="notion-card peach">
+        <h3>源码级笔记</h3>
+        <p>围绕 Spring、JVM、CPython、Redis 内核与架构推演组织长文。</p>
+      </div>
+      <div class="notion-card rose">
+        <h3>云原生实践</h3>
+        <p>Docker、Kubernetes、CI/CD、服务探针、配置与灰度发布。</p>
+      </div>
+      <div class="notion-card yellow">
+        <h3>测试与质量</h3>
+        <p>测试计划、用例设计、自动化、Chrome 插件与质量工程实践。</p>
+      </div>
+      <div class="notion-card mint">
+        <h3>全栈工具箱</h3>
+        <p>高频开发转换、格式化、编辑与分析任务集中到独立工具页。</p>
       </div>
     </div>
-    <div style="margin-top: 20px; padding: 15px; background: rgba(59, 130, 246, 0.1); border-left: 3px solid #3b82f6; border-radius: 4px;">
-      <div style="color: #60a5fa; font-weight: bold; margin-bottom: 8px;">⚡ 快速开始</div>
-      <div style="color: #e2e8f0;">
-        1. 点击右下角终端按钮 <span style="color: #60a5fa; font-weight: bold;">►_</span> 打开终端<br/>
-        2. 或按 <span style="color: #60a5fa; font-weight: bold;">Ctrl+K</span> 快捷键<br/>
-        3. 输入 <span style="color: #3b82f6; font-weight: bold;">ls</span> 查看所有分类<br/>
-        4. 输入 <span style="color: #3b82f6; font-weight: bold;">fortune</span> 获取技术名言
-      </div>
-    </div>
-  </div>
+  </section>
 </div>
 
----
-
-## 📖 快速导航
+## 快速导航
 
 ### 📚 后端开发
 
@@ -65,7 +74,7 @@
 
 - **基础与框架**
   - [Java基本功](/md/java/Java学习路线/Java基本功.md) | [Java集合框架](/md/java/Java学习路线/Java集合框架.md)
-  - [IOC和AOP](/md/java/IOC和AOP.md) | [MVC模式](/md/java/MVC模式.md) | [Servlet](/md/java/Servlet.md)
+  - [IOC和AOP](/md/java/spring系列学习/IOC和AOP.md) | [MVC模式](/md/java/Java学习路线/MVC模式.md) | [Servlet](/md/java/Java学习路线/Servlet.md)
 
 - **Spring 源码解析**
   - [300行手写简易Spring](/md/spring源码/1-300行手写简易Spring.md)
@@ -184,7 +193,7 @@
 
 - [Docker容器化](/md/docker/docker.md)
 - [Kubernetes编排](/md/k8s/1-k8s的介绍.md)
-- [CI/CD实践](/md/cicd/1.%20什么是CI和CD，为什么要学CI和CD.md)
+- [CI/CD实践](/md/cicd/1.什么是CI和CD，为什么要学CI和CD.md)
 </details>
 
 <details>
@@ -200,7 +209,7 @@
 <details>
 <summary><b>算法与数据结构</b></summary>
 
-- [算法笔记](/md/算法/左神从0学算法/算法笔记.md)
+- [算法笔记](/md/算法/lb算法小抄笔记/算法小抄笔记.md)
 </details>
 
 <details>
@@ -237,7 +246,7 @@
 <summary><b>系统设计与测试</b></summary>
 
 - [设计模式](/md/系统设计/设计模式.md)
-- [软件测试基础](/md/软件测试/测试基础/测试基础知识.md)
+- [软件测试基础](/md/软件测试/测试基础/软件测试基础知识.md)
 </details>
 
 ### 🔧 开发工具

@@ -42,7 +42,7 @@ aiconfig
 ```javascript
 localStorage.setItem('AI_API_KEY', 'your-api-key');
 localStorage.setItem('AI_API_URL', 'your-api-url');
-localStorage.setItem('AI_MODEL', 'gpt-5.2'); // 可选，默认gpt-4
+localStorage.setItem('AI_MODEL', 'your-model-name'); // 可选，填写服务商支持的模型名
 ```
 
 ### 3. 开始使用

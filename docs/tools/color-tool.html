@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>颜色转换工具 - AI智能技术知识平台</title>
+  <title>颜色转换工具 - wychmod Developer Workspace</title>
   <style>
     * {
       margin: 0;
@@ -13,8 +13,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%);
-      color: #e2e8f0;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
+      color: #37352f;
       padding: 20px;
       min-height: 100vh;
     }
@@ -28,17 +28,17 @@
       text-align: center;
       padding: 30px 0;
       margin-bottom: 30px;
-      border-bottom: 2px solid #3b82f6;
+      border-bottom: 2px solid #6d4aff;
     }
 
     .header h1 {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 2.5em;
       margin-bottom: 10px;
     }
 
     .header p {
-      color: #94a3b8;
+      color: #5f5d57;
       font-size: 1.1em;
     }
 
@@ -51,24 +51,24 @@
 
     .back-link {
       display: inline-block;
-      color: #3b82f6;
+      color: #6d4aff;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s;
     }
 
     .back-link:hover {
-      color: #60a5fa;
+      color: #0b6bcb;
     }
 
     /* 颜色输入区 */
     .color-input-section {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 25px;
       margin-bottom: 25px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
     }
 
     .input-grid {
@@ -84,18 +84,18 @@
     }
 
     .input-label {
-      color: #3b82f6;
+      color: #6d4aff;
       font-size: 14px;
       margin-bottom: 8px;
       font-weight: 600;
     }
 
     .color-input {
-      background: #0b1120;
-      border: 2px solid #2563eb;
+      background: #f7f6f3;
+      border: 2px solid #5636d7;
       border-radius: 8px;
       padding: 12px;
-      color: #e2e8f0;
+      color: #37352f;
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: 14px;
       transition: all 0.3s;
@@ -103,8 +103,8 @@
 
     .color-input:focus {
       outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      border-color: #6d4aff;
+      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
     }
 
     .slider-group {
@@ -130,7 +130,7 @@
       border-radius: 3px;
       outline: none;
       -webkit-appearance: none;
-      background: linear-gradient(90deg, #333, #3b82f6);
+      background: linear-gradient(90deg, #333, #6d4aff);
     }
 
     .slider::-webkit-slider-thumb {
@@ -139,7 +139,7 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: #60a5fa;
+      background: #0b6bcb;
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
@@ -148,13 +148,13 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: #60a5fa;
+      background: #0b6bcb;
       cursor: pointer;
       border: none;
     }
 
     .slider-value {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-weight: 600;
       font-family: 'Consolas', 'Monaco', monospace;
       width: 50px;
@@ -170,15 +170,15 @@
     }
 
     .preview-box {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 25px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
     }
 
     .preview-title {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 15px;
@@ -188,7 +188,7 @@
       width: 100%;
       height: 200px;
       border-radius: 8px;
-      border: 2px solid #2563eb;
+      border: 2px solid #5636d7;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       transition: all 0.3s;
     }
@@ -197,7 +197,7 @@
       margin-top: 15px;
       padding: 15px;
       border-radius: 8px;
-      border: 2px solid #2563eb;
+      border: 2px solid #5636d7;
     }
 
     .preview-text {
@@ -208,12 +208,12 @@
 
     /* 格式输出区 */
     .formats-section {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 25px;
       margin-bottom: 25px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
     }
 
     .formats-grid {
@@ -224,7 +224,7 @@
 
     .format-item {
       background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #2563eb;
+      border: 1px solid #5636d7;
       border-radius: 8px;
       padding: 15px;
       display: flex;
@@ -237,22 +237,22 @@
     }
 
     .format-name {
-      color: #3b82f6;
+      color: #6d4aff;
       font-size: 13px;
       margin-bottom: 5px;
     }
 
     .format-value {
-      color: #e2e8f0;
+      color: #37352f;
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: 14px;
       word-break: break-all;
     }
 
     .copy-btn-small {
-      background: rgba(59, 130, 246, 0.3);
-      color: #60a5fa;
-      border: 1px solid #3b82f6;
+      background: rgba(109, 74, 255, 0.12);
+      color: #0b6bcb;
+      border: 1px solid #6d4aff;
       padding: 6px 12px;
       border-radius: 4px;
       font-size: 12px;
@@ -268,12 +268,12 @@
 
     /* 配色方案区 */
     .palette-section {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 25px;
       margin-bottom: 25px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
     }
 
     .palette-grid {
@@ -296,7 +296,7 @@
       width: 100%;
       height: 80px;
       border-radius: 8px;
-      border: 2px solid #2563eb;
+      border: 2px solid #5636d7;
       margin-bottom: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
@@ -319,15 +319,15 @@
     }
 
     .message.success {
-      background: rgba(0, 255, 0, 0.2);
-      color: #00ff00;
-      border: 2px solid #00ff00;
+      background: rgba(23, 143, 85, 0.12);
+      color: #178f55;
+      border: 2px solid #178f55;
     }
 
     .message.error {
-      background: rgba(255, 68, 68, 0.2);
-      color: #ff4444;
-      border: 2px solid #ff4444;
+      background: rgba(214, 69, 69, 0.12);
+      color: #d64545;
+      border: 2px solid #d64545;
     }
 
     @keyframes slideIn {
@@ -351,6 +351,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
 <body>
   <div class="container">
@@ -370,8 +371,8 @@
         <!-- HEX输入 -->
         <div class="input-group">
           <label class="input-label">🎯 HEX 颜色值</label>
-          <input type="text" id="hexInput" class="color-input" placeholder="#RRGGBB" value="#3b82f6" maxlength="7">
-          <input type="color" id="colorPicker" value="#3b82f6" style="width: 100%; height: 50px; margin-top: 10px; border: 2px solid #2563eb; border-radius: 8px; cursor: pointer;">
+          <input type="text" id="hexInput" class="color-input" placeholder="#RRGGBB" value="#6d4aff" maxlength="7">
+          <input type="color" id="colorPicker" value="#6d4aff" style="width: 100%; height: 50px; margin-top: 10px; border: 2px solid #5636d7; border-radius: 8px; cursor: pointer;">
         </div>
 
         <!-- RGB滑块 -->

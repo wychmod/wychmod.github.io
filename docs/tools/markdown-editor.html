@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Markdown 编辑器 - AI智能技术知识平台</title>
+  <title>Markdown 编辑器 - wychmod Developer Workspace</title>
   <meta name="description" content="在线Markdown编辑器，支持实时预览、语法高亮、导出HTML和PDF功能">
   <meta name="keywords" content="Markdown编辑器,Markdown预览,在线编辑,HTML导出,PDF导出">
   <style>
@@ -14,19 +14,19 @@
     }
 
     :root {
-      --accent-main: #3b82f6;
-      --accent-light: #60a5fa;
-      --accent-dark: #2563eb;
-      --bg-primary: #0b1120;
-      --bg-secondary: #111827;
-      --bg-tertiary: #1a2236;
-      --text-primary: #e2e8f0;
-      --text-secondary: #94a3b8;
+      --accent-main: #6d4aff;
+      --accent-light: #0b6bcb;
+      --accent-dark: #5636d7;
+      --bg-primary: #f7f6f3;
+      --bg-secondary: #fbfaf8;
+      --bg-tertiary: #ffffff;
+      --text-primary: #37352f;
+      --text-secondary: #5f5d57;
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%);
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
       color: var(--text-primary);
       padding: 20px;
       min-height: 100vh;
@@ -58,7 +58,7 @@
       color: var(--accent-light);
       border-color: var(--accent-light);
       transform: translateX(-5px);
-      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.12);
     }
 
     .header {
@@ -120,14 +120,14 @@
     }
 
     .toolbar button:hover {
-      background: rgba(59, 130, 246, 0.2);
+      background: rgba(109, 74, 255, 0.10);
       border-color: var(--accent-main);
       transform: translateY(-1px);
     }
 
     .toolbar button.primary {
       background: linear-gradient(135deg, var(--accent-dark), var(--accent-main));
-      color: #000;
+      color: #fff;
       font-weight: 600;
     }
 
@@ -266,7 +266,7 @@
     }
 
     .preview-content strong {
-      color: var(--accent-light);
+      color: var(--text-primary);
       font-weight: 600;
     }
 
@@ -348,7 +348,7 @@
     }
 
     .preview-content tr:nth-child(even) {
-      background: rgba(59, 130, 246, 0.05);
+      background: rgba(109, 74, 255, 0.05);
     }
 
     .preview-content img {
@@ -479,6 +479,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
 <body>
   <div class="container">
@@ -503,8 +504,8 @@
         <button onclick="insertHeading(3)" title="三级标题">H3</button>
       </div>
       <div class="toolbar-group">
-        <button onclick="insertList('ul')" title="无序列表">• 列表</button>
-        <button onclick="insertList('ol')" title="有序列表">1. 列表</button>
+        <button onclick="insertList('ul')" title="无序列表">• 无序列表</button>
+        <button onclick="insertList('ol')" title="有序列表">1. 有序列表</button>
         <button onclick="insertList('task')" title="任务列表">☐ 任务</button>
       </div>
       <div class="toolbar-group">
@@ -590,7 +591,7 @@
     </div>
 
     <div class="footer">
-      <p>© 2024-2026 AI智能技术知识平台 | 
+      <p>© 2024-2026 wychmod Developer Workspace | 
         <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">GitHub</a> | 
         <a href="/tools/">更多工具</a>
       </p>
@@ -722,12 +723,19 @@ greet('World');
     // 更新字数统计
     function updateCounts() {
       const text = markdownInput.value;
-      charCount.textContent = `${text.length.toLocaleString()} 字符`;
-      
-      // 统计中文字数和英文单词数
-      const chineseChars = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
-      const englishWords = (text.match(/[a-zA-Z]+/g) || []).length;
-      wordCount.textContent = `${chineseChars} 字 / ${englishWords} 词`;
+      const plainText = markdownToPlainText(text);
+      charCount.textContent = `Markdown ${text.length.toLocaleString()} 字符`;
+      wordCount.textContent = `纯文本 ${plainText.length.toLocaleString()} 字符`;
+    }
+
+    function markdownToPlainText(markdown) {
+      return markdown
+        .replace(/```[\s\S]*?```/g, '')
+        .replace(/!\[[^\]]*\]\([^)]+\)/g, '')
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .replace(/[`*_~>#|\-\[\]()]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
     }
 
     // Markdown解析器
@@ -986,17 +994,17 @@ greet('World');
       line-height: 1.6;
       color: #333;
     }
-    h1 { border-bottom: 2px solid #3b82f6; padding-bottom: 10px; }
+    h1 { border-bottom: 2px solid #6d4aff; padding-bottom: 10px; }
     h2 { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
     code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
     pre { background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto; }
     pre code { background: none; padding: 0; }
-    blockquote { border-left: 4px solid #3b82f6; padding-left: 20px; margin-left: 0; color: #666; }
+    blockquote { border-left: 4px solid #6d4aff; padding-left: 20px; margin-left: 0; color: #666; }
     table { border-collapse: collapse; width: 100%; }
     th, td { border: 1px solid #ddd; padding: 10px; }
     th { background: #f5f5f5; }
     img { max-width: 100%; }
-    a { color: #3b82f6; }
+    a { color: #6d4aff; }
   <\/style>
 <\/head>
 <body>
@@ -1030,17 +1038,17 @@ ${htmlContent}
               line-height: 1.6;
               color: #333;
             }
-            h1 { border-bottom: 2px solid #3b82f6; padding-bottom: 10px; }
+            h1 { border-bottom: 2px solid #6d4aff; padding-bottom: 10px; }
             h2 { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
             code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
             pre { background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto; }
             pre code { background: none; padding: 0; }
-            blockquote { border-left: 4px solid #3b82f6; padding-left: 20px; margin-left: 0; color: #666; }
+            blockquote { border-left: 4px solid #6d4aff; padding-left: 20px; margin-left: 0; color: #666; }
             table { border-collapse: collapse; width: 100%; }
             th, td { border: 1px solid #ddd; padding: 10px; }
             th { background: #f5f5f5; }
             img { max-width: 100%; }
-            a { color: #3b82f6; }
+            a { color: #6d4aff; }
             @media print {
               body { padding: 20px; }
             }

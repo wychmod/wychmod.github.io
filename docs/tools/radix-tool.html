@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>进制转换工具 - AI智能技术知识平台</title>
+  <title>进制转换工具 - wychmod Developer Workspace</title>
   <style>
     * {
       margin: 0;
@@ -13,8 +13,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%);
-      color: #e2e8f0;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
+      color: #37352f;
       padding: 20px;
       min-height: 100vh;
     }
@@ -28,17 +28,17 @@
       text-align: center;
       padding: 30px 0;
       margin-bottom: 30px;
-      border-bottom: 2px solid #3b82f6;
+      border-bottom: 2px solid #6d4aff;
     }
 
     .header h1 {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 2.5em;
       margin-bottom: 10px;
     }
 
     .header p {
-      color: #94a3b8;
+      color: #5f5d57;
       font-size: 1.1em;
     }
 
@@ -51,14 +51,14 @@
 
     .back-link {
       display: inline-block;
-      color: #3b82f6;
+      color: #6d4aff;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s;
     }
 
     .back-link:hover {
-      color: #60a5fa;
+      color: #0b6bcb;
     }
 
     /* 进制卡片区 */
@@ -70,11 +70,11 @@
     }
 
     .radix-card {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
       transition: all 0.3s;
     }
 
@@ -91,14 +91,14 @@
     }
 
     .radix-title {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 16px;
       font-weight: 600;
     }
 
     .radix-base {
-      background: rgba(59, 130, 246, 0.2);
-      color: #60a5fa;
+      background: rgba(109, 74, 255, 0.10);
+      color: #0b6bcb;
       padding: 4px 10px;
       border-radius: 4px;
       font-size: 12px;
@@ -107,11 +107,11 @@
 
     .radix-input {
       width: 100%;
-      background: #0b1120;
-      border: 2px solid #2563eb;
+      background: #f7f6f3;
+      border: 2px solid #5636d7;
       border-radius: 8px;
       padding: 12px;
-      color: #e2e8f0;
+      color: #37352f;
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: 14px;
       transition: all 0.3s;
@@ -120,12 +120,12 @@
 
     .radix-input:focus {
       outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      border-color: #6d4aff;
+      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
     }
 
     .radix-input.error {
-      border-color: #ff4444;
+      border-color: #d64545;
     }
 
     .radix-prefix {
@@ -137,9 +137,9 @@
 
     .copy-btn {
       width: 100%;
-      background: rgba(59, 130, 246, 0.3);
-      color: #60a5fa;
-      border: 1px solid #3b82f6;
+      background: rgba(109, 74, 255, 0.12);
+      color: #0b6bcb;
+      border: 1px solid #6d4aff;
       padding: 8px;
       border-radius: 6px;
       font-size: 13px;
@@ -155,16 +155,16 @@
 
     /* 位运算区 */
     .bitwise-section {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 25px;
       margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
     }
 
     .section-title {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 20px;
@@ -183,11 +183,11 @@
 
     .bitwise-input {
       width: 100%;
-      background: #0b1120;
-      border: 2px solid #2563eb;
+      background: #f7f6f3;
+      border: 2px solid #5636d7;
       border-radius: 8px;
       padding: 12px;
-      color: #e2e8f0;
+      color: #37352f;
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: 14px;
       transition: all 0.3s;
@@ -195,17 +195,17 @@
 
     .bitwise-input:focus {
       outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      border-color: #6d4aff;
+      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
     }
 
     .operator-select {
       width: 100%;
-      background: #0b1120;
-      border: 2px solid #2563eb;
+      background: #f7f6f3;
+      border: 2px solid #5636d7;
       border-radius: 8px;
       padding: 12px;
-      color: #e2e8f0;
+      color: #37352f;
       font-size: 14px;
       cursor: pointer;
       transition: all 0.3s;
@@ -213,13 +213,13 @@
 
     .operator-select:focus {
       outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      border-color: #6d4aff;
+      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
     }
 
     .result-box {
       background: rgba(59, 130, 246, 0.1);
-      border: 2px solid #3b82f6;
+      border: 2px solid #6d4aff;
       border-radius: 8px;
       padding: 20px;
       text-align: center;
@@ -232,7 +232,7 @@
     }
 
     .result-value {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 24px;
       font-weight: 700;
       font-family: 'Consolas', 'Monaco', monospace;
@@ -242,7 +242,7 @@
     /* 提示框 */
     .tip-box {
       background: rgba(96, 165, 250, 0.15);
-      border: 2px solid #60a5fa;
+      border: 2px solid #0b6bcb;
       border-radius: 8px;
       padding: 20px;
       margin-bottom: 30px;
@@ -260,12 +260,12 @@
     }
 
     .tip-content h3 {
-      color: #60a5fa;
+      color: #0b6bcb;
       margin-bottom: 8px;
     }
 
     .tip-content p {
-      color: #94a3b8;
+      color: #5f5d57;
       line-height: 1.6;
       margin: 0;
     }
@@ -283,15 +283,15 @@
     }
 
     .message.success {
-      background: rgba(0, 255, 0, 0.2);
-      color: #00ff00;
-      border: 2px solid #00ff00;
+      background: rgba(23, 143, 85, 0.12);
+      color: #178f55;
+      border: 2px solid #178f55;
     }
 
     .message.error {
-      background: rgba(255, 68, 68, 0.2);
-      color: #ff4444;
-      border: 2px solid #ff4444;
+      background: rgba(214, 69, 69, 0.12);
+      color: #d64545;
+      border: 2px solid #d64545;
     }
 
     @keyframes slideIn {
@@ -319,6 +319,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
 <body>
   <div class="container">
@@ -395,12 +396,12 @@
       
       <div class="bitwise-grid">
         <div>
-          <label style="color: #3b82f6; font-size: 13px; display: block; margin-bottom: 8px;">操作数 A (十进制)</label>
+          <label style="color: #6d4aff; font-size: 13px; display: block; margin-bottom: 8px;">操作数 A (十进制)</label>
           <input type="text" id="operandA" class="bitwise-input" placeholder="输入第一个数" value="10">
         </div>
         
         <div>
-          <label style="color: #3b82f6; font-size: 13px; display: block; margin-bottom: 8px;">运算符</label>
+          <label style="color: #6d4aff; font-size: 13px; display: block; margin-bottom: 8px;">运算符</label>
           <select id="operator" class="operator-select" onchange="calculateBitwise()">
             <option value="and">& (AND)</option>
             <option value="or">| (OR)</option>
@@ -412,7 +413,7 @@
         </div>
         
         <div id="operandBContainer">
-          <label style="color: #3b82f6; font-size: 13px; display: block; margin-bottom: 8px;">操作数 B (十进制)</label>
+          <label style="color: #6d4aff; font-size: 13px; display: block; margin-bottom: 8px;">操作数 B (十进制)</label>
           <input type="text" id="operandB" class="bitwise-input" placeholder="输入第二个数" value="6">
         </div>
       </div>

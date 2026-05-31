@@ -217,7 +217,7 @@
     - [7-数据存储、安全认证、DashBoard](/md/k8s/7-数据存储、安全认证、DashBoard.md)
   
   - **CI/CD 实践**
-    - [1.什么是CI和CD](/md/cicd/1.%20什么是CI和CD，为什么要学CI和CD.md)
+    - [1.什么是CI和CD](/md/cicd/1.什么是CI和CD，为什么要学CI和CD.md)
     - [2.安装docker、Portainer和jekins](/md/cicd/2.安装docker、Portainer和jekins.md)
     - [3.Jenkins构建镜像](/md/cicd/3.%20使用%20Jenkins%20构建镜像：将应用打包成镜像.md)
     - [4.将镜像上传至私有镜像库](/md/cicd/4.%20将镜像上传至私有镜像库.md)
@@ -250,7 +250,7 @@
 - 💻 **计算机基础**
   
   - **算法与数据结构**
-    - [算法笔记](/md/算法/左神从0学算法/算法笔记.md)
+    - [算法笔记](/md/算法/lb算法小抄笔记/算法小抄笔记.md)
   
   - **计算机系统**
     - [操作系统](/md/计算机基础/操作系统.md)

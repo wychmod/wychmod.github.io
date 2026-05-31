@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>时间戳转换工具 - AI智能技术知识平台</title>
+  <title>时间戳转换工具 - wychmod Developer Workspace</title>
   <style>
     * {
       margin: 0;
@@ -13,8 +13,8 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #0b1120 0%, #111827 50%, #0f1a2e 100%);
-      color: #e2e8f0;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
+      color: #37352f;
       padding: 20px;
       min-height: 100vh;
     }
@@ -28,46 +28,46 @@
       text-align: center;
       padding: 30px 0;
       margin-bottom: 30px;
-      border-bottom: 2px solid #3b82f6;
+      border-bottom: 2px solid #6d4aff;
     }
 
     .header h1 {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 2.5em;
       margin-bottom: 10px;
     }
 
     .header p {
-      color: #94a3b8;
+      color: #5f5d57;
       font-size: 1.1em;
     }
 
     .back-link {
       display: inline-block;
       margin-bottom: 20px;
-      color: #3b82f6;
+      color: #6d4aff;
       text-decoration: none;
       font-weight: 600;
       transition: color 0.3s;
     }
 
     .back-link:hover {
-      color: #60a5fa;
+      color: #0b6bcb;
     }
 
     /* 当前时间展示区 */
     .current-time-section {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 30px;
       margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
       text-align: center;
     }
 
     .current-time-section h2 {
-      color: #60a5fa;
+      color: #0b6bcb;
       margin-bottom: 20px;
       font-size: 1.5em;
     }
@@ -81,20 +81,20 @@
 
     .time-box {
       background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #2563eb;
+      border: 1px solid #5636d7;
       border-radius: 8px;
       padding: 20px;
     }
 
     .time-label {
-      color: #3b82f6;
+      color: #6d4aff;
       font-size: 14px;
       margin-bottom: 10px;
       font-weight: 600;
     }
 
     .time-value {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 28px;
       font-weight: 700;
       font-family: 'Consolas', 'Monaco', monospace;
@@ -102,7 +102,7 @@
     }
 
     .time-desc {
-      color: #94a3b8;
+      color: #5f5d57;
       font-size: 12px;
     }
 
@@ -115,15 +115,15 @@
     }
 
     .converter-box {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 30px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
     }
 
     .converter-box h3 {
-      color: #60a5fa;
+      color: #0b6bcb;
       margin-bottom: 20px;
       font-size: 1.3em;
     }
@@ -133,7 +133,7 @@
     }
 
     .input-label {
-      color: #3b82f6;
+      color: #6d4aff;
       font-size: 14px;
       margin-bottom: 8px;
       display: block;
@@ -143,11 +143,11 @@
     input[type="text"],
     input[type="datetime-local"] {
       width: 100%;
-      background: #0b1120;
-      border: 2px solid #2563eb;
+      background: #f7f6f3;
+      border: 2px solid #5636d7;
       border-radius: 8px;
       padding: 12px 15px;
-      color: #e2e8f0;
+      color: #37352f;
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: 14px;
       transition: all 0.3s;
@@ -156,13 +156,13 @@
     input[type="text"]:focus,
     input[type="datetime-local"]:focus {
       outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      border-color: #6d4aff;
+      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
     }
 
     button {
-      background: linear-gradient(135deg, #3b82f6, #60a5fa);
-      color: #000;
+      background: linear-gradient(135deg, #6d4aff, #0b6bcb);
+      color: #fff;
       border: none;
       padding: 12px 24px;
       border-radius: 6px;
@@ -170,12 +170,12 @@
       font-size: 14px;
       cursor: pointer;
       transition: all 0.3s;
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 2px 8px rgba(109, 74, 255, 0.22);
     }
 
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.6);
+      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.35);
     }
 
     .converter-box button {
@@ -184,7 +184,7 @@
 
     .result-box {
       background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #2563eb;
+      border: 1px solid #5636d7;
       border-radius: 8px;
       padding: 15px;
       margin-top: 15px;
@@ -196,7 +196,7 @@
     }
 
     .result-text {
-      color: #60a5fa;
+      color: #0b6bcb;
       font-size: 18px;
       font-weight: 600;
       font-family: 'Consolas', 'Monaco', monospace;
@@ -205,37 +205,37 @@
 
     /* 说明文档区 */
     .docs-section {
-      background: linear-gradient(135deg, #0b1120 0%, #111827 100%);
-      border: 2px solid #3b82f6;
+      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
+      border: 2px solid #6d4aff;
       border-radius: 12px;
       padding: 30px;
       margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
     }
 
     .docs-section h2 {
-      color: #60a5fa;
+      color: #0b6bcb;
       margin-bottom: 20px;
       font-size: 1.8em;
-      border-bottom: 2px solid #3b82f6;
+      border-bottom: 2px solid #6d4aff;
       padding-bottom: 10px;
     }
 
     .docs-section h3 {
-      color: #3b82f6;
+      color: #6d4aff;
       margin-top: 25px;
       margin-bottom: 15px;
       font-size: 1.3em;
     }
 
     .docs-section p {
-      color: #94a3b8;
+      color: #5f5d57;
       line-height: 1.8;
       margin-bottom: 15px;
     }
 
     .docs-section ul {
-      color: #94a3b8;
+      color: #5f5d57;
       line-height: 1.8;
       margin-left: 25px;
       margin-bottom: 15px;
@@ -246,8 +246,8 @@
     }
 
     .code-block {
-      background: #0b1120;
-      border: 1px solid #2563eb;
+      background: #f7f6f3;
+      border: 1px solid #5636d7;
       border-radius: 8px;
       padding: 15px;
       margin: 15px 0;
@@ -255,7 +255,7 @@
     }
 
     .code-block pre {
-      color: #e2e8f0;
+      color: #37352f;
       font-family: 'Consolas', 'Monaco', monospace;
       font-size: 13px;
       line-height: 1.6;
@@ -274,15 +274,15 @@
     }
 
     .code-lang {
-      color: #3b82f6;
+      color: #6d4aff;
       font-weight: 600;
       font-size: 14px;
     }
 
     .copy-code-btn {
-      background: rgba(59, 130, 246, 0.3);
-      color: #60a5fa;
-      border: 1px solid #3b82f6;
+      background: rgba(109, 74, 255, 0.12);
+      color: #0b6bcb;
+      border: 1px solid #6d4aff;
       padding: 6px 12px;
       font-size: 12px;
       cursor: pointer;
@@ -296,21 +296,21 @@
 
     .copy-code-btn:hover {
       background: rgba(59, 130, 246, 0.5);
-      border-color: #60a5fa;
+      border-color: #0b6bcb;
       transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 2px 8px rgba(109, 74, 255, 0.22);
     }
 
     .tip-box {
       background: rgba(96, 165, 250, 0.15);
-      border: 2px solid #60a5fa;
+      border: 2px solid #0b6bcb;
       border-radius: 8px;
       padding: 15px;
       margin: 20px 0;
     }
 
     .tip-box strong {
-      color: #60a5fa;
+      color: #0b6bcb;
     }
 
     .message {
@@ -326,15 +326,15 @@
     }
 
     .message.success {
-      background: rgba(0, 255, 0, 0.2);
-      color: #00ff00;
-      border: 2px solid #00ff00;
+      background: rgba(23, 143, 85, 0.12);
+      color: #178f55;
+      border: 2px solid #178f55;
     }
 
     .message.error {
-      background: rgba(255, 68, 68, 0.2);
-      color: #ff4444;
-      border: 2px solid #ff4444;
+      background: rgba(214, 69, 69, 0.12);
+      color: #d64545;
+      border: 2px solid #d64545;
     }
 
     @keyframes slideIn {
@@ -376,6 +376,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
 <body>
   <div class="container">
