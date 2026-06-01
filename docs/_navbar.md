@@ -1,6 +1,8 @@
 - [Docs](/README)
 - [AI](/AI-ASSISTANT-GUIDE)
 - <a href="/tools/index.html" target="_blank">Tools</a>
+- <a href="/me.html" target="_blank" style="color: #4dabff;">云端名片</a>
+- <a href="/resume.html" target="_blank" style="color: #a78bff;">简历</a>
 - [Cloud Native](/md/k8s/1-k8s的介绍)
 - [Testing](/md/软件测试/测试基础/软件测试基础知识)
 - <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">GitHub</a>

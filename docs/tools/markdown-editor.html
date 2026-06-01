@@ -357,13 +357,34 @@
       margin: 15px 0;
     }
 
-    .preview-content .task-list-item {
-      list-style: none;
-      margin-left: -25px;
+    .preview-content .task-list {
+      padding-left: 0;
+      margin: 12px 0;
     }
 
-    .preview-content .task-list-item input {
-      margin-right: 8px;
+    .preview-content .task-list-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 24px;
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .preview-content .task-list-item input[type="checkbox"] {
+      width: 16px !important;
+      height: 16px !important;
+      min-height: 16px !important;
+      flex: 0 0 16px;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 1px solid #bdb8af !important;
+      border-radius: 4px !important;
+      box-shadow: none !important;
+      background: initial !important;
+      appearance: auto !important;
+      accent-color: var(--accent-main);
+      cursor: default;
     }
 
     /* Toast通知 */
@@ -778,6 +799,7 @@ greet('World');
       // 任务列表
       html = html.replace(/^- \[x\] (.+)$/gm, '<li class="task-list-item"><input type="checkbox" checked disabled> $1</li>');
       html = html.replace(/^- \[ \] (.+)$/gm, '<li class="task-list-item"><input type="checkbox" disabled> $1</li>');
+      html = html.replace(/(<li class="task-list-item">.*<\/li>\n?)+/g, '<ul class="task-list">$&</ul>');
 
       // 无序列表
       html = html.replace(/^[\*\-] (.+)$/gm, '<li>$1</li>');

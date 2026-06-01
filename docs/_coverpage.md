@@ -17,8 +17,9 @@
 
 <div class="cover-actions">
   <a href="#/README">开始探索</a>
-  <a href="/tools/index.html">打开工具箱</a>
-  <a href="#/AI-ASSISTANT-GUIDE">AI 助手指南</a>
+  <a href="/me.html" style="background: linear-gradient(135deg, #4dabff, #a78bff); color: #fff; box-shadow: 0 0 24px rgba(77,171,255,0.4);">云端名片 →</a>
+  <a href="/resume.html">完整简历</a>
+  <a href="/tools/index.html">工具箱</a>
 </div>
 
 <div class="workspace-mockup">

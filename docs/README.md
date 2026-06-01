@@ -5,12 +5,12 @@
       <p>把后端、云原生、AI Agent、测试、工具链这些分散知识收敛到一个可检索、可导航、可执行的个人技术工作区。</p>
     </div>
     <div class="home-feature-grid home-feature-grid-3">
-      <a class="notion-card sky" href="/md/java/Java学习路线/Java基本功.md">
+      <a class="notion-card sky" href="#/md/java/Java学习路线/Java基本功">
         <span class="card-index">01</span>
         <h3>后端路线</h3>
         <p>Java、Spring、JVM、MySQL、Redis 与分布式系统的主线知识。</p>
       </a>
-      <a class="notion-card mint" href="/md/agent/agent五种设计模式.md">
+      <a class="notion-card mint" href="#/md/agent/agent五种设计模式">
         <span class="card-index">02</span>
         <h3>AI Agent</h3>
         <p>Agent 设计模式、A2A、MCP、领域架构与智能系统实践。</p>
@@ -220,24 +220,67 @@ $ ai Redis 缓存一致性</pre>
 - [多线程与并发编程](/md/多线程与高并发/多线程与并发编程.md)
 </details>
 
-### 🧠 人工智能
+### 🤖 AI AGENT
 
 <details>
-<summary><b>机器学习与深度学习</b></summary>
+<summary><b>Agent 方法论与协议实践</b></summary>
+
+- **Agent 核心**
+  - [AI方法论](/md/agent/AI方法论.md) | [agent五种设计模式](/md/agent/agent五种设计模式.md)
+  - [多Agent协作系统优劣势与性能](/md/agent/多Agent协作系统优劣势与性能.md)
+  - [manus架构设计](/md/agent/manus架构设计.md)
+  - [claude.md模板](/md/agent/claude.md模板.md)
+
+- **协议与工程**
+  - [MCP协议完整教程：从入门到实践](/md/agent/MCP协议完整教程：从入门到实践.md)
+  - [A2A协议技术学习笔记](/md/agent/A2A协议技术学习笔记.md)
+  - [领域驱动设计DDD架构初识与落地](/md/agent/领域驱动设计DDD架构初识与落地.md)
+  - [Alembic数据库迁移完整教程](/md/agent/Alembic数据库迁移完整教程.md)
+</details>
+
+<details>
+<summary><b>大模型应用与基础</b></summary>
+
+- [大模型基础：理论与技术的演进](/md/人工智能/gpt大模型应用/1-大模型基础：理论与技术的演进.md)
+- [大模型开发基础：OpenAI Embedding](/md/人工智能/gpt大模型应用/2-大模型开发基础：OpenAI%20Embedding.md)
+</details>
+
+<details>
+<summary><b>机器学习与深度学习基础</b></summary>
 
 - **机器学习基础**
   - [线性代数基础](/md/人工智能/人工智能-奈学/1-线性代数基础.md) | [概率论基础](/md/人工智能/人工智能-奈学/2-概率论基础.md)
-  - [机器学习简介](/md/人工智能/人工智能-奈学/3-机器学习简介.md)
+  - [机器学习简介](/md/人工智能/人工智能-奈学/3-机器学习简介.md) | [模型评估与选择](/md/人工智能/人工智能-奈学/4-模型评估与选择.md)
   - [线性模型](/md/人工智能/人工智能-奈学/5-线性模型.md) | [决策树](/md/人工智能/人工智能-奈学/6-决策树.md) | [支持向量机](/md/人工智能/人工智能-奈学/9-支持向量机.md)
+  - [数据预处理](/md/人工智能/人工智能-奈学/7-数据预处理.md) | [plot_decision_regions相关](/md/人工智能/人工智能-奈学/8-plot_decision_regions相关.md)
 
 - **深度学习**
-  - [深度学习基本知识](/md/人工智能/人工智能-奈学/11-深度学习-基本知识.md)
-  - [Tensorflow与Keras](/md/人工智能/人工智能-奈学/12-深度学习-开始使用Tensorflow.md)
-  - [动手学深度学习系列](/md/人工智能/动手学深度学习/动深-1-前言.md)
+  - [神经网络](/md/人工智能/人工智能-奈学/10-神经网络.md) | [深度学习基本知识](/md/人工智能/人工智能-奈学/11-深度学习-基本知识.md)
+  - [Tensorflow与Keras](/md/人工智能/人工智能-奈学/12-深度学习-开始使用Tensorflow.md) | [Keras知识](/md/人工智能/人工智能-奈学/13-深度学习-keras知识.md)
+  - [Tensorflow例子](/md/人工智能/人工智能-奈学/14-深度学习-Tensorflow例子.md)
+  - [循环神经网络](/md/人工智能/人工智能-奈学/15-深度学习-循环神经网络.md) | [自然语言处理NLP](/md/人工智能/人工智能-奈学/16-深度学习-自然语言处理nlp.md)
+</details>
 
-- **AI Agent**
-  - [agent五种设计模式](/md/agent/agent五种设计模式.md)
-  - [A2A协议技术学习笔记](/md/agent/A2A协议技术学习笔记.md)
+<details>
+<summary><b>动手学深度学习</b></summary>
+
+- [前言](/md/人工智能/动手学深度学习/动深-1-前言.md) | [预备工作](/md/人工智能/动手学深度学习/动深-2-预备工作.md)
+- [深度学习基础](/md/人工智能/动手学深度学习/动深-3-深度学习基础.md) | [深度学习计算](/md/人工智能/动手学深度学习/动深-4-深度学习计算.md)
+- [卷积神经网络](/md/人工智能/动手学深度学习/动深-5-卷积神经网络.md) | [循环神经网络](/md/人工智能/动手学深度学习/动深-6-循环神经网络.md)
+- [优化算法](/md/人工智能/动手学深度学习/动深-7-优化算法.md) | [计算性能](/md/人工智能/动手学深度学习/动深-8-计算性能.md) | [计算机视觉](/md/人工智能/动手学深度学习/动深-9-计算机视觉.md)
+</details>
+
+<details>
+<summary><b>视觉模型与工程实践</b></summary>
+
+- [AI人工智能-目标检测模型一览](/md/人工智能/AI人工智能-目标检测模型一览.md)
+- [Yolov5核心基础知识](/md/人工智能/Yolov5核心基础知识.md)
+- [一维卷积神经网络Conv1D](/md/人工智能/一维卷积神经网络Conv1D.md)
+- [批标准化 Batch Normalization](/md/人工智能/批标准化%20%28Batch%20Normalization%29.md)
+- [深度学习报错解决方案](/md/人工智能/深度学习报错解决方案.md)
+- [基于Python玩转人工智能框架](/md/人工智能/基于Python玩转人工智能框架/基于Python玩转人工智能框架-人工智能基础知识-1.md)
+- [论文阅读笔记-吴恩达ecg论文](/md/人工智能/论文阅读笔记-吴恩达ecg论文.md)
+- [LBP特征及其变体和python实现](/md/人工智能/LBP特征及其变体和python实现.pdf)
 </details>
 
 ### 🛠️ 软件工程
