@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI应用推荐导航 - wychmod Developer Workspace</title>
-  <meta name="description" content="精选全球热门AI应用工具和平台导航，包括AI编程助手、对话机器人、图像生成、视频处理等前沿AI产品推荐">
-  <meta name="keywords" content="AI工具,人工智能应用,ChatGPT,Claude,Qoder,AI编程,AI绘图,AI导航">
+  <meta name="description" content="精选全球热门AI应用工具和平台导航，包括Codex、Claude Code、CodeBuddy等AI编程助手，以及对话、图像、视频、写作、音频与搜索类AI产品推荐">
+  <meta name="keywords" content="AI工具,人工智能应用,Codex,Claude Code,CodeBuddy,ChatGPT,Claude,Qoder,AI编程,AI绘图,AI导航">
   <link rel="canonical" href="https://wychmod.github.io/tools/ai-recommend.html">
   <style>
     * {
@@ -192,6 +192,7 @@
       margin-bottom: 30px;
       padding-bottom: 15px;
       border-bottom: 2px solid var(--accent-dark);
+      flex-wrap: wrap;
     }
 
     .section-title h2 {
@@ -207,6 +208,8 @@
       border-radius: 20px;
       font-size: 12px;
       font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* 分类标签 */
@@ -511,6 +514,23 @@
       line-height: 1.7;
     }
 
+    .timeline-desc ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    .timeline-desc li {
+      margin: 4px 0;
+    }
+
+    .timeline-note {
+      max-width: 1000px;
+      margin: 0 auto 28px;
+      color: var(--text-tertiary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
     .timeline-icon {
       font-size: 24px;
       margin-bottom: 10px;
@@ -627,7 +647,7 @@
 
     .search-input {
       width: 100%;
-      padding: 15px 20px 15px 50px;
+      padding: 15px 20px 15px 58px !important;
       background: var(--bg-secondary);
       border: 2px solid var(--bg-tertiary);
       border-radius: 30px;
@@ -648,11 +668,14 @@
 
     .search-icon {
       position: absolute;
-      left: 20px;
+      left: 22px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-tertiary);
       font-size: 18px;
+      line-height: 1;
+      pointer-events: none;
+      z-index: 1;
     }
 
     /* 动画 */
@@ -769,8 +792,54 @@
 
       <!-- AI应用卡片 -->
       <div class="ai-grid" id="aiGrid">
-        <!-- Qoder - 首推 -->
-        <a href="https://qoder.com" target="_blank" class="ai-card featured" data-category="coding">
+        <!-- Codex - 首推 -->
+        <a href="https://openai.com/codex" target="_blank" class="ai-card featured" data-category="coding">
+          <div class="card-header">
+            <div class="card-icon">⌘</div>
+            <div class="card-info">
+              <div class="card-title">Codex</div>
+              <div class="card-company">OpenAI</div>
+            </div>
+          </div>
+          <div class="card-description">
+            OpenAI 面向真实代码库的 AI 编程智能体，适合在终端、云端任务和 PR 工作流里完成改代码、跑测试、解释变更与批量重构。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">编程智能体</span>
+            <span class="card-tag">终端工作流</span>
+            <span class="card-tag">自动跑测试</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 首选推荐</span>
+          </div>
+        </a>
+
+        <!-- Claude Code - 首推 -->
+        <a href="https://www.anthropic.com/claude-code" target="_blank" class="ai-card featured" data-category="coding">
+          <div class="card-header">
+            <div class="card-icon">⟡</div>
+            <div class="card-info">
+              <div class="card-title">Claude Code</div>
+              <div class="card-company">Anthropic</div>
+            </div>
+          </div>
+          <div class="card-description">
+            Anthropic 的终端原生编程代理，擅长理解大型工程、跨文件修改、运行测试、生成提交说明，并能配合 Claude 4 系列处理复杂代码任务。
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">终端代理</span>
+            <span class="card-tag">大型工程</span>
+            <span class="card-tag">强代码推理</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-link">访问官网 →</span>
+            <span class="card-rating">⭐ 首选推荐</span>
+          </div>
+        </a>
+
+        <!-- Qoder -->
+        <a href="https://qoder.com" target="_blank" class="ai-card" data-category="coding">
           <div class="card-header">
             <div class="card-icon">⚡</div>
             <div class="card-info">
@@ -779,7 +848,7 @@
             </div>
           </div>
           <div class="card-description">
-            革命性的AI编程助手，提供智能代码补全、代码审查、自动化测试生成等功能。深度理解代码上下文，帮助开发者提升10倍编程效率。
+            面向开发团队的AI编程助手，提供智能代码补全、代码审查、测试生成和仓库级上下文理解，适合持续提升日常研发效率。
           </div>
           <div class="card-tags">
             <span class="card-tag">代码补全</span>
@@ -788,30 +857,30 @@
           </div>
           <div class="card-footer">
             <span class="card-link">访问官网 →</span>
-            <span class="card-rating">⭐ 首选推荐</span>
+            <span class="card-rating">⭐ 4.8</span>
           </div>
         </a>
 
-        <!-- Claude -->
-        <a href="https://claude.ai" target="_blank" class="ai-card" data-category="chat">
+        <!-- CodeBuddy -->
+        <a href="https://copilot.tencent.com/" target="_blank" class="ai-card" data-category="coding">
           <div class="card-header">
-            <div class="card-icon">🧠</div>
+            <div class="card-icon">🧩</div>
             <div class="card-info">
-              <div class="card-title">Claude</div>
-              <div class="card-company">Anthropic</div>
+              <div class="card-title">CodeBuddy</div>
+              <div class="card-company">腾讯云</div>
             </div>
           </div>
           <div class="card-description">
-            Anthropic开发的下一代AI助手，以安全、有用、诚实为设计理念。擅长长文本处理、复杂推理和编程任务，支持200K上下文窗口。
+            腾讯云代码助手，覆盖插件、IDE 和 CLI 三种形态，支持从需求规划、代码研发到部署验证的全流程 AI 辅助开发。
           </div>
           <div class="card-tags">
-            <span class="card-tag">长文本</span>
-            <span class="card-tag">代码生成</span>
-            <span class="card-tag">逻辑推理</span>
+            <span class="card-tag">国产编程助手</span>
+            <span class="card-tag">IDE / CLI</span>
+            <span class="card-tag">MCP生态</span>
           </div>
           <div class="card-footer">
             <span class="card-link">访问官网 →</span>
-            <span class="card-rating">⭐ 4.9</span>
+            <span class="card-rating">⭐ 4.7</span>
           </div>
         </a>
 
@@ -1238,6 +1307,10 @@
         <span class="badge">里程碑</span>
       </div>
 
+      <p class="timeline-note">
+        按时间向下梳理 AI 从理论、深度学习到大模型与智能体的关键节点；近年条目重点补充主流代表模型的发布时间和核心特性，包含中国模型。
+      </p>
+
       <div class="timeline-container">
         <!-- 1950年 -->
         <div class="timeline-item">
@@ -1330,80 +1403,205 @@
           </div>
         </div>
 
-        <!-- 2020年 -->
+        <!-- 2020.06 -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-year">2020</div>
+          <div class="timeline-year">2020.06</div>
           <div class="timeline-content">
             <div class="timeline-icon">📚</div>
-            <div class="timeline-title">GPT-3震撼发布</div>
+            <div class="timeline-title">GPT-3推动大模型范式</div>
             <div class="timeline-desc">
-              OpenAI发布拥有1750亿参数的GPT-3，展现出惊人的语言理解和生成能力，预示着大语言模型时代的来临。
+              OpenAI发布1750亿参数的GPT-3，少样本学习、自然语言生成和通用任务迁移能力显著提升，预示“规模化预训练 + 提示词”成为主流范式。
             </div>
           </div>
         </div>
 
-        <!-- 2022年 -->
+        <!-- 2022.11 -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-year">2022</div>
+          <div class="timeline-year">2022.11</div>
           <div class="timeline-content">
             <div class="timeline-icon">💥</div>
             <div class="timeline-title">ChatGPT引爆全球</div>
             <div class="timeline-desc">
-              OpenAI发布ChatGPT，两个月内用户突破1亿，成为史上增长最快的应用。AI进入大众视野，掀起全球AI创业浪潮。
+              ChatGPT上线，把对话式交互、指令跟随和RLHF带到大众视野，AI产品从研究演示进入日常办公、学习和开发工作流。
             </div>
           </div>
         </div>
 
-        <!-- 2023年 -->
+        <!-- 2023.03 -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-year">2023</div>
+          <div class="timeline-year">2023.03</div>
           <div class="timeline-content">
             <div class="timeline-icon">🚀</div>
-            <div class="timeline-title">GPT-4与多模态AI</div>
+            <div class="timeline-title">GPT-4与国产对话模型启动</div>
             <div class="timeline-desc">
-              GPT-4发布，支持图像输入的多模态能力。同年Claude、Gemini等模型相继推出，AI进入多模态、多厂商竞争的新阶段。
+              GPT-4发布，强化复杂推理、代码与图像输入能力；同月百度文心一言等国产对话产品亮相，中国大模型应用进入公开竞争阶段。
             </div>
           </div>
         </div>
 
-        <!-- 2024年 -->
+        <!-- 2023.12 -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-year">2024</div>
+          <div class="timeline-year">2023.12</div>
           <div class="timeline-content">
-            <div class="timeline-icon">🎬</div>
-            <div class="timeline-title">Sora视频生成革命</div>
+            <div class="timeline-icon">💎</div>
+            <div class="timeline-title">Gemini 1.0原生多模态</div>
             <div class="timeline-desc">
-              OpenAI发布Sora文生视频模型，能够生成60秒高质量视频，展示对物理世界的深度理解。AI创作进入视频新纪元。
+              Google发布Gemini 1.0，强调文本、图像、音频、视频和代码的原生多模态理解，推动模型从“接入多模态”走向“原生多模态”。
             </div>
           </div>
         </div>
 
-        <!-- 2025年 -->
+        <!-- 2024.03 -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-year">2025</div>
+          <div class="timeline-year">2024.03</div>
           <div class="timeline-content">
-            <div class="timeline-icon">🤖</div>
-            <div class="timeline-title">AI Agent崛起</div>
+            <div class="timeline-icon">🧠</div>
+            <div class="timeline-title">Claude 3系列发布</div>
             <div class="timeline-desc">
-              AI Agent成为热点，能够自主规划、执行复杂任务。AI从工具向智能体演进，开始深度参与人类工作流程。
+              Anthropic发布Claude 3 Opus、Sonnet、Haiku，强化长上下文、视觉理解与安全对齐，形成“旗舰、均衡、轻量”的模型产品矩阵。
             </div>
           </div>
         </div>
 
-        <!-- 2026年 -->
+        <!-- 2024.05 -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <div class="timeline-year">2026</div>
+          <div class="timeline-year">2024.05</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🎙️</div>
+            <div class="timeline-title">GPT-4o开启实时多模态</div>
+            <div class="timeline-desc">
+              OpenAI发布GPT-4o，统一文本、图像和语音交互，显著降低实时语音对话延迟，AI助手开始更接近自然的人机协作界面。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2025.01 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2025.01</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🔬</div>
+            <div class="timeline-title">DeepSeek-R1开源推理模型</div>
+            <div class="timeline-desc">
+              DeepSeek发布R1，强化数学、代码和逻辑推理，并开源模型权重与蒸馏版本，推动低成本高性能推理模型成为全球焦点。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2025.03 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2025.03</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🧭</div>
+            <div class="timeline-title">混合推理与国产多模态加速</div>
+            <div class="timeline-desc">
+              <ul>
+                <li>Claude 3.7 Sonnet：混合推理模型，可在快速响应与延长思考之间切换。</li>
+                <li>Gemini 2.5 Pro：Google“thinking model”，强化复杂推理、科学、数学和代码。</li>
+                <li>文心4.5 / X1：百度发布原生多模态基础模型与深度思考推理模型。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2025.04 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2025.04</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🧱</div>
+            <div class="timeline-title">开源与混合推理继续扩散</div>
+            <div class="timeline-desc">
+              Meta发布Llama 4 Scout、Maverick，采用原生多模态和MoE架构；阿里发布Qwen3，支持“思考/非思考”混合模式、119种语言和更强Agent能力。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2025.05 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2025.05</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🛠️</div>
+            <div class="timeline-title">编程智能体成为主战场</div>
+            <div class="timeline-desc">
+              Anthropic发布Claude Opus 4、Sonnet 4并强化Claude Code；OpenAI发布Codex云端编程智能体，AI开始从“补全代码”进入“理解仓库、执行任务、跑测试”的工程协作阶段。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2025.07 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2025.07</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">🇨🇳</div>
+            <div class="timeline-title">中国模型进入Agent与代码竞争</div>
+            <div class="timeline-desc">
+              <ul>
+                <li>Qwen3-Coder：480B MoE、原生256K上下文，可扩展到1M，面向Agentic Coding。</li>
+                <li>Kimi K2：月之暗面发布开源MoE模型，强调代码、工具使用和Agent任务。</li>
+                <li>GLM-4.5：智谱面向Agent、推理、代码三类任务发布ARC基础模型。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2025.08 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2025.08</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">⚙️</div>
+            <div class="timeline-title">GPT-5统一模型体验</div>
+            <div class="timeline-desc">
+              OpenAI发布GPT-5，强调更强推理、代码、写作和业务场景能力，并在ChatGPT中统一多条模型路线，减少用户手动选择模型的负担。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2025.09 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2025.09</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">⌨️</div>
+            <div class="timeline-title">GPT-5-Codex与Qwen代码生态</div>
+            <div class="timeline-desc">
+              OpenAI发布GPT-5-Codex系统卡，Codex进入面向软件工程的专用模型阶段；Qwen Code、Claude Code代理接入等工具让国产代码模型更容易进入现有开发流程。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2026.02 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2026.02</div>
+          <div class="timeline-content">
+            <div class="timeline-icon">📈</div>
+            <div class="timeline-title">Gemini 3.1 Pro强化复杂任务</div>
+            <div class="timeline-desc">
+              Google发布Gemini 3.1 Pro，继续增强复杂问题求解、长任务规划和推理能力，模型竞争进一步转向“能否稳定完成复杂工作”。
+            </div>
+          </div>
+        </div>
+
+        <!-- 2026.05 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-year">2026.05</div>
           <div class="timeline-content">
             <div class="timeline-icon">🌟</div>
-            <div class="timeline-title">AI新纪元</div>
+            <div class="timeline-title">前沿模型进入高可靠工程阶段</div>
             <div class="timeline-desc">
-              AI技术持续突破，在科研、医疗、教育等领域深度应用。人机协作成为常态，AI正在重塑人类社会的方方面面。
+              Claude Opus 4.8等模型继续提升代码、知识工作和可靠性。行业重点从“模型会不会回答”转向“能否在工具、权限、测试和审计约束下稳定交付”。
             </div>
           </div>
         </div>
