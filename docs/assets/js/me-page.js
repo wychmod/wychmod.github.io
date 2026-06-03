@@ -95,13 +95,56 @@
   }
 
   /* ---------- GitHub 贡献图 & 统计 ----------
-     通过 github-readme-stats 公共 API 获取,失败时给提示
+     策略:默认使用本地静态 SVG(零依赖、永不失效);
+          刷新按钮触发时,才走远程多源 + cache-bust
   */
   const githubUser = 'wychmod';
   const stats = document.getElementById('me-github-stats');
   const heatmap = document.getElementById('me-github-heatmap');
   const langChart = document.getElementById('me-github-languages');
   const streak = document.getElementById('me-github-streak');
+
+  // 绑定刷新按钮:点击走远程多源(默认显示本地静态 SVG)
+  const refreshBtn = document.querySelector('[data-refresh-heatmap]');
+  const heatmapImg = document.querySelector('.me-github-img-wrap > img.me-github-img');
+  if (refreshBtn && heatmapImg) {
+    refreshBtn.addEventListener('click', () => {
+      refreshBtn.disabled = true;
+      refreshBtn.textContent = '…';
+      const bust = (u) => u + (u.includes('?') ? '&' : '?') + '_ts=' + Date.now();
+      const candidates = [
+        bust(`https://ghchart.rshah.org/${githubUser}`),
+        bust(`https://github.com/users/${githubUser}/contributions?type=svg`),
+        bust(`https://streak-stats.demolab.com/?user=${githubUser}&theme=dark`),
+      ];
+      let idx = 0;
+      const test = new Image();
+      const tryNext = () => {
+        if (idx >= candidates.length) {
+          refreshBtn.disabled = false;
+          refreshBtn.textContent = '↻';
+          alert('贡献图刷新失败,已保留本地缓存。');
+          return;
+        }
+        test.onload = () => {
+          if (test.naturalWidth > 100) {
+            heatmapImg.src = candidates[idx];
+            refreshBtn.disabled = false;
+            refreshBtn.textContent = '↻';
+            return;
+          }
+          idx++;
+          tryNext();
+        };
+        test.onerror = () => {
+          idx++;
+          tryNext();
+        };
+        test.src = candidates[idx];
+      };
+      tryNext();
+    });
+  }
 
   const renderStatsFallback = () => {
     if (stats) {
@@ -140,29 +183,91 @@
   };
 
   if (heatmap) {
-    // 用 unpkg 镜像
-    const heatmapUrl = `https://unpkg.com/github-contribution-stats@1.0.0/dist/contributions.json?user=${githubUser}`;
-    const heatmapImg = `https://ghchart.rshah.org/${githubUser}`;
+    // 多个候选源,按稳定性排序
+    // - 关键:每个 URL 加 cache-bust 时间戳,避免浏览器/CDN 缓存 4xx/5xx
+    const bust = (url) => {
+      const sep = url.includes('?') ? '&' : '?';
+      // 重要:加在第一个 URL 的 query 里,避免 Vercel / GitHub 把 ts 当业务参数
+      return url + sep + '_ts=' + Date.now();
+    };
 
-    // 先尝试用 ghchart 图(单图,容错好)
+    const candidates = [
+      // 主源:ghchart.rshah.org,实测 200 + 53KB SVG,稳定
+      bust(`https://ghchart.rshah.org/${githubUser}`),
+      // 备 1:GitHub 官方 contributions(海外网络下可用)
+      bust(`https://github.com/users/${githubUser}/contributions?type=svg`),
+      // 备 2:streak-stats,显示连续贡献天数
+      bust(`https://streak-stats.demolab.com/?user=${githubUser}&theme=dark`),
+    ];
+
+    let candidateIdx = 0;
     const img = new Image();
-    img.alt = `${githubUser} GitHub 贡献图`;
+    img.alt = `${githubUser} GitHub 贡献图(最近一年)`;
     img.className = 'me-github-img';
     img.loading = 'lazy';
+    img.decoding = 'async';
+    img.referrerPolicy = 'no-referrer';
+
+    const tryNext = () => {
+      if (candidateIdx >= candidates.length) {
+        showHeatmapFallback();
+        return;
+      }
+      img.src = candidates[candidateIdx++];
+    };
+
     img.onload = () => {
+      // 校验:某些失败响应会返回极小的"占位"SVG(宽度 < 100px)
+      if (img.naturalWidth > 0 && img.naturalWidth < 100) {
+        console.warn('[me-page] Heatmap too narrow, trying next');
+        tryNext();
+        return;
+      }
       heatmap.innerHTML = '';
-      heatmap.appendChild(img);
+      const wrap = document.createElement('div');
+      wrap.className = 'me-github-img-wrap';
+      wrap.appendChild(img);
+
+      // 重新加载按钮(应对图床临时挂)
+      const reload = document.createElement('button');
+      reload.type = 'button';
+      reload.className = 'me-heatmap-reload';
+      reload.title = '刷新贡献图(强制绕过缓存)';
+      reload.textContent = '↻';
+      reload.addEventListener('click', () => {
+        candidateIdx = 0;
+        // 重新生成全部 URL 的 cache-bust
+        candidates[0] = bust(`https://ghchart.rshah.org/${githubUser}`);
+        candidates[1] = bust(
+          `https://github.com/users/${githubUser}/contributions?type=svg`
+        );
+        candidates[2] = bust(
+          `https://streak-stats.demolab.com/?user=${githubUser}&theme=dark`
+        );
+        heatmap.innerHTML = '<div class="me-github-img-block">加载中...</div>';
+        tryNext();
+      });
+      wrap.appendChild(reload);
+      heatmap.appendChild(wrap);
     };
     img.onerror = () => {
-      heatmap.outerHTML = `
+      console.warn('[me-page] Heatmap source failed, trying next');
+      tryNext();
+    };
+
+    function showHeatmapFallback() {
+      heatmap.innerHTML = `
         <div class="me-github-img-block">
-          贡献图暂不可用,可在
-          <a href="https://github.com/${githubUser}" target="_blank" rel="noopener">GitHub Profile</a>
-          查看实时数据
+          ⚠️ 贡献图暂不可用(可能所有图床都不稳定或被墙)<br />
+          实时贡献图请见
+          <a href="https://github.com/${githubUser}" target="_blank" rel="noopener">github.com/${githubUser}</a>
+          ,
+          <a href="https://github.com/${githubUser}?tab=overview" target="_blank" rel="noopener">Profile Overview</a>
         </div>
       `;
-    };
-    img.src = heatmapImg;
+    }
+
+    tryNext();
   }
 
   // Stats 卡片 - 用 github-readme-stats

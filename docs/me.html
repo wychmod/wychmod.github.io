@@ -630,7 +630,30 @@
           <div class="me-github-title">@wychmod · 最近一年贡献热力图</div>
           <a class="me-project-link github" href="https://github.com/wychmod" target="_blank" rel="noopener">查看 GitHub →</a>
         </div>
-        <div id="me-github-heatmap"></div>
+
+        <!-- 主图:本地静态 SVG(零依赖、永不失效) -->
+        <div class="me-github-img-wrap">
+          <img
+            src="/assets/img/github-contrib.svg"
+            alt="wychmod 最近一年 GitHub 贡献图"
+            class="me-github-img"
+            loading="lazy"
+            decoding="async"
+          />
+          <button
+            type="button"
+            class="me-heatmap-reload"
+            title="刷新贡献图(从 ghchart 重新拉取)"
+            data-refresh-heatmap
+          >↻</button>
+        </div>
+        <p style="margin: 8px 0 0; font-family: var(--me-font-mono); font-size: 11px; color: var(--me-text-muted); text-align: right;">
+          * 静态缓存于 <code>docs/assets/img/github-contrib.svg</code>,数据快照
+        </p>
+
+        <!-- 备用槽位:JS 远程加载(留作后续接入) -->
+        <div id="me-github-heatmap" hidden></div>
+
         <div class="me-github-stats" id="me-github-stats"></div>
         <div id="me-github-languages" style="margin-top: 18px;"></div>
       </div>

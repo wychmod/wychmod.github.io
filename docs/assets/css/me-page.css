@@ -1242,6 +1242,37 @@ h4 {
   min-height: 100px;
 }
 
+.me-github-img-wrap {
+  position: relative;
+}
+
+.me-heatmap-reload {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--me-r-sm);
+  background: rgba(10, 14, 26, 0.78);
+  border: 1px solid var(--me-line);
+  color: var(--me-text-soft);
+  font-size: 14px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all var(--me-dur-fast) var(--me-ease);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.me-heatmap-reload:hover {
+  background: var(--me-blue);
+  color: var(--me-bg-deeper);
+  border-color: var(--me-blue);
+  transform: rotate(180deg);
+}
+
 .me-github-img-block {
   display: flex;
   align-items: center;
