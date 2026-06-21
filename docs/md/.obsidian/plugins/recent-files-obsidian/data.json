@@ -1,6 +1,14 @@
 {
   "recentFiles": [
     {
+      "basename": "AI方法论",
+      "path": "agent/AI方法论.md"
+    },
+    {
+      "basename": "未命名",
+      "path": "未命名.base"
+    },
+    {
       "basename": "manus架构设计",
       "path": "agent/manus架构设计.md"
     },
@@ -191,14 +199,6 @@
     {
       "basename": "Python源码剖析-8-内建对象dict",
       "path": "Python/Python源码剖析/Python源码剖析-8-内建对象dict.md"
-    },
-    {
-      "basename": "JVM实战-3-GC",
-      "path": "JVM/JVM实战-3-GC.md"
-    },
-    {
-      "basename": "2-Redis实战",
-      "path": "Redis/2-Redis实战.md"
     }
   ],
   "omittedPaths": [],
