@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "f117c8faddfd4f9b",
+        "id": "1f2f0c6344095f13",
         "type": "tabs",
         "children": [
           {
-            "id": "d1004f12ae57f23c",
+            "id": "7e84990e762b2a1a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "agent/manus架构设计.md",
+                "file": "agent/AI方法论.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "manus架构设计"
+              "title": "AI方法论"
             }
           }
         ]
@@ -217,7 +217,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:创建新数据库": false,
+      "bases:新建数据库": false,
       "canvas:新建白板": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
@@ -228,11 +228,16 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "d1004f12ae57f23c",
+  "active": "7e84990e762b2a1a",
   "lastOpenFiles": [
+    "youdaonote-images/Pasted image 20260517191601.png",
+    "agent/claude.md模板.md",
+    "agent/AI方法论.md",
+    "Redis/4-RedisStream消息队列.md",
+    "未命名.base",
+    "agent/manus架构设计.md",
     "youdaonote-images/7-2 【资料】LLM可视化&任务流拆解.jpg",
     "agent/agent五种设计模式.md",
-    "agent/manus架构设计.md",
     "java/监控系统/1-javaagent字节码插桩机制详解.md",
     "agent",
     "软件测试/chrome插件设计/网页标签管理设计文档.md",
@@ -248,7 +253,6 @@
     "youdaonote-images/Pasted image 20250921215608.png",
     "youdaonote-images/Pasted image 20250921214951.png",
     "youdaonote-images/Pasted image 20250921192049.png",
-    "youdaonote-images/Pasted image 20250921150536.png",
     "java/自动化测试平台/4. linux基础环境配置-nacos mysql.md",
     "java/自动化测试平台/0.系统架构设计.md",
     "java/短链系统/短链系统架构设计.md",
@@ -270,14 +274,10 @@
     "博客写作内容/架构图如何画.md",
     "java/自动化测试平台/3. 性能测试引擎的构建.md",
     "java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
-    "java/自动化测试平台/1. 测试平台架构.md",
     "java/自动化测试平台",
-    "java/统一消息系统/1. 消息系统架构.md",
     "java/统一消息系统",
-    "java/AIcloud项目/6.SpringSecurity使用.md",
     "java/AIcloud项目",
     "未命名.canvas",
-    "未命名 1.canvas",
-    "java/监控系统"
+    "未命名 1.canvas"
   ]
 }
