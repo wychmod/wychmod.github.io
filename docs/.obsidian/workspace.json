@@ -197,6 +197,7 @@
   },
   "active": "4711d36360288f77",
   "lastOpenFiles": [
+    "md/未命名.base",
     "md/面试/实习面试准备.md",
     "md/agent/AI方法论.md",
     "md/agent/claude.md模板.md",
@@ -239,7 +240,6 @@
     "md/面试/Java面试汇总.md",
     "md/java/手写mysql/1.表、索引、事务和锁.md",
     "md/java/手写mysql",
-    "md/java/手写RPC/2-RPC设计实现.md",
     "md/java/手写RPC-netty",
     "md/java/统一消息系统",
     "md/java/自动化测试平台",
