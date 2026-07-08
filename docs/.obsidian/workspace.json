@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "md/面试/Java面试汇总.md",
+                "file": "md/agent/AI方法论.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Java面试汇总"
+              "title": "AI方法论"
             }
           }
         ],
@@ -125,7 +125,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/面试/Java面试汇总.md",
+                "file": "md/agent/AI方法论.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +135,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Java面试汇总 的反向链接列表"
+              "title": "AI方法论 的反向链接列表"
             }
           },
           {
@@ -197,10 +197,13 @@
   },
   "active": "4711d36360288f77",
   "lastOpenFiles": [
+    "md/agent/Alembic数据库迁移完整教程.md",
+    "md/agent/claude.md模板.md",
+    "md/agent/多Agent协作系统优劣势与性能.md",
+    "md/面试/Java面试汇总.md",
     "md/未命名.base",
     "md/面试/实习面试准备.md",
     "md/agent/AI方法论.md",
-    "md/agent/claude.md模板.md",
     "md/youdaonote-images/Pasted image 20260517191601.png",
     "md/agent/A2A协议技术学习笔记.md",
     "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
@@ -237,12 +240,9 @@
     "md/软件测试/chrome插件设计",
     "md/mysql/MySQL性能优化-索引.md",
     "md/java/手写RPC-netty/1.Netty入门.md",
-    "md/面试/Java面试汇总.md",
-    "md/java/手写mysql/1.表、索引、事务和锁.md",
     "md/java/手写mysql",
     "md/java/手写RPC-netty",
     "md/java/统一消息系统",
-    "md/java/自动化测试平台",
-    "md/java/AIcloud项目"
+    "md/java/自动化测试平台"
   ]
 }
