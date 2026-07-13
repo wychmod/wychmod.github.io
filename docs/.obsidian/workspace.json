@@ -197,6 +197,8 @@
   },
   "active": "d629d094469d6b1b",
   "lastOpenFiles": [
+    "CORRECTIONS.md",
+    "REFACTOR_GUIDELINES.md",
     "REFACTOR_PLAN.md",
     "md/未命名.base",
     "md/示例-流程图和目录.md",
@@ -239,8 +241,6 @@
     "md/管理",
     "md/java/短链系统",
     "md/java/监控系统/3-http协议监控.md",
-    "md/博客写作内容/摄影.md",
-    "md/软件测试/chrome插件设计/网页标签管理设计文档.md",
     "md/软件测试/chrome插件设计",
     "md/java/手写mysql",
     "md/java/手写RPC-netty"
