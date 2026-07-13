@@ -226,16 +226,16 @@ $ ai Redis 缓存一致性</pre>
 <summary><b>Agent 方法论与协议实践</b></summary>
 
 - **Agent 核心**
-  - [AI方法论](/md/agent/AI方法论.md) | [agent五种设计模式](/md/agent/agent五种设计模式.md)
-  - [多Agent协作系统优劣势与性能](/md/agent/多Agent协作系统优劣势与性能.md)
-  - [manus架构设计](/md/agent/manus架构设计.md)
-  - [claude.md模板](/md/agent/claude.md模板.md)
+  - [AI方法论](md/agent/agent开发知识/AI方法论.md) | [agent五种设计模式](md/agent/agent系统知识/agent五种设计模式.md)
+  - [多Agent协作系统优劣势与性能](md/agent/agent系统知识/多Agent协作系统优劣势与性能.md)
+  - [manus架构设计](md/agent/agent系统知识/manus架构设计.md)
+  - [claude.md模板](md/agent/agent开发知识/claude.md模板.md)
 
 - **协议与工程**
-  - [MCP协议完整教程：从入门到实践](/md/agent/MCP协议完整教程：从入门到实践.md)
-  - [A2A协议技术学习笔记](/md/agent/A2A协议技术学习笔记.md)
-  - [领域驱动设计DDD架构初识与落地](/md/agent/领域驱动设计DDD架构初识与落地.md)
-  - [Alembic数据库迁移完整教程](/md/agent/Alembic数据库迁移完整教程.md)
+  - [MCP协议完整教程：从入门到实践](md/agent/agent系统知识/MCP协议完整教程：从入门到实践.md)
+  - [A2A协议技术学习笔记](md/agent/agent系统知识/A2A协议技术学习笔记.md)
+  - [领域驱动设计DDD架构初识与落地](md/agent/agent系统知识/领域驱动设计DDD架构初识与落地.md)
+  - [Alembic数据库迁移完整教程](md/agent/agent系统知识/Alembic数据库迁移完整教程.md)
 </details>
 
 <details>

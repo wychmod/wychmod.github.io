@@ -1,20 +1,28 @@
 {
   "recentFiles": [
     {
-      "basename": "AI方法论",
-      "path": "md/agent/AI方法论.md"
+      "basename": "A2A协议技术学习笔记",
+      "path": "md/agent/agent系统知识/A2A协议技术学习笔记.md"
     },
     {
-      "basename": "Alembic数据库迁移完整教程",
-      "path": "md/agent/Alembic数据库迁移完整教程.md"
-    },
-    {
-      "basename": "claude.md模板",
-      "path": "md/agent/claude.md模板.md"
+      "basename": "领域驱动设计DDD架构初识与落地",
+      "path": "md/agent/agent系统知识/领域驱动设计DDD架构初识与落地.md"
     },
     {
       "basename": "多Agent协作系统优劣势与性能",
-      "path": "md/agent/多Agent协作系统优劣势与性能.md"
+      "path": "md/agent/agent系统知识/多Agent协作系统优劣势与性能.md"
+    },
+    {
+      "basename": "claude.md模板",
+      "path": "md/agent/agent开发知识/claude.md模板.md"
+    },
+    {
+      "basename": "AI方法论",
+      "path": "md/agent/agent开发知识/AI方法论.md"
+    },
+    {
+      "basename": "Alembic数据库迁移完整教程",
+      "path": "md/agent/agent系统知识/Alembic数据库迁移完整教程.md"
     },
     {
       "basename": "Java面试汇总",
@@ -23,10 +31,6 @@
     {
       "basename": "实习面试准备",
       "path": "md/面试/实习面试准备.md"
-    },
-    {
-      "basename": "A2A协议技术学习笔记",
-      "path": "md/agent/A2A协议技术学习笔记.md"
     },
     {
       "basename": "3. 性能测试引擎的构建",

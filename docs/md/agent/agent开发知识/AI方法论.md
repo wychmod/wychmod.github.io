@@ -183,7 +183,7 @@ Entity 和数据库表一一对应。DTO 是给接口用的请求 / 响应对象
 > 基于 Hify 的功能范围（模型管理、Agent、对话、工作流、知识库、MCP 工具），帮我梳理核心数据表和它们之间的关系。只要表名和关系，不展开字段。
 
 
-![](../youdaonote-images/Pasted%20image%2020260517191601.png)
+![](../../youdaonote-images/Pasted%20image%2020260517191601.png)
 
 
 ## 11. 数据库性能规范
