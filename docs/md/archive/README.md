@@ -20,6 +20,7 @@
 | 主线新文档 | 归档目录 | 来源文件数 | 归档时间 | 备注 |
 |---|---|---|---|---|
 | [`md/08-过时技术/00-爬虫技术.md`](../08-过时技术/00-爬虫技术.md) | `old-crawler-notes/` | 2 | 2026-07-14 | 首篇重构示范 |
+| [`md/08-过时技术/10-Electron桌面开发.md`](../08-过时技术/10-Electron桌面开发.md) | `old-electron-notes/` | 1 | 2026-07-14 | 1 篇实操笔记 + 7 张图 |
 
 ---
 
@@ -31,6 +32,8 @@ md/archive/
 ├── old-crawler-notes/                       ← 爬虫（过时）
 │   ├── 1.爬虫基础知识.md
 │   └── 2.scrapy和xpath基础知识.md
+├── old-electron-notes/                      ← Electron（过时）
+│   └── electron开发初步——开发一个音乐播放软件.md
 ├── courses-奈学-ML-DL/                      ← 待办
 ├── courses-九章算法/                        ← 待办
 ├── courses-左神算法/                        ← 待办
