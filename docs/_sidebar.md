@@ -365,4 +365,5 @@
   
   - [爬虫技术](/md/08-过时技术/00-爬虫技术.md)
   - [Electron 桌面开发](/md/08-过时技术/10-Electron桌面开发.md)
+  - [Hadoop / Spark 大数据](/md/08-过时技术/20-Hadoop-Spark大数据.md)
 

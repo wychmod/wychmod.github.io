@@ -1,0 +1,174 @@
+Hadoop 伪分布式安装步骤
+1）jdk安装
+	解压：tar -zxvf jdk-xxxxx-xxx -C ~/app
+	添加到系统环境变量：~/.bash_profile
+		export JAVA_HOME=/home/hadoop/app/jdk.xxxx(这里的路径是你用pwd查出来的安装路径)
+		export PATH=$JAVA_HOME/bin:$PATH
+	使得环境变量生效： 	source ~/.bash_profile
+	验证java是否配置成功： java -v
+
+2) 安装ssh
+	sudo yum install ssh
+	ssh-keygen -t rsa
+	cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+
+3)下载并解压hadoop
+	下载：官网下载
+	解压：tar -zxvf hadoop-2.6.0-cdh5.7.0.tar.gz -C ~/app
+
+4)hadoop配置文件的修改（hadoop_home/etc/hadoop）
+	hadoop-env.sh
+		export JAVA_HOME=/home/hadoop/app/jdk1.7.0_79(这里的路径是你echo $JAVA_HOME出来的)
+
+	core-site.xml
+		<property>
+			<name>fs.defaultFS</name>
+			<value>hdfs://MiWiFi-R3L-srv:8020</value>
+		</property>
+或
+		<property>
+			<name>fs.defaultFS</name>
+			<value>hdfs://hadoop000:8020</value>
+		</property>
+
+		<property>
+			<name>hadoop.tmp.dir</name>
+			<value>/root/app/tmp</value>（这里的路径也是你自己的路径，用pwd查一下）
+		</property>
+
+	hdfs-site.xml
+		<property>
+			<name>dfs.replication</name>
+			<value>1</value>
+		</property>
+
+	slaves	
+5）启动hdfs
+	格式化文件系统（仅第一次执行即可，不要重复执行）：hdfs namenode -format
+	启动hdfs：sbin/start-dfs.sh
+	验证是否启动成功：
+		jps
+			DataNode
+			SecondaryNameNode
+			namenode
+
+			浏览器访问：http://hadoop0001:50070
+6）停止hdfs
+	sbin/stop-dfs.sh
+
+7)配置hdfs
+	vi ~/.bash_profile
+	export HADOOP_HOME = /root/app/hadoop-2.6.0-cdh5.7.0
+	export PATH=$HADOOP_HOME/bin:$PATH
+
+	hdfs shell
+	hadoop fs + 日常Linux指令，前面要加-
+	ps： hadoop fs -ls /
+
+	HDFS shell 常用命令的使用
+	ls get mkdir rm put
+
+	1）hadoop fs -ls / 查看根目录下的文件
+	2）hadoop fs -put xxx / 将xxx文件传递到跟目录下
+	3）hadoop fs -text /hello.txt 查看根目录下的文件
+	4）hadoop fs -mkdir /test 创建文件夹（默认不能指定递归文件夹，或者加-p）
+	5) hadoop fs -ls -R / 递归展示根目录
+	6）hadoop fs -get /h.txt 拿到本地
+	7）hadoop fs -rm /h.txt 删除
+
+	在hdfs-site.xml 中设置了副本系数为1，通过hdfs shell的方式put上去的副本系数为1，如果是java api上传上去，没有手工设置副本系数，所以否则采用hadoop默认的3
+
+
+	Hadoop 分布式环境搭建
+
+	hostname设置： sudo vi /etc/sysconfig/network
+	NETWORKING=yes
+	HOSTNAME=hadoop001
+
+	hostname和ip地址的设置： sudo vi /etc/hosts
+	192.168.199.102 hadoop000
+	192.168.199.247 hadoop001
+	192.168.199.138 hadoop002
+
+	hadoop000: NameNode/DataNode ResourceManager/NodeManager
+	hadoop001: DataNode NodeManager
+	hadoop002: DataNode NodeManager
+
+	前置安装：
+	1.ssh免密码登录 
+	ssh-keygen -t rsa
+	以hadoop000机器为主，在hadoop000上运行：
+	ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop000
+	ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop001
+	ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop002 
+
+	2.jdk安装
+	同上
+
+	集群安装
+	1）hadoop安装
+	同上
+
+	core-site.xml
+	<property>
+			<name>fs.defaultFS</name>
+			<value>hdfs://hadoop000:8020</value>
+		</property>
+
+	hdfs-site.xml
+	<property>
+		<name>dfs.namenode.name.dir</name>
+		<value>/home/hadoop/app/tmp/dfs/name</value>(这里的地址要自己创建，tmp要自己创建)
+	</property>
+
+	<property>
+		<name>dfs.datanode.data.dir</name>
+		<value>/home/hadoop/app/tmp/dfs/data</value>(这里的地址要自己创建，tmp要自己创建)
+	</property>
+
+	yarn-site.xml
+	<property>
+	    <name>yarn.nodemanager.aux-services</name>
+	    <value>mapreduce_shuffle</value>
+	</property>
+
+	<property>
+	    <name>yarn.resourcemanager.hostname</name>
+	    <value>hadoop000</value>
+	</property>
+
+	mapred-site.xml
+	<property>
+	    <name>mapreduce.framework.name</name>
+	    <value>yarn</value>
+	</property>
+
+	slaves
+		hadoop000
+		hadoop001
+		hadoop002
+
+	2）分发安装包到hadoop001和hadoop002节点
+	scp -r ~/app hadoop@hadoop001:~/
+	scp -r ~/app hadoop@hadoop002:~/
+
+	scp ~/.bash_profile hadoop@hadoop001:~/
+	scp ~/.bash_profile hadoop@hadoop002:~/
+	让.bash_profile生效一下
+
+	 3）对NN做格式化：只要在hadoop000上执行即可
+	 	bin/hdfs namenode -format
+
+
+	 4) 启动集群：只要在hadoop000上执行即可
+	 	sbin/start-all.sh
+
+	 5)验证
+	 	jps
+	 	hadoop000：5个
+	 	001/002:2个
+
+	 	hadoop000:50070
+	 	hadoop000:8088
+
+	 6）停止集群： stop-all.sh
