@@ -24,9 +24,9 @@
 |---|---|---|
 | 1 | 博客定位 | **混合用** — 自己复习 + 偶尔分享 |
 | 2 | 课程笔记处理 | **重新总结去掉相似内容，原文件归档** |
-| 3 | 归档层位置 | **顶层 `docs/archive/`**（不在侧边栏） |
+| 3 | 归档层位置 | **`docs/md/archive/`**（md 下顶层，不在侧边栏） |
 | 4 | 过时技术处理 | **保留为主线，但总结开头必须标注"已过时"+ 指向最新技术** |
-| 5 | 个人写作 | **从 `docs/` 移到独立子站**（先归档 `archive/notes-个人写作/`，未来按需建 `docs/life/`） |
+| 5 | 个人写作 | **从 `docs/` 移到独立子站**（先归档 `md/archive/notes-个人写作/`，未来按需建 `docs/life/`） |
 | 6 | 蓝桥杯笔记 | **保留在算法分类** |
 | 7 | 推进节奏 | **先落盘方案，然后按阶段执行** |
 
@@ -163,9 +163,11 @@ docs/
 │       ├── 00-NLP与自然语言处理.md
 │       ├── 10-Electron桌面开发.md
 │       ├── 20-Hadoop-Spark大数据.md
-│       └── 30-爬虫技术.md
+│       └── 00-爬虫技术.md
 │
-├── archive/                            ← 归档层（侧边栏不可见，Git 保留）
+├── md/
+│   ...
+├── md/archive/                         ← 归档层（侧边栏不可见，Git 保留）
 │   ├── courses-奈学-ML-DL/             16 篇
 │   ├── courses-九章算法/                8 个子目录
 │   ├── courses-左神算法/
@@ -208,7 +210,7 @@ docs/
 | `Java/10-Spring生态全解.md` | spring源码 4 篇 + spring系列学习 6 篇 + springboot 1 篇 + springboot+vue 2 篇 + springcloud 3 篇 |
 | `Java/20-JVM与调优.md` | JVM 实战 4 篇 |
 | `Java/30-项目实战.md` | 手写RPC 2 篇 + 抽奖系统 3 篇 |
-| `archive/old-spring-tutorials/` | （无，原内容已并入主线） |
+| `md/archive/old-spring-tutorials/` | （无，原内容已并入主线） |
 
 ### 3.2 Python（5 份主线）
 
@@ -219,7 +221,7 @@ docs/
 | `Python/20-Web框架.md` | Django 13 篇 + Flask 8 篇 |
 | `Python/30-工具与生态.md` | pytest / asyncio / Pydantic / UV / Makefile / fastapi / 命名规范 / anaconda 虚拟环境 |
 | `Python/40-实战项目.md` | django-rest-framework / django上线部署 等 |
-| `archive/books-Python源码剖析/` | 源码剖析原版（合并完成后整体归档） |
+| `md/archive/books-Python源码剖析/` | 源码剖析原版（合并完成后整体归档） |
 
 ### 3.3 算法（2-3 份主线 + 归档）
 
@@ -229,8 +231,8 @@ docs/
 | `算法/10-LeetCode与动态规划.md` | leetcode 刷题 + 动态规划专题 + 面试算法题 |
 | `算法/20-蓝桥杯.md` | 蓝桥杯（保留在主线） |
 | `算法/30-算法模板代码/` | （用于归档源码/作业） |
-| `archive/courses-九章算法/` | 8 个子目录（源码+ipynb） |
-| `archive/courses-左神算法/` | 左神原版笔记（合并后归档） |
+| `md/archive/courses-九章算法/` | 8 个子目录（源码+ipynb） |
+| `md/archive/courses-左神算法/` | 左神原版笔记（合并后归档） |
 
 ### 3.4 AI 与 Agent（保持现有结构 + 整理）
 
@@ -247,8 +249,8 @@ docs/
 | `05-AI与Agent/50-ML与DL基础/00-数学与ML基础.md` | 奈学 ML 部分合并 |
 | `05-AI与Agent/50-ML与DL基础/10-深度学习核心.md` | 奈学 DL 部分合并 |
 | `05-AI与Agent/50-ML与DL基础/20-CV与视觉模型.md` | 根目录 7 篇视觉整理 |
-| `archive/courses-奈学-ML-DL/` | 奈学原版 16 篇 |
-| `archive/books-动手学深度学习/` | 9 篇 |
+| `md/archive/courses-奈学-ML-DL/` | 奈学原版 16 篇 |
+| `md/archive/books-动手学深度学习/` | 9 篇 |
 
 ### 3.5 其他合并
 
@@ -258,10 +260,10 @@ docs/
 | `md/计算机基础/` 5 篇 | 移入 `01-计算机基础/计算机系统/` |
 | `md/数据库/mac 安装redis和MongoDB.md` | MongoDB 整体移 archive；Redis 部分并入 Redis 文档 |
 | `md/消息队列/笔记引用/` 3 PDF | 整体移 archive |
-| `md/系统设计/` 10 PDF | 移 `archive/books-系统设计PDF/` |
+| `md/系统设计/` 10 PDF | 移 `md/archive/books-系统设计PDF/` |
 | `md/软件测试/测试用例.csv` + `测试计划.doc` | 移 archive（不是博客文章） |
 | `md/管理/软实力精进.md` | 移 `06-软件工程/软实力/` |
-| `md/博客写作内容/` + 旅行/摄影/环球影城 | 整体移 `archive/notes-个人写作/` |
+| `md/博客写作内容/` + 旅行/摄影/环球影城 | 整体移 `md/archive/notes-个人写作/` |
 | `md/React-taro/` + `md/微信小程序/` | 合并 → `04-前端/小程序与Taro/` |
 | `md/React/React基础（技术胖）/` | 合并 → `04-前端/React/00-React基础.md`，原版归档 |
 | `md/React/js防抖节流柯里化.md` | 并入 React 笔记 |
@@ -347,7 +349,7 @@ docs/
 ## 五、个人写作 → 独立子站
 
 ### 5.1 当前动作
-全部进 `archive/notes-个人写作/`，包括：
+全部进 `md/archive/notes-个人写作/`，包括：
 - `博客写作内容/`（大论文/技术写作指南/面试指南/南方南方）
 - `南方旅行.md`、`摄影.md`、`环球影城.md`
 
@@ -393,7 +395,7 @@ docs/
 | **1** | 建新目录骨架（空文件夹） | 10 分钟 | ⏳ |
 | **2** | 合并相似内容（按映射表生成新总结文档） | 1-2 天 | ⏳ |
 | **3** | 移动非重复文件到新位置（git mv） | 2 小时 | ⏳ |
-| **4** | 移动归档文件到 `archive/` | 1 小时 | ⏳ |
+| **4** | 移动归档文件到 `md/archive/` | 1 小时 | ⏳ |
 | **5** | 重写 `_sidebar.md` 和 `README.md` | 1 小时 | ⏳ |
 | **6** | 修复 `me.html` / `resume.html` / Docsify 路由 | 30 分钟 | ⏳ |
 | **7** | 修复 doc 内部相对链接 | 1-2 小时 | ⏳ |
@@ -419,7 +421,7 @@ docs/
 docs: 重构 01-计算机基础（Java/Python/算法/计算机系统/并发）
 docs: 重构 02-后端开发
 docs: 重构 05-AI与Agent
-docs: 归档课程笔记到 archive/
+docs: 归档课程笔记到 md/archive/
 docs: 重写侧边栏和首页
 docs: 修复内部链接
 ```
