@@ -323,6 +323,7 @@ $ ai Redis 缓存一致性</pre>
 - [爬虫技术](/md/08-过时技术/00-爬虫技术.md) — 通用爬虫已被 API 替代，特定场景仍可用
 - [Electron 桌面开发](/md/08-过时技术/10-Electron桌面开发.md) — Tauri 崛起，多数场景 Web 化即可
 - [Hadoop / Spark 大数据](/md/08-过时技术/20-Hadoop-Spark大数据.md) — 自建集群被云数仓替代，Spark 仍在云上跑
+- [NLP 与聊天机器人](/md/08-过时技术/30-NLP与聊天机器人.md) — 传统 NLP 被 LLM 全面替代，思路仍值得学
 
 </details>
 

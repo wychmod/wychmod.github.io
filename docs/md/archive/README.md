@@ -22,6 +22,7 @@
 | [`md/08-过时技术/00-爬虫技术.md`](../08-过时技术/00-爬虫技术.md) | `old-crawler-notes/` | 2 | 2026-07-14 | 首篇重构示范 |
 | [`md/08-过时技术/10-Electron桌面开发.md`](../08-过时技术/10-Electron桌面开发.md) | `old-electron-notes/` | 1 | 2026-07-14 | 1 篇实操笔记 + 7 张图 |
 | [`md/08-过时技术/20-Hadoop-Spark大数据.md`](../08-过时技术/20-Hadoop-Spark大数据.md) | `old-hadoop-spark-notes/` | 16 | 2026-07-14 | 含 1 docx(跳过) + 10 note + 5 图 |
+| [`md/08-过时技术/30-NLP与聊天机器人.md`](../08-过时技术/30-NLP与聊天机器人.md) | `old-nlp-notes/` | 1 docx + 1 md + 74 图 | 2026-07-14 | docx 11MB 用 pandoc 转 md + 74 图 |
 
 ---
 
@@ -50,6 +51,11 @@ md/archive/
 │   └── note/
 │       ├── 1, 2, 3, 4, 5, 6, 7, 9, 10.外部数据源
 │       └── 9.主要的运行代码和调优方法
+├── old-nlp-notes/                        ← NLP（过时）
+│   ├── 聊天机器人.docx                 ← 原文件 11MB 完整保留
+│   ├── 聊天机器人.md                   ← pandoc 转出，含 74 张图引用
+│   └── media/                          ← 74 张原图完整保留
+│       └── image1.png ~ image74.png
 ├── courses-奈学-ML-DL/                      ← 待办
 ├── courses-九章算法/                        ← 待办
 ├── courses-左神算法/                        ← 待办
