@@ -23,6 +23,7 @@
 | [`md/08-过时技术/10-Electron桌面开发.md`](../08-过时技术/10-Electron桌面开发.md) | `old-electron-notes/` | 1 | 2026-07-14 | 1 篇实操笔记 + 7 张图 |
 | [`md/08-过时技术/20-Hadoop-Spark大数据.md`](../08-过时技术/20-Hadoop-Spark大数据.md) | `old-hadoop-spark-notes/` | 16 | 2026-07-14 | 含 1 docx(跳过) + 10 note + 5 图 |
 | [`md/08-过时技术/30-NLP与聊天机器人.md`](../08-过时技术/30-NLP与聊天机器人.md) | `old-nlp-notes/` | 1 docx + 1 md + 74 图 | 2026-07-14 | docx 11MB 用 pandoc 转 md + 74 图 |
+| [`md/07-求职/00-面试方法论.md`](../07-求职/00-面试方法论.md) | `old-interview-notes/` | 6 文件（5 md + 1 pdf） | 2026-07-14 | 4 篇主线 + 5 原文件 + 1 pdf |
 
 ---
 
@@ -56,6 +57,13 @@ md/archive/
 │   ├── 聊天机器人.md                   ← pandoc 转出，含 74 张图引用
 │   └── media/                          ← 74 张原图完整保留
 │       └── image1.png ~ image74.png
+├── old-interview-notes/                  ← 面试求职
+│   ├── Java面试汇总.md                 ← 163KB 完整保留
+│   ├── python面试.md                   ← 33KB
+│   ├── python服务器端面试.md           ← 8KB
+│   ├── 实习面试准备.md                  ← 38KB
+│   ├── 校招投递.md                      ← 403B
+│   └── 春招 实习笔试.pdf                ← 259KB 原文件保留
 ├── courses-奈学-ML-DL/                      ← 待办
 ├── courses-九章算法/                        ← 待办
 ├── courses-左神算法/                        ← 待办
