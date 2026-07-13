@@ -25,14 +25,13 @@
             "id": "4711d36360288f77",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "bases",
               "state": {
-                "file": "md/agent/agent系统知识/A2A协议技术学习笔记.md",
-                "mode": "source",
-                "source": false
+                "file": "md/未命名.base",
+                "viewName": "表格"
               },
-              "icon": "lucide-file",
-              "title": "A2A协议技术学习笔记"
+              "icon": "lucide-table",
+              "title": "未命名"
             }
           }
         ],
@@ -125,7 +124,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/agent/agent系统知识/A2A协议技术学习笔记.md",
+                "file": "md/未命名.base",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +134,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "A2A协议技术学习笔记 的反向链接列表"
+              "title": "未命名 的反向链接列表"
             }
           },
           {
@@ -197,6 +196,11 @@
   },
   "active": "d629d094469d6b1b",
   "lastOpenFiles": [
+    "md/示例-流程图和目录.md",
+    "md/未命名.base",
+    "md/agent/agent系统知识/A2A协议技术学习笔记.md",
+    "md/2025年计划.canvas",
+    "md/agent/agent开发知识/AI编程三件套方法论.md",
     "md/agent/agent系统知识/领域驱动设计DDD架构初识与落地.md",
     "md/agent/agent系统知识/多Agent协作系统优劣势与性能.md",
     "md/agent/agent开发知识/claude.md模板.md",
@@ -205,10 +209,8 @@
     "md/agent/agent开发知识/AI方法论.md",
     "md/agent/agent系统知识/Alembic数据库迁移完整教程.md",
     "md/面试/Java面试汇总.md",
-    "md/未命名.base",
     "md/面试/实习面试准备.md",
     "md/youdaonote-images/Pasted image 20260517191601.png",
-    "md/agent/agent系统知识/A2A协议技术学习笔记.md",
     "md/java/自动化测试平台/3. 性能测试引擎的构建.md",
     "md/java/自动化测试平台/2. 性能测试工具Jmeter核心知识.md",
     "md/java/自动化测试平台/4. linux基础环境配置-nacos mysql.md",
@@ -238,8 +240,6 @@
     "md/博客写作内容/摄影.md",
     "md/软件测试/chrome插件设计/网页标签管理设计文档.md",
     "md/软件测试/chrome插件设计/测试助手chrome插件设计文档.md",
-    "md/java/监控系统/2-服务监控与ClassLoader问题处理.md",
-    "md/2025年计划.canvas",
     "md/软件测试/chrome插件设计",
     "md/java/手写mysql",
     "md/java/手写RPC-netty"

@@ -10,7 +10,7 @@
         <h3>后端路线</h3>
         <p>Java、Spring、JVM、MySQL、Redis 与分布式系统的主线知识。</p>
       </a>
-      <a class="notion-card mint" href="#/md/agent/agent五种设计模式">
+      <a class="notion-card mint" href="#/md/agent/agent系统知识/agent五种设计模式">
         <span class="card-index">02</span>
         <h3>AI Agent</h3>
         <p>Agent 设计模式、A2A、MCP、领域架构与智能系统实践。</p>
