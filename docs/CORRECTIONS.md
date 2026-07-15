@@ -16,9 +16,10 @@
 | 死链 | 2 |
 | 格式 | 4 |
 | 风格 | 5 |
-| 补充 | 15 |
+| 补充 | 17 |
+| 路径修正（非内容）| 22 |
 | 归档保留 | 2 |
-| **合计** | **32** |
+| **合计** | **56** |
 
 ---
 
@@ -241,6 +242,21 @@
 
 **补充量**：2 处 "💡 补充"（克制，全部围绕"原文没说清的点"）
 
+**章节结构**（6 章）：
+1. TensorFlow 1.x 入门
+2. 神经网络基础
+3. NLP 基础概念
+4. 传统 NLP 算法（已过时）
+5. 词向量与 word2vec
+6. 聊天机器人实战（原文）
+
+**补充量**：2 处 "💡 补充"（克制，全部围绕"原文没说清的点"）
+
+**GUIDELINES 更新**：
+- 新增 2.5 节"⭐ 最高原则：不丢失任何文件/内容"
+- 增加自查清单和"不允许的"列表
+- 按用户反馈"合并后必须完整归档"
+
 **GUIDELINES 更新**：
 - 新增 2.5 节"⭐ 最高原则：不丢失任何文件/内容"
 - 增加自查清单和"不允许的"列表
@@ -301,3 +317,54 @@
 | 日期 | 文件 | 内容 | 状态 |
 |---|---|---|---|
 | - | - | - | - |
+
+
+### 2026-07-14 #7 — 04-前端（3 主线 + 15 归档）
+
+**涉及文件**：
+- 新建：docs/md/04-前端/00-React基础与状态管理.md
+- 新建：docs/md/04-前端/10-Taro多端开发.md
+- 新建：docs/md/04-前端/20-Vue与小程序.md
+- 归档：docs/md/React/ → docs/md/archive/old-react-notes/（含 3 PDF 完整保留）
+- 归档：docs/md/React-taro/ → docs/md/archive/old-taro-notes/
+- 归档：docs/md/vue/ + docs/md/微信小程序/ → docs/md/archive/old-vue-miniapp-notes/
+- 共享图：docs/md/archive/youdaonote-images/（22 张图，被 3 个归档目录引用）
+- 同步：_sidebar.md / archive/README.md
+
+**设计**：
+
+| 主线 | 来源 | 设计 |
+|---|---|---|
+| 00-React 基础与状态管理 | React16 + Redux 入门/2 + js 防抖节流 | React 入门 + 函数式工具 + Redux 速查 |
+| 10-Taro 多端开发 | Taro 6 篇（最大 53KB） | Taro 简介 + 环境 + 选型 + 设计架构 |
+| 20-Vue 与小程序 | Vue3 + 微信小程序 | Vue CLI + Vue3 vs Vue2 + 小程序基础 |
+
+**改正点**：
+
+| # | 类型 | 原文 | 改正后 | 原因 |
+|---|---|---|---|---|
+| 45 | 路径修正 | 归档文件引用 ../../youdaonote-images/... | 改为 ../youdaonote-images/... | 移动后相对路径失效（按 GUIDELINES 2.6 例外） |
+| 46 | 路径修正 | 3 个主线引用 ../../archive/old-X/youdaonote-images/... | 改为 ../archive/youdaonote-images/... | 子目录不存在，统一用共享图 |
+| 47 | 格式 | 13 个 md + 3 PDF 散在 4 个目录 | 3 篇主线 + 完整归档 | 易检索 + 不丢失 |
+| 48 | 补充 | Taro 设计思想 53KB 是大笔记 | 提炼编译时+运行时双架构 + 5 大核心模块 | 易理解 |
+| 49 | 补充 | Vue3 原文只有 setup 示例 | 补 Vue3 vs Vue2 关键变化对比表 | 易选择 |
+| 50 | 补充 | 微信小程序原文写七月课程笔记 | 补与 Vue 区别对比表 | 易对比 |
+
+**特殊处理**：
+- 3 个 PDF 完整保留（React Hooks 826KB / React Router 584KB / Next.js 815KB）
+- 22 张图复制到 docs/md/archive/youdaonote-images/ 共享目录
+- 归档文件图片路径修正（按 GUIDELINES 2.6 例外条款）
+
+**死链检查**：22/22 主线 + 归档图片通过
+
+**章节结构**：
+- 00-React：6 段（入门/JS 工具/Redux/Hooks/Router/Next）
+- 10-Taro：6 段（简介/环境/选型/自带方法/架构/富文本）
+- 20-Vue 与小程序：8 段（CLI 入门/集成/Router/Vue3/小程序）
+
+**补充量**：2 处 💡 补充（克制）
+
+**GUIDELINES 更新**：
+- 新增 2.6 节图片路径修正例外条款
+- 说明归档文件移动后图片路径必须修正的策略
+- 22 张图复制到 archive/youdaonote-images/ 共享目录

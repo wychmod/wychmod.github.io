@@ -24,6 +24,9 @@
 | [`md/08-过时技术/20-Hadoop-Spark大数据.md`](../08-过时技术/20-Hadoop-Spark大数据.md) | `old-hadoop-spark-notes/` | 16 | 2026-07-14 | 含 1 docx(跳过) + 10 note + 5 图 |
 | [`md/08-过时技术/30-NLP与聊天机器人.md`](../08-过时技术/30-NLP与聊天机器人.md) | `old-nlp-notes/` | 1 docx + 1 md + 74 图 | 2026-07-14 | docx 11MB 用 pandoc 转 md + 74 图 |
 | [`md/07-求职/00-面试方法论.md`](../07-求职/00-面试方法论.md) | `old-interview-notes/` | 6 文件（5 md + 1 pdf） | 2026-07-14 | 4 篇主线 + 5 原文件 + 1 pdf |
+| [`md/04-前端/00-React基础与状态管理.md`](../04-前端/00-React基础与状态管理.md) | `old-react-notes/` | 7 文件（4 md + 3 PDF） | 2026-07-14 | React16 + Redux + js 函数式 |
+| [`md/04-前端/10-Taro多端开发.md`](../04-前端/10-Taro多端开发.md) | `old-taro-notes/` | 6 md | 2026-07-14 | Taro 6 篇合并 |
+| [`md/04-前端/20-Vue与小程序.md`](../04-前端/20-Vue与小程序.md) | `old-vue-miniapp-notes/` | 2 md | 2026-07-14 | Vue3 + 微信小程序 |
 
 ---
 
@@ -64,6 +67,26 @@ md/archive/
 │   ├── 实习面试准备.md                  ← 38KB
 │   ├── 校招投递.md                      ← 403B
 │   └── 春招 实习笔试.pdf                ← 259KB 原文件保留
+├── old-react-notes/                     ← React（含 PDF）
+│   ├── React基础（技术胖）/
+│   │   ├── React16基础.md
+│   │   ├── Redux入门.md
+│   │   ├── Redux2.md
+│   │   ├── React Hooks.pdf
+│   │   ├── React Router.pdf
+│   │   └── React服务端渲染框架Next.js.pdf
+│   └── js防抖、节流和柯里化和reduce.md
+├── old-taro-notes/                      ← Taro
+│   ├── React-taro基本知识.md
+│   ├── React-taro环境搭建.md
+│   ├── taro-技术选型.md
+│   ├── taro-自带方法.md
+│   ├── Taro-设计思想及架构.md           ← 53KB
+│   └── taro小程序展示富文本.md
+├── old-vue-miniapp-notes/               ← Vue + 小程序
+│   ├── Vue3+Vue-CLI项目搭建.md
+│   └── 微信小程序开发（七月）.md
+├── youdaonote-images/                   ← 共享图片（被多个归档目录引用）
 ├── courses-奈学-ML-DL/                      ← 待办
 ├── courses-九章算法/                        ← 待办
 ├── courses-左神算法/                        ← 待办

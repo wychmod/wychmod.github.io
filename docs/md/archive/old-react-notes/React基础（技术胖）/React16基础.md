@@ -13,7 +13,7 @@ A JavaScript library for building user interfaces (用于构建用户界面的Ja
 - **社区强大**：你可以很容易的找到志同道合的人一起学习，因为使用它的人真的是太多了。
 
 > ## React三大体系
-![image](../../youdaonote-images/24E5704A058F4009AFD55C22CB3D3568.png)
+![image](../youdaonote-images/24E5704A058F4009AFD55C22CB3D3568.png)
 
 > ## React开发环境搭建
 - **安装Node.js**

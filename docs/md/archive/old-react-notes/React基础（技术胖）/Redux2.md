@@ -1,6 +1,6 @@
 这里先给出这个课程的基本大纲，也是你可以学会的知识。
 
-![Redux免费视频教程](../../youdaonote-images/8E21653127BC4EA7AD042171B381B97F.png)
+![Redux免费视频教程](../youdaonote-images/8E21653127BC4EA7AD042171B381B97F.png)
 
 P01:基础-认识Redux和文章介绍
 

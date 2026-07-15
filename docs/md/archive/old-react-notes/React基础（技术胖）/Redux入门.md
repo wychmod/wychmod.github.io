@@ -5,14 +5,14 @@
 
 Redux是一个用来管理管理数据状态和UI状态的JavaScript应用工具。随着JavaScript单页应用（SPA）开发日趋复杂，JavaScript需要管理比任何时候都要多的state（状态），Redux就是降低管理难度的。（Redux支持React，Angular、jQuery甚至纯JavaScript）
 
-![image](../../youdaonote-images/EE26DE0376FD49D4843BA10071E42638.png)
+![image](../youdaonote-images/EE26DE0376FD49D4843BA10071E42638.png)
 
 Redux中，可以把数据先放在数据仓库（store-公用状态存储空间）中，这里可以统一管理状态，然后哪个组件用到了，就去stroe中查找状态。如果途中的紫色组件想改变状态时，只需要改变==store==中的状态，然后其他组件就会跟着中的自动进行改变。
 
 > ## Redux创建仓库store和reducer
 Redux工作流程中有四个部分，最重要的就是store这个部分，因为它把所有的数据都放到了store中进行管理。在编写代码的时候，因为重要，所以要优先编写store。
 
-![image](../../youdaonote-images/59D1ECD480104122974EAB0BBD60F962.png)
+![image](../youdaonote-images/59D1ECD480104122974EAB0BBD60F962.png)
 
 在使用==Redux==之前，需要先用==npm install==来进行安装,打开终端，并进入到项目目录，然后输入。
 ```
