@@ -27,6 +27,9 @@
 | [`md/04-前端/00-React基础与状态管理.md`](../04-前端/00-React基础与状态管理.md) | `old-react-notes/` | 7 文件（4 md + 3 PDF） | 2026-07-14 | React16 + Redux + js 函数式 |
 | [`md/04-前端/10-Taro多端开发.md`](../04-前端/10-Taro多端开发.md) | `old-taro-notes/` | 6 md | 2026-07-14 | Taro 6 篇合并 |
 | [`md/04-前端/20-Vue与小程序.md`](../04-前端/20-Vue与小程序.md) | `old-vue-miniapp-notes/` | 2 md | 2026-07-14 | Vue3 + 微信小程序 |
+| [`md/06-软件工程/00-系统设计与设计模式.md`](../06-软件工程/00-系统设计与设计模式.md) | `old-system-design-notes/` | 11 文件（1 md + 10 PDF） | 2026-07-14 | 设计模式 242KB + 10 系统设计 PDF |
+| [`md/06-软件工程/10-软件测试.md`](../06-软件工程/10-软件测试.md) | `old-testing-notes/` | 11 文件（8 md + 1 csv + 1 doc） | 2026-07-14 | 测试基础+jacoco+chrome 插件 |
+| [`md/06-软件工程/20-软实力.md`](../06-软件工程/20-软实力.md) | `old-soft-skills-notes/` | 1 md | 2026-07-14 | 软实力精进 957B |
 
 ---
 
