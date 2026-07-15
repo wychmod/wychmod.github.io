@@ -1,6 +1,6 @@
 # Vue 与小程序
 
-> **原文归档**：[`archive/old-vue-miniapp-notes/`](../../archive/old-vue-miniapp-notes/)
+> **原文归档**：[`archive/old-vue-miniapp-notes/`](../archive/old-vue-miniapp-notes/)
 > 包含：Vue3 + Vue CLI、微信小程序开发
 
 ---
@@ -130,7 +130,7 @@ VUE_APP_SERVER=https://api.prod.com
 
 ## 二、微信小程序
 
-> 📚 完整笔记见 [微信小程序开发（七月）.md](../../archive/old-vue-miniapp-notes/微信小程序开发（七月）.md)（10KB，已归档）
+> 📚 完整笔记见 [微信小程序开发（七月）.md](../archive/old-vue-miniapp-notes/微信小程序开发（七月）.md)（10KB，已归档）
 
 ### 2.1 文件结构
 
@@ -193,5 +193,5 @@ Page({
 
 ## 📚 完整资料
 
-- [Vue3 + Vue CLI 项目搭建](../../archive/old-vue-miniapp-notes/Vue3+Vue-CLI项目搭建.md) — 5KB
-- [微信小程序开发（七月）](../../archive/old-vue-miniapp-notes/微信小程序开发（七月）.md) — 10KB
+- [Vue3 + Vue CLI 项目搭建](../archive/old-vue-miniapp-notes/Vue3+Vue-CLI项目搭建.md) — 5KB
+- [微信小程序开发（七月）](../archive/old-vue-miniapp-notes/微信小程序开发（七月）.md) — 10KB

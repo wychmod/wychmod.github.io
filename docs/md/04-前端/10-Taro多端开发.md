@@ -1,6 +1,6 @@
 # Taro 多端开发
 
-> **原文归档**：[`archive/old-taro-notes/`](../../archive/old-taro-notes/)
+> **原文归档**：[`archive/old-taro-notes/`](../archive/old-taro-notes/)
 > 包含：Taro 基本知识、环境搭建、技术选型、自带方法、设计思想及架构、富文本展示
 
 ---
@@ -72,7 +72,7 @@ Taro.navigateTo({ url: '/pages/about/about' });
 
 ## 五、设计思想及架构（原文核心）
 
-> 📚 完整架构设计见 [Taro-设计思想及架构.md](../../archive/old-taro-notes/Taro-设计思想及架构.md)（53KB，已归档）
+> 📚 完整架构设计见 [Taro-设计思想及架构.md](../archive/old-taro-notes/Taro-设计思想及架构.md)（53KB，已归档）
 
 ### 5.1 编译时 + 运行时双架构
 
@@ -106,7 +106,7 @@ Babel 编译（webpack/taro-cli）
 
 ## 六、富文本展示
 
-> 📚 [taro 小程序展示富文本.md](../../archive/old-taro-notes/taro小程序展示富文本.md)
+> 📚 [taro 小程序展示富文本.md](../archive/old-taro-notes/taro小程序展示富文本.md)
 
 ```jsx
 // Taro 3.x
@@ -119,9 +119,9 @@ import { RichText } from '@tarojs/components';
 
 ## 📚 完整资料
 
-- [Taro 基本知识](../../archive/old-taro-notes/React-taro基本知识.md) — 9KB
-- [Taro 环境搭建](../../archive/old-taro-notes/React-taro环境搭建.md) — 4KB
-- [Taro 技术选型](../../archive/old-taro-notes/taro-技术选型.md) — 5KB
-- [Taro 自带方法](../../archive/old-taro-notes/taro-自带方法.md) — 3KB
-- [Taro 设计思想及架构](../../archive/old-taro-notes/Taro-设计思想及架构.md) — **53KB（最大篇）**
-- [Taro 富文本展示](../../archive/old-taro-notes/taro小程序展示富文本.md) — 2KB
+- [Taro 基本知识](../archive/old-taro-notes/React-taro基本知识.md) — 9KB
+- [Taro 环境搭建](../archive/old-taro-notes/React-taro环境搭建.md) — 4KB
+- [Taro 技术选型](../archive/old-taro-notes/taro-技术选型.md) — 5KB
+- [Taro 自带方法](../archive/old-taro-notes/taro-自带方法.md) — 3KB
+- [Taro 设计思想及架构](../archive/old-taro-notes/Taro-设计思想及架构.md) — **53KB（最大篇）**
+- [Taro 富文本展示](../archive/old-taro-notes/taro小程序展示富文本.md) — 2KB

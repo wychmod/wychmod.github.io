@@ -173,11 +173,12 @@ $ ai Redis 缓存一致性</pre>
 ### ⚛️ 前端开发
 
 <details>
-<summary><b>React 生态</b></summary>
+<summary><b>React / Vue / Taro / 小程序</b></summary>
 
-- [React16基础](/md/React/React基础（技术胖）/React16基础.md)
-- [Redux入门](/md/React/React基础（技术胖）/Redux入门.md) | [Redux2](/md/React/React基础（技术胖）/Redux2.md)
-- [React-taro小程序开发](/md/React-taro/React-taro基本知识.md)
+- [React 基础与状态管理](/md/04-前端/00-React基础与状态管理.md) — React16 + Redux + js 函数式工具
+- [Taro 多端开发](/md/04-前端/10-Taro多端开发.md) — 一套代码编译 6+ 端
+- [Vue 与小程序](/md/04-前端/20-Vue与小程序.md) — Vue3 CLI + 微信小程序
+
 </details>
 
 <details>
@@ -286,10 +287,12 @@ $ ai Redis 缓存一致性</pre>
 ### 🛠️ 软件工程
 
 <details>
-<summary><b>系统设计与测试</b></summary>
+<summary><b>系统设计 / 软件测试 / 软实力</b></summary>
 
-- [设计模式](/md/系统设计/设计模式.md)
-- [软件测试基础](/md/软件测试/测试基础/软件测试基础知识.md)
+- [系统设计与设计模式](/md/06-软件工程/00-系统设计与设计模式.md) — 23 种设计模式 + 10 大系统设计主题
+- [软件测试](/md/06-软件工程/10-软件测试.md) — 测试基础 + JaCoCo + Chrome 插件
+- [软实力](/md/06-软件工程/20-软实力.md) — 3 大软实力 + 职场进阶
+
 </details>
 
 ### 🔧 开发工具
@@ -306,9 +309,11 @@ $ ai Redis 缓存一致性</pre>
 <details>
 <summary><b>面试准备</b></summary>
 
-- [Java面试汇总](/md/面试/Java面试汇总.md)
-- [Python面试](/md/面试/python面试.md) | [Python服务器端面试](/md/面试/python服务器端面试.md)
-- [实习面试准备](/md/面试/实习面试准备.md)
+- [面试方法论](/md/07-求职/00-面试方法论.md) — 自我介绍 / HR / 谈薪 / 反向提问
+- [Java 面试核心速查](/md/07-求职/10-Java面试核心速查.md) — 高频 30 题 + 关键点
+- [Python 面试核心速查](/md/07-求职/20-Python面试.md) — 基础/数据结构/设计模式/底层
+- [实习与校招](/md/07-求职/30-实习与校招.md) — 实习面试核心 + 校招投递记录
+
 </details>
 
 ---
