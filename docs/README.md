@@ -5,12 +5,12 @@
       <p>把后端、云原生、AI Agent、测试、工具链这些分散知识收敛到一个可检索、可导航、可执行的个人技术工作区。</p>
     </div>
     <div class="home-feature-grid home-feature-grid-3">
-      <a class="notion-card sky" href="#/md/java/Java学习路线/Java基本功">
+      <a class="notion-card sky" href="#/md/01-计算机基础/00-Java与JVM.md">
         <span class="card-index">01</span>
         <h3>后端路线</h3>
         <p>Java、Spring、JVM、MySQL、Redis 与分布式系统的主线知识。</p>
       </a>
-      <a class="notion-card mint" href="#/md/agent/agent系统知识/agent五种设计模式">
+      <a class="notion-card mint" href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">
         <span class="card-index">02</span>
         <h3>AI Agent</h3>
         <p>Agent 设计模式、A2A、MCP、领域架构与智能系统实践。</p>
@@ -121,13 +121,13 @@ $ ai Redis 缓存一致性</pre>
 <details>
 <summary><b>Agent + LLM + ML/DL</b></summary>
 
-- [AI 编程三件套](md/05-AI与Agent/00-AI编程三件套方法论.md) — SDD + Harness + Loop
-- [Agent 设计模式与多 Agent](md/05-AI与Agent/10-Agent设计模式与多Agent.md) — 5 种设计 + 多 Agent
-- [MCP 协议](md/05-AI与Agent/20-协议与工程/MCP协议.md)
-- [A2A 协议](md/05-AI与Agent/20-协议与工程/A2A协议.md)
-- [DDD 领域驱动](md/05-AI与Agent/20-协议与工程/DDD领域驱动.md)
-- [manus 架构设计](md/05-AI与Agent/30-参考架构/manus架构设计.md)
-- [Alembic 数据库迁移](md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md)
+- [AI 编程三件套](/md/05-AI与Agent/00-AI编程三件套方法论.md) — SDD + Harness + Loop
+- [Agent 设计模式与多 Agent](/md/05-AI与Agent/10-Agent设计模式与多Agent.md) — 5 种设计 + 多 Agent
+- [MCP 协议](/md/05-AI与Agent/20-协议与工程/MCP协议.md)
+- [A2A 协议](/md/05-AI与Agent/20-协议与工程/A2A协议.md)
+- [DDD 领域驱动](/md/05-AI与Agent/20-协议与工程/DDD领域驱动.md)
+- [manus 架构设计](/md/05-AI与Agent/30-参考架构/manus架构设计.md)
+- [Alembic 数据库迁移](/md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md)
 - [大模型应用](/md/05-AI与Agent/40-大模型应用.md) — GPT 演进 + Embedding + 奈学 NLP
 - [ML 与 DL 基础](/md/05-AI与Agent/50-ML与DL基础.md) — 目标检测 + YOLOv5 + 2026 路径
 
@@ -171,13 +171,22 @@ $ ai Redis 缓存一致性</pre>
 ### 🔧 开发工具
 
 <details>
-<summary><b>Git + AI 助手</b></summary>
+<summary><b>Git + AI 助手 + 工具箱</b></summary>
 
+- [Git 版本控制](/md/09-开发工具/00-Git版本控制.md) — 命令、分支、协作与练习
+- [工具箱与资源](/md/09-开发工具/10-工具箱与资源.md) — 站内工具、CSS 片段与资源索引
 - [AI 助手使用指南](/AI-ASSISTANT-GUIDE.md) — 终端式技术助手
-- [Git 版本控制](/archive/old-git-notes/git命令笔记.md) — 归档笔记
-- [Learn Git Branching](/archive/old-git-notes/learn-git-branching.md) — 可视化练习
 
 </details>
+
+---
+
+## 📋 项目维护
+
+- [重构状态总览](/REFACTOR_STATUS) — 已完成/待完成内容、review 指南
+- [重构方案](/REFACTOR_PLAN) — 目录结构与映射表
+- [合并工作规范](/REFACTOR_GUIDELINES) — 写作与归档规范
+- [改正记录台账](/CORRECTIONS) — 历次改动与待确认事项
 
 ---
 

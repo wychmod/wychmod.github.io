@@ -1,6 +1,6 @@
 # MySQL 数据库
 
-> **原文归档**：[`archive/old-mysql-notes/`](../../archive/old-mysql-notes/)
+> **原文归档**：[`archive/old-mysql-notes/`](../archive/old-mysql-notes/)
 > 包含：MySQL 性能优化 4 篇 + MySQL 是怎样使用/运行的（共 280KB）+ 手写数据库
 
 ---
@@ -11,7 +11,7 @@
 
 ### 1.1 架构优化
 
-> 📚 [MySQL性能优化-架构.md](../../archive/old-mysql-notes/MySQL性能优化-架构.md)（16KB）
+> 📚 [MySQL性能优化-架构.md](../archive/old-mysql-notes/MySQL性能优化-架构.md)（16KB）
 
 - 主从复制（一主多从）
 - 读写分离（应用层路由 / 中间件 MyCat / ProxySQL）
@@ -20,7 +20,7 @@
 
 ### 1.2 索引优化
 
-> 📚 [MySQL性能优化-索引.md](../../archive/old-mysql-notes/MySQL性能优化-索引.md)（10KB）
+> 📚 [MySQL性能优化-索引.md](../archive/old-mysql-notes/MySQL性能优化-索引.md)（10KB）
 
 **索引类型**：
 - B+ 树索引（默认）
@@ -43,7 +43,7 @@
 
 ### 1.3 事务优化
 
-> 📚 [MySQL性能优化-事务.md](../../archive/old-mysql-notes/MySQL性能优化-事务.md)（16KB）
+> 📚 [MySQL性能优化-事务.md](../archive/old-mysql-notes/MySQL性能优化-事务.md)（16KB）
 
 **ACID**：
 - A：原子性（要么全成要么全败）
@@ -64,7 +64,7 @@
 
 ### 1.4 总结
 
-> 📚 [MySQL性能优化-总结.md](../../archive/old-mysql-notes/MySQL性能优化-总结.md)（9KB）
+> 📚 [MySQL性能优化-总结.md](../archive/old-mysql-notes/MySQL性能优化-总结.md)（9KB）
 
 **优化清单**：
 1. 表结构设计（范式 vs 反范式）
@@ -76,7 +76,7 @@
 
 ## 二、MySQL 是怎样运行的
 
-> 📚 [MySQL是怎样运行的.md](../../archive/old-mysql-notes/MySQL是怎样运行的.md)（130KB，已归档）
+> 📚 [MySQL是怎样运行的.md](../archive/old-mysql-notes/MySQL是怎样运行的.md)（130KB，已归档）
 
 **MySQL 整体架构**：
 
@@ -109,13 +109,13 @@
 
 ## 三、MySQL 是怎样使用的
 
-> 📚 [MySQL是怎样使用的.md](../../archive/old-mysql-notes/MySQL是怎样使用的.md)（118KB，已归档）
+> 📚 [MySQL是怎样使用的.md](../archive/old-mysql-notes/MySQL是怎样使用的.md)（118KB，已归档）
 
 实战操作：建表 / CRUD / 索引使用 / 事务 / 锁 / 性能调优 / 主从复制配置 / 备份恢复等。
 
 ## 四、手写数据库
 
-> 📚 [手写数据库.md](../../archive/old-mysql-notes/手写数据库.md)（472B 极简，已归档）
+> 📚 [手写数据库.md](../archive/old-mysql-notes/手写数据库.md)（472B 极简，已归档）
 
 通过手写一个简化版数据库（KV 存储 + SQL 解析）理解底层原理。
 
@@ -141,4 +141,4 @@
 
 ## 📚 完整资料
 
-- [`archive/old-mysql-notes/`](../../archive/old-mysql-notes/) — 7 个 MySQL 笔记完整归档
+- [`archive/old-mysql-notes/`](../archive/old-mysql-notes/) — 7 个 MySQL 笔记完整归档

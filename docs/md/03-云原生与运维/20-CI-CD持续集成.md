@@ -1,13 +1,13 @@
 # CI/CD 持续集成
 
-> **原文归档**：[`archive/old-cicd-notes/`](../../archive/old-cicd-notes/)
+> **原文归档**：[`archive/old-cicd-notes/`](../archive/old-cicd-notes/)
 > 包含：13 篇 CI/CD 笔记
 
 ---
 
 ## 一、什么是 CI/CD
 
-> 📚 完整笔记见 [1.什么是CI和CD.md](../../archive/old-cicd-notes/1.什么是CI和CD，为什么要学CI和CD.md)（2KB，已归档）
+> 📚 完整笔记见 [1.什么是CI和CD.md](../archive/old-cicd-notes/1.什么是CI和CD，为什么要学CI和CD.md)（2KB，已归档）
 
 | 缩写 | 含义 | 目标 |
 |---|---|---|
@@ -30,7 +30,7 @@
 
 ### 3.1 安装
 
-> 📚 [2.安装docker、Portainer和jekins.md](../../archive/old-cicd-notes/2.安装docker、Portainer和jekins.md)（10KB）
+> 📚 [2.安装docker、Portainer和jekins.md](../archive/old-cicd-notes/2.安装docker、Portainer和jekins.md)（10KB）
 
 ```bash
 docker run -d \
@@ -43,7 +43,7 @@ docker run -d \
 
 ### 3.2 构建镜像
 
-> 📚 [3. 使用 Jenkins 构建镜像.md](../../archive/old-cicd-notes/3.%20使用%20Jenkins%20构建镜像：将应用打包成镜像.md)（7KB）
+> 📚 [3. 使用 Jenkins 构建镜像.md](../archive/old-cicd-notes/3.%20使用%20Jenkins%20构建镜像：将应用打包成镜像.md)（7KB）
 
 **Jenkinsfile 模板**：
 
@@ -77,7 +77,7 @@ pipeline {
 
 ### 3.3 镜像库
 
-> 📚 [4. 将镜像上传至私有镜像库.md](../../archive/old-cicd-notes/4.%20将镜像上传至私有镜像库.md)（10KB）
+> 📚 [4. 将镜像上传至私有镜像库.md](../archive/old-cicd-notes/4.%20将镜像上传至私有镜像库.md)（10KB）
 
 - Docker Hub（公共）
 - 阿里云 ACR
@@ -88,11 +88,11 @@ pipeline {
 
 ### 4.1 部署访问
 
-> 📚 [6. 使用 Kubernetes 部署访问你的第一个应用.md](../../archive/old-cicd-notes/6.%20使用%20Kubernetes%20部署访问你的第一个应用.md)（13KB）
+> 📚 [6. 使用 Kubernetes 部署访问你的第一个应用.md](../archive/old-cicd-notes/6.%20使用%20Kubernetes%20部署访问你的第一个应用.md)（13KB）
 
 ### 4.2 灰度发布 / 滚动发布
 
-> 📚 [7. Kubernetes 灰度发布与滚动发布.md](../../archive/old-cicd-notes/7.%20Kubernetes%20灰度发布与滚动发布：零宕机发布的奥秘.md)（12KB）
+> 📚 [7. Kubernetes 灰度发布与滚动发布.md](../archive/old-cicd-notes/7.%20Kubernetes%20灰度发布与滚动发布：零宕机发布的奥秘.md)（12KB）
 
 **蓝绿部署 vs 灰度发布**：
 
@@ -115,7 +115,7 @@ spec:
 
 ### 4.3 服务可用性探针
 
-> 📚 [8. 服务可用性探针.md](../../archive/old-cicd-notes/8.%20服务可用性探针：如何判断你的服务是否可用.md)（9KB）
+> 📚 [8. 服务可用性探针.md](../archive/old-cicd-notes/8.%20服务可用性探针：如何判断你的服务是否可用.md)（9KB）
 
 | 探针类型 | 检查内容 | 失败处理 |
 |---|---|---|
@@ -134,7 +134,7 @@ livenessProbe:
 
 ### 4.4 密钥管理
 
-> 📚 [9. Kubernetes Secret.md](../../archive/old-cicd-notes/9.%20Kubernetes%20Secret：储存你的机密信息.md)（11KB）
+> 📚 [9. Kubernetes Secret.md](../archive/old-cicd-notes/9.%20Kubernetes%20Secret：储存你的机密信息.md)（11KB）
 
 ```bash
 kubectl create secret generic db-cred \
@@ -144,7 +144,7 @@ kubectl create secret generic db-cred \
 
 ### 4.5 DNS 策略
 
-> 📚 [10. Kubernetes DNS 策略.md](../../archive/old-cicd-notes/10.%20Kubernetes%20DNS%20策略：将你的服务连接起来.md)（6KB）
+> 📚 [10. Kubernetes DNS 策略.md](../archive/old-cicd-notes/10.%20Kubernetes%20DNS%20策略：将你的服务连接起来.md)（6KB）
 
 - **ClusterFirst**（默认）：集群内 DNS 优先
 - **Default**：用节点 DNS
@@ -152,7 +152,7 @@ kubectl create secret generic db-cred \
 
 ### 4.6 ConfigMap
 
-> 📚 [11. Kubernetes ConfigMap.md](../../archive/old-cicd-notes/11.%20Kubernetes%20ConfigMap：统一管理服务环境变量.md)（12KB）
+> 📚 [11. Kubernetes ConfigMap.md](../archive/old-cicd-notes/11.%20Kubernetes%20ConfigMap：统一管理服务环境变量.md)（12KB）
 
 ```bash
 kubectl create configmap app-config --from-file=app.properties
@@ -160,7 +160,7 @@ kubectl create configmap app-config --from-file=app.properties
 
 ## 五、GitHub Actions
 
-> 📚 完整笔记见 [Github action.md](../../archive/old-cicd-notes/Github%20action.md)（2KB）
+> 📚 完整笔记见 [Github action.md](../archive/old-cicd-notes/Github%20action.md)（2KB）
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -183,7 +183,7 @@ jobs:
 
 ## 六、前后端分离项目实战
 
-> 📚 [12. 实战训练.md](../../archive/old-cicd-notes/12.%20实战训练：部署一个前后端分离项目.md)（13KB）
+> 📚 [12. 实战训练.md](../archive/old-cicd-notes/12.%20实战训练：部署一个前后端分离项目.md)（13KB）
 
 **典型流水线**：
 ```
@@ -202,4 +202,4 @@ Ingress 路由 → 服务
 
 ## 📚 完整资料
 
-- [`archive/old-cicd-notes/`](../../archive/old-cicd-notes/) — 13 篇 CI/CD 笔记
+- [`archive/old-cicd-notes/`](../archive/old-cicd-notes/) — 13 篇 CI/CD 笔记

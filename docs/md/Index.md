@@ -1,238 +1,81 @@
-# wychmod 的全站开发笔记与知识汇总
+# 全站地图
 
->我是**wychmod**，一名24应届计算机研究生，Java与Python双语言的开发者，前端也能写一点。
+> 本站按 **9 大技术分类** 组织主线文档，所有原始笔记完整归档在 [`md/archive/`](../md/archive/)。
+> 侧边栏是最常用的导航入口，本页作为全站速查地图。
 
 ---
-## Mysql调优
-- [MySQL性能优化-架构](/md/mysql/MySQL性能优化-架构.md)
-- [MySQL性能优化-索引](/md/mysql/MySQL性能优化-索引.md)
-- [MySQL性能优化-事务](/md/mysql/MySQL性能优化-事务.md)
-- [MySQL性能优化-总结](/md/mysql/MySQL性能优化-总结.md)
-- [MySQL是怎样使用的](/md/mysql/MySQL是怎样使用的.md)
 
-## Spring源码解析
-- [1-300行手写简易Spring](/md/spring源码/1-300行手写简易Spring.md)
-- [2-手写完整功能Spring](/md/spring源码/2-手写完整功能Spring.md)
-- [3-Spring源码解析](/md/spring源码/3-Spring源码解析.md)
-- [4-Spring事务传播原理及数据库事务操作原理](/md/spring源码/4-Spring事务传播原理及数据库事务操作原理.md)
+## 💻 计算机基础
 
-## Redis
-- [1-Redis入门](/md/Redis/1-Redis入门.md)
-- [2-Redis实战](/md/Redis/2-Redis实战.md)
-- [3-原理篇](/md/Redis/3-原理篇.md)
-- [Redis高级-多级缓存](/md/Redis/Redis高级-多级缓存.md)
-- [Redis高级-分布式缓存](/md/Redis/Redis高级-分布式缓存.md)
-- [Redis高级-最佳实践](/md/Redis/Redis高级-最佳实践.md)
+- [Java 与 JVM](/md/01-计算机基础/00-Java与JVM.md) — Java 基础 / Spring 全家桶 / JVM 调优
+- [Python 基础与生态](/md/01-计算机基础/10-Python基础与生态.md) — 高级 + 源码 + Django + Flask
+- [算法与数据结构](/md/01-计算机基础/20-算法与数据结构.md) — 动态规划 + 排序 + 九章算法 + 左神
+- [计算机系统与并发](/md/01-计算机基础/30-计算机系统与并发.md) — OS / 网络 / TCP / HTTP / 多线程
+- [Go 语言](/md/01-计算机基础/40-Go语言.md) — 基础 + 工程 + GORM + 高性能
 
-## Java多线程与并发编程
-- [多线程与并发编程](/md/多线程与高并发/多线程与并发编程.md)
+## 💾 后端开发
 
-## 操作系统
-- [操作系统](/md/计算机基础/操作系统.md)
-- [计算机组成原理](/md/计算机基础/计算机组成原理.md)
-- [计算机网络](/md/计算机基础/计算机网络.md)
-- [深入理解tcp协议](/md/计算机基础/深入理解tcp协议.md)
-- [HTTP协议详解](/md/计算机基础/HTTP协议详解.md)
+- [MySQL 数据库](/md/02-后端开发/00-MySQL数据库.md) — 性能优化 + InnoDB 架构 + 2026 生态
+- [Redis 缓存](/md/02-后端开发/10-Redis缓存.md) — 数据结构 / 高级 / 雪崩穿透击穿
+- [消息队列](/md/02-后端开发/20-消息队列.md) — RabbitMQ / RocketMQ / Kafka 对比选型
+- [分布式协调与搜索](/md/02-后端开发/30-分布式协调与搜索.md) — Zookeeper + Elasticsearch
 
-## Django(Python后端开发框架)
-- [Django(MRO)](/md/Django笔记/Django(MRO).md)
-- [django-rest-framework开发笔记](/md/Django笔记/django-rest-framework开发笔记.md)
-- [Djangoday1整体跑通](/md/Django笔记/Djangoday1整体跑通.md)
-- [Django-2视图](/md/Django笔记/Django-2视图.md)
-- [Djangoday3模板](/md/Django笔记/Djangoday3模板.md)
-- [Djangoday4模型](/md/Django笔记/Djangoday4模型.md)
-- [Djangoday5缓存发送邮件用户登录注册](/md/Django笔记/Djangoday5缓存发送邮件用户登录注册.md)
-- [Djangoday6admin站点配置用户认证user](/md/Django笔记/Djangoday6admin站点配置用户认证user.md)
-- [Djangoday7Advaced](/md/Django笔记/Djangoday7Advaced.md)
-- [Djangoday8日志](/md/Django笔记/Djangoday8日志.md)
-- [django上线部署](/md/Django笔记/django上线部署.md)
-- [多种Python虚拟环境的安装](/md/Django笔记/多种Python虚拟环境的安装.md)
+## ☁️ 云原生与运维
 
-## electron
-- [electron开发初步——开发一个音乐播放软件](/md/electron/electron开发初步——开发一个音乐播放软件.md)
+- [Docker 容器化](/md/03-云原生与运维/00-Docker容器化.md) — 镜像/容器/网络/卷 + Compose
+- [Kubernetes 编排](/md/03-云原生与运维/10-Kubernetes编排.md) — Pod/Deployment/Service + 实战
+- [CI-CD 持续集成](/md/03-云原生与运维/20-CI-CD持续集成.md) — Jenkins + Actions + 灰度发布
+- [Linux 运维](/md/03-云原生与运维/30-Linux运维.md) — 命令速查 + Shell 脚本
+- [云原生架构](/md/03-云原生与运维/40-云原生架构.md) — 4 大特征 + 12 因素 + 2026 现状
 
-## flask(Python后端开发框架)
-- [flask模型](/md/flask笔记/flask模型.md)
-- [flask模板](/md/flask笔记/flask模板.md)
-- [flask表单](/md/flask笔记/flask表单.md)
-- [flask视图函数](/md/flask笔记/flask视图函数.md)
-- [flask_redirct_蓝图](/md/flask笔记/flask_redirct_蓝图.md)
-- [flask文件上传邮件发送](/md/flask笔记/flask文件上传邮件发送.md)
-- [在Flask应用中使用gevent-brifuture](/md/flask笔记/在Flask应用中使用gevent-brifuture.md)
+## ⚛️ 前端开发
 
-## git
-- [git命令笔记](/md/git/git命令笔记.md)
+- [React 基础与状态管理](/md/04-前端/00-React基础与状态管理.md) — React16 + Redux + 函数式工具
+- [Taro 多端开发](/md/04-前端/10-Taro多端开发.md) — 一套代码编译 6+ 端
+- [Vue 与小程序](/md/04-前端/20-Vue与小程序.md) — Vue3 CLI + 微信小程序
 
-## linux
-- [Linux常用命令](/md/linux/Linux常用命令.md)
-- [快速创建linux虚拟机](/md/linux/快速创建linux虚拟机.md)
-- [Linux基础知识和命令](/md/linux/Linux核心技能与应用/Linux基础知识和命令.md)
-- [Linux进阶知识和命令](/md/linux/Linux核心技能与应用/Linux进阶知识和命令.md)
-- [Shell脚本编程](/md/linux/Linux核心技能与应用/Shell脚本编程.md)
-- [Vim文本编辑与版本控制](/md/linux/Linux核心技能与应用/Vim文本编辑与版本控制.md)
-- [管理服务器和服务](/md/linux/Linux核心技能与应用/管理服务器和服务.md)
-- [网络和安全](/md/linux/Linux核心技能与应用/网络和安全.md)
-- [远程连接和SSH](/md/linux/Linux核心技能与应用/远程连接和SSH.md)
+## 🤖 AI 与 Agent
 
-## Python
-- [anaconda中使用虚拟环境](/md/Python/anaconda中使用虚拟环境.md)
-- [python命名规范](/md/Python/python命名规范.md)
+- [AI 编程三件套](/md/05-AI与Agent/00-AI编程三件套方法论.md) — SDD + Harness + Loop
+- [Agent 设计模式与多 Agent](/md/05-AI与Agent/10-Agent设计模式与多Agent.md) — 5 种设计 + 多 Agent
+- [MCP 协议](/md/05-AI与Agent/20-协议与工程/MCP协议.md)
+- [A2A 协议](/md/05-AI与Agent/20-协议与工程/A2A协议.md)
+- [DDD 领域驱动](/md/05-AI与Agent/20-协议与工程/DDD领域驱动.md)
+- [manus 架构设计](/md/05-AI与Agent/30-参考架构/manus架构设计.md)
+- [Alembic 数据库迁移](/md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md)
+- [大模型应用](/md/05-AI与Agent/40-大模型应用.md) — GPT 演进 + Embedding + 奈学 NLP
+- [ML 与 DL 基础](/md/05-AI与Agent/50-ML与DL基础.md) — 目标检测 + YOLOv5 + 2026 路径
 
-### Python源码剖析
-- [Python源码剖析-1-对象模型](/md/Python/Python源码剖析/Python源码剖析-1-对象模型.md)
-- [Python源码剖析-2-对象的生命周期](/md/Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md)
-- [Python源码剖析-3-内建对象float](/md/Python/Python源码剖析/Python源码剖析-3-内建对象float.md)
-- [Python源码剖析-4-内建对象int](/md/Python/Python源码剖析/Python源码剖析-4-内建对象int.md)
-- [Python源码剖析-5-内建对象bytes](/md/Python/Python源码剖析/Python源码剖析-5-内建对象bytes.md)
-- [Python源码剖析-6-内建对象str](/md/Python/Python源码剖析/Python源码剖析-6-内建对象str.md)
-- [Python源码剖析-7-内建对象list](/md/Python/Python源码剖析/Python源码剖析-7-内建对象list.md)
-- [Python源码剖析-8-内建对象dict](/md/Python/Python源码剖析/Python源码剖析-8-内建对象dict.md)
-- [Python源码剖析-9-内建对象背后的思想-面试](/md/Python/Python源码剖析/Python源码剖析-9-内建对象背后的思想-面试.md)
-- [Python源码剖析-10-最佳实践：灵活运用内建容器](/md/Python/Python源码剖析/Python源码剖析-10-最佳实践：灵活运用内建容器.md)
-- [Python源码剖析-11-开发实战：基于最小堆设计任务调度系统](/md/Python/Python源码剖析/Python源码剖析-11-开发实战：基于最小堆设计任务调度系统.md)
-- [Python源码剖析-12-虚拟机的字节码](/md/Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md)
-- [Python源码剖析-13-作用域与名字空间](/md/Python/Python源码剖析/Python源码剖析-13-作用域与名字空间.md)
-- [Python源码剖析-14-虚拟机和CPU](/md/Python/Python源码剖析/Python源码剖析-14-虚拟机和CPU.md)
-- [Python源码剖析-15-GIL全局锁](/md/Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md)
-- [Python源码剖析-16-import 模块动态加载](Python/Python源码剖析/Python源码剖析-16-import%20模块动态加载.md)
-- [Python源码剖析-17-虚拟机面试](/md/Python/Python源码剖析/Python源码剖析-17-虚拟机面试.md)
-- [Python源码剖析-18-函数对象](/md/Python/Python源码剖析/Python源码剖析-18-函数对象.md)
-- [Python源码剖析-19-面试：嵌套函数、闭包与装饰器](/md/Python/Python源码剖析/Python源码剖析-19-面试：嵌套函数、闭包与装饰器.md)
-- [Python源码剖析-20-高阶函数和函数式编程](/md/Python/Python源码剖析/Python源码剖析-20-高阶函数和函数式编程.md)
-- [Python源码剖析-21-装饰器核心解析](/md/Python/Python源码剖析/Python源码剖析-21-装饰器核心解析.md)
-- [Python源码剖析-22-函数相关面试](/md/Python/Python源码剖析/Python源码剖析-22-函数相关面试.md)
-- [Python源码剖析-23-类对象源码剖析](/md/Python/Python源码剖析/Python源码剖析-23-类对象源码剖析.md)
-- [Python源码剖析-24-属性描述符如何影响属性行为](/md/Python/Python源码剖析/Python源码剖析-24-属性描述符如何影响属性行为.md)
-- [Python源码剖析-25-魔术方法应用](/md/Python/Python源码剖析/Python源码剖析-25-魔术方法应用.md)
-- [Python源码剖析-26-metaclass元类编程](/md/Python/Python源码剖析/Python源码剖析-26-metaclass元类编程.md)
-- [Python源码剖析-27-如何实现代码热更新](/md/Python/Python源码剖析/Python源码剖析-27-如何实现代码热更新.md)
-- [Python源码剖析-28-类和继承相关面试题](/md/Python/Python源码剖析/Python源码剖析-28-类和继承相关面试题.md)
-- [Python源码剖析-29-生成器 generator](/md/Python/Python源码剖析/Python源码剖析-29-生成器%20generator.md)
-- [Python源码剖析-30-造轮子：设计协程库](/md/Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md)
-- [Python源码剖析-31-工程实践：用 asyncio 协程构建高并发应用](/md/Python/Python源码剖析/Python源码剖析-31-工程实践：用%20asyncio%20协程构建高并发应用.md)
-- [Python源码剖析-32-内存池优化内存分配效率](/md/Python/Python源码剖析/Python源码剖析-32-内存池优化内存分配效率.md)
-- [Python源码剖析-33-引用计数的缺陷与应对](/md/Python/Python源码剖析/Python源码剖析-33-引用计数的缺陷与应对.md)
-- [Python源码剖析-34-垃圾回收机制](/md/Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md)
-- [Python源码剖析-35-内存泄露诊断](/md/Python/Python源码剖析/Python源码剖析-35-内存泄露诊断.md)
+## 🛠️ 软件工程
 
+- [系统设计与设计模式](/md/06-软件工程/00-系统设计与设计模式.md) — 23 种设计模式 + 10 大系统设计
+- [软件测试](/md/06-软件工程/10-软件测试.md) — 测试基础 + JaCoCo + Chrome 插件
+- [软实力](/md/06-软件工程/20-软实力.md) — 3 大软实力 + 职场进阶
 
-### Python高级
-- [1.一切皆对象](/md/Python/Python高级/1.一切皆对象.md)
-- [2.魔法函数](/md/Python/Python高级/2.魔法函数.md)
-- [3.类和对象](/md/Python/Python高级/3.类和对象.md)
-- [4.自定义序列类](/md/Python/Python高级/4.自定义序列类.md)
-- [5.深入Python的set和dict](/md/Python/Python高级/5.深入Python的set和dict.md)
-- [6.对象引用、可变性和垃圾回收](/md/Python/Python高级/6.对象引用、可变性和垃圾回收.md)
-- [7.元类编程](/md/Python/Python高级/7.元类编程.md)
-- [8.迭代器和生成器](/md/Python/Python高级/8.迭代器和生成器.md)
-- [9.socket编程](/md/Python/Python高级/9.socket编程.md)
-- [10.多线程、多进程和线程池编程](/md/Python/Python高级/10.多线程、多进程和线程池编程.md)
-- [11.协程和异步io](/md/Python/Python高级/11.协程和异步io.md)
-- [12.asyncio并发编程](/md/Python/Python高级/12.asyncio并发编程.md)
-- [python工具包](/md/Python/Python高级/python工具包.md)
-- [Python精度问题](/md/Python/Python高级/Python精度问题.md)
-- [理解Python装饰器(Decorator)](/md/Python/Python高级/理解Python装饰器(Decorator).md)
+## 💼 面试求职
 
-### Python高效
-- [字典、列表、集合、元组](/md/Python/Python高效/字典、列表、集合、元组.md)
-- [字符串处理相关问题](/md/Python/Python高效/字符串处理相关问题.md)
-- [对象迭代与反迭代相关问题](/md/Python/Python高效/对象迭代与反迭代相关问题.md)
-- [文件IO效率相关问题与解决技巧](/md/Python/Python高效/文件IO效率相关问题与解决技巧.md)
-- [类与对象深度问题与解决技巧](/md/Python/Python高效/类与对象深度问题与解决技巧.md)
+- [面试方法论](/md/07-求职/00-面试方法论.md) — 自我介绍 / HR / 谈薪
+- [Java 面试核心速查](/md/07-求职/10-Java面试核心速查.md) — 高频 30 题
+- [Python 面试核心速查](/md/07-求职/20-Python面试.md) — 基础 / 数据结构 / 设计模式
+- [实习与校招](/md/07-求职/30-实习与校招.md) — 实习面试 + 校招投递
 
-## 算法
-- [算法笔记](/md/算法/左神从0学算法/算法笔记.md)
+## ⚠️ 过时技术（存档）
 
-## React
-- [React16基础](/md/React/React基础（技术胖）/React16基础.md)
-- [Redux入门](/md/React/React基础（技术胖）/Redux入门.md)
-- [Redux2](/md/React/React基础（技术胖）/Redux2.md)
+- [爬虫技术](/md/08-过时技术/00-爬虫技术.md) — 通用爬虫已被 API 替代
+- [Electron 桌面开发](/md/08-过时技术/10-Electron桌面开发.md) — Tauri 崛起
+- [Hadoop / Spark 大数据](/md/08-过时技术/20-Hadoop-Spark大数据.md) — 云数仓替代
+- [NLP 与聊天机器人](/md/08-过时技术/30-NLP与聊天机器人.md) — 传统 NLP 被 LLM 替代
 
-## React taro
-- [React-taro基本知识](/md/React-taro/React-taro基本知识.md)
-- [React-taro环境搭建](/md/React-taro/React-taro环境搭建.md)
-- [taro-技术选型](/md/React-taro/taro-技术选型.md)
-- [taro-自带方法](/md/React-taro/taro-自带方法.md)
-- [Taro-设计思想及架构](/md/React-taro/Taro-设计思想及架构.md)
+## 🔧 开发工具
 
-## Vue
-- [Vue3+Vue-CLI项目搭建](/md/vue/Vue3+Vue-CLI项目搭建.md)
+- [Git 版本控制](/md/09-开发工具/00-Git版本控制.md) — 命令、分支、协作与练习
+- [工具箱与资源](/md/09-开发工具/10-工具箱与资源.md) — 站内工具、CSS 片段与资源索引
+- [AI 助手使用指南](/AI-ASSISTANT-GUIDE.md) — 终端式技术助手
+- [AI 故障排查](/AI-TROUBLESHOOTING) — 常见问题排查
+- [更新摘要](/AI-UPDATE-SUMMARY) — AI 功能更新记录
 
-## 人工智能
-- [1-线性代数基础](/md/人工智能/人工智能-奈学/1-线性代数基础.md)
-- [2-概率论基础](/md/人工智能/人工智能-奈学/2-概率论基础.md)
-- [3-机器学习简介](/md/人工智能/人工智能-奈学/3-机器学习简介.md)
-- [4-模型评估与选择](/md/人工智能/人工智能-奈学/4-模型评估与选择.md)
-- [5-线性模型](/md/人工智能/人工智能-奈学/5-线性模型.md)
-- [6-决策树](/md/人工智能/人工智能-奈学/6-决策树.md)
-- [7-数据预处理](/md/人工智能/人工智能-奈学/7-数据预处理.md)
-- [8-plot decision regions相关](/md/人工智能/人工智能-奈学/8-plot decision regions相关.md)
-- [9-支持向量机](/md/人工智能/人工智能-奈学/9-支持向量机.md)
-- [10-神经网络](/md/人工智能/人工智能-奈学/10-神经网络.md)
-- [11-深度学习-基本知识](/md/人工智能/人工智能-奈学/11-深度学习-基本知识.md)
-- [12-深度学习-开始使用Tensorflow](/md/人工智能/人工智能-奈学/12-深度学习-开始使用Tensorflow.md)
-- [13-深度学习-keras知识](/md/人工智能/人工智能-奈学/13-深度学习-keras知识.md)
-- [14-深度学习-Tensorflow例子](/md/人工智能/人工智能-奈学/14-深度学习-Tensorflow例子.md)
-- [15-深度学习-循环神经网络](/md/人工智能/人工智能-奈学/15-深度学习-循环神经网络.md)
-- [16-深度学习-自然语言处理nlp](/md/人工智能/人工智能-奈学/16-深度学习-自然语言处理nlp.md)
+---
 
-## 深度学习
-- [动深-1-前言](/md/人工智能/动手学深度学习/动深-1-前言.md)
-- [动深-2-预备工作](/md/人工智能/动手学深度学习/动深-2-预备工作.md)
-- [动深-3-深度学习基础](/md/人工智能/动手学深度学习/动深-3-深度学习基础.md)
-- [动深-4-深度学习计算](/md/人工智能/动手学深度学习/动深-4-深度学习计算.md)
-- [动深-5-卷积神经网络](/md/人工智能/动手学深度学习/动深-5-卷积神经网络.md)
-- [动深-6-循环神经网络](/md/人工智能/动手学深度学习/动深-6-循环神经网络.md)
-- [动深-7-优化算法](/md/人工智能/动手学深度学习/动深-7-优化算法.md)
-- [动深-8-计算性能](/md/人工智能/动手学深度学习/动深-8-计算性能.md)
-- [动深-9-计算机视觉](/md/人工智能/动手学深度学习/动深-9-计算机视觉.md)
+## 📦 归档索引
 
-## Agent（智能体）
-- [A2A协议技术学习笔记](agent/agent系统知识/A2A协议技术学习笔记.md)
-- [MCP协议完整教程：从入门到实践](agent/agent系统知识/MCP协议完整教程：从入门到实践.md)
-- [agent五种设计模式](agent/agent系统知识/agent五种设计模式.md)
-- [多Agent协作系统优劣势与性能](agent/agent系统知识/多Agent协作系统优劣势与性能.md)
-- [领域驱动设计DDD架构初识与落地](agent/agent系统知识/领域驱动设计DDD架构初识与落地.md)
-- [Alembic数据库迁移完整教程](agent/agent系统知识/Alembic数据库迁移完整教程.md)
-
-### MCP协议系列教程（PDF）
-- [MCP协议简化了哪些流程？为什么需要MCP协议？](/md/agent/6-2%20MCP协议简化了哪些流程？为什么需要MCP协议？.pdf)
-- [MCP架构全解析：Host、Client与Server的协同机制](/md/agent/6-3%20MCP架构全解析：Host、Client与Server的协同机制.pdf)
-
-## 面试
-
-- [python面试](/md/面试/python面试.md)
-- [python服务器端面试](/md/面试/python服务器端面试.md)
-
-## 系统设计
-- [设计模式](/md/系统设计/设计模式.md)
-
-## git
-- [learn-git-branching](/md/git/learn-git-branching.md)
-
-## Java基础
-- [Java基本功](/md/java/Java学习路线/Java基本功.md)
-- [Java集合框架](/md/java/Java学习路线/Java集合框架.md)
-
-## Spring
-- [ssm整合学习-Spring](/md/java/spring系列学习/ssm整合学习-Spring.md)
-- [ssm整合学习-SpringMVC](/md/java/spring系列学习/ssm整合学习-SpringMVC.md)
-- [ssm整合学习-Mybatis](/md/java/spring系列学习/ssm整合学习-Mybatis.md)
-- [ssm整合学习-Maven](/md/java/spring系列学习/ssm整合学习-Maven.md)
-- [ssm整合学习-MabtisPlus](/md/java/spring系列学习/ssm整合学习-MabtisPlus.md)
-- [ssm整合学习-SpringBoot](/md/java/spring系列学习/ssm整合学习-SpringBoot.md)
-
-## SpringBoot开发与实战
-- [SpringBoot实战和原理](/md/java/springboot/SpringBoot实战和原理.md)
-- [springboot项目开发流程](/md/java/springboot+vue项目开发/springboot项目开发流程.md)
-- [java和vue服务器部署](/md/java/springboot+vue项目开发/java和vue服务器部署.md)
-
-## Java项目开发相关
-- [雪花算法](/md/java/雪花算法.md)
-- [IOC和AOP](/md/java/IOC和AOP.md)
-- [MVC模式](/md/java/MVC模式.md)
-- [MVC模式](/md/java/Servlet.md)
-
-## MySQL
-- [MySQL是怎样使用的](/md/mysql/MySQL是怎样使用的.md)
-- [MySQL是怎样运行的](/md/mysql/MySQL是怎样运行的.md)
+所有原始笔记按来源分类归档在 [`md/archive/`](../md/archive/)，完整映射见 [`md/archive/README.md`](../md/archive/README.md)。

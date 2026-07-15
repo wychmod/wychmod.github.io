@@ -1,6 +1,6 @@
 # Kubernetes 编排
 
-> **原文归档**：[`archive/old-k8s-notes/`](../../archive/old-k8s-notes/)
+> **原文归档**：[`archive/old-k8s-notes/`](../archive/old-k8s-notes/)
 > 包含：6 篇 K8s 笔记（最大 60KB）
 
 ---
@@ -46,7 +46,7 @@
 
 ## 三、Pod
 
-> 📚 完整笔记见 [4-Pod详解.md](../../archive/old-k8s-notes/4-Pod详解.md)（60KB，已归档）
+> 📚 完整笔记见 [4-Pod详解.md](../archive/old-k8s-notes/4-Pod详解.md)（60KB，已归档）
 
 ### 3.1 Pod 是什么
 
@@ -80,7 +80,7 @@ spec:
 
 ## 四、Pod 控制器
 
-> 📚 完整笔记见 [5-Pod控制器详解.md](../../archive/old-k8s-notes/5-Pod控制器详解.md)（44KB，已归档）
+> 📚 完整笔记见 [5-Pod控制器详解.md](../archive/old-k8s-notes/5-Pod控制器详解.md)（44KB，已归档）
 
 ### 4.1 Deployment
 
@@ -131,7 +131,7 @@ spec:
 
 ## 五、Service
 
-> 📚 完整笔记见 [6-Service详解.md](../../archive/old-k8s-notes/6-Service详解.md)（23KB，已归档）
+> 📚 完整笔记见 [6-Service详解.md](../archive/old-k8s-notes/6-Service详解.md)（23KB，已归档）
 
 | 类型 | 用途 |
 |---|---|
@@ -156,7 +156,7 @@ spec:
 
 ## 六、存储与安全
 
-> 📚 完整笔记见 [7-数据存储、安全认证、DashBoard.md](../../archive/old-k8s-notes/7-数据存储、安全认证、DashBoard.md)（42KB，已归档）
+> 📚 完整笔记见 [7-数据存储、安全认证、DashBoard.md](../archive/old-k8s-notes/7-数据存储、安全认证、DashBoard.md)（42KB，已归档）
 
 - **PV / PVC**：持久化存储
 - **StorageClass**：动态供给
@@ -166,7 +166,7 @@ spec:
 
 ## 七、集群环境搭建
 
-> 📚 完整笔记见 [2-k8s集群环境的搭建和资源管理.md](../../archive/old-k8s-notes/2-k8s集群环境的搭建和资源管理.md)（26KB，已归档）
+> 📚 完整笔记见 [2-k8s集群环境的搭建和资源管理.md](../archive/old-k8s-notes/2-k8s集群环境的搭建和资源管理.md)（26KB，已归档）
 
 ```bash
 # 常用方式
@@ -179,7 +179,7 @@ spec:
 
 ## 八、实战
 
-> 📚 完整笔记见 [3-实战.md](../../archive/old-k8s-notes/3-实战.md)（20KB，已归档）
+> 📚 完整笔记见 [3-实战.md](../archive/old-k8s-notes/3-实战.md)（20KB，已归档）
 
 ### 8.1 部署一个 Web 应用
 
@@ -201,7 +201,7 @@ kubectl rollout undo deployment/web  # 回滚
 
 ## 📚 完整资料
 
-- [`archive/old-k8s-notes/`](../../archive/old-k8s-notes/) — 6 篇 K8s 笔记
+- [`archive/old-k8s-notes/`](../archive/old-k8s-notes/) — 6 篇 K8s 笔记
   - 1-k8s的介绍.md（6KB）
   - 2-k8s集群环境的搭建和资源管理.md（26KB）
   - 3-实战.md（20KB）

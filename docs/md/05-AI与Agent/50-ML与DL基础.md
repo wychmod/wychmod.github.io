@@ -1,6 +1,6 @@
 # ML 与 DL 基础
 
-> **原文归档**：[`archive/old-ml-dl-notes/`](../../archive/old-ml-dl-notes/)
+> **原文归档**：[`archive/old-ml-dl-notes/`](../archive/old-ml-dl-notes/)
 > 包含：根目录视觉模型 5 篇 + 1 PDF + 笔记 1 篇
 
 ---
@@ -9,7 +9,7 @@
 
 ### 1.1 目标检测模型一览
 
-> 📚 [AI人工智能-目标检测模型一览.md](../../archive/old-ml-dl-notes/AI人工智能-目标检测模型一览.md)（14KB）
+> 📚 [AI人工智能-目标检测模型一览.md](../archive/old-ml-dl-notes/AI人工智能-目标检测模型一览.md)（14KB）
 
 **目标检测主流模型**：
 
@@ -27,7 +27,7 @@
 
 ### 1.2 YOLOv5 核心知识
 
-> 📚 [Yolov5核心基础知识.md](../../archive/old-ml-dl-notes/Yolov5核心基础知识.md)（885B 入门）
+> 📚 [Yolov5核心基础知识.md](../archive/old-ml-dl-notes/Yolov5核心基础知识.md)（885B 入门）
 
 - 数据集格式（YOLO txt 标注）
 - 模型结构：Backbone + Neck + Head
@@ -36,7 +36,7 @@
 
 ### 1.3 Conv1D（一维卷积）
 
-> 📚 [一维卷积神经网络Conv1D.md](../../archive/old-ml-dl-notes/一维卷积神经网络Conv1D.md)（4KB）
+> 📚 [一维卷积神经网络Conv1D.md](../archive/old-ml-dl-notes/一维卷积神经网络Conv1D.md)（4KB）
 
 **Conv1D 应用**：
 - 文本 / 序列数据
@@ -46,7 +46,7 @@
 
 ### 1.4 Batch Normalization
 
-> 📚 [批标准化 (Batch Normalization).md](../../archive/old-ml-dl-notes/批标准化%20(Batch%20Normalization).md)（3KB）
+> 📚 [批标准化 (Batch Normalization).md](../archive/old-ml-dl-notes/批标准化%20%28Batch%20Normalization%29.md)（3KB）
 
 **为什么需要 BN**：
 - 解决内部协变量偏移（Internal Covariate Shift）
@@ -61,13 +61,13 @@ y = γ * x̂ + β
 
 ### 1.5 论文阅读笔记
 
-> 📚 [论文阅读笔记-吴恩达ecg论文.md](../../archive/old-ml-dl-notes/论文阅读笔记-吴恩达ecg论文.md)（5KB）
+> 📚 [论文阅读笔记-吴恩达ecg论文.md](../archive/old-ml-dl-notes/论文阅读笔记-吴恩达ecg论文.md)（5KB）
 
 吴恩达团队 ECG（心电图）异常检测论文。
 
 ### 1.6 深度学习报错解决方案
 
-> 📚 [深度学习报错解决方案.md](../../archive/old-ml-dl-notes/深度学习报错解决方案.md)（4KB）
+> 📚 [深度学习报错解决方案.md](../archive/old-ml-dl-notes/深度学习报错解决方案.md)（4KB）
 
 常见报错：
 - CUDA out of memory → 减小 batch size
@@ -77,7 +77,7 @@ y = γ * x̂ + β
 
 ### 1.7 LBP 特征（传统 CV）
 
-> 📚 [LBP特征及其变体和python实现.pdf](../../archive/old-ml-dl-notes/LBP特征及其变体和python实现.pdf)（596KB PDF，已归档）
+> 📚 [LBP特征及其变体和python实现.pdf](../archive/old-ml-dl-notes/LBP特征及其变体和python实现.pdf)（596KB PDF，已归档）
 
 LBP（Local Binary Pattern）= 传统 CV 特征工程，深度学习普及后已少用。
 
@@ -123,7 +123,7 @@ LBP（Local Binary Pattern）= 传统 CV 特征工程，深度学习普及后已
 
 ## 📚 完整资料
 
-- [`archive/old-ml-dl-notes/`](../../archive/old-ml-dl-notes/) — 完整 ML/DL 笔记归档
+- [`archive/old-ml-dl-notes/`](../archive/old-ml-dl-notes/) — 完整 ML/DL 笔记归档
   - 根目录 5 篇（目标检测/YOLOv5/Conv1D/BN/论文）
   - 1 个 PDF（LBP）
   - 1 篇（深度学习报错）

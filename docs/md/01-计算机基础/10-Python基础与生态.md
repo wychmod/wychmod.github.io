@@ -1,13 +1,13 @@
 # Python 基础与生态
 
-> **原文归档**：[`archive/old-python-notes/`](../../archive/old-python-notes/) + [`archive/old-django-notes/`](../../archive/old-django-notes/) + [`archive/old-flask-notes/`](../../archive/old-flask-notes/)
+> **原文归档**：[`archive/old-python-notes/`](../archive/old-python-notes/) + [`archive/old-django-notes/`](../archive/old-django-notes/) + [`archive/old-flask-notes/`](../archive/old-flask-notes/)
 > 包含：100+ 文件（Python 高级/高效/源码 + Django + Flask + 数据分析 + 书籍阅读）
 
 ---
 
 ## 一、Python 高级
 
-> 📚 [Python高级 1-12](../../archive/old-python-notes/Python高级/) — 12 章系统讲解
+> 📚 [Python高级 1-12](../archive/old-python-notes/Python高级/) — 12 章系统讲解
 
 | 章节 | 主题 |
 |---|---|
@@ -26,7 +26,7 @@
 
 ## 二、Python 高效
 
-> 📚 [Python高效 1-5](../../archive/old-python-notes/Python高效/) — 5 个性能主题
+> 📚 [Python高效 1-5](../archive/old-python-notes/Python高效/) — 5 个性能主题
 
 - 字典 / 列表 / 集合 / 元组
 - 字符串处理
@@ -36,7 +36,7 @@
 
 ## 三、Python 源码剖析
 
-> 📚 [Python源码剖析 1-35](../../archive/old-python-notes/Python源码剖析/) — 35 章完整版（500KB+）
+> 📚 [Python源码剖析 1-35](../archive/old-python-notes/Python源码剖析/) — 35 章完整版（500KB+）
 
 涵盖：
 - 对象模型 / 生命周期
@@ -47,7 +47,7 @@
 
 ## 四、Python 工具生态
 
-> 📚 [Python 工具笔记](../../archive/old-python-notes/) — 根目录零散工具笔记
+> 📚 [Python 工具笔记](../archive/old-python-notes/) — 根目录零散工具笔记
 
 - `anaconda`：虚拟环境
 - `asyncio`：异步 I/O
@@ -59,7 +59,7 @@
 
 ## 五、Django 框架
 
-> 📚 [Django 笔记 13 篇](../../archive/old-django-notes/) — 系统教程
+> 📚 [Django 笔记 13 篇](../archive/old-django-notes/) — 系统教程
 
 - MRO（方法解析顺序，C3 线性化）
 - 整体跑通（项目结构 + 配置）
@@ -75,7 +75,7 @@
 
 ## 六、Flask 框架
 
-> 📚 [Flask 笔记 8 篇](../../archive/old-flask-notes/) — 轻量级教程
+> 📚 [Flask 笔记 8 篇](../archive/old-flask-notes/) — 轻量级教程
 
 - 模型 / 模板 / 表单
 - 视图函数
@@ -86,7 +86,7 @@
 
 ## 七、Python 数据分析
 
-> 📚 [Python 数据分析完整教程](../../archive/old-python-notes/python数据分析/) — 含 NumPy / Pandas / Matplotlib / Seaborn / 实战项目
+> 📚 [Python 数据分析完整教程](../archive/old-python-notes/python数据分析/) — 含 NumPy / Pandas / Matplotlib / Seaborn / 实战项目
 
 - **NumPy**：数组运算
 - **Pandas**：DataFrame / 数据清洗
@@ -98,7 +98,7 @@
 
 ## 八、Effective Python 读书笔记
 
-> 📚 [Effective Python 90 个有效方法](../../archive/old-python-notes/Python书籍阅读/) — 2 篇笔记 + 1 PDF
+> 📚 [Effective Python 90 个有效方法](../archive/old-python-notes/Python书籍阅读/) — 2 篇笔记 + 1 PDF
 
 ## 九、2026 年 Python 生态
 
@@ -118,6 +118,6 @@
 
 ## 📚 完整资料
 
-- [`archive/old-python-notes/`](../../archive/old-python-notes/) — Python 完整笔记归档
-- [`archive/old-django-notes/`](../../archive/old-django-notes/) — Django 完整笔记
-- [`archive/old-flask-notes/`](../../archive/old-flask-notes/) — Flask 完整笔记
+- [`archive/old-python-notes/`](../archive/old-python-notes/) — Python 完整笔记归档
+- [`archive/old-django-notes/`](../archive/old-django-notes/) — Django 完整笔记
+- [`archive/old-flask-notes/`](../archive/old-flask-notes/) — Flask 完整笔记

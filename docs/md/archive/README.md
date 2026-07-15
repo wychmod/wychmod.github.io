@@ -30,6 +30,15 @@
 | [`md/06-软件工程/00-系统设计与设计模式.md`](../06-软件工程/00-系统设计与设计模式.md) | `old-system-design-notes/` | 11 文件（1 md + 10 PDF） | 2026-07-14 | 设计模式 242KB + 10 系统设计 PDF |
 | [`md/06-软件工程/10-软件测试.md`](../06-软件工程/10-软件测试.md) | `old-testing-notes/` | 11 文件（8 md + 1 csv + 1 doc） | 2026-07-14 | 测试基础+jacoco+chrome 插件 |
 | [`md/06-软件工程/20-软实力.md`](../06-软件工程/20-软实力.md) | `old-soft-skills-notes/` | 1 md | 2026-07-14 | 软实力精进 957B |
+| [`md/05-AI与Agent/00-AI编程三件套方法论.md`](../05-AI与Agent/00-AI编程三件套方法论.md) | `old-agent-notes/agent开发知识/` | 3 md | 2026-07-15 | SDD + Harness + Loop |
+| [`md/05-AI与Agent/10-Agent设计模式与多Agent.md`](../05-AI与Agent/10-Agent设计模式与多Agent.md) | `old-agent-notes/agent系统知识/` | 2 md | 2026-07-15 | 5 种设计模式 + 多 Agent 协作 |
+| [`md/05-AI与Agent/20-协议与工程/MCP协议.md`](../05-AI与Agent/20-协议与工程/MCP协议.md) | `old-agent-notes/agent系统知识/` | 1 md + 2 pdf | 2026-07-15 | MCP 完整教程 |
+| [`md/05-AI与Agent/20-协议与工程/A2A协议.md`](../05-AI与Agent/20-协议与工程/A2A协议.md) | `old-agent-notes/agent系统知识/` | 1 md | 2026-07-15 | A2A 学习笔记 |
+| [`md/05-AI与Agent/20-协议与工程/DDD领域驱动.md`](../05-AI与Agent/20-协议与工程/DDD领域驱动.md) | `old-agent-notes/agent系统知识/` | 1 md | 2026-07-15 | DDD 架构 |
+| [`md/05-AI与Agent/30-参考架构/manus架构设计.md`](../05-AI与Agent/30-参考架构/manus架构设计.md) | `old-agent-notes/agent系统知识/` | 1 md | 2026-07-15 | manus 架构 |
+| [`md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md`](../05-AI与Agent/30-参考架构/Alembic数据库迁移.md) | `old-agent-notes/agent系统知识/` | 1 md | 2026-07-15 | Alembic 迁移 |
+| [`md/09-开发工具/00-Git版本控制.md`](../09-开发工具/00-Git版本控制.md) | `old-git-notes/` | 2 md + 1 xmind | 2026-07-15 | Git 命令 + Learn Git Branching |
+| [`md/09-开发工具/10-工具箱与资源.md`](../09-开发工具/10-工具箱与资源.md) | `old-tools-notes/` + `old-css-notes/` | 2 md | 2026-07-15 | 工具集 README + CSS 便捷代码 |
 
 ---
 

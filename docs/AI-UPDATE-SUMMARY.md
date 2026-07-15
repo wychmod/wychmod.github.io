@@ -276,7 +276,7 @@ _sidebar.md修改             +1     侧边栏更新
 
 ### 文档资源
 - 📖 [完整使用指南](AI-ASSISTANT-GUIDE.md)
-- 🧪 [测试清单](TEST-AI-ASSISTANT.md)
+- 🧪 测试清单（原文件已移除）
 - 💬 [GitHub Issues](https://github.com/wychmod/wychmod.github.io/issues)
 
 ### 问题反馈

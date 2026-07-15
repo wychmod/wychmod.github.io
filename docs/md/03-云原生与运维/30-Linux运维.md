@@ -1,13 +1,13 @@
 # Linux 运维
 
-> **原文归档**：[`archive/old-linux-notes/`](../../archive/old-linux-notes/)
+> **原文归档**：[`archive/old-linux-notes/`](../archive/old-linux-notes/)
 > 包含：常用命令 + 核心技能与应用 8 篇 + 1 docx + 3 个零散 md
 
 ---
 
 ## 一、Linux 常用命令
 
-> 📚 完整命令速查见 [Linux常用命令.md](../../archive/old-linux-notes/Linux常用命令.md)（19KB，已归档）
+> 📚 完整命令速查见 [Linux常用命令.md](../archive/old-linux-notes/Linux常用命令.md)（19KB，已归档）
 
 ### 1.1 文件操作
 
@@ -56,7 +56,7 @@ scp local remote
 
 ## 二、Linux 基础与进阶
 
-> 📚 完整笔记见 [Linux基础知识和命令.md](../../archive/old-linux-notes/Linux核心技能与应用/Linux基础知识和命令.md)（19KB，已归档）
+> 📚 完整笔记见 [Linux基础知识和命令.md](../archive/old-linux-notes/Linux核心技能与应用/Linux基础知识和命令.md)（19KB，已归档）
 
 ### 2.1 文件权限
 
@@ -100,7 +100,7 @@ apt remove nginx
 
 ## 三、Shell 脚本编程
 
-> 📚 完整笔记见 [Shell脚本编程.md](../../archive/old-linux-notes/Linux核心技能与应用/Shell脚本编程.md)（9KB，已归档）
+> 📚 完整笔记见 [Shell脚本编程.md](../archive/old-linux-notes/Linux核心技能与应用/Shell脚本编程.md)（9KB，已归档）
 
 ### 3.1 基础语法
 
@@ -155,7 +155,7 @@ kubectl rollout status deployment/$K8S_DEPLOYMENT
 
 ## 四、Vim 文本编辑
 
-> 📚 [Vim文本编辑与版本控制.md](../../archive/old-linux-notes/Linux核心技能与应用/Vim文本编辑与版本控制.md)（4KB）
+> 📚 [Vim文本编辑与版本控制.md](../archive/old-linux-notes/Linux核心技能与应用/Vim文本编辑与版本控制.md)（4KB）
 
 ### 4.1 模式
 
@@ -182,7 +182,7 @@ n          # 下一个匹配
 
 ## 五、服务管理
 
-> 📚 [管理服务器和服务.md](../../archive/old-linux-notes/Linux核心技能与应用/管理服务器和服务.md)（4KB）
+> 📚 [管理服务器和服务.md](../archive/old-linux-notes/Linux核心技能与应用/管理服务器和服务.md)（4KB）
 
 ```bash
 # systemd（现代）
@@ -199,7 +199,7 @@ service nginx start
 
 ## 六、网络与安全
 
-> 📚 [网络和安全.md](../../archive/old-linux-notes/Linux核心技能与应用/网络和安全.md)（3KB）
+> 📚 [网络和安全.md](../archive/old-linux-notes/Linux核心技能与应用/网络和安全.md)（3KB）
 
 - **防火墙**：`ufw` / `firewalld` / `iptables`
 - **SSH 密钥认证**：`ssh-keygen` + `authorized_keys`
@@ -218,7 +218,7 @@ ssh-copy-id user@host
 
 ## 七、远程连接 SSH
 
-> 📚 [远程连接和SSH.md](../../archive/old-linux-notes/Linux核心技能与应用/远程连接和SSH.md)（1KB）
+> 📚 [远程连接和SSH.md](../archive/old-linux-notes/Linux核心技能与应用/远程连接和SSH.md)（1KB）
 
 **SSH 配置** `~/.ssh/config`：
 ```
@@ -236,10 +236,10 @@ ssh myserver
 ## 八、零散资料
 
 > 📚 完整资料见归档目录：
-> - [`archive/old-linux-notes/tx服务器信息.md`](../../archive/old-linux-notes/tx服务器信息.md)（85B 占位）
-> - [`archive/old-linux-notes/快速创建linux虚拟机.md`](../../archive/old-linux-notes/快速创建linux虚拟机.md)（117B 占位）
-> - [`archive/old-linux-notes/百度云资料.md`](../../archive/old-linux-notes/百度云资料.md)（119B 占位）
-> - [`archive/old-linux-notes/linux安装服务器和mysql.docx`](../../archive/old-linux-notes/linux安装服务器和mysql.docx)（22KB docx）
+> - [`archive/old-linux-notes/tx服务器信息.md`](../archive/old-linux-notes/tx服务器信息.md)（85B 占位）
+> - [`archive/old-linux-notes/快速创建linux虚拟机.md`](../archive/old-linux-notes/快速创建linux虚拟机.md)（117B 占位）
+> - [`archive/old-linux-notes/百度云资料.md`](../archive/old-linux-notes/百度云资料.md)（119B 占位）
+> - [`archive/old-linux-notes/linux安装服务器和mysql.docx`](../archive/old-linux-notes/linux安装服务器和mysql.docx)（22KB docx）
 
 ## 九、生产建议
 
@@ -254,4 +254,4 @@ ssh myserver
 
 ## 📚 完整资料
 
-- [`archive/old-linux-notes/`](../../archive/old-linux-notes/) — 完整 Linux 笔记归档
+- [`archive/old-linux-notes/`](../archive/old-linux-notes/) — 完整 Linux 笔记归档

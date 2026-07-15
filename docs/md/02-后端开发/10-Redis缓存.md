@@ -1,6 +1,6 @@
 # Redis 缓存
 
-> **原文归档**：[`archive/old-redis-notes/`](../../archive/old-redis-notes/)
+> **原文归档**：[`archive/old-redis-notes/`](../archive/old-redis-notes/)
 > 包含：8 篇 Redis 笔记（最大 158KB）+ 3 安装指南
 
 ---
@@ -9,7 +9,7 @@
 
 ### 1.1 入门
 
-> 📚 [1-Redis入门.md](../../archive/old-redis-notes/1-Redis入门.md)（30KB，已归档）
+> 📚 [1-Redis入门.md](../archive/old-redis-notes/1-Redis入门.md)（30KB，已归档）
 
 **Redis 是什么**：
 - 基于内存的**键值存储**
@@ -26,13 +26,13 @@
 
 ### 1.2 实战
 
-> 📚 [2-Redis实战.md](../../archive/old-redis-notes/2-Redis实战.md)（**158KB** 完整版，已归档）
+> 📚 [2-Redis实战.md](../archive/old-redis-notes/2-Redis实战.md)（**158KB** 完整版，已归档）
 
 涵盖：基本命令、Pipeline、事务、Lua 脚本、发布订阅、Stream、客户端选型等。
 
 ### 1.3 原理
 
-> 📚 [3-原理篇.md](../../archive/old-redis-notes/3-原理篇.md)（56KB，已归档）
+> 📚 [3-原理篇.md](../archive/old-redis-notes/3-原理篇.md)（56KB，已归档）
 
 **底层数据结构**：
 - SDS（简单动态字符串）
@@ -51,7 +51,7 @@
 
 ### 1.4 Stream 消息队列
 
-> 📚 [4-RedisStream消息队列.md](../../archive/old-redis-notes/4-RedisStream消息队列.md)（17KB，已归档）
+> 📚 [4-RedisStream消息队列.md](../archive/old-redis-notes/4-RedisStream消息队列.md)（17KB，已归档）
 
 **Stream**（5.0+）= Redis 内置消息队列：
 - Consumer Group
@@ -63,7 +63,7 @@
 
 ### 2.1 多级缓存
 
-> 📚 [Redis高级-多级缓存.md](../../archive/old-redis-notes/Redis高级-多级缓存.md)（48KB，已归档）
+> 📚 [Redis高级-多级缓存.md](../archive/old-redis-notes/Redis高级-多级缓存.md)（48KB，已归档）
 
 **典型架构**：
 ```
@@ -86,7 +86,7 @@
 
 ### 2.2 分布式缓存
 
-> 📚 [Redis高级-分布式缓存.md](../../archive/old-redis-notes/Redis高级-分布式缓存.md)（24KB，已归档）
+> 📚 [Redis高级-分布式缓存.md](../archive/old-redis-notes/Redis高级-分布式缓存.md)（24KB，已归档）
 
 **主从复制**：
 - 全量同步（replication id + offset）
@@ -105,7 +105,7 @@
 
 ### 2.3 最佳实践
 
-> 📚 [Redis高级-最佳实践.md](../../archive/old-redis-notes/Redis高级-最佳实践.md)（30KB，已归档）
+> 📚 [Redis高级-最佳实践.md](../archive/old-redis-notes/Redis高级-最佳实践.md)（30KB，已归档）
 
 - **键设计**：业务前缀:模块:ID（`user:profile:1001`）
 - **大 Key**：避免 > 10KB，单个 Hash < 1000 字段
@@ -116,9 +116,9 @@
 
 ## 三、安装
 
-- [安装Redis集群.md](../../archive/old-redis-notes/安装Redis集群.md)（14KB）— Cluster 部署
-- [安装OpenResty.md](../../archive/old-redis-notes/安装OpenResty.md)（5KB）— Redis 旁路缓存
-- [安装Canal.md](../../archive/old-redis-notes/安装Canal.md)（3KB）— MySQL → Redis 同步
+- [安装Redis集群.md](../archive/old-redis-notes/安装Redis集群.md)（14KB）— Cluster 部署
+- [安装OpenResty.md](../archive/old-redis-notes/安装OpenResty.md)（5KB）— Redis 旁路缓存
+- [安装Canal.md](../archive/old-redis-notes/安装Canal.md)（3KB）— MySQL → Redis 同步
 
 ## 四、2026 年 Redis 生态
 
@@ -135,4 +135,4 @@
 
 ## 📚 完整资料
 
-- [`archive/old-redis-notes/`](../../archive/old-redis-notes/) — Redis 完整笔记归档
+- [`archive/old-redis-notes/`](../archive/old-redis-notes/) — Redis 完整笔记归档

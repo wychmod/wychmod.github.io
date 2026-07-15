@@ -39,7 +39,8 @@
     - [Kubernetes 编排](/md/03-云原生与运维/10-Kubernetes编排.md)
   
   - **持续集成**
-    -CI-CD 持续集成
+    - [CI-CD 持续集成](/md/03-云原生与运维/20-CI-CD持续集成.md)
+  
   - **Linux 运维**
     - [Linux 运维](/md/03-云原生与运维/30-Linux运维.md)
   
@@ -62,17 +63,17 @@
 - 🤖 **AI 与 Agent**
   
   - **Agent 方法论**
-    - [AI 编程三件套](md/05-AI与Agent/00-AI编程三件套方法论.md)
-    - [Agent 设计模式与多 Agent](md/05-AI与Agent/10-Agent设计模式与多Agent.md)
+    - [AI 编程三件套](/md/05-AI与Agent/00-AI编程三件套方法论.md)
+    - [Agent 设计模式与多 Agent](/md/05-AI与Agent/10-Agent设计模式与多Agent.md)
   
   - **协议与工程**
-    - [MCP 协议](md/05-AI与Agent/20-协议与工程/MCP协议.md)
-    - [A2A 协议](md/05-AI与Agent/20-协议与工程/A2A协议.md)
-    - [DDD 领域驱动](md/05-AI与Agent/20-协议与工程/DDD领域驱动.md)
+    - [MCP 协议](/md/05-AI与Agent/20-协议与工程/MCP协议.md)
+    - [A2A 协议](/md/05-AI与Agent/20-协议与工程/A2A协议.md)
+    - [DDD 领域驱动](/md/05-AI与Agent/20-协议与工程/DDD领域驱动.md)
   
   - **参考架构**
-    - [manus 架构设计](md/05-AI与Agent/30-参考架构/manus架构设计.md)
-    - [Alembic 数据库迁移](md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md)
+    - [manus 架构设计](/md/05-AI与Agent/30-参考架构/manus架构设计.md)
+    - [Alembic 数据库迁移](/md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md)
   
   - **大模型应用**
     - [大模型应用](/md/05-AI与Agent/40-大模型应用.md)
@@ -120,6 +121,11 @@
 
 - 🔧 **开发工具**
   
-  - [AI 助手使用指南](/AI-ASSISTANT-GUIDE.md)
-  - [AI 故障排查](/AI-TROUBLESHOOTING)
-  - [更新摘要](/AI-UPDATE-SUMMARY)
+  - **版本控制**
+    - [Git 版本控制](/md/09-开发工具/00-Git版本控制.md)
+  
+  - **工具箱**
+    - [工具箱与资源](/md/09-开发工具/10-工具箱与资源.md)
+    - [AI 助手使用指南](/AI-ASSISTANT-GUIDE.md)
+    - [AI 故障排查](/AI-TROUBLESHOOTING)
+    - [更新摘要](/AI-UPDATE-SUMMARY)

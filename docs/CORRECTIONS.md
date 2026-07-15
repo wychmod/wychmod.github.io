@@ -9,20 +9,21 @@
 
 ## 统计
 
-> 自动扫描生成（最后更新：2026-07-15 #8 后）
+> 自动扫描生成（最后更新：2026-07-15 #9 后）
 
 | 类型 | 次数 |
 |---|---|
 | 错别字 | 2 |
 | 事实错误 | 2 |
-| 死链 | 4 |
-| 格式 | 6 |
-| 风格 | 5 |
+| 死链 | 5 |
+| 格式 | 7 |
+| 风格 | 6 |
 | 补充 | 20 |
-| 路径修正（非内容）| 2 |
+| 路径修正（非内容）| 152 |
 | 归档保留 | 0 |
 | 疏漏 | 7 |
-| **合计** | **48** |
+| 新增主线文档 | 9 |
+| **合计** | **201** |
 
 ---
 
@@ -396,3 +397,108 @@
 - _sidebar.md 9 个一级分类
 - README.md 9 个二级分类, 无重复
 - 全部原文件 100% 不丢失
+
+---
+
+### 2026-07-15 #9 — 主线深化 Phase 0/1/2（AI + 开发工具 + 6 篇样板）
+
+**涉及文件**：
+- 更新：`docs/REFACTOR_PLAN.md`（状态改为"第二阶段：主线深化中"）
+- 更新：`docs/REFACTOR_GUIDELINES.md`（新增 5.5 节"内联 vs 链接"判定规则）
+- 新建：`scripts/check-links.js`、`scripts/sidebar-check.js`、`scripts/inline-archive.js`、`scripts/count-archive.js`
+- 新建：`docs/md/05-AI与Agent/00-AI编程三件套方法论.md`
+- 新建：`docs/md/05-AI与Agent/10-Agent设计模式与多Agent.md`
+- 新建：`docs/md/05-AI与Agent/20-协议与工程/MCP协议.md`
+- 新建：`docs/md/05-AI与Agent/20-协议与工程/A2A协议.md`
+- 新建：`docs/md/05-AI与Agent/20-协议与工程/DDD领域驱动.md`
+- 新建：`docs/md/05-AI与Agent/30-参考架构/manus架构设计.md`
+- 新建：`docs/md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md`
+- 新建：`docs/md/09-开发工具/00-Git版本控制.md`
+- 新建：`docs/md/09-开发工具/10-工具箱与资源.md`
+- 重写：`docs/_sidebar.md`（新增 09-开发工具，修复 AI 链接与 CI-CD 格式）
+- 重写：`docs/README.md`（修复卡片链接，添加 09-开发工具）
+- 重写：`docs/md/Index.md`（旧首页重写为全站地图）
+- 更新：`docs/md/archive/README.md`（加入 AI、开发工具映射）
+- 新建：`docs/REFACTOR_STATUS.md`（重构状态总览 + review 指南）
+- 更新：`docs/README.md`（底部增加项目维护链接）
+- 重写：`docs/md/01-计算机基础/40-Go语言.md`
+- 重写：`docs/md/03-云原生与运维/00-Docker容器化.md`
+- 重写：`docs/md/03-云原生与运维/40-云原生架构.md`
+- 重写：`docs/md/04-前端/10-Taro多端开发.md`
+- 重写：`docs/md/04-前端/20-Vue与小程序.md`
+- 重写：`docs/md/06-软件工程/20-软实力.md`
+
+**改正点**：
+
+| # | 类型 | 原文 | 改正后 | 原因 |
+|---|---|---|---|---|
+| 58 | 死链 | `_sidebar.md` 7 个 AI 链接指向不存在的文件 | 新建 7 篇 AI 主线文档 | 侧边栏引用缺失 |
+| 59 | 格式 | `_sidebar.md` 中 `-CI-CD 持续集成` 缺少链接 | 改为 `- [CI-CD 持续集成](/md/03-云原生与运维/20-CI-CD持续集成.md)` | Markdown 列表语法错误 |
+| 60 | 路径 | `_sidebar.md` / `README.md` 中 AI 链接缺前导 `/` | 统一补全为 `/md/05-AI与Agent/...` | Docsify 路由一致性 |
+| 61 | 结构 | `docs/md/Index.md` 为旧首页，含 200+ 死链 | 重写为 9 大分类全站地图 | 避免读者进入死链页面 |
+| 62 | 结构 | 新增 `09-开发工具` 一级分类 | 放入 Git/工具箱两篇主线 |  surfaced 未引用归档 |
+| 63 | 内容 | `40-Go语言.md` 等 6 篇为索引式 | 深化为详细总结 + 末尾内联原文 | 符合"归档内容写入外部文档"目标 |
+| 64 | 路径修正 | Docker 内联原文中 `[Centos7安装Docker.md](Centos7安装Docker.md)` | 改为 `../archive/old-docker-notes/Centos7安装Docker.md` | 文件移动后相对路径失效 |
+
+**待确认/已知遗留**：
+
+| 日期 | 文件 | 内容 | 状态 |
+|---|---|---|---|
+| 2026-07-15 | `docs/md/archive/old-agent-notes/agent系统知识/MCP协议完整教程：从入门到实践.md` | 引用同目录 2 个 PDF（`6-2 MCP协议...pdf`、`6-3 MCP架构...pdf`）不存在 | 原文件即缺失，未在本次归档目录中找到；主线 MCP 文档已独立成文，不依赖这 2 个 PDF |
+| 2026-07-15 | 多个 archive 文件 | 模板语法 `{{ ... }}`、图片文件名截断、绝对路径图片被脚本误判为死链 | 属原始笔记历史问题，按 GUIDELINES 不修改归档原文件 |
+
+**死链检查**：
+- 主线文档与导航文件：零死链 ✓
+- 归档原文件：7 个历史/误判死链（见上表"已知遗留"）
+
+**侧边栏检查**：40 篇主线文档全部有入口 ✓
+
+**GUIDELINES 更新**：
+- 新增 5.5 节"主线文档内联原文 vs 仅放链接"判定规则
+- 明确：Markdown 文件数 `<= 5` 且总大小 `< 500KB` 时内联，否则只放链接
+
+### 2026-07-15 #9 — 主线深化 Phase 1（补齐 AI + 开发工具 + 修复导航）
+
+**涉及文件**：
+- 新建：`docs/md/05-AI与Agent/00-AI编程三件套方法论.md` 等 7 篇 AI 主线文档
+- 新建：`docs/md/09-开发工具/00-Git版本控制.md`、`10-工具箱与资源.md`
+- 新建：`scripts/check-links.js`、`scripts/sidebar-check.js`、`scripts/inline-archive.js`、`scripts/count-archive.js`、`scripts/fix-archive-links.js`
+- 重写：`docs/_sidebar.md`、`docs/md/Index.md`
+- 更新：`docs/README.md`、`docs/md/archive/README.md`、`docs/REFACTOR_PLAN.md`、`docs/REFACTOR_GUIDELINES.md`
+- 修正：`docs/AI-UPDATE-SUMMARY.md` 死链
+
+**改正点**：
+
+| # | 类型 | 原文 | 改正后 | 原因 |
+|---|---|---|---|---|
+| 58 | 死链 | AI-UPDATE-SUMMARY.md 引用 `TEST-AI-ASSISTANT.md` | 改为纯文本"测试清单（原文件已移除）" | 目标文件不存在 |
+| 59 | 路径修正 | 16 个主线文档中 `../../archive/xxx/`（150 处） | 统一改为 `../archive/xxx/` | 主线文档目录层级加深后原相对路径失效 |
+| 60 | 格式 | `_sidebar.md` 中 `-CI-CD 持续集成` 缺链接 | 改为 `- [CI-CD 持续集成](/md/03-云原生与运维/20-CI-CD持续集成.md)` | 格式错误导致死链 |
+| 61 | 格式 | `_sidebar.md` AI 链接缺前导 `/` | 统一补全为 `/md/05-AI与Agent/...` | Docsify 路由解析需要绝对路径 |
+| 62 | 风格 | REFACTOR_PLAN 状态"已全部完成" | 改为"第二阶段：主线深化中" | 当前任务为后续深化 |
+| 63 | 补充 | REFACTOR_GUIDELINES 缺"内联 vs 链接"判定 | 新增 5.5 节规则 | 统一主线文档归档呈现标准 |
+| 64 | 新增 | 7 个 AI 分类文件不存在 | 从 `old-agent-notes/` 提炼新建 | 侧边栏已引用但文件缺失 |
+| 65 | 新增 | `09-开发工具` 分类不存在 | 新建 2 篇主线文档 + 侧边栏入口 | 归档 `old-git-notes/`、`old-tools-notes/` 需要主入口 |
+| 66 | 新增 | `docs/md/Index.md` 为旧首页，含大量死链 | 重写为基于 9 大分类的全站地图 | 旧首页路径已全部失效 |
+
+**新增主线文档清单**：
+1. `docs/md/05-AI与Agent/00-AI编程三件套方法论.md`
+2. `docs/md/05-AI与Agent/10-Agent设计模式与多Agent.md`
+3. `docs/md/05-AI与Agent/20-协议与工程/MCP协议.md`
+4. `docs/md/05-AI与Agent/20-协议与工程/A2A协议.md`
+5. `docs/md/05-AI与Agent/20-协议与工程/DDD领域驱动.md`
+6. `docs/md/05-AI与Agent/30-参考架构/manus架构设计.md`
+7. `docs/md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md`
+8. `docs/md/09-开发工具/00-Git版本控制.md`
+9. `docs/md/09-开发工具/10-工具箱与资源.md`
+
+**脚本工具**：
+- `scripts/check-links.js`：扫描死链
+- `scripts/sidebar-check.js`：检查侧边栏入口
+- `scripts/inline-archive.js`：小归档内联到主线文档
+- `scripts/count-archive.js`：归档规模统计
+- `scripts/fix-archive-links.js`：批量修正 `../../archive/` 路径
+
+**后续工作**：
+- Phase 2：深化 6 篇小归档对应主线文档（Go / Docker / 云原生架构 / Taro / Vue / 软实力）
+- Phase 3+：按相同模式继续处理剩余 18 篇索引式主线文档

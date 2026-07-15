@@ -144,7 +144,7 @@ View → dispatch(action) → Reducer → new State → View
 
 ## 四、React Hooks（速查）
 
-> 📚 完整 Hooks 教程见 [React Hooks.pdf](../archive/old-react-notes/React%20Hooks.pdf)（已归档）
+> 📚 完整 Hooks 教程见 [React Hooks.pdf](../archive/old-react-notes/React基础（技术胖）/React%20Hooks.pdf)（已归档）
 
 | Hook | 用途 |
 |---|---|
@@ -160,7 +160,7 @@ View → dispatch(action) → Reducer → new State → View
 
 ## 五、React Router（速查）
 
-> 📚 [React Router.pdf](../archive/old-react-notes/React%20Router.pdf)（已归档）
+> 📚 [React Router.pdf](../archive/old-react-notes/React基础（技术胖）/React%20Router.pdf)（已归档）
 
 ```jsx
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
@@ -178,7 +178,7 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 ## 六、Next.js（速查）
 
-> 📚 [Next.js 入门.pdf](../archive/old-react-notes/React服务端渲染框架Next.js入门(共12集).pdf)（已归档）
+> 📚 [Next.js 入门.pdf](../archive/old-react-notes/React基础（技术胖）/React服务端渲染框架Next.js入门%28共12集%29.pdf)（已归档）
 
 - React 服务端渲染框架
 - 解决 SPA 的 SEO 问题
@@ -192,6 +192,6 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 - [Redux 入门](../archive/old-react-notes/React基础（技术胖）/Redux入门.md) — 10KB
 - [Redux2](../archive/old-react-notes/React基础（技术胖）/Redux2.md) — 60KB
 - [js 防抖节流柯里化 reduce](../archive/old-react-notes/js防抖、节流和柯里化和reduce.md) — 5KB
-- [React Hooks.pdf](../archive/old-react-notes/React%20Hooks.pdf) — 826KB
-- [React Router.pdf](../archive/old-react-notes/React%20Router.pdf) — 584KB
-- [Next.js.pdf](../archive/old-react-notes/React服务端渲染框架Next.js入门(共12集).pdf) — 815KB
+- [React Hooks.pdf](../archive/old-react-notes/React基础（技术胖）/React%20Hooks.pdf) — 826KB
+- [React Router.pdf](../archive/old-react-notes/React基础（技术胖）/React%20Router.pdf) — 584KB
+- [Next.js.pdf](../archive/old-react-notes/React基础（技术胖）/React服务端渲染框架Next.js入门%28共12集%29.pdf) — 815KB
