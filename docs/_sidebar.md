@@ -432,6 +432,27 @@
 
 ---
 
+- 🤖 **AI 与 Agent**
+  
+  - **Agent 方法论**
+    - [AI 编程三件套](md/05-AI与Agent/00-AI编程三件套方法论.md)
+    - [Agent 设计模式与多 Agent](md/05-AI与Agent/10-Agent设计模式与多Agent.md)
+  
+  - **协议与工程**
+    - [MCP 协议](md/05-AI与Agent/20-协议与工程/MCP协议.md)
+    - [A2A 协议](md/05-AI与Agent/20-协议与工程/A2A协议.md)
+    - [DDD 领域驱动](md/05-AI与Agent/20-协议与工程/DDD领域驱动.md)
+  
+  - **参考架构**
+    - [manus 架构设计](md/05-AI与Agent/30-参考架构/manus架构设计.md)
+    - [Alembic 数据库迁移](md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md)
+  
+  - **大模型应用**
+    - [大模型应用](/md/05-AI与Agent/40-大模型应用.md)
+    - [ML 与 DL 基础](/md/05-AI与Agent/50-ML与DL基础.md)
+
+---
+
 - ⚠️ **过时技术**（存档）
   
   - [爬虫技术](/md/08-过时技术/00-爬虫技术.md)
