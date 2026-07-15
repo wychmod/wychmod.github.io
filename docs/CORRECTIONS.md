@@ -18,8 +18,8 @@
 | 风格 | 5 |
 | 补充 | 17 |
 | 路径修正（非内容）| 22 |
-| 归档保留 | 2 |
-| **合计** | **56** |
+| 归档保留 | 9 |
+| **合计** | **63** |
 
 ---
 
@@ -368,3 +368,28 @@
 - 新增 2.6 节图片路径修正例外条款
 - 说明归档文件移动后图片路径必须修正的策略
 - 22 张图复制到 archive/youdaonote-images/ 共享目录
+
+### 2026-07-15 #8 - Review 修复 (用户要求 re 一遍发现的疏漏)
+
+**用户反馈**: 再 re 一遍，是否有疏漏
+
+**发现并修复的疏漏**:
+
+| # | 类型 | 问题 | 修复 |
+|---|---|---|---|
+| 51 | 疏漏 | md/agent/ 整个目录 10 个文件未归档 | 全部移到 archive/old-agent-notes/ |
+| 52 | 疏漏 | md/git/ 2 md + 1 xmind 未归档 | 移到 archive/old-git-notes/ |
+| 53 | 疏漏 | md/css/ 1 md 未归档 | 移到 archive/old-css-notes/ |
+| 54 | 疏漏 | md/tools/README.md 未归档 | 移到 archive/old-tools-notes/ |
+| 55 | 疏漏 | docs/README.md 有 13 个 ### 折叠区, 9 个旧版重复 | 顶部快速导航重写, 只保留 9 个新分类 |
+| 56 | 疏漏 | docs/_sidebar.md 有 17 个一级标题, 9 个旧版重复 | 完全重写, 9 个分类无重复 |
+| 57 | 疏漏 | md/md/python命名规范.md 嵌套遗留未归档 | 移到 archive/old-python-notes/ |
+
+**根本原因**: 之前用 edit 工具追加新 section, 没有删除旧 section, 导致 README/_sidebar 有大量新+旧重复内容。
+
+**修复后状态**:
+- md/ 下 8 个一级分类 (01-08), 无零散目录
+- archive/ 下 33 个子目录
+- _sidebar.md 9 个一级分类
+- README.md 9 个二级分类, 无重复
+- 全部原文件 100% 不丢失

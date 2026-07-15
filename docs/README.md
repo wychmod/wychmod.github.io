@@ -67,303 +67,117 @@ $ ai Redis 缓存一致性</pre>
 
 ## 快速导航
 
-### 📚 后端开发
+### 💻 计算机基础
 
 <details>
-<summary><b>🔥 Java 技术栈</b></summary>
+<summary><b>编程语言 + 算法 + 系统</b></summary>
 
-- **基础与框架**
-  - [Java基本功](/md/java/Java学习路线/Java基本功.md) | [Java集合框架](/md/java/Java学习路线/Java集合框架.md)
-  - [IOC和AOP](/md/java/spring系列学习/IOC和AOP.md) | [MVC模式](/md/java/Java学习路线/MVC模式.md) | [Servlet](/md/java/Java学习路线/Servlet.md)
+- [Java 与 JVM](/md/01-计算机基础/00-Java与JVM.md) — Java 基础 / Spring 全家桶 / JVM 调优
+- [Python 基础与生态](/md/01-计算机基础/10-Python基础与生态.md) — 高级 + 源码 + Django + Flask
+- [算法与数据结构](/md/01-计算机基础/20-算法与数据结构.md) — 动态规划 + 排序 + 9章算法 + 左神
+- [计算机系统与并发](/md/01-计算机基础/30-计算机系统与并发.md) — OS / 网络 / TCP / HTTP / 多线程
+- [Go 语言](/md/01-计算机基础/40-Go语言.md) — 基础 + 工程 + GORM + 高性能
 
-- **Spring 源码解析**
-  - [300行手写简易Spring](/md/spring源码/1-300行手写简易Spring.md)
-  - [手写完整功能Spring](/md/spring源码/2-手写完整功能Spring.md)
-  - [Spring源码解析](/md/spring源码/3-Spring源码解析.md)
-  - [Spring事务传播原理](/md/spring源码/4-Spring事务传播原理及数据库事务操作原理.md)
-
-- **Spring 生态**
-  - [SpringBoot实战和原理](/md/java/springboot/SpringBoot实战和原理.md)
-  - [SpringCloud微服务](/md/java/springcloud/SpringCloud.md)
-  - [SSM整合学习](/md/java/spring系列学习/ssm整合学习-Spring.md)
-
-- **JVM 调优**
-  - [JVM实战-加载链接初始化](/md/JVM/JVM实战-1-加载链接初始化.md)
-  - [JVM实战-JMM](/md/JVM/JVM实战-2-JMM.md)
-  - [JVM实战-GC](/md/JVM/JVM实战-3-GC.md)
-  - [JVM实战-调优](/md/JVM/JVM实战-4-调优.md)
-
-- **项目实战**
-  - [手写RPC框架](/md/java/手写RPC/1-RPC架构设计.md)
-  - [抽奖系统实战](/md/java/抽奖系统/Lottery%20抽奖系统-大厂规范.md)
 </details>
 
+### 💾 后端开发
+
 <details>
-<summary><b>🐍 Python 技术栈</b></summary>
+<summary><b>数据库 + 缓存 + MQ + 分布式</b></summary>
 
-- **Python 高级编程**
-  - [一切皆对象](/md/Python/Python高级/1.一切皆对象.md) | [魔法函数](/md/Python/Python高级/2.魔法函数.md) | [类和对象](/md/Python/Python高级/3.类和对象.md)
-  - [迭代器和生成器](/md/Python/Python高级/8.迭代器和生成器.md)
-  - [多线程、多进程和线程池](/md/Python/Python高级/10.多线程、多进程和线程池编程.md)
-  - [协程和异步io](/md/Python/Python高级/11.协程和异步io.md) | [asyncio并发编程](/md/Python/Python高级/12.asyncio并发编程.md)
+- [MySQL 数据库](/md/02-后端开发/00-MySQL数据库.md) — 性能优化 + InnoDB 架构 + 2026 生态
+- [Redis 缓存](/md/02-后端开发/10-Redis缓存.md) — 数据结构 / 高级 / 雪崩穿透击穿
+- [消息队列](/md/02-后端开发/20-消息队列.md) — RabbitMQ / RocketMQ / Kafka 对比选型
+- [分布式协调与搜索](/md/02-后端开发/30-分布式协调与搜索.md) — Zookeeper + Elasticsearch
 
-- **Python 源码剖析**
-  - [对象模型](/md/Python/Python源码剖析/Python源码剖析-1-对象模型.md) | [对象的生命周期](/md/Python/Python源码剖析/Python源码剖析-2-对象的生命周期.md)
-  - [内建对象系列](/md/Python/Python源码剖析/Python源码剖析-7-内建对象list.md)
-  - [虚拟机的字节码](/md/Python/Python源码剖析/Python源码剖析-12-虚拟机的字节码.md)
-  - [GIL全局锁](/md/Python/Python源码剖析/Python源码剖析-15-GIL全局锁.md)
-  - [设计协程库](/md/Python/Python源码剖析/Python源码剖析-30-造轮子：设计协程库.md)
-  - [垃圾回收机制](/md/Python/Python源码剖析/Python源码剖析-34-垃圾回收机制.md)
-
-- **Web 框架**
-  - [Django全栈开发](/md/Django笔记/Djangoday1整体跑通.md) | [Django REST Framework](/md/Django笔记/django-rest-framework开发笔记.md)
-  - [Flask快速开发](/md/flask笔记/flask模型.md) | [Flask上线部署](/md/flask笔记/flask上线部署.md)
 </details>
 
-<details>
-<summary><b>🐹 Go 语言</b></summary>
-
-- [Go语言上手-基础语言](/md/go/Go语言上手-基础语言.md)
-- [Go语言上手-工程实践](/md/go/Go语言上手-工程实践.md)
-- [Go语言上手-编码规范和性能调优](/md/go/Go语言上手-编码规范和性能调优.md)
-- [GORM与database](/md/go/GORM与database.md)
-</details>
-
-### 💾 数据存储与中间件
+### ☁️ 云原生与运维
 
 <details>
-<summary><b>MySQL 数据库</b></summary>
+<summary><b>容器 + 编排 + CI/CD + Linux</b></summary>
 
-- [MySQL性能优化-架构](/md/mysql/MySQL性能优化-架构.md)
-- [MySQL性能优化-索引](/md/mysql/MySQL性能优化-索引.md)
-- [MySQL性能优化-事务](/md/mysql/MySQL性能优化-事务.md)
-- [MySQL是怎样使用的](/md/mysql/MySQL是怎样使用的.md) | [MySQL是怎样运行的](/md/mysql/MySQL是怎样运行的.md)
-</details>
+- [Docker 容器化](/md/03-云原生与运维/00-Docker容器化.md) — 镜像/容器/网络/卷 + Compose
+- [Kubernetes 编排](/md/03-云原生与运维/10-Kubernetes编排.md) — Pod/Deployment/Service + 实战
+- [CI/CD 持续集成](/md/03-云原生与运维/20-CI-CD持续集成.md) — Jenkins + Actions + 灰度发布
+- [Linux 运维](/md/03-云原生与运维/30-Linux运维.md) — 命令速查 + Shell 脚本
+- [云原生架构](/md/03-云原生与运维/40-云原生架构.md) — 4 大特征 + 12 因素 + 2026 现状
 
-<details>
-<summary><b>Redis 缓存</b></summary>
-
-- [Redis入门](/md/Redis/1-Redis入门.md) | [Redis实战](/md/Redis/2-Redis实战.md) | [原理篇](/md/Redis/3-原理篇.md)
-- [Redis高级-多级缓存](/md/Redis/Redis高级-多级缓存.md)
-- [Redis高级-分布式缓存](/md/Redis/Redis高级-分布式缓存.md)
-- [Redis高级-最佳实践](/md/Redis/Redis高级-最佳实践.md)
-</details>
-
-<details>
-<summary><b>消息队列</b></summary>
-
-- [RabbitMQ](/md/消息队列/RabbitMQ.md)
-- [RocketMQ设计与原理](/md/消息队列/RocketMQ设计与原理.md) | [RocketMQ源码分析](/md/消息队列/RocketMQ源码分析.md)
-</details>
-
-<details>
-<summary><b>Elasticsearch</b></summary>
-
-- [elasticsearch分布式搜索引擎](/md/elk/elasticsearch分布式搜索引擎.md)
-- [安装elasticsearch](/md/elk/安装elasticsearch.md)
-</details>
-
-<details>
-<summary><b>Zookeeper</b></summary>
-
-- [Zookeeper基础](/md/zookeeper/Zookeeper基础.md)
-- [Zookeeper源码](/md/zookeeper/Zookeeper源码.md)
 </details>
 
 ### ⚛️ 前端开发
 
 <details>
-<summary><b>React / Vue / Taro / 小程序</b></summary>
+<summary><b>React / Taro / Vue / 小程序</b></summary>
 
-- [React 基础与状态管理](/md/04-前端/00-React基础与状态管理.md) — React16 + Redux + js 函数式工具
+- [React 基础与状态管理](/md/04-前端/00-React基础与状态管理.md) — React16 + Redux + 函数式工具
 - [Taro 多端开发](/md/04-前端/10-Taro多端开发.md) — 一套代码编译 6+ 端
 - [Vue 与小程序](/md/04-前端/20-Vue与小程序.md) — Vue3 CLI + 微信小程序
 
 </details>
 
-<details>
-<summary><b>Vue 框架</b></summary>
-
-- [Vue3+Vue-CLI项目搭建](/md/vue/Vue3+Vue-CLI项目搭建.md)
-</details>
-
-### ☁️ 运维与云原生
+### 🤖 AI 与 Agent
 
 <details>
-<summary><b>Docker & Kubernetes</b></summary>
+<summary><b>Agent + LLM + ML/DL</b></summary>
 
-- [Docker容器化](/md/docker/docker.md)
-- [Kubernetes编排](/md/k8s/1-k8s的介绍.md)
-- [CI/CD实践](/md/cicd/1.什么是CI和CD，为什么要学CI和CD.md)
-</details>
+- [AI 编程三件套](md/05-AI与Agent/00-AI编程三件套方法论.md) — SDD + Harness + Loop
+- [Agent 设计模式与多 Agent](md/05-AI与Agent/10-Agent设计模式与多Agent.md) — 5 种设计 + 多 Agent
+- [MCP 协议](md/05-AI与Agent/20-协议与工程/MCP协议.md)
+- [A2A 协议](md/05-AI与Agent/20-协议与工程/A2A协议.md)
+- [DDD 领域驱动](md/05-AI与Agent/20-协议与工程/DDD领域驱动.md)
+- [manus 架构设计](md/05-AI与Agent/30-参考架构/manus架构设计.md)
+- [Alembic 数据库迁移](md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md)
+- [大模型应用](/md/05-AI与Agent/40-大模型应用.md) — GPT 演进 + Embedding + 奈学 NLP
+- [ML 与 DL 基础](/md/05-AI与Agent/50-ML与DL基础.md) — 目标检测 + YOLOv5 + 2026 路径
 
-<details>
-<summary><b>Linux 运维</b></summary>
-
-- [Linux常用命令](/md/linux/Linux常用命令.md)
-- [Linux基础知识和命令](/md/linux/Linux核心技能与应用/Linux基础知识和命令.md)
-- [Shell脚本编程](/md/linux/Linux核心技能与应用/Shell脚本编程.md)
-</details>
-
-### 💻 计算机基础
-
-<details>
-<summary><b>算法与数据结构</b></summary>
-
-- [算法笔记](/md/算法/lb算法小抄笔记/算法小抄笔记.md)
-</details>
-
-<details>
-<summary><b>计算机系统</b></summary>
-
-- [操作系统](/md/计算机基础/操作系统.md) | [计算机网络](/md/计算机基础/计算机网络.md) | [计算机组成原理](/md/计算机基础/计算机组成原理.md)
-- [深入理解tcp协议](/md/计算机基础/深入理解tcp协议.md) | [HTTP协议详解](/md/计算机基础/HTTP协议详解.md)
-- [多线程与并发编程](/md/多线程与高并发/多线程与并发编程.md)
-</details>
-
-### 🤖 AI AGENT
-
-<details>
-<summary><b>Agent 方法论与协议实践</b></summary>
-
-- **Agent 核心**
-  - [AI方法论](md/agent/agent开发知识/AI方法论.md) | [agent五种设计模式](md/agent/agent系统知识/agent五种设计模式.md)
-  - [多Agent协作系统优劣势与性能](md/agent/agent系统知识/多Agent协作系统优劣势与性能.md)
-  - [manus架构设计](md/agent/agent系统知识/manus架构设计.md)
-  - [claude.md模板](md/agent/agent开发知识/claude.md模板.md)
-
-- **协议与工程**
-  - [MCP协议完整教程：从入门到实践](md/agent/agent系统知识/MCP协议完整教程：从入门到实践.md)
-  - [A2A协议技术学习笔记](md/agent/agent系统知识/A2A协议技术学习笔记.md)
-  - [领域驱动设计DDD架构初识与落地](md/agent/agent系统知识/领域驱动设计DDD架构初识与落地.md)
-  - [Alembic数据库迁移完整教程](md/agent/agent系统知识/Alembic数据库迁移完整教程.md)
-</details>
-
-<details>
-<summary><b>大模型应用与基础</b></summary>
-
-- [大模型基础：理论与技术的演进](/md/人工智能/gpt大模型应用/1-大模型基础：理论与技术的演进.md)
-- [大模型开发基础：OpenAI Embedding](/md/人工智能/gpt大模型应用/2-大模型开发基础：OpenAI%20Embedding.md)
-</details>
-
-<details>
-<summary><b>机器学习与深度学习基础</b></summary>
-
-- **机器学习基础**
-  - [线性代数基础](/md/人工智能/人工智能-奈学/1-线性代数基础.md) | [概率论基础](/md/人工智能/人工智能-奈学/2-概率论基础.md)
-  - [机器学习简介](/md/人工智能/人工智能-奈学/3-机器学习简介.md) | [模型评估与选择](/md/人工智能/人工智能-奈学/4-模型评估与选择.md)
-  - [线性模型](/md/人工智能/人工智能-奈学/5-线性模型.md) | [决策树](/md/人工智能/人工智能-奈学/6-决策树.md) | [支持向量机](/md/人工智能/人工智能-奈学/9-支持向量机.md)
-  - [数据预处理](/md/人工智能/人工智能-奈学/7-数据预处理.md) | [plot_decision_regions相关](/md/人工智能/人工智能-奈学/8-plot_decision_regions相关.md)
-
-- **深度学习**
-  - [神经网络](/md/人工智能/人工智能-奈学/10-神经网络.md) | [深度学习基本知识](/md/人工智能/人工智能-奈学/11-深度学习-基本知识.md)
-  - [Tensorflow与Keras](/md/人工智能/人工智能-奈学/12-深度学习-开始使用Tensorflow.md) | [Keras知识](/md/人工智能/人工智能-奈学/13-深度学习-keras知识.md)
-  - [Tensorflow例子](/md/人工智能/人工智能-奈学/14-深度学习-Tensorflow例子.md)
-  - [循环神经网络](/md/人工智能/人工智能-奈学/15-深度学习-循环神经网络.md) | [自然语言处理NLP](/md/人工智能/人工智能-奈学/16-深度学习-自然语言处理nlp.md)
-</details>
-
-<details>
-<summary><b>动手学深度学习</b></summary>
-
-- [前言](/md/人工智能/动手学深度学习/动深-1-前言.md) | [预备工作](/md/人工智能/动手学深度学习/动深-2-预备工作.md)
-- [深度学习基础](/md/人工智能/动手学深度学习/动深-3-深度学习基础.md) | [深度学习计算](/md/人工智能/动手学深度学习/动深-4-深度学习计算.md)
-- [卷积神经网络](/md/人工智能/动手学深度学习/动深-5-卷积神经网络.md) | [循环神经网络](/md/人工智能/动手学深度学习/动深-6-循环神经网络.md)
-- [优化算法](/md/人工智能/动手学深度学习/动深-7-优化算法.md) | [计算性能](/md/人工智能/动手学深度学习/动深-8-计算性能.md) | [计算机视觉](/md/人工智能/动手学深度学习/动深-9-计算机视觉.md)
-</details>
-
-<details>
-<summary><b>视觉模型与工程实践</b></summary>
-
-- [AI人工智能-目标检测模型一览](/md/人工智能/AI人工智能-目标检测模型一览.md)
-- [Yolov5核心基础知识](/md/人工智能/Yolov5核心基础知识.md)
-- [一维卷积神经网络Conv1D](/md/人工智能/一维卷积神经网络Conv1D.md)
-- [批标准化 Batch Normalization](/md/人工智能/批标准化%20%28Batch%20Normalization%29.md)
-- [深度学习报错解决方案](/md/人工智能/深度学习报错解决方案.md)
-- [基于Python玩转人工智能框架](/md/人工智能/基于Python玩转人工智能框架/基于Python玩转人工智能框架-人工智能基础知识-1.md)
-- [论文阅读笔记-吴恩达ecg论文](/md/人工智能/论文阅读笔记-吴恩达ecg论文.md)
-- [LBP特征及其变体和python实现](/md/人工智能/LBP特征及其变体和python实现.pdf)
 </details>
 
 ### 🛠️ 软件工程
 
 <details>
-<summary><b>系统设计 / 软件测试 / 软实力</b></summary>
+<summary><b>系统设计 + 测试 + 软实力</b></summary>
 
-- [系统设计与设计模式](/md/06-软件工程/00-系统设计与设计模式.md) — 23 种设计模式 + 10 大系统设计主题
+- [系统设计与设计模式](/md/06-软件工程/00-系统设计与设计模式.md) — 23 种设计模式 + 10 大系统设计
 - [软件测试](/md/06-软件工程/10-软件测试.md) — 测试基础 + JaCoCo + Chrome 插件
 - [软实力](/md/06-软件工程/20-软实力.md) — 3 大软实力 + 职场进阶
+
+</details>
+
+### 💼 面试求职
+
+<details>
+<summary><b>面试准备</b></summary>
+
+- [面试方法论](/md/07-求职/00-面试方法论.md) — 自我介绍 / HR / 谈薪
+- [Java 面试核心速查](/md/07-求职/10-Java面试核心速查.md) — 高频 30 题
+- [Python 面试核心速查](/md/07-求职/20-Python面试.md) — 基础 / 数据结构 / 设计模式
+- [实习与校招](/md/07-求职/30-实习与校招.md) — 实习面试 + 校招投递
+
+</details>
+
+### ⚠️ 过时技术（存档）
+
+<details>
+<summary><b>已被新方案替代（仅作存档）</b></summary>
+
+- [爬虫技术](/md/08-过时技术/00-爬虫技术.md) — 通用爬虫已被 API 替代
+- [Electron 桌面开发](/md/08-过时技术/10-Electron桌面开发.md) — Tauri 崛起
+- [Hadoop / Spark 大数据](/md/08-过时技术/20-Hadoop-Spark大数据.md) — 云数仓替代
+- [NLP 与聊天机器人](/md/08-过时技术/30-NLP与聊天机器人.md) — 传统 NLP 被 LLM 替代
 
 </details>
 
 ### 🔧 开发工具
 
 <details>
-<summary><b>Git 版本控制</b></summary>
+<summary><b>Git + AI 助手</b></summary>
 
-- [git命令笔记](/md/git/git命令笔记.md)
-- [learn-git-branching](/md/git/learn-git-branching.md)
-</details>
-
-### 💼 面试求职
-
-<details>
-<summary><b>面试准备</b></summary>
-
-- [面试方法论](/md/07-求职/00-面试方法论.md) — 自我介绍 / HR / 谈薪 / 反向提问
-- [Java 面试核心速查](/md/07-求职/10-Java面试核心速查.md) — 高频 30 题 + 关键点
-- [Python 面试核心速查](/md/07-求职/20-Python面试.md) — 基础/数据结构/设计模式/底层
-- [实习与校招](/md/07-求职/30-实习与校招.md) — 实习面试核心 + 校招投递记录
+- [AI 助手使用指南](/AI-ASSISTANT-GUIDE.md) — 终端式技术助手
+- [Git 版本控制](/archive/old-git-notes/git命令笔记.md) — 归档笔记
+- [Learn Git Branching](/archive/old-git-notes/learn-git-branching.md) — 可视化练习
 
 </details>
-
----
-
-### ⚠️ 过时技术（存档）
-
-<details>
-<summary><b>已被新方案替代的技术</b></summary>
-
-> 这些技术仍保留为参考，但应用场景已大幅收窄或被官方 API / 替代方案取代。
-
-- [爬虫技术](/md/08-过时技术/00-爬虫技术.md) — 通用爬虫已被 API 替代，特定场景仍可用
-- [Electron 桌面开发](/md/08-过时技术/10-Electron桌面开发.md) — Tauri 崛起，多数场景 Web 化即可
-- [Hadoop / Spark 大数据](/md/08-过时技术/20-Hadoop-Spark大数据.md) — 自建集群被云数仓替代，Spark 仍在云上跑
-- [NLP 与聊天机器人](/md/08-过时技术/30-NLP与聊天机器人.md) — 传统 NLP 被 LLM 全面替代，思路仍值得学
-
-### 💼 面试求职
-
-<details>
-<summary><b>面试准备</b></summary>
-
-- [面试方法论](/md/07-求职/00-面试方法论.md) — 自我介绍 / HR / 谈薪 / 反向提问
-- [Java 面试核心速查](/md/07-求职/10-Java面试核心速查.md) — 高频 30 题 + 关键点
-- [Python 面试核心速查](/md/07-求职/20-Python面试.md) — 基础/数据结构/设计模式/底层
-- [实习与校招](/md/07-求职/30-实习与校招.md) — 实习面试核心 + 校招投递记录
-
-</details>
-
-</details>
-
-## 🎯 学习路线
-
-### 🚀 后端工程师成长路径
-
-```mermaid
-graph TB
-    A[Java/Python基础] --> B[框架学习]
-    B --> C[数据库与缓存]
-    C --> D[分布式与微服务]
-    D --> E[源码阅读与调优]
-    E --> F[项目实战]
-```
-
-### 🎓 学习建议
-
-1. **基础先行**：打牢语言基础，掌握数据结构与算法
-2. **框架实践**：Spring、Django/Flask框架实战
-3. **源码阅读**：深入理解框架原理，提升技术深度
-4. **项目驱动**：通过实战项目巩固知识体系
-5. **持续学习**：关注新技术、新趋势，保持技术敏锐度
 
 ---
 
