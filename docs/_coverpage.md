@@ -35,28 +35,28 @@
         <span class="workspace-count">4 paths</span>
       </div>
       <div class="workspace-roadmap">
-        <a class="workspace-route" href="#/md/java/Java学习路线/Java基本功">
+        <a class="workspace-route" href="#/md/01-计算机基础/00-Java与JVM">
           <span class="route-track route-java">Java</span>
-          <span class="route-body"><b>Java 基本功 → JVM → Spring</b><small>从语法、集合到 Spring 源码与微服务</small></span>
-          <span class="route-meta"><b>42</b><small>篇</small></span>
+          <span class="route-body"><b>Java 与 JVM</b><small>语法、Spring 生态、JVM 调优与实战</small></span>
+          <span class="route-meta"><b>1</b><small>篇主线</small></span>
           <span class="route-progress"><i class="p-86"></i></span>
         </a>
-        <a class="workspace-route" href="#/md/Python/Python高级/8.迭代器和生成器">
+        <a class="workspace-route" href="#/md/01-计算机基础/10-Python基础与生态">
           <span class="route-track route-python">Py</span>
-          <span class="route-body"><b>高级语法 → 源码剖析 → 异步</b><small>对象模型、GIL、协程库与 asyncio</small></span>
-          <span class="route-meta"><b>38</b><small>篇</small></span>
+          <span class="route-body"><b>Python 基础与生态</b><small>高级特性、源码、Django/Flask、工具链</small></span>
+          <span class="route-meta"><b>1</b><small>篇主线</small></span>
           <span class="route-progress"><i class="p-72"></i></span>
         </a>
-        <a class="workspace-route" href="#/md/go/Go语言上手-基础语言">
+        <a class="workspace-route" href="#/md/01-计算机基础/40-Go语言">
           <span class="route-track route-go">Go</span>
-          <span class="route-body"><b>Go 基础 → 工程实践 → 性能调优</b><small>编码规范、GORM、发行版优化实践</small></span>
-          <span class="route-meta"><b>5</b><small>篇</small></span>
+          <span class="route-body"><b>Go 语言</b><small>基础、工程实践、GORM、高性能优化</small></span>
+          <span class="route-meta"><b>1</b><small>篇主线</small></span>
           <span class="route-progress"><i class="p-58"></i></span>
         </a>
-        <a class="workspace-route" href="#/md/k8s/1-k8s的介绍">
+        <a class="workspace-route" href="#/md/03-云原生与运维/10-Kubernetes编排">
           <span class="route-track route-cloud">Ops</span>
-          <span class="route-body"><b>Docker → Kubernetes → CI/CD</b><small>集群搭建、灰度发布、配置与探针</small></span>
-          <span class="route-meta"><b>24</b><small>篇</small></span>
+          <span class="route-body"><b>云原生与运维</b><small>Docker、Kubernetes、CI/CD、Linux</small></span>
+          <span class="route-meta"><b>5</b><small>篇主线</small></span>
           <span class="route-progress"><i class="p-64"></i></span>
         </a>
       </div>
@@ -68,14 +68,14 @@
         <span class="workspace-count">Deep dive</span>
       </div>
       <div class="workspace-doc-list">
-        <a class="workspace-doc-row" href="#/md/spring源码/3-Spring源码解析">
-          <i class="doc-mark doc-spring"></i><span><b>Spring 源码解析</b><small>IOC / AOP / 容器生命周期</small></span>
+        <a class="workspace-doc-row" href="#/md/01-计算机基础/00-Java与JVM">
+          <i class="doc-mark doc-spring"></i><span><b>Java 与 JVM</b><small>Spring 生态 / JVM 调优</small></span>
         </a>
-        <a class="workspace-doc-row" href="#/md/JVM/JVM实战-3-GC">
+        <a class="workspace-doc-row" href="#/md/01-计算机基础/00-Java与JVM">
           <i class="doc-mark doc-jvm"></i><span><b>JVM GC 实战</b><small>内存模型 / 调优 / 排障</small></span>
         </a>
-        <a class="workspace-doc-row" href="#/md/Python/Python源码剖析/Python源码剖析-1-对象模型">
-          <i class="doc-mark doc-python"></i><span><b>CPython 对象模型</b><small>类型系统 / 生命周期</small></span>
+        <a class="workspace-doc-row" href="#/md/01-计算机基础/10-Python基础与生态">
+          <i class="doc-mark doc-python"></i><span><b>Python 源码剖析</b><small>CPython 对象模型 / 生命周期</small></span>
         </a>
       </div>
       <div class="workspace-tags"><span>Spring</span><span>JVM</span><span>CPython</span></div>

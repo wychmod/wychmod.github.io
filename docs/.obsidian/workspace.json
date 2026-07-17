@@ -25,14 +25,10 @@
             "id": "4711d36360288f77",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "md/agent/agent系统知识/A2A协议技术学习笔记.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "A2A协议技术学习笔记"
+              "title": "新标签页"
             }
           }
         ],
@@ -125,7 +121,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "md/agent/agent系统知识/A2A协议技术学习笔记.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +130,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "A2A协议技术学习笔记 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
