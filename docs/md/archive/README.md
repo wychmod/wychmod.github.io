@@ -2,9 +2,9 @@
 
 > **作用**：记录所有归档文件的**来源映射**（新文档 ← 原始文件）。
 > **配套文档**：
-> - [`REFACTOR_PLAN.md`](../../REFACTOR_PLAN.md) — 整体重构方案
-> - [`REFACTOR_GUIDELINES.md`](../../REFACTOR_GUIDELINES.md) — 合并工作规范
-> - [`CORRECTIONS.md`](../../CORRECTIONS.md) — 改正记录台账
+> - [`REFACTOR_PLAN.md`](../../_meta/REFACTOR_PLAN.md) — 整体重构方案
+> - [`REFACTOR_GUIDELINES.md`](../../_meta/REFACTOR_GUIDELINES.md) — 合并工作规范
+> - [`CORRECTIONS.md`](../../_meta/CORRECTIONS.md) — 改正记录台账
 >
 > **目录规则**：
 > - 归档目录在 `docs/md/archive/` 下，**不进侧边栏导航**

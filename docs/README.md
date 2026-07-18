@@ -183,10 +183,10 @@ $ ai Redis 缓存一致性</pre>
 
 ## 📋 项目维护
 
-- [重构状态总览](/REFACTOR_STATUS) — 已完成/待完成内容、review 指南
-- [重构方案](/REFACTOR_PLAN) — 目录结构与映射表
-- [合并工作规范](/REFACTOR_GUIDELINES) — 写作与归档规范
-- [改正记录台账](/CORRECTIONS) — 历次改动与待确认事项
+- [重构状态总览](/_meta/REFACTOR_STATUS) — 已完成/待完成内容、review 指南
+- [重构方案](/_meta/REFACTOR_PLAN) — 目录结构与映射表
+- [合并工作规范](/_meta/REFACTOR_GUIDELINES) — 写作与归档规范
+- [改正记录台账](/_meta/CORRECTIONS) — 历次改动与待确认事项
 
 ---
 
