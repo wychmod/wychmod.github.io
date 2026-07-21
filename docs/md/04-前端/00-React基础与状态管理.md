@@ -373,7 +373,7 @@ function SearchResults({ query }) {
 
   return (
     <ul>
-      {albumbums.map((album) => (
+      {albums.map((album) => (
         <li key={album.id}>{album.title}</li>
       ))}
     </ul>
@@ -503,7 +503,7 @@ function* getList() {
 }
 ```
 
-> 💡 补充：2026 年的新项目如果状态管理较简单，优先考虑 `useState` / `useReducer` / `Context`；中大型项目可评估 Redux Toolkit（RTK）、Zustand、Jotai、Recoil 等更现代的方案。
+> 💡 补充：2026 年的新项目如果状态管理较简单，优先考虑 `useState` / `useReducer` / `Context`；中大型项目可评估 Redux Toolkit（RTK）、Zustand、Jotai 等更现代的方案（Recoil 已基本停维，不建议新项目选用）。
 
 ---
 
@@ -775,7 +775,8 @@ Next.js 16 继续深化全栈能力：
 | useState / useReducer / Context | 内置于 React，零依赖 | 局部或轻量共享状态 |
 | Redux Toolkit | 官方推荐，规范化、可预测 | 大型团队、复杂状态机 |
 | Zustand | 轻量、基于 Hooks | 中小型项目 |
-| Jotai / Recoil | 原子化状态管理 | 细粒度、派生状态多 |
+| Jotai | 原子化状态管理（活跃维护） | 细粒度、派生状态多 |
+| ~~Recoil~~ | 原子化状态管理（已基本停维） | 不建议新项目选用 |
 | TanStack Query | 服务端状态管理 | 异步数据缓存、同步 |
 
 ### 9.5 现代项目启动方式
@@ -2599,3 +2600,12 @@ console.log(array)  // [ 0, 1, 3, 4, 5, 6 ]
 - [React Hooks.pdf](../archive/old-react-notes/React基础（技术胖）/React%20Hooks.pdf)
 - [React Router.pdf](../archive/old-react-notes/React基础（技术胖）/React%20Router.pdf)
 - [Next.js.pdf](../archive/old-react-notes/React基础（技术胖）/React服务端渲染框架Next.js入门%28共12集%29.pdf)
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 订正 | 修复 use Hook 示例代码笔误 `albumbums` → `albums`；标注 Recoil 已基本停维，新项目不建议选用 |
+| 2026-07-22 | 审查 | 全面审查，核心内容完备（React 18/19、React Compiler、Hooks、Redux Toolkit/Zustand 等时效性良好） |

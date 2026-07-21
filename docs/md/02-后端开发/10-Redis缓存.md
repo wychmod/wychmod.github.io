@@ -43,7 +43,7 @@ MGET k1 k2 k3
 
 ### 2.3 Hash
 
-适合存储对象字段，底层在数据量小时使用 ZipList，大时转 Dict。
+适合存储对象字段，底层在数据量小时使用 ListPack（7.0 前为 ZipList），大时转 Dict。
 
 ```bash
 HSET user:1 name jack age 21
@@ -153,15 +153,17 @@ XPENDING orders g1
 - **Redisson**：提供分布式锁、Map、Queue、WatchDog 等高级结构。
 
 ```yaml
+# Spring Boot 3.x 前缀为 spring.data.redis
 spring:
-  redis:
-    host: 192.168.150.101
-    port: 6379
-    password: 123321
-    lettuce:
-      pool:
-        max-active: 8
-        max-idle: 8
+  data:
+    redis:
+      host: 192.168.150.101
+      port: 6379
+      password: 123321
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
 ```
 
 > 💡 补充：生产环境推荐 `StringRedisTemplate` 手动 JSON 序列化，避免 JDK 序列化带来的不可读和内存浪费。键名建议 `[业务名]:[数据名]:[id]`，如 `heima:user:1`。
@@ -534,7 +536,7 @@ maxmemory-policy allkeys-lru
 |---|---|
 | Redis 版本 | 7.x（7.4 LTS），RESP3 协议逐步普及 |
 | 客户端 | Lettuce / Jedis / redis-py / go-redis |
-| 集群 | Redis Cluster、Redis Sentinel、Codis |
+| 集群 | Redis Cluster、Redis Sentinel、Codis（已停维） |
 | 云托管 | 阿里云 Tair、AWS ElastiCache、腾讯云 CRS |
 | 高性能替代 | KeyDB、Dragonfly、Valkey |
 | 持久化 | AOF + RDB 混合持久化 |
@@ -570,3 +572,14 @@ maxmemory-policy allkeys-lru
 - [安装Redis集群.md](../archive/old-redis-notes/安装Redis集群.md) — 主从、哨兵、分片集群搭建
 - [安装OpenResty.md](../archive/old-redis-notes/安装OpenResty.md) — OpenResty 安装与 Lua 模块加载
 - [安装Canal.md](../archive/old-redis-notes/安装Canal.md) — MySQL binlog 与 Canal Docker 部署
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 订正 | Hash 底层编码补充说明：Redis 7.0 起以 ListPack 替代 ZipList |
+| 2026-07-22 | 订正 | Spring Boot 配置前缀更新为 spring.data.redis（Spring Boot 3.x） |
+| 2026-07-22 | 订正 | Codis 标注“已停维” |
+| 2026-07-22 | 审查 | 全面审查，核心内容完备 |

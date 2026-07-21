@@ -1051,3 +1051,11 @@ This dataset contains 328, 30sec strips of ECG captured at 200 Hz. Each ECG file
 ## LBP特征及其变体和python实现.pdf
 
 PDF 文件仅通过链接引用：[LBP特征及其变体和python实现.pdf](../archive/old-ml-dl-notes/LBP特征及其变体和python实现.pdf)
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 审查 | 全面审查，核心内容完备（已标注 TF/Keras 为旧栈、推荐 PyTorch、YOLOv8/v11、2026 学习路径完整，基础概念不过时，无需订正） |

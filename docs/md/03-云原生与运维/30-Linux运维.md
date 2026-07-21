@@ -192,7 +192,7 @@ ss -tlnp                    # 查看监听端口（替代 netstat）
 netstat -tlnp               # 查看监听端口
 ip addr                     # 查看网卡与 IP
 ip route                    # 查看路由表
-tracert host                # 路由追踪
+traceroute host             # 路由追踪
 ```
 
 ### 4.5 文件传输
@@ -2471,3 +2471,12 @@ vagrant destroy 删除虚拟机
 用户名:uendzywk
 密码:7ed89dcd
 # 安装宝塔
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 订正 | 路由追踪命令 tracert→traceroute（tracert 为 Windows 命令） |
+| 2026-07-22 | 审查 | 全面审查，命令正确性已验证，内容稳定无需大幅更新 |

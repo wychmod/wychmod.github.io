@@ -396,3 +396,11 @@ async def chat_with_tools(user_message, mcp_session):
 - [MCP协议完整教程：从入门到实践.md](../../archive/old-agent-notes/agent系统知识/MCP协议完整教程：从入门到实践.md)
 
 > ⚠️ 原文中提到的 2 个参考 PDF（`6-2 ...` 和 `6-3 ...`）在归档目录中未找到，已移除链接。
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 审查 | 全面审查，核心内容完备（协议版本 2024-11-05、JSON-RPC 2.0、stdio/Streamable HTTP 传输、2026 现状等时效性良好，无需订正） |

@@ -369,7 +369,7 @@ spec:
 ```
 
 ```bash
-kubectl create -f web-deploy.yaml --record=true
+kubectl create -f web-deploy.yaml
 kubectl get deploy -n dev
 kubectl scale deploy web-deploy --replicas=5 -n dev
 kubectl set image deploy web-deploy nginx=nginx:1.26 -n dev
@@ -688,7 +688,7 @@ PV 关键参数：
 
 - **capacity**：存储容量。
 - **accessModes**：RWO、ROX、RWX。
-- **persistentVolumeReclaimPolicy**：Retain、Recycle、Delete。
+- **persistentVolumeReclaimPolicy**：Retain、Delete（Recycle 已在 K8s 1.32 移除）。
 - **storageClassName**：存储类别。
 
 ```yaml
@@ -843,14 +843,14 @@ roleRef:
 - **LimitRanger**：对 Pod 进行资源限制。
 - **NamespaceLifecycle**：管理命名空间生命周期。
 - **DefaultStorageClass**：为 PVC 匹配默认 StorageClass。
-- **PodSecurityPolicy / PodSecurity**：控制 Pod 安全策略。
+- **PodSecurity**：控制 Pod 安全策略（PodSecurityPolicy 已在 K8s 1.25 移除，由 Pod Security Standards 替代）。
 
 ### 7.5 Dashboard
 
 Kubernetes Dashboard 是基于 Web 的 UI，可部署应用、监控状态、管理资源。
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v3.0.0/aio/deploy/recommended.yaml
 kubectl create serviceaccount dashboard-admin -n kubernetes-dashboard
 kubectl create clusterrolebinding dashboard-admin-rb --clusterrole=cluster-admin --serviceaccount=kubernetes-dashboard:dashboard-admin
 kubectl create token dashboard-admin -n kubernetes-dashboard
@@ -948,7 +948,7 @@ kubectl get pods -n dev -l version=2.0 --show-labels
 - **AI/ML 工作负载**：Kubeflow、Ray on K8s、GPU Operator 使 K8s 成为 AI 训练与推理的重要平台。
 - **安全**：Pod Security Standards 替代 PodSecurityPolicy，Supply Chain Security（Sigstore、SLSA）受到重视。
 
-> 💡 补充：虽然原始归档基于 K8s 1.17，但核心概念（Pod、Deployment、Service、RBAC 等）至今仍然适用。学习时建议结合当前稳定版本（1.30+）的官方文档理解 API 版本差异。
+> 💡 补充：虽然原始归档基于 K8s 1.17，但核心概念（Pod、Deployment、Service、RBAC 等）至今仍然适用。学习时建议结合当前稳定版本（1.33+）的官方文档理解 API 版本差异。
 
 ---
 
@@ -984,3 +984,12 @@ kubectl get pods -n dev -l version=2.0 --show-labels
   - [5-Pod控制器详解.md](../archive/old-k8s-notes/5-Pod控制器详解.md)
   - [6-Service详解.md](../archive/old-k8s-notes/6-Service详解.md)
   - [7-数据存储、安全认证、DashBoard.md](../archive/old-k8s-notes/7-数据存储、安全认证、DashBoard.md)
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 订正 | 移除已废弃的 `--record` 参数；标注 Recycle 回收策略已移除；PodSecurityPolicy 已移除说明；Dashboard 版本更新为 v3.0.0；K8s 版本参考更新为 1.33+ |
+| 2026-07-22 | 审查 | 全面审查，核心概念与 API 版本正确，2026 生态描述完备 |

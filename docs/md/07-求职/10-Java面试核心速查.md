@@ -54,7 +54,7 @@
 | 20 | 元空间与永久代区别 | JDK 8 前 HotSpot 用永久代实现方法区，固定大小易 OOM；JDK 8 后改为元空间，使用本地内存，动态扩展。 |
 | 21 | 如何判断对象是否存活 | 引用计数法（循环引用问题）；可达性分析（GC Roots：栈引用、静态属性、常量、JNI 引用）。 |
 | 22 | 常见垃圾回收算法 | 标记-清除（碎片）、复制（Young 区）、标记-整理（Old 区）、分代收集。 |
-| 23 | 常见垃圾回收器 | Serial/Serial Old、ParNew、Parallel Scavenge/Parallel Old（JDK 8 默认）、CMS、G1（JDK 9+ 默认）、ZGC（JDK 15+ 默认）。 |
+| 23 | 常见垃圾回收器 | Serial/Serial Old、ParNew、Parallel Scavenge/Parallel Old（JDK 8 默认）、CMS、G1（JDK 9+ 默认）、ZGC（JDK 15 正式可用，非默认）。 |
 | 24 | 类加载器有哪些 | 启动类加载器、扩展类加载器、系统/应用类加载器、用户自定义类加载器。 |
 
 > 💡 补充：线上排查 JVM 问题三板斧：`jps` 定位进程 → `jstat` 看 GC → `jstack`/`jmap` 看线程与内存。
@@ -87,7 +87,7 @@
 
 | # | 问题 | 关键答案 |
 |---|------|---------|
-| 38 | Spring Boot 自动装配原理 | `@EnableAutoConfiguration` → `AutoConfigurationImportSelector` → `SpringFactoriesLoader` 读取 `META-INF/spring.factories` → 条件装配 `@Conditional`。 |
+| 38 | Spring Boot 自动装配原理 | `@EnableAutoConfiguration` → `AutoConfigurationImportSelector` → 读取 `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`（Spring Boot 3.x；2.x 为 `spring.factories`）→ 条件装配 `@Conditional`。 |
 | 39 | Spring 如何解决循环依赖 | 仅支持 setter/field 注入的循环依赖，通过三级缓存（singletonObjects/earlySingletonObjects/singletonFactories）暴露早期引用；构造器注入无法解决。 |
 | 40 | `@Transactional` 事务失效场景 | 非 public 方法、内部调用、异常被 try-catch 吞掉、timeout 过小、数据库引擎不支持事务、未配置对非 RuntimeException 回滚。 |
 | 41 | Spring MVC 工作流程 | `DispatcherServlet` → `HandlerMapping` → `HandlerAdapter` → 执行 Handler → `ModelAndView` → `ViewResolver` → 渲染视图返回客户端。 |
@@ -141,7 +141,7 @@
 |---|------|---------|
 | 60 | Spring 中用了哪些设计模式 | 工厂（BeanFactory）、单例（容器 Bean）、代理（AOP/JDK/CGLIB）、模板方法（JdbcTemplate）、观察者（ApplicationEvent）、适配器（HandlerAdapter）、装饰器（事务包装）。 |
 | 61 | 单例模式实现方式 | 饿汉式、懒汉式（线程不安全）、DCL + `volatile`、`静态内部类`、`Enum`（最推荐，防反射和序列化破坏）。 |
-| 62 | 代理模式分类 | 静态代理、JDK 动态代理（实现接口）、CGLIB 动态代理（继承类）；Spring AOP 默认 JDK，无接口用 CGLIB。 |
+| 62 | 代理模式分类 | 静态代理、JDK 动态代理（实现接口）、CGLIB 动态代理（继承类）；Spring AOP 默认策略：有接口用 JDK 动态代理，无接口用 CGLIB（Spring Boot 2.x+ 默认统一使用 CGLIB）。 |
 
 > 💡 补充：不要为了用设计模式而过度设计；面试中结合具体项目讲“为什么用、解决了什么问题”更容易得分。
 
@@ -179,3 +179,12 @@
 
 ## 📚 完整资料
 - [archive/old-interview-notes/Java面试汇总.md](../archive/old-interview-notes/Java面试汇总.md)
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 订正 | ZGC 非 JDK 15+ 默认 GC（G1 仍是默认）；Spring Boot 自动装配补充 3.x 新机制；Spring AOP 代理默认策略补充 Spring Boot 2.x+ 默认 CGLIB |
+| 2026-07-22 | 审查 | 全面审查，其余 64 道题答案正确 |

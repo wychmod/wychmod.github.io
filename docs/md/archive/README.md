@@ -99,21 +99,34 @@ md/archive/
 │   ├── Vue3+Vue-CLI项目搭建.md
 │   └── 微信小程序开发（七月）.md
 ├── youdaonote-images/                   ← 共享图片（被多个归档目录引用）
-├── courses-奈学-ML-DL/                      ← 待办
-├── courses-九章算法/                        ← 待办
-├── courses-左神算法/                        ← 待办
-├── courses-技术胖-React/                    ← 待办
-├── courses-Linux核心技能/                   ← 待办
-├── books-动手学深度学习/                    ← 待办
-├── books-Python源码剖析/                    ← 待办
-├── books-系统设计PDF/                       ← 待办
-├── old-spring-tutorials/                    ← 待办
-├── old-flask-tutorials/                     ← 待办
-├── old-react-tutorials/                     ← 待办
-├── notes-个人写作/                          ← 待办
-├── obsolete-pdf-mq9-rocketmq/              ← 待办
-├── software-testing-bin/                    ← 待办
-└── macos-tools/                             ← 待办
+├── notes-个人写作/                          ← 个人写作笔记
+├── old-agent-notes/                      ← AI Agent 笔记（开发+系统知识）
+├── old-algorithm-notes/                  ← 算法与数据结构
+├── old-cicd-notes/                       ← CI/CD 持续集成
+├── old-cloud-native-notes/               ← 云原生架构
+├── old-cs-notes/                         ← 计算机系统与并发
+├── old-css-notes/                        ← CSS 便捷代码
+├── old-distributed-coord-notes/          ← 分布式协调与搜索
+├── old-django-notes/                     ← Django 笔记
+├── old-docker-notes/                     ← Docker 容器化
+├── old-flask-notes/                      ← Flask 笔记
+├── old-git-notes/                        ← Git 版本控制
+├── old-go-notes/                         ← Go 语言
+├── old-java-notes/                       ← Java 基础
+├── old-jvm-notes/                        ← JVM 调优
+├── old-k8s-notes/                        ← Kubernetes
+├── old-linux-notes/                      ← Linux 运维
+├── old-llm-notes/                        ← 大模型应用
+├── old-ml-dl-notes/                      ← ML/DL 基础
+├── old-mq-notes/                         ← 消息队列
+├── old-mysql-notes/                      ← MySQL 数据库
+├── old-python-notes/                     ← Python 基础与生态
+├── old-redis-notes/                      ← Redis 缓存
+├── old-soft-skills-notes/                ← 软实力
+├── old-spring-notes/                     ← Spring 生态
+├── old-system-design-notes/              ← 系统设计与设计模式
+├── old-testing-notes/                    ← 软件测试
+└── old-tools-notes/                      ← 工具箱与资源
 ```
 
 ---

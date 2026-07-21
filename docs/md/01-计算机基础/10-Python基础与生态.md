@@ -202,7 +202,7 @@ CPython 将源码编译为字节码，由基于栈的虚拟机解释执行。`di
 
 ### 4.4 GIL
 
-CPython 的 GIL 保证同一时刻只有一个线程执行字节码，多线程无法并行利用多核。
+CPython 的 GIL 保证同一时刻只有一个线程执行字节码，多线程无法并行利用多核。Python 3.13 起提供实验性自由线程模式（PEP 703，`--disable-gil` 构建），可在多核 CPU 密集型场景下获得真正的并行能力，但生态兼容性仍在推进中。
 
 | 场景 | 推荐方案 |
 |---|---|
@@ -401,7 +401,7 @@ threads = 2
 ```bash
 uv init myproject
 cd myproject
-uv python pin 3.12
+uv python pin 3.13
 uv venv
 uv add requests pydantic
 uv add --dev pytest black mypy
@@ -413,7 +413,7 @@ uv run pytest
 [project]
 name = "myproject"
 version = "0.1.0"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = ["requests>=2.31.0", "pydantic>=2.0"]
 
 [project.optional-dependencies]
@@ -507,8 +507,8 @@ print(df.groupby('age')['score'].mean())
 
 | 维度 | 主流选择 |
 |---|---|
-| 版本 | 3.11+，新项目建议 3.12+ |
-| Web | FastAPI、Django、Flask |
+| 版本 | 3.13+（3.13 引入实验性自由线程），新项目建议 3.13+ |
+| Web | FastAPI、Django 5.x、Flask 3.x |
 | 数据科学 | Polars、Pandas、NumPy |
 | 异步 IO | `asyncio` + `uvloop` / AnyIO |
 | 包管理 | UV（推荐）、Poetry、pdm |
@@ -574,3 +574,14 @@ print(isinstance(Dog(), Animal))  # True
 - [archive/old-python-notes/](../archive/old-python-notes/) — Python 完整笔记归档
 - [archive/old-django-notes/](../archive/old-django-notes/) — Django 系统教程与 DRF 笔记
 - [archive/old-flask-notes/](../archive/old-flask-notes/) — Flask 轻量教程与部署笔记
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 订正 | Python 版本建议从 3.12+ 更新为 3.13+；补充 PEP 703 自由线程模式说明 |
+| 2026-07-22 | 订正 | 生态表 Web 框架补充 Django 5.x、Flask 3.x 版本标注 |
+| 2026-07-22 | 订正 | uv python pin 示例从 3.12 更新为 3.13；requires-python 从 >=3.11 更新为 >=3.12 |
+| 2026-07-22 | 审查 | 全面审查，核心内容完备，asyncio/Pydantic V2/Ruff/UV 等工具生态描述准确 |

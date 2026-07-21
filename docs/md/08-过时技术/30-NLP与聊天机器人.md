@@ -218,3 +218,11 @@ print(response.choices[0].message.content)
   - 想做应用 → 学 LLM API + RAG + Agent
   - 想搞研究 → 读 Transformer 论文 + 预训练原理
   - 不建议：从 word2vec / TF 1.x / 朴素贝叶斯开始
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 审查 | 全面审查，替代方案（LLM API/RAG/Agent/BGE Embedding）均为 2026 年最新主流；存档区保留原貌 |

@@ -1243,3 +1243,11 @@ onItemTap(event){
 ### sku的思路
 **规格值与规格名对应**，
 每次选择重新计算状态，用hashmap实现。
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 审查 | 全面审查，核心内容完备（Vue3 + Composition API/`<script setup>`、Vue CLI→Vite、Vuex→Pinia、TypeScript 标配等时效性良好，无需订正） |

@@ -119,7 +119,7 @@ systemctl enable docker
 ### 4.2 Dockerfile 示例
 
 ```dockerfile
-FROM nginx:1.15-alpine
+FROM nginx:alpine
 COPY html /etc/nginx/html
 COPY conf /etc/nginx/
 WORKDIR /etc/nginx/html
@@ -389,7 +389,7 @@ jobs:
       - name: setup-node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
       - name: npm install and build
         run: |
           npm install
@@ -434,7 +434,7 @@ jobs:
 1. **GitOps 成为主流**：以 Argo CD、Flux 为代表，通过 Git 仓库作为唯一事实来源，自动同步 K8s 集群状态。
 2. **平台工程（Platform Engineering）**：企业倾向于构建内部开发者平台（IDP），将 CI/CD、环境管理、权限等沉淀为自助服务。
 3. **AI 辅助流水线**：智能测试选择、失败日志分析、自动修复建议、代码审查与质量门禁。
-4. **供应链安全**：SBOM（软件物料清单）、SLSA 框架、镜像签名（Sigstore/cosine）、依赖漏洞扫描成为标配。
+4. **供应链安全**：SBOM（软件物料清单）、SLSA 框架、镜像签名（Sigstore/cosign）、依赖漏洞扫描成为标配。
 5. **云原生 CI/CD**：Tekton、Dagger 等以容器为执行单元的 pipeline 引擎，便于跨云复用与缓存优化。
 6. **镜像瘦身与安全**：多阶段构建、distroless/base 镜像、非 root 用户运行，降低攻击面。
 7. **每次 PR 的临时环境**：通过 K8s Namespace 或 Preview Environment 自动创建独立测试环境，加速验收。
@@ -2920,3 +2920,12 @@ jobs:
         env:
           email: xxx@163.com
 ```
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 订正 | Dockerfile 示例 nginx:1.15-alpine→alpine；Node 版本 20→22；修正 Sigstore/cosign 拼写 |
+| 2026-07-22 | 审查 | 全面审查，Jenkins/GitHub Actions/Argo CD 等工具描述符合 2026 现状 |

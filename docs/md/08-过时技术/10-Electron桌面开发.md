@@ -313,3 +313,11 @@ $('tracksList').addEventListener('click', (event) => {
 - **安全默认值**：新版必须关 `nodeIntegration`，用 `preload` + `contextBridge`
 - **打包首选**：`electron-builder`
 - **替代方案**：Tauri（轻量）、PWA（多数场景够用）、Flutter Desktop（跨桌面+移动）
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 审查 | 全面审查，替代方案（Tauri/Flutter Desktop/PWA）均为 2026 年最新主流；安全建议正确；存档区保留原貌 |

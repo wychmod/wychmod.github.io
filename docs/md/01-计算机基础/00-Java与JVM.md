@@ -14,7 +14,7 @@
 - **JVM**：Java 虚拟机，跨平台基础
 - **JDK / JRE**：开发工具包 / 运行环境
 - **字节码**：`.class` 文件，JVM 解释执行
-- **类加载器**：Bootstrap / Extension / AppClassLoader
+- **类加载器**：Bootstrap / Platform（Java 9+ 原 Extension）/ AppClassLoader
 - **双亲委派**：类加载的安全机制
 
 ### 1.2 三大特性
@@ -125,16 +125,16 @@ public class App {
 }
 ```
 
-- `@EnableAutoConfiguration` 读取 `META-INF/spring.factories`
+- `@EnableAutoConfiguration` 读取 `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`（Spring Boot 3.x；2.x 用 `spring.factories`）
 - `@SpringBootApplication` = `@Configuration` + `@EnableAutoConfiguration` + `@ComponentScan`
 
 ### 3.4 Spring Cloud 核心
 
 - **服务注册发现**：Eureka / Nacos / Consul
 - **配置中心**：Spring Cloud Config / Nacos
-- **API 网关**：Spring Cloud Gateway / Zuul
-- **熔断降级**：Sentinel / Resilience4j
-- **负载均衡**：Ribbon / LoadBalancer
+- **API 网关**：Spring Cloud Gateway（Zuul 已停维）
+- **熔断降级**：Sentinel / Resilience4j（Hystrix 已停维）
+- **负载均衡**：Spring Cloud LoadBalancer（Ribbon 已停维）
 
 ## 四、实战项目
 
@@ -158,7 +158,7 @@ public class App {
 
 | 维度 | 主流 |
 |---|---|
-| Java 版本 | 17 LTS（21 也可） |
+| Java 版本 | 21 LTS（25 于 2025.09 发布，逐步采用） |
 | 框架 | Spring Boot 3.x + Spring Cloud 2024 |
 | 构建 | Maven / Gradle |
 | 测试 | JUnit 5 + Mockito + Testcontainers |
@@ -173,3 +173,15 @@ public class App {
 - [`archive/old-java-notes/`](../archive/old-java-notes/) — Java 完整笔记归档
 - [`archive/old-jvm-notes/`](../archive/old-jvm-notes/) — JVM 笔记归档
 - [`archive/old-spring-notes/`](../archive/old-spring-notes/) — Spring 笔记归档
+
+---
+
+## 修改记录
+
+| 日期 | 类型 | 说明 |
+|---|---|---|
+| 2026-07-22 | 订正 | Extension ClassLoader 更名为 Platform（Java 9+） |
+| 2026-07-22 | 订正 | Spring Boot 3.x 自动装配文件路径更新 |
+| 2026-07-22 | 订正 | 标注 Zuul/Hystrix/Ribbon 已停维 |
+| 2026-07-22 | 订正 | Java 版本现状更新为 21 LTS |
+| 2026-07-22 | 审查 | 全面审查，核心内容完备 |
