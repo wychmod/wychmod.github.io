@@ -1,0 +1,1063 @@
+/**
+ * 命令行终端系统
+ * 从 index.html 抽离的独立模块
+ * 支持: ls, cd, cat, find, tree, ai, stats 等命令
+ */
+(function() {
+  'use strict';
+  
+  // 终端状态管理
+  const TerminalState = {
+    currentPath: '/',
+    commandHistory: [],
+    historyIndex: -1,
+    docTree: null,
+    pathMap: new Map()
+  };
+  
+  // DOM 元素引用
+  const Elements = {
+    trigger: null,
+    overlay: null,
+    window: null,
+    output: null,
+    input: null,
+    prompt: null
+  };
+  
+  // 初始化
+  function init() {
+    // 获取 DOM 元素
+    Elements.trigger = document.getElementById('terminal-trigger');
+    Elements.overlay = document.getElementById('terminal-overlay');
+    Elements.window = document.getElementById('terminal-window');
+    Elements.output = document.getElementById('terminal-output');
+    Elements.input = document.getElementById('terminal-input');
+    Elements.prompt = document.getElementById('terminal-prompt');
+    
+    // 绑定事件
+    bindEvents();
+    
+    // 加载历史命令
+    loadHistory();
+    
+    // 延迟解析文档树（等待 Docsify 加载完成）
+    setTimeout(parseDocumentTree, 2000);
+  }
+  
+  // 绑定事件
+  function bindEvents() {
+    // 触发按钮点击
+    Elements.trigger.addEventListener('click', toggleTerminal);
+    
+    // 遮罩层点击关闭
+    Elements.overlay.addEventListener('click', closeTerminal);
+    
+    // 关闭按钮
+    const closeBtn = document.querySelector('.terminal-control-btn.close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeTerminal);
+    }
+    
+    // 输入框回车
+    Elements.input.addEventListener('keydown', handleKeyDown);
+    
+    // 全局快捷键
+    document.addEventListener('keydown', handleGlobalKeyDown);
+  }
+  
+  // 切换终端显示
+  function toggleTerminal() {
+    const isActive = Elements.window.classList.contains('active');
+    if (isActive) {
+      closeTerminal();
+    } else {
+      openTerminal();
+    }
+  }
+  
+  // 打开终端
+  function openTerminal() {
+    Elements.overlay.classList.add('active');
+    Elements.window.classList.add('active');
+    Elements.input.focus();
+    
+    // 如果是首次打开，显示欢迎信息
+    if (Elements.output.children.length === 0) {
+      showWelcome();
+    }
+  }
+  
+  // 关闭终端
+  function closeTerminal() {
+    Elements.overlay.classList.remove('active');
+    Elements.window.classList.remove('active');
+  }
+  
+  // 显示欢迎信息
+  function showWelcome() {
+    const welcome = [
+      '<span class="terminal-success">欢迎使用 wychmod 技术知识库命令行导航系统</span>',
+      '',
+      '输入 <span class="terminal-command">help</span> 查看可用命令',
+      '输入 <span class="terminal-command">readme</span> 查看知识库简介',
+      '输入 <span class="terminal-command">ls</span> 查看当前目录内容',
+      '',
+      '<span class="terminal-warning">🤖 新功能：AI智能问答</span>',
+      '输入 <span class="terminal-command">ai 你的问题</span> 获取AI技术指导和文档推荐',
+      '输入 <span class="terminal-command">aiconfig</span> 查看AI配置状态',
+      '',
+      '使用 <span class="terminal-info">Tab</span> 键自动补全，<span class="terminal-info">↑↓</span> 键浏览历史命令',
+      ''
+    ];
+    welcome.forEach(line => addOutput(line));
+  }
+  
+  // 处理键盘按下
+  function handleKeyDown(e) {
+    switch(e.key) {
+      case 'Enter':
+        e.preventDefault();
+        executeCommand();
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        navigateHistory(-1);
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        navigateHistory(1);
+        break;
+      case 'Tab':
+        e.preventDefault();
+        autoComplete();
+        break;
+      case 'l':
+        if (e.ctrlKey) {
+          e.preventDefault();
+          clearTerminal();
+        }
+        break;
+    }
+  }
+  
+  // 全局快捷键
+  function handleGlobalKeyDown(e) {
+    // Ctrl+K 或 Cmd+K 打开/关闭终端
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      toggleTerminal();
+    }
+    // Esc 关闭终端
+    if (e.key === 'Escape' && Elements.window.classList.contains('active')) {
+      e.preventDefault();
+      closeTerminal();
+    }
+  }
+  
+  // 执行命令
+  function executeCommand() {
+    const input = Elements.input.value.trim();
+    if (!input) return;
+    
+    // 显示命令
+    addOutput(`<span class="terminal-prompt">$</span> <span class="terminal-command">${escapeHtml(input)}</span>`);
+    
+    // 添加到历史
+    TerminalState.commandHistory.push(input);
+    TerminalState.historyIndex = TerminalState.commandHistory.length;
+    saveHistory();
+    
+    // 清空输入
+    Elements.input.value = '';
+    
+    // 解析并执行命令
+    const parts = parseCommand(input);
+    const cmd = parts[0].toLowerCase();
+    const args = parts.slice(1);
+    
+    const command = Commands[cmd];
+    if (command) {
+      command(args);
+    } else {
+      addOutput(`<span class="terminal-error">Error: Command not found: '${escapeHtml(cmd)}'. Type 'help' to see available commands.</span>`);
+    }
+    
+    // 滚动到底部
+    scrollToBottom();
+  }
+  
+  // 解析命令
+  function parseCommand(input) {
+    const parts = [];
+    let current = '';
+    let inQuote = false;
+    
+    for (let i = 0; i < input.length; i++) {
+      const char = input[i];
+      if (char === '"' || char === "'") {
+        inQuote = !inQuote;
+      } else if (char === ' ' && !inQuote) {
+        if (current) {
+          parts.push(current);
+          current = '';
+        }
+      } else {
+        current += char;
+      }
+    }
+    if (current) parts.push(current);
+    return parts;
+  }
+  
+  // 命令集合
+  const Commands = {
+    help: function(args) {
+      const help = [
+        '<span class="terminal-success">可用命令列表：</span>',
+        '',
+        '<span class="terminal-warning">📁 文件系统命令：</span>',
+        '<span class="terminal-command">cd &lt;目录&gt;</span>      - 切换到指定文档分类',
+        '<span class="terminal-command">ls [path]</span>      - 列出当前或指定目录内容',
+        '<span class="terminal-command">pwd</span>            - 显示当前所在路径',
+        '<span class="terminal-command">cat &lt;文件&gt;</span>     - 打开指定文档',
+        '<span class="terminal-command">tree [path]</span>    - 显示目录树',
+        '',
+        '<span class="terminal-warning">🔍 搜索与导航：</span>',
+        '<span class="terminal-command">find &lt;关键词&gt;</span>  - 搜索文档',
+        '<span class="terminal-command">readme</span>         - 查看知识库简介',
+        '<span class="terminal-command">stats</span>          - 显示统计信息',
+        '<span class="terminal-command">recent</span>         - 显示最近访问',
+        '',
+        '<span class="terminal-warning">🤖 AI智能助手：</span>',
+        '<span class="terminal-command">ai &lt;问题&gt;</span>     - AI技术问答和文档推荐',
+        '<span class="terminal-command">aiconfig [key] [value]</span> - 配置或查看AI设置',
+        '<span class="terminal-command">aisearch &lt;关键词&gt;</span> - 本地智能文档搜索',
+        '',
+        '<span class="terminal-warning">🛠️ 系统命令：</span>',
+        '<span class="terminal-command">man &lt;命令&gt;</span>     - 显示命令手册',
+        '<span class="terminal-command">clear</span>          - 清空终端屏幕',
+        '<span class="terminal-command">history</span>        - 显示命令历史',
+        '<span class="terminal-command">whoami</span>         - 显示用户信息',
+        '<span class="terminal-command">about</span>          - 显示关于信息',
+        '<span class="terminal-command">fortune</span>        - 随机技术名言',
+        '<span class="terminal-command">neofetch</span>       - 系统信息面板',
+        '<span class="terminal-command">help</span>           - 显示此帮助信息',
+        '',
+        '<span class="terminal-info">小提示：</span>',
+        '  • 使用 Tab 键自动补全命令和路径',
+        '  • 使用 ↑↓ 键浏览历史命令',
+        '  • 按 Esc 或 Ctrl+K 关闭终端',
+        '  • cat 命令支持带或不带 .md 后缀',
+        '  • 输入 <span class="terminal-command">man &lt;命令&gt;</span> 查看命令详细说明'
+      ];
+      help.forEach(line => addOutput(line));
+    },
+    
+    clear: function() {
+      clearTerminal();
+    },
+    
+    pwd: function() {
+      addOutput(`<span class="terminal-directory">${TerminalState.currentPath}</span>`);
+    },
+    
+    ls: function(args) {
+      const path = args[0] || TerminalState.currentPath;
+      const targetPath = resolvePath(path);
+      const node = findNode(targetPath);
+      
+      if (!node) {
+        addOutput(`<span class="terminal-error">Error: No such directory: '${escapeHtml(path)}'</span>`);
+        return;
+      }
+      
+      if (node.type === 'file') {
+        addOutput(`<span class="terminal-file">${node.name}.md</span>`);
+        return;
+      }
+      
+      if (!node.children || node.children.length === 0) {
+        addOutput('<span class="terminal-info">Empty directory</span>');
+        return;
+      }
+      
+      // 统计文件和目录数量
+      let dirCount = 0;
+      let fileCount = 0;
+      node.children.forEach(child => {
+        if (child.type === 'directory') {
+          dirCount++;
+          addOutput(`<span class="terminal-directory">📁 ${child.name}/</span>`);
+        }
+      });
+      node.children.forEach(child => {
+        if (child.type === 'file') {
+          fileCount++;
+          addOutput(`<span class="terminal-file">📄 ${child.name}.md</span>`);
+        }
+      });
+      
+      // 显示统计信息
+      addOutput('');
+      addOutput(`<span class="terminal-info">总计: ${dirCount} 个目录, ${fileCount} 个文件</span>`);
+    },
+    
+    cd: function(args) {
+      if (!args[0]) {
+        TerminalState.currentPath = '/';
+        updatePrompt();
+        return;
+      }
+      
+      const targetPath = resolvePath(args[0]);
+      const node = findNode(targetPath);
+      
+      if (!node) {
+        addOutput(`<span class="terminal-error">Error: No such directory: '${escapeHtml(args[0])}'</span>`);
+        return;
+      }
+      
+      if (node.type === 'file') {
+        addOutput(`<span class="terminal-error">Error: Not a directory: '${escapeHtml(args[0])}'</span>`);
+        return;
+      }
+      
+      TerminalState.currentPath = targetPath;
+      updatePrompt();
+    },
+    
+    cat: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Error: Missing argument. Usage: cat &lt;file&gt;</span>');
+        return;
+      }
+      
+      // 标准化文件名：移除 .md 后缀（如果存在）
+      let fileName = args[0];
+      if (fileName.toLowerCase().endsWith('.md')) {
+        fileName = fileName.slice(0, -3);
+      }
+      
+      // 尝试直接作为URL路径处理（对于根级文档）
+      if (fileName.startsWith('/')) {
+        // 直接使用URL跳转
+        addOutput(`<span class="terminal-success">Opening: ${fileName}</span>`);
+        setTimeout(() => {
+          window.location.hash = '#' + fileName;
+          closeTerminal();
+        }, 500);
+        return;
+      }
+      
+      const targetPath = resolvePath(fileName);
+      const node = findNode(targetPath);
+      
+      if (!node) {
+        addOutput(`<span class="terminal-error">Error: File not found: '${escapeHtml(args[0])}'</span>`);
+        return;
+      }
+      
+      if (node.type === 'directory') {
+        addOutput(`<span class="terminal-error">Error: '${escapeHtml(args[0])}' is a directory</span>`);
+        return;
+      }
+      
+      // 跳转到文档
+      addOutput(`<span class="terminal-success">Opening: ${node.name}</span>`);
+      setTimeout(() => {
+        window.location.hash = '#' + node.url;
+        closeTerminal();
+      }, 500);
+    },
+    
+    find: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Error: Missing argument. Usage: find &lt;keyword&gt;</span>');
+        return;
+      }
+      
+      const keyword = args.join(' ').toLowerCase();
+      const results = [];
+      
+      function search(node, path) {
+        if (node.name.toLowerCase().includes(keyword)) {
+          results.push({ path: path + '/' + node.name, node: node });
+        }
+        if (node.children) {
+          node.children.forEach(child => {
+            search(child, path + '/' + node.name);
+          });
+        }
+      }
+      
+      if (TerminalState.docTree) {
+        search(TerminalState.docTree, '');
+      }
+      
+      if (results.length === 0) {
+        addOutput(`<span class="terminal-warning">No results found for: '${escapeHtml(keyword)}'</span>`);
+      } else {
+        addOutput(`<span class="terminal-success">Found ${results.length} result(s):</span>`);
+        results.forEach(r => {
+          const icon = r.node.type === 'directory' ? '<span class="terminal-directory">📁</span>' : '<span class="terminal-file">📄</span>';
+          addOutput(`${icon} ${r.path}`);
+        });
+      }
+    },
+    
+    tree: function(args) {
+      const path = args[0] || TerminalState.currentPath;
+      const targetPath = resolvePath(path);
+      const node = findNode(targetPath);
+      
+      if (!node) {
+        addOutput(`<span class="terminal-error">Error: No such directory: '${escapeHtml(path)}'</span>`);
+        return;
+      }
+      
+      addOutput(`<span class="terminal-directory">${node.name || '根目录'}</span>`);
+      printTree(node, '', true);
+    },
+    
+    history: function() {
+      if (TerminalState.commandHistory.length === 0) {
+        addOutput('<span class="terminal-info">No command history</span>');
+        return;
+      }
+      
+      TerminalState.commandHistory.forEach((cmd, i) => {
+        addOutput(`<span class="terminal-info">${i + 1}</span> ${escapeHtml(cmd)}`);
+      });
+    },
+    
+    whoami: function() {
+      addOutput('<span class="terminal-success">wychmod - 24届计算机研究生 | JD测开从业者</span>');
+      addOutput('<span class="terminal-info">Java/Python 全栈开发者</span>');
+    },
+    
+    about: function() {
+      const stats = getStats();
+      addOutput('<span class="terminal-success">=== wychmod 技术知识库 ===</span>');
+      addOutput('');
+      addOutput(`<span class="terminal-info">📚 文档数量：</span> ${stats.totalDocs} 篇`);
+      addOutput(`<span class="terminal-info">📁 分类数量：</span> ${stats.totalCategories} 个`);
+      addOutput(`<span class="terminal-info">💻 技术栈：</span> Java, Python, React, Vue, Redis, MySQL, K8s...`);
+      addOutput(`<span class="terminal-info">🔥 核心特色：</span> 源码级学习、实战导向、深度剖析`);
+      addOutput('');
+      addOutput('<span class="terminal-success">🚀 欢迎探索知识海洋！</span>');
+    },
+    
+    echo: function(args) {
+      if (args.length === 0) return;
+      const text = args.join(' ');
+      addOutput(escapeHtml(text));
+    },
+    
+    fortune: function() {
+      const fortunes = [
+        '💡 深入理解一个技术，胜过浅尝多个框架。',
+        '💪 每天进步一点点，就是成功的开始。',
+        '🤓 源码之下，再无秘密。',
+        '🎯 好的代码不是写出来的，而是重构出来的。',
+        '🚀 持续学习，永不止步。',
+        '📖 阅读优秀源码，提升编程思维。',
+        '✨ 细节决定成败，严谨造就卓越。',
+        '🔍 理解原理，才能举一反三。',
+        '🎓 知识体系化，学习更高效。',
+        '🛠️ 工欲善其事，必先利其器。'
+      ];
+      const random = fortunes[Math.floor(Math.random() * fortunes.length)];
+      addOutput(`<span class="terminal-success">${random}</span>`);
+    },
+    
+    neofetch: function() {
+      addOutput('<span class="terminal-success">                    </span>');
+      addOutput('<span class="terminal-success">    .---.          </span> <span class="terminal-info">OS:</span> Knowledge Base System');
+      addOutput('<span class="terminal-success">   /     \\         </span> <span class="terminal-info">Host:</span> wychmod.github.io');
+      addOutput('<span class="terminal-success">   \\.@-@./         </span> <span class="terminal-info">Kernel:</span> Docsify 4.x');
+      addOutput('<span class="terminal-success">   /`\\_/`\\        </span> <span class="terminal-info">Shell:</span> Terminal.js');
+      addOutput('<span class="terminal-success">  //  _  \\\\       </span> <span class="terminal-info">Theme:</span> Modern Tech Blue');
+      addOutput('<span class="terminal-success"> | \\     )|_      </span> <span class="terminal-info">Uptime:</span> ' + new Date().toLocaleDateString());
+      addOutput('<span class="terminal-success">/`\\_`>  <_/ \\     </span> <span class="terminal-info">Packages:</span> ' + getStats().totalDocs + ' docs');
+      addOutput('<span class="terminal-success">\\__/\'---\'\\__/    </span>');
+    },
+    
+    man: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Usage: man <command></span>');
+        return;
+      }
+      
+      const cmd = args[0].toLowerCase();
+      const manuals = {
+        ls: [
+          '<span class="terminal-success">NAME</span>',
+          '    ls - list directory contents',
+          '',
+          '<span class="terminal-success">SYNOPSIS</span>',
+          '    ls [path]',
+          '',
+          '<span class="terminal-success">DESCRIPTION</span>',
+          '    List information about files and directories.',
+          '    By default, lists current directory.',
+          '',
+          '<span class="terminal-success">EXAMPLES</span>',
+          '    ls              List current directory',
+          '    ls 后端开发      List specific directory'
+        ],
+        cd: [
+          '<span class="terminal-success">NAME</span>',
+          '    cd - change directory',
+          '',
+          '<span class="terminal-success">SYNOPSIS</span>',
+          '    cd [directory]',
+          '',
+          '<span class="terminal-success">DESCRIPTION</span>',
+          '    Change the current working directory.',
+          '',
+          '<span class="terminal-success">EXAMPLES</span>',
+          '    cd Java技术栈    Change to Java directory',
+          '    cd ..           Go to parent directory',
+          '    cd /            Go to root directory'
+        ],
+        cat: [
+          '<span class="terminal-success">NAME</span>',
+          '    cat - view document',
+          '',
+          '<span class="terminal-success">SYNOPSIS</span>',
+          '    cat <file>',
+          '',
+          '<span class="terminal-success">DESCRIPTION</span>',
+          '    Open and navigate to the specified document.',
+          '',
+          '<span class="terminal-success">EXAMPLES</span>',
+          '    cat Java基本功     Open Java basics document'
+        ],
+        find: [
+          '<span class="terminal-success">NAME</span>',
+          '    find - search documents',
+          '',
+          '<span class="terminal-success">SYNOPSIS</span>',
+          '    find <keyword>',
+          '',
+          '<span class="terminal-success">DESCRIPTION</span>',
+          '    Search for documents containing the keyword.',
+          '',
+          '<span class="terminal-success">EXAMPLES</span>',
+          '    find Redis      Find Redis-related documents',
+          '    find Spring     Find Spring-related documents'
+        ]
+      };
+      
+      if (manuals[cmd]) {
+        manuals[cmd].forEach(line => addOutput(line));
+      } else {
+        addOutput(`<span class="terminal-error">No manual entry for ${escapeHtml(cmd)}</span>`);
+      }
+    },
+    
+    open: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Usage: open <file></span>');
+        return;
+      }
+      
+      // 别名命令，调用 cat
+      Commands.cat(args);
+    },
+    
+    view: function(args) {
+      if (!args[0]) {
+        addOutput('<span class="terminal-error">Usage: view <file></span>');
+        return;
+      }
+      
+      // 别名命令，调用 cat
+      Commands.cat(args);
+    },
+    
+    ll: function(args) {
+      // 别名命令，调用 ls 显示详细信息
+      Commands.ls(args);
+    },
+    
+    dir: function(args) {
+      // Windows 风格别名
+      Commands.ls(args);
+    },
+    
+    grep: function(args) {
+      if (args.length < 2) {
+        addOutput('<span class="terminal-error">Usage: grep <pattern> <command></span>');
+        addOutput('<span class="terminal-info">Example: ls | grep Redis</span>');
+        return;
+      }
+      
+      const pattern = args[0].toLowerCase();
+      addOutput(`<span class="terminal-info">Searching for: '${escapeHtml(pattern)}'...</span>`);
+      
+      // 调用 find 命令
+      Commands.find([pattern]);
+    },
+    
+    exit: function() {
+      addOutput('<span class="terminal-success">Goodbye! 按 Esc 或 Ctrl+K 关闭终端</span>');
+      setTimeout(closeTerminal, 1000);
+    },
+    
+    quit: function() {
+      Commands.exit();
+    },
+    
+    readme: function() {
+      addOutput('<span class="terminal-success">========== wychmod 技术知识库 ==========</span>');
+      addOutput('');
+      addOutput('<span class="terminal-info">👨‍💻 关于我：</span>24届计算机研究生，Java与Python双语言全栈开发者');
+      addOutput('<span class="terminal-info">📚 知识范围：</span>涵盖后端、前端、算法、系统设计、AI等全栈知识');
+      addOutput('<span class="terminal-info">🎯 学习目标：</span>源码剖析与实战结合，手写Spring、协程库，打造系统化技术体系');
+      addOutput('');
+      addOutput('<span class="terminal-warning">⚡ 快速开始：</span>');
+      addOutput('  • 输入 <span class="terminal-command">ls</span> 查看所有分类');
+      addOutput('  • 输入 <span class="terminal-command">cd 后端开发</span> 进入分类');
+      addOutput('  • 输入 <span class="terminal-command">find Spring</span> 搜索文档');
+      addOutput('  • 输入 <span class="terminal-command">stats</span> 查看统计信息');
+    },
+    
+    stats: function() {
+      const stats = getStats();
+      addOutput('<span class="terminal-success">========== 知识库统计信息 ==========</span>');
+      addOutput('');
+      addOutput(`<span class="terminal-info">📚 文档总数：</span> <span class="terminal-success">${stats.totalDocs}</span> 篇`);
+      addOutput(`<span class="terminal-info">📁 分类数量：</span> <span class="terminal-success">${stats.totalCategories}</span> 个`);
+      addOutput('');
+      addOutput('<span class="terminal-info">💻 技术栈分布：</span>');
+      addOutput('  • Java: Spring, SpringBoot, SpringCloud, JVM调优');
+      addOutput('  • Python: Django, Flask, 源码剖析, 异步编程');
+      addOutput('  • 前端: React, Vue, Taro小程序');
+      addOutput('  • 中间件: Redis, MySQL, RabbitMQ, Elasticsearch');
+      addOutput('  • 云原生: Docker, Kubernetes, CI/CD');
+      addOutput('  • AI: 机器学习, 深度学习, Agent系统');
+      addOutput('');
+      addOutput('<span class="terminal-warning">🎯 核心特色：</span>');
+      addOutput('  • 源码级学习：深入分析框架内部原理');
+      addOutput('  • 实战导向：手写Spring、RPC、协程库');
+      addOutput('  • 系统化体系：从基础到高级全面覆盖');
+    },
+    
+    recent: function() {
+      try {
+        const history = JSON.parse(localStorage.getItem('readingHistory') || '[]');
+        if (history.length === 0) {
+          addOutput('<span class="terminal-warning">暂无最近访问记录</span>');
+          return;
+        }
+        
+        addOutput('<span class="terminal-success">🕒 最近访问的文档：</span>');
+        addOutput('');
+        
+        const recentItems = history.slice(-5).reverse();
+        recentItems.forEach((item, index) => {
+          const time = new Date(item.time).toLocaleString('zh-CN');
+          addOutput(`<span class="terminal-info">${index + 1}.</span> <span class="terminal-file">${item.title}</span>`);
+          addOutput(`   <span class="terminal-info">访问时间: ${time}</span>`);
+        });
+      } catch (e) {
+        addOutput('<span class="terminal-error">读取历史记录失败</span>');
+      }
+    },
+    
+    // ==================== AI智能助手命令 ====================
+    
+    ai: function(args) {
+      if (!args || args.length === 0) {
+        addOutput('<span class="terminal-error">Usage: ai <你的技术问题></span>');
+        addOutput('<span class="terminal-info">示例: ai Spring Bean的生命周期是什么？</span>');
+        addOutput('<span class="terminal-info">示例: ai 如何优化MySQL查询性能？</span>');
+        addOutput('<span class="terminal-info">示例: ai Python协程和线程有什么区别？</span>');
+        return;
+      }
+      
+      const question = args.join(' ');
+      addOutput(`<span class="terminal-info">🤔 正在思考您的问题...</span>`);
+      addOutput('');
+      
+      // 调用AI助手
+      if (window.AIAssistant) {
+        window.AIAssistant.ask(question).then(result => {
+          if (result.success) {
+            const formatted = window.AIAssistant.format(result.data);
+            formatted.forEach(line => addOutput(line));
+          } else {
+            addOutput(`<span class="terminal-error">${result.error}</span>`);
+          }
+          scrollToBottom();
+        }).catch(error => {
+          addOutput(`<span class="terminal-error">❌ AI请求失败: ${error.message}</span>`);
+          scrollToBottom();
+        });
+      } else {
+        addOutput('<span class="terminal-error">❌ AI助手模块未加载</span>');
+        scrollToBottom();
+      }
+    },
+    
+    aiconfig: function(args) {
+      if (!window.AIAssistant) {
+        addOutput('<span class="terminal-error">❌ AI助手模块未加载</span>');
+        return;
+      }
+      
+      if (args.length === 0) {
+        // 显示配置状态
+        const status = window.AIAssistant.getConfigStatus();
+        status.forEach(line => addOutput(line));
+      } else if (args.length === 2) {
+        // 设置配置
+        const [key, value] = args;
+        const result = window.AIAssistant.setConfig(key, value);
+        addOutput(result);
+      } else {
+        addOutput('<span class="terminal-error">Usage: aiconfig [key] [value]</span>');
+        addOutput('<span class="terminal-info">查看配置: aiconfig</span>');
+        addOutput('<span class="terminal-info">设置配置: aiconfig apikey YOUR_KEY</span>');
+        addOutput('<span class="terminal-info">          aiconfig apiurl YOUR_URL</span>');
+      }
+    },
+    
+    aisearch: function(args) {
+      if (!args || args.length === 0) {
+        addOutput('<span class="terminal-error">Usage: aisearch <关键词></span>');
+        addOutput('<span class="terminal-info">示例: aisearch Spring</span>');
+        return;
+      }
+      
+      const keyword = args.join(' ');
+      
+      if (window.AIAssistant) {
+        const results = window.AIAssistant.search(keyword);
+        
+        if (results.length === 0) {
+          addOutput(`<span class="terminal-warning">未找到包含 "${escapeHtml(keyword)}" 的文档</span>`);
+        } else {
+          addOutput(`<span class="terminal-success">🔍 找到 ${results.length} 个相关文档：</span>`);
+          addOutput('');
+          
+          results.forEach((doc, index) => {
+            addOutput(`<span class="terminal-warning">${index + 1}. ${escapeHtml(doc.title)}</span>`);
+            addOutput(`   <span class="terminal-info">分类: ${escapeHtml(doc.category)}</span>`);
+            addOutput(`   <span class="terminal-command">打开: cat ${escapeHtml(doc.path)}</span>`);
+            addOutput('');
+          });
+        }
+      } else {
+        addOutput('<span class="terminal-error">❌ AI助手模块未加载</span>');
+      }
+    },
+    
+    ask: function(args) {
+      // ai命令的别名
+      Commands.ai(args);
+    }
+  };
+  
+  // 打印目录树
+  function printTree(node, prefix, isLast, depth = 0) {
+    if (depth > 3) return; // 限制深度
+    
+    if (!node.children) return;
+    
+    node.children.forEach((child, index) => {
+      const isLastChild = index === node.children.length - 1;
+      const connector = isLastChild ? '└── ' : '├── ';
+      const icon = child.type === 'directory' ? '📁' : '📄';
+      const color = child.type === 'directory' ? 'terminal-directory' : 'terminal-file';
+      
+      addOutput(`${prefix}${connector}${icon} <span class="${color}">${child.name}${child.type === 'directory' ? '/' : ''}</span>`);
+      
+      if (child.children) {
+        const newPrefix = prefix + (isLastChild ? '    ' : '│   ');
+        printTree(child, newPrefix, isLastChild, depth + 1);
+      }
+    });
+  }
+  
+  // 解析路径
+  function resolvePath(path) {
+    if (path === '/') return '/';
+    if (path.startsWith('/')) return path;
+    
+    let result = TerminalState.currentPath;
+    const parts = path.split('/').filter(p => p);
+    
+    for (const part of parts) {
+      if (part === '..') {
+        result = result.split('/').slice(0, -1).join('/') || '/';
+      } else if (part !== '.') {
+        result = result === '/' ? '/' + part : result + '/' + part;
+      }
+    }
+    
+    return result || '/';
+  }
+  
+  // 查找节点
+  function findNode(path) {
+    if (!TerminalState.docTree) return null;
+    if (path === '/') return TerminalState.docTree;
+    
+    const parts = path.split('/').filter(p => p);
+    let current = TerminalState.docTree;
+    
+    for (const part of parts) {
+      if (!current.children) return null;
+      const partLower = part.toLowerCase();
+      current = current.children.find(c => c.name.toLowerCase() === partLower);
+      if (!current) return null;
+    }
+    
+    return current;
+  }
+  
+  // 添加输出
+  function addOutput(html) {
+    const line = document.createElement('div');
+    line.className = 'terminal-line';
+    line.innerHTML = html;
+    Elements.output.appendChild(line);
+  }
+  
+  // 清空终端
+  function clearTerminal() {
+    Elements.output.innerHTML = '';
+  }
+  
+  // 滚动到底部
+  function scrollToBottom() {
+    Elements.output.parentElement.scrollTop = Elements.output.parentElement.scrollHeight;
+  }
+  
+  // 更新提示符
+  function updatePrompt() {
+    const displayPath = TerminalState.currentPath === '/' ? '~' : '~' + TerminalState.currentPath;
+    Elements.prompt.textContent = `$ `;
+  }
+  
+  // 历史命令导航
+  function navigateHistory(direction) {
+    if (TerminalState.commandHistory.length === 0) return;
+    
+    TerminalState.historyIndex += direction;
+    
+    if (TerminalState.historyIndex < 0) {
+      TerminalState.historyIndex = 0;
+    } else if (TerminalState.historyIndex >= TerminalState.commandHistory.length) {
+      TerminalState.historyIndex = TerminalState.commandHistory.length;
+      Elements.input.value = '';
+      return;
+    }
+    
+    Elements.input.value = TerminalState.commandHistory[TerminalState.historyIndex] || '';
+  }
+  
+  // 自动补全
+  function autoComplete() {
+    const input = Elements.input.value;
+    const parts = input.split(' ');
+    
+    if (parts.length === 1) {
+      // 补全命令
+      const matches = Object.keys(Commands).filter(cmd => cmd.startsWith(parts[0].toLowerCase()));
+      if (matches.length === 1) {
+        Elements.input.value = matches[0] + ' ';
+      } else if (matches.length > 1) {
+        addOutput(`<span class="terminal-info">${matches.join('  ')}</span>`);
+        scrollToBottom();
+      }
+    }
+  }
+  
+  // 加载历史
+  function loadHistory() {
+    try {
+      const history = localStorage.getItem('terminalHistory');
+      if (history) {
+        TerminalState.commandHistory = JSON.parse(history);
+      }
+    } catch (e) {
+      console.error('Failed to load history:', e);
+    }
+  }
+  
+  // 保存历史
+  function saveHistory() {
+    try {
+      const history = TerminalState.commandHistory.slice(-100); // 只保存最近100条
+      localStorage.setItem('terminalHistory', JSON.stringify(history));
+    } catch (e) {
+      console.error('Failed to save history:', e);
+    }
+  }
+  
+  // 获取统计信息
+  function getStats() {
+    let totalDocs = 0;
+    let totalCategories = 0;
+    
+    function count(node) {
+      if (node.type === 'file') {
+        totalDocs++;
+      } else if (node.type === 'directory') {
+        totalCategories++;
+      }
+      if (node.children) {
+        node.children.forEach(count);
+      }
+    }
+    
+    if (TerminalState.docTree) {
+      count(TerminalState.docTree);
+    }
+    
+    return { totalDocs, totalCategories };
+  }
+  
+  // HTML 转义
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+  
+  // 解析文档树
+  function parseDocumentTree() {
+    const sidebar = document.querySelector('.sidebar-nav');
+    if (!sidebar) {
+      setTimeout(parseDocumentTree, 1000);
+      return;
+    }
+    
+    TerminalState.docTree = {
+      name: '根目录',
+      type: 'directory',
+      path: '/',
+      children: []
+    };
+    
+    // 处理侧边栏中可能存在的多个顶层 <ul>
+    const uls = Array.from(sidebar.children).filter(function(el) {
+      return el.tagName && el.tagName.toLowerCase() === 'ul';
+    });
+    
+    if (uls.length > 0) {
+      uls.forEach(function(ul) {
+        parseList(ul, TerminalState.docTree);
+      });
+    } else {
+      const ul = sidebar.querySelector('ul');
+      if (ul) {
+        parseList(ul, TerminalState.docTree);
+      }
+    }
+  }
+  
+  // 解析列表
+  function parseList(ul, parent) {
+    const items = ul.children;
+    
+    for (let i = 0; i < items.length; i++) {
+      const li = items[i];
+      
+      // 跳过分隔符（hr 标签）
+      if (li.querySelector('hr')) {
+        continue;
+      }
+      
+      const link = li.querySelector('a');
+      const subList = li.querySelector('ul');
+      const paragraph = li.querySelector('p');
+      
+      if (link && !subList) {
+        // 文件节点
+        let text = link.textContent.trim();
+        // 移除 emoji 和特殊字符
+        text = text.replace(/[\uD83C-\uDBFF\uDC00-\uDFFF]+|[\u2600-\u27FF]|[\u{1F300}-\u{1F9FF}]/gu, '').trim();
+        text = text.replace(/^[\s\u00A0]+|[\s\u00A0]+$/g, '').trim();
+        
+        const href = link.getAttribute('href');
+        if (text && href) {
+          parent.children.push({
+            name: text,
+            type: 'file',
+            url: href.replace(/^#/, '')
+          });
+        }
+      } else if (paragraph || (link && subList)) {
+        // 目录节点
+        let text = (paragraph || link).textContent.trim();
+        // 移除 emoji 和特殊字符
+        text = text.replace(/[\uD83C-\uDBFF\uDC00-\uDFFF]+|[\u2600-\u27FF]|[\u{1F300}-\u{1F9FF}]/gu, '').trim();
+        text = text.replace(/^[\s\u00A0]+|[\s\u00A0]+$/g, '').trim();
+        
+        // 不过滤任何目录，包括"首页"
+        if (text) {
+          const dirNode = {
+            name: text,
+            type: 'directory',
+            children: []
+          };
+          parent.children.push(dirNode);
+          
+          if (subList) {
+            parseList(subList, dirNode);
+          }
+        }
+      }
+    }
+  }
+  
+  // 页面加载完成后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  
+  // 记录阅读历史
+  function trackReading() {
+    if (window.$docsify && window.$docsify.router) {
+      try {
+        const title = document.querySelector('.markdown-section h1')?.textContent || '未知文档';
+        const path = window.location.hash;
+        
+        if (path && path !== '#/' && path !== '#/README') {
+          let history = JSON.parse(localStorage.getItem('readingHistory') || '[]');
+          
+          // 移除重复项
+          history = history.filter(item => item.path !== path);
+          
+          // 添加新记录
+          history.push({
+            title: title,
+            path: path,
+            time: Date.now()
+          });
+          
+          // 只保留最近 20 条
+          if (history.length > 20) {
+            history = history.slice(-20);
+          }
+          
+          localStorage.setItem('readingHistory', JSON.stringify(history));
+        }
+      } catch (e) {
+        console.error('Failed to track reading:', e);
+      }
+    }
+  }
+  
+  // 监听路由变化
+  window.addEventListener('hashchange', () => {
+    setTimeout(trackReading, 1000);
+  });
+})();
