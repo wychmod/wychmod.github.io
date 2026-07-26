@@ -1,3 +1,10 @@
+# 旧版 Notion 视觉参考（历史基线）
+
+> ⚠️ **已被首页 V2 规范取代**：本文件记录 2026-05 的 Notion 风格研究与旧版实现依据，仅供追溯，不再作为首页或全局视觉决策的权威来源。
+> 当前首页设计、实现、验收和 AI Harness 统一参考 [`docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md`](docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md)。两者冲突时，以新规范为准。
+
+---
+
 ## Overview
 
 Notion presents itself as the all-in-one workspace through a confident, illustration-rich brand voice. The homepage opens with **"Meet the night shift."** rendered centered over a deep navy hero band ({colors.brand-navy}), decorated with brand-colored sticky-note dots and mesh wire illustrations scattered around the headline. The signature **purple pill primary CTA** ({colors.primary}) "Get Notion free" sits at the visual center, paired with an outlined "Request a demo" secondary. Below the buttons, a real Notion workspace UI mockup card (the "Ramp HQ" kanban board) breaks out of the hero band with a deep diffuse drop shadow.

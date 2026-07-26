@@ -2,7 +2,8 @@
 
 ## 完成内容
 
-- 参照 `DESIGN.md` 的 Notion 风格设计原则，对 Docsify 知识站点进行了整体视觉重构。
+- 当前线上样式曾参照 `DESIGN.md` 的 Notion 风格设计原则完成整体视觉重构；该文件现作为历史基线保留。
+- 下一版首页以 `docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md` 为权威依据，方向为“研究者的数字书房”。
 - 重写主站主题文件 `docs/assets/css/modern-theme.css`，覆盖全站导航、侧边栏、搜索、正文排版、代码块、表格、引用、封面页、TOC、分页、终端窗口、返回顶部与响应式表现。
 - 重构 `docs/_coverpage.md`，改为深海军蓝 hero、紫色主 CTA、标签 chips、workspace mockup 和统计卡片组合。
 - 新增 `docs/assets/css/tools-notion.css`，并批量接入 `docs/tools/*.html`，让独立工具页统一到同一套 Notion editorial 视觉系统。
@@ -11,7 +12,7 @@
 
 ## 关键设计决策
 
-- 由旧版“科技蓝暗色霓虹感”切换为 `DESIGN.md` 指定的 Notion 式浅色 editorial 工作台。
+- 已由旧版“科技蓝暗色霓虹感”切换为 Notion 式浅色 editorial 工作台；后续将按首页 V2 规范迁移为深色知识封面与纸白研究内页。
 - 保留深色只用于封面 hero 与命令行终端，强化层级，而不是全站铺满暗色。
 - 主行动色统一为 Notion 紫；正文链接使用蓝色，避免 CTA 色和普通链接混用。
 - 按钮采用 8px 圆角，卡片采用 12px 圆角，badge/chip 才使用 pill 圆角。

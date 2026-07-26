@@ -7,6 +7,7 @@
 
 | 文档 | 作用 |
 |---|---|
+| [`HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md`](./HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md) | 首页 V2 权威规范：视觉系统、工程映射、真实性、响应式、验收与 AI Harness |
 | [`REFACTOR_STATUS.md`](./REFACTOR_STATUS.md) | 重构状态总览：已完成/待完成内容、review 指南 |
 | [`REFACTOR_PLAN.md`](./REFACTOR_PLAN.md) | 重构方案：目标目录、文件映射、执行步骤 |
 | [`REFACTOR_GUIDELINES.md`](./REFACTOR_GUIDELINES.md) | 合并/总结工作规范：读、总结、改、补充、记录 |
@@ -16,3 +17,4 @@
 
 - 在博客中通过首页「📋 项目维护」区进入
 - 或直接路由：`https://wychmod.github.io/#/_meta/REFACTOR_STATUS`
+- 首页规范直达：`https://wychmod.github.io/#/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION`

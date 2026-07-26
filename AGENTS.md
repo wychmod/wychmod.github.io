@@ -39,6 +39,7 @@ wychmod.github.io/
 │   │   └── archive/             ← 归档原始笔记（不可修改）
 │   │       └── README.md        ← 归档来源映射表
 │   ├── _meta/                   ← 项目管理文档
+│   │   ├── HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md ← 首页视觉系统、实现规范与 AI Harness（权威）
 │   │   ├── REFACTOR_GUIDELINES.md  ← 写作规范
 │   │   ├── REFACTOR_STATUS.md      ← 重构状态
 │   │   ├── REFACTOR_PLAN.md        ← 重构方案
@@ -272,3 +273,74 @@ npx docsify-cli serve docs --port 3000
 - **禁止**编造用户没学过的内容、统计数据、工具推荐
 - **禁止**修改 `docs/index.html` 中的 Docsify 核心配置（除非明确要求）
 - **禁止**改动 `docs/tools/` 下的工具页面（除非明确要求）
+
+---
+
+## 10. 首页视觉与实现 Harness
+
+### 10.1 权威规范
+
+首页 V2 及后续视觉演进的单一事实来源是：
+
+`docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md`
+
+根目录 `DESIGN.md` 是旧版 Notion 风格的历史参考，不再作为首页或全局视觉决策依据。两者冲突时，以首页新规范为准。
+
+### 10.2 强制触发范围
+
+任务涉及以下任一文件或主题时，AI **必须先完整阅读首页规范**，再进行设计或编码：
+
+- `docs/_coverpage.md`
+- `docs/README.md` 的首页视觉区
+- `docs/index.html` 的顶部导航、首页插件、搜索桥接、终端入口
+- `docs/assets/css/modern-theme.css` 的 Nav/Cover/Home/Terminal 部分
+- `docs/assets/css/studio-tokens.css`
+- `docs/assets/css/homepage-v2.css`
+- `docs/assets/js/homepage-v2.js`
+- 首页头像、图标、色彩、字体、布局、动效、响应式、文案和统计
+
+### 10.3 编码前门禁
+
+开始写 HTML/CSS/JS 前必须明确输出：
+
+1. Purpose Statement
+2. Aesthetic Direction
+3. Color Palette
+4. Typography
+5. Layout Strategy
+6. 计划修改的文件
+7. 必须保持不回归的行为
+
+默认设计方向固定为 **Editorial / magazine：研究者的数字书房**。深色封面代表知识结构与工程实践，纸白内页代表阅读、研究、写作和持续修订。
+
+### 10.4 实现边界
+
+- 保持 Docsify hash 路由，不迁移 React/Vue/Vite，不在视觉任务中升级 Docsify。
+- `_coverpage.md` 承担深色封面；`README.md` 承担纸白内页和完整知识导航。
+- 首页终端预览、顶部终端按钮、移动端悬浮按钮必须复用现有 `#terminal-window`，禁止创建第二套命令行系统。
+- `Ctrl/Cmd + K` 只用于终端；首页搜索不得占用该快捷键。
+- GitHub 头像使用 `https://github.com/wychmod.png?size=160`，必须有固定尺寸、alt 和失败回退。
+- 新首页样式必须有 `.is-home` / `.home-v2` 等作用域，禁止用宽泛选择器破坏文章页。
+- 动态首页交互在 Docsify `doneEach` 后幂等初始化，不得重复绑定监听器。
+
+### 10.5 真实性门禁
+
+- 9 大领域和所有链接必须与 `_sidebar.md`、`README.md`、`md/Index.md` 一致。
+- 最近更新的标题、摘要和日期必须来自真实主线文档及文末修改记录。
+- 文档数、工具数等统计必须通过脚本或 DOM 计算；不能复制设计图中的概念数字。
+- 在读书目、阅读进度、研究问题、页边批注和作者手记必须由作者确认或来自真实文档。
+- 无真实来源的字段直接隐藏，禁止用占位假数据填满版面。
+
+### 10.6 验收门禁
+
+首页相关代码改动完成后必须：
+
+1. 运行 `node scripts/sidebar-check.js`。
+2. 运行 `node scripts/check-links.js`，与当前历史死链基线比较，确保没有新增首页死链。
+3. 运行 `git diff --check`。
+4. 启动本地 Docsify，在 `1440×900`、`1280×800`、`1024×768`、`768×1024`、`390×844`、`360×800` 检查截图。
+5. 验证搜索、CTA、9 域链接、终端预览、`Ctrl/Cmd + K`、`Esc`、首页与文章页往返。
+6. 检查控制台无新增 error，文本无重叠或溢出，头像和图标成功渲染。
+7. 确认未修改 `docs/md/archive/`。
+
+任何 token、组件、数据来源或交互契约变化，都必须同步更新首页规范；不得只改代码不改 Harness。

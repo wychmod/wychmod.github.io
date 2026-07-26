@@ -183,6 +183,7 @@ $ ai Redis 缓存一致性</pre>
 
 ## 📋 项目维护
 
+- [首页视觉与实现规范](/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION) — 首页 V2 设计系统、工程边界、验收清单与 AI Harness
 - [重构状态总览](/_meta/REFACTOR_STATUS) — 已完成/待完成内容、review 指南
 - [重构方案](/_meta/REFACTOR_PLAN) — 目录结构与映射表
 - [合并工作规范](/_meta/REFACTOR_GUIDELINES) — 写作与归档规范
