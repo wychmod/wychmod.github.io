@@ -65,8 +65,8 @@
   --studio-dur-enter: 280ms;
 
   /* —— 内容宽度 —— */
-  --studio-content-max: 1280px;
-  --studio-gutter: 32px;
+  --studio-content-max: 1440px;
+  --studio-gutter: 40px;
 }
 
 /* 动效偏好: 尊重 reduced-motion(规范 §9.4) */

@@ -73,9 +73,10 @@
 </section>
 
 <div class="home-note">
-  <div class="home-note-mark" aria-hidden="true">W</div>
+  <div class="home-note-label"><strong>作者手记</strong><span>/ LETTER FROM THE AUTHOR</span></div>
   <p class="home-note-text">这里整理技术笔记、代码实验与持续订正记录。<br>内容会随着新的阅读与实践继续修订。</p>
-  <p class="home-note-sig">- wychmod</p>
+  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-07-22</span></p>
+  <div class="home-note-mark" aria-hidden="true">W</div>
 </div>
 
 <section class="home-index" id="knowledge-index">

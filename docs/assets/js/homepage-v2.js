@@ -22,6 +22,7 @@
     document.body.dataset.page = file;
     document.body.classList.toggle('is-home', home);
     document.body.classList.toggle('is-article', !home);
+    if (!home) document.body.classList.remove('home-search-active');
   }
 
   /* ---------- 首页搜索 ---------- */
@@ -43,6 +44,29 @@
       e.preventDefault();
       input.focus();
       if (input.select) input.select();
+    });
+  }
+
+  function bindHomeSearchPanel() {
+    var form = document.getElementById('cover-search');
+    var input = document.getElementById('cover-search-input');
+    if (!form || !input || form.dataset.panelBound === 'true') return;
+    form.dataset.panelBound = 'true';
+
+    form.addEventListener('submit', function () {
+      if (!input.value.trim()) return;
+      setTimeout(function () {
+        document.body.classList.add('home-search-active');
+      }, 280);
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape') return;
+      if (!document.body.classList.contains('home-search-active')) return;
+      var terminal = document.getElementById('terminal-window');
+      if (terminal && terminal.classList.contains('active')) return;
+      document.body.classList.remove('home-search-active');
+      input.focus();
     });
   }
 
@@ -91,6 +115,27 @@
     }
   }
 
+  function ensureLucideIcons() {
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      renderLucideIcons();
+      return;
+    }
+    if (window.__homeLucideLoading) return;
+    window.__homeLucideLoading = true;
+
+    var retry = document.createElement('script');
+    retry.src = 'https://registry.npmmirror.com/lucide/0.468.0/files/dist/umd/lucide.min.js';
+    retry.dataset.homeLucideRetry = 'true';
+    retry.onload = function () {
+      window.__homeLucideLoading = false;
+      renderLucideIcons();
+    };
+    retry.onerror = function () {
+      window.__homeLucideLoading = false;
+    };
+    document.head.appendChild(retry);
+  }
+
   /* ---------- 路由状态插件(必须先于 Gitalk 执行, 故 unshift) ---------- */
   function routeStatePlugin(hook, vm) {
     hook.doneEach(function () { setRouteState(vm); });
@@ -101,9 +146,10 @@
     hook.doneEach(function () {
       setRouteState(vm);          // 兜底确保状态正确
       bindHomeSearchKey();
+      bindHomeSearchPanel();
       bindTerminalTriggers();
       bindScrollLinks();
-      renderLucideIcons();
+      ensureLucideIcons();
     });
   }
 
@@ -120,7 +166,7 @@
       document.body.classList.toggle('is-home', home);
       document.body.classList.toggle('is-article', !home);
     } catch (e) {}
-    renderLucideIcons();
+    ensureLucideIcons();
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', applyInitial);

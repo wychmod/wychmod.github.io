@@ -250,6 +250,8 @@
   --studio-radius-sm: 3px;
   --studio-radius-md: 6px;
   --studio-hairline: 1px;
+  --studio-content-max: 1440px;
+  --studio-gutter: 40px;
 }
 ```
 
@@ -1132,5 +1134,5 @@ GitHub 头像使用 https://github.com/wychmod.png?size=160，并提供固定尺
 
 | 版本 | 日期 | 类型 | 说明 |
 |---|---|---|---|
+| V1.1 | 2026-07-27 | 对齐 | 首页实现回归效果图：内容宽度调整为 1440px、页边距调整为 40px，图谱改为开放式节点，纸白区改为紧凑编辑排版，并修复首页搜索结果面板；不改变路由、搜索插件和终端契约 |
 | V1.0 | 2026-07-27 | 新增 | 冻结“研究者的数字书房”首页设计、实现、真实性、响应式、验收与 AI Harness 规范 |
-
