@@ -2,20 +2,27 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>wychmod Developer Workspace | Notion-style developer workspace</title>
+  <title>wychmod Developer Workspace | 技术知识库与研究笔记</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="AI驱动的智能技术知识平台，深度整合人工智能、全栈开发、云原生架构等前沿技术体系，提供源码级技术洞察与高效开发工具集，赋能开发者技术成长">
-  <meta name="keywords" content="AI技术,人工智能,全栈开发,云原生,Java,Python,Spring源码,系统架构,开发工具,技术知识平台,深度学习,微服务,Kubernetes,Docker,Redis,MySQL,前端开发,React,Vue,JSON工具">
+  <meta name="description" content="wychmod 的个人技术知识库：Java、Python、云原生与 AI Agent 的长期技术笔记，源码级洞察、在线工具与持续订正记录，记录方法、判断与成长。">
+  <meta name="keywords" content="wychmod,技术知识库,Java,Python,Spring,MySQL,Redis,Kubernetes,Docker,AI Agent,MCP,系统设计,开发工具,源码笔记,云原生">
   <meta name="author" content="wychmod">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="wychmod Developer Workspace | 技术知识库与研究笔记">
+  <meta property="og:description" content="Java、Python、云原生与 AI Agent 的长期技术笔记，写代码，也记录方法、判断与成长。">
+  <meta property="og:image" content="https://github.com/wychmod.png?size=160">
+
   <!-- 主题样式 -->
   <link rel="stylesheet" href="https://registry.npmmirror.com/docsify/4.13.1/files/lib/themes/vue.css">
   <!-- Gitalk 样式 -->
   <link rel="stylesheet" href="/assets/css/gitalk.css">
-  
-  <!-- Notion editorial 主题 -->
+
+  <!-- Notion editorial 主题(遗留, Phase B 清理) -->
   <link rel="stylesheet" href="/assets/css/modern-theme.css?v=20260601f">
+  <!-- 首页 V2 令牌与样式(规范 §11.2, 在 modern-theme 之后加载) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260727">
+  <link rel="stylesheet" href="/assets/css/homepage-v2.css?v=20260727">
   
   <!-- 百度统计 -->
   <script>
@@ -29,16 +36,27 @@
   </script>
 </head>
 <body>
-<nav class="app-nav top-nav" aria-label="Primary navigation">
-  <a class="top-nav-link" href="#/README">文档</a>
-  <a class="top-nav-link" href="#/AI-ASSISTANT-GUIDE">AI 助手</a>
-  <a class="top-nav-link" href="/tools/index.html">工具箱</a>
-  <a class="top-nav-link" href="#/md/01-计算机基础/00-Java与JVM">技术路线</a>
-  <a class="top-nav-link" href="#/md/03-云原生与运维/10-Kubernetes编排">云原生</a>
-  <a class="top-nav-link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener">GitHub</a>
-  <a class="top-nav-link" href="/me.html" style="color: #4dabff;">云端名片</a>
-  <a class="top-nav-link" href="/resume.html" style="color: #a78bff;">简历</a>
-  <a class="top-nav-link top-nav-primary" href="#/README">开始探索</a>
+<nav class="app-nav top-nav" aria-label="主导航">
+  <a class="nav-brand" href="#/README" aria-label="wychmod workspace 首页">
+    <span class="nav-brand-mark">wychmod</span><span class="nav-brand-sep">/</span><span class="nav-brand-sub">workspace</span>
+  </a>
+  <div class="nav-links">
+    <a class="top-nav-link" href="#/README">知识库</a>
+    <a class="top-nav-link" href="#/md/01-计算机基础/00-Java与JVM">技术路线</a>
+    <a class="top-nav-link" href="#/AI-ASSISTANT-GUIDE">AI 助手</a>
+    <a class="top-nav-link" href="/tools/index.html">工具</a>
+    <a class="top-nav-link" href="/me.html">关于</a>
+    <a class="top-nav-link" href="/resume.html">简历</a>
+  </div>
+  <div class="nav-actions">
+    <a class="nav-icon-btn" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer" aria-label="打开 GitHub" title="GitHub">
+      <i data-lucide="github"></i>
+    </a>
+    <button class="nav-terminal-btn" type="button" data-open-terminal aria-label="打开命令行 (Ctrl+K)" title="打开命令行 (Ctrl+K)">
+      <i data-lucide="terminal"></i><span class="nav-kbd">Ctrl K</span>
+    </button>
+    <a class="nav-cta" href="#/README" data-scroll-to="#knowledge-index">进入知识库</a>
+  </div>
 </nav>
 <div id="app">👋 加载中...</div>
 
@@ -164,6 +182,10 @@
       plugins: [
         function (hook, vm) {
           hook.doneEach(function() {
+            // 首页例外(规范 §11.7): 首页不渲染 Gitalk
+            var p = vm.route.path || '';
+            if (p === '/' || p === '/README') return;
+
             var label, domObj, main, divEle, gitalk;
             label = md5(decodeURI(vm.route.path.split("/").pop()));
             domObj = Docsify.dom;
@@ -175,7 +197,7 @@
             ).forEach(function(ele) {
               ele.remove();
             });
-      
+
             divEle = domObj.create("div");
             divEle.id = "gitalk-container-" + label;
             divEle.className = "gitalk-container";
@@ -187,27 +209,33 @@
             gitalk.render("gitalk-container-" + label);
           });
         },
-        
+
         // 页脚插件
-        function(hook) {
+        function(hook, vm) {
           var footer = [
             '<hr/>',
             '<footer>',
-            '<span>© 2024 <a href="https://github.com/wychmod" target="_blank">wychmod</a>. All Rights Reserved.</span>',
-            '<span style="float: right;">Powered by <a href="https://docsify.js.org" target="_blank">docsify</a></span>',
+            '<span>© 2024 <a href="https://github.com/wychmod" target="_blank" rel="noopener noreferrer">wychmod</a>. All Rights Reserved.</span>',
+            '<span style="float: right;">Powered by <a href="https://docsify.js.org" target="_blank" rel="noopener noreferrer">docsify</a></span>',
             '</footer>'
           ].join('');
 
           hook.afterEach(function(html) {
+            // 首页例外: README 已有自身底部, 不重复全局页脚(规范 §11.7)
+            var p = vm.route.path || '';
+            if (p === '/' || p === '/README') return html;
             return html + footer;
           });
         },
-        
-        // 页面加载进度条
+
+        // 页面加载进度条 / 编辑此页
         function(hook, vm) {
           hook.beforeEach(function(html) {
+            // 首页例外: 维护入口已在页尾, 不显示编辑此页(规范 §11.7)
+            var p = vm.route.path || '';
+            if (p === '/' || p === '/README') return html;
             var url = 'https://github.com/wychmod/wychmod.github.io/blob/main/docs/' + vm.route.file;
-            var editHtml = '<p class="edit-page-link"><a href="' + url + '" target="_blank">编辑此页</a></p>';
+            var editHtml = '<p class="edit-page-link"><a href="' + url + '" target="_blank" rel="noopener noreferrer">编辑此页</a></p>';
             return editHtml + '\n\n' + html;
           });
         }
@@ -217,6 +245,10 @@
 
 <script src="/assets/js/md5.js"></script>
 <script src="/assets/js/ai-assistant.js"></script>
+<!-- Lucide 图标(固定版本 0.468.0, 含 Github 品牌图标; 规范 §11.5) -->
+<script src="https://registry.npmmirror.com/lucide/0.468.0/files/dist/umd/lucide.min.js"></script>
+<!-- 首页 V2 交互与路由状态(必须在 docsify.min.js 之前, 以便注册插件) -->
+<script src="/assets/js/homepage-v2.js?v=20260727"></script>
 <script src="/assets/js/docsify.min.js"></script>
 <script src="/assets/js/prism.js"></script>
 <script src="/assets/js/prism-bash.js"></script>
@@ -1382,7 +1414,7 @@
     if (!input) return;
     input.placeholder = window.innerWidth < 420
       ? '搜索技术笔记...'
-      : '搜索 Spring、Redis、AI Agent、Kubernetes...';
+      : '搜索文档、框架、源码与工具';
   }
 
   function cleanSidebarLabels() {

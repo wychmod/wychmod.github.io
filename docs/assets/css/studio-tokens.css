@@ -1,0 +1,80 @@
+/* =========================================================
+   Studio Tokens - 首页 V2 视觉系统令牌
+   依据: docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md §4.4–4.8
+   作用: 提供首页新视觉系统的色/字/空间/圆角/线条/焦点/动效令牌
+   注意: 仅定义令牌与基础变量, 不写组件规则(组件规则在 homepage-v2.css)
+   ========================================================= */
+
+:root {
+  /* —— 暖石墨(封面) —— 禁止纯黑 #000 —— */
+  --studio-ink-950: #0d100e;
+  --studio-ink-900: #131713;
+  --studio-ink-800: #1b201c;
+
+  /* —— 灰纸白(内页) —— 禁止纯白 #fff 作为整段背景 —— */
+  --studio-paper-100: #e9e5dc;
+  --studio-paper-50: #f2eee5;
+  --studio-paper-line: #c9c3b7;
+
+  /* —— 文字 —— */
+  --studio-text: #20211d;
+  --studio-text-muted: #66685f;
+  --studio-on-dark: #f2efe7;
+  --studio-on-dark-muted: #a9aea7;
+
+  /* —— 信号色(克制使用) —— */
+  --studio-green: #24d18f;
+  --studio-green-dark: #159867;
+  --studio-gold: #c8a96b;
+  --studio-vermilion: #e6663e;
+  --studio-cyan: #58b7c7;
+  --studio-rust: #a66b45;
+  --studio-focus: #7ee8bc;
+
+  /* —— 字体 —— */
+  --studio-font-display: "Source Han Serif SC", "Noto Serif SC", "Songti SC", SimSun, serif;
+  --studio-font-body: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --studio-font-mono: "IBM Plex Mono", "JetBrains Mono", Consolas, monospace;
+
+  /* —— 空间 —— */
+  --studio-space-1: 4px;
+  --studio-space-2: 8px;
+  --studio-space-3: 12px;
+  --studio-space-4: 16px;
+  --studio-space-5: 24px;
+  --studio-space-6: 32px;
+  --studio-space-7: 48px;
+  --studio-space-8: 64px;
+
+  /* —— 圆角(最大 6px, 首页禁胶囊) —— */
+  --studio-radius-sm: 3px;
+  --studio-radius-md: 6px;
+  --studio-hairline: 1px;
+
+  /* —— 线条 —— */
+  --studio-line-dark: rgba(242, 239, 231, 0.14);
+  --studio-line-paper: rgba(32, 33, 29, 0.18);
+
+  /* —— 纸张纹理(极轻) —— */
+  --studio-paper-noise: rgba(32, 33, 29, 0.025);
+
+  /* —— 动效 —— */
+  --studio-ease: cubic-bezier(0.25, 1, 0.5, 1);
+  --studio-dur-fast: 150ms;
+  --studio-dur-base: 220ms;
+  --studio-dur-enter: 280ms;
+
+  /* —— 内容宽度 —— */
+  --studio-content-max: 1280px;
+  --studio-gutter: 32px;
+}
+
+/* 动效偏好: 尊重 reduced-motion(规范 §9.4) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
