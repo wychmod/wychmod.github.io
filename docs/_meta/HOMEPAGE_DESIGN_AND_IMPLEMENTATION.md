@@ -7,6 +7,8 @@
 
 ![首页目标设计参考](./assets/homepage-design-reference-v1.png)
 
+> 说明：`docs/_meta/assets/homepage-design-reference-v1.png` 才是当前首页的权威视觉参考图。本阶段仅把它作为首页冻结基线和后续页面的风格母体，首页本身先不改造；除非用户明确重新开启首页任务，否则不要修改首页实现文件。
+
 ---
 
 ## 1. 文档目的
