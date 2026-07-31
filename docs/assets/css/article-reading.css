@@ -1,0 +1,1818 @@
+/* =========================================================
+   Article Reading - Docsify 文章/内容页统一阅读系统 (P001)
+   依据: docs/_meta/ui-redesign/pages/01-mainline-article.md (权威)
+   继承: docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md (视觉母体, 不修改)
+   作用域: body.is-article (由 homepage-v2.js 路由状态插件在 doneEach 切换)
+   隔离: body.is-home (首页) 不命中本文件任何规则; 首页 V2 冻结不受影响
+   依赖: studio-tokens.css (只读取令牌, 不重新定义值)
+   原则: 只补齐文章页阅读外壳/排版/插件样式/响应式; 不改 Docsify 路由/插件/终端/搜索
+   注意: modern-theme.css 大量使用 !important, 本文件对应覆盖也使用 !important
+         (与 homepage-v2.css 同样的覆盖策略), 仅作用域 body.is-article, 不污染首页
+   ========================================================= */
+
+/* =========================================================
+   §1. 作用域守卫 + 基础
+   ========================================================= */
+body.is-article {
+  /* z-index 层级系统 */
+  --z-reading-progress: 121;
+  --z-drawer-overlay: 800;
+  --z-drawer: 900;
+  --z-drawer-toggle: 950;
+  --z-back-to-top: 998;
+  --z-terminal-trigger: 999;
+  --z-terminal-input-line: 1;
+
+  background: var(--studio-paper-100) !important;
+  color: var(--studio-text) !important;
+  font-family: var(--studio-font-body) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* =========================================================
+   §2. 顶部导航 (暖石墨, 规范 §3.1 / 设计契约 graphite topnav)
+   首页 V2 已用 body.is-home .app-nav 设深色; 文章页在此对齐深色导航
+   ========================================================= */
+body.is-article .app-nav {
+  background: var(--studio-ink-950) !important;
+  border-bottom: 1px solid var(--studio-line-dark) !important;
+  box-shadow: none !important;
+}
+
+body.is-article .nav-brand,
+body.is-article .nav-brand-mark {
+  color: var(--studio-on-dark) !important;
+}
+body.is-article .nav-brand-sep,
+body.is-article .nav-brand-sub {
+  color: var(--studio-on-dark-muted) !important;
+}
+
+body.is-article .app-nav .top-nav-link {
+  color: var(--studio-on-dark-muted) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+body.is-article .app-nav .top-nav-link:hover {
+  color: var(--studio-on-dark) !important;
+  background: rgba(242, 239, 231, 0.08) !important;
+}
+/* 当前项 "知识库" 用旧金短线标记 (规范 §3.1 / §5.1) */
+body.is-article .app-nav .top-nav-link[href="#/README"] {
+  position: relative;
+  color: var(--studio-gold) !important;
+}
+body.is-article .app-nav .top-nav-link[href="#/README"]::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  bottom: -13px;
+  left: 12px;
+  height: 2px;
+  background: var(--studio-gold);
+}
+
+body.is-article .nav-icon-btn {
+  color: var(--studio-on-dark-muted) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+body.is-article .nav-icon-btn:hover {
+  color: var(--studio-on-dark) !important;
+  background: rgba(242, 239, 231, 0.08) !important;
+  border-color: var(--studio-line-dark) !important;
+}
+
+body.is-article .nav-terminal-btn {
+  color: var(--studio-on-dark-muted) !important;
+  border-color: var(--studio-line-dark) !important;
+  background: transparent !important;
+}
+body.is-article .nav-terminal-btn:hover {
+  color: var(--studio-on-dark) !important;
+  background: rgba(242, 239, 231, 0.06) !important;
+  border-color: var(--studio-gold) !important;
+}
+
+/* 侧栏抽屉按钮 (窄屏出现): 在深色导航上保持可读 */
+body.is-article .sidebar-toggle {
+  background: var(--studio-ink-900) !important;
+  border-color: var(--studio-line-dark) !important;
+}
+body.is-article .sidebar-toggle span {
+  background-color: var(--studio-on-dark) !important;
+}
+
+/* =========================================================
+   §3. 左侧知识目录 (规范 §3.1 左栏 / §5.2)
+   复用 Docsify 原生 .sidebar + _sidebar.md 真实数据, 只重绘
+   ========================================================= */
+body.is-article .sidebar {
+  top: 60px !important;
+  width: 280px !important;
+  padding: 28px 22px 40px !important;
+  background: var(--studio-paper-100) !important;
+  border-right: 1px solid var(--studio-line-paper) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 侧栏搜索框: 检索台 (P007 站内搜索结果体验, 规范 pages/07-search-results §3/§5)
+   不绑定 Ctrl/Cmd+K, 该快捷键只属于终端; 焦点=信号绿, 命中=旧金底+绿下划线
+   真实数据来源: Docsify Search 插件 .search / .results-panel / .matching-post / .empty
+   不伪造结果数量/耗时/领域筛选/最近搜索/搜索语法 (规范 §1/§2.3 真相来源) */
+body.is-article .sidebar .search {
+  margin: 0 0 18px !important;
+  padding: 0 !important;
+  border-bottom: 0 !important;
+}
+body.is-article .sidebar .search input {
+  width: 100% !important;
+  height: 44px !important;
+  padding: 0 14px !important;
+  border: 1px solid rgba(201, 195, 183, 0.45) !important;
+  border-radius: var(--studio-radius-sm) !important;
+  background: var(--studio-paper-50) !important;
+  color: var(--studio-text) !important;
+  font-size: 14px !important;
+  font-family: var(--studio-font-body) !important;
+  letter-spacing: 0 !important;
+  box-shadow: none !important;
+  overflow-wrap: anywhere !important;
+  transition: border-color var(--studio-dur-fast) var(--studio-ease), box-shadow var(--studio-dur-fast) var(--studio-ease) !important;
+}
+/* 焦点=信号绿 (规范 §3.3 信号绿用于搜索输入焦点) */
+body.is-article .sidebar .search input:focus {
+  border-color: var(--studio-green) !important;
+  box-shadow: 0 0 0 2px rgba(36, 209, 143, 0.18) !important;
+  outline: none !important;
+}
+body.is-article .sidebar .search input::placeholder {
+  color: var(--studio-text-muted) !important;
+}
+/* 结果项: 横向分隔线, 非卡片堆叠 (规范 §5.1 / §2.1) */
+body.is-article .sidebar .search .matching-post {
+  margin: 0 !important;
+  padding: 14px 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--studio-line-paper) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  transition: background var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .sidebar .search .matching-post:hover {
+  background: rgba(32, 33, 29, 0.03) !important;
+}
+/* 命中关键词: 低饱和旧金底 + 信号绿下划线, 文本保持墨色 (规范 §3.3) */
+body.is-article .sidebar .search .search-keyword {
+  color: var(--studio-text) !important;
+  background: rgba(200, 169, 107, 0.22) !important;
+  border-bottom: 1px solid rgba(36, 209, 143, 0.45) !important;
+  padding: 0 2px !important;
+  border-radius: 2px !important;
+  font-weight: 500 !important;
+}
+
+/* 目录分组标题: 编目感 (emoji + 粗体名来自 _sidebar.md) */
+body.is-article .sidebar-nav {
+  line-height: 1.5 !important;
+}
+body.is-article .sidebar-nav img.emoji {
+  display: none !important;  /* 隐藏 octicon/emoji 噪声, 编号由 _sidebar.md 文本承担 */
+}
+body.is-article .sidebar-nav > ul > li {
+  margin: 10px 0 16px !important;
+}
+body.is-article .sidebar-nav > ul > li > p,
+body.is-article .sidebar-nav > ul > li > a {
+  display: flex !important;
+  align-items: center !important;
+  min-height: 32px !important;
+  margin: 0 0 6px !important;
+  padding: 4px 10px !important;
+  color: var(--studio-text) !important;
+  font-family: var(--studio-font-body) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  border-radius: var(--studio-radius-sm) !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+/* 二级分组 (如 "编程语言") */
+body.is-article .sidebar-nav > ul > li > ul > li > p,
+body.is-article .sidebar-nav > ul > li > ul > li > a {
+  color: var(--studio-text-muted) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+}
+
+/* 目录文章链接 */
+body.is-article .sidebar-nav a {
+  display: block !important;
+  padding: 5px 10px 5px 18px !important;
+  border-radius: var(--studio-radius-sm) !important;
+  color: var(--studio-text-muted) !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  transition: color var(--studio-dur-fast) var(--studio-ease), background var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .sidebar-nav a:hover {
+  color: var(--studio-text) !important;
+  background: rgba(32, 33, 29, 0.04) !important;
+  border-color: transparent !important;
+  text-decoration: none !important;
+  transform: none !important;
+}
+
+/* 当前文档: 旧金书签强调 (规范 §3.1 / §5.2) */
+body.is-article .sidebar-nav .active,
+body.is-article .sidebar-nav li.active > a {
+  color: var(--studio-text) !important;
+  background: rgba(200, 169, 107, 0.14) !important;
+  border-left: 2px solid var(--studio-gold) !important;
+  font-weight: 600 !important;
+}
+body.is-article .sidebar-nav li.active > a {
+  padding-left: 16px !important;
+}
+
+/* =========================================================
+   §4. 内容区布局 (三栏: 侧栏 + 正文 + 右栏 TOC)
+   右栏空间通过 .content padding-right 预留, 仅宽屏生效 (规范 §2.5)
+   ========================================================= */
+body.is-article .content {
+  padding-top: 60px !important;
+  left: 280px !important;
+  background: var(--studio-paper-100) !important;
+}
+
+/* 宽屏: 为右栏 TOC 预留 264px (240 TOC + 24 间隙) */
+@media screen and (min-width: 1300px) {
+  body.is-article .content {
+    padding-right: 264px !important;
+  }
+}
+
+/* =========================================================
+   §5. 阅读面 (规范 §5.3)
+   .markdown-section 纸白卡片, 居中可读宽度
+   ========================================================= */
+body.is-article .markdown-section {
+  max-width: 820px !important;
+  margin: 0 auto !important;
+  padding: 44px 36px 96px !important;
+  background: var(--studio-paper-50) !important;
+  color: var(--studio-text) !important;
+  font-size: 16px !important;
+  line-height: 1.82 !important;
+  border-left: 1px solid var(--studio-paper-line) !important;
+  border-right: 1px solid var(--studio-paper-line) !important;
+  box-shadow: none !important;
+}
+
+/* "编辑此页" 入口 (Docsify 插件注入 .markdown-section 顶部) */
+body.is-article .markdown-section > .edit-page-link {
+  margin: 0 0 24px !important;
+  max-width: none !important;
+  text-align: right !important;
+}
+body.is-article .edit-page-link a {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 30px !important;
+  padding: 4px 10px !important;
+  color: var(--studio-text-muted) !important;
+  background: var(--studio-paper-100) !important;
+  border: 1px solid var(--studio-line-paper) !important;
+  border-radius: var(--studio-radius-sm) !important;
+  font-size: 12px !important;
+  font-family: var(--studio-font-mono) !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  transition: color var(--studio-dur-fast) var(--studio-ease), border-color var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .edit-page-link a:hover {
+  color: var(--studio-text) !important;
+  border-color: var(--studio-gold) !important;
+  text-decoration: none !important;
+}
+
+/* =========================================================
+   §6. 排版层级: 衬线标题 / 无衬线正文 / 等宽元信息 (规范 §2.4 / §5.3)
+   ========================================================= */
+body.is-article .markdown-section h1,
+body.is-article .markdown-section h2,
+body.is-article .markdown-section h3,
+body.is-article .markdown-section h4,
+body.is-article .markdown-section h5 {
+  font-family: var(--studio-font-display) !important;
+  color: var(--studio-text) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.3 !important;
+  border: 0 !important;
+  margin-top: 1.8em !important;
+  margin-bottom: 0.6em !important;
+}
+
+body.is-article .markdown-section h1 {
+  font-size: 36px !important;
+  line-height: 1.22 !important;
+  margin-top: 0.2em !important;
+  margin-bottom: 0.5em !important;
+  padding-bottom: 0.4em !important;
+  border-bottom: 1px solid var(--studio-paper-line) !important;
+}
+body.is-article .markdown-section h2 {
+  font-size: 26px !important;
+  line-height: 1.35 !important;
+  margin-top: 2em !important;
+  padding-bottom: 0.2em !important;
+  border-bottom: 1px solid rgba(201, 195, 183, 0.5) !important;
+}
+body.is-article .markdown-section h3 {
+  font-size: 20px !important;
+  margin-top: 1.7em !important;
+}
+body.is-article .markdown-section h4 {
+  font-size: 17px !important;
+  color: var(--studio-text-muted) !important;
+  margin-top: 1.5em !important;
+}
+
+/* 锚点链接颜色 (Docsify .anchor span) */
+body.is-article .markdown-section h1 .anchor span,
+body.is-article .markdown-section h2 .anchor span,
+body.is-article .markdown-section h3 .anchor span,
+body.is-article .markdown-section h4 .anchor span {
+  color: var(--studio-gold) !important;
+}
+
+body.is-article .markdown-section p,
+body.is-article .markdown-section li {
+  font-family: var(--studio-font-body) !important;
+  font-size: 16px !important;
+  line-height: 1.82 !important;
+  color: var(--studio-text) !important;
+}
+body.is-article .markdown-section p {
+  margin: 0 0 1em !important;
+}
+body.is-article .markdown-section strong {
+  color: var(--studio-text) !important;
+  font-weight: 600 !important;
+}
+
+body.is-article .markdown-section a {
+  color: var(--studio-text) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--studio-gold) !important;
+  text-decoration: none !important;
+  text-underline-offset: 3px !important;
+  font-weight: 500 !important;
+  transition: color var(--studio-dur-fast) var(--studio-ease), border-color var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .markdown-section a:hover {
+  color: var(--studio-green-dark) !important;
+  border-bottom-color: var(--studio-green-dark) !important;
+  text-decoration: none !important;
+}
+
+/* =========================================================
+   §7. 行内代码 + 代码块 (终端化深墨, 规范 §5.4)
+   ========================================================= */
+body.is-article .markdown-section code,
+body.is-article .markdown-section pre code {
+  font-family: var(--studio-font-mono) !important;
+  font-size: 13px !important;
+}
+
+/* 行内代码: 纸面打字机感 */
+body.is-article .markdown-section :not(pre) > code {
+  background: var(--studio-paper-100) !important;
+  color: var(--studio-vermilion) !important;
+  padding: 1px 5px !important;
+  border-radius: var(--studio-radius-sm) !important;
+  border: 1px solid var(--studio-line-paper) !important;
+  font-size: 0.88em !important;
+  font-weight: 500 !important;
+}
+
+/* 代码块: 终端化深墨, 圆角, 不要红黄绿窗口点 (规范 §5.4) */
+body.is-article .markdown-section pre {
+  background: var(--studio-ink-900) !important;
+  color: var(--studio-on-dark) !important;
+  border-radius: var(--studio-radius-md) !important;
+  border: 1px solid var(--studio-line-dark) !important;
+  padding: 20px 22px !important;
+  overflow-x: auto !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+  box-shadow: none !important;
+  margin: 1.5em 0 !important;
+}
+body.is-article .markdown-section pre code {
+  color: inherit !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: 0 !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+}
+
+/* docsify-copy-code 插件按钮: 右上角可见 (规范 §5.4) */
+body.is-article .markdown-section .docsify-copy-code-button,
+body.is-article .markdown-section pre[data-lang] + .docsify-copy-code-button,
+body.is-article .markdown-section pre + button.docsify-copy-code-button {
+  right: 6px !important;
+  top: 6px !important;
+  height: 28px !important;
+  padding: 0 8px !important;
+  border-radius: var(--studio-radius-sm) !important;
+  background: rgba(242, 239, 231, 0.08) !important;
+  color: var(--studio-on-dark-muted) !important;
+  border: 1px solid var(--studio-line-dark) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  cursor: pointer !important;
+  transition: background var(--studio-dur-fast) var(--studio-ease), color var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .markdown-section .docsify-copy-code-button:hover {
+  background: rgba(242, 239, 231, 0.16) !important;
+  color: var(--studio-on-dark) !important;
+}
+body.is-article .markdown-section .docsify-copy-code-button:focus-visible {
+  outline: 2px solid var(--studio-focus) !important;
+  outline-offset: 1px !important;
+}
+
+/* Mermaid 图: 纸白底, 不被深色代码样式误伤 (规范 §5.4) */
+body.is-article .markdown-section .mermaid,
+body.is-article .markdown-section div.mermaid {
+  background: var(--studio-paper-50) !important;
+  border: 1px solid var(--studio-line-paper) !important;
+  border-radius: var(--studio-radius-md) !important;
+  padding: 18px !important;
+  margin: 1.5em 0 !important;
+  text-align: center !important;
+  box-shadow: none !important;
+}
+body.is-article .markdown-section .mermaid + figcaption,
+body.is-article .markdown-section p > em:only-child {
+  display: block;
+  text-align: center;
+  color: var(--studio-text-muted) !important;
+  font-size: 13px !important;
+  font-family: var(--studio-font-mono) !important;
+  margin-top: -0.6em;
+  margin-bottom: 1.4em;
+}
+
+/* kbd 键盘样式 */
+body.is-article .markdown-section kbd {
+  border: 1px solid var(--studio-line-paper) !important;
+  background: var(--studio-paper-100) !important;
+  color: var(--studio-text) !important;
+  border-radius: var(--studio-radius-sm) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 12px !important;
+}
+
+/* =========================================================
+   §8. 引用 / 提示 / 警告 (规范 §6 写作规范 + §5.3)
+   - 默认引用: 旧金左线 (手稿感)
+   - > 💡 补充：AI 补充背景知识 -> 浅金底
+   - ⚠️ 已过时 / ⛔ 重要提示 -> 朱砂左线
+   ========================================================= */
+body.is-article .markdown-section blockquote {
+  margin: 1.4em 0 !important;
+  padding: 10px 18px !important;
+  border: 0 !important;
+  border-left: 3px solid var(--studio-gold) !important;
+  background: var(--studio-paper-100) !important;
+  color: var(--studio-text-muted) !important;
+  font-size: 15px !important;
+  line-height: 1.75 !important;
+  border-radius: 0 var(--studio-radius-sm) var(--studio-radius-sm) 0 !important;
+  box-shadow: none !important;
+}
+body.is-article .markdown-section blockquote p {
+  color: var(--studio-text-muted) !important;
+  font-size: 15px !important;
+  margin: 0.4em 0 !important;
+}
+body.is-article .markdown-section blockquote p:first-child {
+  margin-top: 0 !important;
+}
+body.is-article .markdown-section blockquote p:last-child {
+  margin-bottom: 0 !important;
+}
+/* 引用内长链接/路径换行, 避免撑破窄屏 (归档来源链接常见) */
+body.is-article .markdown-section blockquote a {
+  overflow-wrap: anywhere !important;
+  word-break: break-all !important;
+}
+/* 引用内二级标题 (如 ⛔ 重要提示) */
+body.is-article .markdown-section blockquote h2,
+body.is-article .markdown-section blockquote h3 {
+  margin-top: 0.6em !important;
+  font-size: 16px !important;
+}
+
+/* AI 补充标记 "> 💡 补充：..." 与 ⚠️ 已过时 / ⛔ 标记:
+   CSS 无法匹配文本内容, 故两类标记统一走默认旧金引用样式;
+   其语义由 Markdown 中的 emoji 与文字本身承担 (规范 §6 第6/7条).
+   过时分类 (08-过时技术) 的 H1 含 "⚠️ 已过时" 文字, 视觉已足够区分. */
+
+/* =========================================================
+   §9. 表格: 纸面编目, 横线为主, 防溢出 (规范 §5.3)
+   ========================================================= */
+body.is-article .markdown-section table {
+  display: block !important;
+  width: 100% !important;
+  overflow-x: auto !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  margin: 1.5em 0 !important;
+  font-size: 14.5px !important;
+  background: var(--studio-paper-50) !important;
+  border: 1px solid var(--studio-line-paper) !important;
+  border-radius: var(--studio-radius-sm) !important;
+  box-shadow: none !important;
+}
+body.is-article .markdown-section th,
+body.is-article .markdown-section td {
+  padding: 9px 13px !important;
+  border-bottom: 1px solid var(--studio-line-paper) !important;
+  border-top: 0 !important;
+  text-align: left !important;
+  vertical-align: top !important;
+}
+body.is-article .markdown-section th {
+  font-family: var(--studio-font-body) !important;
+  font-weight: 600 !important;
+  color: var(--studio-text) !important;
+  background: var(--studio-paper-100) !important;
+  border-bottom: 2px solid var(--studio-paper-line) !important;
+  font-size: 13px !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+}
+body.is-article .markdown-section td {
+  color: var(--studio-text) !important;
+}
+body.is-article .markdown-section tr:last-child td {
+  border-bottom: 0 !important;
+}
+/* 取消斑马纹和 hover 蓝底, 改为极轻纸纹 */
+body.is-article .markdown-section table tr:nth-child(even) {
+  background: rgba(32, 33, 29, 0.02) !important;
+}
+body.is-article .markdown-section table tr:hover {
+  background: rgba(200, 169, 107, 0.08) !important;
+}
+
+/* 修改记录表: 文末最后一个表格, 用旧金标签感 (规范 §7 / §5.6)
+   通过 :has(> caption) 或紧跟 ## 修改记录 标题的表格识别.
+   Docsify 不生成 caption, 此处用通用表格样式 + 文末 hr 分隔即可,
+   不强制视觉区分, 避免误伤正文表格. */
+
+/* =========================================================
+   §10. 水平线 / 图片 / 列表 (规范 §5.3)
+   ========================================================= */
+body.is-article .markdown-section hr {
+  border: 0 !important;
+  border-top: 1px solid var(--studio-paper-line) !important;
+  margin: 2.4em 0 !important;
+  background: transparent !important;
+  height: 1px !important;
+}
+
+body.is-article .markdown-section img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: var(--studio-radius-md) !important;
+  border: 1px solid var(--studio-line-paper) !important;
+  display: block !important;
+  margin: 1.4em auto !important;
+  box-shadow: none !important;
+  transition: transform var(--studio-dur-base) var(--studio-ease) !important;
+}
+body.is-article .markdown-section img:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+body.is-article .markdown-section ul,
+body.is-article .markdown-section ol {
+  padding-left: 1.6em !important;
+  margin: 0.8em 0 1.2em !important;
+}
+body.is-article .markdown-section li {
+  margin: 0.3em 0 !important;
+}
+body.is-article .markdown-section li::marker {
+  color: var(--studio-gold) !important;
+}
+
+/* <details> 折叠区 (README 快速导航用) */
+body.is-article .markdown-section details {
+  margin: 1.2em 0 !important;
+  padding: 12px 16px !important;
+  background: var(--studio-paper-100) !important;
+  border: 1px solid var(--studio-line-paper) !important;
+  border-radius: var(--studio-radius-sm) !important;
+  box-shadow: none !important;
+}
+body.is-article .markdown-section details summary {
+  color: var(--studio-text) !important;
+  font-weight: 600 !important;
+  font-family: var(--studio-font-body) !important;
+  cursor: pointer !important;
+}
+body.is-article .markdown-section details[open] summary {
+  margin-bottom: 10px !important;
+  color: var(--studio-text) !important;
+}
+
+/* =========================================================
+   §11. 右栏: 本页目录 TOC (规范 §3.1 右栏 / §5.5)
+   复用 docsify-plugin-toc 生成的 .toc-nav / .page_toc, 只重绘
+   无真实页边批注数据源时, 右栏仅保留本页目录 (规范 §6, §14.4)
+   ========================================================= */
+body.is-article .page_toc,
+body.is-article .toc-nav {
+  position: fixed !important;
+  right: 24px !important;
+  top: 84px !important;
+  width: 240px !important;
+  max-height: calc(100vh - 120px) !important;
+  padding: 18px 16px !important;
+  overflow-y: auto !important;
+  background: var(--studio-paper-50) !important;
+  border: 1px solid var(--studio-line-paper) !important;
+  border-radius: var(--studio-radius-md) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  font-family: var(--studio-font-body) !important;
+}
+
+/* 目录标题: 旧金短线 (规范 §5.5) */
+body.is-article .page_toc .toc-title,
+body.is-article .toc-nav .toc-title {
+  margin: 0 0 12px !important;
+  padding: 0 0 8px !important;
+  color: var(--studio-text) !important;
+  border-bottom: 1px solid var(--studio-line-paper) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+  position: relative;
+}
+body.is-article .page_toc .toc-title::after,
+body.is-article .toc-nav .toc-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 36px;
+  height: 2px;
+  background: var(--studio-gold);
+}
+
+body.is-article .page_toc ul,
+body.is-article .toc-nav ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+body.is-article .page_toc a,
+body.is-article .toc-nav a {
+  display: block !important;
+  padding: 5px 8px 5px 12px !important;
+  border-radius: var(--studio-radius-sm) !important;
+  color: var(--studio-text-muted) !important;
+  background: transparent !important;
+  border-left: 2px solid transparent !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  transition: color var(--studio-dur-fast) var(--studio-ease), border-color var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .page_toc a:hover,
+body.is-article .toc-nav a:hover {
+  color: var(--studio-text) !important;
+  background: transparent !important;
+  border-left-color: var(--studio-gold) !important;
+  text-decoration: none !important;
+}
+body.is-article .page_toc a.active,
+body.is-article .toc-nav a.active {
+  color: var(--studio-text) !important;
+  background: rgba(200, 169, 107, 0.10) !important;
+  border-left-color: var(--studio-gold) !important;
+  font-weight: 500 !important;
+}
+
+/* 二级目录项缩进 */
+body.is-article .page_toc ul ul a,
+body.is-article .toc-nav ul ul a {
+  padding-left: 22px !important;
+  font-size: 12px !important;
+}
+
+/* =========================================================
+   §12. 分页 / Gitalk / 页脚 (规范 §5.6)
+   ========================================================= */
+body.is-article .pagination-item {
+  margin: 10px 4px !important;
+  padding: 12px 16px !important;
+  border: 1px solid var(--studio-line-paper) !important;
+  border-radius: var(--studio-radius-sm) !important;
+  background: var(--studio-paper-50) !important;
+  color: var(--studio-text) !important;
+  box-shadow: none !important;
+  transition: border-color var(--studio-dur-fast) var(--studio-ease), background var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .pagination-item:hover {
+  transform: none !important;
+  border-color: var(--studio-gold) !important;
+  background: var(--studio-paper-100) !important;
+  box-shadow: none !important;
+}
+body.is-article .pagination-item a {
+  color: var(--studio-text) !important;
+  border: 0 !important;
+}
+
+/* Gitalk 评论: 纸白风格, 不遮挡正文 (规范 §5.6) */
+body.is-article .gitalk-container {
+  margin-top: 32px !important;
+  padding: 20px 0 !important;
+}
+body.is-article .markdown-section .gitalk-container .gt-btn {
+  border-radius: var(--studio-radius-sm) !important;
+}
+
+/* Docsify 页脚插件注入的 <footer> (规范 §5.6) */
+body.is-article .markdown-section footer {
+  margin-top: 28px !important;
+  padding-top: 16px !important;
+  border-top: 1px solid var(--studio-line-paper) !important;
+  color: var(--studio-text-muted) !important;
+  font-size: 12px !important;
+  font-family: var(--studio-font-mono) !important;
+}
+body.is-article .markdown-section footer a {
+  color: var(--studio-text-muted) !important;
+  border-bottom: 0 !important;
+}
+body.is-article .markdown-section footer a:hover {
+  color: var(--studio-text) !important;
+  border-bottom-color: var(--studio-gold) !important;
+}
+
+/* =========================================================
+   §13. 浮动控件: 阅读进度 / 返回顶部 / 终端按钮 (规范 §5.6, 设计契约)
+   ========================================================= */
+/* 阅读进度条 (原 modern-theme 未给 #reading-progress 样式, 此处补齐) */
+body.is-article #reading-progress {
+  position: fixed !important;
+  top: 60px !important;
+  left: 0 !important;
+  height: 2px !important;
+  width: 0 !important;
+  background: var(--studio-gold) !important;
+  z-index: var(--z-reading-progress) !important;
+  transition: width 60ms linear !important;
+}
+
+body.is-article #terminal-trigger {
+  position: fixed !important;
+  bottom: 28px !important;
+  right: 28px !important;
+  width: 48px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: var(--studio-radius-sm) !important;
+  background: var(--studio-ink-950) !important;
+  color: var(--studio-on-dark) !important;
+  border: 1px solid var(--studio-gold) !important;
+  box-shadow: 0 4px 16px rgba(13, 16, 14, 0.22) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  z-index: var(--z-terminal-trigger) !important;
+  transition: background var(--studio-dur-fast) var(--studio-ease), transform var(--studio-dur-fast) var(--studio-ease), box-shadow var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article #terminal-trigger:hover {
+  background: var(--studio-ink-900) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(13, 16, 14, 0.3) !important;
+}
+body.is-article #terminal-trigger:focus-visible {
+  outline: 2px solid var(--studio-focus) !important;
+  outline-offset: 2px !important;
+}
+
+body.is-article #back-to-top {
+  position: fixed !important;
+  bottom: 80px !important;
+  right: 28px !important;
+  width: 40px !important;
+  height: 40px !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: var(--studio-radius-sm) !important;
+  background: var(--studio-paper-50) !important;
+  color: var(--studio-text) !important;
+  border: 1px solid var(--studio-line-paper) !important;
+  box-shadow: 0 2px 8px rgba(32, 33, 29, 0.08) !important;
+  cursor: pointer !important;
+  z-index: var(--z-back-to-top) !important;
+  font-size: 18px !important;
+  transition: background var(--studio-dur-fast) var(--studio-ease), border-color var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article #back-to-top.visible {
+  display: flex !important;
+  opacity: 1 !important;
+}
+body.is-article #back-to-top:hover {
+  background: var(--studio-paper-100) !important;
+  border-color: var(--studio-gold) !important;
+  transform: none !important;
+  box-shadow: 0 4px 12px rgba(32, 33, 29, 0.12) !important;
+}
+
+/* Docsify 加载进度条 (顶部, modern-theme 设为紫色, 文章页改为旧金) */
+body.is-article .progress {
+  background: var(--studio-gold) !important;
+  height: 2px !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   §14. 响应式降级 (规范 §2.5 / §7: 不缩小三栏, 而是逐级降级)
+   ========================================================= */
+
+/* --- 宽屏: 三栏完整 (右栏 TOC 已在 §11 显示) --- */
+@media screen and (min-width: 1300px) {
+  /* 覆盖 modern-theme.css 在 max-width:1400px 隐藏 .page_toc 的规则 */
+  body.is-article .page_toc,
+  body.is-article .toc-nav {
+    display: block !important;
+  }
+}
+
+/* --- 中屏 (1024-1299px): 隐藏右栏, 两栏 (侧栏 + 正文) --- */
+@media screen and (max-width: 1299px) {
+  body.is-article .page_toc,
+  body.is-article .toc-nav {
+    display: none !important;
+  }
+  body.is-article .content {
+    padding-right: 0 !important;
+  }
+  body.is-article .markdown-section {
+    max-width: 760px !important;
+  }
+}
+
+/* --- 小桌面/平板 (<= 1024px): 侧栏抽屉化, 正文收窄 --- */
+@media screen and (max-width: 1024px) {
+  /* modern-theme 已在 1024px 把 .content left:0 并抽屉化侧栏;
+     此处仅收窄阅读面, 保持 280px 侧栏 (drawer translate -304 仍可隐藏 280 宽侧栏) */
+  body.is-article .markdown-section {
+    max-width: 100% !important;
+    padding: 36px 28px 80px !important;
+  }
+  body.is-article .markdown-section h1 {
+    font-size: 32px !important;
+  }
+  body.is-article .markdown-section h2 {
+    font-size: 24px !important;
+  }
+}
+
+/* --- 平板竖屏 / 手机 (<= 768px): 单列阅读 --- */
+@media screen and (max-width: 768px) {
+  body.is-article .markdown-section {
+    padding: 28px 20px 84px !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-radius: 0 !important;
+  }
+  body.is-article .markdown-section h1 {
+    font-size: 28px !important;
+  }
+  body.is-article .markdown-section h2 {
+    font-size: 22px !important;
+  }
+  body.is-article .markdown-section h3 {
+    font-size: 18px !important;
+  }
+  body.is-article .markdown-section p,
+  body.is-article .markdown-section li {
+    font-size: 15.5px !important;
+    line-height: 1.78 !important;
+  }
+
+  /* 浮动按钮适配 (规范 §3.2) */
+  body.is-article #terminal-trigger {
+    right: 18px !important;
+    bottom: 18px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+  body.is-article #back-to-top {
+    right: 18px !important;
+    bottom: 72px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+
+/* --- 极窄屏 (<= 390px) --- */
+@media screen and (max-width: 390px) {
+  body.is-article .markdown-section {
+    padding: 24px 16px 76px !important;
+  }
+  body.is-article .markdown-section h1 {
+    font-size: 26px !important;
+  }
+  body.is-article .markdown-section code,
+  body.is-article .markdown-section pre code {
+    font-size: 12px !important;
+  }
+  /* 长英文/路径不撑破页面 (规范 §8.5) */
+  body.is-article .markdown-section pre,
+  body.is-article .markdown-section table {
+    overflow-x: auto !important;
+    max-width: 100% !important;
+  }
+  body.is-article .markdown-section p,
+  body.is-article .markdown-section li {
+    overflow-wrap: anywhere !important;
+  }
+}
+
+/* =========================================================
+   §15. 焦点 / 可访问性 (规范 §9)
+   ========================================================= */
+body.is-article :focus-visible {
+  outline: 2px solid var(--studio-focus) !important;
+  outline-offset: 2px !important;
+  border-radius: var(--studio-radius-sm) !important;
+}
+
+/* reduced-motion 已由 studio-tokens.css 全局处理, 此处不覆盖 */
+
+/* =========================================================
+   §16. Search Results Panel (P007 站内搜索结果体验)
+   依据: docs/_meta/ui-redesign/pages/07-search-results.md (权威)
+   真实数据来源: Docsify Search 插件 .results-panel / .matching-post / .empty
+   不伪造结果数量/耗时/领域筛选/最近搜索/搜索语法 (规范 §1/§2.3 真相来源)
+   Ctrl/Cmd+K 属终端, 不属于搜索; 首页桥接 bridgeCoverSearch() 不改
+   ========================================================= */
+
+/* 结果面板: 纸白编目单, 内部滚动 (规范 §5.1) */
+body.is-article .sidebar .search .results-panel {
+  margin: 6px 0 0 !important;
+  padding: 0 2px !important;
+  max-height: calc(100vh - 180px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  border-top: 1px solid var(--studio-line-paper) !important;
+  border-radius: 0 !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(32, 33, 29, 0.14) transparent;
+}
+body.is-article .sidebar .search .results-panel::-webkit-scrollbar {
+  width: 4px;
+}
+body.is-article .sidebar .search .results-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+body.is-article .sidebar .search .results-panel::-webkit-scrollbar-thumb {
+  background: rgba(32, 33, 29, 0.14);
+  border-radius: 2px;
+}
+body.is-article .sidebar .search .results-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(32, 33, 29, 0.24);
+}
+
+/* 首尾结果分隔线处理 (规范 §5.1: 结果项之间用细线) */
+body.is-article .sidebar .search .matching-post:last-child {
+  border-bottom: 0 !important;
+}
+
+/* 结果链接: 整行可点击, 无下划线 (规范 §5.1) */
+body.is-article .sidebar .search .matching-post a {
+  display: block !important;
+  color: var(--studio-text) !important;
+  border: 0 !important;
+  border-bottom: 0 !important;
+  text-decoration: none !important;
+  font-weight: 400 !important;
+  background: transparent !important;
+}
+body.is-article .sidebar .search .matching-post a:hover {
+  text-decoration: none !important;
+}
+
+/* 结果标题: 无衬线 16px 加粗 (规范 §3.4 / §5.1) */
+body.is-article .sidebar .search .matching-post h2 {
+  margin: 0 0 4px !important;
+  padding: 0 !important;
+  font-family: var(--studio-font-body) !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  color: var(--studio-text) !important;
+  border: 0 !important;
+}
+
+/* 结果摘要: 13px 次级文字 (规范 §5.1: 路径/摘要 13-14px) */
+body.is-article .sidebar .search .matching-post p {
+  margin: 0 !important;
+  font-family: var(--studio-font-body) !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+  color: var(--studio-text-muted) !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* 无结果状态: 朱砂左线 + 真实 noData 文案 (规范 §5.3)
+   文案来自 $docsify.search.noData = "没有找到相关内容，换个关键词试试。" */
+body.is-article .sidebar .search .empty {
+  margin: 12px 0 !important;
+  padding: 12px 14px !important;
+  border: 0 !important;
+  border-left: 2px solid var(--studio-vermilion) !important;
+  background: rgba(230, 102, 62, 0.05) !important;
+  color: var(--studio-text-muted) !important;
+  font-size: 13px !important;
+  line-height: 1.7 !important;
+  border-radius: 0 var(--studio-radius-sm) var(--studio-radius-sm) 0 !important;
+}
+/* 无结果补充提示: 指向真实终端 find/aisearch (规范 §6.5, 非虚构推荐)
+   仅提示已存在的真实命令, 不伪造结果数量或推荐链接 */
+body.is-article .sidebar .search .empty::after {
+  content: "也可在终端用 find 或 aisearch 补充检索";
+  display: block;
+  margin-top: 8px;
+  color: var(--studio-text-muted) !important;
+  font-size: 12px !important;
+  font-family: var(--studio-font-mono) !important;
+  opacity: 0.85;
+}
+
+/* --- 搜索面板响应式 (规范 §5.2 移动端) --- */
+/* 平板/手机: 结果面板不限高, 随侧栏抽屉滚动; 避免嵌套滚动 (规范 §5.2) */
+@media screen and (max-width: 768px) {
+  body.is-article .sidebar .search .results-panel {
+    max-height: none !important;
+    overflow-y: visible !important;
+    padding: 0 !important;
+  }
+  body.is-article .sidebar .search .matching-post {
+    padding: 12px 0 !important;
+  }
+  body.is-article .sidebar .search .matching-post h2 {
+    font-size: 15px !important;
+  }
+  body.is-article .sidebar .search .matching-post p {
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+  }
+  /* 移动端输入框: 略矮但不低于 40px, 字号不小于 15px 防缩放 (规范 §5.2) */
+  body.is-article .sidebar .search input {
+    height: 40px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* 极窄屏: 结果字号守住下限, 长查询/路径不撑破 (规范 §5.2) */
+@media screen and (max-width: 390px) {
+  body.is-article .sidebar .search .matching-post h2 {
+    font-size: 14px !important;
+  }
+  body.is-article .sidebar .search .matching-post p {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+  body.is-article .sidebar .search input {
+    height: 38px !important;
+    font-size: 14px !important;
+  }
+  body.is-article .sidebar .search .empty {
+    font-size: 12px !important;
+  }
+  body.is-article .sidebar .search .empty::after {
+    font-size: 11px !important;
+  }
+}
+
+/* =========================================================
+   §17. 全站侧边栏 + 移动知识目录抽屉 (P008)
+   依据: docs/_meta/ui-redesign/pages/08-mobile-sidebar.md (权威)
+   复用 Docsify 原生 .sidebar + .sidebar-toggle + body.close; 不新建第二套菜单
+   桌面(>=1025px): 左侧固定纸白知识目录 (§3 已定型, 此处补 height/overflow 确保内部滚动)
+   平板/手机(<=1024px): .sidebar 变左滑入抽屉 + 遮罩 + 焦点管理
+   z-index 层级 (规范 §7.3): 抽屉 900 / 遮罩 800 / toggle 950
+     均低于终端遮罩 9998 与终端窗 9999, 不抢占终端与 Ctrl/Cmd+K
+   数据真相: 目录来自 _sidebar.md (只读, 不改); 不照搬参考图假分类
+   ========================================================= */
+
+/* --- 桌面(>=1025px): 固定纸白知识目录, 内部滚动 (规范 §5.2) --- */
+@media screen and (min-width: 1025px) {
+  body.is-article .sidebar {
+    position: fixed !important;
+    top: 60px !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    height: calc(100vh - 60px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    transform: none !important;
+    transition: none !important;
+    /* 细克制滚动条 (规范 §5.2: 滚动条细而克制) */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(32, 33, 29, 0.16) transparent;
+  }
+  body.is-article .sidebar::-webkit-scrollbar { width: 5px; }
+  body.is-article .sidebar::-webkit-scrollbar-track { background: transparent; }
+  body.is-article .sidebar::-webkit-scrollbar-thumb {
+    background: rgba(32, 33, 29, 0.16);
+    border-radius: 2px;
+  }
+  body.is-article .sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(32, 33, 29, 0.28);
+  }
+}
+
+/* --- 平板/手机(<=1024px): 抽屉化 (规范 §3.5 / §6.2) --- */
+@media screen and (max-width: 1024px) {
+  /* 抽屉容器: 左侧贴边, 默认关闭(translateX -100%), 滑入动画 */
+  body.is-article .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: min(86vw, 340px) !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding: 0 !important;
+    z-index: var(--z-drawer) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    transform: translateX(-100%) !important;
+    transition: transform var(--studio-dur-enter) var(--studio-ease) !important;
+    box-shadow: 0 0 40px rgba(13, 16, 14, 0.18) !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(32, 33, 29, 0.16) transparent;
+  }
+  body.is-article .sidebar::-webkit-scrollbar { width: 4px; }
+  body.is-article .sidebar::-webkit-scrollbar-thumb {
+    background: rgba(32, 33, 29, 0.14);
+    border-radius: 2px;
+  }
+  /* 抽屉打开: Docsify 默认 body:not(.close) = 侧栏可见 = 抽屉滑入 (规范 §7.1) */
+  body.is-article:not(.close) .sidebar {
+    transform: translateX(0) !important;
+  }
+
+  /* 抽屉顶部: KNOWLEDGE INDEX 标题带 (规范 §6.3, 视觉标签, 关闭走 toggle/Esc/遮罩) */
+  body.is-article .sidebar::before {
+    content: "KNOWLEDGE INDEX";
+    display: flex !important;
+    align-items: center !important;
+    height: 56px !important;
+    padding: 0 20px !important;
+    margin: 0 !important;
+    background: var(--studio-paper-100) !important;
+    border-bottom: 1px solid var(--studio-line-paper) !important;
+    color: var(--studio-text) !important;
+    font-family: var(--studio-font-display) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: none !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 2 !important;  /* 仅在抽屉内部层叠, 不参与全站层级 */
+  }
+
+  /* 搜索框内边距 (规范 §6.3: 标题下 10-14px) */
+  body.is-article .sidebar .search {
+    padding: 14px 20px 0 !important;
+    margin: 0 !important;
+  }
+  /* 目录滚动区 */
+  body.is-article .sidebar-nav {
+    padding: 8px 20px 24px !important;
+  }
+
+  /* 底部辅助状态带 (规范 §4.2/§6.5: 无真实时间不显示假时间; 显示真实状态文案) */
+  body.is-article .sidebar::after {
+    content: "链接以当前仓库为准";
+    display: block !important;
+    padding: 14px 20px 20px !important;
+    margin-top: 8px !important;
+    border-top: 1px solid var(--studio-line-paper) !important;
+    color: var(--studio-text-muted) !important;
+    font-family: var(--studio-font-mono) !important;
+    font-size: 11px !important;
+    letter-spacing: 0.02em !important;
+    text-align: center !important;
+  }
+
+  /* 正文不偏移 (确认 modern-theme left:0; 顶部留 58px 给导航) */
+  body.is-article .content {
+    left: 0 !important;
+    padding-top: 58px !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    transform: none !important;
+  }
+
+  /*
+   * Docsify vue.css 在移动端会用 body.close .content { transform: translateX(300px) }
+   * 推开正文。P008 抽屉脚本将 body.close 重新定义为“抽屉关闭”，所以文章页必须
+   * 在自身作用域内清掉旧主题位移，避免正文与顶部导航被推到屏幕外。
+   */
+  body.is-article.close .content,
+  body.is-article:not(.close) .content,
+  body.is-article.close .app-nav,
+  body.is-article:not(.close) .app-nav {
+    transform: none !important;
+  }
+
+  /* 遮罩: 抽屉打开时显示 (规范 §6.2/§7.3; 终端遮罩 9998 在上层, 自然覆盖抽屉) */
+  body.is-article:not(.close)::before {
+    content: "" !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(13, 16, 14, 0.5) !important;
+    z-index: var(--z-drawer-overlay) !important;
+    pointer-events: auto !important;
+  }
+
+  /* sidebar-toggle: 暖石墨汉堡按钮, 可键盘可触达 (规范 §3.3/§6.1/§7.1) */
+  body.is-article .sidebar-toggle {
+    position: fixed !important;
+    top: 7px !important;
+    left: 10px !important;
+    width: 44px !important;
+    height: 44px !important;
+    padding: 11px !important;
+    z-index: var(--z-drawer-toggle) !important;  /* 高于抽屉/遮罩, 低于终端(9998) */
+    background: var(--studio-ink-950) !important;
+    border: 1px solid var(--studio-line-dark) !important;
+    border-radius: var(--studio-radius-sm) !important;
+    box-shadow: 0 2px 8px rgba(13, 16, 14, 0.18) !important;
+    cursor: pointer !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    transition: background var(--studio-dur-fast) var(--studio-ease),
+                border-color var(--studio-dur-fast) var(--studio-ease) !important;
+    transform: none !important;
+  }
+  body.is-article.close .sidebar-toggle,
+  body.is-article:not(.close) .sidebar-toggle {
+    transform: none !important;
+  }
+  body.is-article .sidebar-toggle:hover {
+    background: var(--studio-ink-900) !important;
+    border-color: var(--studio-gold) !important;
+  }
+  body.is-article .sidebar-toggle:focus-visible {
+    outline: 2px solid var(--studio-focus) !important;
+    outline-offset: 2px !important;
+  }
+  body.is-article .sidebar-toggle span {
+    background-color: var(--studio-on-dark) !important;
+    width: 20px !important;
+    height: 2px !important;
+    border-radius: 1px !important;
+    margin: 0 auto !important;
+    display: block !important;
+  }
+
+  /* 目录项移动端缩进收敛, 深层不挤剩几字 (规范 §6.4: 最大缩进 48px) */
+  body.is-article .sidebar-nav a {
+    padding-left: 20px !important;
+    font-size: 14px !important;
+    min-height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  body.is-article .sidebar-nav > ul > li > ul > li > p,
+  body.is-article .sidebar-nav > ul > li > ul > li > a {
+    padding-left: 32px !important;
+  }
+  body.is-article .sidebar-nav > ul > li > ul > li > ul a {
+    padding-left: 44px !important;
+  }
+
+  /* 当前项滚入可见留白 (依赖 §18 JS hook) */
+  body.is-article .sidebar-nav .active,
+  body.is-article .sidebar-nav li.active > a {
+    scroll-margin-block: 80px 24px;
+  }
+
+  /* body 滚动锁: 抽屉打开时锁定背景滚动 (规范 §7.2; 配合 §18 JS 加 .drawer-open) */
+  body.is-article:not(.close).drawer-open {
+    overflow: hidden !important;
+  }
+}
+
+/* --- 手机(<=768px) 微调 (规范 §6.1/§6.3) --- */
+@media screen and (max-width: 768px) {
+  body.is-article .sidebar::before {
+    height: 52px !important;
+    padding: 0 16px !important;
+    font-size: 13px !important;
+  }
+  body.is-article .sidebar .search {
+    padding: 12px 16px 0 !important;
+  }
+  body.is-article .sidebar-nav {
+    padding: 8px 16px 20px !important;
+  }
+  body.is-article .sidebar::after {
+    padding: 12px 16px 18px !important;
+  }
+  body.is-article .sidebar-toggle {
+    width: 42px !important;
+    height: 42px !important;
+    top: 8px !important;
+    left: 8px !important;
+  }
+  body.is-article .app-nav {
+    height: 56px !important;
+    padding: 0 12px 0 56px !important;  /* 左留 56px 给 toggle */
+  }
+  body.is-article.close .app-nav,
+  body.is-article:not(.close) .app-nav {
+    display: flex !important;
+    transform: none !important;
+  }
+  /* 手机端隐藏次要顶部文字链接, 保留品牌+图标+CTA (规范 §6.1) */
+  body.is-article .app-nav .nav-links {
+    display: none !important;
+  }
+
+  /* 手机端正文容器: 收窄左右内边距, 释放可读宽度; 底部留足空间给终端按钮 */
+  body.is-article .markdown-section {
+    padding: 28px 18px 84px !important;
+  }
+  /* 手机端标题字号收敛 */
+  body.is-article .markdown-section h1 {
+    font-size: 28px !important;
+    line-height: 1.25 !important;
+    margin-bottom: 0.45em !important;
+  }
+  body.is-article .markdown-section h2 {
+    font-size: 22px !important;
+    line-height: 1.35 !important;
+  }
+  body.is-article .markdown-section h3 {
+    font-size: 18px !important;
+  }
+  body.is-article .markdown-section h4 {
+    font-size: 16px !important;
+  }
+  /* 手机端正文略小, 行距收紧 */
+  body.is-article .markdown-section p,
+  body.is-article .markdown-section li {
+    font-size: 15px !important;
+    line-height: 1.75 !important;
+  }
+  /* 手机端编辑此页: 绝对定位到标题右上角, 不再独占一行 */
+  body.is-article .markdown-section {
+    position: relative !important;
+  }
+  body.is-article .markdown-section > .edit-page-link {
+    position: absolute !important;
+    top: 28px !important;
+    right: 18px !important;
+    margin: 0 !important;
+    z-index: 2 !important;
+  }
+  body.is-article .edit-page-link a {
+    min-height: 28px !important;
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+  }
+  body.is-article .markdown-section h1 {
+    padding-right: 76px !important;
+  }
+  /* 抽屉 toggle 线条更清晰 */
+  body.is-article .sidebar-toggle {
+    gap: 5.5px !important;
+    padding: 10px !important;
+  }
+  body.is-article .sidebar-toggle span {
+    width: 20px !important;
+    height: 3px !important;
+    border-radius: 2px !important;
+  }
+}
+
+/* 极窄屏(<=390px) 进一步收紧 */
+@media screen and (max-width: 390px) {
+  body.is-article .markdown-section {
+    padding: 24px 14px 56px !important;
+  }
+  body.is-article .markdown-section h1 {
+    font-size: 26px !important;
+  }
+  body.is-article .markdown-section h2 {
+    font-size: 20px !important;
+  }
+}
+
+/* reduced-motion: 抽屉无动画 (规范 §6.2/§9; studio-tokens 全局已处理, 此处兜底) */
+@media (prefers-reduced-motion: reduce) {
+  body.is-article .sidebar {
+    transition: none !important;
+  }
+}
+
+/* 抽屉内焦点可见性补强 (规范 §9/§15) */
+body.is-article .sidebar-nav a:focus-visible,
+body.is-article .sidebar .search input:focus-visible {
+  outline: 2px solid var(--studio-focus) !important;
+  outline-offset: -2px !important;
+}
+
+/* =========================================================
+   §18. 终端弹窗视觉与可访问性 (P009)
+   依据: docs/_meta/ui-redesign/pages/09-terminal-modal.md (权威)
+   复用现有 #terminal-window / #terminal-overlay / #terminal-header /
+   #terminal-controls / #terminal-title / #terminal-body / #terminal-output /
+   #terminal-input-line / #terminal-prompt / #terminal-input / #terminal-cursor;
+   不新建第二终端, 不改 IIFE 命令逻辑/历史/文档树/Ctrl+K/Esc/Tab/Ctrl+L/scrollToBottom
+   作用域: body.is-article (首页 body.is-home 终端冻结, 不受影响; homepage-v2.css 不动)
+   覆盖 modern-theme.css Terminal 段遗留紫色/科技蓝 (#a58bff/#b8a8ff/--notion-brand-navy),
+   改为暖石墨 + 旧金 prompt + 信号绿状态 (规范 §3.3)
+   滚动容器仍为 #terminal-body (IIFE scrollToBottom 滚 output.parentElement=body);
+   输入行用 position:sticky bottom:0 实现"底部固定"视觉, 不改 DOM/滚动结构
+   ========================================================= */
+
+/* --- 遮罩: 暖石墨半透 + 极轻模糊 (规范 §5.1; modern-theme 蓝色 blur(10px) 过重) --- */
+body.is-article #terminal-overlay {
+  background: rgba(13, 16, 14, 0.48) !important;
+  backdrop-filter: blur(2px) !important;
+  -webkit-backdrop-filter: blur(2px) !important;
+}
+
+/* --- 窗口: 暖石墨, 圆角, 深阴影 (规范 §5.2) --- */
+body.is-article #terminal-window {
+  width: min(940px, calc(100vw - 64px)) !important;
+  height: min(720px, 80vh) !important;
+  background: var(--studio-ink-950) !important;
+  border: 1px solid var(--studio-line-dark) !important;
+  border-radius: var(--studio-radius-md) !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(201, 195, 183, 0.06) inset !important;
+  font-family: var(--studio-font-mono) !important;
+}
+
+/* --- Header: 标题带 + 关闭控件 (规范 §5.3) --- */
+body.is-article #terminal-header {
+  height: 48px !important;
+  padding: 0 18px !important;
+  background: var(--studio-ink-900) !important;
+  border-bottom: 1px solid var(--studio-line-dark) !important;
+  border-radius: var(--studio-radius-md) var(--studio-radius-md) 0 0 !important;
+}
+
+/* 标题: 旧金等宽, 字距克制 (规范 §5.3) */
+body.is-article #terminal-title {
+  color: var(--studio-gold) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* 控件: 隐藏无功能 minimize/maximize (规范 §4.2: 不暴露无功能按钮给读屏) */
+body.is-article #terminal-controls .terminal-control-btn.minimize,
+body.is-article #terminal-controls .terminal-control-btn.maximize {
+  display: none !important;
+}
+
+/* 关闭按钮: 朱砂圆点 + 金边聚焦 (规范 §4.2/§5.3; 可读屏可键盘由 P009 JS hook 补) */
+body.is-article #terminal-controls .terminal-control-btn.close {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  background: var(--studio-vermilion) !important;
+  border: 1px solid rgba(242, 239, 231, 0.18) !important;
+  cursor: pointer !important;
+  transition: background var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article #terminal-controls .terminal-control-btn.close:hover {
+  background: #d9584f !important;
+}
+body.is-article #terminal-controls .terminal-control-btn.close:focus-visible {
+  outline: 2px solid var(--studio-focus) !important;
+  outline-offset: 3px !important;
+}
+
+/* --- Body: 单一滚动容器 (规范 §5.4; 保留 IIFE scrollToBottom 行为: 滚 output.parentElement) --- */
+body.is-article #terminal-body {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 18px 22px 20px !important;
+  background: var(--studio-ink-950) !important;
+  color: var(--studio-on-dark) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(233, 229, 220, 0.25) transparent;
+}
+body.is-article #terminal-body::-webkit-scrollbar { width: 8px; }
+body.is-article #terminal-body::-webkit-scrollbar-track { background: transparent; }
+body.is-article #terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(233, 229, 220, 0.25);
+  border-radius: 4px;
+}
+body.is-article #terminal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(233, 229, 220, 0.4);
+}
+
+/* 输出区: 继承 body 字体/色 (无独立滚动, 与 body 同滚动容器) */
+body.is-article #terminal-output {
+  color: var(--studio-on-dark) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+}
+
+/* 输出行: 间距 + 防溢出 (规范 §5.4: 长路径/URL/中英混排不撑破窗口) */
+body.is-article .terminal-line {
+  margin: 4px 0 !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+/* 输出色系: 移除紫色, 改为首页色系 (规范 §3.3) */
+body.is-article .terminal-prompt {
+  color: var(--studio-gold) !important;
+  font-weight: 600 !important;
+}
+body.is-article .terminal-command {
+  color: var(--studio-green) !important;
+}
+body.is-article .terminal-directory {
+  color: var(--studio-gold) !important;
+  font-weight: 600 !important;
+}
+body.is-article .terminal-file {
+  color: var(--studio-green) !important;
+}
+body.is-article .terminal-success {
+  color: var(--studio-green) !important;
+}
+body.is-article .terminal-error {
+  color: var(--studio-vermilion) !important;
+}
+body.is-article .terminal-warning {
+  color: #d7b76d !important;
+}
+body.is-article .terminal-info {
+  color: var(--studio-on-dark-muted) !important;
+}
+
+/* --- 输入行: sticky 底部固定 (规范 §5.5: 输入行固定窗口底部) ---
+   不改 DOM/滚动结构: 仍在 #terminal-body 内, 用 position:sticky bottom:0 视觉固定;
+   IIFE scrollToBottom 滚 #terminal-body, 输入行始终可见, 不破坏现有行为 */
+body.is-article #terminal-input-line {
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: var(--z-terminal-input-line) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 0 !important;
+  padding: 14px 22px !important;
+  background: var(--studio-ink-900) !important;
+  border-top: 1px solid var(--studio-line-dark) !important;
+}
+body.is-article #terminal-prompt {
+  color: var(--studio-gold) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+body.is-article #terminal-input {
+  flex: 1 !important;
+  padding: 0 !important;
+  color: var(--studio-on-dark) !important;
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 14px !important;
+  caret-color: var(--studio-green) !important;
+}
+body.is-article #terminal-input:focus-visible {
+  outline: 0 !important;
+}
+body.is-article #terminal-input::placeholder {
+  color: var(--studio-on-dark-muted) !important;
+}
+
+/* 自定义光标: 信号绿闪烁块 (规范 §5.5; 仅装饰, 与原生 caret 共存) */
+body.is-article #terminal-cursor {
+  display: inline-block !important;
+  width: 8px !important;
+  height: 16px !important;
+  border-radius: 1px !important;
+  background: var(--studio-green) !important;
+  animation: p009CursorBlink 1s infinite !important;
+}
+@keyframes p009CursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* --- 触发器: 修正 article 页 ►_ 真文本与 ::before >_ 双渲染 ---
+   §13 设 font-size:14px 导致 modern-theme #terminal-trigger{font-size:0}+::before{">_"}
+   双重显示; 此处统一隐藏真文本, 用 ::before 渲染 >_ (与首页一致, 旧金 prompt 色) --- */
+body.is-article #terminal-trigger {
+  font-size: 0 !important;
+}
+body.is-article #terminal-trigger::before {
+  content: ">_";
+  font-family: var(--studio-font-mono) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: var(--studio-gold) !important;
+  letter-spacing: 0.02em !important;
+}
+/* 触发器已打开时: 旧金边框加亮 + aria-expanded 由 P009 JS hook 同步 */
+body.is-article #terminal-trigger[aria-expanded="true"] {
+  border-color: var(--studio-gold) !important;
+  box-shadow: 0 4px 16px rgba(13, 16, 14, 0.22), 0 0 0 2px rgba(200, 169, 107, 0.18) !important;
+}
+
+/* --- 响应式: 平板 (规范 §6.1) --- */
+@media screen and (max-width: 1024px) {
+  body.is-article #terminal-window {
+    width: calc(100vw - 40px) !important;
+    height: calc(100dvh - 80px) !important;
+    max-height: calc(100dvh - 80px) !important;
+  }
+}
+
+/* --- 响应式: 手机近全屏 (规范 §6.1/§6.3; 保持居中 transform, 不改 top/transform) --- */
+@media screen and (max-width: 768px) {
+  body.is-article #terminal-window {
+    width: calc(100vw - 16px) !important;
+    height: calc(100dvh - 32px) !important;
+    max-height: calc(100dvh - 32px) !important;
+  }
+  body.is-article #terminal-header {
+    height: 52px !important;
+    padding: 0 14px !important;
+  }
+  body.is-article #terminal-title {
+    font-size: 11px !important;
+  }
+  body.is-article #terminal-body {
+    padding: 16px 16px 18px !important;
+    font-size: 12.5px !important;
+    line-height: 1.55 !important;
+  }
+  body.is-article #terminal-output {
+    font-size: 12.5px !important;
+    line-height: 1.55 !important;
+  }
+  body.is-article #terminal-input-line {
+    padding: 12px 16px !important;
+    padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
+  }
+  body.is-article #terminal-input,
+  body.is-article #terminal-prompt {
+    font-size: 13px !important;
+  }
+}
+
+/* --- reduced-motion: 光标不闪, 弹窗无入场动画 (规范 §9; studio-tokens 全局已处理, 此处兜底) --- */
+@media (prefers-reduced-motion: reduce) {
+  body.is-article #terminal-cursor {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  body.is-article #terminal-window.active {
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   §19. 404 状态页视觉 (P010)
+   依据: docs/_404.md 使用 .not-found-page 包装
+   ========================================================= */
+body.is-article .markdown-section:has(.not-found-page) > .edit-page-link {
+  display: none !important;
+}
+body.is-article .not-found-page {
+  padding: 24px 0 48px !important;
+}
+body.is-article .not-found-page > blockquote:first-child {
+  margin: 0 0 28px !important;
+  padding: 18px 22px !important;
+  border-left: 3px solid var(--studio-vermilion) !important;
+  background: rgba(182, 75, 69, 0.08) !important;
+  color: var(--studio-text) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 13px !important;
+}
+body.is-article .not-found-page > blockquote:first-child > p {
+  margin: 0 !important;
+}
+body.is-article .not-found-page > blockquote:first-child > p:first-child {
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  margin-bottom: 6px !important;
+}
+body.is-article .not-found-page h2 {
+  font-family: var(--studio-font-display) !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  margin: 32px 0 16px !important;
+  padding-bottom: 10px !important;
+  border-bottom: 1px solid var(--studio-line-paper) !important;
+}
+body.is-article .not-found-page ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 24px !important;
+}
+body.is-article .not-found-page li {
+  padding: 10px 0 !important;
+  border-bottom: 1px solid rgba(32, 33, 29, 0.08) !important;
+}
+body.is-article .not-found-page li:last-child {
+  border-bottom: 0 !important;
+}
+body.is-article .not-found-page li > strong:first-child {
+  font-family: var(--studio-font-mono) !important;
+  font-size: 12px !important;
+  color: var(--studio-gold) !important;
+  letter-spacing: 0.04em !important;
+  margin-right: 8px !important;
+}
+body.is-article .not-found-page pre {
+  background: var(--studio-ink-950) !important;
+  color: var(--studio-on-dark) !important;
+  border-radius: var(--studio-radius-md) !important;
+  padding: 16px 20px !important;
+}
+body.is-article .not-found-page pre code {
+  color: var(--studio-on-dark) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 13px !important;
+}
+@media screen and (max-width: 768px) {
+  body.is-article .not-found-page {
+    padding: 12px 0 36px !important;
+  }
+  body.is-article .not-found-page h2 {
+    font-size: 20px !important;
+  }
+  body.is-article .not-found-page pre {
+    padding: 14px 16px !important;
+  }
+  body.is-article .not-found-page pre code {
+    font-size: 12px !important;
+  }
+}

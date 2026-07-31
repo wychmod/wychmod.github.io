@@ -1049,15 +1049,32 @@ body.is-home .notion-chips {
   .home-graph-center { width: 108px; height: 108px; }
 }
 
-/* 平板竖屏 768–1023: Hero 上下 */
+/* 平板竖屏 768–1023: Hero 上下 + 9 域径向图谱改为文本索引(规范 §8.3/§8.4) */
 @media screen and (max-width: 1023px) {
   body.is-home .cover-main { padding: 72px var(--studio-gutter) 48px !important; }
   body.is-home .cover-main > .home-v2 { grid-template-columns: 1fr; }
   body.is-home .cover h1, .home-hero h1 { font-size: 44px !important; }
   .home-aside { padding-left: 0; border-left: 0; border-top: 1px solid var(--studio-line-dark); padding-top: var(--studio-space-4); }
-  .home-graph { max-width: 620px; height: 410px; }
   .home-index-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .nav-links { display: none; }  /* 低优先级入口隐藏 */
+
+  /* 隐藏径向 SVG 与中心圆, 9 域转两列索引, 避免 768px 宽下节点挤边/重叠 */
+  .home-graph-svg, .home-graph-center { display: none; }
+  .home-graph-meta span:last-child { display: none; }
+  .home-graph { height: auto; max-width: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--studio-space-3); padding-top: var(--studio-space-4); }
+  .home-graph-node {
+    position: static;
+    width: auto;
+    margin: 0;
+    transform: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--studio-space-2);
+    padding: 10px 12px;
+  }
+  .home-graph-node svg, .home-graph-node i { width: 16px; height: 16px; }
+  .home-graph-node-copy strong { font-size: 13px; text-align: left; }
+  .home-graph-node-copy small { display: none; }
 }
 
 /* 手机 <=767 */
@@ -1065,7 +1082,7 @@ body.is-home .notion-chips {
   .app-nav { height: 58px !important; padding: 0 14px !important; }
   .nav-brand-sub, .nav-links { display: none !important; }
   .nav-kbd { display: none; }
-  .nav-cta { display: none; }  /* 移动端依赖侧边栏/悬浮按钮 */
+  .app-nav .nav-cta { display: none !important; }  /* 移动端依赖侧边栏/悬浮按钮 */
   .nav-terminal-btn { height: 36px; width: 36px; padding: 0; justify-content: center; }
   body.is-home.home-search-active .sidebar { top: 58px !important; }
   body.is-home #terminal-trigger {
@@ -1091,24 +1108,6 @@ body.is-home .notion-chips {
   .home-hero-desc { font-size: 16px; }
   body.is-home .cover-search, body.is-home form#cover-search { width: 100%; max-width: none; }
   .home-method { flex-direction: row; flex-wrap: wrap; }
-
-  /* 移动端隐藏径向 SVG, 9 域转两列索引(规范 §8.4) */
-  .home-graph-svg, .home-graph-center { display: none; }
-  .home-graph-meta span:last-child { display: none; }
-  .home-graph { height: auto; max-width: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--studio-space-3); padding-top: var(--studio-space-4); }
-  .home-graph-node {
-    position: static;
-    width: auto;
-    margin: 0;
-    transform: none;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: var(--studio-space-2);
-    padding: 10px 12px;
-  }
-  .home-graph-node svg, .home-graph-node i { width: 16px; height: 16px; }
-  .home-graph-node-copy strong { font-size: 13px; text-align: left; }
-  .home-graph-node-copy small { display: none; }
 
   .home-terminal { max-width: none; font-size: 12px; }
   .home-binding { flex-wrap: wrap; gap: var(--studio-space-2); margin-top: 0 !important; }

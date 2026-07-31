@@ -1,0 +1,513 @@
+/* =========================================================
+   Tool Studio Shell - 工具页共享外壳
+   依据:
+     - docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md §4 (视觉母体)
+     - docs/_meta/ui-redesign/README.md §3 统一设计规格 / §4 共享技术契约
+     - docs/_meta/ui-redesign/pages/12-tools-index.md (工具页基准)
+   作用: 为 docs/tools/*.html 提供 scoped 共享外壳
+        (顶部导航 / 面包屑 / 标题块 / 状态条 / 面板 / 按钮系统 / 标签页 / 表单基类 / 移动端)
+   作用域: 所有规则限定在 .tool-studio 下; 不污染首页 / 文章页 / Docsify 路由
+   令牌: 复用 studio-tokens.css, 不重新定义任何色值 / 字体 / 空间值
+   边界: 工具专属布局请放在各工具页内联 <style>, 不要回填到此文件
+   版本: 20260728a
+   ========================================================= */
+
+/* ---------- 基础重置(仅作用域内) ---------- */
+.tool-studio,
+.tool-studio *,
+.tool-studio *::before,
+.tool-studio *::after {
+  box-sizing: border-box;
+}
+
+.tool-studio {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--studio-font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--studio-text);
+  background: var(--studio-paper-100);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.tool-studio a { color: inherit; text-decoration: none; }
+.tool-studio img { max-width: 100%; display: block; }
+.tool-studio ul { margin: 0; padding: 0; list-style: none; }
+
+/* 跳过链接 (可访问性) */
+.ts-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  padding: 10px 18px;
+  background: var(--studio-ink-950);
+  color: var(--studio-on-dark);
+  font-family: var(--studio-font-body);
+  font-size: 14px;
+  border-radius: 0 0 var(--studio-radius-sm) 0;
+}
+.ts-skip-link:focus {
+  left: 0;
+  outline: 2px solid var(--studio-focus);
+  outline-offset: 0;
+}
+
+/* ---------- 顶部工具导航(暖石墨) ---------- */
+.ts-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--studio-ink-950);
+  border-bottom: 1px solid var(--studio-line-dark);
+  color: var(--studio-on-dark);
+}
+
+.ts-topbar__inner {
+  max-width: var(--studio-content-max);
+  margin: 0 auto;
+  padding: 0 var(--studio-gutter);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: var(--studio-space-5);
+}
+
+.ts-topbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--studio-space-3);
+  color: var(--studio-on-dark);
+  flex: 0 0 auto;
+}
+.ts-topbar__logo {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--studio-gold);
+  color: var(--studio-gold);
+  font-family: var(--studio-font-display);
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: var(--studio-radius-sm);
+}
+.ts-topbar__brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.ts-topbar__brand-name {
+  font-family: var(--studio-font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.ts-topbar__brand-sub {
+  font-family: var(--studio-font-mono);
+  font-size: 11px;
+  color: var(--studio-on-dark-muted);
+  letter-spacing: 0.04em;
+}
+
+.ts-topbar__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--studio-space-5);
+  margin-left: var(--studio-space-4);
+}
+.ts-topbar__nav-item {
+  position: relative;
+  padding: 6px 2px;
+  font-size: 14px;
+  color: var(--studio-on-dark-muted);
+  transition: color var(--studio-dur-fast) var(--studio-ease);
+}
+.ts-topbar__nav-item:hover { color: var(--studio-on-dark); }
+.ts-topbar__nav-item.is-active { color: var(--studio-on-dark); }
+.ts-topbar__nav-item.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--studio-gold);
+  border-radius: 1px;
+}
+
+.ts-topbar__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--studio-space-4);
+}
+
+/* 本地处理状态徽标 */
+.ts-topbar__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--studio-line-dark);
+  border-radius: var(--studio-radius-sm);
+  font-family: var(--studio-font-mono);
+  font-size: 11px;
+  color: var(--studio-on-dark-muted);
+  letter-spacing: 0.04em;
+}
+.ts-topbar__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--studio-green);
+  box-shadow: 0 0 0 2px rgba(36, 209, 143, 0.18);
+}
+
+/* 头像槽位 (固定尺寸 + W 回退) */
+.ts-topbar__avatar {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--studio-radius-md);
+  border: 1px solid var(--studio-line-dark);
+  background: var(--studio-ink-800);
+  overflow: hidden;
+  display: inline-grid;
+  place-items: center;
+}
+.ts-topbar__avatar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ts-topbar__avatar-fallback {
+  font-family: var(--studio-font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--studio-gold);
+}
+
+.ts-topbar__menu-btn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--studio-line-dark);
+  background: transparent;
+  color: var(--studio-on-dark);
+  border-radius: var(--studio-radius-sm);
+  font-size: 18px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- 容器与主区 ---------- */
+.ts-container {
+  max-width: var(--studio-content-max);
+  margin: 0 auto;
+  padding: 0 var(--studio-gutter);
+}
+.ts-main {
+  padding-top: var(--studio-space-7);
+  padding-bottom: var(--studio-space-8);
+}
+
+/* ---------- 面包屑 ---------- */
+.ts-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-family: var(--studio-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--studio-text-muted);
+  margin-bottom: var(--studio-space-5);
+}
+.ts-breadcrumb__sep { color: var(--studio-paper-line); }
+.ts-breadcrumb__item.is-current { color: var(--studio-text); }
+
+/* ---------- 标题块 ---------- */
+.ts-titleblock { margin-bottom: var(--studio-space-6); }
+.ts-titleblock__h1 {
+  margin: 0;
+  font-family: var(--studio-font-display);
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--studio-text);
+}
+.ts-titleblock__h1-en {
+  font-family: var(--studio-font-display);
+  color: var(--studio-text-muted);
+  font-weight: 400;
+}
+.ts-titleblock__desc {
+  margin: var(--studio-space-4) 0 0;
+  max-width: 760px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--studio-text-muted);
+}
+
+/* ---------- 状态条 ---------- */
+.ts-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--studio-space-5);
+  padding: var(--studio-space-3) var(--studio-space-4);
+  margin-bottom: var(--studio-space-6);
+  background: var(--studio-paper-50);
+  border: 1px solid var(--studio-paper-line);
+  border-radius: var(--studio-radius-md);
+}
+.ts-status__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--studio-text);
+}
+.ts-status__label {
+  font-family: var(--studio-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--studio-text-muted);
+}
+.ts-status__value { color: var(--studio-text); }
+.ts-status__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--studio-green);
+}
+.ts-status__divider {
+  width: 1px;
+  height: 14px;
+  background: var(--studio-paper-line);
+}
+
+/* ---------- 面板基类 ---------- */
+.ts-panel {
+  background: var(--studio-paper-50);
+  border: 1px solid var(--studio-paper-line);
+  border-radius: var(--studio-radius-md);
+  padding: var(--studio-space-5);
+}
+.ts-panel--bare {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+.ts-panel__title {
+  margin: 0 0 var(--studio-space-3);
+  font-family: var(--studio-font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--studio-text);
+}
+.ts-panel__sub {
+  margin: 0 0 var(--studio-space-4);
+  font-family: var(--studio-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--studio-text-muted);
+}
+
+/* ---------- 按钮系统 ---------- */
+.ts-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 8px 16px;
+  font-family: var(--studio-font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  border-radius: var(--studio-radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--studio-dur-fast) var(--studio-ease),
+              border-color var(--studio-dur-fast) var(--studio-ease),
+              color var(--studio-dur-fast) var(--studio-ease);
+}
+/* 石墨主按钮 */
+.ts-btn--primary {
+  background: var(--studio-ink-900);
+  color: var(--studio-on-dark);
+  border-color: var(--studio-ink-900);
+}
+.ts-btn--primary:hover { background: var(--studio-ink-800); border-color: var(--studio-ink-800); }
+/* 信号绿 CTA */
+.ts-btn--green {
+  background: var(--studio-green);
+  color: var(--studio-ink-950);
+  border-color: var(--studio-green);
+  font-weight: 600;
+}
+.ts-btn--green:hover { background: var(--studio-green-dark); border-color: var(--studio-green-dark); }
+/* 纸白次按钮 */
+.ts-btn--secondary {
+  background: var(--studio-paper-50);
+  color: var(--studio-text);
+  border-color: var(--studio-paper-line);
+}
+.ts-btn--secondary:hover { background: var(--studio-paper-100); }
+/* 幽灵按钮 */
+.ts-btn--ghost {
+  background: transparent;
+  color: var(--studio-text);
+  border-color: transparent;
+}
+.ts-btn--ghost:hover { background: var(--studio-paper-50); }
+/* 危险按钮 */
+.ts-btn--danger {
+  background: transparent;
+  color: #b64b45;
+  border-color: rgba(182, 75, 69, 0.4);
+}
+.ts-btn--danger:hover { background: rgba(182, 75, 69, 0.08); }
+.ts-btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- 标签页 ---------- */
+.ts-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--studio-space-1);
+  border-bottom: 1px solid var(--studio-paper-line);
+  margin-bottom: var(--studio-space-5);
+}
+.ts-tabs__item {
+  padding: 10px 14px;
+  font-family: var(--studio-font-body);
+  font-size: 14px;
+  color: var(--studio-text-muted);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color var(--studio-dur-fast) var(--studio-ease),
+              border-color var(--studio-dur-fast) var(--studio-ease);
+}
+.ts-tabs__item:hover { color: var(--studio-text); }
+.ts-tabs__item.is-active {
+  color: var(--studio-text);
+  border-bottom-color: var(--studio-gold);
+  font-weight: 600;
+}
+
+/* ---------- 表单控件基类 ---------- */
+.ts-input,
+.ts-textarea,
+.ts-select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-family: var(--studio-font-body);
+  font-size: 14px;
+  color: var(--studio-text);
+  background: var(--studio-paper-50);
+  border: 1px solid var(--studio-paper-line);
+  border-radius: var(--studio-radius-sm);
+  transition: border-color var(--studio-dur-fast) var(--studio-ease),
+              box-shadow var(--studio-dur-fast) var(--studio-ease);
+}
+.ts-textarea {
+  min-height: 160px;
+  font-family: var(--studio-font-mono);
+  line-height: 1.65;
+  resize: vertical;
+}
+.ts-input::placeholder,
+.ts-textarea::placeholder { color: var(--studio-text-muted); }
+
+/* ---------- 页脚 ---------- */
+.ts-foot {
+  border-top: 1px solid var(--studio-paper-line);
+  margin-top: var(--studio-space-8);
+}
+.ts-foot__inner {
+  max-width: var(--studio-content-max);
+  margin: 0 auto;
+  padding: var(--studio-space-5) var(--studio-gutter);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--studio-space-4);
+  align-items: center;
+  font-size: 13px;
+  color: var(--studio-text-muted);
+}
+.ts-foot__sep { color: var(--studio-paper-line); }
+.ts-foot__link { color: var(--studio-text); }
+.ts-foot__link:hover { color: var(--studio-green-dark); }
+
+/* ---------- 焦点(高对比轮廓) ---------- */
+.tool-studio :focus-visible {
+  outline: 2px solid var(--studio-focus);
+  outline-offset: 2px;
+}
+.ts-input:focus,
+.ts-textarea:focus,
+.ts-select:focus {
+  outline: none;
+  border-color: var(--studio-green);
+  box-shadow: 0 0 0 3px rgba(36, 209, 143, 0.22);
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+  .ts-topbar__inner {
+    height: 56px;
+    padding: 0 20px;
+    gap: var(--studio-space-3);
+  }
+  .ts-topbar__nav {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin: 0;
+    background: var(--studio-ink-900);
+    border-bottom: 1px solid var(--studio-line-dark);
+    transform: translateY(-130%);
+    transition: transform var(--studio-dur-base) var(--studio-ease);
+    z-index: 99;
+    padding: var(--studio-space-2) 0;
+  }
+  .ts-topbar__nav.is-open { transform: translateY(0); }
+  .ts-topbar__nav-item {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--studio-line-dark);
+    font-size: 15px;
+  }
+  .ts-topbar__nav-item.is-active::after { display: none; }
+  .ts-topbar__menu-btn { display: inline-flex; }
+  .ts-topbar__brand-sub { display: none; }
+  .ts-topbar__status { display: none; }
+
+  .ts-container { padding: 0 20px; }
+  .ts-main { padding-top: var(--studio-space-5); padding-bottom: var(--studio-space-6); }
+  .ts-titleblock__desc { font-size: 15px; line-height: 1.75; }
+  .ts-status { gap: var(--studio-space-3); padding: var(--studio-space-3); }
+  /* 移动端触控目标提升到 44px (规范 §7: 44px 点击区) */
+  .ts-btn { min-height: 44px; }
+}
+
+@media (max-width: 360px) {
+  .ts-topbar__avatar { display: none; }
+  .ts-container { padding: 0 16px; }
+}
