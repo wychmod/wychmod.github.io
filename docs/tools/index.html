@@ -3,536 +3,622 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>开发工具集 - wychmod Developer Workspace</title>
+  <title>开发工具集 / FIELD TOOLS - wychmod Developer Workspace</title>
+  <meta name="description" content="wychmod 的本地开发工具集：JSON、时间戳、Base64、URL、正则、进制、颜色、代码格式化、结构分析、Markdown、简历与 AI 应用推荐，核心处理在浏览器本地完成。">
+  <link rel="canonical" href="https://wychmod.github.io/tools/index.html">
+  <!-- 视觉母体令牌(只读复用, 不改其值) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <!-- 工具页共享外壳(scoped) -->
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260730a">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* ===========================================================
+       P012 工具首页专属样式 (page-specific, scoped via .ti-* prefix)
+       外壳基类来自 tool-studio.css; 此处只放编目表 / 搜索 / 侧栏
+       =========================================================== */
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
-      color: #37352f;
-      padding: 20px;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .header {
-      text-align: center;
-      padding: 40px 0;
-      margin-bottom: 40px;
-      border-bottom: 2px solid #6d4aff;
-    }
-
-    .header h1 {
-      color: #0b6bcb;
-      font-size: 3em;
-      margin-bottom: 15px;
-      text-shadow: 0 2px 10px rgba(96, 165, 250, 0.3);
-    }
-
-    .header p {
-      color: #5f5d57;
-      font-size: 1.3em;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #6d4aff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-      font-size: 16px;
-    }
-
-    .back-link:hover {
-      color: #0b6bcb;
-    }
-
-    /* 工具卡片网格 */
-    .tools-grid {
+    .ti-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 25px;
-      margin-bottom: 40px;
+      grid-template-columns: minmax(0, 1fr) 248px;
+      gap: 48px;
+      align-items: start;
     }
 
-    .tool-card {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 30px;
-      transition: all 0.3s;
+    /* ---------- 搜索框 ---------- */
+    .ti-search {
+      max-width: 480px;
+      margin-bottom: var(--studio-space-5);
+    }
+    .ti-search__label {
+      display: block;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
+      margin-bottom: 8px;
+    }
+    .ti-search__field {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .ti-search__input {
+      padding-right: 64px;
+    }
+    .ti-search__clear {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      min-height: 32px;
+      padding: 4px 10px;
+      background: transparent;
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-text-muted);
+      font-family: var(--studio-font-body);
+      font-size: 12px;
       cursor: pointer;
-      text-decoration: none;
+    }
+    .ti-search__clear:hover { color: var(--studio-text); border-color: var(--studio-text-muted); }
+
+    .ti-no-match {
+      margin: var(--studio-space-5) 0;
+      padding: var(--studio-space-4) var(--studio-space-5);
+      background: var(--studio-paper-50);
+      border: 1px dashed var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      color: var(--studio-text-muted);
+      font-size: 14px;
+    }
+
+    /* ---------- 分组(编目表) ---------- */
+    .ti-group {
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      background: transparent;
+      margin-bottom: var(--studio-space-5);
+      overflow: hidden;
+    }
+    .ti-group > summary { list-style: none; }
+    .ti-group > summary::-webkit-details-marker { display: none; }
+
+    .ti-group__head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--studio-paper-50);
+      border-bottom: 1px solid var(--studio-paper-line);
+      cursor: pointer;
+      user-select: none;
+    }
+    .ti-group__num {
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--studio-gold);
+      letter-spacing: 0.04em;
+    }
+    .ti-group__name {
+      font-family: var(--studio-font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--studio-text);
+    }
+    .ti-group__count {
+      margin-left: auto;
+      padding: 2px 8px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      letter-spacing: 0.04em;
+    }
+    .ti-group__chevron {
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid var(--studio-text-muted);
+      border-bottom: 2px solid var(--studio-text-muted);
+      transform: rotate(-45deg);
+      transition: transform var(--studio-dur-fast) var(--studio-ease);
+    }
+    .ti-group[open] .ti-group__chevron { transform: rotate(45deg); }
+
+    .ti-group__body {
+      background: transparent;
+    }
+
+    /* ---------- 工具行(编目行) ---------- */
+    .ti-tool-row {
+      display: grid;
+      grid-template-columns: 44px 40px minmax(120px, 190px) minmax(0, 1fr) minmax(110px, 190px) 96px 84px;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      color: var(--studio-text);
+      transition: background var(--studio-dur-fast) var(--studio-ease);
+    }
+    .ti-tool-row + .ti-tool-row {
+      border-top: 1px solid rgba(201, 195, 183, 0.65);
+    }
+    .ti-tool-row:hover { background: var(--studio-paper-50); }
+
+    .ti-tool-row__num {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      letter-spacing: 0.04em;
+    }
+    .ti-tool-row__icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      background: var(--studio-paper-50);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--studio-text-muted);
+      white-space: nowrap;
+    }
+    .ti-tool-row__name {
+      font-family: var(--studio-font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--studio-text);
+    }
+    .ti-tool-row__desc {
+      font-size: 14px;
+      color: var(--studio-text-muted);
+      line-height: 1.5;
+    }
+    .ti-tool-row__io {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      letter-spacing: 0.02em;
+    }
+    .ti-tool-row__priv {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--studio-rust);
+    }
+    .ti-tool-row__open {
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--studio-green-dark);
+      white-space: nowrap;
+      justify-self: end;
+    }
+    .ti-tool-row:hover .ti-tool-row__open { color: var(--studio-ink-950); }
+
+    /* ---------- 右侧说明栏 ---------- */
+    .ti-aside { display: flex; flex-direction: column; gap: var(--studio-space-4); }
+    .ti-aside__text {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--studio-text-muted);
+    }
+    .ti-aside__list {
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.10);
-      height: 100%;
+      gap: 10px;
     }
-
-    .tool-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
-      border-color: #0b6bcb;
-    }
-
-    .tool-card.disabled {
-      border-color: #666;
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .tool-card.disabled:hover {
-      transform: none;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.10);
-    }
-
-    .tool-icon {
-      font-size: 56px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .tool-title {
-      color: #0b6bcb;
-      font-size: 1.5em;
-      font-weight: 600;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .tool-card.disabled .tool-title {
-      color: #999;
-    }
-
-    .tool-description {
-      color: #5f5d57;
-      line-height: 1.6;
-      text-align: center;
-      margin-bottom: 20px;
-      min-height: 48px;
-      max-height: 48px;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      text-overflow: ellipsis;
+    .ti-aside__list li {
       position: relative;
-      cursor: help;
+      padding-left: 18px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--studio-text-muted);
+    }
+    .ti-aside__list li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 9px;
+      width: 6px;
+      height: 1px;
+      background: var(--studio-gold);
     }
 
-    /* Tooltip样式 */
-    .tooltip {
-      position: fixed;
-      background: linear-gradient(135deg, #fbfaf8 0%, #f7f6f3 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 8px;
-      padding: 15px 20px;
-      color: #37352f;
-      max-width: 350px;
-      z-index: 10000;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-      line-height: 1.6;
-      font-size: 14px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s ease;
+    /* ---------- 平板: 单栏, 侧栏下移 ---------- */
+    @media (max-width: 1024px) {
+      .ti-layout { grid-template-columns: 1fr; gap: var(--studio-space-6); }
+      .ti-aside { order: 2; }
     }
 
-    .tooltip.show {
-      opacity: 1;
-    }
-
-    .tool-card.disabled .tool-description {
-      color: #888;
-    }
-
-    .tool-status {
-      text-align: center;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 8px 16px;
-      border-radius: 20px;
-      display: inline-block;
-      width: 100%;
-      margin-top: auto;
-    }
-
-    .tool-card .tool-status {
-      background: rgba(109, 74, 255, 0.10);
-      color: #6d4aff;
-    }
-
-    .tool-card.disabled .tool-status {
-      background: rgba(102, 102, 102, 0.2);
-      color: #666;
-    }
-
-    /* 特色说明区 */
-    .features-section {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 35px;
-      margin-bottom: 40px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
-    }
-
-    .features-section h2 {
-      color: #0b6bcb;
-      font-size: 1.8em;
-      margin-bottom: 25px;
-      text-align: center;
-      border-bottom: 2px solid #6d4aff;
-      padding-bottom: 15px;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .feature-item {
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #5636d7;
-      border-radius: 8px;
-      padding: 20px;
-    }
-
-    .feature-item h3 {
-      color: #6d4aff;
-      font-size: 1.2em;
-      margin-bottom: 10px;
-    }
-
-    .feature-item p {
-      color: #5f5d57;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    /* 未来计划区 */
-    .roadmap-section {
-      background: rgba(59, 130, 246, 0.1);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 35px;
-      margin-bottom: 40px;
-    }
-
-    .roadmap-section h2 {
-      color: #0b6bcb;
-      font-size: 1.8em;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .roadmap-list {
-      color: #5f5d57;
-      line-height: 2;
-      font-size: 16px;
-    }
-
-    .roadmap-list li {
-      margin-bottom: 10px;
-    }
-
-    /* 响应式设计 */
-    @media screen and (max-width: 768px) {
-      .header h1 {
-        font-size: 2em;
+    /* ---------- 手机: 折叠列表 + 行重排 ---------- */
+    @media (max-width: 768px) {
+      .ti-tool-row {
+        grid-template-columns: 32px 1fr auto;
+        grid-template-areas:
+          "num name open"
+          "num desc desc"
+          "num io   io"
+          "num priv priv";
+        gap: 4px 12px;
+        padding: 14px 14px;
+        align-items: baseline;
       }
-
-      .header p {
-        font-size: 1em;
-      }
-
-      .tools-grid {
-        grid-template-columns: 1fr;
-      }
+      .ti-tool-row__num { grid-area: num; align-self: start; }
+      .ti-tool-row__icon { display: none; }
+      .ti-tool-row__name { grid-area: name; font-size: 15px; }
+      .ti-tool-row__desc { grid-area: desc; font-size: 13px; }
+      .ti-tool-row__io { grid-area: io; }
+      .ti-tool-row__priv { grid-area: priv; }
+      .ti-tool-row__open { grid-area: open; align-self: center; justify-self: end; }
+      .ti-group__head { padding: 12px 14px; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
-<body>
-  <div class="container">
-    <a href="/#/" class="back-link">← 返回主站</a>
-    
-    <div class="header">
-      <h1>⚡ 智能开发工具集</h1>
-      <p>专为开发者打造的高效工具平台</p>
-    </div>
+<body class="tool-studio">
+  <a class="ts-skip-link" href="#ts-main">跳到主内容</a>
 
-    <!-- 工具卡片区 -->
-    <div class="tools-grid">
-      <!-- JSON工具 -->
-      <a href="/tools/json-tool.html" class="tool-card">
-        <div class="tool-icon">📊</div>
-        <div class="tool-title">JSON 处理工具</div>
-        <div class="tool-description" data-full-text="格式化、压缩、转义、Unicode转换等全方位JSON处理功能，支持实时验证">
-          格式化、压缩、转义、Unicode转换等全方位JSON处理功能，支持实时验证
-        </div>
-        <div class="tool-status">立即使用 →</div>
+  <!-- 顶部工具导航(暖石墨) -->
+  <header class="ts-topbar">
+    <div class="ts-topbar__inner">
+      <button class="ts-topbar__menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="ts-topbar-nav">≡</button>
+      <a class="ts-topbar__brand" href="/#/" aria-label="wychmod 主站">
+        <span class="ts-topbar__logo" aria-hidden="true">W</span>
+        <span class="ts-topbar__brand-text">
+          <span class="ts-topbar__brand-name">wychmod</span>
+          <span class="ts-topbar__brand-sub">Developer Workspace</span>
+        </span>
       </a>
-
-      <!-- 时间戳工具 -->
-      <a href="/tools/timestamp-tool.html" class="tool-card">
-        <div class="tool-icon">⏰</div>
-        <div class="tool-title">时间戳转换</div>
-        <div class="tool-description" data-full-text="Unix时间戳与日期时间的双向转换，实时显示当前时间，支持多种编程语言示例">
-          Unix时间戳与日期时间的双向转换，实时显示当前时间，支持多种编程语言示例
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- Base64工具 -->
-      <a href="/tools/base64-tool.html" class="tool-card">
-        <div class="tool-icon">🔐</div>
-        <div class="tool-title">Base64 编解码</div>
-        <div class="tool-description" data-full-text="支持文本、图片的Base64编码和解码，便于数据传输和存储">
-          支持文本、图片的Base64编码和解码，便于数据传输和存储
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- 项目结构分析工具 -->
-      <a href="/tools/structure-tool.html" class="tool-card">
-        <div class="tool-icon">📂</div>
-        <div class="tool-title">项目结构分析</div>
-        <div class="tool-description" data-full-text="解析JSON或Tree格式的项目文件结构，生成可视化树形图并提供统计分析">
-          解析JSON或Tree格式的项目文件结构，生成可视化树形图并提供统计分析
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- 正则表达式工具 -->
-      <a href="/tools/regex-tool.html" class="tool-card">
-        <div class="tool-icon">🔍</div>
-        <div class="tool-title">正则表达式测试</div>
-        <div class="tool-description" data-full-text="实时测试正则表达式，提供匹配结果、捕获组和性能分析">
-          实时测试正则表达式，提供匹配结果、捕获组和性能分析
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- URL编解码 -->
-      <a href="/tools/url-tool.html" class="tool-card">
-        <div class="tool-icon">🔗</div>
-        <div class="tool-title">URL 编解码</div>
-        <div class="tool-description" data-full-text="URL参数的编码和解码，支持批量处理和格式化显示">
-          URL参数的编码和解码，支持批量处理和格式化显示
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- 颜色转换工具 -->
-      <a href="/tools/color-tool.html" class="tool-card">
-        <div class="tool-icon">🎨</div>
-        <div class="tool-title">颜色转换</div>
-        <div class="tool-description" data-full-text="RGB、HEX、HSL等多种颜色格式互转，实时预览颜色效果">
-          RGB、HEX、HSL等多种颜色格式互转，实时预览颜色效果
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- 进制转换 -->
-      <a href="/tools/radix-tool.html" class="tool-card">
-        <div class="tool-icon">🔢</div>
-        <div class="tool-title">进制转换</div>
-        <div class="tool-description" data-full-text="二进制、八进制、十进制、十六进制等多种进制互相转换">
-          二进制、八进制、十进制、十六进制等多种进制互相转换
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- 代码格式化工具 -->
-      <a href="/tools/code-formatter.html" class="tool-card">
-        <div class="tool-icon">{ }</div>
-        <div class="tool-title">代码格式化</div>
-        <div class="tool-description" data-full-text="支持JavaScript、Python、Java等多种语言的代码美化、格式化与压缩，提供语法高亮">
-          支持JavaScript、Python、Java等多种语言的代码美化、格式化与压缩，提供语法高亮
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- Markdown编辑器 -->
-      <a href="/tools/markdown-editor.html" class="tool-card">
-        <div class="tool-icon">📝</div>
-        <div class="tool-title">Markdown 编辑器</div>
-        <div class="tool-description" data-full-text="在线Markdown编辑器，支持实时预览、语法高亮、快捷按钮，可导出HTML和PDF">
-          在线Markdown编辑器，支持实时预览、语法高亮、快捷按钮，可导出HTML和PDF
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- AI应用推荐导航 -->
-      <a href="/tools/ai-recommend.html" class="tool-card">
-        <div class="tool-icon">🤖</div>
-        <div class="tool-title">AI应用导航</div>
-        <div class="tool-description" data-full-text="精选全球热门AI应用推荐，包括编程助手、对话机器人、图像生成等，附带AI发展简史">
-          精选全球热门AI应用推荐，包括编程助手、对话机器人、图像生成等，附带AI发展简史
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-
-      <!-- 程序员简历制作工具 -->
-      <a href="/tools/resume-builder.html" class="tool-card">
-        <div class="tool-icon">📄</div>
-        <div class="tool-title">简历制作工具</div>
-        <div class="tool-description" data-full-text="专为程序员打造的在线简历生成器，支持多种专业模板、技术技能展示、项目经验、GitHub链接，一键导出PDF">
-          专为程序员打造的在线简历生成器，支持多种专业模板、技术技能展示、项目经验、GitHub链接，一键导出PDF
-        </div>
-        <div class="tool-status">立即使用 →</div>
-      </a>
-    </div>
-
-    <!-- 特色说明 -->
-    <div class="features-section">
-      <h2>💡 工具特色</h2>
-      <div class="features-grid">
-        <div class="feature-item">
-          <h3>✨ 纯前端实现</h3>
-          <p>所有工具都在浏览器本地运行，数据不会上传到服务器，保证您的数据安全和隐私</p>
-        </div>
-        <div class="feature-item">
-          <h3>⚡ 高性能处理</h3>
-          <p>采用优化的算法，支持大数据量处理，响应迅速，体验流畅</p>
-        </div>
-        <div class="feature-item">
-          <h3>🎨 简洁易用</h3>
-          <p>精心设计的用户界面，操作直观，功能一目了然，上手即用</p>
-        </div>
-        <div class="feature-item">
-          <h3>🔄 实时反馈</h3>
-          <p>提供即时的操作反馈和错误提示，帮助您快速完成工作</p>
-        </div>
-        <div class="feature-item">
-          <h3>📱 响应式设计</h3>
-          <p>完美适配PC端和移动端，随时随地使用开发工具</p>
-        </div>
-        <div class="feature-item">
-          <h3>🆓 完全免费</h3>
-          <p>所有工具完全免费使用，无需注册，无需付费，无任何限制</p>
-        </div>
+      <nav class="ts-topbar__nav" id="ts-topbar-nav" aria-label="主导航">
+        <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
+        <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
+        <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="ts-topbar__actions">
+        <span class="ts-topbar__status" title="核心处理在浏览器本地完成">
+          <span class="ts-topbar__status-dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-topbar__avatar" role="img" aria-label="wychmod 的 GitHub 头像">
+          <span class="ts-topbar__avatar-fallback" aria-hidden="true">W</span>
+          <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="32" height="32" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+        </span>
       </div>
     </div>
+  </header>
 
-    <!-- 当前可用场景 -->
-    <div class="roadmap-section">
-      <h2>🧭 高频使用场景</h2>
-      <div class="roadmap-list">
-        <p style="color: #5f5d57; text-align: center; margin-bottom: 20px;">
-          这些入口都已经接入本地工具页，适合日常开发、排障、写文档和面试材料整理：
-        </p>
-        <ul style="max-width: 800px; margin: 0 auto; color: #5f5d57;">
-          <li>📊 接口联调前，用 JSON、URL、Base64 工具快速清洗和转换数据。</li>
-          <li>🧪 排查文本匹配问题时，用正则工具实时查看匹配结果和捕获组。</li>
-          <li>📝 写技术文章时，用 Markdown 编辑器完成实时预览和 HTML 导出。</li>
-          <li>🗂️ 评审项目结构时，用 Tree 分析工具生成目录视图和统计结果。</li>
-          <li>🎨 做前端标注时，用颜色与进制工具统一设计稿和代码里的取值。</li>
-          <li>📄 求职准备时，用简历工具维护项目经历、技能栈和 PDF 输出。</li>
-        </ul>
+  <!-- 主内容 -->
+  <main class="ts-main tools-index" id="ts-main">
+    <div class="ts-container">
+
+      <!-- 面包屑 -->
+      <nav class="ts-breadcrumb" aria-label="路径">
+        <span class="ts-breadcrumb__item">WYCHMOD</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item">WORKSPACE</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item is-current" aria-current="location">TOOLS</span>
+      </nav>
+
+      <!-- 标题块 -->
+      <div class="ts-titleblock">
+        <h1 class="ts-titleblock__h1">开发工具集<span class="ts-titleblock__h1-en"> / FIELD TOOLS</span></h1>
+        <p class="ts-titleblock__desc">随手即用的文本处理、开发辅助与创作工具。核心输入处理以浏览器本地为主，不会被主动上传到服务器；涉及导出、外链或第三方资源的工具会在页面内单独标注。</p>
+      </div>
+
+      <!-- 状态条 -->
+      <div class="ts-status" role="group" aria-label="工具集状态">
+        <span class="ts-status__item">
+          <span class="ts-status__dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">工具数</span> <span class="ts-status__value">12</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">分组</span> <span class="ts-status__value">3</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">路径</span> <span class="ts-status__value">/tools/</span></span>
+      </div>
+
+      <!-- 搜索框(真实过滤) -->
+      <form class="ti-search" role="search" aria-label="过滤工具目录" onsubmit="return false">
+        <label class="ti-search__label" for="ti-search-input">搜索工具</label>
+        <div class="ti-search__field">
+          <input class="ts-input ti-search__input" id="ti-search-input" type="search" placeholder="工具名称或用途" autocomplete="off" aria-describedby="ti-no-match">
+          <button class="ti-search__clear" id="ti-search-clear" type="button" aria-label="清空搜索" hidden>清空</button>
+        </div>
+      </form>
+
+      <!-- 编目表 + 侧栏 -->
+      <div class="ti-layout">
+
+        <!-- 工具编目 -->
+        <div class="ti-catalog">
+
+          <!-- 01 文本处理 (5) -->
+          <details class="ti-group" open>
+            <summary class="ti-group__head">
+              <span class="ti-group__num">01</span>
+              <span class="ti-group__name">文本处理</span>
+              <span class="ti-group__count">5</span>
+              <span class="ti-group__chevron" aria-hidden="true"></span>
+            </summary>
+            <div class="ti-group__body">
+              <a class="ti-tool-row" href="/tools/json-tool.html">
+                <span class="ti-tool-row__num">01</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">{ }</span>
+                <span class="ti-tool-row__name">JSON 处理</span>
+                <span class="ti-tool-row__desc">格式化、压缩、校验、转义与 Unicode 转换</span>
+                <span class="ti-tool-row__io">JSON 文本 → JSON 文本</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+              <a class="ti-tool-row" href="/tools/timestamp-tool.html">
+                <span class="ti-tool-row__num">02</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">ts</span>
+                <span class="ti-tool-row__name">时间戳工具</span>
+                <span class="ti-tool-row__desc">时间戳与日期互转、时区转换与格式化</span>
+                <span class="ti-tool-row__io">时间/时间戳 ↔ 时间/时间戳</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+              <a class="ti-tool-row" href="/tools/base64-tool.html">
+                <span class="ti-tool-row__num">03</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">64</span>
+                <span class="ti-tool-row__name">Base64 编解码</span>
+                <span class="ti-tool-row__desc">Base64 编码与解码</span>
+                <span class="ti-tool-row__io">文本 ↔ Base64 文本</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+              <a class="ti-tool-row" href="/tools/url-tool.html">
+                <span class="ti-tool-row__num">04</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">url</span>
+                <span class="ti-tool-row__name">URL 编解码</span>
+                <span class="ti-tool-row__desc">URL 编码与解码、参数处理</span>
+                <span class="ti-tool-row__io">URL 文本 ↔ URL 文本</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+              <a class="ti-tool-row" href="/tools/regex-tool.html">
+                <span class="ti-tool-row__num">05</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">.*</span>
+                <span class="ti-tool-row__name">正则表达式测试</span>
+                <span class="ti-tool-row__desc">正则测试、匹配预览与替换</span>
+                <span class="ti-tool-row__io">文本 + 正则 → 结果</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+            </div>
+          </details>
+
+          <!-- 02 开发辅助 (4) -->
+          <details class="ti-group" open>
+            <summary class="ti-group__head">
+              <span class="ti-group__num">02</span>
+              <span class="ti-group__name">开发辅助</span>
+              <span class="ti-group__count">4</span>
+              <span class="ti-group__chevron" aria-hidden="true"></span>
+            </summary>
+            <div class="ti-group__body">
+              <a class="ti-tool-row" href="/tools/radix-tool.html">
+                <span class="ti-tool-row__num">06</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">0x</span>
+                <span class="ti-tool-row__name">进制转换</span>
+                <span class="ti-tool-row__desc">二进制、八进制、十进制、十六进制互转</span>
+                <span class="ti-tool-row__io">数字文本 ↔ 数字文本</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+              <a class="ti-tool-row" href="/tools/color-tool.html">
+                <span class="ti-tool-row__num">07</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">#</span>
+                <span class="ti-tool-row__name">颜色工具</span>
+                <span class="ti-tool-row__desc">颜色取色、格式转换与调色板</span>
+                <span class="ti-tool-row__io">颜色值 ↔ 颜色值</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+              <a class="ti-tool-row" href="/tools/code-formatter.html">
+                <span class="ti-tool-row__num">08</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">&lt;/&gt;</span>
+                <span class="ti-tool-row__name">代码格式化</span>
+                <span class="ti-tool-row__desc">HTML / CSS / JS / SQL 等格式化</span>
+                <span class="ti-tool-row__io">代码 → 格式化后的代码</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+              <a class="ti-tool-row" href="/tools/structure-tool.html">
+                <span class="ti-tool-row__num">09</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">DIR</span>
+                <span class="ti-tool-row__name">结构分析</span>
+                <span class="ti-tool-row__desc">解析 JSON 或 Tree 命令输出，生成可视化树形图与统计</span>
+                <span class="ti-tool-row__io">结构化文本 → 分析结果</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+            </div>
+          </details>
+
+          <!-- 03 创作与职业 (3) -->
+          <details class="ti-group" open>
+            <summary class="ti-group__head">
+              <span class="ti-group__num">03</span>
+              <span class="ti-group__name">创作与职业</span>
+              <span class="ti-group__count">3</span>
+              <span class="ti-group__chevron" aria-hidden="true"></span>
+            </summary>
+            <div class="ti-group__body">
+              <a class="ti-tool-row" href="/tools/markdown-editor.html">
+                <span class="ti-tool-row__num">10</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">MD</span>
+                <span class="ti-tool-row__name">Markdown 工具</span>
+                <span class="ti-tool-row__desc">编辑、预览与导出 Markdown</span>
+                <span class="ti-tool-row__io">Markdown ↔ HTML / 文本</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+              <a class="ti-tool-row" href="/tools/resume-builder.html">
+                <span class="ti-tool-row__num">11</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">CV</span>
+                <span class="ti-tool-row__name">简历制作</span>
+                <span class="ti-tool-row__desc">本地简历创建、预览与导出</span>
+                <span class="ti-tool-row__io">简历内容 → PDF / HTML</span>
+                <span class="ti-tool-row__priv">本地处理</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+              <a class="ti-tool-row" href="/tools/ai-recommend.html">
+                <span class="ti-tool-row__num">12</span>
+                <span class="ti-tool-row__icon" aria-hidden="true">AI</span>
+                <span class="ti-tool-row__name">AI 应用推荐</span>
+                <span class="ti-tool-row__desc">热门 AI 应用导航与人工智能发展简史</span>
+                <span class="ti-tool-row__io">本地页面 → 外链导航</span>
+                <span class="ti-tool-row__priv">外链导航</span>
+                <span class="ti-tool-row__open">打开 →</span>
+              </a>
+            </div>
+          </details>
+
+          <!-- 无匹配提示 -->
+          <p class="ti-no-match" id="ti-no-match" hidden>没有匹配的工具。按 Esc 或点击“清空”重置搜索。</p>
+        </div>
+
+        <!-- 右侧说明栏 -->
+        <aside class="ti-aside" aria-label="工具集说明">
+          <section class="ts-panel">
+            <h2 class="ts-panel__title">隐私说明</h2>
+            <p class="ti-aside__text">这些工具以浏览器本地处理为主，输入内容不会被主动上传到服务器。如果某个工具涉及导出、外链或第三方资源，请在工具页内单独标注。</p>
+          </section>
+          <section class="ts-panel">
+            <h2 class="ts-panel__title">常用场景</h2>
+            <ul class="ti-aside__list">
+              <li>接口联调前用 JSON、URL、Base64 清洗与转换数据</li>
+              <li>排查匹配问题时用正则工具查看匹配与捕获组</li>
+              <li>写技术文章时用 Markdown 编辑器预览并导出</li>
+              <li>评审目录时用结构分析生成树形视图与统计</li>
+              <li>做前端标注时用颜色与进制工具统一取值</li>
+              <li>求职准备时用简历工具维护经历与 PDF 输出</li>
+            </ul>
+          </section>
+          <section class="ts-panel">
+            <h2 class="ts-panel__title">为什么保留这些工具</h2>
+            <p class="ti-aside__text">这些工具覆盖日常开发与写作中最常见、最琐碎但不可或缺的需求。它们小、够快、够安全，核心处理在浏览器本地完成，能真正留在本地工作流里。</p>
+          </section>
+        </aside>
+
       </div>
     </div>
+  </main>
 
-    <!-- 页脚 -->
-    <div style="text-align: center; padding: 20px; color: #888; border-top: 1px solid #333;">
-      <p>© 2024 wychmod Developer Workspace | 持续更新中</p>
-      <p style="margin-top: 10px;">
-        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank" style="color: #6d4aff; text-decoration: none;">
-          ⭐ GitHub
-        </a>
-        <span style="margin: 0 10px;">|</span>
-        <a href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" style="color: #6d4aff; text-decoration: none;">
-          📧 反馈建议
-        </a>
-      </p>
+  <!-- 页脚 -->
+  <footer class="ts-foot">
+    <div class="ts-foot__inner">
+      <span>© 2024–2026 wychmod Developer Workspace</span>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/#/">返回主站</a>
     </div>
-  </div>
+  </footer>
 
   <script>
-    // Tooltip功能
-    let tooltip = null;
+    (function () {
+      "use strict";
 
-    // 创建tooltip元素
-    function createTooltip() {
-      if (!tooltip) {
-        tooltip = document.createElement('div');
-        tooltip.className = 'tooltip';
-        document.body.appendChild(tooltip);
-      }
-      return tooltip;
-    }
-
-    // 显示tooltip
-    function showTooltip(element, text) {
-      const tip = createTooltip();
-      tip.textContent = text;
-      tip.classList.add('show');
-
-      // 获取元素位置
-      const rect = element.getBoundingClientRect();
-      const tooltipRect = tip.getBoundingClientRect();
-
-      // 计算位置（显示在元素下方，居中对齐）
-      let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
-      let top = rect.bottom + 10;
-
-      // 确保不超出屏幕
-      if (left < 10) left = 10;
-      if (left + tooltipRect.width > window.innerWidth - 10) {
-        left = window.innerWidth - tooltipRect.width - 10;
-      }
-
-      if (top + tooltipRect.height > window.innerHeight - 10) {
-        top = rect.top - tooltipRect.height - 10;
-      }
-
-      tip.style.left = left + 'px';
-      tip.style.top = top + 'px';
-    }
-
-    // 隐藏tooltip
-    function hideTooltip() {
-      if (tooltip) {
-        tooltip.classList.remove('show');
-      }
-    }
-
-    // 为所有描述元素添加事件监听
-    document.addEventListener('DOMContentLoaded', function() {
-      const descriptions = document.querySelectorAll('.tool-description[data-full-text]');
-      
-      descriptions.forEach(desc => {
-        const fullText = desc.getAttribute('data-full-text');
-        
-        desc.addEventListener('mouseenter', function(e) {
-          // 检查文本是否被截断
-          if (this.scrollHeight > this.clientHeight || this.textContent.trim() !== fullText) {
-            showTooltip(this, fullText);
+      /* ---------- 顶部导航抽屉(移动端) ---------- */
+      var topbar = document.querySelector('.ts-topbar');
+      var menuBtn = topbar && topbar.querySelector('.ts-topbar__menu-btn');
+      var nav = topbar && topbar.querySelector('.ts-topbar__nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('.ts-topbar__nav-item')) {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
           }
         });
+      }
 
-        desc.addEventListener('mouseleave', function() {
-          hideTooltip();
+      /* ---------- 工具搜索过滤(真实 DOM 过滤) ---------- */
+      var input = document.getElementById('ti-search-input');
+      var clearBtn = document.getElementById('ti-search-clear');
+      var noMatch = document.getElementById('ti-no-match');
+      var groups = Array.prototype.slice.call(document.querySelectorAll('.ti-group'));
+
+      function norm(s) { return (s || '').trim().toLowerCase(); }
+
+      function syncMobileDefault() {
+        if (!window.matchMedia) return;
+        var mobile = window.matchMedia('(max-width: 768px)').matches;
+        groups.forEach(function (g, i) {
+          if (mobile) {
+            if (i === 0) { g.setAttribute('open', ''); } else { g.removeAttribute('open'); }
+          } else {
+            g.setAttribute('open', '');
+          }
         });
-      });
+      }
 
-      // 滚动时隐藏tooltip
-      window.addEventListener('scroll', hideTooltip);
-      window.addEventListener('resize', hideTooltip);
-    });
+      function applyFilter(q) {
+        q = norm(q);
+        var anyVisible = false;
+        groups.forEach(function (g) {
+          var gRows = g.querySelectorAll('.ti-tool-row');
+          var visibleInGroup = 0;
+          for (var i = 0; i < gRows.length; i++) {
+            var r = gRows[i];
+            var hay = norm(r.textContent);
+            var match = !q || hay.indexOf(q) !== -1;
+            r.hidden = !match;
+            if (match) { visibleInGroup++; anyVisible = true; }
+          }
+          if (q) { g.setAttribute('open', ''); }
+          g.style.display = visibleInGroup ? '' : 'none';
+        });
+        if (!q) { syncMobileDefault(); }
+        if (noMatch) noMatch.hidden = anyVisible;
+      }
+
+      if (input) {
+        input.addEventListener('input', function () {
+          applyFilter(input.value);
+          if (clearBtn) clearBtn.hidden = !input.value;
+        });
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && input.value) {
+            e.preventDefault();
+            input.value = '';
+            applyFilter('');
+            if (clearBtn) clearBtn.hidden = true;
+            input.focus();
+          }
+        });
+      }
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function () {
+          if (input) { input.value = ''; applyFilter(''); input.focus(); }
+          clearBtn.hidden = true;
+        });
+      }
+
+      /* ---------- 移动端默认折叠第 2/3 组(spec §6.2) ---------- */
+      syncMobileDefault();
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          if (input && input.value) return;
+          syncMobileDefault();
+        }, 150);
+      });
+    })();
   </script>
 </body>
 </html>

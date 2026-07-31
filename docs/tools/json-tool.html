@@ -3,329 +3,709 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON 处理工具 - wychmod Developer Workspace</title>
+  <title>JSON 处理工具 / Structured Data Desk - wychmod Developer Workspace</title>
+  <meta name="description" content="本地 JSON 处理工作台：格式化、压缩、校验、转义、Unicode 转换、GET 参数导出、树视图与错误定位。所有处理在浏览器本地完成，不上传、不保存。">
+  <!-- 视觉母体令牌(只读复用) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <!-- 工具页共享外壳(scoped) -->
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260730a">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ===========================================================
+       P017 JSON 工具专属样式 (page-scoped, 限定在 .jd-page 下)
+       外壳基类来自 tool-studio.css; 此处放:
+       - 深色编辑器表面 / 行号 gutter
+       - 工具条 / 移动 tabs / 移动底栏
+       - 结果树视图 / 错误诊断 / 三栏信息面板
+       令牌优先复用 studio-tokens.css; 编辑器深色面板色值为本页专属
+       =========================================================== */
+
+    .jd-page {
+      /* 深色编辑器表面 (本页专属, 不入 token) */
+      --jd-editor-bg: #171917;
+      --jd-editor-bg-soft: #1b201c;
+      --jd-editor-border: rgba(242, 239, 231, 0.16);
+      --jd-editor-line: rgba(242, 239, 231, 0.08);
+      --jd-editor-text: #e9e0d0;
+      --jd-editor-gutter: #6f756e;
+      --jd-editor-placeholder: #5a5f59;
+      /* 树视图 token 着色 (spec §3.3) */
+      --jd-key: #d8b46a;
+      --jd-string: #8bcfa5;
+      --jd-number: #00c776;
+      --jd-bool: #58c7b2;
+      /* 错误 / 警示 */
+      --jd-error: #b6473b;
+      --jd-warn: #b97219;
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
-      color: #37352f;
-      padding: 20px;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .header {
-      text-align: center;
-      padding: 30px 0;
-      margin-bottom: 30px;
-      border-bottom: 2px solid #6d4aff;
-    }
-
-    .header h1 {
-      color: #0b6bcb;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-
-    .header p {
-      color: #5f5d57;
-      font-size: 1.1em;
-    }
-
-    .tip-box {
-      background: rgba(96, 165, 250, 0.15);
-      border: 2px solid #0b6bcb;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 30px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .tip-icon {
-      font-size: 48px;
-    }
-
-    .tip-content h3 {
-      color: #0b6bcb;
-      margin-bottom: 8px;
-    }
-
-    .tip-content p {
-      color: #5f5d57;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .tool-container {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
-    }
-
-    .button-group {
+    /* ---------- 工具条 ---------- */
+    .jd-toolbar {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 25px;
-      justify-content: center;
+      gap: 8px;
+      margin-bottom: var(--studio-space-5);
     }
-
-    button {
-      background: linear-gradient(135deg, #6d4aff, #0b6bcb);
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 2px 8px rgba(109, 74, 255, 0.22);
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.35);
-    }
-
-    button.clear-btn {
-      background: rgba(255, 77, 77, 0.8);
-      color: #fff;
-    }
-
-    .input-section, .output-section {
-      margin-bottom: 20px;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .section-label {
-      color: #6d4aff;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .status {
-      color: #5f5d57;
-      font-size: 14px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 300px;
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 15px;
-      color: #37352f;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 14px;
-      resize: vertical;
-      line-height: 1.5;
-    }
-
-    textarea:focus {
-      outline: none;
-      border-color: #6d4aff;
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
-    }
-
-    .copy-btn {
-      background: rgba(109, 74, 255, 0.12);
-      color: #0b6bcb;
-      border: 1px solid #6d4aff;
-      padding: 6px 15px;
+    .jd-toolbar .ts-btn {
+      padding: 6px 12px;
       font-size: 13px;
     }
+    .jd-toolbar__label {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
+      align-self: center;
+      margin-right: 4px;
+    }
 
-    .stats {
-      margin-top: 15px;
-      padding: 15px;
-      background: rgba(59, 130, 246, 0.1);
-      border-radius: 8px;
-      color: #5f5d57;
-      font-size: 14px;
+    /* ---------- 移动 tabs (桌面隐藏) ---------- */
+    .jd-tabs {
       display: none;
+      gap: var(--studio-space-1);
+      border-bottom: 1px solid var(--studio-paper-line);
+      margin-bottom: var(--studio-space-4);
+    }
+    .jd-tab {
+      flex: 1;
+      padding: 12px 8px;
+      min-height: 44px;
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      font-family: var(--studio-font-body);
+      font-size: 13px;
+      color: var(--studio-text-muted);
+      cursor: pointer;
+      transition: color var(--studio-dur-fast) var(--studio-ease),
+                  border-color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .jd-tab:hover { color: var(--studio-text); }
+    .jd-tab.is-active {
+      color: var(--studio-text);
+      border-bottom-color: var(--studio-gold);
+      font-weight: 600;
+      background: var(--studio-paper-50);
     }
 
-    .stats.show {
-      display: block;
+    /* ---------- 双编辑器工作台 ---------- */
+    .jd-workbench {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--studio-space-5);
+      align-items: stretch;
     }
 
-    .stats-content {
+    .jd-editor {
       display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      background: var(--jd-editor-bg);
+      border: 1px solid var(--jd-editor-border);
+      border-radius: var(--studio-radius-md);
+      overflow: hidden;
+      min-height: 480px;
     }
-
-    .stat-item strong {
-      color: #0b6bcb;
+    .jd-editor__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--jd-editor-bg-soft);
+      border-bottom: 1px solid var(--jd-editor-line);
+      flex: 0 0 auto;
     }
-
-    .message {
-      position: fixed;
-      top: 100px;
-      right: 30px;
-      padding: 15px 25px;
-      border-radius: 8px;
+    .jd-editor__title {
+      margin: 0;
+      font-family: var(--studio-font-display);
+      font-size: 14px;
       font-weight: 600;
-      z-index: 10000;
-      animation: slideIn 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      color: var(--jd-editor-text);
+      letter-spacing: 0.02em;
+    }
+    .jd-editor__meta {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--jd-editor-gutter);
+      letter-spacing: 0.04em;
+    }
+    .jd-editor__meta-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--studio-green);
     }
 
-    .message.success {
-      background: rgba(23, 143, 85, 0.12);
-      color: #178f55;
-      border: 2px solid #178f55;
+    .jd-view-toggle {
+      display: inline-flex;
+      gap: 0;
+      border: 1px solid var(--jd-editor-border);
+      border-radius: var(--studio-radius-sm);
+      overflow: hidden;
+    }
+    .jd-view-toggle button {
+      min-height: 28px;
+      padding: 4px 10px;
+      background: transparent;
+      border: 0;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--jd-editor-gutter);
+      cursor: pointer;
+      transition: background var(--studio-dur-fast) var(--studio-ease),
+                  color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .jd-view-toggle button + button {
+      border-left: 1px solid var(--jd-editor-line);
+    }
+    .jd-view-toggle button.is-active {
+      background: rgba(216, 180, 106, 0.18);
+      color: var(--jd-key);
     }
 
-    .message.error {
-      background: rgba(214, 69, 69, 0.12);
-      color: #d64545;
-      border: 2px solid #d64545;
+    .jd-editor__frame {
+      position: relative;
+      flex: 1 1 auto;
+      display: flex;
+      min-height: 0;
+    }
+    .jd-line-gutter {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 44px;
+      margin: 0;
+      padding: 14px 6px 14px 0;
+      overflow: hidden;
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--jd-editor-gutter);
+      text-align: right;
+      background: transparent;
+      border-right: 1px solid var(--jd-editor-line);
+      pointer-events: none;
+      user-select: none;
+      white-space: pre;
+    }
+    .jd-textarea {
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 420px;
+      padding: 14px 16px 14px 56px;
+      background: transparent;
+      border: 0;
+      color: var(--jd-editor-text);
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      resize: vertical;
+      outline: none;
+    }
+    .jd-textarea::placeholder {
+      color: var(--jd-editor-placeholder);
+    }
+    .jd-textarea:focus {
+      box-shadow: inset 0 0 0 1px var(--studio-green);
     }
 
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
+    /* 输出树视图容器 */
+    .jd-tree {
+      position: absolute;
+      inset: 0;
+      overflow: auto;
+      padding: 14px 16px;
+      background: var(--jd-editor-bg);
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--jd-editor-text);
+    }
+    .jd-tree[hidden] { display: none; }
+    .jd-tree__empty {
+      margin: 0;
+      color: var(--jd-editor-gutter);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      line-height: 1.7;
     }
 
-    @keyframes slideOut {
-      from {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateX(100%);
-        opacity: 0;
-      }
+    .tree-node { padding-left: 0; }
+    .tree-node__body { padding-left: 18px; border-left: 1px dotted var(--jd-editor-line); margin-left: 4px; }
+    .tree-node__collapsible > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
     }
-
-    .back-link {
+    .tree-node__collapsible > summary::-webkit-details-marker { display: none; }
+    .tree-node__collapsible > summary::before {
+      content: "\25B6";
       display: inline-block;
-      margin-bottom: 20px;
-      color: #6d4aff;
-      text-decoration: none;
+      font-size: 8px;
+      color: var(--jd-editor-gutter);
+      transition: transform var(--studio-dur-fast) var(--studio-ease);
+      transform: rotate(0deg);
+      align-self: center;
+    }
+    .tree-node__collapsible[open] > summary::before {
+      transform: rotate(90deg);
+    }
+    .tree-node__leaf {
+      display: grid;
+      grid-template-columns: minmax(80px, auto) 1fr auto;
+      column-gap: 14px;
+      padding: 1px 0;
+      align-items: baseline;
+    }
+    .tree-key {
+      color: var(--jd-key);
+      word-break: break-all;
+    }
+    .tree-value {
+      color: var(--jd-string);
+      word-break: break-all;
+    }
+    .tree-value--number { color: var(--jd-number); }
+    .tree-value--bool { color: var(--jd-bool); }
+    .tree-value--null { color: var(--jd-bool); font-style: italic; }
+    .tree-type {
+      color: var(--jd-editor-gutter);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    /* ---------- 输出统计条 ---------- */
+    .jd-stats {
+      display: none;
+      margin-top: var(--studio-space-4);
+      padding: 12px 16px;
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      flex-wrap: wrap;
+      gap: var(--studio-space-5);
+      align-items: center;
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      color: var(--studio-text-muted);
+    }
+    .jd-stats.show { display: flex; }
+    .jd-stats__item { display: inline-flex; align-items: baseline; gap: 6px; }
+    .jd-stats__label {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
+    }
+    .jd-stats__item strong { color: var(--studio-text); font-weight: 600; }
+
+    /* ---------- 三栏信息面板 ---------- */
+    .jd-info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--studio-space-4);
+      margin-top: var(--studio-space-6);
+    }
+    .jd-info-grid .ts-panel {
+      display: flex;
+      flex-direction: column;
+    }
+    .jd-info-grid ol {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--studio-text);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .jd-info-grid ol li { padding-left: 2px; }
+    .jd-info-grid ol li::marker {
+      color: var(--studio-gold);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+    }
+    .jd-info-grid p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--studio-text);
+    }
+
+    /* 错误诊断面板 */
+    .jd-diagnosis { min-height: 180px; }
+    .jd-diagnosis__summary {
+      margin: 0 0 var(--studio-space-3);
+      padding: 10px 12px;
+      background: rgba(182, 71, 59, 0.06);
+      border-left: 2px solid var(--jd-error);
+      border-radius: 0 var(--studio-radius-sm) var(--studio-radius-sm) 0;
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--jd-error);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .jd-diagnosis__summary[data-state="ok"] {
+      background: rgba(36, 209, 143, 0.08);
+      border-left-color: var(--studio-green);
+      color: var(--studio-green-dark);
+    }
+    .jd-diagnosis__snippet {
+      margin: 0 0 var(--studio-space-3);
+      padding: 10px 12px;
+      background: var(--studio-ink-950);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      color: var(--jd-editor-text);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .jd-diagnosis__snippet:empty { display: none; }
+    .jd-diagnosis__suggest {
+      margin: 0;
+      padding-top: var(--studio-space-3);
+      border-top: 1px dashed var(--studio-paper-line);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--studio-text);
+    }
+    .jd-diagnosis__suggest:empty { display: none; }
+    .jd-diagnosis__suggest-label {
+      display: block;
+      margin-bottom: 4px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--jd-warn);
+    }
+
+    /* 输入状态圆点 (status strip) */
+    .jd-status__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--studio-text-muted);
+      flex: 0 0 auto;
+    }
+    .jd-status__dot[data-state="ok"] {
+      background: var(--studio-green);
+      box-shadow: 0 0 0 2px rgba(36, 209, 143, 0.18);
+    }
+    .jd-status__dot[data-state="err"] {
+      background: var(--jd-error);
+      box-shadow: 0 0 0 2px rgba(182, 71, 59, 0.18);
+    }
+    #status[data-state="err"] { color: var(--jd-error); }
+    #status[data-state="ok"] { color: var(--studio-green-dark); }
+
+    /* ---------- Toast ---------- */
+    .jd-toast-host {
+      position: fixed;
+      top: 88px;
+      right: 24px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+    .jd-toast {
+      padding: 12px 18px;
+      border-radius: var(--studio-radius-md);
+      font-family: var(--studio-font-body);
+      font-size: 14px;
+      font-weight: 500;
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      color: var(--studio-text);
+      box-shadow: 0 6px 24px rgba(13, 16, 14, 0.12);
+      opacity: 0;
+      transform: translateX(16px);
+      transition: opacity var(--studio-dur-base) var(--studio-ease),
+                  transform var(--studio-dur-base) var(--studio-ease);
+      max-width: 320px;
+    }
+    .jd-toast.is-visible { opacity: 1; transform: translateX(0); }
+    .jd-toast--success {
+      background: rgba(36, 209, 143, 0.12);
+      border-color: var(--studio-green);
+      color: var(--studio-green-dark);
+    }
+    .jd-toast--error {
+      background: rgba(182, 71, 59, 0.10);
+      border-color: var(--jd-error);
+      color: var(--jd-error);
+    }
+
+    /* ---------- 移动底部固定操作栏 ---------- */
+    .jd-mobile-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 8px;
+      gap: 6px;
+      background: var(--studio-ink-950);
+      border-top: 1px solid var(--studio-line-dark);
+      z-index: 60;
+    }
+    .jd-mobile-bar button {
+      flex: 1 1 0;
+      min-height: 44px;
+      padding: 8px 4px;
+      background: transparent;
+      color: var(--studio-on-dark);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      font-family: var(--studio-font-body);
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .jd-mobile-bar button.jd-mobile-bar__primary {
+      background: var(--studio-gold);
+      color: var(--studio-ink-950);
+      border-color: var(--studio-gold);
       font-weight: 600;
-      transition: color 0.3s;
+    }
+    .jd-mobile-bar button.jd-mobile-bar__danger {
+      color: #e88; border-color: rgba(232, 136, 136, 0.4);
     }
 
-    .back-link:hover {
-      color: #0b6bcb;
+    /* ---------- 平板 / 手机响应式 ---------- */
+    @media (max-width: 1024px) {
+      .jd-info-grid { grid-template-columns: 1fr; gap: var(--studio-space-3); }
+    }
+    @media (max-width: 768px) {
+      .jd-tabs { display: flex; }
+      .jd-workbench { grid-template-columns: 1fr; }
+      /* 移动端 tab 控制面板显隐 */
+      .jd-editor { display: none; }
+      .jd-editor.is-mobile-active { display: flex; }
+      .jd-editor { min-height: 440px; }
+      .jd-textarea { min-height: 380px; }
+      /* 桌面视图切换在小屏依然可用, 但 tab 更显眼 */
+      .jd-mobile-bar { display: flex; }
+      .jd-page .ts-main { padding-bottom: 92px; }
+      .jd-toast-host { top: 72px; right: 12px; left: 12px; }
+      .jd-toast { max-width: none; }
+      .jd-toolbar .ts-btn { font-size: 12px; padding: 6px 10px; }
+      .jd-stats { gap: var(--studio-space-3); font-size: 12px; }
     }
 
-    @media screen and (max-width: 768px) {
-      .header h1 {
-        font-size: 1.8em;
-      }
-
-      .button-group {
-        justify-content: center;
-      }
-
-      button {
-        padding: 10px 16px;
-        font-size: 12px;
-      }
-
-      textarea {
-        height: 250px;
-        font-size: 12px;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      .jd-toast, .tree-node__collapsible > summary::before { transition: none; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
-<body>
-  <div class="container">
-    <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
-      <a href="/#/" class="back-link">← 返回主站</a>
-      <a href="index.html" class="back-link">← 返回工具集</a>
-    </div>
-    
-    <div class="header">
-      <h1>⚡ 智能 JSON 处理工具</h1>
-      <p>高效、专业的JSON数据处理解决方案</p>
-    </div>
+<body class="tool-studio jd-page">
+  <a class="ts-skip-link" href="#ts-main">跳到主内容</a>
 
-    <div class="tip-box">
-      <div class="tip-icon">🎯</div>
-      <div class="tip-content">
-        <h3>👉 快速开始 - 已为您准备好测试示例！</h3>
-        <p>
-          • 输入框中已预置<strong style="color: #0b6bcb;">丰富的测试数据</strong>，包含嵌套对象、数组、中文、Unicode、特殊字符等<br/>
-          • 直接点击下方<strong style="color: #0b6bcb;">任意功能按钮</strong>，即可查看处理效果（推荐先试试"格式化"）<br/>
-          • 也可以<strong style="color: #0b6bcb;">替换为您自己的JSON数据</strong>进行处理
-        </p>
+  <!-- 顶部工具导航(暖石墨) -->
+  <header class="ts-topbar">
+    <div class="ts-topbar__inner">
+      <button class="ts-topbar__menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="ts-topbar-nav">≡</button>
+      <a class="ts-topbar__brand" href="/#/" aria-label="wychmod 主站">
+        <span class="ts-topbar__logo" aria-hidden="true">W</span>
+        <span class="ts-topbar__brand-text">
+          <span class="ts-topbar__brand-name">wychmod</span>
+          <span class="ts-topbar__brand-sub">Developer Workspace</span>
+        </span>
+      </a>
+      <nav class="ts-topbar__nav" id="ts-topbar-nav" aria-label="主导航">
+        <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
+        <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
+        <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="ts-topbar__actions">
+        <span class="ts-topbar__status" title="核心处理在浏览器本地完成">
+          <span class="ts-topbar__status-dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-topbar__avatar" role="img" aria-label="wychmod 的 GitHub 头像">
+          <span class="ts-topbar__avatar-fallback" aria-hidden="true">W</span>
+          <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="32" height="32" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+        </span>
       </div>
     </div>
+  </header>
 
-    <div class="tool-container">
-      <div class="button-group">
-        <button onclick="formatJSON()">✨ 格式化</button>
-        <button onclick="compressJSON()">🗜️ 压缩</button>
-        <button onclick="escapeJSON()">🔐 转义</button>
-        <button onclick="unescapeJSON()">🔓 去转义</button>
-        <button onclick="unicodeToChinese()">🀄 Unicode→中文</button>
-        <button onclick="chineseToUnicode()">🀄 中文→Unicode</button>
-        <button onclick="jsonToGetParams()">🔗 转GET参数</button>
-        <button onclick="clearInput()" class="clear-btn">🗑️ 清空</button>
+  <!-- 主内容 -->
+  <main class="ts-main" id="ts-main">
+    <div class="ts-container">
+
+      <!-- 面包屑 -->
+      <nav class="ts-breadcrumb" aria-label="路径">
+        <span class="ts-breadcrumb__item">WYCHMOD</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <a class="ts-breadcrumb__item" href="/tools/index.html">TOOLS</a>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item is-current" aria-current="location">JSON</span>
+      </nav>
+
+      <!-- 标题块 -->
+      <div class="ts-titleblock">
+        <h1 class="ts-titleblock__h1">Structured Data Desk<span class="ts-titleblock__h1-en"> / 智能 JSON 处理工具</span></h1>
+        <p class="ts-titleblock__desc">把一整坨 JSON 摊平在结构化数据桌上：左侧粘贴原始数据，右侧查看格式化文本或可折叠树视图，错误信息被翻译成「哪一行、可能为什么、下一步怎么改」。所有处理在浏览器本地完成，不上传、不保存。</p>
       </div>
 
-      <div class="input-section">
-        <div class="section-header">
-          <span class="section-label">📝 输入JSON数据</span>
-          <span class="status" id="status">等待输入...</span>
-        </div>
-        <textarea id="input" placeholder="请输入或粘贴JSON数据..."></textarea>
+      <!-- 状态条 -->
+      <div class="ts-status" role="group" aria-label="工具状态">
+        <span class="ts-status__item">
+          <span class="ts-status__dot" aria-hidden="true"></span>
+          本地处理 · 不上传
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item">
+          <span class="ts-status__label">输入状态</span>
+          <span class="jd-status__dot" id="statusDot" data-state="wait" aria-hidden="true"></span>
+          <span class="ts-status__value" id="status" aria-live="polite">等待输入</span>
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">字符</span> <span class="ts-status__value" id="inputCharCount">0</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">行</span> <span class="ts-status__value" id="inputLineCount">1</span></span>
       </div>
 
-      <div class="output-section">
-        <div class="section-header">
-          <span class="section-label">📤 处理结果</span>
-          <button onclick="copyResult()" class="copy-btn">📋 复制结果</button>
-        </div>
-        <textarea id="output" placeholder="处理结果将显示在这里..." readonly></textarea>
+      <!-- 工具条 (9 个动作, 保留全部真实函数) -->
+      <div class="jd-toolbar" role="toolbar" aria-label="JSON 处理动作">
+        <span class="jd-toolbar__label" aria-hidden="true">动作</span>
+        <button type="button" class="ts-btn ts-btn--primary" onclick="formatJSON()" aria-label="格式化 JSON">格式化</button>
+        <button type="button" class="ts-btn ts-btn--secondary" onclick="compressJSON()" aria-label="压缩 JSON">压缩</button>
+        <button type="button" class="ts-btn ts-btn--secondary" onclick="escapeJSON()" aria-label="转义 JSON">转义</button>
+        <button type="button" class="ts-btn ts-btn--secondary" onclick="unescapeJSON()" aria-label="去转义 JSON">去转义</button>
+        <button type="button" class="ts-btn ts-btn--secondary" onclick="unicodeToChinese()" aria-label="Unicode 转中文">Unicode-&gt;中文</button>
+        <button type="button" class="ts-btn ts-btn--secondary" onclick="chineseToUnicode()" aria-label="中文转 Unicode">中文-&gt;Unicode</button>
+        <button type="button" class="ts-btn ts-btn--secondary" onclick="jsonToGetParams()" aria-label="转 GET 参数">转 GET 参数</button>
+        <button type="button" class="ts-btn ts-btn--ghost" onclick="copyResult()" aria-label="复制结果">复制</button>
+        <button type="button" class="ts-btn ts-btn--danger" onclick="clearInput()" aria-label="清空输入输出">清空</button>
       </div>
 
-      <div class="stats" id="stats">
-        <div class="stats-content">
-          <span class="stat-item">📊 字符数: <strong id="charCount">0</strong></span>
-          <span class="stat-item">📏 行数: <strong id="lineCount">0</strong></span>
-          <span class="stat-item">⏱️ 处理时间: <strong id="processTime">0ms</strong></span>
-        </div>
+      <!-- 移动 tabs (桌面隐藏, CSS 控制) -->
+      <div class="jd-tabs" role="tablist" aria-label="移动端视图切换">
+        <button type="button" class="jd-tab is-active" role="tab" aria-selected="true" data-tab="input">输入</button>
+        <button type="button" class="jd-tab" role="tab" aria-selected="false" data-tab="text">结果（文本）</button>
+        <button type="button" class="jd-tab" role="tab" aria-selected="false" data-tab="tree">结果（树）</button>
       </div>
+
+      <!-- 双编辑器工作台 -->
+      <div class="jd-workbench">
+        <!-- 左:输入 -->
+        <section class="jd-editor jd-editor--input is-mobile-active" aria-label="原始 JSON 输入">
+          <header class="jd-editor__header">
+            <h2 class="jd-editor__title">原始 JSON（输入）</h2>
+            <div class="jd-editor__meta">
+              <span id="cursorMeta" aria-live="off">行 1，列 1</span>
+            </div>
+          </header>
+          <div class="jd-editor__frame">
+            <pre class="jd-line-gutter" id="lineGutter" aria-hidden="true">1</pre>
+            <textarea id="input" class="jd-textarea" placeholder="将原始 JSON 粘贴到这里，或直接使用已预置的示例数据。" aria-label="原始 JSON 输入框" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+          </div>
+        </section>
+
+        <!-- 右:输出 (文本 + 树视图切换) -->
+        <section class="jd-editor jd-editor--output" aria-label="处理结果">
+          <header class="jd-editor__header">
+            <h2 class="jd-editor__title">处理结果</h2>
+            <div class="jd-editor__meta">
+              <span class="jd-view-toggle" role="group" aria-label="结果视图切换">
+                <button type="button" data-view="text" class="is-active" aria-label="文本视图">文本</button>
+                <button type="button" data-view="tree" aria-label="树视图">树视图</button>
+              </span>
+            </div>
+          </header>
+          <div class="jd-editor__frame">
+            <textarea id="output" class="jd-textarea" placeholder="处理结果将显示在这里..." readonly aria-label="处理结果输出框" spellcheck="false"></textarea>
+            <div id="treeOutput" class="jd-tree" hidden aria-label="结果树视图"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 输出统计 (保留原 ID, 默认隐藏) -->
+      <div class="jd-stats" id="stats" aria-live="polite">
+        <span class="jd-stats__item"><span class="jd-stats__label">字符数</span> <strong id="charCount">0</strong></span>
+        <span class="jd-stats__item"><span class="jd-stats__label">行数</span> <strong id="lineCount">0</strong></span>
+        <span class="jd-stats__item"><span class="jd-stats__label">处理耗时</span> <strong id="processTime">0ms</strong></span>
+      </div>
+
+      <!-- 三栏信息面板 -->
+      <div class="jd-info-grid">
+        <!-- 操作说明 -->
+        <section class="ts-panel">
+          <h2 class="ts-panel__title">操作说明</h2>
+          <ol>
+            <li>将原始 JSON 粘贴到左侧编辑器。</li>
+            <li>使用上方工具条进行格式化、压缩、转义、编码转换等操作。</li>
+            <li>右侧展示处理结果；JSON 结果可在文本视图与树视图间切换。</li>
+            <li>转 GET 参数适合接口调试，复杂对象会以 bracket 路径展开。</li>
+          </ol>
+        </section>
+
+        <!-- 错误解释与修复建议 -->
+        <section class="ts-panel jd-diagnosis" aria-live="polite" aria-label="错误解释与修复建议">
+          <h2 class="ts-panel__title">错误解释与修复建议</h2>
+          <div id="errorSummary" class="jd-diagnosis__summary" data-state="ok">当前 JSON 可以被解析。若你仍然怀疑结构问题，可以切换到树视图检查嵌套层级。</div>
+          <pre id="errorSnippet" class="jd-diagnosis__snippet"></pre>
+          <p id="repairSuggestion" class="jd-diagnosis__suggest"></p>
+        </section>
+
+        <!-- 隐私提示 -->
+        <section class="ts-panel">
+          <h2 class="ts-panel__title">隐私提示</h2>
+          <p>所有处理均在浏览器本地完成，不会上传、存储或分享。请不要粘贴敏感信息，如密码、密钥、身份证号或生产环境 token。</p>
+        </section>
+      </div>
+
     </div>
-  </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="ts-foot">
+    <div class="ts-foot__inner">
+      <span>© 2024–2026 wychmod Developer Workspace</span>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/tools/index.html">工具集</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/#/">返回主站</a>
+    </div>
+  </footer>
+
+  <!-- 移动底部固定操作栏 (4 个高频动作, 复用相同函数) -->
+  <nav class="jd-mobile-bar" aria-label="移动端快捷操作">
+    <button type="button" class="jd-mobile-bar__primary" onclick="formatJSON()" aria-label="格式化">格式化</button>
+    <button type="button" onclick="compressJSON()" aria-label="压缩">压缩</button>
+    <button type="button" onclick="copyResult()" aria-label="复制结果">复制</button>
+    <button type="button" class="jd-mobile-bar__danger" onclick="clearInput()" aria-label="清空">清空</button>
+  </nav>
+
+  <!-- Toast 宿主 -->
+  <div id="jd-toast-host" class="jd-toast-host" aria-live="polite" aria-atomic="false"></div>
 
   <script>
-    // 示例JSON数据
+    // ============================================================
+    // JSON 工具核心逻辑 (保留所有原有函数名与 ID 绑定)
+    // - 所有用户 JSON 内容仅通过 textContent / value 写入
+    // - 树视图由真实 JSON.parse 递归渲染
+    // - 错误定位来自真实解析错误, 不静态伪造
+    // - 处理全程本地, 不上传 / 不保存
+    // ============================================================
+
+    // 示例 JSON 数据 (保留原 exampleJSON)
     const exampleJSON = {
       "platform": "wychmod Developer Workspace",
       "version": "2.0.0",
@@ -383,34 +763,85 @@
       "nullValue": null
     };
 
-    // 获取元素
+    // 获取元素 (保留原 ID 引用)
     const input = document.getElementById('input');
     const output = document.getElementById('output');
     const status = document.getElementById('status');
     const stats = document.getElementById('stats');
+    const statusDot = document.getElementById('statusDot');
+    const lineGutter = document.getElementById('lineGutter');
+    const treeOutput = document.getElementById('treeOutput');
 
-    // 初始化
+    // 初始化 (保留原行为: 预置示例 + 校验)
     input.value = JSON.stringify(exampleJSON, null, 2);
     validateJSON();
+    updateInputMeta();
+    syncLineGutter();
 
-    // 实时验证
-    input.addEventListener('input', validateJSON);
+    // 实时校验 + 元信息 + 行号同步
+    input.addEventListener('input', function () {
+      validateJSON();
+      updateInputMeta();
+      syncLineGutter();
+    });
+    input.addEventListener('click', updateInputMeta);
+    input.addEventListener('keyup', updateInputMeta);
+    input.addEventListener('scroll', syncGutterScroll);
+
+    // 视图切换 (文本 / 树)
+    document.querySelectorAll('.jd-view-toggle button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setOutputView(btn.dataset.view);
+      });
+    });
+
+    // 移动 tabs
+    document.querySelectorAll('.jd-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        setActiveJsonTab(tab.dataset.tab);
+      });
+    });
+
+    // 顶部导航抽屉 (移动端)
+    (function () {
+      var menuBtn = document.querySelector('.ts-topbar__menu-btn');
+      var nav = document.querySelector('.ts-topbar__nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('.ts-topbar__nav-item')) {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    })();
+
+    // ---------- 状态与校验 ----------
+
+    function setStatus(type, label) {
+      status.textContent = label;
+      status.dataset.state = type;
+      if (statusDot) statusDot.dataset.state = type;
+    }
 
     function validateJSON() {
       const value = input.value.trim();
       if (!value) {
-        status.textContent = '等待输入...';
-        status.style.color = '#5f5d57';
+        setStatus('wait', '等待输入');
+        renderDiagnosis(null, '');
         return;
       }
-
       try {
-        JSON.parse(value);
-        status.textContent = '✓ JSON格式正确';
-        status.style.color = '#178f55';
+        JSON.parse(input.value);
+        setStatus('ok', '合法 JSON');
+        renderDiagnosis(null, input.value);
       } catch (e) {
-        status.textContent = '✗ JSON格式错误: ' + e.message;
-        status.style.color = '#d64545';
+        setStatus('err', 'JSON 格式错误');
+        renderDiagnosis(e, input.value);
       }
     }
 
@@ -426,15 +857,18 @@
       stats.classList.add('show');
     }
 
+    // ---------- 处理动作 (保留全部原函数名) ----------
+
     function formatJSON() {
       const startTime = performance.now();
       try {
         const json = JSON.parse(input.value);
         output.value = JSON.stringify(json, null, 2);
-        showMessage('✓ 格式化成功', 'success');
+        showMessage('格式化成功', 'success');
         showStats(startTime);
+        afterOutputChange('text');
       } catch (e) {
-        showMessage('✗ 格式化失败: ' + e.message, 'error');
+        showMessage('格式化失败: ' + e.message, 'error');
       }
     }
 
@@ -443,10 +877,11 @@
       try {
         const json = JSON.parse(input.value);
         output.value = JSON.stringify(json);
-        showMessage('✓ 压缩成功', 'success');
+        showMessage('压缩成功', 'success');
         showStats(startTime);
+        afterOutputChange('text');
       } catch (e) {
-        showMessage('✗ 压缩失败: ' + e.message, 'error');
+        showMessage('压缩失败: ' + e.message, 'error');
       }
     }
 
@@ -456,10 +891,11 @@
         const json = JSON.parse(input.value);
         const jsonStr = JSON.stringify(json);
         output.value = JSON.stringify(jsonStr);
-        showMessage('✓ 转义成功', 'success');
+        showMessage('转义成功', 'success');
         showStats(startTime);
+        afterOutputChange('text');
       } catch (e) {
-        showMessage('✗ 转义失败: ' + e.message, 'error');
+        showMessage('转义失败: ' + e.message, 'error');
       }
     }
 
@@ -475,13 +911,14 @@
                  .replace(/\\n/g, '\n')
                  .replace(/\\r/g, '\r')
                  .replace(/\\t/g, '\t');
-        
+
         const json = JSON.parse(str);
         output.value = JSON.stringify(json, null, 2);
-        showMessage('✓ 去转义成功', 'success');
+        showMessage('去转义成功', 'success');
         showStats(startTime);
+        afterOutputChange('text');
       } catch (e) {
-        showMessage('✗ 去转义失败: ' + e.message, 'error');
+        showMessage('去转义失败: ' + e.message, 'error');
       }
     }
 
@@ -492,13 +929,14 @@
         str = str.replace(/\\u[\dA-Fa-f]{4}/g, function(match) {
           return String.fromCharCode(parseInt(match.replace(/\\u/g, ''), 16));
         });
-        
+
         const json = JSON.parse(str);
         output.value = JSON.stringify(json, null, 2);
-        showMessage('✓ Unicode转中文成功', 'success');
+        showMessage('Unicode 转中文成功', 'success');
         showStats(startTime);
+        afterOutputChange('text');
       } catch (e) {
-        showMessage('✗ 转换失败: ' + e.message, 'error');
+        showMessage('转换失败: ' + e.message, 'error');
       }
     }
 
@@ -507,16 +945,17 @@
       try {
         const json = JSON.parse(input.value);
         let result = JSON.stringify(json, null, 2);
-        
-        result = result.replace(/[\u4e00-\u9fa5]/g, function(match) {
+
+        result = result.replace(/[一-龥]/g, function(match) {
           return '\\u' + match.charCodeAt(0).toString(16).padStart(4, '0');
         });
-        
+
         output.value = result;
-        showMessage('✓ 中文转Unicode成功', 'success');
+        showMessage('中文转 Unicode 成功', 'success');
         showStats(startTime);
+        afterOutputChange('text');
       } catch (e) {
-        showMessage('✗ 转换失败: ' + e.message, 'error');
+        showMessage('转换失败: ' + e.message, 'error');
       }
     }
 
@@ -524,38 +963,40 @@
       const startTime = performance.now();
       try {
         const json = JSON.parse(input.value);
-        
-        function flattenObject(obj, prefix = '') {
+
+        function flattenObject(obj, prefix) {
+          prefix = prefix || '';
           let params = [];
           for (let key in obj) {
             if (obj.hasOwnProperty(key)) {
-              const fullKey = prefix ? `${prefix}[${key}]` : key;
+              const fullKey = prefix ? prefix + '[' + key + ']' : key;
               const value = obj[key];
-              
+
               if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
                 params = params.concat(flattenObject(value, fullKey));
               } else if (Array.isArray(value)) {
-                value.forEach((item, index) => {
+                value.forEach(function (item, index) {
                   if (typeof item === 'object' && item !== null) {
-                    params = params.concat(flattenObject(item, `${fullKey}[${index}]`));
+                    params = params.concat(flattenObject(item, fullKey + '[' + index + ']'));
                   } else {
-                    params.push(`${fullKey}[${index}]=${encodeURIComponent(item)}`);
+                    params.push(fullKey + '[' + index + ']=' + encodeURIComponent(item));
                   }
                 });
               } else {
-                params.push(`${fullKey}=${encodeURIComponent(value)}`);
+                params.push(fullKey + '=' + encodeURIComponent(value));
               }
             }
           }
           return params;
         }
-        
+
         const params = flattenObject(json);
         output.value = params.join('&');
-        showMessage('✓ 转换GET参数成功', 'success');
+        showMessage('转 GET 参数成功', 'success');
         showStats(startTime);
+        afterOutputChange('text');
       } catch (e) {
-        showMessage('✗ 转换失败: ' + e.message, 'error');
+        showMessage('转换失败: ' + e.message, 'error');
       }
     }
 
@@ -563,35 +1004,383 @@
       input.value = '';
       output.value = '';
       stats.classList.remove('show');
-      status.textContent = '等待输入...';
-      status.style.color = '#5f5d57';
-      showMessage('✓ 已清空', 'success');
+      setStatus('wait', '等待输入');
+      renderDiagnosis(null, '');
+      renderTreeFromOutput();
+      updateInputMeta();
+      syncLineGutter();
+      showMessage('已清空', 'success');
     }
 
     function copyResult() {
       if (!output.value) {
-        showMessage('✗ 没有可复制的内容', 'error');
+        showMessage('没有可复制的内容', 'error');
         return;
       }
-
-      output.select();
-      document.execCommand('copy');
-      showMessage('✓ 已复制到剪贴板', 'success');
+      copyText(output.value);
     }
 
+    // ---------- 复制 (Clipboard API + fallback) ----------
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function () { showMessage('已复制到剪贴板', 'success'); },
+          function () { fallbackCopy(text); }
+        );
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function fallbackCopy(text) {
+      output.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      if (window.getSelection && window.getSelection().removeAllRanges) {
+        try { window.getSelection().removeAllRanges(); } catch (e) {}
+      }
+      showMessage(ok ? '已复制到剪贴板' : '复制失败, 请手动选择复制', ok ? 'success' : 'error');
+    }
+
+    // ---------- 消息 toast ----------
+
     function showMessage(message, type) {
+      const host = document.getElementById('jd-toast-host');
+      const target = host || document.body;
       const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${type}`;
+      messageDiv.className = 'jd-toast jd-toast--' + (type || 'success');
+      messageDiv.setAttribute('role', type === 'error' ? 'alert' : 'status');
       messageDiv.textContent = message;
+      target.appendChild(messageDiv);
 
-      document.body.appendChild(messageDiv);
+      requestAnimationFrame(function () {
+        messageDiv.classList.add('is-visible');
+      });
 
-      setTimeout(() => {
-        messageDiv.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-          document.body.removeChild(messageDiv);
-        }, 300);
-      }, 2000);
+      setTimeout(function () {
+        messageDiv.classList.remove('is-visible');
+        setTimeout(function () {
+          if (messageDiv.parentNode) messageDiv.parentNode.removeChild(messageDiv);
+        }, 240);
+      }, 1800);
+    }
+
+    // ---------- 输入元信息 / 行号 gutter (新增辅助) ----------
+
+    function updateInputMeta() {
+      const v = input.value;
+      const chars = v.length;
+      const lines = v.split('\n').length;
+      const charEl = document.getElementById('inputCharCount');
+      const lineEl = document.getElementById('inputLineCount');
+      const cursorEl = document.getElementById('cursorMeta');
+      if (charEl) charEl.textContent = chars;
+      if (lineEl) lineEl.textContent = lines;
+      if (cursorEl) {
+        const c = getCursorLineColumn(input);
+        cursorEl.textContent = '行 ' + c.line + '，列 ' + c.col;
+      }
+    }
+
+    function getCursorLineColumn(ta) {
+      const pos = ta.selectionStart || 0;
+      const before = ta.value.substring(0, pos);
+      const parts = before.split('\n');
+      return { line: parts.length, col: parts[parts.length - 1].length + 1 };
+    }
+
+    function syncLineGutter() {
+      if (!lineGutter) return;
+      const lines = input.value.split('\n').length;
+      let buf = '';
+      for (let i = 1; i <= lines; i++) buf += i + '\n';
+      lineGutter.textContent = buf;
+      syncGutterScroll();
+    }
+
+    function syncGutterScroll() {
+      if (!lineGutter) return;
+      lineGutter.scrollTop = input.scrollTop;
+    }
+
+    // ---------- 输出视图切换 / 移动 tab ----------
+
+    function setOutputView(view) {
+      const textBtn = document.querySelector('.jd-view-toggle button[data-view="text"]');
+      const treeBtn = document.querySelector('.jd-view-toggle button[data-view="tree"]');
+      const ta = document.getElementById('output');
+      const tree = document.getElementById('treeOutput');
+      if (view === 'tree') {
+        if (textBtn) textBtn.classList.remove('is-active');
+        if (treeBtn) treeBtn.classList.add('is-active');
+        if (ta) ta.hidden = true;
+        if (tree) tree.hidden = false;
+        renderTreeFromOutput();
+      } else {
+        if (textBtn) textBtn.classList.add('is-active');
+        if (treeBtn) treeBtn.classList.remove('is-active');
+        if (ta) ta.hidden = false;
+        if (tree) tree.hidden = true;
+      }
+    }
+
+    function setActiveJsonTab(name) {
+      document.querySelectorAll('.jd-tab').forEach(function (t) {
+        const active = t.dataset.tab === name;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      const inputPanel = document.querySelector('.jd-editor--input');
+      const outputPanel = document.querySelector('.jd-editor--output');
+      if (name === 'input') {
+        if (inputPanel) inputPanel.classList.add('is-mobile-active');
+        if (outputPanel) outputPanel.classList.remove('is-mobile-active');
+      } else {
+        if (inputPanel) inputPanel.classList.remove('is-mobile-active');
+        if (outputPanel) outputPanel.classList.add('is-mobile-active');
+        setOutputView(name === 'tree' ? 'tree' : 'text');
+      }
+    }
+
+    function afterOutputView() {
+      // 若当前是树视图, 刷新树; 否则不动
+      const treeBtn = document.querySelector('.jd-view-toggle button[data-view="tree"]');
+      if (treeBtn && treeBtn.classList.contains('is-active')) {
+        renderTreeFromOutput();
+      }
+    }
+
+    function afterOutputChange(preferView) {
+      afterOutputView();
+      // 移动端: 操作后自动切到结果面板, 方便查看
+      if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+        setActiveJsonTab(preferView === 'tree' ? 'tree' : 'text');
+      }
+    }
+
+    // ---------- 树视图 (真实 parse 递归, 全 textContent) ----------
+
+    var JD_TREE_NODE_LIMIT = 5000; // 软上限, 超出提示切换文本视图
+
+    function renderTreeFromOutput() {
+      if (!treeOutput) return;
+      const out = output.value;
+      treeOutput.textContent = '';
+      if (!out.trim()) {
+        const p = document.createElement('p');
+        p.className = 'jd-tree__empty';
+        p.textContent = '尚无结果。执行格式化或其他操作后, 结果树会在此显示。';
+        treeOutput.appendChild(p);
+        return;
+      }
+      let parsed;
+      try {
+        parsed = JSON.parse(out);
+      } catch (e) {
+        const p = document.createElement('p');
+        p.className = 'jd-tree__empty';
+        p.textContent = '当前结果不是 JSON 树结构 (例如转 GET 参数 / 转义字符串后), 可切换到文本视图查看。';
+        treeOutput.appendChild(p);
+        return;
+      }
+      // 节点数软上限检测
+      const count = countTreeNodes(parsed);
+      if (count > JD_TREE_NODE_LIMIT) {
+        const p = document.createElement('p');
+        p.className = 'jd-tree__empty';
+        p.textContent = '结果节点数过多 (' + count + '), 为避免卡顿已停止渲染树视图, 请使用文本视图查看。';
+        treeOutput.appendChild(p);
+        return;
+      }
+      treeOutput.appendChild(renderJsonTree(parsed, 'root'));
+    }
+
+    function countTreeNodes(value) {
+      if (Array.isArray(value)) {
+        let n = 1;
+        for (let i = 0; i < value.length; i++) n += countTreeNodes(value[i]);
+        return n;
+      }
+      if (value !== null && typeof value === 'object') {
+        let n = 1;
+        const keys = Object.keys(value);
+        for (let i = 0; i < keys.length; i++) n += countTreeNodes(value[keys[i]]);
+        return n;
+      }
+      return 1;
+    }
+
+    function renderJsonTree(value, key) {
+      const wrap = document.createElement('div');
+      wrap.className = 'tree-node';
+
+      if (Array.isArray(value)) {
+        const det = document.createElement('details');
+        det.setAttribute('open', '');
+        det.className = 'tree-node__collapsible';
+        const sum = document.createElement('summary');
+        const keySpan = document.createElement('span');
+        keySpan.className = 'tree-key';
+        keySpan.textContent = key;
+        const typeSpan = document.createElement('span');
+        typeSpan.className = 'tree-type';
+        typeSpan.textContent = 'array [' + value.length + ']';
+        sum.appendChild(keySpan);
+        sum.appendChild(typeSpan);
+        det.appendChild(sum);
+        const body = document.createElement('div');
+        body.className = 'tree-node__body';
+        for (let i = 0; i < value.length; i++) {
+          body.appendChild(renderJsonTree(value[i], String(i)));
+        }
+        det.appendChild(body);
+        wrap.appendChild(det);
+        return wrap;
+      }
+
+      if (value !== null && typeof value === 'object') {
+        const det = document.createElement('details');
+        det.setAttribute('open', '');
+        det.className = 'tree-node__collapsible';
+        const sum = document.createElement('summary');
+        const keySpan = document.createElement('span');
+        keySpan.className = 'tree-key';
+        keySpan.textContent = key;
+        const typeSpan = document.createElement('span');
+        typeSpan.className = 'tree-type';
+        typeSpan.textContent = 'object {' + Object.keys(value).length + '}';
+        sum.appendChild(keySpan);
+        sum.appendChild(typeSpan);
+        det.appendChild(sum);
+        const body = document.createElement('div');
+        body.className = 'tree-node__body';
+        const keys = Object.keys(value);
+        for (let i = 0; i < keys.length; i++) {
+          body.appendChild(renderJsonTree(value[keys[i]], keys[i]));
+        }
+        det.appendChild(body);
+        wrap.appendChild(det);
+        return wrap;
+      }
+
+      // 叶子节点
+      const row = document.createElement('div');
+      row.className = 'tree-node__leaf';
+      const keySpan = document.createElement('span');
+      keySpan.className = 'tree-key';
+      keySpan.textContent = key;
+      const valSpan = document.createElement('span');
+      const t = value === null ? 'null' : typeof value;
+      valSpan.className = 'tree-value';
+      if (t === 'number') valSpan.classList.add('tree-value--number');
+      else if (t === 'boolean') valSpan.classList.add('tree-value--bool');
+      else if (t === 'null') valSpan.classList.add('tree-value--null');
+      valSpan.textContent = t === 'null' ? 'null' : String(value);
+      // 字符串过长时 title 提供完整值
+      if (t === 'string' && value.length > 80) valSpan.title = value;
+      const typeSpan = document.createElement('span');
+      typeSpan.className = 'tree-type';
+      typeSpan.textContent = t;
+      row.appendChild(keySpan);
+      row.appendChild(valSpan);
+      row.appendChild(typeSpan);
+      wrap.appendChild(row);
+      return wrap;
+    }
+
+    // ---------- 错误诊断与修复建议 ----------
+
+    function renderDiagnosis(error, source) {
+      const summary = document.getElementById('errorSummary');
+      const snippet = document.getElementById('errorSnippet');
+      const suggest = document.getElementById('repairSuggestion');
+      if (!summary) return;
+      if (!error) {
+        summary.textContent = '当前 JSON 可以被解析。若你仍然怀疑结构问题, 可以切换到树视图检查嵌套层级。';
+        summary.dataset.state = 'ok';
+        if (snippet) snippet.textContent = '';
+        if (suggest) suggest.textContent = '';
+        return;
+      }
+      const msg = error.message || String(error);
+      const pos = extractParsePosition(msg);
+      const lc = positionToLineColumn(source, pos);
+      let head = 'JSON 格式错误：' + msg;
+      if (lc.line) {
+        head += '\n位置：第 ' + lc.line + ' 行, 第 ' + lc.column + ' 列';
+      } else {
+        head += '\n位置：无法确定 (浏览器未提供 position 信息)';
+      }
+      summary.textContent = head;
+      summary.dataset.state = 'err';
+      if (snippet) snippet.textContent = getSourceSnippet(source, lc.line, 2);
+      if (suggest) {
+        const s = suggestJsonFix(msg);
+        suggest.textContent = '';
+        const label = document.createElement('span');
+        label.className = 'jd-diagnosis__suggest-label';
+        label.textContent = '修复建议';
+        const text = document.createElement('span');
+        text.textContent = s;
+        suggest.appendChild(label);
+        suggest.appendChild(text);
+      }
+    }
+
+    function extractParsePosition(message) {
+      const m = (message || '').match(/position\s+(\d+)/i);
+      return m ? Number(m[1]) : null;
+    }
+
+    function positionToLineColumn(source, position) {
+      if (position == null || position < 0 || position > source.length) {
+        return { line: null, column: null };
+      }
+      let line = 1, col = 1;
+      for (let i = 0; i < position && i < source.length; i++) {
+        if (source.charAt(i) === '\n') { line++; col = 1; }
+        else { col++; }
+      }
+      return { line: line, column: col };
+    }
+
+    function getSourceSnippet(source, line, radius) {
+      if (!line) return '';
+      const lines = source.split('\n');
+      const start = Math.max(0, line - 1 - radius);
+      const end = Math.min(lines.length, line + radius);
+      const buf = [];
+      for (let i = start; i < end; i++) {
+        const ln = i + 1;
+        const marker = ln === line ? ' > ' : '   ';
+        const num = String(ln).replace(/^(\d{3})$/, '$1');
+        buf.push(marker + num + '  ' + lines[i]);
+      }
+      return buf.join('\n');
+    }
+
+    function suggestJsonFix(message) {
+      const m = (message || '').toLowerCase();
+      if (m.indexOf('unexpected token') !== -1) {
+        if (m.indexOf('}') !== -1 || m.indexOf(']') !== -1) {
+          return '检查上一项后是否多了逗号, 或缺少值。';
+        }
+        return '检查附近是否缺少逗号、冒号或引号。';
+      }
+      if (m.indexOf('unexpected string') !== -1) {
+        return '检查上一行是否缺少逗号, 或对象 key 是否缺少冒号。';
+      }
+      if (m.indexOf('unexpected number') !== -1) {
+        return '检查数字前后是否缺少逗号或冒号。';
+      }
+      if (m.indexOf('unexpected end') !== -1) {
+        return '检查大括号、方括号或引号是否闭合。';
+      }
+      if (m.indexOf('expected property name') !== -1) {
+        return 'JSON 对象的 key 必须使用双引号包裹。';
+      }
+      return '请检查 JSON 结构: 引号、逗号、冒号、括号是否匹配。';
     }
   </script>
 </body>

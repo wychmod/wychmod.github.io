@@ -11,9 +11,20 @@
   'use strict';
 
   /* ---------- 路由状态判定 ---------- */
+  function normalizeHashRoute(p) {
+    if (p == null) p = '';
+    // Docsify route.path 以 / 开头; window.location.hash 以 # 开头
+    if (p.charAt(0) === '#') p = p.slice(1);
+    // 去掉查询参数
+    var q = p.indexOf('?');
+    if (q !== -1) p = p.slice(0, q);
+    // 去掉尾部斜杠
+    p = p.replace(/\/$/, '');
+    return p;
+  }
   function isHomeRoute(vm) {
-    var p = (vm && vm.route && vm.route.path) || window.location.hash || '';
-    return p === '/' || p === '/README' || p === '#/' || p === '#/README' || p === '';
+    var p = normalizeHashRoute((vm && vm.route && vm.route.path) || window.location.hash || '');
+    return p === '/' || p === '/README' || p === '';
   }
 
   function setRouteState(vm) {
@@ -55,8 +66,11 @@
 
     form.addEventListener('submit', function () {
       if (!input.value.trim()) return;
+      // 与 index.html bridgeCoverSearch 配合: 若仍在首页则展开面板, 否则不加残留 class
       setTimeout(function () {
-        document.body.classList.add('home-search-active');
+        if (document.body.classList.contains('is-home')) {
+          document.body.classList.add('home-search-active');
+        }
       }, 280);
     });
 

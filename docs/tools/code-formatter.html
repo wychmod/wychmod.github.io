@@ -3,463 +3,499 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>代码格式化工具 - wychmod Developer Workspace</title>
-  <meta name="description" content="支持多种编程语言的代码格式化工具，提供语法高亮、代码美化和压缩功能">
-  <meta name="keywords" content="代码格式化,代码美化,JavaScript格式化,Python格式化,语法高亮,代码压缩">
+  <title>代码格式化工具 / CODE WORKBENCH - wychmod Developer Workspace</title>
+  <meta name="description" content="本地轻量代码格式化工作台：支持 JavaScript、Python、Java、C/C++、C#、HTML、CSS、JSON、SQL、Go、Rust、PHP 的格式化与压缩。所有处理在浏览器本地完成，不上传代码。">
+  <meta name="keywords" content="代码格式化,代码美化,JavaScript格式化,Python格式化,语法高亮,代码压缩,本地处理">
+  <!-- 视觉母体令牌(只读复用, 不改其值) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <!-- 工具页共享外壳(scoped) -->
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260730a">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ===========================================================
+       P015 代码格式化工具专属样式 (page-scoped, 限定在 .cf-page 下)
+       外壳基类来自 tool-studio.css; 此处放:
+       - 控制条 / 语言选择 / 操作按钮排布
+       - 深色双编辑器表面 / 语法高亮低饱和色板
+       - 状态条 / 错误态(朱砂) / 空态 / Toast
+       - 移动 tabs + 底部固定操作栏
+       令牌优先复用 studio-tokens.css; 编辑器深色面板色值为本页专属
+       =========================================================== */
+
+    .cf-page {
+      /* 深色编辑器表面 (本页专属, 不入 token) */
+      --cf-editor-bg: #131713;
+      --cf-editor-bg-soft: #1b201c;
+      --cf-editor-border: rgba(242, 239, 231, 0.14);
+      --cf-editor-line: rgba(242, 239, 231, 0.08);
+      --cf-editor-text: #e9e0d0;
+      --cf-editor-gutter: #6f756e;
+      --cf-editor-placeholder: #5a5f59;
+      /* 朱砂错误态 (与外壳 .ts-btn--danger 对齐) */
+      --cf-error: #b64b45;
+      --cf-error-soft: rgba(182, 75, 69, 0.10);
     }
 
-    :root {
-      --accent-main: #6d4aff;
-      --accent-light: #0b6bcb;
-      --accent-dark: #5636d7;
-      --bg-primary: #f7f6f3;
-      --bg-secondary: #fbfaf8;
-      --bg-tertiary: #ffffff;
-      --text-primary: #37352f;
-      --text-secondary: #5f5d57;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
-      color: var(--text-primary);
-      padding: 20px;
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--accent-main);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      padding: 10px 20px;
-      border: 2px solid var(--accent-dark);
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      background: rgba(59, 130, 246, 0.1);
-      margin-bottom: 20px;
-    }
-
-    .back-link:hover {
-      color: var(--accent-light);
-      border-color: var(--accent-light);
-      transform: translateX(-5px);
-      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.12);
-    }
-
-    .header {
-      text-align: center;
-      padding: 30px 0;
-      margin-bottom: 30px;
-      border-bottom: 2px solid var(--accent-main);
-    }
-
-    .header h1 {
-      color: var(--accent-light);
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 10px rgba(96, 165, 250, 0.3);
-    }
-
-    .header p {
-      color: var(--text-secondary);
-      font-size: 1.1em;
-    }
-
-    /* 提示框 */
-    .tip-box {
-      background: rgba(96, 165, 250, 0.1);
-      border: 2px solid var(--accent-main);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .tip-icon {
-      font-size: 40px;
-      flex-shrink: 0;
-    }
-
-    .tip-content h3 {
-      color: var(--accent-light);
-      margin-bottom: 8px;
-      font-size: 1.1em;
-    }
-
-    .tip-content p {
-      color: var(--text-secondary);
-      margin: 0;
-      font-size: 14px;
-    }
-
-    /* 工具容器 */
-    .tool-container {
-      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-      border: 2px solid var(--accent-main);
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
-    }
-
-    /* 语言选择和操作按钮 */
-    .controls-row {
+    /* ---------- 控制条 ---------- */
+    .cf-controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 25px;
       align-items: center;
+      gap: var(--studio-space-4);
+      margin-bottom: var(--studio-space-5);
+      padding: var(--studio-space-4);
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
     }
-
-    .language-select {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .language-select label {
-      color: var(--accent-main);
-      font-weight: 600;
-    }
-
-    select {
-      background: var(--bg-tertiary);
-      border: 2px solid var(--accent-dark);
-      border-radius: 8px;
-      padding: 10px 15px;
-      color: var(--text-primary);
-      font-size: 14px;
-      cursor: pointer;
-      min-width: 150px;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: var(--accent-main);
-    }
-
-    .button-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      flex: 1;
-      justify-content: center;
-    }
-
-    button {
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent-main));
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(109, 74, 255, 0.22);
+    .cf-controls__lang {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: var(--studio-space-3);
+      flex: 0 0 auto;
     }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.35);
-      background: linear-gradient(135deg, var(--accent-main), var(--accent-light));
+    .cf-controls__label {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
     }
-
-    button.secondary {
-      background: var(--bg-tertiary);
-      color: var(--accent-main);
-      border: 2px solid var(--accent-dark);
+    .cf-controls__select {
+      min-width: 200px;
+      min-height: 38px;
+      padding: 8px 12px;
+      font-family: var(--studio-font-body);
+      font-size: 14px;
     }
-
-    button.secondary:hover {
-      background: rgba(109, 74, 255, 0.10);
-      border-color: var(--accent-main);
-    }
-
-    button.danger {
-      background: rgba(220, 53, 69, 0.8);
-      color: #fff;
-    }
-
-    button.danger:hover {
-      background: rgba(220, 53, 69, 1);
-    }
-
-    /* 编辑器区域 */
-    .editor-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    @media (max-width: 900px) {
-      .editor-wrapper {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .editor-section {
+    .cf-controls__actions {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      gap: var(--studio-space-2);
+      margin-left: auto;
     }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      padding: 10px 15px;
-      background: var(--bg-tertiary);
-      border-radius: 8px 8px 0 0;
-      border: 2px solid var(--accent-dark);
-      border-bottom: none;
-    }
-
-    .section-label {
-      color: var(--accent-main);
-      font-weight: 600;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .char-count {
-      color: var(--text-secondary);
+    .cf-controls__actions .ts-btn {
+      padding: 8px 14px;
       font-size: 13px;
     }
+    .cf-controls__hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--studio-text-muted);
+    }
+    .cf-controls__hint kbd {
+      padding: 2px 6px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-text);
+      background: var(--studio-paper-100);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+    }
 
-    .code-editor {
-      width: 100%;
-      min-height: 400px;
-      background: var(--bg-primary);
-      border: 2px solid var(--accent-dark);
-      border-radius: 0 0 8px 8px;
-      padding: 15px;
-      color: var(--text-primary);
-      font-family: 'Consolas', 'Monaco', 'Fira Code', monospace;
+    /* ---------- 状态条 ---------- */
+    .cf-status { margin-bottom: var(--studio-space-5); }
+    .cf-status .ts-status__dot { background: var(--studio-text-muted); }
+    .cf-status .ts-status__dot[data-state="ok"] {
+      background: var(--studio-green);
+      box-shadow: 0 0 0 2px rgba(36, 209, 143, 0.18);
+    }
+    .cf-status .ts-status__dot[data-state="err"] {
+      background: var(--cf-error);
+      box-shadow: 0 0 0 2px rgba(182, 75, 69, 0.18);
+    }
+    /* #statusMessage 由现有 JS 设置 className='status-message [success|error]',
+       保留 .status-message 类契约, 仅在此页重着色 */
+    .cf-page .status-message {
+      font-family: var(--studio-font-body);
+      font-size: 13px;
+      color: var(--studio-text);
+      min-height: 18px;
+    }
+    .cf-page .status-message.success { color: var(--studio-green-dark); }
+    .cf-page .status-message.error { color: var(--cf-error); }
+    .cf-status__info {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      letter-spacing: 0.02em;
+    }
+    .cf-status__info:empty { display: none; }
+
+    /* ---------- 编辑器外壳 + 移动 tabs ---------- */
+    .cf-editor {
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      overflow: hidden;
+      background: var(--cf-editor-bg);
+    }
+    .cf-tabs {
+      display: none;
+      background: var(--cf-editor-bg-soft);
+      border-bottom: 1px solid var(--cf-editor-border);
+    }
+    .cf-tabs__btn {
+      flex: 1 1 0;
+      min-height: 44px;
+      padding: 10px 14px;
+      font-family: var(--studio-font-body);
       font-size: 14px;
-      line-height: 1.6;
+      color: var(--studio-on-dark-muted);
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color var(--studio-dur-fast) var(--studio-ease),
+                  border-color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .cf-tabs__btn:hover { color: var(--studio-on-dark); }
+    .cf-tabs__btn.is-active {
+      color: var(--studio-on-dark);
+      border-bottom-color: var(--studio-gold);
+      font-weight: 600;
+    }
+
+    .cf-editor__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--cf-editor-border);
+    }
+
+    .cf-pane {
+      display: flex;
+      flex-direction: column;
+      background: var(--cf-editor-bg);
+      min-width: 0;
+    }
+    .cf-pane__head {
+      display: flex;
+      align-items: center;
+      gap: var(--studio-space-3);
+      padding: 12px 18px;
+      background: var(--cf-editor-bg-soft);
+      border-bottom: 1px solid var(--cf-editor-border);
+      color: var(--studio-on-dark);
+    }
+    .cf-pane__title {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--studio-on-dark-muted);
+      text-transform: uppercase;
+    }
+    .cf-pane__lang {
+      margin-left: auto;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--studio-gold);
+    }
+    .cf-pane__count {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-on-dark-muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* 输入 textarea */
+    .cf-input {
+      width: 100%;
+      min-height: 500px;
+      padding: 18px 20px;
+      background: var(--cf-editor-bg);
+      color: var(--cf-editor-text);
+      border: 0;
       resize: vertical;
+      font-family: var(--studio-font-mono);
+      font-size: 13.5px;
+      line-height: 1.65;
       tab-size: 2;
-    }
-
-    .code-editor:focus {
       outline: none;
-      border-color: var(--accent-main);
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
+    }
+    .cf-input::placeholder { color: var(--cf-editor-placeholder); }
+    .cf-input:focus {
+      box-shadow: inset 0 0 0 1px var(--studio-green);
     }
 
-    /* 高亮预览区 */
-    .preview-container {
-      width: 100%;
-      min-height: 400px;
-      background: var(--bg-primary);
-      border: 2px solid var(--accent-dark);
-      border-radius: 0 0 8px 8px;
-      padding: 15px;
+    /* 输出预览 */
+    .cf-output {
+      flex: 1 1 auto;
+      min-height: 500px;
+      max-height: 560px;
+      padding: 18px 20px;
       overflow: auto;
-      font-family: 'Consolas', 'Monaco', 'Fira Code', monospace;
-      font-size: 14px;
-      line-height: 1.6;
+      background: var(--cf-editor-bg);
+      color: var(--cf-editor-text);
+      font-family: var(--studio-font-mono);
+      font-size: 13.5px;
+      line-height: 1.65;
     }
-
-    .preview-container pre {
+    .cf-output pre {
       margin: 0;
       white-space: pre-wrap;
       word-wrap: break-word;
+      tab-size: 2;
+    }
+    /* 空态: 仅当 #highlightedCode 真空时显示 */
+    .cf-output pre:empty::before {
+      content: "格式化结果会显示在这里";
+      color: var(--cf-editor-placeholder);
+      font-style: italic;
     }
 
-    /* 语法高亮颜色 */
-    .token-keyword { color: #c792ea; }
-    .token-string { color: #c3e88d; }
-    .token-number { color: #f78c6c; }
-    .token-comment { color: #546e7a; font-style: italic; }
-    .token-function { color: #82aaff; }
-    .token-class { color: #ffcb6b; }
-    .token-operator { color: #89ddff; }
-    .token-punctuation { color: #89ddff; }
-    .token-property { color: #f07178; }
-    .token-variable { color: #eeffff; }
-    .token-tag { color: #f07178; }
-    .token-attribute { color: #ffcb6b; }
-    .token-decorator { color: #c792ea; }
+    /* ---------- 语法高亮 (低饱和, 与石墨协调; 保留原 token 类名) ---------- */
+    .cf-output .token-keyword { color: var(--studio-gold); }
+    .cf-output .token-string { color: #8bcfa5; }
+    .cf-output .token-number { color: #d89a6b; }
+    .cf-output .token-comment { color: var(--cf-editor-gutter); font-style: italic; }
+    .cf-output .token-function { color: var(--studio-cyan); }
+    .cf-output .token-class { color: var(--studio-gold); }
+    .cf-output .token-operator { color: var(--studio-on-dark-muted); }
+    .cf-output .token-punctuation { color: var(--studio-on-dark-muted); }
+    .cf-output .token-property { color: #c98a82; }
+    .cf-output .token-variable { color: var(--cf-editor-text); }
+    .cf-output .token-tag { color: #c98a82; }
+    .cf-output .token-attribute { color: var(--studio-gold); }
+    .cf-output .token-decorator { color: var(--studio-gold); font-style: italic; }
 
-    /* 状态提示 */
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      background: var(--bg-tertiary);
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-
-    .status-message {
-      color: var(--text-secondary);
-      font-size: 14px;
-    }
-
-    .status-message.success {
-      color: #4caf50;
-    }
-
-    .status-message.error {
-      color: #f44336;
-    }
-
-    /* Toast通知 */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
-      border: 2px solid var(--accent-main);
-      border-radius: 12px;
-      padding: 15px 25px;
-      color: var(--text-primary);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s ease;
-    }
-
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .toast.success {
-      border-color: #4caf50;
-    }
-
-    .toast.error {
-      border-color: #f44336;
-    }
-
-    /* 快捷键提示 */
-    .shortcuts-hint {
+    /* ---------- 快捷键提示条 ---------- */
+    .cf-shortcuts {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 20px;
-      padding: 15px;
-      background: rgba(59, 130, 246, 0.1);
-      border-radius: 8px;
+      gap: var(--studio-space-5);
+      padding: var(--studio-space-3) var(--studio-space-4);
+      margin-top: var(--studio-space-4);
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text-muted);
     }
-
-    .shortcut-item {
-      display: flex;
+    .cf-shortcuts__item {
+      display: inline-flex;
       align-items: center;
       gap: 8px;
+    }
+    .cf-shortcuts kbd {
+      padding: 2px 6px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-text);
+      background: var(--studio-paper-100);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+    }
+
+    /* ---------- 说明区: 三列面板 ---------- */
+    .cf-info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--studio-space-4);
+      margin-top: var(--studio-space-7);
+    }
+    .cf-info-grid .ts-panel { display: flex; flex-direction: column; }
+    .cf-info-grid p {
+      margin: 0 0 var(--studio-space-2);
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--studio-text);
+    }
+    .cf-info-grid p:last-child { margin-bottom: 0; }
+    .cf-info-grid .cf-note {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      line-height: 1.7;
+    }
+    .cf-info-grid ul { margin: 0; padding-left: 16px; }
+    .cf-info-grid ul li {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--studio-text);
+      padding-left: 2px;
+    }
+    .cf-info-grid ul li::marker {
+      color: var(--studio-gold);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+    }
+
+    /* ---------- Toast ---------- */
+    .cf-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      padding: 12px 18px;
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      color: var(--studio-text);
+      font-size: 14px;
+      box-shadow: 0 6px 24px rgba(13, 16, 14, 0.14);
+      transform: translateY(100px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform var(--studio-dur-base) var(--studio-ease),
+                  opacity var(--studio-dur-base) var(--studio-ease);
+      max-width: 320px;
+    }
+    .cf-toast.show { transform: translateY(0); opacity: 1; }
+    .cf-toast.success { border-color: var(--studio-green); color: var(--studio-green-dark); }
+    .cf-toast.error { border-color: var(--cf-error); color: var(--cf-error); }
+
+    /* ---------- 移动底部固定操作栏 (4 个高频动作) ---------- */
+    .cf-mobile-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 8px;
+      gap: 6px;
+      background: var(--studio-ink-950);
+      border-top: 1px solid var(--studio-line-dark);
+      z-index: 60;
+    }
+    .cf-mobile-bar button {
+      flex: 1 1 0;
+      min-height: 44px;
+      padding: 8px 4px;
+      background: transparent;
+      color: var(--studio-on-dark);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      font-family: var(--studio-font-body);
       font-size: 13px;
-      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .cf-mobile-bar button.cf-mobile-bar__primary {
+      background: var(--studio-green);
+      color: var(--studio-ink-950);
+      border-color: var(--studio-green);
+      font-weight: 600;
+    }
+    .cf-mobile-bar button.cf-mobile-bar__danger {
+      color: #e88a83;
+      border-color: rgba(182, 75, 69, 0.4);
     }
 
-    .shortcut-key {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--accent-dark);
-      border-radius: 4px;
-      padding: 3px 8px;
-      font-family: monospace;
-      color: var(--accent-main);
+    /* ---------- 响应式: 平板 ---------- */
+    @media (max-width: 1024px) {
+      .cf-info-grid { grid-template-columns: 1fr 1fr; }
+      .cf-info-grid .ts-panel:last-child { grid-column: 1 / -1; }
     }
 
-    /* 页脚 */
-    .footer {
-      text-align: center;
-      padding: 30px 20px;
-      margin-top: 40px;
-      border-top: 1px solid var(--bg-tertiary);
-      color: var(--text-secondary);
-    }
-
-    .footer a {
-      color: var(--accent-main);
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      color: var(--accent-light);
-    }
-
-    /* 响应式 */
+    /* ---------- 响应式: 手机 ---------- */
     @media (max-width: 768px) {
-      .header h1 {
-        font-size: 1.8em;
-      }
+      .cf-controls { padding: var(--studio-space-3); gap: var(--studio-space-3); }
+      .cf-controls__lang { width: 100%; }
+      .cf-controls__select { min-width: 0; width: 100%; }
+      .cf-controls__actions { width: 100%; margin-left: 0; }
+      .cf-controls__actions .ts-btn { flex: 1 1 auto; }
+      .cf-controls__hint { width: 100%; }
 
-      .controls-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
+      /* 双栏 -> tab 单栏 */
+      .cf-tabs { display: flex; }
+      .cf-editor__grid { grid-template-columns: 1fr; }
+      .cf-editor[data-view="input"] .cf-pane--result { display: none; }
+      .cf-editor[data-view="result"] .cf-pane--input { display: none; }
 
-      .language-select {
-        justify-content: center;
-      }
+      .cf-input,
+      .cf-output { min-height: 380px; max-height: none; }
+      .cf-input,
+      .cf-output { font-size: 13px; }
 
-      .button-group {
-        justify-content: center;
-      }
+      /* 底部固定操作栏: 不遮挡代码最后一行 */
+      .cf-page .ts-main { padding-bottom: 92px; }
+      .cf-mobile-bar { display: flex; }
+      .cf-toast { bottom: 84px; right: 16px; left: 16px; max-width: none; }
 
-      button {
-        padding: 10px 16px;
-        font-size: 13px;
-      }
+      .cf-info-grid { grid-template-columns: 1fr; }
+      .cf-info-grid .ts-panel:last-child { grid-column: auto; }
+      .cf-shortcuts { gap: var(--studio-space-4); }
+    }
 
-      .tip-box {
-        flex-direction: column;
-        text-align: center;
-      }
+    @media (max-width: 360px) {
+      .cf-controls__actions .ts-btn { padding: 8px 8px; font-size: 12px; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
-<body>
-  <div class="container">
-    <a href="/tools/" class="back-link">← 返回工具集</a>
+<body class="tool-studio cf-page">
+  <a class="ts-skip-link" href="#ts-main">跳到主内容</a>
 
-    <div class="header">
-      <h1>{ } 代码格式化工具</h1>
-      <p>支持多种编程语言的代码美化、格式化与压缩</p>
-    </div>
-
-    <div class="tip-box">
-      <div class="tip-icon">💡</div>
-      <div class="tip-content">
-        <h3>使用提示</h3>
-        <p>在左侧输入或粘贴代码，选择对应的编程语言，点击"格式化"按钮即可美化代码。支持 JavaScript、Python、Java、C++ 等多种语言。</p>
+  <!-- 顶部工具导航(暖石墨) -->
+  <header class="ts-topbar">
+    <div class="ts-topbar__inner">
+      <button class="ts-topbar__menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="ts-topbar-nav">≡</button>
+      <a class="ts-topbar__brand" href="/#/" aria-label="wychmod 主站">
+        <span class="ts-topbar__logo" aria-hidden="true">W</span>
+        <span class="ts-topbar__brand-text">
+          <span class="ts-topbar__brand-name">wychmod</span>
+          <span class="ts-topbar__brand-sub">Developer Workspace</span>
+        </span>
+      </a>
+      <nav class="ts-topbar__nav" id="ts-topbar-nav" aria-label="主导航">
+        <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
+        <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
+        <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="ts-topbar__actions">
+        <span class="ts-topbar__status" title="所有处理在浏览器本地完成，不上传代码">
+          <span class="ts-topbar__status-dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-topbar__avatar" role="img" aria-label="wychmod 的 GitHub 头像">
+          <span class="ts-topbar__avatar-fallback" aria-hidden="true">W</span>
+          <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="32" height="32" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+        </span>
       </div>
     </div>
+  </header>
 
-    <div class="tool-container">
-      <!-- 控制栏 -->
-      <div class="controls-row">
-        <div class="language-select">
-          <label for="language">编程语言:</label>
-          <select id="language">
+  <!-- 主内容 -->
+  <main class="ts-main" id="ts-main">
+    <div class="ts-container">
+
+      <!-- 面包屑 -->
+      <nav class="ts-breadcrumb" aria-label="路径">
+        <span class="ts-breadcrumb__item">WYCHMOD</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <a class="ts-breadcrumb__item" href="/tools/index.html">TOOLS</a>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item is-current" aria-current="location">CODE-FORMATTER</span>
+      </nav>
+
+      <!-- 标题块 -->
+      <div class="ts-titleblock">
+        <h1 class="ts-titleblock__h1">代码格式化工具<span class="ts-titleblock__h1-en"> / CODE WORKBENCH</span></h1>
+        <p class="ts-titleblock__desc">把一团难读的代码摊平在工作台上：粘贴原始代码，选择语言，一键格式化或压缩。这是本地轻量格式化器，基于字符规则与 JSON 解析，不是 AST 编译器、不做语义检查、不执行代码；所有处理在浏览器中完成，不上传代码。</p>
+      </div>
+
+      <!-- 状态条 -->
+      <div class="ts-status cf-status" role="group" aria-label="格式化状态">
+        <span class="ts-status__item">
+          <span class="ts-status__dot" id="statusDot" aria-hidden="true" data-state=""></span>
+          <span class="ts-status__label">状态</span>
+          <span class="status-message" id="statusMessage" aria-live="polite">就绪</span>
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">输入</span> <span class="ts-status__value" id="inputCount">0 字符</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">输出</span> <span class="ts-status__value" id="outputCount">0 字符</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">明细</span> <span class="cf-status__info" id="formatInfo"></span></span>
+      </div>
+
+      <!-- 控制条: 语言 + 操作 + 缩进说明 -->
+      <div class="cf-controls">
+        <div class="cf-controls__lang">
+          <label class="cf-controls__label" for="language">语言</label>
+          <select id="language" class="ts-select cf-controls__select" aria-label="选择编程语言">
             <option value="javascript">JavaScript</option>
             <option value="python">Python</option>
             <option value="java">Java</option>
@@ -475,83 +511,137 @@
           </select>
         </div>
 
-        <div class="button-group">
-          <button onclick="formatCode()" title="格式化代码 (Ctrl+Shift+F)">
-            <span>✨</span> 格式化
-          </button>
-          <button onclick="minifyCode()" class="secondary" title="压缩代码">
-            <span>📦</span> 压缩
-          </button>
-          <button onclick="copyOutput()" class="secondary" title="复制结果 (Ctrl+Shift+C)">
-            <span>📋</span> 复制结果
-          </button>
-          <button onclick="clearAll()" class="danger" title="清空所有">
-            <span>🗑️</span> 清空
-          </button>
+        <div class="cf-controls__actions">
+          <button type="button" class="ts-btn ts-btn--primary" onclick="formatCode()" title="格式化代码 (Ctrl+Shift+F)" aria-label="格式化代码">格式化</button>
+          <button type="button" class="ts-btn ts-btn--secondary" onclick="minifyCode()" title="压缩代码" aria-label="压缩代码">压缩</button>
+          <button type="button" class="ts-btn ts-btn--secondary" onclick="copyOutput()" title="复制结果 (Ctrl+Shift+C)" aria-label="复制格式化结果">复制结果</button>
+          <button type="button" class="ts-btn ts-btn--ghost" onclick="loadExample()" title="重新加载当前语言的示例代码" aria-label="加载示例代码">加载示例</button>
+          <button type="button" class="ts-btn ts-btn--danger" onclick="clearAll()" title="清空输入与结果" aria-label="清空所有内容">清空</button>
         </div>
+
+        <span class="cf-controls__hint" aria-hidden="true">
+          <kbd>Tab</kbd> 插入两个空格
+        </span>
       </div>
 
-      <!-- 编辑器区域 -->
-      <div class="editor-wrapper">
-        <div class="editor-section">
-          <div class="section-header">
-            <span class="section-label">📝 输入代码</span>
-            <span class="char-count" id="inputCount">0 字符</span>
-          </div>
-          <textarea 
-            class="code-editor" 
-            id="inputCode" 
-            placeholder="在此输入或粘贴代码..."
-            spellcheck="false"
-          ></textarea>
+      <!-- 编辑器: 桌面双栏, 移动 tab -->
+      <div class="cf-editor" id="cfEditor" data-view="input">
+        <!-- 移动端 tab (仅 ≤768px 显示) -->
+        <div class="cf-tabs" role="tablist" aria-label="编辑器视图">
+          <button type="button" class="cf-tabs__btn is-active" data-target="input" role="tab" aria-selected="true">输入（原始代码）</button>
+          <button type="button" class="cf-tabs__btn" data-target="result" role="tab" aria-selected="false">结果（格式化后）</button>
         </div>
 
-        <div class="editor-section">
-          <div class="section-header">
-            <span class="section-label">🎨 格式化结果 (语法高亮)</span>
-            <span class="char-count" id="outputCount">0 字符</span>
-          </div>
-          <div class="preview-container" id="outputPreview">
-            <pre id="highlightedCode"></pre>
-          </div>
-        </div>
-      </div>
+        <div class="cf-editor__grid">
+          <!-- 输入栏 -->
+          <section class="cf-pane cf-pane--input" aria-label="原始代码输入">
+            <div class="cf-pane__head">
+              <span class="cf-pane__title">原始代码</span>
+              <span class="cf-pane__lang" id="inputLangLabel">JavaScript</span>
+              <span class="cf-pane__count" id="inputCountInline">0 字符</span>
+            </div>
+            <textarea
+              class="cf-input"
+              id="inputCode"
+              placeholder="在此输入或粘贴代码..."
+              spellcheck="false"
+              aria-label="原始代码输入框"
+            ></textarea>
+          </section>
 
-      <!-- 状态栏 -->
-      <div class="status-bar">
-        <span class="status-message" id="statusMessage">就绪</span>
-        <span id="formatInfo" style="color: var(--text-secondary); font-size: 13px;"></span>
+          <!-- 输出栏 -->
+          <section class="cf-pane cf-pane--result" aria-label="格式化结果">
+            <div class="cf-pane__head">
+              <span class="cf-pane__title">格式化结果</span>
+              <span class="cf-pane__lang" id="outputLangLabel">JavaScript</span>
+              <span class="cf-pane__count" id="outputCountInline">0 字符</span>
+            </div>
+            <div class="cf-output" id="outputPreview">
+              <pre id="highlightedCode" aria-live="polite"></pre>
+            </div>
+          </section>
+        </div>
       </div>
 
       <!-- 快捷键提示 -->
-      <div class="shortcuts-hint">
-        <div class="shortcut-item">
-          <span class="shortcut-key">Ctrl + Shift + F</span>
+      <div class="cf-shortcuts" aria-label="快捷键">
+        <div class="cf-shortcuts__item">
+          <kbd>Ctrl + Shift + F</kbd>
           <span>格式化代码</span>
         </div>
-        <div class="shortcut-item">
-          <span class="shortcut-key">Ctrl + Shift + C</span>
+        <div class="cf-shortcuts__item">
+          <kbd>Ctrl + Shift + C</kbd>
           <span>复制结果</span>
         </div>
-        <div class="shortcut-item">
-          <span class="shortcut-key">Tab</span>
-          <span>插入缩进</span>
+        <div class="cf-shortcuts__item">
+          <kbd>Tab</kbd>
+          <span>插入两个空格缩进</span>
         </div>
       </div>
-    </div>
 
-    <div class="footer">
-      <p>© 2024-2026 wychmod Developer Workspace | 
-        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">GitHub</a> | 
-        <a href="/tools/">更多工具</a>
-      </p>
-    </div>
-  </div>
+      <!-- 说明区: 三列 -->
+      <div class="cf-info-grid">
+        <section class="ts-panel">
+          <h2 class="ts-panel__title">格式规范</h2>
+          <p>当前格式化器是手写规则，不是 AST：</p>
+          <p class="cf-note">JSON 走 <code>JSON.parse</code> 严格解析；HTML 按标签分行缩进；CSS 按规则块换行；SQL 在关键词前换行并大写；C 风格语言（JS / Java / C++ / C# / Go / Rust / PHP）基于 <code>{ }</code>、<code>;</code>、<code>,</code> 粗略缩进；Python 基于冒号与行粗略缩进。</p>
+          <p class="cf-note">Tab 在输入框插入两个空格；不同语言格式化器中缩进空格数不统一，并非可配置参数。</p>
+        </section>
+        <section class="ts-panel">
+          <h2 class="ts-panel__title">为什么格式化前的代码难读</h2>
+          <ul>
+            <li>缩进缺失或混乱，结构层级不可见</li>
+            <li>多条语句粘连在一行，难以定位边界</li>
+            <li>大括号、分号、逗号无规则换行</li>
+            <li>复杂表达式与嵌套挤成一团</li>
+            <li>压缩代码去掉所有空白，人眼不可读</li>
+          </ul>
+        </section>
+        <section class="ts-panel">
+          <h2 class="ts-panel__title">隐私与快捷操作</h2>
+          <p>所有代码处理在浏览器本地完成，不上传、不保存、不执行。</p>
+          <p class="cf-note">本工具不会运行你粘贴的代码，输出区只渲染转义后的文本与语法高亮 span，<code>&lt;script&gt;</code> 等内容会被转义为纯文本，不会执行。</p>
+          <p class="cf-note">快捷键：<kbd>Ctrl + Shift + F</kbd> 格式化、<kbd>Ctrl + Shift + C</kbd> 复制结果、<kbd>Tab</kbd> 插入两个空格。不占用 <kbd>Ctrl / Cmd + K</kbd>。</p>
+        </section>
+      </div>
 
-  <!-- Toast 通知 -->
-  <div class="toast" id="toast"></div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="ts-foot">
+    <div class="ts-foot__inner">
+      <span>© 2024–2026 wychmod Developer Workspace</span>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/tools/index.html">工具集</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/#/">返回主站</a>
+    </div>
+  </footer>
+
+  <!-- 移动底部固定操作栏 (4 个高频动作, 复用相同函数) -->
+  <nav class="cf-mobile-bar" aria-label="移动端快捷操作">
+    <button type="button" class="cf-mobile-bar__primary" onclick="formatCode()" aria-label="格式化">格式化</button>
+    <button type="button" onclick="minifyCode()" aria-label="压缩">压缩</button>
+    <button type="button" onclick="copyOutput()" aria-label="复制结果">复制</button>
+    <button type="button" class="cf-mobile-bar__danger" onclick="clearAll()" aria-label="清空">清空</button>
+  </nav>
+
+  <!-- Toast 通知 (保留 id=toast 与 .toast 类契约) -->
+  <div class="toast cf-toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
+    // ============================================================
+    // 代码格式化工具核心逻辑 (保留所有原有函数名与 ID 绑定)
+    // - 所有用户代码仅通过 textarea.value / innerHTML(已转义) 写入
+    // - highlightSyntax 先 HTML 转义再高亮, <script> 等不会执行
+    // - 处理全程本地, 不上传 / 不保存 / 不执行用户代码
+    // ============================================================
+
     // 默认示例代码
     const defaultExamples = {
       javascript: `function calculateSum(arr){if(!arr||arr.length===0){return 0}let total=0;for(let i=0;i<arr.length;i++){total+=arr[i]}return total}const numbers=[1,2,3,4,5];const result=calculateSum(numbers);console.log("Sum:",result);class Person{constructor(name,age){this.name=name;this.age=age}greet(){return "Hello, my name is "+this.name}}const person=new Person("Alice",25);`,
@@ -595,18 +685,22 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
     document.addEventListener('DOMContentLoaded', function() {
       // 加载默认示例
       loadExample();
-      
+
       // 语言切换时加载对应示例
       languageSelect.addEventListener('change', loadExample);
-      
+
       // 输入监听
       inputCode.addEventListener('input', updateInputCount);
-      
+
       // Tab键支持
       inputCode.addEventListener('keydown', handleTab);
-      
+
       // 快捷键
       document.addEventListener('keydown', handleShortcuts);
+
+      // 同步语言标签
+      syncLangLabels();
+      languageSelect.addEventListener('change', syncLangLabels);
     });
 
     // 加载示例代码
@@ -621,6 +715,8 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
     function updateInputCount() {
       const count = inputCode.value.length;
       inputCount.textContent = `${count.toLocaleString()} 字符`;
+      var inline = document.getElementById('inputCountInline');
+      if (inline) inline.textContent = `${count.toLocaleString()} 字符`;
     }
 
     // 处理Tab键
@@ -660,16 +756,19 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
         formattedCode = formatByLanguage(code, lang);
         const highlighted = highlightSyntax(formattedCode, lang);
         highlightedCode.innerHTML = highlighted;
-        
+
         const endTime = performance.now();
         const duration = (endTime - startTime).toFixed(2);
-        
+
         outputCount.textContent = `${formattedCode.length.toLocaleString()} 字符`;
+        var outInline = document.getElementById('outputCountInline');
+        if (outInline) outInline.textContent = `${formattedCode.length.toLocaleString()} 字符`;
         statusMessage.textContent = '格式化成功';
         statusMessage.className = 'status-message success';
         formatInfo.textContent = `耗时: ${duration}ms | 语言: ${getLanguageName(lang)}`;
-        
+
         showToast('代码格式化成功', 'success');
+        switchMobileTab('result');
       } catch (error) {
         statusMessage.textContent = '格式化失败: ' + error.message;
         statusMessage.className = 'status-message error';
@@ -718,25 +817,25 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
       let formatted = '';
       let indent = 0;
       const lines = code.replace(/>\s*</g, '>\n<').split('\n');
-      
+
       lines.forEach(line => {
         line = line.trim();
         if (!line) return;
-        
+
         // 减少缩进的标签
         if (line.match(/^<\/(div|p|ul|ol|li|table|tr|td|th|thead|tbody|section|article|header|footer|nav|main|aside|form|fieldset|head|body|html)/i)) {
           indent = Math.max(0, indent - 1);
         }
-        
+
         formatted += '  '.repeat(indent) + line + '\n';
-        
+
         // 增加缩进的标签（自闭合标签除外）
-        if (line.match(/^<(div|p|ul|ol|li|table|tr|td|th|thead|tbody|section|article|header|footer|nav|main|aside|form|fieldset|head|body|html)[^>]*>$/i) && 
+        if (line.match(/^<(div|p|ul|ol|li|table|tr|td|th|thead|tbody|section|article|header|footer|nav|main|aside|form|fieldset|head|body|html)[^>]*>$/i) &&
             !line.match(/\/>$/)) {
           indent++;
         }
       });
-      
+
       return formatted.trim();
     }
 
@@ -754,16 +853,16 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
 
     // SQL格式化
     function formatSQL(code) {
-      const keywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'LEFT JOIN', 'RIGHT JOIN', 
+      const keywords = ['SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'LEFT JOIN', 'RIGHT JOIN',
                        'INNER JOIN', 'ON', 'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'OFFSET',
                        'INSERT INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE FROM', 'CREATE TABLE',
                        'ALTER TABLE', 'DROP TABLE', 'UNION', 'UNION ALL'];
-      
+
       let formatted = code.toUpperCase();
       keywords.forEach(kw => {
         formatted = formatted.replace(new RegExp('\\b' + kw + '\\b', 'gi'), '\n' + kw);
       });
-      
+
       return formatted.trim().replace(/^\n/, '');
     }
 
@@ -774,11 +873,11 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
       let inString = false;
       let stringChar = '';
       let prevChar = '';
-      
+
       for (let i = 0; i < code.length; i++) {
         const char = code[i];
         const nextChar = code[i + 1] || '';
-        
+
         // 处理字符串
         if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
           if (!inString) {
@@ -788,13 +887,13 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
             inString = false;
           }
         }
-        
+
         if (inString) {
           formatted += char;
           prevChar = char;
           continue;
         }
-        
+
         // 格式化逻辑
         if (char === '{') {
           formatted += ' {\n' + '  '.repeat(++indent);
@@ -812,10 +911,10 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
         } else {
           formatted += char;
         }
-        
+
         prevChar = char;
       }
-      
+
       // 清理多余的空行和空格
       return formatted
         .replace(/\n\s*\n\s*\n/g, '\n\n')
@@ -829,26 +928,26 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
       let formatted = '';
       let indent = 0;
       const lines = code.split(/[;\n]+/);
-      
+
       lines.forEach(line => {
         line = line.trim();
         if (!line) return;
-        
+
         // 减少缩进
         if (line.match(/^(return|break|continue|pass|raise)\b/) && indent > 0) {
           // 保持当前缩进
         } else if (line.match(/^(else|elif|except|finally)\b/)) {
           indent = Math.max(0, indent - 1);
         }
-        
+
         formatted += '    '.repeat(indent) + line + '\n';
-        
+
         // 增加缩进
         if (line.match(/:\s*$/)) {
           indent++;
         }
       });
-      
+
       return formatted.trim();
     }
 
@@ -859,7 +958,7 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
-      
+
       // 使用占位符保护已处理的内容
       const placeholders = [];
       function addPlaceholder(content, className) {
@@ -867,26 +966,26 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
         placeholders.push({ id, content, className });
         return id;
       }
-      
+
       // 1. 先处理字符串（最高优先级，避免字符串内部被错误高亮）
-      escaped = escaped.replace(/(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, match => 
+      escaped = escaped.replace(/(["'`])(?:(?!\1)[^\\]|\\.)*\1/g, match =>
         addPlaceholder(match, 'token-string'));
-      
+
       // 2. 处理注释
-      escaped = escaped.replace(/\/\/.*$/gm, match => 
+      escaped = escaped.replace(/\/\/.*$/gm, match =>
         addPlaceholder(match, 'token-comment'));
-      escaped = escaped.replace(/\/\*[\s\S]*?\*\//g, match => 
+      escaped = escaped.replace(/\/\*[\s\S]*?\*\//g, match =>
         addPlaceholder(match, 'token-comment'));
       // Python注释（仅对Python生效）
       if (lang === 'python') {
-        escaped = escaped.replace(/#.*$/gm, match => 
+        escaped = escaped.replace(/#.*$/gm, match =>
           addPlaceholder(match, 'token-comment'));
       }
-      
+
       // 3. 处理数字
-      escaped = escaped.replace(/\b\d+\.?\d*\b/g, match => 
+      escaped = escaped.replace(/\b\d+\.?\d*\b/g, match =>
         addPlaceholder(match, 'token-number'));
-      
+
       // 语言特定关键字
       const keywords = {
         javascript: ['const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while', 'class', 'extends', 'new', 'this', 'async', 'await', 'import', 'export', 'default', 'try', 'catch', 'throw', 'typeof', 'instanceof'],
@@ -902,20 +1001,20 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
         css: ['display', 'flex', 'grid', 'position', 'margin', 'padding', 'width', 'height', 'color', 'background', 'border', 'font', 'text', 'align', 'justify', 'items', 'content', 'transform', 'transition', 'animation', 'opacity', 'overflow', 'z-index'],
         json: []
       };
-      
+
       // 4. 应用关键字高亮（此时字符串和注释已被占位符保护）
       const langKeywords = keywords[lang] || keywords.javascript;
       langKeywords.forEach(kw => {
         const regex = new RegExp(`\\b(${kw})\\b`, lang === 'sql' ? 'gi' : 'g');
-        escaped = escaped.replace(regex, match => 
+        escaped = escaped.replace(regex, match =>
           addPlaceholder(match, 'token-keyword'));
       });
-      
+
       // 5. 还原所有占位符为实际的span标签
       placeholders.forEach(ph => {
         escaped = escaped.replace(ph.id, `<span class="${ph.className}">${ph.content}</span>`);
       });
-      
+
       return escaped;
     }
 
@@ -928,10 +1027,10 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
       }
 
       const lang = languageSelect.value;
-      
+
       try {
         let minified = code;
-        
+
         if (lang === 'json') {
           minified = JSON.stringify(JSON.parse(code));
         } else if (lang === 'html') {
@@ -952,17 +1051,20 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
             .replace(/\s*([{}();,:])\s*/g, '$1')
             .trim();
         }
-        
+
         formattedCode = minified;
         highlightedCode.innerHTML = highlightSyntax(minified, lang);
         outputCount.textContent = `${minified.length.toLocaleString()} 字符`;
-        
+        var outInline = document.getElementById('outputCountInline');
+        if (outInline) outInline.textContent = `${minified.length.toLocaleString()} 字符`;
+
         const ratio = ((1 - minified.length / code.length) * 100).toFixed(1);
         statusMessage.textContent = '压缩成功';
         statusMessage.className = 'status-message success';
         formatInfo.textContent = `压缩率: ${ratio}% | 减少了 ${(code.length - minified.length).toLocaleString()} 字符`;
-        
+
         showToast(`代码压缩成功，减少了 ${ratio}%`, 'success');
+        switchMobileTab('result');
       } catch (error) {
         statusMessage.textContent = '压缩失败: ' + error.message;
         statusMessage.className = 'status-message error';
@@ -998,10 +1100,15 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
       formattedCode = '';
       inputCount.textContent = '0 字符';
       outputCount.textContent = '0 字符';
+      var inInline = document.getElementById('inputCountInline');
+      var outInline = document.getElementById('outputCountInline');
+      if (inInline) inInline.textContent = '0 字符';
+      if (outInline) outInline.textContent = '0 字符';
       statusMessage.textContent = '已清空';
       statusMessage.className = 'status-message';
       formatInfo.textContent = '';
       showToast('已清空所有内容', 'success');
+      switchMobileTab('input');
     }
 
     // 获取语言名称
@@ -1023,14 +1130,81 @@ func main(){var wg sync.WaitGroup;nums:=[]int{1,2,3,4,5};results:=make(chan int,
       return names[lang] || lang;
     }
 
+    // 同步输入/输出栏的语言标签
+    function syncLangLabels() {
+      const name = getLanguageName(languageSelect.value);
+      var inLabel = document.getElementById('inputLangLabel');
+      var outLabel = document.getElementById('outputLangLabel');
+      if (inLabel) inLabel.textContent = name;
+      if (outLabel) outLabel.textContent = name;
+    }
+
+    // 移动端 tab 切换 (不丢内容, 仅切换可见 pane)
+    function switchMobileTab(target) {
+      var editor = document.getElementById('cfEditor');
+      if (!editor) return;
+      editor.setAttribute('data-view', target);
+      var btns = editor.querySelectorAll('.cf-tabs__btn');
+      btns.forEach(function (btn) {
+        var active = btn.getAttribute('data-target') === target;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    }
+
     // Toast通知
     function showToast(message, type = 'success') {
       toast.textContent = message;
-      toast.className = 'toast ' + type + ' show';
+      toast.className = 'toast cf-toast ' + type + ' show';
       setTimeout(() => {
         toast.classList.remove('show');
       }, 2500);
     }
+
+    // ============================================================
+    // 外壳交互: 顶部导航抽屉 + 移动 tabs + 状态圆点同步
+    // (不修改上方任何已有函数的语义, 仅补充 UI 联动)
+    // ============================================================
+    (function () {
+      // 顶部导航抽屉 (移动端)
+      var menuBtn = document.querySelector('.ts-topbar__menu-btn');
+      var nav = document.querySelector('.ts-topbar__nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('.ts-topbar__nav-item')) {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      // 移动 tabs 点击切换
+      var editor = document.getElementById('cfEditor');
+      if (editor) {
+        editor.querySelectorAll('.cf-tabs__btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            switchMobileTab(btn.getAttribute('data-target'));
+          });
+        });
+      }
+
+      // 状态圆点随 #statusMessage 的 success/error 类同步 (零侵入)
+      var statusMessageEl = document.getElementById('statusMessage');
+      var statusDotEl = document.getElementById('statusDot');
+      if (statusMessageEl && statusDotEl && window.MutationObserver) {
+        var sync = function () {
+          var err = statusMessageEl.classList.contains('error');
+          var ok = statusMessageEl.classList.contains('success');
+          statusDotEl.dataset.state = err ? 'err' : (ok ? 'ok' : '');
+        };
+        new MutationObserver(sync).observe(statusMessageEl, { attributes: true, attributeFilter: ['class'] });
+        sync();
+      }
+    })();
   </script>
 </body>
 </html>

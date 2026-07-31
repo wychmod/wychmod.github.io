@@ -4,581 +4,684 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>进制转换工具 - wychmod Developer Workspace</title>
+  <meta name="description" content="本地进制转换工具：二进制、八进制、十进制、十六进制实时互转，附 32 位有符号整数位运算。任意进制输入框输入，其他进制自动同步；核心处理在浏览器本地完成，不上传服务器。">
+  <link rel="canonical" href="https://wychmod.github.io/tools/radix-tool.html">
+  <!-- 视觉母体令牌(只读复用, 不改其值) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <!-- 工具页共享外壳(scoped, READ-ONLY) -->
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260730a">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ===========================================================
+       P019 进制转换工具专属样式 (page-specific, scoped via .rn-* prefix)
+       外壳基类来自 tool-studio.css; 此处只放转换表 / 位运算 / 错误态
+       令牌来源 studio-tokens.css, 不重新定义色值 / 字体 / 空间值
+       =========================================================== */
+
+    .tool-studio .rn-mono {
+      font-family: var(--studio-font-mono);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.01em;
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
-      color: #37352f;
-      padding: 20px;
-      min-height: 100vh;
+    /* ---------- 转换面板 ---------- */
+    .tool-studio .rn-convert {
+      margin-bottom: var(--studio-space-6);
     }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .header {
-      text-align: center;
-      padding: 30px 0;
-      margin-bottom: 30px;
-      border-bottom: 2px solid #6d4aff;
-    }
-
-    .header h1 {
-      color: #0b6bcb;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-
-    .header p {
-      color: #5f5d57;
-      font-size: 1.1em;
-    }
-
-    .back-links {
+    .tool-studio .rn-convert__head {
       display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .back-link {
-      display: inline-block;
-      color: #6d4aff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-
-    .back-link:hover {
-      color: #0b6bcb;
-    }
-
-    /* 进制卡片区 */
-    .radix-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .radix-card {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
-      transition: all 0.3s;
-    }
-
-    .radix-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
-    }
-
-    .radix-header {
-      display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      margin-bottom: 15px;
+      gap: var(--studio-space-3);
+      margin-bottom: var(--studio-space-4);
     }
-
-    .radix-title {
-      color: #0b6bcb;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .radix-base {
-      background: rgba(109, 74, 255, 0.10);
-      color: #0b6bcb;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .radix-input {
-      width: 100%;
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 12px;
-      color: #37352f;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 14px;
-      transition: all 0.3s;
-      margin-bottom: 10px;
-    }
-
-    .radix-input:focus {
-      outline: none;
-      border-color: #6d4aff;
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
-    }
-
-    .radix-input.error {
-      border-color: #d64545;
-    }
-
-    .radix-prefix {
-      color: #888;
-      font-size: 12px;
-      margin-bottom: 10px;
-      font-family: 'Consolas', 'Monaco', monospace;
-    }
-
-    .copy-btn {
-      width: 100%;
-      background: rgba(109, 74, 255, 0.12);
-      color: #0b6bcb;
-      border: 1px solid #6d4aff;
-      padding: 8px;
-      border-radius: 6px;
+    .tool-studio .rn-convert__head .ts-panel__title { margin: 0; }
+    .tool-studio .rn-clear {
+      flex: 0 0 auto;
+      min-height: 34px;
+      padding: 6px 14px;
       font-size: 13px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-weight: 600;
     }
 
-    .copy-btn:hover {
-      background: rgba(59, 130, 246, 0.5);
-      transform: translateY(-2px);
+    /* ---------- 错误态 (aria-live, 稳定高度, 不用 alert) ---------- */
+    .tool-studio .rn-error {
+      min-height: 30px;
+      margin: 0 0 var(--studio-space-3);
+      padding: 6px 12px;
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--studio-text-muted);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--studio-radius-sm);
+      transition: color var(--studio-dur-fast) var(--studio-ease),
+                  background var(--studio-dur-fast) var(--studio-ease),
+                  border-color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .tool-studio .rn-error.is-error {
+      color: #b64b45;
+      background: rgba(182, 75, 69, 0.06);
+      border-color: rgba(182, 75, 69, 0.4);
+    }
+    .tool-studio .rn-error:empty {
+      min-height: 0;
+      padding: 0;
+      border-color: transparent;
+      background: transparent;
     }
 
-    /* 位运算区 */
-    .bitwise-section {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
+    /* ---------- 四进制行表 ---------- */
+    .tool-studio .rn-rows {
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      overflow: hidden;
+      background: transparent;
     }
-
-    .section-title {
-      color: #0b6bcb;
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .bitwise-grid {
+    .tool-studio .rn-row {
       display: grid;
-      grid-template-columns: 2fr 1fr 2fr;
-      gap: 15px;
+      grid-template-columns: 56px 60px minmax(0, 1fr) 96px;
       align-items: center;
-      margin-bottom: 15px;
+      gap: var(--studio-space-3);
+      padding: var(--studio-space-3) var(--studio-space-4);
+      border-bottom: 1px solid var(--studio-paper-line);
     }
-
-    .bitwise-input {
-      width: 100%;
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 12px;
-      color: #37352f;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 14px;
-      transition: all 0.3s;
+    .tool-studio .rn-row:last-child { border-bottom: 0; }
+    .tool-studio .rn-row:nth-child(odd) {
+      background: var(--studio-paper-50);
     }
-
-    .bitwise-input:focus {
-      outline: none;
-      border-color: #6d4aff;
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
-    }
-
-    .operator-select {
-      width: 100%;
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 12px;
-      color: #37352f;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .operator-select:focus {
-      outline: none;
-      border-color: #6d4aff;
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
-    }
-
-    .result-box {
-      background: rgba(59, 130, 246, 0.1);
-      border: 2px solid #6d4aff;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .result-label {
-      color: #888;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    .result-value {
-      color: #0b6bcb;
-      font-size: 24px;
-      font-weight: 700;
-      font-family: 'Consolas', 'Monaco', monospace;
-      word-break: break-all;
-    }
-
-    /* 提示框 */
-    .tip-box {
-      background: rgba(96, 165, 250, 0.15);
-      border: 2px solid #0b6bcb;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 30px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .tip-icon {
-      font-size: 36px;
-    }
-
-    .tip-content {
-      flex: 1;
-    }
-
-    .tip-content h3 {
-      color: #0b6bcb;
-      margin-bottom: 8px;
-    }
-
-    .tip-content p {
-      color: #5f5d57;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .message {
-      position: fixed;
-      top: 100px;
-      right: 30px;
-      padding: 15px 25px;
-      border-radius: 8px;
+    .tool-studio .rn-base {
+      font-family: var(--studio-font-display);
+      font-size: 26px;
       font-weight: 600;
+      color: var(--studio-gold);
+      letter-spacing: 0.02em;
+      text-align: center;
+      line-height: 1;
+    }
+    .tool-studio .rn-abbr {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--studio-text-muted);
+    }
+    .tool-studio .rn-input {
+      font-family: var(--studio-font-mono);
+      font-size: 17px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+      min-height: 44px;
+      background: var(--studio-paper-50);
+    }
+    .tool-studio .rn-input.is-error {
+      border-color: #b64b45;
+      box-shadow: 0 0 0 3px rgba(182, 75, 69, 0.18);
+    }
+    .tool-studio .rn-input.is-error:focus {
+      border-color: #b64b45;
+      box-shadow: 0 0 0 3px rgba(182, 75, 69, 0.22);
+    }
+    .tool-studio .rn-copy {
+      min-height: 38px;
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    /* ---------- 位运算面板 ---------- */
+    .tool-studio .rn-bitwise {
+      margin-bottom: var(--studio-space-6);
+    }
+    .tool-studio .rn-bitwise .ts-panel__title { margin: 0 0 4px; }
+    .tool-studio .rn-bw-grid {
+      display: grid;
+      grid-template-columns: 1fr 140px 1fr;
+      align-items: end;
+      gap: var(--studio-space-3);
+      margin-bottom: var(--studio-space-4);
+    }
+    .tool-studio .rn-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tool-studio .rn-field__label {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--studio-text-muted);
+    }
+    .tool-studio .rn-bw-input,
+    .tool-studio .rn-bw-select {
+      font-family: var(--studio-font-mono);
+      min-height: 44px;
+    }
+    .tool-studio .rn-bw-result {
+      padding: var(--studio-space-4) var(--studio-space-5);
+      background: var(--studio-paper-100);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+    }
+    .tool-studio .rn-bw-result__label {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
+      margin-bottom: 6px;
+    }
+    .tool-studio .rn-bw-result__value {
+      font-family: var(--studio-font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--studio-ink-950);
+      word-break: break-all;
+      line-height: 1.3;
+    }
+    .tool-studio .rn-bw-result__details {
+      margin-top: var(--studio-space-2);
+      font-family: var(--studio-font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      word-break: break-all;
+      line-height: 1.6;
+      min-height: 18px;
+    }
+
+    /* ---------- 底部说明 ---------- */
+    .tool-studio .rn-note {
+      margin: 0;
+      padding: var(--studio-space-3) var(--studio-space-4);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--studio-text-muted);
+      border-left: 2px solid var(--studio-gold);
+      background: var(--studio-paper-50);
+      border-radius: 0 var(--studio-radius-sm) var(--studio-radius-sm) 0;
+    }
+
+    /* ---------- Toast (aria-live, 修复旧 slideOut bug) ---------- */
+    .tool-studio .rn-toast {
+      position: fixed;
+      top: 80px;
+      right: 24px;
       z-index: 10000;
-      animation: slideIn 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      max-width: 320px;
+      padding: 10px 16px;
+      font-family: var(--studio-font-body);
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: var(--studio-radius-sm);
+      background: var(--studio-ink-950);
+      color: var(--studio-on-dark);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity var(--studio-dur-base) var(--studio-ease),
+                  transform var(--studio-dur-base) var(--studio-ease);
+    }
+    .tool-studio .rn-toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .tool-studio .rn-toast--error {
+      background: #b64b45;
+      color: #fff;
+    }
+    .tool-studio .rn-toast--success {
+      background: var(--studio-green-dark);
+      color: #fff;
     }
 
-    .message.success {
-      background: rgba(23, 143, 85, 0.12);
-      color: #178f55;
-      border: 2px solid #178f55;
-    }
-
-    .message.error {
-      background: rgba(214, 69, 69, 0.12);
-      color: #d64545;
-      border: 2px solid #d64545;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
+    /* ---------- 平板: 位运算仍可三列 ---------- */
+    @media (max-width: 1024px) {
+      .tool-studio .rn-bw-grid {
+        grid-template-columns: 1fr 120px 1fr;
       }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
     }
 
-    @media screen and (max-width: 768px) {
-      .radix-cards {
+    /* ---------- 手机: 行紧凑 / 位运算单列 / 按钮 44px ---------- */
+    @media (max-width: 768px) {
+      .tool-studio .rn-row {
+        grid-template-columns: 40px 48px minmax(0, 1fr) 64px;
+        gap: var(--studio-space-2);
+        padding: var(--studio-space-3);
+      }
+      .tool-studio .rn-base { font-size: 22px; }
+      .tool-studio .rn-abbr { font-size: 11px; }
+      .tool-studio .rn-input { font-size: 14px; }
+      .tool-studio .rn-copy {
+        min-height: 44px;
+        padding: 8px 8px;
+        font-size: 12px;
+      }
+      .tool-studio .rn-bw-grid {
         grid-template-columns: 1fr;
+        gap: var(--studio-space-3);
       }
+      .tool-studio .rn-bw-result__value { font-size: 20px; }
+      .tool-studio .rn-convert__head { flex-wrap: wrap; }
+      .tool-studio .rn-toast {
+        top: 72px;
+        right: 12px;
+        left: 12px;
+        max-width: none;
+      }
+    }
 
-      .bitwise-grid {
-        grid-template-columns: 1fr;
+    /* ---------- 极窄屏: 复制按钮进一步压缩 ---------- */
+    @media (max-width: 360px) {
+      .tool-studio .rn-row {
+        grid-template-columns: 32px 40px minmax(0, 1fr) 52px;
+        gap: 6px;
+        padding: var(--studio-space-2);
       }
-
-      .header h1 {
-        font-size: 1.8em;
-      }
+      .tool-studio .rn-base { font-size: 18px; }
+      .tool-studio .rn-input { font-size: 13px; }
+      .tool-studio .rn-copy { padding: 8px 4px; font-size: 11px; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
-<body>
-  <div class="container">
-    <div class="back-links">
-      <a href="/#/" class="back-link">← 返回主站</a>
-      <a href="index.html" class="back-link">← 返回工具集</a>
-    </div>
-    
-    <div class="header">
-      <h1>🔢 进制转换工具</h1>
-      <p>二进制、八进制、十进制、十六进制快速转换</p>
-    </div>
+<body class="tool-studio">
+  <a class="ts-skip-link" href="#ts-main">跳到主内容</a>
 
-    <div class="tip-box">
-      <div class="tip-icon">💡</div>
-      <div class="tip-content">
-        <h3>使用说明</h3>
-        <p>
-          在任意进制输入框中输入数值，其他进制会自动转换。支持正整数转换，位运算仅支持32位整数。
-        </p>
+  <!-- 顶部工具导航(暖石墨, 镜像 tools/index.html) -->
+  <header class="ts-topbar">
+    <div class="ts-topbar__inner">
+      <button class="ts-topbar__menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="ts-topbar-nav">≡</button>
+      <a class="ts-topbar__brand" href="/#/" aria-label="wychmod 主站">
+        <span class="ts-topbar__logo" aria-hidden="true">W</span>
+        <span class="ts-topbar__brand-text">
+          <span class="ts-topbar__brand-name">wychmod</span>
+          <span class="ts-topbar__brand-sub">Developer Workspace</span>
+        </span>
+      </a>
+      <nav class="ts-topbar__nav" id="ts-topbar-nav" aria-label="主导航">
+        <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
+        <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
+        <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="ts-topbar__actions">
+        <span class="ts-topbar__status" title="核心处理在浏览器本地完成">
+          <span class="ts-topbar__status-dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-topbar__avatar" role="img" aria-label="wychmod 的 GitHub 头像">
+          <span class="ts-topbar__avatar-fallback" aria-hidden="true">W</span>
+          <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="32" height="32" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+        </span>
       </div>
     </div>
+  </header>
 
-    <!-- 进制转换卡片 -->
-    <div class="radix-cards">
-      <!-- 二进制 -->
-      <div class="radix-card">
-        <div class="radix-header">
-          <div class="radix-title">💾 二进制</div>
-          <div class="radix-base">BIN</div>
-        </div>
-        <div class="radix-prefix">前缀: 0b</div>
-        <input type="text" id="binInput" class="radix-input" placeholder="输入二进制..." value="1010">
-        <button class="copy-btn" onclick="copyValue('binInput')">📋 复制</button>
+  <!-- 主内容 -->
+  <main class="ts-main" id="ts-main">
+    <div class="ts-container">
+
+      <!-- 面包屑 -->
+      <nav class="ts-breadcrumb" aria-label="路径">
+        <span class="ts-breadcrumb__item">WYCHMOD</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <a class="ts-breadcrumb__item" href="/tools/index.html">TOOLS</a>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item is-current" aria-current="location">RADIX</span>
+      </nav>
+
+      <!-- 标题块 -->
+      <div class="ts-titleblock">
+        <h1 class="ts-titleblock__h1">进制转换工具<span class="ts-titleblock__h1-en"> / RADIX NOTES</span></h1>
+        <p class="ts-titleblock__desc">在二进制、八进制、十进制、十六进制之间快速互转；附 32 位有符号整数位运算。任意进制输入框输入，其他进制实时同步，并指出非法字符。核心处理在浏览器本地完成，不上传服务器。</p>
       </div>
 
-      <!-- 八进制 -->
-      <div class="radix-card">
-        <div class="radix-header">
-          <div class="radix-title">🔷 八进制</div>
-          <div class="radix-base">OCT</div>
-        </div>
-        <div class="radix-prefix">前缀: 0o</div>
-        <input type="text" id="octInput" class="radix-input" placeholder="输入八进制..." value="12">
-        <button class="copy-btn" onclick="copyValue('octInput')">📋 复制</button>
+      <!-- 状态条 -->
+      <div class="ts-status" role="group" aria-label="工具状态">
+        <span class="ts-status__item">
+          <span class="ts-status__dot" aria-hidden="true"></span>
+          本地处理 · 不上传
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">支持进制</span> <span class="ts-status__value">2 / 8 / 10 / 16</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">位运算</span> <span class="ts-status__value">32 位有符号</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">路径</span> <span class="ts-status__value">/tools/radix</span></span>
       </div>
 
-      <!-- 十进制 -->
-      <div class="radix-card">
-        <div class="radix-header">
-          <div class="radix-title">🔟 十进制</div>
-          <div class="radix-base">DEC</div>
+      <!-- 进制转换面板 -->
+      <section class="ts-panel rn-convert" aria-labelledby="rn-convert-title">
+        <div class="rn-convert__head">
+          <div>
+            <h2 class="ts-panel__title" id="rn-convert-title">进制转换</h2>
+            <p class="ts-panel__sub">RADIX CONVERSION · 任意输入框输入，其他进制自动同步</p>
+          </div>
+          <button class="ts-btn ts-btn--ghost rn-clear" type="button" onclick="clearAll()" aria-label="清空所有进制输入框">清空</button>
         </div>
-        <div class="radix-prefix">无前缀</div>
-        <input type="text" id="decInput" class="radix-input" placeholder="输入十进制..." value="10">
-        <button class="copy-btn" onclick="copyValue('decInput')">📋 复制</button>
-      </div>
 
-      <!-- 十六进制 -->
-      <div class="radix-card">
-        <div class="radix-header">
-          <div class="radix-title">🔶 十六进制</div>
-          <div class="radix-base">HEX</div>
+        <!-- 错误态: aria-live, 稳定占位, 无 alert -->
+        <p class="rn-error" id="rnError" role="status" aria-live="polite" aria-atomic="true"></p>
+
+        <div class="rn-rows">
+          <!-- 二进制 -->
+          <div class="rn-row">
+            <span class="rn-base" aria-label="基数 2">2</span>
+            <span class="rn-abbr">BIN</span>
+            <input type="text" id="binInput" class="ts-input rn-input" placeholder="0 1" value="1010" inputmode="numeric" autocomplete="off" aria-label="二进制输入" aria-describedby="rnError">
+            <button class="ts-btn ts-btn--secondary rn-copy" type="button" onclick="copyValue('binInput')" aria-label="复制二进制结果">复制</button>
+          </div>
+
+          <!-- 八进制 -->
+          <div class="rn-row">
+            <span class="rn-base" aria-label="基数 8">8</span>
+            <span class="rn-abbr">OCT</span>
+            <input type="text" id="octInput" class="ts-input rn-input" placeholder="0-7" value="12" inputmode="numeric" autocomplete="off" aria-label="八进制输入" aria-describedby="rnError">
+            <button class="ts-btn ts-btn--secondary rn-copy" type="button" onclick="copyValue('octInput')" aria-label="复制八进制结果">复制</button>
+          </div>
+
+          <!-- 十进制 -->
+          <div class="rn-row">
+            <span class="rn-base" aria-label="基数 10">10</span>
+            <span class="rn-abbr">DEC</span>
+            <input type="text" id="decInput" class="ts-input rn-input" placeholder="0-9" value="10" inputmode="numeric" autocomplete="off" aria-label="十进制输入" aria-describedby="rnError">
+            <button class="ts-btn ts-btn--secondary rn-copy" type="button" onclick="copyValue('decInput')" aria-label="复制十进制结果">复制</button>
+          </div>
+
+          <!-- 十六进制 -->
+          <div class="rn-row">
+            <span class="rn-base" aria-label="基数 16">16</span>
+            <span class="rn-abbr">HEX</span>
+            <input type="text" id="hexInput" class="ts-input rn-input" placeholder="0-9 A-F" value="A" inputmode="text" autocomplete="off" aria-label="十六进制输入" aria-describedby="rnError">
+            <button class="ts-btn ts-btn--secondary rn-copy" type="button" onclick="copyValue('hexInput')" aria-label="复制十六进制结果">复制</button>
+          </div>
         </div>
-        <div class="radix-prefix">前缀: 0x</div>
-        <input type="text" id="hexInput" class="radix-input" placeholder="输入十六进制..." value="A">
-        <button class="copy-btn" onclick="copyValue('hexInput')">📋 复制</button>
-      </div>
+      </section>
+
+      <!-- 位运算面板 -->
+      <section class="ts-panel rn-bitwise" aria-labelledby="rn-bitwise-title">
+        <h2 class="ts-panel__title" id="rn-bitwise-title">位运算</h2>
+        <p class="ts-panel__sub">BITWISE · 按十进制输入，按 32 位有符号整数语义执行</p>
+
+        <div class="rn-bw-grid">
+          <div class="rn-field">
+            <label class="rn-field__label" for="operandA">操作数 A (十进制)</label>
+            <input type="text" id="operandA" class="ts-input rn-bw-input" placeholder="输入第一个数" value="10" inputmode="numeric" autocomplete="off">
+          </div>
+
+          <div class="rn-field">
+            <label class="rn-field__label" for="operator">运算符</label>
+            <select id="operator" class="ts-select rn-bw-select" onchange="calculateBitwise()">
+              <option value="and">&amp; (AND)</option>
+              <option value="or">| (OR)</option>
+              <option value="xor">^ (XOR)</option>
+              <option value="not">~ (NOT)</option>
+              <option value="lshift">&lt;&lt; (左移)</option>
+              <option value="rshift">&gt;&gt; (右移)</option>
+            </select>
+          </div>
+
+          <div class="rn-field" id="operandBContainer">
+            <label class="rn-field__label" for="operandB">操作数 B (十进制)</label>
+            <input type="text" id="operandB" class="ts-input rn-bw-input" placeholder="输入第二个数" value="6" inputmode="numeric" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="rn-bw-result" aria-live="polite" aria-atomic="true">
+          <div class="rn-bw-result__label">运算结果</div>
+          <div class="rn-bw-result__value rn-mono" id="bitwiseResult">-</div>
+          <div class="rn-bw-result__details rn-mono" id="bitwiseDetails"></div>
+        </div>
+      </section>
+
+      <!-- 底部说明 -->
+      <p class="rn-note">
+        说明：进制转换基于 JavaScript 的 <code>parseInt(value, base)</code> 与 <code>Number.toString(base)</code>，仅支持非负整数且不超过 32 位安全整数范围。位运算按 32 位有符号整数执行，<code>NOT</code> 运算仅使用操作数 A 并自动隐藏操作数 B。所有处理在浏览器本地完成，不上传服务器。
+      </p>
+
     </div>
+  </main>
 
-    <!-- 位运算区 -->
-    <div class="bitwise-section">
-      <div class="section-title">⚙️ 位运算工具</div>
-      
-      <div class="bitwise-grid">
-        <div>
-          <label style="color: #6d4aff; font-size: 13px; display: block; margin-bottom: 8px;">操作数 A (十进制)</label>
-          <input type="text" id="operandA" class="bitwise-input" placeholder="输入第一个数" value="10">
-        </div>
-        
-        <div>
-          <label style="color: #6d4aff; font-size: 13px; display: block; margin-bottom: 8px;">运算符</label>
-          <select id="operator" class="operator-select" onchange="calculateBitwise()">
-            <option value="and">& (AND)</option>
-            <option value="or">| (OR)</option>
-            <option value="xor">^ (XOR)</option>
-            <option value="not">~ (NOT)</option>
-            <option value="lshift"><< (左移)</option>
-            <option value="rshift">>> (右移)</option>
-          </select>
-        </div>
-        
-        <div id="operandBContainer">
-          <label style="color: #6d4aff; font-size: 13px; display: block; margin-bottom: 8px;">操作数 B (十进制)</label>
-          <input type="text" id="operandB" class="bitwise-input" placeholder="输入第二个数" value="6">
-        </div>
-      </div>
-
-      <div class="result-box" style="margin-top: 20px;">
-        <div class="result-label">运算结果</div>
-        <div class="result-value" id="bitwiseResult">-</div>
-        <div style="margin-top: 15px; font-size: 13px; color: #888;" id="bitwiseDetails"></div>
-      </div>
+  <!-- 页脚 -->
+  <footer class="ts-foot">
+    <div class="ts-foot__inner">
+      <span>© 2024–2026 wychmod Developer Workspace</span>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/tools/index.html">工具集</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/#/">返回主站</a>
     </div>
-  </div>
+  </footer>
 
   <script>
-    let isConverting = false;
+    /* =========================================================
+       进制转换工具脚本
+       保留原函数名 / ID / 事件契约:
+         binInput / octInput / decInput / hexInput
+         convertFrom(sourceType, sourceBase)
+         isValidInput(value, base)
+         clearAllExcept(exceptType)
+         copyValue(inputId)
+         operandA / operandB / operator / operandBContainer
+         calculateBitwise()
+         bitwiseResult / bitwiseDetails
+         showMessage(message, type)
+       增强点:
+         - 非法字符精准定位 (findInvalidChar)
+         - aria-live 错误区域 (无 alert, 稳定占位)
+         - Clipboard API + execCommand 回退
+         - toast 用 aria-live, 修复旧 slideOut 未定义 bug
+       ========================================================= */
 
-    // 初始化
-    document.addEventListener('DOMContentLoaded', function() {
-      // 绑定输入事件
-      document.getElementById('binInput').addEventListener('input', () => convertFrom('bin', 2));
-      document.getElementById('octInput').addEventListener('input', () => convertFrom('oct', 8));
-      document.getElementById('decInput').addEventListener('input', () => convertFrom('dec', 10));
-      document.getElementById('hexInput').addEventListener('input', () => convertFrom('hex', 16));
-      
-      // 绑定位运算输入
-      document.getElementById('operandA').addEventListener('input', calculateBitwise);
-      document.getElementById('operandB').addEventListener('input', calculateBitwise);
-      
-      // 初始转换
-      convertFrom('dec', 10);
-      calculateBitwise();
-    });
+    var isConverting = false;
 
-    // 从指定进制转换
+    /* ---------- 非法字符检测 (新增助手, 不改 isValidInput 语义) ---------- */
+    function findInvalidChar(value, base) {
+      var validChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, base);
+      for (var i = 0; i < value.length; i++) {
+        if (validChars.indexOf(value[i]) === -1) return value[i];
+      }
+      return null;
+    }
+
+    /* ---------- 验证输入 (保留原签名) ---------- */
+    function isValidInput(value, base) {
+      return findInvalidChar(value, base) === null;
+    }
+
+    /* ---------- 错误区域 (aria-live, 稳定占位) ---------- */
+    function setError(message) {
+      var el = document.getElementById('rnError');
+      if (!el) return;
+      el.textContent = message || '';
+      if (message) el.classList.add('is-error');
+      else el.classList.remove('is-error');
+    }
+
+    function clearError() { setError(''); }
+
+    function markInputError(input, hasError) {
+      if (!input) return;
+      if (hasError) input.classList.add('is-error');
+      else input.classList.remove('is-error');
+    }
+
+    /* ---------- 清空除指定类型外的所有输入 (保留原签名) ---------- */
+    function clearAllExcept(exceptType) {
+      if (exceptType !== 'bin') {
+        var b = document.getElementById('binInput'); b.value = ''; markInputError(b, false);
+      }
+      if (exceptType !== 'oct') {
+        var o = document.getElementById('octInput'); o.value = ''; markInputError(o, false);
+      }
+      if (exceptType !== 'dec') {
+        var d = document.getElementById('decInput'); d.value = ''; markInputError(d, false);
+      }
+      if (exceptType !== 'hex') {
+        var h = document.getElementById('hexInput'); h.value = ''; markInputError(h, false);
+      }
+      clearError();
+    }
+
+    /* ---------- 清空全部 (新增薄包装, 任务要求 "clear") ---------- */
+    function clearAll() {
+      clearAllExcept(null);
+    }
+
+    /* ---------- 从指定进制转换 (保留原签名 + 行为) ---------- */
     function convertFrom(sourceType, sourceBase) {
       if (isConverting) return;
       isConverting = true;
 
-      const inputId = sourceType + 'Input';
-      const input = document.getElementById(inputId);
-      let value = input.value.trim().toUpperCase();
-      
-      // 移除前缀
-      value = value.replace(/^0[BbXx]/, '');
-      value = value.replace(/^0[Oo]/, '');
-      
+      var inputId = sourceType + 'Input';
+      var input = document.getElementById(inputId);
+      if (!input) { isConverting = false; return; }
+
+      var value = input.value.trim().toUpperCase();
+
+      // 移除前缀 0b / 0o / 0x
+      value = value.replace(/^0[BX]/, '').replace(/^0O/, '');
+
       if (!value) {
         clearAllExcept(sourceType);
         isConverting = false;
         return;
       }
 
+      // 验证输入: 指出具体非法字符
+      if (!isValidInput(value, sourceBase)) {
+        var badChar = findInvalidChar(value, sourceBase);
+        markInputError(input, true);
+        setError('字符 "' + badChar + '" 在 base ' + sourceBase + ' 中非法');
+        isConverting = false;
+        return;
+      }
+
+      markInputError(input, false);
+      clearError();
+
       try {
-        // 验证输入
-        if (!isValidInput(value, sourceBase)) {
-          input.classList.add('error');
-          isConverting = false;
-          return;
-        }
-
-        input.classList.remove('error');
-
         // 转换为十进制
-        const decimalValue = parseInt(value, sourceBase);
-        
+        var decimalValue = parseInt(value, sourceBase);
+
         if (isNaN(decimalValue) || decimalValue < 0) {
-          input.classList.add('error');
+          markInputError(input, true);
+          setError('当前版本仅支持非负整数，且不超过 32 位安全整数范围');
           isConverting = false;
           return;
         }
 
         // 更新其他进制
         if (sourceType !== 'bin') {
-          document.getElementById('binInput').value = decimalValue.toString(2);
-          document.getElementById('binInput').classList.remove('error');
+          var bin = document.getElementById('binInput');
+          bin.value = decimalValue.toString(2);
+          markInputError(bin, false);
         }
         if (sourceType !== 'oct') {
-          document.getElementById('octInput').value = decimalValue.toString(8);
-          document.getElementById('octInput').classList.remove('error');
+          var oct = document.getElementById('octInput');
+          oct.value = decimalValue.toString(8);
+          markInputError(oct, false);
         }
         if (sourceType !== 'dec') {
-          document.getElementById('decInput').value = decimalValue.toString(10);
-          document.getElementById('decInput').classList.remove('error');
+          var dec = document.getElementById('decInput');
+          dec.value = decimalValue.toString(10);
+          markInputError(dec, false);
         }
         if (sourceType !== 'hex') {
-          document.getElementById('hexInput').value = decimalValue.toString(16).toUpperCase();
-          document.getElementById('hexInput').classList.remove('error');
+          var hex = document.getElementById('hexInput');
+          hex.value = decimalValue.toString(16).toUpperCase();
+          markInputError(hex, false);
         }
-
       } catch (e) {
-        input.classList.add('error');
+        markInputError(input, true);
+        setError('解析失败：' + (e && e.message ? e.message : String(e)));
       }
 
       isConverting = false;
     }
 
-    // 验证输入
-    function isValidInput(value, base) {
-      const validChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.slice(0, base);
-      for (let char of value) {
-        if (!validChars.includes(char)) {
-          return false;
-        }
+    /* ---------- 复制: Clipboard API + execCommand 回退 ---------- */
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      ta.style.top = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      if (ok) showMessage('已复制到剪贴板', 'success');
+      else showMessage('复制失败，请手动复制', 'error');
+    }
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          showMessage('已复制到剪贴板', 'success');
+        }).catch(function () {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
       }
-      return true;
     }
 
-    // 清空除指定类型外的所有输入
-    function clearAllExcept(exceptType) {
-      if (exceptType !== 'bin') document.getElementById('binInput').value = '';
-      if (exceptType !== 'oct') document.getElementById('octInput').value = '';
-      if (exceptType !== 'dec') document.getElementById('decInput').value = '';
-      if (exceptType !== 'hex') document.getElementById('hexInput').value = '';
-    }
-
-    // 复制值
+    /* ---------- 复制某个输入框内容 (保留原签名) ---------- */
     function copyValue(inputId) {
-      const input = document.getElementById(inputId);
-      if (!input.value) {
+      var input = document.getElementById(inputId);
+      if (!input || !input.value) {
         showMessage('没有可复制的内容', 'error');
         return;
       }
-
-      input.select();
-      document.execCommand('copy');
-      showMessage('✓ 已复制到剪贴板', 'success');
+      copyText(input.value);
     }
 
-    // 位运算计算
+    /* ---------- 位运算计算 (保留原签名 + 行为) ---------- */
     function calculateBitwise() {
-      const aValue = parseInt(document.getElementById('operandA').value) || 0;
-      const bValue = parseInt(document.getElementById('operandB').value) || 0;
-      const operator = document.getElementById('operator').value;
+      var aValue = parseInt(document.getElementById('operandA').value) || 0;
+      var bValue = parseInt(document.getElementById('operandB').value) || 0;
+      var operator = document.getElementById('operator').value;
+      var bContainer = document.getElementById('operandBContainer');
 
-      let result;
-      let details = '';
+      var result;
+      var details = '';
 
-      // NOT运算只需要一个操作数
+      // NOT 运算只需要一个操作数, 隐藏 B (保留原行为)
       if (operator === 'not') {
-        document.getElementById('operandBContainer').style.display = 'none';
+        bContainer.style.display = 'none';
         result = ~aValue;
-        details = `二进制: ~${aValue.toString(2)} = ${result.toString(2)}`;
+        details = '~' + aValue + ' = ' + result + '   (二进制: ~' + aValue.toString(2) + ' = ' + result.toString(2) + ')';
       } else {
-        document.getElementById('operandBContainer').style.display = 'block';
-        
+        bContainer.style.display = '';
+
         switch (operator) {
           case 'and':
             result = aValue & bValue;
-            details = `二进制: ${aValue.toString(2)} & ${bValue.toString(2)} = ${result.toString(2)}`;
+            details = aValue + ' & ' + bValue + ' = ' + result + '   (二进制: ' + aValue.toString(2) + ' & ' + bValue.toString(2) + ' = ' + result.toString(2) + ')';
             break;
           case 'or':
             result = aValue | bValue;
-            details = `二进制: ${aValue.toString(2)} | ${bValue.toString(2)} = ${result.toString(2)}`;
+            details = aValue + ' | ' + bValue + ' = ' + result + '   (二进制: ' + aValue.toString(2) + ' | ' + bValue.toString(2) + ' = ' + result.toString(2) + ')';
             break;
           case 'xor':
             result = aValue ^ bValue;
-            details = `二进制: ${aValue.toString(2)} ^ ${bValue.toString(2)} = ${result.toString(2)}`;
+            details = aValue + ' ^ ' + bValue + ' = ' + result + '   (二进制: ' + aValue.toString(2) + ' ^ ' + bValue.toString(2) + ' = ' + result.toString(2) + ')';
             break;
           case 'lshift':
             result = aValue << bValue;
-            details = `二进制: ${aValue.toString(2)} << ${bValue} = ${result.toString(2)}`;
+            details = aValue + ' << ' + bValue + ' = ' + result + '   (二进制: ' + aValue.toString(2) + ' << ' + bValue + ' = ' + result.toString(2) + ')';
             break;
           case 'rshift':
             result = aValue >> bValue;
-            details = `二进制: ${aValue.toString(2)} >> ${bValue} = ${result.toString(2)}`;
+            details = aValue + ' >> ' + bValue + ' = ' + result + '   (二进制: ' + aValue.toString(2) + ' >> ' + bValue + ' = ' + result.toString(2) + ')';
             break;
+          default:
+            result = 0;
+            details = '';
         }
       }
 
@@ -586,18 +689,71 @@
       document.getElementById('bitwiseDetails').textContent = details;
     }
 
-    // 显示消息
-    function showMessage(message, type) {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${type}`;
-      messageDiv.textContent = message;
-      document.body.appendChild(messageDiv);
-      
-      setTimeout(() => {
-        messageDiv.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => document.body.removeChild(messageDiv), 300);
-      }, 2000);
+    /* ---------- Toast 区域 (aria-live, 修复旧 slideOut bug) ---------- */
+    function ensureToastRegion() {
+      var region = document.getElementById('rnToast');
+      if (!region) {
+        region = document.createElement('div');
+        region.id = 'rnToast';
+        region.className = 'rn-toast';
+        region.setAttribute('role', 'status');
+        region.setAttribute('aria-live', 'polite');
+        region.setAttribute('aria-atomic', 'true');
+        document.body.appendChild(region);
+      }
+      return region;
     }
+
+    var toastTimer = null;
+    function showMessage(message, type) {
+      var region = ensureToastRegion();
+      region.textContent = message;
+      region.className = 'rn-toast rn-toast--' + (type || 'success');
+      // 强制 reflow 以便重复触发 transition
+      void region.offsetWidth;
+      region.classList.add('is-visible');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () {
+        region.classList.remove('is-visible');
+        var t = region;
+        setTimeout(function () { if (t) t.textContent = ''; }, 280);
+      }, 2200);
+    }
+
+    /* ---------- 初始化 ---------- */
+    document.addEventListener('DOMContentLoaded', function () {
+      // 绑定进制输入事件 (实时转换)
+      document.getElementById('binInput').addEventListener('input', function () { convertFrom('bin', 2); });
+      document.getElementById('octInput').addEventListener('input', function () { convertFrom('oct', 8); });
+      document.getElementById('decInput').addEventListener('input', function () { convertFrom('dec', 10); });
+      document.getElementById('hexInput').addEventListener('input', function () { convertFrom('hex', 16); });
+
+      // 绑定位运算输入
+      document.getElementById('operandA').addEventListener('input', calculateBitwise);
+      document.getElementById('operandB').addEventListener('input', calculateBitwise);
+
+      // 顶部导航抽屉 (移动端)
+      var topbar = document.querySelector('.ts-topbar');
+      var menuBtn = topbar && topbar.querySelector('.ts-topbar__menu-btn');
+      var nav = topbar && topbar.querySelector('.ts-topbar__nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('.ts-topbar__nav-item')) {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      // 初始转换
+      convertFrom('dec', 10);
+      calculateBitwise();
+    });
   </script>
 </body>
 </html>

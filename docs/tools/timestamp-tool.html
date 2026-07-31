@@ -4,555 +4,716 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>时间戳转换工具 - wychmod Developer Workspace</title>
+  <meta name="description" content="本地时间戳转换工具：日期时间与 Unix 时间戳（秒/毫秒）双向互转，显示浏览器本地时区与 UTC，附编程语言示例。核心处理在浏览器本地完成，不上传服务器。">
+  <link rel="canonical" href="https://wychmod.github.io/tools/timestamp-tool.html">
+  <!-- 视觉母体令牌(只读复用, 不改其值) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <!-- 工具页共享外壳(scoped, READ-ONLY) -->
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260730a">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ===========================================================
+       P023 时间戳工具专属样式 (page-specific, scoped via .ti-* prefix)
+       外壳基类来自 tool-studio.css; 此处只放转换卡 / 时间线 / 代码 tab
+       令牌来源 studio-tokens.css, 不重新定义色值 / 字体 / 空间值
+       =========================================================== */
+
+    .tool-studio .ti-mono {
+      font-family: var(--studio-font-mono);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.01em;
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
-      color: #37352f;
-      padding: 20px;
-      min-height: 100vh;
+    /* ---------- 状态条里的实时钟(防抖动, SR 静音) ---------- */
+    .tool-studio .ti-live { white-space: nowrap; }
+    .tool-studio .ti-live .ts-status__value { min-width: 1ch; }
+    .tool-studio .ti-live .ti-tz {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      margin-left: 4px;
     }
+    /* 固定宽度, 避免每秒数字变化导致布局跳动 */
+    .tool-studio #currentDateTime { min-width: 19ch; display: inline-block; }
+    .tool-studio #currentTimestamp { min-width: 10ch; display: inline-block; }
+    .tool-studio #currentTimestampMs { min-width: 13ch; display: inline-block; }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .header {
-      text-align: center;
-      padding: 30px 0;
-      margin-bottom: 30px;
-      border-bottom: 2px solid #6d4aff;
-    }
-
-    .header h1 {
-      color: #0b6bcb;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-
-    .header p {
-      color: #5f5d57;
-      font-size: 1.1em;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #6d4aff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-
-    .back-link:hover {
-      color: #0b6bcb;
-    }
-
-    /* 当前时间展示区 */
-    .current-time-section {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
-      text-align: center;
-    }
-
-    .current-time-section h2 {
-      color: #0b6bcb;
-      margin-bottom: 20px;
-      font-size: 1.5em;
-    }
-
-    .time-display {
+    /* ---------- 双向转换区 ---------- */
+    .tool-studio .ti-convert {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 20px;
+      grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: var(--studio-space-6);
     }
-
-    .time-box {
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #5636d7;
-      border-radius: 8px;
-      padding: 20px;
-    }
-
-    .time-label {
-      color: #6d4aff;
-      font-size: 14px;
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
-    .time-value {
-      color: #0b6bcb;
-      font-size: 28px;
-      font-weight: 700;
-      font-family: 'Consolas', 'Monaco', monospace;
-      margin-bottom: 10px;
-    }
-
-    .time-desc {
-      color: #5f5d57;
-      font-size: 12px;
-    }
-
-    /* 转换工具区 */
-    .converter-section {
+    .tool-studio .ti-convert__swap {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-      gap: 30px;
-      margin-bottom: 30px;
+      place-items: center;
+      color: var(--studio-text-muted);
+      font-family: var(--studio-font-mono);
+      font-size: 18px;
+      user-select: none;
     }
-
-    .converter-box {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
+    .tool-studio .ti-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--studio-space-4);
+      height: 100%;
     }
-
-    .converter-box h3 {
-      color: #0b6bcb;
-      margin-bottom: 20px;
-      font-size: 1.3em;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-    }
-
-    .input-label {
-      color: #6d4aff;
-      font-size: 14px;
-      margin-bottom: 8px;
-      display: block;
-      font-weight: 600;
-    }
-
-    input[type="text"],
-    input[type="datetime-local"] {
-      width: 100%;
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 12px 15px;
-      color: #37352f;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 14px;
-      transition: all 0.3s;
-    }
-
-    input[type="text"]:focus,
-    input[type="datetime-local"]:focus {
-      outline: none;
-      border-color: #6d4aff;
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
-    }
-
-    button {
-      background: linear-gradient(135deg, #6d4aff, #0b6bcb);
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 2px 8px rgba(109, 74, 255, 0.22);
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.35);
-    }
-
-    .converter-box button {
-      width: 100%;
-    }
-
-    .result-box {
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #5636d7;
-      border-radius: 8px;
-      padding: 15px;
-      margin-top: 15px;
-      min-height: 60px;
+    .tool-studio .ti-card__head { display: flex; flex-direction: column; gap: 2px; }
+    .tool-studio .ti-card__head .ts-panel__title { margin: 0; }
+    .tool-studio .ti-card__foot {
       display: flex;
       align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
+      justify-content: space-between;
+      gap: var(--studio-space-3);
+      margin-top: auto;
+      padding-top: var(--studio-space-3);
+      border-top: 1px dashed var(--studio-paper-line);
     }
 
-    .result-text {
-      color: #0b6bcb;
-      font-size: 18px;
+    /* ---------- 字段 ---------- */
+    .tool-studio .ti-field { display: flex; flex-direction: column; gap: 6px; }
+    .tool-studio .ti-field__label {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--studio-text-muted);
+    }
+    .tool-studio .ti-field__input { font-family: var(--studio-font-mono); }
+
+    .tool-studio .ti-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--studio-space-2);
+    }
+    .tool-studio .ti-row .ts-btn { flex: 1 1 auto; }
+
+    /* ---------- 输出格式 segmented ---------- */
+    .tool-studio .ti-toggle {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--studio-space-2);
+    }
+    .tool-studio .ti-toggle__label {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--studio-text-muted);
+      margin-right: 4px;
+    }
+    .tool-studio .ti-toggle__btn {
+      min-height: 34px;
+      padding: 6px 12px;
+      font-size: 13px;
+      flex: 0 0 auto;
+    }
+    .tool-studio .ti-toggle__btn.is-active {
+      background: var(--studio-ink-900);
+      color: var(--studio-on-dark);
+      border-color: var(--studio-ink-900);
+    }
+
+    /* ---------- 结果区 ---------- */
+    .tool-studio .ti-result {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: var(--studio-space-3) var(--studio-space-4);
+      background: var(--studio-paper-100);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      min-height: 64px;
+    }
+    .tool-studio .ti-result__row {
+      display: flex;
+      align-items: baseline;
+      gap: var(--studio-space-3);
+    }
+    .tool-studio .ti-result__label {
+      flex: 0 0 72px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
+    }
+    .tool-studio .ti-result__value {
+      flex: 1 1 auto;
+      font-size: 15px;
+      color: var(--studio-text);
+      word-break: break-all;
+    }
+    .tool-studio .ti-result__value.is-primary {
+      color: var(--studio-ink-950);
       font-weight: 600;
-      font-family: 'Consolas', 'Monaco', monospace;
-      text-align: center;
     }
 
-    /* 说明文档区 */
-    .docs-section {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
+    .tool-studio .ti-detect {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      letter-spacing: 0.02em;
     }
 
-    .docs-section h2 {
-      color: #0b6bcb;
-      margin-bottom: 20px;
-      font-size: 1.8em;
-      border-bottom: 2px solid #6d4aff;
-      padding-bottom: 10px;
+    /* ---------- 卡内状态(成功/错误) ---------- */
+    .tool-studio .ti-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--studio-text-muted);
     }
-
-    .docs-section h3 {
-      color: #6d4aff;
-      margin-top: 25px;
-      margin-bottom: 15px;
-      font-size: 1.3em;
+    .tool-studio .ti-status::before {
+      content: "";
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--studio-text-muted);
+      display: inline-block;
     }
+    .tool-studio .ti-status.is-success { color: var(--studio-green-dark); }
+    .tool-studio .ti-status.is-success::before { background: var(--studio-green); }
+    .tool-studio .ti-status.is-error { color: #b64b45; }
+    .tool-studio .ti-status.is-error::before { background: #b64b45; }
 
-    .docs-section p {
-      color: #5f5d57;
-      line-height: 1.8;
-      margin-bottom: 15px;
+    /* ---------- 规则卡(说明用, 不常驻红色告警) ---------- */
+    .tool-studio .ti-rules {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--studio-space-4);
+      margin-bottom: var(--studio-space-6);
     }
-
-    .docs-section ul {
-      color: #5f5d57;
-      line-height: 1.8;
-      margin-left: 25px;
-      margin-bottom: 15px;
+    .tool-studio .ti-rule {
+      padding: var(--studio-space-4);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      background: var(--studio-paper-50);
     }
-
-    .docs-section li {
-      margin-bottom: 8px;
+    .tool-studio .ti-rule--ok { border-left: 3px solid var(--studio-green-dark); }
+    .tool-studio .ti-rule--warn { border-left: 3px solid #b64b45; }
+    .tool-studio .ti-rule__title {
+      margin: 0 0 var(--studio-space-2);
+      font-family: var(--studio-font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--studio-text);
     }
-
-    .code-block {
-      background: #f7f6f3;
-      border: 1px solid #5636d7;
-      border-radius: 8px;
-      padding: 15px;
-      margin: 15px 0;
-      overflow-x: auto;
-    }
-
-    .code-block pre {
-      color: #37352f;
-      font-family: 'Consolas', 'Monaco', monospace;
+    .tool-studio .ti-rule__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .tool-studio .ti-rule__list li {
       font-size: 13px;
       line-height: 1.6;
-      margin: 0;
-      white-space: pre;
-      word-wrap: normal;
+      color: var(--studio-text-muted);
+      padding-left: 14px;
+      position: relative;
+    }
+    .tool-studio .ti-rule__list li::before {
+      content: "";
+      position: absolute; left: 0; top: 9px;
+      width: 6px; height: 1px;
+      background: var(--studio-gold);
+    }
+    .tool-studio .ti-rule__list code {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text);
+    }
+
+    /* ---------- 折叠区块(时间线 / 代码) ---------- */
+    .tool-studio .ti-accordion {
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      background: transparent;
+      margin-bottom: var(--studio-space-6);
+      overflow: hidden;
+    }
+    .tool-studio .ti-accordion > summary { list-style: none; }
+    .tool-studio .ti-accordion > summary::-webkit-details-marker { display: none; }
+    .tool-studio .ti-accordion__head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--studio-paper-50);
+      border-bottom: 1px solid var(--studio-paper-line);
+      cursor: pointer;
+      user-select: none;
+    }
+    .tool-studio .ti-accordion:not([open]) .ti-accordion__head { border-bottom: 0; }
+    .tool-studio .ti-accordion__num {
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--studio-gold);
+      letter-spacing: 0.04em;
+    }
+    .tool-studio .ti-accordion__name {
+      font-family: var(--studio-font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--studio-text);
+    }
+    .tool-studio .ti-accordion__hint {
+      margin-left: auto;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      letter-spacing: 0.04em;
+    }
+    .tool-studio .ti-accordion__chevron {
+      width: 9px; height: 9px;
+      border-right: 2px solid var(--studio-text-muted);
+      border-bottom: 2px solid var(--studio-text-muted);
+      transform: rotate(-45deg);
+      transition: transform var(--studio-dur-fast) var(--studio-ease);
+    }
+    .tool-studio .ti-accordion[open] .ti-accordion__chevron { transform: rotate(45deg); }
+    .tool-studio .ti-accordion__body { padding: var(--studio-space-5); }
+
+    /* ---------- 时间知识时间线 ---------- */
+    .tool-studio .ti-timeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: var(--studio-space-5);
       overflow-x: auto;
     }
-
-    .code-header {
+    .tool-studio .ti-timeline__node {
+      flex: 1 1 0;
+      min-width: 120px;
+      padding: var(--studio-space-3) var(--studio-space-4);
+      border-left: 2px solid var(--studio-gold);
+      position: relative;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      gap: 10px;
+      flex-direction: column;
+      gap: 4px;
     }
-
-    .code-lang {
-      color: #6d4aff;
-      font-weight: 600;
+    .tool-studio .ti-timeline__node:first-child { border-left-color: var(--studio-ink-950); }
+    .tool-studio .ti-timeline__node:last-child { border-left-color: var(--studio-green-dark); }
+    .tool-studio .ti-timeline__label {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
+    }
+    .tool-studio .ti-timeline__value {
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      color: var(--studio-text);
+    }
+    .tool-studio .ti-timeline__explain {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--studio-space-4);
+    }
+    .tool-studio .ti-explain {
+      padding: var(--studio-space-3) var(--studio-space-4);
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+    }
+    .tool-studio .ti-explain__title {
+      margin: 0 0 6px;
+      font-family: var(--studio-font-display);
       font-size: 14px;
-    }
-
-    .copy-code-btn {
-      background: rgba(109, 74, 255, 0.12);
-      color: #0b6bcb;
-      border: 1px solid #6d4aff;
-      padding: 6px 12px;
-      font-size: 12px;
-      cursor: pointer;
-      border-radius: 4px;
-      width: auto;
-      min-width: 60px;
-      max-width: 80px;
-      transition: all 0.3s;
-      white-space: nowrap;
-    }
-
-    .copy-code-btn:hover {
-      background: rgba(59, 130, 246, 0.5);
-      border-color: #0b6bcb;
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(109, 74, 255, 0.22);
-    }
-
-    .tip-box {
-      background: rgba(96, 165, 250, 0.15);
-      border: 2px solid #0b6bcb;
-      border-radius: 8px;
-      padding: 15px;
-      margin: 20px 0;
-    }
-
-    .tip-box strong {
-      color: #0b6bcb;
-    }
-
-    .message {
-      position: fixed;
-      top: 100px;
-      right: 30px;
-      padding: 15px 25px;
-      border-radius: 8px;
       font-weight: 600;
+      color: var(--studio-text);
+    }
+    .tool-studio .ti-explain__text {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--studio-text-muted);
+    }
+
+    /* ---------- 代码示例 ---------- */
+    .tool-studio .ti-code__head {
+      display: flex;
+      align-items: center;
+      gap: var(--studio-space-3);
+      margin-bottom: var(--studio-space-4);
+      flex-wrap: wrap;
+    }
+    .tool-studio .ti-code__tabs { display: flex; flex-wrap: wrap; gap: var(--studio-space-1); }
+    .tool-studio .ti-code__tab {
+      padding: 8px 12px;
+      font-family: var(--studio-font-body);
+      font-size: 13px;
+      color: var(--studio-text-muted);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--studio-radius-sm);
+      cursor: pointer;
+      transition: color var(--studio-dur-fast) var(--studio-ease),
+                  background var(--studio-dur-fast) var(--studio-ease);
+    }
+    .tool-studio .ti-code__tab:hover { color: var(--studio-text); background: var(--studio-paper-50); }
+    .tool-studio .ti-code__tab.is-active {
+      color: var(--studio-text);
+      background: var(--studio-paper-50);
+      border-color: var(--studio-paper-line);
+      font-weight: 600;
+    }
+    .tool-studio .ti-code__copy { margin-left: auto; }
+    .tool-studio .ti-code__panel {
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      overflow: hidden;
+    }
+    .tool-studio .ti-code__pre {
+      margin: 0;
+      padding: var(--studio-space-4);
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--studio-text);
+      white-space: pre;
+      overflow-x: auto;
+      tab-size: 2;
+    }
+    .tool-studio .ti-code__note {
+      margin: var(--studio-space-3) 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--studio-text-muted);
+    }
+
+    /* ---------- Toast (showMessage) ---------- */
+    .tool-studio .ti-toast {
+      position: fixed;
+      top: 80px;
+      right: 24px;
       z-index: 10000;
-      animation: slideIn 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      max-width: 320px;
+      padding: 12px 18px;
+      border-radius: var(--studio-radius-md);
+      font-size: 14px;
+      font-weight: 500;
+      background: var(--studio-ink-900);
+      color: var(--studio-on-dark);
+      border: 1px solid var(--studio-ink-800);
+      box-shadow: 0 6px 24px rgba(13, 16, 14, 0.22);
+      animation: ti-slide-in 0.22s var(--studio-ease);
+    }
+    .tool-studio .ti-toast--success { border-left: 3px solid var(--studio-green); }
+    .tool-studio .ti-toast--error { border-left: 3px solid #b64b45; }
+    .tool-studio .ti-toast.is-leaving { animation: ti-slide-out 0.3s var(--studio-ease) forwards; }
+
+    @keyframes ti-slide-in {
+      from { transform: translateX(120%); opacity: 0; }
+      to   { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes ti-slide-out {
+      from { transform: translateX(0); opacity: 1; }
+      to   { transform: translateX(120%); opacity: 0; }
     }
 
-    .message.success {
-      background: rgba(23, 143, 85, 0.12);
-      color: #178f55;
-      border: 2px solid #178f55;
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 1024px) {
+      .tool-studio .ti-convert { grid-template-columns: 1fr; gap: var(--studio-space-3) 0; }
+      .tool-studio .ti-convert__swap { padding: 4px 0; }
+      .tool-studio .ti-timeline__explain { grid-template-columns: 1fr; }
     }
-
-    .message.error {
-      background: rgba(214, 69, 69, 0.12);
-      color: #d64545;
-      border: 2px solid #d64545;
+    @media (max-width: 768px) {
+      .tool-studio .ti-rules { grid-template-columns: 1fr; }
+      .tool-studio .ti-result__label { flex: 0 0 64px; }
+      .tool-studio .ti-toast { top: 72px; right: 12px; left: 12px; max-width: none; }
+      /* 移动端隐藏实时钟里的毫秒项, 减少抖动与拥挤 */
+      .tool-studio .ti-live--ms { display: none; }
+      .tool-studio .ti-toggle__btn { min-height: 40px; }
+      .tool-studio .ti-code__tab { min-height: 40px; padding: 10px 12px; }
     }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    @media screen and (max-width: 768px) {
-      .header h1 {
-        font-size: 1.8em;
-      }
-
-      .converter-section {
-        grid-template-columns: 1fr;
-      }
-
-      .time-value {
-        font-size: 20px;
-      }
-
-      .code-block {
-        padding: 10px;
-      }
-
-      .code-block pre {
-        font-size: 12px;
-      }
-
-      .copy-code-btn {
-        font-size: 11px;
-        padding: 4px 8px;
-        min-width: 50px;
-      }
+    @media (max-width: 480px) {
+      .tool-studio .ti-result__value { font-size: 14px; }
+      .tool-studio .ti-code__pre { font-size: 12px; padding: var(--studio-space-3); }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
-<body>
-  <div class="container">
-    <div class="back-links" style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
-      <a href="/#/" class="back-link">← 返回主站</a>
-      <a href="index.html" class="back-link">← 返回工具集</a>
-    </div>
-    
-    <div class="header">
-      <h1>⏰ 时间戳转换工具</h1>
-      <p>Unix时间戳与日期时间的精准转换</p>
-    </div>
+<body class="tool-studio">
+  <a class="ts-skip-link" href="#ts-main">跳到主内容</a>
 
-    <!-- 当前时间展示区 -->
-    <div class="current-time-section">
-      <h2>🕐 当前时间</h2>
-      <div class="time-display">
-        <div class="time-box">
-          <div class="time-label">当前日期时间</div>
-          <div class="time-value" id="currentDateTime">-</div>
-          <div class="time-desc">格式：YYYY-MM-DD HH:mm:ss</div>
-        </div>
-        <div class="time-box">
-          <div class="time-label">秒级时间戳</div>
-          <div class="time-value" id="currentTimestamp">-</div>
-          <div class="time-desc">10位数字，单位：秒</div>
-        </div>
-        <div class="time-box">
-          <div class="time-label">毫秒级时间戳</div>
-          <div class="time-value" id="currentTimestampMs">-</div>
-          <div class="time-desc">13位数字，单位：毫秒</div>
-        </div>
+  <!-- 顶部工具导航(暖石墨, 镜像 tools/index.html) -->
+  <header class="ts-topbar">
+    <div class="ts-topbar__inner">
+      <button class="ts-topbar__menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="ts-topbar-nav">≡</button>
+      <a class="ts-topbar__brand" href="/#/" aria-label="wychmod 主站">
+        <span class="ts-topbar__logo" aria-hidden="true">W</span>
+        <span class="ts-topbar__brand-text">
+          <span class="ts-topbar__brand-name">wychmod</span>
+          <span class="ts-topbar__brand-sub">Developer Workspace</span>
+        </span>
+      </a>
+      <nav class="ts-topbar__nav" id="ts-topbar-nav" aria-label="主导航">
+        <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
+        <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
+        <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="ts-topbar__actions">
+        <span class="ts-topbar__status" title="核心处理在浏览器本地完成">
+          <span class="ts-topbar__status-dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-topbar__avatar" role="img" aria-label="wychmod 的 GitHub 头像">
+          <span class="ts-topbar__avatar-fallback" aria-hidden="true">W</span>
+          <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="32" height="32" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+        </span>
       </div>
     </div>
+  </header>
 
-    <!-- 转换工具区 -->
-    <div class="converter-section">
-      <!-- 日期时间转时间戳 -->
-      <div class="converter-box">
-        <h3>📅 日期时间 → 时间戳</h3>
-        <div class="input-group">
-          <label class="input-label">选择日期时间</label>
-          <input type="datetime-local" id="datetimeInput" />
-        </div>
-        <button onclick="convertToTimestamp()">🔄 转换为时间戳</button>
-        <div class="result-box">
-          <div class="result-text" id="timestampResult">等待转换...</div>
-        </div>
+  <!-- 主内容 -->
+  <main class="ts-main" id="ts-main">
+    <div class="ts-container">
+
+      <!-- 面包屑 -->
+      <nav class="ts-breadcrumb" aria-label="路径">
+        <span class="ts-breadcrumb__item">WYCHMOD</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <a class="ts-breadcrumb__item" href="/tools/index.html">TOOLS</a>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item is-current" aria-current="location">TIMESTAMP</span>
+      </nav>
+
+      <!-- 标题块 -->
+      <div class="ts-titleblock">
+        <h1 class="ts-titleblock__h1">时间戳转换工具<span class="ts-titleblock__h1-en"> / TIME INDEX</span></h1>
+        <p class="ts-titleblock__desc">在可读日期与 Unix 数字之间双向转换，看清楚这个时间在本地是什么、在全球时间线上是什么。时间戳基于 UTC，秒与毫秒是两种常见刻度，本工具帮你少犯单位与时区错误。</p>
       </div>
 
-      <!-- 时间戳转日期时间 -->
-      <div class="converter-box">
-        <h3>🔢 时间戳 → 日期时间</h3>
-        <div class="input-group">
-          <label class="input-label">输入时间戳（支持10位秒级或13位毫秒级）</label>
-          <input type="text" id="timestampInput" placeholder="例如: 1736559600 或 1736559600000" />
-        </div>
-        <button onclick="convertToDatetime()">🔄 转换为日期时间</button>
-        <div class="result-box">
-          <div class="result-text" id="datetimeResult">等待转换...</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 说明文档区 -->
-    <div class="docs-section">
-      <h2>📖 时间戳使用指南</h2>
-
-      <h3>💡 什么是时间戳？</h3>
-      <p>
-        时间戳（Timestamp）是指格林威治时间1970年01月01日00时00分00秒（北京时间1970年01月01日08时00分00秒）起至现在的总秒数或毫秒数。
-        它是一个用来表示时间的数字，在计算机系统中被广泛使用。
-      </p>
-
-      <div class="tip-box">
-        <strong>🎯 核心概念：</strong><br/>
-        • <strong>秒级时间戳</strong>：10位数字，精确到秒，如：1736559600<br/>
-        • <strong>毫秒级时间戳</strong>：13位数字，精确到毫秒，如：1736559600000
+      <!-- 状态条: 本地处理 + 实时钟(SR 静音, 避免每秒播报) -->
+      <div class="ts-status" role="group" aria-label="工具状态与实时时间">
+        <span class="ts-status__item">
+          <span class="ts-status__dot" aria-hidden="true"></span>
+          本地处理 · 不上传
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item ti-live" aria-hidden="true">
+          <span class="ts-status__label">本地时间</span>
+          <span class="ts-status__value ti-mono" id="currentDateTime">-</span>
+          <span class="ti-tz" id="tzOffsetLabel">UTC</span>
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item ti-live" aria-hidden="true">
+          <span class="ts-status__label">Unix 秒</span>
+          <span class="ts-status__value ti-mono" id="currentTimestamp">-</span>
+        </span>
+        <span class="ts-status__divider ti-live--ms" aria-hidden="true"></span>
+        <span class="ts-status__item ti-live ti-live--ms" aria-hidden="true">
+          <span class="ts-status__label">Unix 毫秒</span>
+          <span class="ts-status__value ti-mono" id="currentTimestampMs">-</span>
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">路径</span> <span class="ts-status__value">/tools/timestamp</span></span>
       </div>
 
-      <h3>🔧 使用场景</h3>
-      <ul>
-        <li><strong>数据存储</strong>：在数据库中存储时间，使用时间戳可以节省空间且便于计算</li>
-        <li><strong>接口开发</strong>：API接口传递时间参数时，时间戳是通用的格式</li>
-        <li><strong>日志记录</strong>：系统日志中使用时间戳记录事件发生的时间</li>
-        <li><strong>时间计算</strong>：计算时间差、时间比较等操作更加方便</li>
-        <li><strong>跨时区处理</strong>：时间戳是UTC时间，不受时区影响</li>
-        <li><strong>缓存过期</strong>：设置缓存的过期时间，判断数据是否过期</li>
-      </ul>
+      <!-- 双向转换区 -->
+      <div class="ti-convert">
 
-      <h3>💻 编程语言示例</h3>
+        <!-- 左: 日期时间 -> 时间戳 -->
+        <section class="ts-panel ti-card" aria-labelledby="ti-card-d2t-title">
+          <div class="ti-card__head">
+            <h2 class="ts-panel__title" id="ti-card-d2t-title">日期时间 → 时间戳</h2>
+            <p class="ts-panel__sub">DATETIME → UNIX · 浏览器本地时区</p>
+          </div>
 
-      <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">JavaScript / Node.js</span>
-          <button class="copy-code-btn" onclick="copyCode(this, 'js-code')">复制</button>
+          <div class="ti-field">
+            <label class="ti-field__label" for="datetimeInput">日期时间（按浏览器本地时区解析）</label>
+            <input class="ts-input ti-field__input" type="datetime-local" id="datetimeInput" />
+          </div>
+
+          <div class="ti-row">
+            <button class="ts-btn ts-btn--primary" type="button" onclick="convertToTimestamp()">转换为时间戳</button>
+            <button class="ts-btn ts-btn--ghost" type="button" onclick="setDatetimeNow()" aria-label="将日期时间设为当前时间">设为当前</button>
+          </div>
+
+          <div class="ti-toggle" role="group" aria-label="主输出格式">
+            <span class="ti-toggle__label">主输出</span>
+            <button class="ts-btn ts-btn--secondary ti-toggle__btn" type="button" id="tsUnitSec" aria-pressed="true" onclick="setTimestampOutputMode('sec')">秒（10 位）</button>
+            <button class="ts-btn ts-btn--ghost ti-toggle__btn" type="button" id="tsUnitMs" aria-pressed="false" onclick="setTimestampOutputMode('ms')">毫秒（13 位）</button>
+          </div>
+
+          <div class="ti-result" id="timestampResult" aria-live="polite" aria-atomic="true">
+            <div class="ti-result__row"><span class="ti-result__label">秒级</span><span class="ti-result__value ti-mono" id="tsResultSec">—</span></div>
+            <div class="ti-result__row"><span class="ti-result__label">毫秒级</span><span class="ti-result__value ti-mono" id="tsResultMs">—</span></div>
+          </div>
+
+          <div class="ti-card__foot">
+            <span class="ti-status" id="timestampStatus" role="status">等待转换</span>
+            <button class="ts-btn ts-btn--ghost" type="button" onclick="copyTimestampResult()" aria-label="复制时间戳结果">复制结果</button>
+          </div>
+        </section>
+
+        <!-- 中间方向符号(装饰, 非按钮, 不交换输入) -->
+        <div class="ti-convert__swap" aria-hidden="true" title="双向转换">⇄</div>
+
+        <!-- 右: 时间戳 -> 日期时间 -->
+        <section class="ts-panel ti-card" aria-labelledby="ti-card-t2d-title">
+          <div class="ti-card__head">
+            <h2 class="ts-panel__title" id="ti-card-t2d-title">时间戳 → 日期时间</h2>
+            <p class="ts-panel__sub">UNIX → DATETIME · 自动检测秒/毫秒</p>
+          </div>
+
+          <div class="ti-field">
+            <label class="ti-field__label" for="timestampInput">时间戳（仅 10 位秒或 13 位毫秒正整数）</label>
+            <input class="ts-input ti-field__input" type="text" id="timestampInput" placeholder="例如 1736553600 或 1736553600000" inputmode="numeric" autocomplete="off" />
+          </div>
+
+          <div class="ti-row">
+            <button class="ts-btn ts-btn--primary" type="button" onclick="convertToDatetime()">转换为日期时间</button>
+            <button class="ts-btn ts-btn--ghost" type="button" onclick="clearTimestamp()" aria-label="清空时间戳输入与结果">清空</button>
+          </div>
+
+          <div class="ti-detect" id="timestampDetect">检测：—</div>
+
+          <div class="ti-result" id="datetimeResult" aria-live="polite" aria-atomic="true">
+            <div class="ti-result__row"><span class="ti-result__label">本地时间</span><span class="ti-result__value ti-mono" id="dtResultLocal">—</span></div>
+            <div class="ti-result__row"><span class="ti-result__label">UTC (ISO)</span><span class="ti-result__value ti-mono" id="dtResultUtc">—</span></div>
+          </div>
+
+          <div class="ti-card__foot">
+            <span class="ti-status" id="datetimeStatus" role="status">等待转换</span>
+            <button class="ts-btn ts-btn--ghost" type="button" onclick="copyDatetimeResult()" aria-label="复制日期时间结果">复制结果</button>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- 规则卡: 绿色规则 + 红色常见错误(说明性, 非常驻告警) -->
+      <div class="ti-rules">
+        <section class="ti-rule ti-rule--ok" aria-labelledby="ti-rule-ok-title">
+          <h2 class="ti-rule__title" id="ti-rule-ok-title">长度规则</h2>
+          <ul class="ti-rule__list">
+            <li><code>10 位</code>：秒级精度，常见于 Unix 时间戳与多数后端 API。</li>
+            <li><code>13 位</code>：毫秒级精度，常见于 JavaScript <code>Date.now()</code> 与 Java <code>System.currentTimeMillis()</code>。</li>
+            <li>JavaScript <code>Date</code> 只有毫秒精度，本工具不显示真实微秒或纳秒。</li>
+          </ul>
+        </section>
+        <section class="ti-rule ti-rule--warn" aria-labelledby="ti-rule-warn-title">
+          <h2 class="ti-rule__title" id="ti-rule-warn-title">常见错误</h2>
+          <ul class="ti-rule__list">
+            <li>长度错误：输入不是 10 位或 13 位（例如 11、12 位）。</li>
+            <li>非法字符：包含字母、空格或符号；本工具不会静默删除，会直接报错。</li>
+            <li>负时间戳：本工具暂不支持负值（不静默去掉 <code>-</code>）。</li>
+            <li>范围错误：超出 JavaScript <code>Date</code> 可表示范围。</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- 时间知识记录(移动端折叠) -->
+      <details class="ti-accordion ti-accordion--mobile-closed" open>
+        <summary class="ti-accordion__head">
+          <span class="ti-accordion__num">01</span>
+          <span class="ti-accordion__name">时间知识记录</span>
+          <span class="ti-accordion__hint">Unix Epoch · UTC · 本地时间</span>
+          <span class="ti-accordion__chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="ti-accordion__body">
+          <div class="ti-timeline">
+            <div class="ti-timeline__node">
+              <span class="ti-timeline__label">Unix Epoch</span>
+              <span class="ti-timeline__value">1970-01-01 00:00:00 UTC</span>
+            </div>
+            <div class="ti-timeline__node">
+              <span class="ti-timeline__label">秒（s）</span>
+              <span class="ti-timeline__value">10 位整数</span>
+            </div>
+            <div class="ti-timeline__node">
+              <span class="ti-timeline__label">毫秒（ms）</span>
+              <span class="ti-timeline__value">13 位整数</span>
+            </div>
+            <div class="ti-timeline__node">
+              <span class="ti-timeline__label">现在</span>
+              <span class="ti-timeline__value ti-mono" id="currentTimestampTimeline">-</span>
+            </div>
+          </div>
+          <div class="ti-timeline__explain">
+            <div class="ti-explain">
+              <h3 class="ti-explain__title">UTC</h3>
+              <p class="ti-explain__text">时间戳基于协调世界时（UTC），不随时区变化。同一个时间戳在任何时区都指向同一瞬间。</p>
+            </div>
+            <div class="ti-explain">
+              <h3 class="ti-explain__title">本地时间</h3>
+              <p class="ti-explain__text">同一个时间戳在不同时区显示为不同的墙上时间。本工具的本地时间来自浏览器当前时区，文案标注为「浏览器本地时区（UTC±x）」。</p>
+            </div>
+            <div class="ti-explain">
+              <h3 class="ti-explain__title">秒与毫秒</h3>
+              <p class="ti-explain__text">10 位通常是秒，13 位通常是毫秒。混淆两者会让结果偏差 1000 倍，这是时间戳最常见的 bug。</p>
+            </div>
+          </div>
         </div>
-        <pre id="js-code">// 获取当前时间戳（毫秒）
+      </details>
+
+      <!-- 编程语言示例(移动端折叠) -->
+      <details class="ti-accordion ti-accordion--mobile-closed" open>
+        <summary class="ti-accordion__head">
+          <span class="ti-accordion__num">02</span>
+          <span class="ti-accordion__name">编程语言示例</span>
+          <span class="ti-accordion__hint">JS · Python · Java · Go · PHP</span>
+          <span class="ti-accordion__chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="ti-accordion__body">
+          <div class="ti-code">
+            <div class="ti-code__head">
+              <div class="ti-code__tabs" role="tablist" aria-label="编程语言示例">
+                <button class="ti-code__tab" type="button" role="tab" data-lang="js" aria-selected="true" onclick="setCodeTab('js')">JavaScript</button>
+                <button class="ti-code__tab" type="button" role="tab" data-lang="py" aria-selected="false" onclick="setCodeTab('py')">Python</button>
+                <button class="ti-code__tab" type="button" role="tab" data-lang="java" aria-selected="false" onclick="setCodeTab('java')">Java</button>
+                <button class="ti-code__tab" type="button" role="tab" data-lang="go" aria-selected="false" onclick="setCodeTab('go')">Go</button>
+                <button class="ti-code__tab" type="button" role="tab" data-lang="php" aria-selected="false" onclick="setCodeTab('php')">PHP</button>
+              </div>
+              <button class="ts-btn ts-btn--secondary ti-code__copy" id="tiCodeCopyBtn" type="button" data-code-id="js-code" onclick="copyCode(this, this.getAttribute('data-code-id'))" aria-label="复制当前语言示例代码">复制</button>
+            </div>
+
+            <!-- 示例时间戳与日期统一: 1736553600 秒 / 1736553600000 毫秒 = 2025-01-11 08:00:00 (UTC+8) -->
+            <div class="ti-code__panel">
+              <pre class="ti-code__pre" id="js-code">// 获取当前时间戳（毫秒）
 const timestampMs = Date.now();
-console.log(timestampMs); // 1736559600000
 
 // 获取当前时间戳（秒）
 const timestamp = Math.floor(Date.now() / 1000);
-console.log(timestamp); // 1736559600
 
-// 时间戳转日期
-const date = new Date(1736559600000);
-console.log(date.toLocaleString('zh-CN')); // 2026/1/11 08:00:00
+// 时间戳（毫秒）转日期：1736553600000 = 2025-01-11 08:00:00 (UTC+8)
+const date = new Date(1736553600000);
+console.log(date.toLocaleString('zh-CN')); // 2025/1/11 08:00:00 (UTC+8)
 
-// 日期转时间戳
-const newDate = new Date('2026-01-11 08:00:00');
-const newTimestamp = newDate.getTime();
-console.log(newTimestamp); // 1736559600000</pre>
-      </div>
-
-      <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">Python</span>
-          <button class="copy-code-btn" onclick="copyCode(this, 'py-code')">复制</button>
-        </div>
-        <pre id="py-code">import time
+// 日期转时间戳（按本地时区解析 ISO 本地时间）
+const newDate = new Date('2025-01-11T08:00:00');
+console.log(newDate.getTime()); // 1736553600000（在 UTC+8 下）</pre>
+              <pre class="ti-code__pre" id="py-code" hidden>import time
 from datetime import datetime
 
 # 获取当前时间戳（秒）
 timestamp = int(time.time())
-print(timestamp)  # 1736559600
 
 # 获取当前时间戳（毫秒）
 timestamp_ms = int(time.time() * 1000)
-print(timestamp_ms)  # 1736559600000
 
-# 时间戳转日期时间
-dt = datetime.fromtimestamp(1736559600)
-print(dt.strftime('%Y-%m-%d %H:%M:%S'))  # 2026-01-11 08:00:00
+# 时间戳（秒）转日期时间：1736553600 = 2025-01-11 08:00:00 (UTC+8)
+dt = datetime.fromtimestamp(1736553600)
+print(dt.strftime('%Y-%m-%d %H:%M:%S'))  # 2025-01-11 08:00:00
 
-# 日期时间转时间戳
-dt = datetime.strptime('2026-01-11 08:00:00', '%Y-%m-%d %H:%M:%S')
-timestamp = int(dt.timestamp())
-print(timestamp)  # 1736559600</pre>
-      </div>
-
-      <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">Java</span>
-          <button class="copy-code-btn" onclick="copyCode(this, 'java-code')">复制</button>
-        </div>
-        <pre id="java-code">import java.time.*;
+# 日期时间转时间戳（按本地时区）
+dt = datetime.strptime('2025-01-11 08:00:00', '%Y-%m-%d %H:%M:%S')
+print(int(dt.timestamp()))  # 1736553600（在 UTC+8 下）</pre>
+              <pre class="ti-code__pre" id="java-code" hidden>import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 // 获取当前时间戳（秒）
 long timestamp = Instant.now().getEpochSecond();
-System.out.println(timestamp); // 1736559600
 
 // 获取当前时间戳（毫秒）
 long timestampMs = System.currentTimeMillis();
-System.out.println(timestampMs); // 1736559600000
 
-// 时间戳转日期时间
+// 时间戳（秒）转日期时间：1736553600 = 2025-01-11 08:00:00 (UTC+8)
 LocalDateTime dateTime = LocalDateTime.ofEpochSecond(
-    1736559600, 0, ZoneOffset.ofHours(8)
+    1736553600, 0, ZoneOffset.ofHours(8)
 );
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-System.out.println(dateTime.format(formatter)); // 2026-01-11 08:00:00
+System.out.println(dateTime.format(formatter)); // 2025-01-11 08:00:00
 
-// 日期时间转时间戳
-LocalDateTime dt = LocalDateTime.parse("2026-01-11 08:00:00", formatter);
+// 日期时间转时间戳（指定时区 UTC+8）
+LocalDateTime dt = LocalDateTime.parse("2025-01-11 08:00:00", formatter);
 long ts = dt.toEpochSecond(ZoneOffset.ofHours(8));
-System.out.println(ts); // 1736559600</pre>
-      </div>
-
-      <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">Go</span>
-          <button class="copy-code-btn" onclick="copyCode(this, 'go-code')">复制</button>
-        </div>
-        <pre id="go-code">package main
+System.out.println(ts); // 1736553600</pre>
+              <pre class="ti-code__pre" id="go-code" hidden>package main
 
 import (
     "fmt"
@@ -562,231 +723,417 @@ import (
 func main() {
     // 获取当前时间戳（秒）
     timestamp := time.Now().Unix()
-    fmt.Println(timestamp) // 1736559600
 
     // 获取当前时间戳（毫秒）
     timestampMs := time.Now().UnixMilli()
-    fmt.Println(timestampMs) // 1736559600000
 
-    // 时间戳转日期时间
-    t := time.Unix(1736559600, 0)
-    fmt.Println(t.Format("2006-01-02 15:04:05")) // 2026-01-11 08:00:00
+    // 时间戳（秒）转日期时间：1736553600 = 2025-01-11 08:00:00 (UTC+8)
+    t := time.Unix(1736553600, 0)
+    fmt.Println(t.Format("2006-01-02 15:04:05")) // 2025-01-11 08:00:00 (在 UTC+8 下)
 
-    // 日期时间转时间戳
+    // 日期时间转时间戳（指定时区 Asia/Shanghai）
     layout := "2006-01-02 15:04:05"
-    dt, _ := time.Parse(layout, "2026-01-11 08:00:00")
-    ts := dt.Unix()
-    fmt.Println(ts) // 1736559600
+    loc, _ := time.LoadLocation("Asia/Shanghai")
+    dt, _ := time.ParseInLocation(layout, "2025-01-11 08:00:00", loc)
+    fmt.Println(dt.Unix()) // 1736553600
 }</pre>
-      </div>
-
-      <div class="code-block">
-        <div class="code-header">
-          <span class="code-lang">PHP</span>
-          <button class="copy-code-btn" onclick="copyCode(this, 'php-code')">复制</button>
-        </div>
-        <pre id="php-code">&lt;?php
+              <pre class="ti-code__pre" id="php-code" hidden>&lt;?php
 // 获取当前时间戳（秒）
 $timestamp = time();
-echo $timestamp; // 1736559600
 
 // 获取当前时间戳（毫秒）
 $timestampMs = round(microtime(true) * 1000);
-echo $timestampMs; // 1736559600000
 
-// 时间戳转日期时间
-$date = date('Y-m-d H:i:s', 1736559600);
-echo $date; // 2026-01-11 08:00:00
+// 时间戳（秒）转日期时间：1736553600 = 2025-01-11 08:00:00 (UTC+8)
+// 需 date.timezone = Asia/Shanghai
+$date = date('Y-m-d H:i:s', 1736553600);
+echo $date; // 2025-01-11 08:00:00
 
-// 日期时间转时间戳
-$dt = strtotime('2026-01-11 08:00:00');
-echo $dt; // 1736559600
+// 日期时间转时间戳（按服务器时区）
+$ts = strtotime('2025-01-11 08:00:00');
+echo $ts; // 1736553600（在 Asia/Shanghai 下）
 ?&gt;</pre>
-      </div>
+            </div>
+            <p class="ti-code__note">示例中 <code>1736553600</code> 秒 / <code>1736553600000</code> 毫秒对应 <code>2025-01-11 08:00:00 (UTC+8)</code>，即 <code>2025-01-11 00:00:00 UTC</code>。各语言按本地或指定时区解析时结果一致。</p>
+          </div>
+        </div>
+      </details>
 
-      <h3>⚠️ 注意事项</h3>
-      <ul>
-        <li><strong>时区问题</strong>：时间戳本身是UTC时间，转换为本地时间时需要考虑时区差异</li>
-        <li><strong>精度选择</strong>：根据实际需求选择秒级或毫秒级时间戳</li>
-        <li><strong>2038年问题</strong>：32位系统中时间戳最大值为2147483647（2038-01-19），超过会溢出</li>
-        <li><strong>闰秒处理</strong>：某些系统中需要特别处理闰秒的情况</li>
-      </ul>
-
-      <h3>🎓 扩展知识</h3>
-      <p>
-        <strong>为什么选择1970年1月1日作为起点？</strong><br/>
-        这个时间点被称为"Unix纪元"（Unix Epoch），是由Unix系统的开发者在1970年代初期选定的。选择这个时间点主要是因为：
-      </p>
-      <ul>
-        <li>Unix系统开始开发的时间在1969年，选择1970年是一个近似的整数年份</li>
-        <li>这个时间点足够早，可以覆盖几乎所有需要记录的现代计算机时间</li>
-        <li>便于系统实现和计算，成为了事实上的标准</li>
-      </ul>
     </div>
-  </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="ts-foot">
+    <div class="ts-foot__inner">
+      <span>© 2024–2026 wychmod Developer Workspace</span>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/tools/index.html">工具集</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/#/">返回主站</a>
+    </div>
+  </footer>
 
   <script>
-    // 更新当前时间显示
-    function updateCurrentTime() {
-      const now = new Date();
-      
-      // 格式化日期时间
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      const dateTimeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-      
-      // 获取时间戳
-      const timestamp = Math.floor(now.getTime() / 1000);
-      const timestampMs = now.getTime();
-      
-      // 更新显示
-      document.getElementById('currentDateTime').textContent = dateTimeStr;
-      document.getElementById('currentTimestamp').textContent = timestamp;
-      document.getElementById('currentTimestampMs').textContent = timestampMs;
-    }
+    (function () {
+      "use strict";
 
-    // 日期时间转时间戳
-    function convertToTimestamp() {
-      const datetimeInput = document.getElementById('datetimeInput');
-      const resultDiv = document.getElementById('timestampResult');
-      
-      if (!datetimeInput.value) {
-        showMessage('请选择日期时间', 'error');
-        return;
-      }
-      
-      try {
-        const date = new Date(datetimeInput.value);
-        const timestamp = Math.floor(date.getTime() / 1000);
-        const timestampMs = date.getTime();
-        
-        resultDiv.innerHTML = `
-          秒级：${timestamp}<br/>
-          毫秒级：${timestampMs}
-        `;
-        showMessage('✓ 转换成功', 'success');
-      } catch (e) {
-        resultDiv.textContent = '转换失败';
-        showMessage('✗ 转换失败: ' + e.message, 'error');
-      }
-    }
+      /* ---------- 模块状态 ---------- */
+      var currentTimeIntervalId = null; // setInterval id, 便于未来卸载
+      var tsOutputMode = 'sec';          // 'sec' | 'ms' 主输出格式
+      var lastTsResult = null;           // { sec, ms } 上次 date->ts 结果
 
-    // 时间戳转日期时间
-    function convertToDatetime() {
-      const timestampInput = document.getElementById('timestampInput');
-      const resultDiv = document.getElementById('datetimeResult');
-      
-      let timestamp = timestampInput.value.trim();
-      
-      if (!timestamp) {
-        showMessage('请输入时间戳', 'error');
-        return;
+      /* ---------- 时间格式化助手 ---------- */
+      function pad(n, w) { return String(n).padStart(w, '0'); }
+
+      function formatLocalDateTime(date, withMs) {
+        var y = date.getFullYear();
+        var mo = pad(date.getMonth() + 1, 2);
+        var d = pad(date.getDate(), 2);
+        var h = pad(date.getHours(), 2);
+        var mi = pad(date.getMinutes(), 2);
+        var s = pad(date.getSeconds(), 2);
+        var str = y + '-' + mo + '-' + d + ' ' + h + ':' + mi + ':' + s;
+        if (withMs) str += '.' + pad(date.getMilliseconds(), 3);
+        return str;
       }
-      
-      try {
-        // 移除可能的非数字字符
-        timestamp = timestamp.replace(/[^\d]/g, '');
-        
-        if (!timestamp) {
-          throw new Error('请输入有效的数字');
+
+      function formatUtcOffsetLabel(date) {
+        var off = -date.getTimezoneOffset(); // 分钟, 东为正
+        var sign = off >= 0 ? '+' : '-';
+        var abs = Math.abs(off);
+        var hh = pad(Math.floor(abs / 60), 2);
+        var mm = pad(abs % 60, 2);
+        return 'UTC' + sign + hh + (mm !== '00' ? ':' + mm : '');
+      }
+
+      function nowLocalDatetimeLocalValue() {
+        var now = new Date();
+        return now.getFullYear() + '-' + pad(now.getMonth() + 1, 2) + '-' + pad(now.getDate(), 2) +
+               'T' + pad(now.getHours(), 2) + ':' + pad(now.getMinutes(), 2);
+      }
+
+      /* ---------- 当前时间(每秒更新, SR 静音) ---------- */
+      function updateCurrentTime() {
+        var now = new Date();
+        var dateTimeStr = formatLocalDateTime(now, false);
+        var timestamp = Math.floor(now.getTime() / 1000);
+        var timestampMs = now.getTime();
+
+        document.getElementById('currentDateTime').textContent = dateTimeStr;
+        document.getElementById('currentTimestamp').textContent = timestamp;
+        document.getElementById('currentTimestampMs').textContent = timestampMs;
+
+        var tz = document.getElementById('tzOffsetLabel');
+        if (tz) tz.textContent = formatUtcOffsetLabel(now);
+
+        var tl = document.getElementById('currentTimestampTimeline');
+        if (tl) tl.textContent = timestamp;
+      }
+
+      /* ---------- 日期时间 -> 时间戳 ---------- */
+      function convertToTimestamp() {
+        var datetimeInput = document.getElementById('datetimeInput');
+        var secEl = document.getElementById('tsResultSec');
+        var msEl = document.getElementById('tsResultMs');
+        var statusEl = document.getElementById('timestampStatus');
+
+        if (!datetimeInput.value) {
+          secEl.textContent = '—';
+          msEl.textContent = '—';
+          lastTsResult = null;
+          setConversionStatus(statusEl, 'error', '请选择日期时间');
+          showMessage('请选择日期时间', 'error');
+          return;
         }
-        
-        // 判断是秒级还是毫秒级
-        let timestampMs;
-        if (timestamp.length === 10) {
-          // 秒级时间戳
-          timestampMs = parseInt(timestamp) * 1000;
-        } else if (timestamp.length === 13) {
-          // 毫秒级时间戳
-          timestampMs = parseInt(timestamp);
-        } else {
-          throw new Error('时间戳长度不正确（应为10位或13位）');
-        }
-        
-        const date = new Date(timestampMs);
-        
-        // 检查日期是否有效
+
+        var date = new Date(datetimeInput.value);
         if (isNaN(date.getTime())) {
-          throw new Error('无效的时间戳');
+          secEl.textContent = '—';
+          msEl.textContent = '—';
+          lastTsResult = null;
+          setConversionStatus(statusEl, 'error', '无效的日期时间');
+          showMessage('日期时间格式无效', 'error');
+          return;
         }
-        
-        // 格式化输出
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        const seconds = String(date.getSeconds()).padStart(2, '0');
-        
-        resultDiv.innerHTML = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-        showMessage('✓ 转换成功', 'success');
-      } catch (e) {
-        resultDiv.textContent = '转换失败';
-        showMessage('✗ ' + e.message, 'error');
+
+        var ms = date.getTime();
+        var sec = Math.floor(ms / 1000);
+        lastTsResult = { sec: sec, ms: ms };
+        renderTimestampResult();
+        setConversionStatus(statusEl, 'success', '转换成功');
+        showMessage('转换成功', 'success');
       }
-    }
 
-    // 复制代码
-    function copyCode(button, codeId) {
-      const codeElement = document.getElementById(codeId);
-      const text = codeElement.textContent;
-      
-      // 创建临时文本域
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      
-      // 选择并复制
-      textarea.select();
-      document.execCommand('copy');
-      
-      // 移除临时元素
-      document.body.removeChild(textarea);
-      
-      // 更新按钮文字
-      const originalText = button.textContent;
-      button.textContent = '已复制!';
-      setTimeout(() => {
-        button.textContent = originalText;
-      }, 2000);
-      
-      showMessage('✓ 已复制到剪贴板', 'success');
-    }
+      function renderTimestampResult() {
+        var secEl = document.getElementById('tsResultSec');
+        var msEl = document.getElementById('tsResultMs');
+        if (!lastTsResult) {
+          secEl.textContent = '—';
+          msEl.textContent = '—';
+          secEl.classList.remove('is-primary');
+          msEl.classList.remove('is-primary');
+          return;
+        }
+        secEl.textContent = lastTsResult.sec;
+        msEl.textContent = lastTsResult.ms;
+        secEl.classList.toggle('is-primary', tsOutputMode === 'sec');
+        msEl.classList.toggle('is-primary', tsOutputMode === 'ms');
+      }
 
-    // 显示消息提示
-    function showMessage(message, type) {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${type}`;
-      messageDiv.textContent = message;
+      function setTimestampOutputMode(mode) {
+        tsOutputMode = mode;
+        var secBtn = document.getElementById('tsUnitSec');
+        var msBtn = document.getElementById('tsUnitMs');
+        if (secBtn) {
+          secBtn.setAttribute('aria-pressed', mode === 'sec' ? 'true' : 'false');
+          secBtn.classList.toggle('is-active', mode === 'sec');
+        }
+        if (msBtn) {
+          msBtn.setAttribute('aria-pressed', mode === 'ms' ? 'true' : 'false');
+          msBtn.classList.toggle('is-active', mode === 'ms');
+        }
+        renderTimestampResult();
+      }
 
-      document.body.appendChild(messageDiv);
+      function copyTimestampResult() {
+        if (!lastTsResult) {
+          showMessage('没有可复制的结果', 'error');
+          return;
+        }
+        var text = String(tsOutputMode === 'ms' ? lastTsResult.ms : lastTsResult.sec);
+        copyText(text).then(function (ok) {
+          if (ok) showMessage('已复制 ' + text, 'success');
+          else showMessage('复制失败', 'error');
+        });
+      }
 
-      setTimeout(() => {
-        messageDiv.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-          document.body.removeChild(messageDiv);
-        }, 300);
-      }, 2000);
-    }
+      function setDatetimeNow() {
+        document.getElementById('datetimeInput').value = nowLocalDatetimeLocalValue();
+        convertToTimestamp();
+      }
 
-    // 初始化
-    updateCurrentTime();
-    setInterval(updateCurrentTime, 1000);
+      /* ---------- 时间戳 -> 日期时间 ---------- */
+      function convertToDatetime() {
+        var input = document.getElementById('timestampInput');
+        var detectEl = document.getElementById('timestampDetect');
+        var localEl = document.getElementById('dtResultLocal');
+        var utcEl = document.getElementById('dtResultUtc');
+        var statusEl = document.getElementById('datetimeStatus');
 
-    // 设置默认日期时间为当前时间
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    document.getElementById('datetimeInput').value = `${year}-${month}-${day}T${hours}:${minutes}`;
+        var raw = (input.value || '').trim();
+
+        if (!raw) {
+          detectEl.textContent = '检测：—';
+          localEl.textContent = '—';
+          utcEl.textContent = '—';
+          setConversionStatus(statusEl, 'error', '请输入时间戳');
+          showMessage('请输入时间戳', 'error');
+          return;
+        }
+
+        // 不静默删除非数字; 负值单独给出明确说明
+        if (/^-/.test(raw)) {
+          detectEl.textContent = '检测：负值';
+          localEl.textContent = '—';
+          utcEl.textContent = '—';
+          setConversionStatus(statusEl, 'error', '不支持负时间戳');
+          showMessage('本工具不支持负时间戳', 'error');
+          return;
+        }
+        if (!/^\d+$/.test(raw)) {
+          detectEl.textContent = '检测：非法字符';
+          localEl.textContent = '—';
+          utcEl.textContent = '—';
+          setConversionStatus(statusEl, 'error', '非法字符：仅接受数字');
+          showMessage('时间戳只能包含数字', 'error');
+          return;
+        }
+
+        var unit, ms;
+        if (raw.length === 10) {
+          unit = '秒';
+          ms = parseInt(raw, 10) * 1000;
+        } else if (raw.length === 13) {
+          unit = '毫秒';
+          ms = parseInt(raw, 10);
+        } else {
+          detectEl.textContent = '检测：' + raw.length + ' 位（不支持）';
+          localEl.textContent = '—';
+          utcEl.textContent = '—';
+          setConversionStatus(statusEl, 'error', '长度错误：应为 10 或 13 位');
+          showMessage('时间戳长度应为 10 或 13 位', 'error');
+          return;
+        }
+
+        var date = new Date(ms);
+        if (isNaN(date.getTime())) {
+          detectEl.textContent = '检测：' + raw.length + ' 位（' + unit + '）';
+          localEl.textContent = '—';
+          utcEl.textContent = '—';
+          setConversionStatus(statusEl, 'error', '范围错误：超出 Date 可表示范围');
+          showMessage('时间戳超出可表示范围', 'error');
+          return;
+        }
+
+        detectEl.textContent = '检测：' + raw.length + ' 位（' + unit + '）';
+        localEl.textContent = formatLocalDateTime(date, true) + ' (' + formatUtcOffsetLabel(date) + ')';
+        utcEl.textContent = date.toISOString();
+        setConversionStatus(statusEl, 'success', '转换成功');
+        showMessage('转换成功', 'success');
+      }
+
+      function copyDatetimeResult() {
+        var localEl = document.getElementById('dtResultLocal');
+        var text = localEl.textContent;
+        if (!text || text === '—') {
+          showMessage('没有可复制的结果', 'error');
+          return;
+        }
+        copyText(text).then(function (ok) {
+          if (ok) showMessage('已复制', 'success');
+          else showMessage('复制失败', 'error');
+        });
+      }
+
+      function clearTimestamp() {
+        document.getElementById('timestampInput').value = '';
+        document.getElementById('timestampDetect').textContent = '检测：—';
+        document.getElementById('dtResultLocal').textContent = '—';
+        document.getElementById('dtResultUtc').textContent = '—';
+        setConversionStatus(document.getElementById('datetimeStatus'), 'idle', '等待转换');
+      }
+
+      /* ---------- 卡内状态 ---------- */
+      function setConversionStatus(el, status, message) {
+        if (!el) return;
+        el.className = 'ti-status' + (status === 'idle' ? '' : ' is-' + status);
+        el.textContent = message;
+      }
+
+      /* ---------- 复制(Clipboard API + fallback) ---------- */
+      function copyText(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text).then(
+            function () { return true; },
+            function () { return fallbackCopy(text); }
+          );
+        }
+        return Promise.resolve(fallbackCopy(text));
+      }
+
+      function fallbackCopy(text) {
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        document.body.removeChild(textarea);
+        return ok;
+      }
+
+      function copyCode(button, codeId) {
+        var codeElement = document.getElementById(codeId);
+        if (!codeElement) return;
+        var text = codeElement.textContent;
+        copyText(text).then(function (ok) {
+          if (ok) {
+            var originalText = button.textContent;
+            button.textContent = '已复制';
+            setTimeout(function () { button.textContent = originalText; }, 2000);
+            showMessage('已复制到剪贴板', 'success');
+          } else {
+            showMessage('复制失败', 'error');
+          }
+        });
+      }
+
+      /* ---------- 代码示例 tab ---------- */
+      function setCodeTab(lang) {
+        var map = { js: 'js-code', py: 'py-code', java: 'java-code', go: 'go-code', php: 'php-code' };
+        Object.keys(map).forEach(function (k) {
+          var pre = document.getElementById(map[k]);
+          if (pre) pre.hidden = (k !== lang);
+        });
+        var tabs = document.querySelectorAll('.ti-code__tab');
+        for (var i = 0; i < tabs.length; i++) {
+          var active = tabs[i].getAttribute('data-lang') === lang;
+          tabs[i].classList.toggle('is-active', active);
+          tabs[i].setAttribute('aria-selected', active ? 'true' : 'false');
+        }
+        var copyBtn = document.getElementById('tiCodeCopyBtn');
+        if (copyBtn) copyBtn.setAttribute('data-code-id', map[lang] || 'js-code');
+      }
+
+      /* ---------- 消息提示 ---------- */
+      function showMessage(message, type) {
+        var messageDiv = document.createElement('div');
+        messageDiv.className = 'ti-toast ti-toast--' + (type || 'info');
+        messageDiv.textContent = message;
+        messageDiv.setAttribute('role', type === 'error' ? 'alert' : 'status');
+        document.body.appendChild(messageDiv);
+
+        setTimeout(function () {
+          messageDiv.classList.add('is-leaving');
+          setTimeout(function () {
+            if (messageDiv.parentNode) messageDiv.parentNode.removeChild(messageDiv);
+          }, 300);
+        }, 2000);
+      }
+
+      /* ---------- 暴露到全局(保留原 onclick 绑定契约) ---------- */
+      window.updateCurrentTime = updateCurrentTime;
+      window.convertToTimestamp = convertToTimestamp;
+      window.convertToDatetime = convertToDatetime;
+      window.copyCode = copyCode;
+      window.showMessage = showMessage;
+      window.setTimestampOutputMode = setTimestampOutputMode;
+      window.copyTimestampResult = copyTimestampResult;
+      window.copyDatetimeResult = copyDatetimeResult;
+      window.setDatetimeNow = setDatetimeNow;
+      window.clearTimestamp = clearTimestamp;
+      window.setCodeTab = setCodeTab;
+
+      /* ---------- 顶部导航抽屉(移动端) ---------- */
+      var topbar = document.querySelector('.ts-topbar');
+      var menuBtn = topbar && topbar.querySelector('.ts-topbar__menu-btn');
+      var nav = topbar && topbar.querySelector('.ts-topbar__nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('.ts-topbar__nav-item')) {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      /* ---------- 移动端默认折叠时间线与代码示例 ---------- */
+      if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+        var mobileClosed = document.querySelectorAll('.ti-accordion--mobile-closed');
+        for (var i = 0; i < mobileClosed.length; i++) mobileClosed[i].removeAttribute('open');
+      }
+
+      /* ---------- 初始化 ---------- */
+      updateCurrentTime();
+      currentTimeIntervalId = setInterval(updateCurrentTime, 1000);
+
+      // 默认日期时间为当前时间
+      document.getElementById('datetimeInput').value = nowLocalDatetimeLocalValue();
+
+      // 默认输出格式与代码 tab
+      setTimestampOutputMode('sec');
+      setCodeTab('js');
+    })();
   </script>
 </body>
 </html>

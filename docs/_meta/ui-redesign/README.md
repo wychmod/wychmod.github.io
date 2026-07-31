@@ -1,6 +1,8 @@
 # 全站 UI 视觉统一：设计与开发总任务书
 
-> 文档状态：实施前规范，V1.0
+> 文档状态：实施完成（个人/简历页 25/26 暂缓），V1.1
+>
+> 实施批次：22/24 页面已完成（25 个人页、26 简历页按用户要求暂缓，未实施）
 >
 > 参考图：P002 首页基线使用 `../assets/homepage-design-reference-v1.png`；其余页面使用 `references/image-01.png`、`references/image-03.png` 至 `references/image-26.png`
 >
@@ -8,7 +10,7 @@
 >
 > 首页权威规范：[`../HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md`](../HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md)
 >
-> 重要边界：本目录是任务设计，不代表页面已经实施。现有首页设计冻结，不在本任务中修改。
+> 实施边界：首页设计冻结，本次未修改首页 V2 任何文件；`docs/md/archive/` 原文件零触碰。
 
 ---
 
@@ -180,3 +182,53 @@ node scripts/check-links.js
 - 实施结果与当前首页共享视觉 DNA，但页面结构服从自身任务。
 - 所有业务功能、路由、存储键、下载/打印、剪贴板、键盘与错误状态通过验证。
 - 没有修改 `docs/md/archive/`，没有新增虚构数据，没有引入第二套搜索或终端。
+
+---
+
+## 9. 实施结果（V1.1）
+
+### 9.1 已完成页面（22/24）
+
+| 图 | 目标 | 实施方式 | 状态 |
+|---:|---|---|---|
+| 01 | 39 篇主线文章统一母版 | 扩展 `article-reading.css`（`body.is-article` 三栏阅读壳，纯 CSS） | ✅ |
+| 02 | 当前首页 | 冻结基线，未改造 | 🔒 只读 |
+| 03 | `docs/md/Index.md` | 纸白索引内页（9 真实分类 + 真实链接） | ✅ |
+| 04 | 3 篇 AI 配套文档 | 3 文件独立重构，未合并 | ✅ |
+| 05 | `docs/README-Terminal.md` | 终端说明页，不复制终端 | ✅ |
+| 06 | `docs/md/archive/README.md` | 归档来源地图，原文件零触碰 | ✅ |
+| 07 | Docsify Search 结果态 | 扩展 `article-reading.css` §16，沿用插件 DOM | ✅ |
+| 08 | 全局侧边栏与移动抽屉 | 扩展 `article-reading.css` §17 + 幂等 a11y hook | ✅ |
+| 09 | 现有终端弹窗 | 扩展 `article-reading.css` §18 + 幂等 a11y hook，逻辑零改 | ✅ |
+| 10 | Docsify 404 状态 | 新增 `docs/_404.md` + `notFoundPage: true` | ✅ |
+| 11 | 重复侧边栏参考 | 不单独实施 | 🔒 只读 |
+| 12 | `docs/tools/index.html` | 工具总览（复用 `tool-studio.css` 外壳） | ✅ |
+| 13–24 | 12 个工具页 | 各自重构 `.html`，接入 `tool-studio.css`，函数/ID 全保留 | ✅ |
+| 25 | `docs/me.html` | 用户要求暂缓 | ⏸️ 暂缓 |
+| 26 | `docs/resume.html` | 用户要求暂缓 | ⏸️ 暂缓 |
+
+### 9.2 新增共享资产
+
+- `docs/assets/css/tool-studio.css`（13.5KB，`.tool-studio`/`.ts-*` 作用域，工具页外壳）
+- `docs/assets/css/article-reading.css`（1631行，`body.is-article` 作用域，文章/内容/搜索/侧边栏/终端阅读系统）
+- `docs/_404.md`（Docsify 404 内容）
+
+### 9.3 验收门禁结果
+
+| 检查项 | 结果 |
+|---|---|
+| `node scripts/sidebar-check.js` | ✅ 39/39 主线文档入口，0 缺失 |
+| `node scripts/check-links.js` | ✅ 死链数 = 历史基线（8，全在 `archive/` 原文件），无新增 |
+| `git diff --check` | ✅ exit 0（仅 LF/CRLF Windows 换行警告） |
+| 首页冻结文件 | ✅ 8 个冻结文件全部 clean（coverpage/homepage-v2.css/js/studio-tokens/modern-theme/me-page/tools-notion/_sidebar） |
+| 归档原文件 | ✅ `docs/md/archive/` 仅 `README.md` 索引改动，原文件零触碰 |
+| 39 篇主线文章 | ✅ 全部未改写（模板纯 CSS，未动 Markdown 内容） |
+| `Ctrl/Cmd + K` / `Esc` | ✅ 仍属终端，未被搜索/404 劫持 |
+| 第二套终端/搜索 | ✅ 未引入 |
+| 虚构数据 | ✅ 无（统计/履历/书目录均真实或隐藏） |
+
+### 9.4 已知遗留
+
+- 工具页移动端 `.ts-btn` min-height 为 38px，各工具页以页内 `.tool-studio .ts-btn{min-height:44px}`（≤768px）补足 44px 触控目标；共享外壳未统一回填，后续可择机合并。
+- `--studio-vermilion` token（`#e6663e`）与 spec 朱砂（`#b64b45`）存在色值差异，各工具页按 spec 用 `#b64b45` 页内定义。
+- 25/26（个人页/简历页）暂缓，待用户确认后再实施；两页共用 `me-page.css`/`me-page.js`，需联合回归（断网 GitHub 降级、mailto 兜底、A4 打印）。

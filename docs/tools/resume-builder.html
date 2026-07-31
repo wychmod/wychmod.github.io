@@ -3,1178 +3,1019 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>程序员简历制作工具 - wychmod Developer Workspace</title>
-  <meta name="description" content="专为程序员打造的在线简历生成器，支持多种专业模板、技术技能展示、项目经验、GitHub链接等，一键导出PDF">
-  <meta name="keywords" content="程序员简历,简历生成器,技术简历,简历模板,PDF简历,开发者简历,IT简历">
+  <title>简历生成工具 - wychmod Developer Workspace</title>
+  <meta name="description" content="本地简历编辑与 A4 打印预览工具：结构化填写、实时预览、本地草稿、导出 PDF。所有内容仅在当前浏览器处理，不上传服务器。">
+  <!-- 视觉母体令牌(只读复用) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <!-- 工具页共享外壳(scoped) -->
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260730a">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* ===========================================================
+       P021 简历生成工具 页面专属样式 (scoped via .rb-* under .tool-studio)
+       外壳基类来自 tool-studio.css; 此处只放动作栏 / 表单 / 预览 / 移动端
+       =========================================================== */
 
-    :root {
-      --accent-main: #6d4aff;
-      --accent-light: #0b6bcb;
-      --accent-dark: #5636d7;
-      --bg-primary: #f7f6f3;
-      --bg-secondary: #fbfaf8;
-      --bg-tertiary: #ffffff;
-      --text-primary: #37352f;
-      --text-secondary: #5f5d57;
-      --text-tertiary: #999;
-      --success: #28a745;
-      --danger: #dc3545;
-      --info: #17a2b8;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
-      color: var(--text-primary);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* 导航链接 */
-    .nav-links {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--accent-main);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 10px 20px;
-      border: 2px solid var(--accent-dark);
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      background: rgba(59, 130, 246, 0.1);
-    }
-
-    .back-link:hover {
-      color: var(--accent-light);
-      border-color: var(--accent-light);
-      transform: translateX(-3px);
-      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.12);
-    }
-
-    /* 头部 */
-    .header {
-      text-align: center;
-      padding: 30px 0;
-      margin-bottom: 30px;
-      border-bottom: 2px solid var(--accent-main);
-    }
-
-    .header h1 {
-      color: var(--accent-light);
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 10px rgba(96, 165, 250, 0.3);
-    }
-
-    .header p {
-      color: var(--text-secondary);
-      font-size: 1.1em;
-    }
-
-    /* 工具栏 */
-    .toolbar {
+    .rb-action-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 25px;
-      padding: 20px;
-      background: var(--bg-secondary);
-      border: 2px solid var(--accent-dark);
-      border-radius: 12px;
       align-items: center;
-    }
-
-    .toolbar-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .toolbar-group label {
-      color: var(--accent-main);
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    select {
-      background: var(--bg-tertiary);
-      border: 2px solid var(--accent-dark);
-      border-radius: 8px;
-      padding: 10px 15px;
-      color: var(--text-primary);
-      font-size: 14px;
-      cursor: pointer;
-      min-width: 150px;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: var(--accent-main);
-    }
-
-    .btn {
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent-main));
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(109, 74, 255, 0.22);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.35);
-      background: linear-gradient(135deg, var(--accent-main), var(--accent-light));
-    }
-
-    .btn-secondary {
-      background: var(--bg-tertiary);
-      color: var(--accent-main);
-      border: 2px solid var(--accent-dark);
-      box-shadow: none;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(109, 74, 255, 0.10);
-      border-color: var(--accent-main);
-    }
-
-    .btn-success {
-      background: linear-gradient(135deg, #1e7e34, var(--success));
-      color: #fff;
-    }
-
-    .btn-success:hover {
-      background: linear-gradient(135deg, var(--success), #34ce57);
-    }
-
-    .btn-danger {
-      background: linear-gradient(135deg, #bd2130, var(--danger));
-      color: #fff;
-    }
-
-    .btn-danger:hover {
-      background: linear-gradient(135deg, var(--danger), #e4606d);
-    }
-
-    /* 主编辑区 */
-    .main-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-    }
-
-    @media (max-width: 1200px) {
-      .main-content {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* 编辑面板 */
-    .edit-panel {
-      background: var(--bg-secondary);
-      border: 2px solid var(--accent-main);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .panel-header {
-      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
-      padding: 15px 20px;
-      border-bottom: 2px solid var(--accent-dark);
-      display: flex;
       justify-content: space-between;
+      gap: var(--studio-space-3);
+      padding: var(--studio-space-3) var(--studio-space-4);
+      margin-bottom: var(--studio-space-5);
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+    }
+    .rb-action-bar__group {
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      gap: var(--studio-space-2);
     }
 
-    .panel-title {
-      color: var(--accent-light);
-      font-size: 1.2em;
+    /* 保存状态(真实: 仅 localStorage 写入成功后显示时间) */
+    .rb-save-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: var(--studio-text-muted);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      background: transparent;
+      min-height: 30px;
+    }
+    .rb-save-status::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--studio-text-muted);
+      flex: 0 0 auto;
+    }
+    .rb-save-status[data-status="saving"] { color: var(--studio-text-muted); }
+    .rb-save-status[data-status="saving"]::before { background: var(--studio-gold); }
+    .rb-save-status[data-status="saved"] { color: var(--studio-green-dark); border-color: rgba(36, 209, 143, 0.4); }
+    .rb-save-status[data-status="saved"]::before { background: var(--studio-green); box-shadow: 0 0 0 2px rgba(36, 209, 143, 0.22); }
+    .rb-save-status[data-status="failed"] { color: #b64b45; border-color: rgba(182, 75, 69, 0.4); }
+    .rb-save-status[data-status="failed"]::before { background: #b64b45; }
+    .rb-save-status[data-status="loaded"] { color: var(--studio-text); }
+    .rb-save-status[data-status="loaded"]::before { background: var(--studio-green); }
+
+    /* 移动端 tab(编辑/预览) */
+    .rb-mobile-tabs {
+      display: none;
+      margin-bottom: var(--studio-space-3);
+      border-bottom: 1px solid var(--studio-paper-line);
+    }
+    .rb-mobile-tabs__item {
+      flex: 1;
+      padding: 12px 16px;
+      font-family: var(--studio-font-body);
+      font-size: 14px;
+      color: var(--studio-text-muted);
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color var(--studio-dur-fast) var(--studio-ease),
+                  border-color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .rb-mobile-tabs__item.is-active {
+      color: var(--studio-text);
+      border-bottom-color: var(--studio-gold);
       font-weight: 600;
     }
 
-    .panel-content {
-      padding: 20px;
-      max-height: calc(100vh - 350px);
+    /* 工作区: 左表单 + 右预览 */
+    .rb-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      gap: var(--studio-space-5);
+      align-items: start;
+    }
+
+    /* 表单面板 */
+    .rb-form-panel {
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      padding: var(--studio-space-5);
+      max-height: calc(100vh - 220px);
       overflow-y: auto;
     }
 
-    /* 表单分组 */
-    .form-section {
-      margin-bottom: 25px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--bg-tertiary);
+    .rb-section {
+      padding: var(--studio-space-4) 0;
+      border-bottom: 1px solid var(--studio-paper-line);
     }
-
-    .form-section:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-    }
-
-    .section-title {
-      color: var(--accent-main);
-      font-size: 1.1em;
-      font-weight: 600;
-      margin-bottom: 15px;
+    .rb-section:first-child { padding-top: 0; }
+    .rb-section:last-child { border-bottom: 0; padding-bottom: 0; }
+    .rb-section__head {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 10px;
+      margin-bottom: var(--studio-space-3);
+    }
+    .rb-section__num {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--studio-gold);
+      letter-spacing: 0.04em;
+    }
+    .rb-section__title {
+      font-family: var(--studio-font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--studio-text);
     }
 
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
+    .rb-field { margin-bottom: var(--studio-space-3); }
+    .rb-field:last-child { margin-bottom: 0; }
+    .rb-field__label {
       display: block;
-      color: var(--text-secondary);
-      font-size: 14px;
+      font-size: 13px;
+      color: var(--studio-text-muted);
       margin-bottom: 6px;
       font-weight: 500;
     }
+    .rb-req { color: #b64b45; }
 
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      background: var(--bg-primary);
-      border: 2px solid var(--bg-tertiary);
-      border-radius: 8px;
-      padding: 12px 15px;
-      color: var(--text-primary);
-      font-size: 14px;
-      transition: all 0.3s ease;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--accent-main);
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
-    }
-
-    .form-group textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .form-row {
+    .rb-field-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
+      gap: var(--studio-space-3);
     }
 
-    @media (max-width: 600px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* 技能标签输入 */
-    .skills-input-container {
+    /* 技能 chip 输入 */
+    .rb-skills-box {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      background: var(--bg-primary);
-      border: 2px solid var(--bg-tertiary);
-      border-radius: 8px;
-      padding: 10px;
-      min-height: 50px;
+      gap: 6px;
+      min-height: 44px;
+      padding: 8px 10px;
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
       cursor: text;
+      transition: border-color var(--studio-dur-fast) var(--studio-ease),
+                  box-shadow var(--studio-dur-fast) var(--studio-ease);
     }
-
-    .skills-input-container:focus-within {
-      border-color: var(--accent-main);
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
+    .rb-skills-box:focus-within {
+      border-color: var(--studio-green);
+      box-shadow: 0 0 0 3px rgba(36, 209, 143, 0.22);
     }
-
-    .skill-tag {
+    .rb-chip {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(109, 74, 255, 0.10);
-      color: var(--accent-main);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
+      padding: 4px 8px 4px 10px;
+      background: rgba(200, 169, 107, 0.12);
+      color: var(--studio-text);
+      border: 1px solid rgba(200, 169, 107, 0.4);
+      border-radius: var(--studio-radius-sm);
+      font-size: 12px;
+      font-family: var(--studio-font-mono);
+      line-height: 1.4;
     }
-
-    .skill-tag .remove-skill {
-      cursor: pointer;
-      font-size: 16px;
+    .rb-chip__remove {
+      width: 18px;
+      height: 18px;
+      display: inline-grid;
+      place-items: center;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      color: var(--studio-text-muted);
+      font-size: 14px;
       line-height: 1;
-      opacity: 0.7;
+      cursor: pointer;
+      border-radius: var(--studio-radius-sm);
     }
-
-    .skill-tag .remove-skill:hover {
-      opacity: 1;
-    }
-
-    .skills-input {
+    .rb-chip__remove:hover { color: #b64b45; background: rgba(182, 75, 69, 0.1); }
+    .rb-skills-input {
       flex: 1;
-      min-width: 100px;
-      border: none !important;
-      background: transparent !important;
-      padding: 6px !important;
-      box-shadow: none !important;
+      min-width: 120px;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      padding: 4px;
+      font-family: var(--studio-font-body);
+      font-size: 14px;
+      color: var(--studio-text);
     }
 
     /* 动态列表项 */
-    .list-item {
-      background: var(--bg-primary);
-      border: 1px solid var(--bg-tertiary);
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
-      position: relative;
+    .rb-list-item {
+      padding: var(--studio-space-3);
+      margin-bottom: var(--studio-space-3);
+      background: var(--studio-paper-100);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
     }
-
-    .list-item-header {
+    .rb-list-item:last-child { margin-bottom: 0; }
+    .rb-list-item__head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: var(--studio-space-3);
     }
-
-    .list-item-title {
-      color: var(--accent-main);
+    .rb-list-item__title {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
       font-weight: 600;
+      color: var(--studio-text-muted);
+      letter-spacing: 0.04em;
     }
-
-    .list-item-actions {
-      display: flex;
-      gap: 8px;
+    .rb-list-item__remove {
+      min-height: 30px;
+      padding: 4px 10px;
+      font-size: 12px;
     }
-
-    .btn-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      font-size: 14px;
-    }
-
-    .add-item-btn {
+    .rb-add-btn {
       width: 100%;
-      padding: 12px;
-      background: rgba(59, 130, 246, 0.1);
-      border: 2px dashed var(--accent-dark);
-      border-radius: 8px;
-      color: var(--accent-main);
+      margin-top: var(--studio-space-3);
+      padding: 10px;
+      background: transparent;
+      border: 1px dashed var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-text-muted);
+      font-family: var(--studio-font-body);
+      font-size: 13px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
+      transition: border-color var(--studio-dur-fast) var(--studio-ease),
+                  color var(--studio-dur-fast) var(--studio-ease);
     }
-
-    .add-item-btn:hover {
-      background: rgba(109, 74, 255, 0.10);
-      border-color: var(--accent-main);
+    .rb-add-btn:hover {
+      border-color: var(--studio-gold);
+      color: var(--studio-text);
     }
 
     /* 预览面板 */
-    .preview-panel {
-      background: #fff;
-      border: 2px solid var(--accent-main);
-      border-radius: 12px;
+    .rb-preview-panel {
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
       overflow: hidden;
-    }
-
-    .preview-content {
-      background: #fff;
-      color: #333;
-      padding: 40px;
-      min-height: calc(100vh - 350px);
-      max-height: calc(100vh - 350px);
-      overflow-y: auto;
-    }
-
-    /* 简历模板样式 - 经典模板 */
-    .resume-template.classic {
-      font-family: 'Georgia', serif;
-    }
-
-    .resume-template.classic .resume-header {
-      text-align: center;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #333;
-      margin-bottom: 25px;
-    }
-
-    .resume-template.classic .resume-name {
-      font-size: 32px;
-      font-weight: 700;
-      color: #fbfaf8;
-      margin-bottom: 8px;
-    }
-
-    .resume-template.classic .resume-title {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 15px;
-    }
-
-    .resume-template.classic .contact-info {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      font-size: 13px;
-      color: #666;
+      flex-direction: column;
+      max-height: calc(100vh - 220px);
     }
-
-    .resume-template.classic .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .resume-template.classic .section {
-      margin-bottom: 25px;
-    }
-
-    .resume-template.classic .section-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #fbfaf8;
-      text-transform: uppercase;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 8px;
-      margin-bottom: 15px;
-    }
-
-    .resume-template.classic .summary-text {
-      font-size: 14px;
-      line-height: 1.8;
-      color: #444;
-    }
-
-    .resume-template.classic .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .resume-template.classic .skill-category h4 {
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 8px;
-    }
-
-    .resume-template.classic .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .resume-template.classic .skill-tag-preview {
-      background: #f0f0f0;
-      color: #333;
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-    }
-
-    .resume-template.classic .experience-item,
-    .resume-template.classic .project-item,
-    .resume-template.classic .education-item {
-      margin-bottom: 20px;
-    }
-
-    .resume-template.classic .item-header {
+    .rb-preview-panel__head {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 8px;
+      align-items: center;
+      padding: var(--studio-space-3) var(--studio-space-4);
+      border-bottom: 1px solid var(--studio-paper-line);
+      background: var(--studio-paper-50);
     }
-
-    .resume-template.classic .item-title {
+    .rb-preview-panel__title {
+      font-family: var(--studio-font-display);
       font-size: 15px;
       font-weight: 600;
-      color: #fbfaf8;
+      color: var(--studio-text);
+    }
+    .rb-preview-panel__meta {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--studio-text-muted);
+    }
+    .a4-preview-shell {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--studio-space-5);
+      background: var(--studio-paper-100);
+      display: flex;
+      justify-content: center;
+    }
+    .rb-privacy {
+      margin: 0;
+      padding: var(--studio-space-3) var(--studio-space-4);
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      border-top: 1px solid var(--studio-paper-line);
+      background: var(--studio-paper-50);
     }
 
-    .resume-template.classic .item-subtitle {
-      font-size: 14px;
-      color: #555;
+    /* A4 打印预览说明 */
+    .rb-print-info {
+      display: grid;
+      grid-template-columns: minmax(220px, 300px) 1fr;
+      gap: var(--studio-space-5);
+      margin-top: var(--studio-space-6);
+      padding: var(--studio-space-5);
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
     }
-
-    .resume-template.classic .item-date {
+    .rb-print-info__title {
+      margin: 0 0 var(--studio-space-3);
+      font-family: var(--studio-font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--studio-text);
+    }
+    .rb-print-info__dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px 12px;
+      margin: 0;
+    }
+    .rb-print-info__dl dt {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      letter-spacing: 0.04em;
+    }
+    .rb-print-info__dl dd {
+      margin: 0;
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text);
+    }
+    .rb-print-info__note {
+      align-self: center;
+    }
+    .rb-print-info__note p {
+      margin: 0;
       font-size: 13px;
-      color: #666;
+      line-height: 1.7;
+      color: var(--studio-text-muted);
+    }
+
+    /* 移动端固定栏 */
+    .rb-mobile-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      align-items: center;
+      gap: var(--studio-space-2);
+      padding: var(--studio-space-3) var(--studio-space-4);
+      padding-bottom: calc(var(--studio-space-3) + env(safe-area-inset-bottom));
+      background: var(--studio-paper-50);
+      border-top: 1px solid var(--studio-paper-line);
+    }
+    .rb-mobile-bar .rb-save-status {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .resume-template.classic .item-description {
-      font-size: 13px;
-      color: #444;
-      line-height: 1.7;
-    }
-
-    .resume-template.classic .item-description ul {
-      padding-left: 20px;
-      margin: 8px 0;
-    }
-
-    .resume-template.classic .item-description li {
-      margin-bottom: 4px;
-    }
-
-    .resume-template.classic .project-links {
-      margin-top: 8px;
-    }
-
-    .resume-template.classic .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 12px;
-      color: #0066cc;
-      text-decoration: none;
-      margin-right: 15px;
-    }
-
-    .resume-template.classic .tech-stack {
-      margin-top: 8px;
-      font-size: 12px;
-      color: #666;
-    }
-
-    .resume-template.classic .tech-stack strong {
-      color: #333;
-    }
-
-    /* 简历模板样式 - 现代模板 */
-    .resume-template.modern {
-      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    }
-
-    .resume-template.modern .resume-header {
-      background: linear-gradient(135deg, #2c3e50, #3498db);
-      color: #fff;
-      padding: 30px;
-      margin: -40px -40px 30px -40px;
-    }
-
-    .resume-template.modern .resume-name {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .resume-template.modern .resume-title {
-      font-size: 18px;
-      opacity: 0.9;
-      margin-bottom: 20px;
-    }
-
-    .resume-template.modern .contact-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 14px;
-    }
-
-    .resume-template.modern .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 0.9;
-    }
-
-    .resume-template.modern .section {
-      margin-bottom: 30px;
-    }
-
-    .resume-template.modern .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: #2c3e50;
-      margin-bottom: 15px;
-      padding-left: 15px;
-      border-left: 4px solid #3498db;
-    }
-
-    .resume-template.modern .summary-text {
-      font-size: 14px;
-      line-height: 1.8;
-      color: #555;
-      background: #f8f9fa;
-      padding: 15px;
-      border-radius: 8px;
-    }
-
-    .resume-template.modern .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .resume-template.modern .skill-category {
-      background: #f8f9fa;
-      padding: 15px;
-      border-radius: 8px;
-    }
-
-    .resume-template.modern .skill-category h4 {
-      font-size: 14px;
-      font-weight: 600;
-      color: #2c3e50;
-      margin-bottom: 10px;
-    }
-
-    .resume-template.modern .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .resume-template.modern .skill-tag-preview {
-      background: #3498db;
-      color: #fff;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-    }
-
-    .resume-template.modern .experience-item,
-    .resume-template.modern .project-item,
-    .resume-template.modern .education-item {
-      margin-bottom: 25px;
-      padding-left: 20px;
-      border-left: 2px solid #37352f;
-    }
-
-    .resume-template.modern .item-header {
-      margin-bottom: 10px;
-    }
-
-    .resume-template.modern .item-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #2c3e50;
-    }
-
-    .resume-template.modern .item-subtitle {
-      font-size: 14px;
-      color: #3498db;
-    }
-
-    .resume-template.modern .item-date {
-      font-size: 13px;
-      color: #888;
-    }
-
-    .resume-template.modern .item-description {
-      font-size: 14px;
-      color: #555;
-      line-height: 1.7;
-    }
-
-    .resume-template.modern .item-description ul {
-      padding-left: 20px;
-      margin: 10px 0;
-    }
-
-    .resume-template.modern .item-description li {
-      margin-bottom: 5px;
-    }
-
-    .resume-template.modern .project-links {
-      margin-top: 10px;
-    }
-
-    .resume-template.modern .project-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 13px;
-      color: #3498db;
-      text-decoration: none;
-      margin-right: 20px;
-    }
-
-    .resume-template.modern .tech-stack {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #666;
-      background: #f0f0f0;
-      padding: 8px 12px;
-      border-radius: 4px;
-    }
-
-    /* 简历模板样式 - 简约模板 */
-    .resume-template.minimal {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-    }
-
-    .resume-template.minimal .resume-header {
-      margin-bottom: 30px;
-    }
-
-    .resume-template.minimal .resume-name {
-      font-size: 28px;
-      font-weight: 300;
-      color: #fbfaf8;
-      margin-bottom: 5px;
-    }
-
-    .resume-template.minimal .resume-title {
-      font-size: 16px;
-      color: #888;
-      font-weight: 300;
-      margin-bottom: 15px;
-    }
-
-    .resume-template.minimal .contact-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 13px;
-      color: #666;
-    }
-
-    .resume-template.minimal .section {
-      margin-bottom: 25px;
-    }
-
-    .resume-template.minimal .section-title {
-      font-size: 11px;
-      font-weight: 600;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 15px;
-    }
-
-    .resume-template.minimal .summary-text {
-      font-size: 14px;
-      line-height: 1.8;
-      color: #444;
-    }
-
-    .resume-template.minimal .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .resume-template.minimal .skill-tag-preview {
-      border: 1px solid #ddd;
-      color: #555;
-      padding: 5px 12px;
-      border-radius: 3px;
-      font-size: 12px;
-    }
-
-    .resume-template.minimal .experience-item,
-    .resume-template.minimal .project-item,
-    .resume-template.minimal .education-item {
-      margin-bottom: 20px;
-    }
-
-    .resume-template.minimal .item-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .resume-template.minimal .item-title {
-      font-size: 15px;
-      font-weight: 500;
-      color: #fbfaf8;
-    }
-
-    .resume-template.minimal .item-subtitle {
-      font-size: 14px;
-      color: #666;
-    }
-
-    .resume-template.minimal .item-date {
-      font-size: 13px;
-      color: #888;
-    }
-
-    .resume-template.minimal .item-description {
-      font-size: 13px;
-      color: #555;
-      line-height: 1.7;
-    }
-
-    .resume-template.minimal .item-description ul {
-      padding-left: 18px;
-      margin: 8px 0;
-    }
-
-    .resume-template.minimal .project-link {
-      font-size: 12px;
-      color: #0066cc;
-      text-decoration: none;
-      margin-right: 15px;
-    }
-
-    .resume-template.minimal .tech-stack {
-      font-size: 12px;
-      color: #888;
-      margin-top: 5px;
-    }
-
-    /* 空状态提示 */
-    .empty-hint {
-      color: #aaa;
-      font-style: italic;
-      font-size: 13px;
-    }
-
-    /* Toast 通知 */
-    .toast {
+    /* Toast */
+    .rb-toast {
       position: fixed;
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-      padding: 15px 30px;
-      border-radius: 8px;
-      border: 2px solid var(--accent-main);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      max-width: 90vw;
+      padding: 12px 20px;
+      background: var(--studio-ink-900);
+      color: var(--studio-on-dark);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
       z-index: 10000;
       opacity: 0;
-      transition: all 0.3s ease;
+      pointer-events: none;
+      transition: transform var(--studio-dur-base) var(--studio-ease),
+                  opacity var(--studio-dur-base) var(--studio-ease);
+      font-size: 14px;
     }
-
-    .toast.show {
+    .rb-toast.show {
       transform: translateX(-50%) translateY(0);
       opacity: 1;
     }
+    .rb-toast.success { border-left: 3px solid var(--studio-green); }
+    .rb-toast.error { border-left: 3px solid #b64b45; }
+    .rb-toast.info { border-left: 3px solid var(--studio-gold); }
 
-    .toast.success {
-      border-color: var(--success);
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 1024px) {
+      .rb-workspace {
+        grid-template-columns: 1fr;
+      }
+      .rb-form-panel,
+      .rb-preview-panel {
+        max-height: none;
+      }
+      .rb-print-info {
+        grid-template-columns: 1fr;
+      }
     }
 
-    .toast.error {
-      border-color: var(--danger);
-    }
-
-    /* 页脚 */
-    .footer {
-      text-align: center;
-      padding: 30px 0;
-      margin-top: 40px;
-      border-top: 1px solid var(--bg-tertiary);
-      color: var(--text-tertiary);
-    }
-
-    .footer a {
-      color: var(--accent-main);
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      color: var(--accent-light);
-    }
-
-    /* 响应式 */
     @media (max-width: 768px) {
-      .header h1 {
-        font-size: 1.8em;
-      }
+      .rb-action-bar { display: none; }
+      .rb-mobile-tabs { display: flex; }
+      .rb-mobile-bar { display: flex; }
 
-      .toolbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
+      .rb-workspace { gap: var(--studio-space-3); }
+      .rb-form-panel { display: none; }
+      .rb-preview-panel { display: none; }
+      .rb-workspace.is-tab-edit .rb-form-panel { display: block; }
+      .rb-workspace.is-tab-preview .rb-preview-panel { display: flex; }
 
-      .toolbar-group {
-        justify-content: center;
-        flex-wrap: wrap;
+      .rb-form-panel,
+      .rb-preview-panel {
+        max-height: none;
+        padding-bottom: calc(80px + env(safe-area-inset-bottom));
       }
+      .rb-form-panel { padding: var(--studio-space-4); }
+      .a4-preview-shell { padding: var(--studio-space-3); }
 
-      .preview-content {
-        padding: 20px;
-      }
+      .rb-field-row { grid-template-columns: 1fr; }
 
-      .resume-template.modern .resume-header {
-        margin: -20px -20px 20px -20px;
-        padding: 20px;
-      }
-
-      .resume-template .skills-grid {
-        grid-template-columns: 1fr !important;
-      }
+      .ts-status__item:nth-child(n+5) { display: none; }
     }
 
-    /* 打印样式 */
+    @media (max-width: 360px) {
+      .rb-mobile-bar .ts-btn { padding: 8px 10px; font-size: 13px; }
+    }
+
+    /* ---------- 打印(主页面 Ctrl+P) ---------- */
     @media print {
-      body {
+      @page { size: A4; margin: 20mm; }
+
+      .ts-topbar,
+      .ts-breadcrumb,
+      .ts-titleblock,
+      .ts-status,
+      .rb-action-bar,
+      .rb-mobile-tabs,
+      .rb-form-panel,
+      .rb-print-info,
+      .ts-foot,
+      .rb-mobile-bar,
+      .rb-toast,
+      .rb-preview-panel__head,
+      .rb-privacy { display: none !important; }
+
+      .rb-workspace { display: block; }
+      .rb-preview-panel {
+        display: block;
+        max-height: none;
+        border: 0;
         background: #fff;
       }
-
-      .container {
-        max-width: 100%;
+      .a4-preview-shell {
         padding: 0;
-      }
-
-      .nav-links,
-      .header,
-      .toolbar,
-      .edit-panel,
-      .footer,
-      .panel-header {
-        display: none !important;
-      }
-
-      .main-content {
-        display: block;
-      }
-
-      .preview-panel {
-        border: none;
-        box-shadow: none;
-      }
-
-      .preview-content {
-        max-height: none;
+        background: #fff;
         overflow: visible;
       }
-    }
-
-    /* 滚动条样式 */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-secondary);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent-main));
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-light);
+      .resume-template {
+        width: 100% !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+      }
+      .resume-template.modern .resume-header { margin: 0 0 24px !important; padding: 0 0 16px !important; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
+
+  <!-- 简历模板样式(独立 style, 供导出窗口提取复用) -->
+  <style id="rb-resume-css">
+    /* 简历预览基类 - A4 白纸, 黑字为主 */
+    .resume-template {
+      background: #ffffff;
+      color: #1a1a1a;
+      width: 210mm;
+      max-width: 100%;
+      min-height: 297mm;
+      padding: 48px 56px;
+      font-size: 13px;
+      line-height: 1.65;
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+      box-sizing: border-box;
+    }
+    .resume-template .resume-header { margin-bottom: 22px; }
+    .resume-template .resume-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #151915;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    .resume-template .resume-title {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .resume-template .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px 10px;
+      font-size: 12px;
+      color: #666;
+    }
+    .resume-template .contact-item { display: inline-flex; align-items: center; gap: 4px; }
+    .resume-template .contact-item a {
+      color: #444;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    .resume-template .contact-sep { color: #ccc; }
+    .resume-template .section { margin-bottom: 20px; }
+    .resume-template .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #151915;
+      margin-bottom: 10px;
+    }
+    .resume-template .summary-text {
+      font-size: 13px;
+      line-height: 1.75;
+      color: #333;
+    }
+    .resume-template .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .resume-template .skills-grid--flat {
+      grid-template-columns: 1fr;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .resume-template .skill-category h4 {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+    .resume-template .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .resume-template .skill-tag-preview {
+      display: inline-block;
+      background: #f0eee9;
+      color: #333;
+      padding: 3px 9px;
+      border-radius: 3px;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .resume-template .experience-item,
+    .resume-template .project-item,
+    .resume-template .education-item {
+      margin-bottom: 16px;
+      page-break-inside: avoid;
+    }
+    .resume-template .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+      gap: 12px;
+    }
+    .resume-template .item-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #151915;
+    }
+    .resume-template .item-subtitle {
+      font-size: 13px;
+      color: #666;
+    }
+    .resume-template .item-date {
+      font-size: 12px;
+      color: #888;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .resume-template .item-description {
+      font-size: 12px;
+      color: #333;
+      line-height: 1.7;
+    }
+    .resume-template .item-description ul {
+      padding-left: 18px;
+      margin: 6px 0;
+    }
+    .resume-template .item-description li {
+      margin-bottom: 3px;
+    }
+    .resume-template .tech-stack {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #666;
+    }
+    .resume-template .tech-stack strong { color: #333; }
+    .resume-template .project-links {
+      margin-top: 6px;
+    }
+    .resume-template .project-link {
+      display: inline-block;
+      font-size: 11px;
+      color: #555;
+      text-decoration: underline;
+      margin-right: 14px;
+    }
+    .resume-template .empty-hint {
+      color: #aaa;
+      font-style: italic;
+      font-size: 13px;
+      padding: 48px 0;
+      text-align: center;
+    }
+    .resume-template .is-placeholder {
+      color: #bbb;
+      font-style: italic;
+    }
+
+    /* 经典: 衬线, 居中头部, 双线分隔 */
+    .resume-template.classic {
+      font-family: Georgia, "Songti SC", "Noto Serif SC", SimSun, serif;
+    }
+    .resume-template.classic .resume-header {
+      text-align: center;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #333;
+      margin-bottom: 22px;
+    }
+    .resume-template.classic .resume-name { font-size: 30px; }
+    .resume-template.classic .contact-info { justify-content: center; }
+    .resume-template.classic .section-title {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    /* 现代: 无衬线, 石墨色强调栏, 暖金左侧线 */
+    .resume-template.modern {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    .resume-template.modern .resume-header {
+      border-bottom: 3px solid #151915;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .resume-template.modern .resume-name { font-size: 30px; color: #151915; }
+    .resume-template.modern .resume-title { color: #8a6d2f; font-weight: 500; }
+    .resume-template.modern .section-title {
+      color: #151915;
+      border-left: 3px solid #c8a96b;
+      padding-left: 10px;
+    }
+    .resume-template.modern .skill-tag-preview {
+      background: #131713;
+      color: #f2efe7;
+    }
+
+    /* 极简: 超轻, 小字大写 section 标题, 无边框 */
+    .resume-template.minimal {
+      font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    .resume-template.minimal .resume-name {
+      font-size: 28px;
+      font-weight: 300;
+      color: #151915;
+    }
+    .resume-template.minimal .resume-title {
+      font-size: 15px;
+      color: #888;
+      font-weight: 300;
+    }
+    .resume-template.minimal .section-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-bottom: 0;
+    }
+    .resume-template.minimal .skill-tag-preview {
+      background: transparent;
+      border: 1px solid #ddd;
+      color: #555;
+    }
+    .resume-template.minimal .skills-grid { grid-template-columns: 1fr; }
+  </style>
 </head>
-<body>
-  <div class="container">
-    <!-- 导航 -->
-    <div class="nav-links">
-      <a href="/#/" class="back-link">← 返回主站</a>
-      <a href="/tools/" class="back-link">← 返回工具集</a>
-    </div>
+<body class="tool-studio">
+  <a class="ts-skip-link" href="#ts-main">跳到主内容</a>
 
-    <!-- 头部 -->
-    <div class="header">
-      <h1>📄 程序员简历制作工具</h1>
-      <p>专为技术人员打造的专业简历生成器，一键导出精美PDF</p>
-    </div>
-
-    <!-- 工具栏 -->
-    <div class="toolbar">
-      <div class="toolbar-group">
-        <label>选择模板：</label>
-        <select id="templateSelect" onchange="changeTemplate()">
-          <option value="classic">经典模板</option>
-          <option value="modern">现代模板</option>
-          <option value="minimal">简约模板</option>
-        </select>
-      </div>
-      <div class="toolbar-group" style="flex: 1; justify-content: center; gap: 15px;">
-        <button class="btn btn-secondary" onclick="loadSampleData()">
-          <span>📋</span> 加载示例
-        </button>
-        <button class="btn btn-secondary" onclick="saveDraft()">
-          <span>💾</span> 保存草稿
-        </button>
-        <button class="btn btn-secondary" onclick="loadDraft()">
-          <span>📂</span> 加载草稿
-        </button>
-        <button class="btn btn-danger" onclick="clearAll()">
-          <span>🗑️</span> 清空
-        </button>
-      </div>
-      <div class="toolbar-group">
-        <button class="btn btn-success" onclick="exportPDF()">
-          <span>📥</span> 导出PDF
-        </button>
+  <!-- 顶部工具导航(暖石墨) -->
+  <header class="ts-topbar">
+    <div class="ts-topbar__inner">
+      <button class="ts-topbar__menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="ts-topbar-nav">≡</button>
+      <a class="ts-topbar__brand" href="/#/" aria-label="wychmod 主站">
+        <span class="ts-topbar__logo" aria-hidden="true">W</span>
+        <span class="ts-topbar__brand-text">
+          <span class="ts-topbar__brand-name">wychmod</span>
+          <span class="ts-topbar__brand-sub">Developer Workspace</span>
+        </span>
+      </a>
+      <nav class="ts-topbar__nav" id="ts-topbar-nav" aria-label="主导航">
+        <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
+        <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
+        <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="ts-topbar__actions">
+        <span class="ts-topbar__status" title="本地处理 · 草稿存浏览器">
+          <span class="ts-topbar__status-dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-topbar__avatar" role="img" aria-label="wychmod 的 GitHub 头像">
+          <span class="ts-topbar__avatar-fallback" aria-hidden="true">W</span>
+          <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="32" height="32" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+        </span>
       </div>
     </div>
+  </header>
 
-    <!-- 主内容区 -->
-    <div class="main-content">
-      <!-- 编辑面板 -->
-      <div class="edit-panel">
-        <div class="panel-header">
-          <span class="panel-title">✏️ 编辑简历内容</span>
+  <!-- 主内容 -->
+  <main class="ts-main" id="ts-main">
+    <div class="ts-container">
+
+      <!-- 面包屑 -->
+      <nav class="ts-breadcrumb" aria-label="路径">
+        <span class="ts-breadcrumb__item">WYCHMOD</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <a class="ts-breadcrumb__item" href="/tools/index.html">TOOLS</a>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item is-current" aria-current="location">RESUME-BUILDER</span>
+      </nav>
+
+      <!-- 标题块 -->
+      <div class="ts-titleblock">
+        <h1 class="ts-titleblock__h1">简历生成工具<span class="ts-titleblock__h1-en"> / RESUME BUILDER</span></h1>
+        <p class="ts-titleblock__desc">结构化填写经历，实时 A4 预览，导出为可打印 PDF。所有内容仅在当前浏览器本地处理，不上传服务器；草稿保存在 localStorage，刷新后可恢复。</p>
+      </div>
+
+      <!-- 状态条 -->
+      <div class="ts-status" role="group" aria-label="工具状态">
+        <span class="ts-status__item">
+          <span class="ts-status__dot" aria-hidden="true"></span>
+          本地处理 · 草稿存浏览器
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">模板</span> <span class="ts-status__value" id="currentTemplate">经典 · 单栏</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">纸张</span> <span class="ts-status__value">A4 210×297mm</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">边距</span> <span class="ts-status__value">20mm</span></span>
+      </div>
+
+      <!-- 动作栏 -->
+      <div class="rb-action-bar" role="toolbar" aria-label="简历操作">
+        <div class="rb-action-bar__group">
+          <button type="button" class="ts-btn ts-btn--secondary" onclick="loadSampleData()">加载示例</button>
+          <button type="button" class="ts-btn ts-btn--secondary" onclick="saveDraft()">保存草稿</button>
+          <span class="rb-save-status" id="saveStatus" data-status="idle" role="status" aria-live="polite">未保存</span>
+          <button type="button" class="ts-btn ts-btn--secondary" onclick="loadDraft()">加载草稿</button>
+          <button type="button" class="ts-btn ts-btn--danger" onclick="clearAll()" aria-label="清空当前表单内容">清空</button>
         </div>
-        <div class="panel-content">
-          <!-- 基本信息 -->
-          <div class="form-section">
-            <div class="section-title">👤 基本信息</div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>姓名 *</label>
-                <input type="text" id="name" placeholder="请输入姓名" oninput="updatePreview()">
-              </div>
-              <div class="form-group">
-                <label>求职岗位 *</label>
-                <input type="text" id="title" placeholder="如：Java高级开发工程师" oninput="updatePreview()">
-              </div>
+        <div class="rb-action-bar__group">
+          <button type="button" class="ts-btn ts-btn--primary" onclick="exportPDF()">导出 PDF</button>
+        </div>
+      </div>
+
+      <!-- 移动端 tab -->
+      <div class="rb-mobile-tabs" role="tablist" aria-label="编辑/预览切换">
+        <button type="button" class="rb-mobile-tabs__item is-active" role="tab" id="rb-tab-edit" aria-selected="true" aria-controls="rb-edit-panel" data-tab="edit">编辑</button>
+        <button type="button" class="rb-mobile-tabs__item" role="tab" id="rb-tab-preview" aria-selected="false" aria-controls="rb-preview-panel" data-tab="preview">预览</button>
+      </div>
+
+      <!-- 工作区: 左表单 + 右预览 -->
+      <div class="rb-workspace is-tab-edit">
+
+        <!-- 表单面板 -->
+        <section class="rb-form-panel" id="rb-edit-panel" role="tabpanel" aria-labelledby="rb-tab-edit">
+
+          <!-- 01 模板 -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <span class="rb-section__num">01</span>
+              <span class="rb-section__title">模板</span>
             </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>电话</label>
-                <input type="tel" id="phone" placeholder="手机号码" oninput="updatePreview()">
-              </div>
-              <div class="form-group">
-                <label>邮箱</label>
-                <input type="email" id="email" placeholder="email@example.com" oninput="updatePreview()">
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>所在城市</label>
-                <input type="text" id="location" placeholder="如：北京" oninput="updatePreview()">
-              </div>
-              <div class="form-group">
-                <label>个人网站/博客</label>
-                <input type="url" id="website" placeholder="https://your-blog.com" oninput="updatePreview()">
-              </div>
-            </div>
-            <div class="form-group">
-              <label>GitHub</label>
-              <input type="url" id="github" placeholder="https://github.com/username" oninput="updatePreview()">
+            <div class="rb-field">
+              <label class="rb-field__label" for="templateSelect">选择模板</label>
+              <select id="templateSelect" class="ts-select" onchange="changeTemplate()">
+                <option value="classic">经典 · 单栏</option>
+                <option value="modern">现代 · 强调栏</option>
+                <option value="minimal">极简 · 单栏</option>
+              </select>
             </div>
           </div>
 
-          <!-- 个人简介 -->
-          <div class="form-section">
-            <div class="section-title">📝 个人简介</div>
-            <div class="form-group">
-              <label>自我介绍（突出技术亮点和项目经验）</label>
-              <textarea id="summary" placeholder="简要介绍您的技术背景、核心优势和职业目标..." oninput="updatePreview()"></textarea>
+          <!-- 02 姓名 -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <span class="rb-section__num">02</span>
+              <span class="rb-section__title">姓名</span>
+            </div>
+            <div class="rb-field">
+              <label class="rb-field__label" for="name">姓名 <span class="rb-req" aria-label="必填">*</span></label>
+              <input type="text" id="name" class="ts-input" placeholder="请输入姓名" oninput="updatePreview()">
             </div>
           </div>
 
-          <!-- 技术技能 -->
-          <div class="form-section">
-            <div class="section-title">💻 技术技能</div>
-            <div class="form-group">
-              <label>编程语言</label>
-              <div class="skills-input-container" onclick="this.querySelector('input').focus()">
-                <div id="languagesTags"></div>
-                <input type="text" class="skills-input" id="languagesInput" placeholder="输入后按Enter添加" onkeydown="handleSkillInput(event, 'languages')">
+          <!-- 03 目标岗位 -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <span class="rb-section__num">03</span>
+              <span class="rb-section__title">目标岗位</span>
+            </div>
+            <div class="rb-field">
+              <label class="rb-field__label" for="title">目标岗位</label>
+              <input type="text" id="title" class="ts-input" placeholder="如：Java 后端工程师" oninput="updatePreview()">
+            </div>
+          </div>
+
+          <!-- 04 联系方式 -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <span class="rb-section__num">04</span>
+              <span class="rb-section__title">联系方式</span>
+            </div>
+            <div class="rb-field-row">
+              <div class="rb-field">
+                <label class="rb-field__label" for="phone">电话</label>
+                <input type="tel" id="phone" class="ts-input" placeholder="手机号码" oninput="updatePreview()">
+              </div>
+              <div class="rb-field">
+                <label class="rb-field__label" for="email">邮箱</label>
+                <input type="email" id="email" class="ts-input" placeholder="email@example.com" oninput="updatePreview()">
               </div>
             </div>
-            <div class="form-group">
-              <label>框架/库</label>
-              <div class="skills-input-container" onclick="this.querySelector('input').focus()">
-                <div id="frameworksTags"></div>
-                <input type="text" class="skills-input" id="frameworksInput" placeholder="输入后按Enter添加" onkeydown="handleSkillInput(event, 'frameworks')">
+            <div class="rb-field-row">
+              <div class="rb-field">
+                <label class="rb-field__label" for="location">所在城市</label>
+                <input type="text" id="location" class="ts-input" placeholder="如：上海" oninput="updatePreview()">
+              </div>
+              <div class="rb-field">
+                <label class="rb-field__label" for="website">个人网站</label>
+                <input type="url" id="website" class="ts-input" placeholder="https://your-blog.com" oninput="updatePreview()">
               </div>
             </div>
-            <div class="form-group">
-              <label>数据库</label>
-              <div class="skills-input-container" onclick="this.querySelector('input').focus()">
-                <div id="databasesTags"></div>
-                <input type="text" class="skills-input" id="databasesInput" placeholder="输入后按Enter添加" onkeydown="handleSkillInput(event, 'databases')">
+            <div class="rb-field">
+              <label class="rb-field__label" for="github">GitHub</label>
+              <input type="url" id="github" class="ts-input" placeholder="https://github.com/username" oninput="updatePreview()">
+            </div>
+          </div>
+
+          <!-- 05 个人简介 -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <span class="rb-section__num">05</span>
+              <span class="rb-section__title">个人简介</span>
+            </div>
+            <div class="rb-field">
+              <label class="rb-field__label" for="summary">自我介绍（突出技术亮点与工程价值）</label>
+              <textarea id="summary" class="ts-textarea" placeholder="简要介绍您的技术背景、核心优势与职业目标，可量化成果但不替您编造经历。" oninput="updatePreview()"></textarea>
+            </div>
+          </div>
+
+          <!-- 06 技术栈 -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <span class="rb-section__num">06</span>
+              <span class="rb-section__title">技术栈</span>
+            </div>
+            <div class="rb-field">
+              <label class="rb-field__label" for="languagesInput">编程语言</label>
+              <div class="rb-skills-box" onclick="this.querySelector('input').focus()">
+                <div id="languagesTags" style="display:contents"></div>
+                <input type="text" class="rb-skills-input" id="languagesInput" placeholder="输入后按 Enter 添加" onkeydown="handleSkillInput(event, 'languages')">
               </div>
             </div>
-            <div class="form-group">
-              <label>工具/平台</label>
-              <div class="skills-input-container" onclick="this.querySelector('input').focus()">
-                <div id="toolsTags"></div>
-                <input type="text" class="skills-input" id="toolsInput" placeholder="输入后按Enter添加" onkeydown="handleSkillInput(event, 'tools')">
+            <div class="rb-field">
+              <label class="rb-field__label" for="frameworksInput">框架 / 库</label>
+              <div class="rb-skills-box" onclick="this.querySelector('input').focus()">
+                <div id="frameworksTags" style="display:contents"></div>
+                <input type="text" class="rb-skills-input" id="frameworksInput" placeholder="输入后按 Enter 添加" onkeydown="handleSkillInput(event, 'frameworks')">
+              </div>
+            </div>
+            <div class="rb-field">
+              <label class="rb-field__label" for="databasesInput">数据库</label>
+              <div class="rb-skills-box" onclick="this.querySelector('input').focus()">
+                <div id="databasesTags" style="display:contents"></div>
+                <input type="text" class="rb-skills-input" id="databasesInput" placeholder="输入后按 Enter 添加" onkeydown="handleSkillInput(event, 'databases')">
+              </div>
+            </div>
+            <div class="rb-field">
+              <label class="rb-field__label" for="toolsInput">工具 / 平台</label>
+              <div class="rb-skills-box" onclick="this.querySelector('input').focus()">
+                <div id="toolsTags" style="display:contents"></div>
+                <input type="text" class="rb-skills-input" id="toolsInput" placeholder="输入后按 Enter 添加" onkeydown="handleSkillInput(event, 'tools')">
               </div>
             </div>
           </div>
 
-          <!-- 工作经历 -->
-          <div class="form-section">
-            <div class="section-title">💼 工作经历</div>
+          <!-- 07 工作经历 -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <span class="rb-section__num">07</span>
+              <span class="rb-section__title">工作经历</span>
+            </div>
             <div id="experienceList"></div>
-            <button class="add-item-btn" onclick="addExperience()">+ 添加工作经历</button>
+            <button type="button" class="rb-add-btn" onclick="addExperience()">+ 添加工作经历</button>
           </div>
 
-          <!-- 项目经验 -->
-          <div class="form-section">
-            <div class="section-title">🚀 项目经验</div>
+          <!-- 08 项目经历 -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <span class="rb-section__num">08</span>
+              <span class="rb-section__title">项目经历</span>
+            </div>
             <div id="projectList"></div>
-            <button class="add-item-btn" onclick="addProject()">+ 添加项目经验</button>
+            <button type="button" class="rb-add-btn" onclick="addProject()">+ 添加项目经历</button>
           </div>
 
-          <!-- 教育背景 -->
-          <div class="form-section">
-            <div class="section-title">🎓 教育背景</div>
+          <!-- 09 教育经历 -->
+          <div class="rb-section">
+            <div class="rb-section__head">
+              <span class="rb-section__num">09</span>
+              <span class="rb-section__title">教育经历</span>
+            </div>
             <div id="educationList"></div>
-            <button class="add-item-btn" onclick="addEducation()">+ 添加教育经历</button>
+            <button type="button" class="rb-add-btn" onclick="addEducation()">+ 添加教育经历</button>
           </div>
-        </div>
+
+        </section>
+
+        <!-- 预览面板 -->
+        <section class="rb-preview-panel" id="rb-preview-panel" role="tabpanel" aria-labelledby="rb-tab-preview">
+          <div class="rb-preview-panel__head">
+            <span class="rb-preview-panel__title">A4 实时预览</span>
+            <span class="rb-preview-panel__meta">210 × 297 mm</span>
+          </div>
+          <div class="a4-preview-shell" id="previewContent">
+            <div class="resume-template classic" id="resumePreview">
+              <!-- 简历内容将在这里渲染 -->
+            </div>
+          </div>
+          <p class="rb-privacy">隐私说明：您的数据仅在本地浏览器中处理，不会上传到服务器。</p>
+        </section>
+
       </div>
 
-      <!-- 预览面板 -->
-      <div class="preview-panel">
-        <div class="panel-header">
-          <span class="panel-title">👁️ 实时预览</span>
-          <span style="color: var(--text-tertiary); font-size: 13px;">当前模板：<span id="currentTemplate">经典模板</span></span>
+      <!-- A4 打印预览说明 -->
+      <section class="rb-print-info" aria-label="打印说明">
+        <div class="rb-print-info__card">
+          <h2 class="rb-print-info__title">A4 可打印预览</h2>
+          <dl class="rb-print-info__dl">
+            <dt>尺寸</dt><dd>210 × 297 mm</dd>
+            <dt>纸张</dt><dd>A4</dd>
+            <dt>边距</dt><dd>20 mm</dd>
+            <dt>适应</dt><dd>页面</dd>
+          </dl>
         </div>
-        <div class="preview-content" id="previewContent">
-          <div class="resume-template classic" id="resumePreview">
-            <!-- 简历内容将在这里渲染 -->
-          </div>
+        <div class="rb-print-info__note">
+          <p>点击「导出 PDF」将打开浏览器打印窗口，选择「保存为 PDF」即可导出。打印内容仅包含简历预览，不含工具栏与表单；中文、长 URL 与多页经历会自然分页。</p>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <!-- 页脚 -->
-    <div class="footer">
-      <p>© 2024-2026 wychmod Developer Workspace | 
-        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">GitHub</a> | 
-        <a href="/tools/">更多工具</a>
-      </p>
     </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="ts-foot">
+    <div class="ts-foot__inner">
+      <span>© 2024–2026 wychmod Developer Workspace</span>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/tools/index.html">工具集</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/#/">返回主站</a>
+    </div>
+  </footer>
+
+  <!-- 移动端固定栏 -->
+  <div class="rb-mobile-bar">
+    <span class="rb-save-status" data-status="idle" role="status" aria-live="polite">未保存</span>
+    <button type="button" class="ts-btn ts-btn--secondary" onclick="saveDraft()">保存草稿</button>
+    <button type="button" class="ts-btn ts-btn--primary" onclick="exportPDF()">导出</button>
   </div>
 
   <!-- Toast -->
-  <div class="toast" id="toast"></div>
+  <div class="rb-toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
+    /* ===========================================================
+       P021 简历生成工具 - 脚本
+       保留契约: 所有函数名 / ID / 事件绑定 / localStorage key 不变
+       localStorage key: resumeDraft (schema: 直接序列化 resumeData, 不做迁移)
+       =========================================================== */
+
     // 数据存储
     const resumeData = {
       name: '',
@@ -1201,28 +1042,102 @@
     let projectCounter = 0;
     let educationCounter = 0;
 
+    // ---------- 安全工具(新增, 修复 XSS) ----------
+    function escapeHtml(text) {
+      if (text === null || text === undefined) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function sanitizeUrl(url) {
+      if (!url) return '';
+      const str = String(url).trim();
+      if (!str) return '';
+      // 仅允许 http/https/mailto/tel 与安全相对 URL
+      if (/^(https?:|mailto:|tel:|\/|\.\/|\.\.\/|#)/i.test(str)) {
+        return str;
+      }
+      // 拒绝 javascript:/data: 等危险协议
+      return '';
+    }
+
+    // ---------- 保存状态(真实: 仅 localStorage 写入成功后显示时间) ----------
+    function setSaveStatus(status, detail) {
+      const labels = {
+        idle: '未保存',
+        saving: '保存中...',
+        saved: '已保存',
+        failed: '保存失败',
+        loaded: '已加载草稿'
+      };
+      const text = detail || labels[status] || '';
+      document.querySelectorAll('.rb-save-status').forEach(function (el) {
+        el.setAttribute('data-status', status);
+        el.textContent = text;
+      });
+    }
+
+    function getCurrentTimeLabel() {
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2, '0');
+      const mm = String(d.getMinutes()).padStart(2, '0');
+      return hh + ':' + mm;
+    }
+
     // 初始化
     document.addEventListener('DOMContentLoaded', function() {
-      // 尝试加载草稿
+      // 顶部导航抽屉(移动端)
+      var topbar = document.querySelector('.ts-topbar');
+      var menuBtn = topbar && topbar.querySelector('.ts-topbar__menu-btn');
+      var nav = topbar && topbar.querySelector('.ts-topbar__nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('.ts-topbar__nav-item')) {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      // 移动端 tab 切换
+      document.querySelectorAll('.rb-mobile-tabs__item').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setMobileResumeTab(btn.dataset.tab);
+        });
+      });
+
+      // 尝试加载草稿(保留原 key: resumeDraft, schema 不变)
       const savedDraft = localStorage.getItem('resumeDraft');
       if (savedDraft) {
         try {
           const draft = JSON.parse(savedDraft);
           Object.assign(resumeData, draft);
           loadDataToForm();
-          showToast('已自动加载上次保存的草稿', 'success');
+          setSaveStatus('loaded', '已自动加载上次保存的本地草稿');
+          showToast('已自动加载上次保存的本地草稿', 'success');
         } catch (e) {
           console.error('加载草稿失败:', e);
+          setSaveStatus('failed', '草稿损坏');
+          showToast('本地草稿数据损坏，已忽略', 'error');
         }
       }
       updatePreview();
     });
 
     // 显示Toast
-    function showToast(message, type = 'info') {
+    function showToast(message, type) {
+      type = type || 'info';
       const toast = document.getElementById('toast');
       toast.textContent = message;
-      toast.className = 'toast ' + type;
+      toast.className = 'rb-toast ' + type;
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
@@ -1243,10 +1158,10 @@
 
       // 收集工作经历
       resumeData.experiences = collectListData('experience');
-      
+
       // 收集项目经验
       resumeData.projects = collectListData('project');
-      
+
       // 收集教育背景
       resumeData.education = collectListData('education');
 
@@ -1257,7 +1172,7 @@
     // 收集列表数据
     function collectListData(type) {
       const list = document.getElementById(type + 'List');
-      const items = list.querySelectorAll('.list-item');
+      const items = list.querySelectorAll('.rb-list-item');
       const data = [];
 
       items.forEach(item => {
@@ -1295,7 +1210,7 @@
       return data;
     }
 
-    // 渲染预览
+    // 渲染预览(安全: 所有用户输入经 escapeHtml, URL 经 sanitizeUrl)
     function renderPreview() {
       const preview = document.getElementById('resumePreview');
       preview.className = 'resume-template ' + currentTemplate;
@@ -1304,60 +1219,79 @@
 
       // 头部信息
       html += '<div class="resume-header">';
-      html += `<div class="resume-name">${resumeData.name || '您的姓名'}</div>`;
-      html += `<div class="resume-title">${resumeData.title || '求职岗位'}</div>`;
-      html += '<div class="contact-info">';
-      if (resumeData.phone) html += `<span class="contact-item">📱 ${resumeData.phone}</span>`;
-      if (resumeData.email) html += `<span class="contact-item">📧 ${resumeData.email}</span>`;
-      if (resumeData.location) html += `<span class="contact-item">📍 ${resumeData.location}</span>`;
-      if (resumeData.website) html += `<span class="contact-item">🌐 <a href="${resumeData.website}" target="_blank">${resumeData.website.replace(/^https?:\/\//, '')}</a></span>`;
-      if (resumeData.github) html += `<span class="contact-item">💻 <a href="${resumeData.github}" target="_blank">${resumeData.github.replace(/^https?:\/\//, '')}</a></span>`;
-      html += '</div>';
+      const nameDisplay = resumeData.name
+        ? escapeHtml(resumeData.name)
+        : '<span class="is-placeholder">您的姓名</span>';
+      const titleDisplay = resumeData.title
+        ? escapeHtml(resumeData.title)
+        : '<span class="is-placeholder">求职岗位</span>';
+      html += `<div class="resume-name">${nameDisplay}</div>`;
+      html += `<div class="resume-title">${titleDisplay}</div>`;
+
+      // 联系方式(仅显示已填写字段)
+      const contacts = [];
+      if (resumeData.phone) contacts.push(`<span class="contact-item">${escapeHtml(resumeData.phone)}</span>`);
+      if (resumeData.email) contacts.push(`<span class="contact-item">${escapeHtml(resumeData.email)}</span>`);
+      if (resumeData.location) contacts.push(`<span class="contact-item">${escapeHtml(resumeData.location)}</span>`);
+      if (resumeData.website) {
+        const safe = sanitizeUrl(resumeData.website);
+        if (safe) {
+          const label = escapeHtml(resumeData.website.replace(/^https?:\/\//, ''));
+          contacts.push(`<span class="contact-item"><a href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer">${label}</a></span>`);
+        }
+      }
+      if (resumeData.github) {
+        const safe = sanitizeUrl(resumeData.github);
+        if (safe) {
+          const label = escapeHtml(resumeData.github.replace(/^https?:\/\//, ''));
+          contacts.push(`<span class="contact-item"><a href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer">${label}</a></span>`);
+        }
+      }
+      if (contacts.length) {
+        html += '<div class="contact-info">';
+        html += contacts.join('<span class="contact-sep" aria-hidden="true">·</span>');
+        html += '</div>';
+      }
       html += '</div>';
 
       // 个人简介
       if (resumeData.summary) {
         html += '<div class="section">';
         html += '<div class="section-title">个人简介</div>';
-        html += `<div class="summary-text">${resumeData.summary.replace(/\n/g, '<br>')}</div>`;
+        html += `<div class="summary-text">${escapeHtml(resumeData.summary).replace(/\n/g, '<br>')}</div>`;
         html += '</div>';
       }
 
       // 技术技能
-      const hasSkills = resumeData.skills.languages.length || resumeData.skills.frameworks.length || 
+      const hasSkills = resumeData.skills.languages.length || resumeData.skills.frameworks.length ||
                         resumeData.skills.databases.length || resumeData.skills.tools.length;
       if (hasSkills) {
         html += '<div class="section">';
         html += '<div class="section-title">技术技能</div>';
         if (currentTemplate === 'minimal') {
-          html += '<div class="skills-grid">';
-          [...resumeData.skills.languages, ...resumeData.skills.frameworks, 
+          html += '<div class="skills-grid skills-grid--flat">';
+          [...resumeData.skills.languages, ...resumeData.skills.frameworks,
            ...resumeData.skills.databases, ...resumeData.skills.tools].forEach(skill => {
-            html += `<span class="skill-tag-preview">${skill}</span>`;
+            html += `<span class="skill-tag-preview">${escapeHtml(skill)}</span>`;
           });
           html += '</div>';
         } else {
           html += '<div class="skills-grid">';
-          if (resumeData.skills.languages.length) {
-            html += '<div class="skill-category"><h4>编程语言</h4><div class="skill-tags">';
-            resumeData.skills.languages.forEach(s => html += `<span class="skill-tag-preview">${s}</span>`);
-            html += '</div></div>';
-          }
-          if (resumeData.skills.frameworks.length) {
-            html += '<div class="skill-category"><h4>框架/库</h4><div class="skill-tags">';
-            resumeData.skills.frameworks.forEach(s => html += `<span class="skill-tag-preview">${s}</span>`);
-            html += '</div></div>';
-          }
-          if (resumeData.skills.databases.length) {
-            html += '<div class="skill-category"><h4>数据库</h4><div class="skill-tags">';
-            resumeData.skills.databases.forEach(s => html += `<span class="skill-tag-preview">${s}</span>`);
-            html += '</div></div>';
-          }
-          if (resumeData.skills.tools.length) {
-            html += '<div class="skill-category"><h4>工具/平台</h4><div class="skill-tags">';
-            resumeData.skills.tools.forEach(s => html += `<span class="skill-tag-preview">${s}</span>`);
-            html += '</div></div>';
-          }
+          const cats = [
+            { key: 'languages', label: '编程语言' },
+            { key: 'frameworks', label: '框架/库' },
+            { key: 'databases', label: '数据库' },
+            { key: 'tools', label: '工具/平台' }
+          ];
+          cats.forEach(cat => {
+            if (resumeData.skills[cat.key].length) {
+              html += `<div class="skill-category"><h4>${escapeHtml(cat.label)}</h4><div class="skill-tags">`;
+              resumeData.skills[cat.key].forEach(s => {
+                html += `<span class="skill-tag-preview">${escapeHtml(s)}</span>`;
+              });
+              html += '</div></div>';
+            }
+          });
           html += '</div>';
         }
         html += '</div>';
@@ -1370,12 +1304,12 @@
         resumeData.experiences.forEach(exp => {
           if (exp.company || exp.position) {
             html += '<div class="experience-item">';
-            html += '<div class="item-header">';
-            html += '<div>';
-            html += `<div class="item-title">${exp.company || '公司名称'}</div>`;
-            html += `<div class="item-subtitle">${exp.position || '职位'}</div>`;
+            html += '<div class="item-header"><div>';
+            html += `<div class="item-title">${escapeHtml(exp.company) || '<span class="is-placeholder">公司名称</span>'}</div>`;
+            html += `<div class="item-subtitle">${escapeHtml(exp.position) || '<span class="is-placeholder">职位</span>'}</div>`;
             html += '</div>';
-            html += `<div class="item-date">${exp.startDate || '开始时间'} - ${exp.endDate || '结束时间'}</div>`;
+            const dateStr = [exp.startDate, exp.endDate].filter(Boolean).map(escapeHtml).join(' - ');
+            if (dateStr) html += `<div class="item-date">${dateStr}</div>`;
             html += '</div>';
             if (exp.description) {
               html += `<div class="item-description">${formatDescription(exp.description)}</div>`;
@@ -1393,25 +1327,29 @@
         resumeData.projects.forEach(proj => {
           if (proj.name || proj.description) {
             html += '<div class="project-item">';
-            html += '<div class="item-header">';
-            html += '<div>';
-            html += `<div class="item-title">${proj.name || '项目名称'}</div>`;
-            if (proj.role) html += `<div class="item-subtitle">${proj.role}</div>`;
+            html += '<div class="item-header"><div>';
+            html += `<div class="item-title">${escapeHtml(proj.name) || '<span class="is-placeholder">项目名称</span>'}</div>`;
+            if (proj.role) html += `<div class="item-subtitle">${escapeHtml(proj.role)}</div>`;
             html += '</div>';
-            if (proj.startDate || proj.endDate) {
-              html += `<div class="item-date">${proj.startDate || ''} - ${proj.endDate || ''}</div>`;
-            }
+            const pdate = [proj.startDate, proj.endDate].filter(Boolean).map(escapeHtml).join(' - ');
+            if (pdate) html += `<div class="item-date">${pdate}</div>`;
             html += '</div>';
             if (proj.description) {
               html += `<div class="item-description">${formatDescription(proj.description)}</div>`;
             }
             if (proj.techStack) {
-              html += `<div class="tech-stack"><strong>技术栈：</strong>${proj.techStack}</div>`;
+              html += `<div class="tech-stack"><strong>技术栈：</strong>${escapeHtml(proj.techStack)}</div>`;
             }
             if (proj.github || proj.demo) {
               html += '<div class="project-links">';
-              if (proj.github) html += `<a href="${proj.github}" target="_blank" class="project-link">📦 GitHub</a>`;
-              if (proj.demo) html += `<a href="${proj.demo}" target="_blank" class="project-link">🔗 在线演示</a>`;
+              if (proj.github) {
+                const safe = sanitizeUrl(proj.github);
+                if (safe) html += `<a href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>`;
+              }
+              if (proj.demo) {
+                const safe = sanitizeUrl(proj.demo);
+                if (safe) html += `<a href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer" class="project-link">在线演示</a>`;
+              }
               html += '</div>';
             }
             html += '</div>';
@@ -1427,12 +1365,13 @@
         resumeData.education.forEach(edu => {
           if (edu.school || edu.major) {
             html += '<div class="education-item">';
-            html += '<div class="item-header">';
-            html += '<div>';
-            html += `<div class="item-title">${edu.school || '学校名称'}</div>`;
-            html += `<div class="item-subtitle">${edu.degree || ''} ${edu.major || ''}</div>`;
+            html += '<div class="item-header"><div>';
+            html += `<div class="item-title">${escapeHtml(edu.school) || '<span class="is-placeholder">学校名称</span>'}</div>`;
+            const sub = [edu.degree, edu.major].filter(Boolean).map(escapeHtml).join(' · ');
+            if (sub) html += `<div class="item-subtitle">${sub}</div>`;
             html += '</div>';
-            html += `<div class="item-date">${edu.startDate || ''} - ${edu.endDate || ''}</div>`;
+            const edate = [edu.startDate, edu.endDate].filter(Boolean).map(escapeHtml).join(' - ');
+            if (edate) html += `<div class="item-date">${edate}</div>`;
             html += '</div>';
             html += '</div>';
           }
@@ -1440,31 +1379,30 @@
         html += '</div>';
       }
 
-      preview.innerHTML = html || '<p class="empty-hint">开始填写左侧表单，预览将实时更新...</p>';
+      preview.innerHTML = html || '<p class="empty-hint">开始填写左侧表单，预览将实时更新。</p>';
     }
 
-    // 格式化描述（支持换行和列表）
+    // 格式化描述(支持换行和列表, 安全转义)
     function formatDescription(text) {
       if (!text) return '';
-      
-      // 检测是否有列表项（以 - 或 * 开头的行）
+
       const lines = text.split('\n');
       const hasList = lines.some(line => /^\s*[-*•]\s/.test(line));
-      
+
       if (hasList) {
         let html = '<ul>';
         lines.forEach(line => {
           const trimmed = line.trim();
           if (trimmed) {
             const content = trimmed.replace(/^[-*•]\s*/, '');
-            html += `<li>${content}</li>`;
+            html += `<li>${escapeHtml(content)}</li>`;
           }
         });
         html += '</ul>';
         return html;
       }
-      
-      return text.replace(/\n/g, '<br>');
+
+      return escapeHtml(text).replace(/\n/g, '<br>');
     }
 
     // 技能输入处理
@@ -1473,7 +1411,7 @@
         event.preventDefault();
         const input = event.target;
         const value = input.value.trim();
-        
+
         if (value && !resumeData.skills[category].includes(value)) {
           resumeData.skills[category].push(value);
           renderSkillTags(category);
@@ -1483,11 +1421,11 @@
       }
     }
 
-    // 渲染技能标签
+    // 渲染技能标签(安全转义)
     function renderSkillTags(category) {
       const container = document.getElementById(category + 'Tags');
-      container.innerHTML = resumeData.skills[category].map((skill, index) => 
-        `<span class="skill-tag">${skill}<span class="remove-skill" onclick="removeSkill('${category}', ${index})">×</span></span>`
+      container.innerHTML = resumeData.skills[category].map((skill, index) =>
+        `<span class="rb-chip">${escapeHtml(skill)}<button type="button" class="rb-chip__remove" onclick="removeSkill('${escapeHtml(category)}', ${index})" aria-label="删除技能 ${escapeHtml(skill)}">×</button></span>`
       ).join('');
     }
 
@@ -1502,43 +1440,41 @@
     function addExperience() {
       const id = ++experienceCounter;
       const list = document.getElementById('experienceList');
-      
+
       const item = document.createElement('div');
-      item.className = 'list-item';
+      item.className = 'rb-list-item';
       item.dataset.id = id;
       item.innerHTML = `
-        <div class="list-item-header">
-          <span class="list-item-title">工作经历 #${id}</span>
-          <div class="list-item-actions">
-            <button class="btn btn-icon btn-danger" onclick="removeItem(this)" title="删除">🗑️</button>
+        <div class="rb-list-item__head">
+          <span class="rb-list-item__title">工作经历 #${id}</span>
+          <button type="button" class="ts-btn ts-btn--danger rb-list-item__remove" onclick="removeItem(this)" aria-label="删除工作经历 ${id}">删除</button>
+        </div>
+        <div class="rb-field-row">
+          <div class="rb-field">
+            <label class="rb-field__label" for="exp_company_${id}">公司名称</label>
+            <input type="text" id="exp_company_${id}" class="ts-input" placeholder="公司名称" oninput="updatePreview()">
+          </div>
+          <div class="rb-field">
+            <label class="rb-field__label" for="exp_position_${id}">职位</label>
+            <input type="text" id="exp_position_${id}" class="ts-input" placeholder="职位名称" oninput="updatePreview()">
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>公司名称</label>
-            <input type="text" id="exp_company_${id}" placeholder="公司名称" oninput="updatePreview()">
+        <div class="rb-field-row">
+          <div class="rb-field">
+            <label class="rb-field__label" for="exp_start_${id}">开始时间</label>
+            <input type="text" id="exp_start_${id}" class="ts-input" placeholder="如：2020.06" oninput="updatePreview()">
           </div>
-          <div class="form-group">
-            <label>职位</label>
-            <input type="text" id="exp_position_${id}" placeholder="职位名称" oninput="updatePreview()">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>开始时间</label>
-            <input type="text" id="exp_start_${id}" placeholder="如：2020.06" oninput="updatePreview()">
-          </div>
-          <div class="form-group">
-            <label>结束时间</label>
-            <input type="text" id="exp_end_${id}" placeholder="如：至今" oninput="updatePreview()">
+          <div class="rb-field">
+            <label class="rb-field__label" for="exp_end_${id}">结束时间</label>
+            <input type="text" id="exp_end_${id}" class="ts-input" placeholder="如：至今" oninput="updatePreview()">
           </div>
         </div>
-        <div class="form-group">
-          <label>工作内容（每行一条，以 - 开头可生成列表）</label>
-          <textarea id="exp_desc_${id}" placeholder="- 负责核心业务模块的开发和维护\n- 优化系统性能，提升响应速度50%\n- 参与技术方案设计和代码评审" oninput="updatePreview()"></textarea>
+        <div class="rb-field">
+          <label class="rb-field__label" for="exp_desc_${id}">工作内容（每行一条，以 - 开头可生成列表）</label>
+          <textarea id="exp_desc_${id}" class="ts-textarea" placeholder="- 负责核心业务模块的开发和维护&#10;- 优化系统性能，提升响应速度&#10;- 参与技术方案设计和代码评审" oninput="updatePreview()"></textarea>
         </div>
       `;
-      
+
       list.appendChild(item);
       updatePreview();
     }
@@ -1547,57 +1483,55 @@
     function addProject() {
       const id = ++projectCounter;
       const list = document.getElementById('projectList');
-      
+
       const item = document.createElement('div');
-      item.className = 'list-item';
+      item.className = 'rb-list-item';
       item.dataset.id = id;
       item.innerHTML = `
-        <div class="list-item-header">
-          <span class="list-item-title">项目 #${id}</span>
-          <div class="list-item-actions">
-            <button class="btn btn-icon btn-danger" onclick="removeItem(this)" title="删除">🗑️</button>
+        <div class="rb-list-item__head">
+          <span class="rb-list-item__title">项目 #${id}</span>
+          <button type="button" class="ts-btn ts-btn--danger rb-list-item__remove" onclick="removeItem(this)" aria-label="删除项目经历 ${id}">删除</button>
+        </div>
+        <div class="rb-field-row">
+          <div class="rb-field">
+            <label class="rb-field__label" for="proj_name_${id}">项目名称</label>
+            <input type="text" id="proj_name_${id}" class="ts-input" placeholder="项目名称" oninput="updatePreview()">
+          </div>
+          <div class="rb-field">
+            <label class="rb-field__label" for="proj_role_${id}">担任角色</label>
+            <input type="text" id="proj_role_${id}" class="ts-input" placeholder="如：技术负责人" oninput="updatePreview()">
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>项目名称</label>
-            <input type="text" id="proj_name_${id}" placeholder="项目名称" oninput="updatePreview()">
+        <div class="rb-field-row">
+          <div class="rb-field">
+            <label class="rb-field__label" for="proj_start_${id}">开始时间</label>
+            <input type="text" id="proj_start_${id}" class="ts-input" placeholder="如：2021.01" oninput="updatePreview()">
           </div>
-          <div class="form-group">
-            <label>担任角色</label>
-            <input type="text" id="proj_role_${id}" placeholder="如：技术负责人" oninput="updatePreview()">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>开始时间</label>
-            <input type="text" id="proj_start_${id}" placeholder="如：2021.01" oninput="updatePreview()">
-          </div>
-          <div class="form-group">
-            <label>结束时间</label>
-            <input type="text" id="proj_end_${id}" placeholder="如：2021.06" oninput="updatePreview()">
+          <div class="rb-field">
+            <label class="rb-field__label" for="proj_end_${id}">结束时间</label>
+            <input type="text" id="proj_end_${id}" class="ts-input" placeholder="如：2021.06" oninput="updatePreview()">
           </div>
         </div>
-        <div class="form-group">
-          <label>项目描述（每行一条，以 - 开头可生成列表）</label>
-          <textarea id="proj_desc_${id}" placeholder="- 项目背景和目标\n- 主要负责的功能模块\n- 技术难点和解决方案\n- 项目成果和数据指标" oninput="updatePreview()"></textarea>
+        <div class="rb-field">
+          <label class="rb-field__label" for="proj_desc_${id}">项目描述（每行一条，以 - 开头可生成列表）</label>
+          <textarea id="proj_desc_${id}" class="ts-textarea" placeholder="- 项目背景和目标&#10;- 主要负责的功能模块&#10;- 技术难点和解决方案&#10;- 项目成果和数据指标" oninput="updatePreview()"></textarea>
         </div>
-        <div class="form-group">
-          <label>技术栈</label>
-          <input type="text" id="proj_tech_${id}" placeholder="如：Spring Boot, Vue.js, MySQL, Redis" oninput="updatePreview()">
+        <div class="rb-field">
+          <label class="rb-field__label" for="proj_tech_${id}">技术栈</label>
+          <input type="text" id="proj_tech_${id}" class="ts-input" placeholder="如：Spring Boot, Vue.js, MySQL, Redis" oninput="updatePreview()">
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>GitHub 链接</label>
-            <input type="url" id="proj_github_${id}" placeholder="https://github.com/..." oninput="updatePreview()">
+        <div class="rb-field-row">
+          <div class="rb-field">
+            <label class="rb-field__label" for="proj_github_${id}">GitHub 链接</label>
+            <input type="url" id="proj_github_${id}" class="ts-input" placeholder="https://github.com/..." oninput="updatePreview()">
           </div>
-          <div class="form-group">
-            <label>在线演示</label>
-            <input type="url" id="proj_demo_${id}" placeholder="https://demo.example.com" oninput="updatePreview()">
+          <div class="rb-field">
+            <label class="rb-field__label" for="proj_demo_${id}">在线演示</label>
+            <input type="url" id="proj_demo_${id}" class="ts-input" placeholder="https://demo.example.com" oninput="updatePreview()">
           </div>
         </div>
       `;
-      
+
       list.appendChild(item);
       updatePreview();
     }
@@ -1606,49 +1540,48 @@
     function addEducation() {
       const id = ++educationCounter;
       const list = document.getElementById('educationList');
-      
+
       const item = document.createElement('div');
-      item.className = 'list-item';
+      item.className = 'rb-list-item';
       item.dataset.id = id;
       item.innerHTML = `
-        <div class="list-item-header">
-          <span class="list-item-title">教育经历 #${id}</span>
-          <div class="list-item-actions">
-            <button class="btn btn-icon btn-danger" onclick="removeItem(this)" title="删除">🗑️</button>
+        <div class="rb-list-item__head">
+          <span class="rb-list-item__title">教育经历 #${id}</span>
+          <button type="button" class="ts-btn ts-btn--danger rb-list-item__remove" onclick="removeItem(this)" aria-label="删除教育经历 ${id}">删除</button>
+        </div>
+        <div class="rb-field-row">
+          <div class="rb-field">
+            <label class="rb-field__label" for="edu_school_${id}">学校名称</label>
+            <input type="text" id="edu_school_${id}" class="ts-input" placeholder="学校名称" oninput="updatePreview()">
+          </div>
+          <div class="rb-field">
+            <label class="rb-field__label" for="edu_degree_${id}">学历</label>
+            <input type="text" id="edu_degree_${id}" class="ts-input" placeholder="如：本科、硕士" oninput="updatePreview()">
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>学校名称</label>
-            <input type="text" id="edu_school_${id}" placeholder="学校名称" oninput="updatePreview()">
+        <div class="rb-field-row">
+          <div class="rb-field">
+            <label class="rb-field__label" for="edu_major_${id}">专业</label>
+            <input type="text" id="edu_major_${id}" class="ts-input" placeholder="专业名称" oninput="updatePreview()">
           </div>
-          <div class="form-group">
-            <label>学历</label>
-            <input type="text" id="edu_degree_${id}" placeholder="如：本科、硕士" oninput="updatePreview()">
+          <div class="rb-field">
+            <label class="rb-field__label" for="edu_start_${id}">开始时间</label>
+            <input type="text" id="edu_start_${id}" class="ts-input" placeholder="如：2017.09" oninput="updatePreview()">
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>专业</label>
-            <input type="text" id="edu_major_${id}" placeholder="专业名称" oninput="updatePreview()">
-          </div>
-          <div class="form-group">
-            <label>时间</label>
-            <div class="form-row" style="gap: 10px;">
-              <input type="text" id="edu_start_${id}" placeholder="开始" oninput="updatePreview()">
-              <input type="text" id="edu_end_${id}" placeholder="结束" oninput="updatePreview()">
-            </div>
-          </div>
+        <div class="rb-field">
+          <label class="rb-field__label" for="edu_end_${id}">结束时间</label>
+          <input type="text" id="edu_end_${id}" class="ts-input" placeholder="如：2019.06" oninput="updatePreview()">
         </div>
       `;
-      
+
       list.appendChild(item);
       updatePreview();
     }
 
     // 移除列表项
     function removeItem(button) {
-      const item = button.closest('.list-item');
+      const item = button.closest('.rb-list-item');
       item.remove();
       updatePreview();
     }
@@ -1656,15 +1589,18 @@
     // 切换模板
     function changeTemplate() {
       currentTemplate = document.getElementById('templateSelect').value;
-      document.getElementById('currentTemplate').textContent = 
-        currentTemplate === 'classic' ? '经典模板' : 
-        currentTemplate === 'modern' ? '现代模板' : '简约模板';
+      const labels = {
+        classic: '经典 · 单栏',
+        modern: '现代 · 强调栏',
+        minimal: '极简 · 单栏'
+      };
+      document.getElementById('currentTemplate').textContent = labels[currentTemplate] || currentTemplate;
       updatePreview();
     }
 
     // 加载示例数据
     function loadSampleData() {
-      // 基本信息
+      // 基本信息(示例数据, 非真实内容)
       document.getElementById('name').value = '张三';
       document.getElementById('title').value = 'Java高级开发工程师';
       document.getElementById('phone').value = '13800138000';
@@ -1744,14 +1680,21 @@
       showToast('示例数据已加载', 'success');
     }
 
-    // 保存草稿
+    // 保存草稿(try/catch, 真实保存状态; schema 不变: 直接序列化 resumeData)
     function saveDraft() {
       updatePreview(); // 确保数据是最新的
-      localStorage.setItem('resumeDraft', JSON.stringify(resumeData));
-      showToast('草稿已保存到本地', 'success');
+      setSaveStatus('saving', '保存中...');
+      try {
+        localStorage.setItem('resumeDraft', JSON.stringify(resumeData));
+        setSaveStatus('saved', '已保存 ' + getCurrentTimeLabel());
+        showToast('草稿已保存到本地', 'success');
+      } catch (e) {
+        setSaveStatus('failed', '保存失败');
+        showToast('保存失败：' + (e && e.message ? e.message : '本地存储不可用'), 'error');
+      }
     }
 
-    // 加载草稿
+    // 加载草稿(兼容旧结构: resumeDraft 直接就是 resumeData 的 JSON)
     function loadDraft() {
       const savedDraft = localStorage.getItem('resumeDraft');
       if (!savedDraft) {
@@ -1763,9 +1706,11 @@
         const draft = JSON.parse(savedDraft);
         Object.assign(resumeData, draft);
         loadDataToForm();
+        setSaveStatus('loaded', '已加载草稿');
         showToast('草稿已加载', 'success');
       } catch (e) {
-        showToast('加载草稿失败', 'error');
+        setSaveStatus('failed', '草稿损坏');
+        showToast('草稿数据损坏，无法加载', 'error');
       }
     }
 
@@ -1831,9 +1776,9 @@
       updatePreview();
     }
 
-    // 清空所有
+    // 清空所有(保留原行为: 清空表单与内存数据; 不删除 localStorage 草稿以保护用户数据)
     function clearAll() {
-      if (!confirm('确定要清空所有内容吗？此操作不可撤销。')) return;
+      if (!confirm('确定要清空当前表单内容吗？\n此操作将清空表单、预览与内存数据，不可撤销。\n（本地草稿不会被删除，刷新页面可恢复上次保存的草稿。）')) return;
 
       // 重置数据
       Object.keys(resumeData).forEach(key => {
@@ -1852,136 +1797,99 @@
       document.getElementById('projectList').innerHTML = '';
       document.getElementById('educationList').innerHTML = '';
       Object.keys(resumeData.skills).forEach(renderSkillTags);
-      
+
       experienceCounter = 0;
       projectCounter = 0;
       educationCounter = 0;
 
+      setSaveStatus('idle', '未保存');
       updatePreview();
-      showToast('已清空所有内容', 'success');
+      showToast('已清空当前表单内容', 'success');
     }
 
-    // 导出PDF
+    // 导出PDF(浏览器打印窗口; 弹窗拦截检测; 安全 HTML; A4 20mm)
     function exportPDF() {
       updatePreview();
-      
+
       if (!resumeData.name) {
         showToast('请至少填写姓名后再导出', 'error');
         return;
       }
 
-      showToast('正在生成PDF，请稍候...', 'info');
-
-      // 创建打印样式
-      const printWindow = window.open('', '_blank');
+      // 复用主页面简历模板样式
+      const resumeCss = document.getElementById('rb-resume-css') ? document.getElementById('rb-resume-css').textContent : '';
+      // 安全获取简历 HTML(renderPreview 已转义所有用户输入)
       const resumeHtml = document.getElementById('resumePreview').outerHTML;
-      
-      // 根据模板选择打印样式
-      let printStyles = `
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-          line-height: 1.6;
-          color: #333;
-          padding: 40px;
-          max-width: 800px;
-          margin: 0 auto;
-        }
-        a { color: #0066cc; text-decoration: none; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 5px; }
-      `;
 
-      // 添加模板特定样式
-      if (currentTemplate === 'classic') {
-        printStyles += `
-          .resume-header { text-align: center; padding-bottom: 20px; border-bottom: 2px solid #333; margin-bottom: 25px; }
-          .resume-name { font-size: 28px; font-weight: 700; color: #fbfaf8; margin-bottom: 8px; }
-          .resume-title { font-size: 16px; color: #555; margin-bottom: 15px; }
-          .contact-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; font-size: 12px; color: #666; }
-          .section { margin-bottom: 20px; }
-          .section-title { font-size: 14px; font-weight: 700; color: #fbfaf8; text-transform: uppercase; border-bottom: 1px solid #ccc; padding-bottom: 6px; margin-bottom: 12px; }
-          .summary-text { font-size: 13px; line-height: 1.8; color: #444; }
-          .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-          .skill-category h4 { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
-          .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-          .skill-tag-preview { background: #f0f0f0; color: #333; padding: 3px 8px; border-radius: 3px; font-size: 11px; }
-          .experience-item, .project-item, .education-item { margin-bottom: 15px; }
-          .item-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
-          .item-title { font-size: 14px; font-weight: 600; color: #fbfaf8; }
-          .item-subtitle { font-size: 13px; color: #555; }
-          .item-date { font-size: 12px; color: #666; }
-          .item-description { font-size: 12px; color: #444; line-height: 1.7; }
-          .tech-stack { margin-top: 6px; font-size: 11px; color: #666; }
-          .project-links { margin-top: 6px; }
-          .project-link { font-size: 11px; color: #0066cc; margin-right: 15px; }
-        `;
-      } else if (currentTemplate === 'modern') {
-        printStyles += `
-          .resume-header { background: linear-gradient(135deg, #2c3e50, #3498db); color: #fff; padding: 25px; margin: -40px -40px 25px -40px; }
-          .resume-name { font-size: 32px; font-weight: 700; margin-bottom: 5px; }
-          .resume-title { font-size: 16px; opacity: 0.9; margin-bottom: 15px; }
-          .contact-info { display: flex; flex-wrap: wrap; gap: 15px; font-size: 13px; }
-          .contact-item { opacity: 0.9; }
-          .section { margin-bottom: 25px; }
-          .section-title { font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 12px; padding-left: 12px; border-left: 3px solid #3498db; }
-          .summary-text { font-size: 13px; line-height: 1.8; color: #555; background: #f8f9fa; padding: 12px; border-radius: 6px; }
-          .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-          .skill-category { background: #f8f9fa; padding: 12px; border-radius: 6px; }
-          .skill-category h4 { font-size: 13px; font-weight: 600; color: #2c3e50; margin-bottom: 8px; }
-          .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-          .skill-tag-preview { background: #3498db; color: #fff; padding: 4px 10px; border-radius: 15px; font-size: 11px; }
-          .experience-item, .project-item, .education-item { margin-bottom: 20px; padding-left: 15px; border-left: 2px solid #37352f; }
-          .item-title { font-size: 15px; font-weight: 600; color: #2c3e50; }
-          .item-subtitle { font-size: 13px; color: #3498db; }
-          .item-date { font-size: 12px; color: #888; }
-          .item-description { font-size: 13px; color: #555; line-height: 1.7; }
-          .tech-stack { margin-top: 8px; font-size: 12px; color: #666; background: #f0f0f0; padding: 6px 10px; border-radius: 4px; }
-          .project-link { font-size: 12px; color: #3498db; margin-right: 15px; }
-        `;
-      } else {
-        printStyles += `
-          .resume-header { margin-bottom: 25px; }
-          .resume-name { font-size: 26px; font-weight: 300; color: #fbfaf8; margin-bottom: 5px; }
-          .resume-title { font-size: 15px; color: #888; font-weight: 300; margin-bottom: 12px; }
-          .contact-info { display: flex; flex-wrap: wrap; gap: 15px; font-size: 12px; color: #666; }
-          .section { margin-bottom: 20px; }
-          .section-title { font-size: 10px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
-          .summary-text { font-size: 13px; line-height: 1.8; color: #444; }
-          .skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-          .skill-tag-preview { border: 1px solid #ddd; color: #555; padding: 4px 10px; border-radius: 3px; font-size: 11px; }
-          .experience-item, .project-item, .education-item { margin-bottom: 15px; }
-          .item-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
-          .item-title { font-size: 14px; font-weight: 500; color: #fbfaf8; }
-          .item-subtitle { font-size: 13px; color: #666; }
-          .item-date { font-size: 12px; color: #888; }
-          .item-description { font-size: 12px; color: #555; line-height: 1.7; }
-          .tech-stack { font-size: 11px; color: #888; margin-top: 5px; }
-          .project-link { font-size: 11px; color: #0066cc; margin-right: 12px; }
-        `;
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) {
+        showToast('打印窗口被浏览器拦截，请允许弹窗后重试。', 'error');
+        return;
       }
 
-      printWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="UTF-8">
-          <title>${resumeData.name}的简历</title>
-          <style>${printStyles}</style>
-        </head>
-        <body>
-          ${resumeHtml}
-          <script>
-            window.onload = function() {
-              setTimeout(function() {
-                window.print();
-              }, 500);
-            };
-          <\/script>
-        </body>
-        </html>
-      `);
+      showToast('已打开打印窗口，请选择"保存为 PDF"。', 'info');
+
+      const printStyles = `
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @page { size: A4; margin: 20mm; }
+        html, body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+          line-height: 1.6;
+          color: #1a1a1a;
+          background: #ffffff;
+        }
+        ${resumeCss}
+        /* 打印覆盖: 移除屏幕预览的纸张尺寸/阴影/内边距(@page margin 已处理) */
+        .resume-template {
+          width: 100% !important;
+          max-width: 100% !important;
+          min-height: 0 !important;
+          padding: 0 !important;
+          box-shadow: none !important;
+        }
+        .resume-template.modern .resume-header { margin: 0 0 24px !important; padding: 0 0 16px !important; }
+        .is-placeholder { display: none !important; }
+        a { color: #444; }
+        ul { padding-left: 18px; }
+        li { margin-bottom: 4px; }
+      `;
+
+      printWindow.document.write(`<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>${escapeHtml(resumeData.name)}的简历</title>
+  <style>${printStyles}</style>
+</head>
+<body>
+  ${resumeHtml}
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.print();
+      }, 500);
+    };
+  <\/script>
+</body>
+</html>`);
       printWindow.document.close();
+    }
+
+    // 移动端 tab 切换(不丢输入: 仅切换显示, 不重渲染)
+    function setMobileResumeTab(tabName) {
+      document.querySelectorAll('.rb-mobile-tabs__item').forEach(function (btn) {
+        var active = btn.dataset.tab === tabName;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      var ws = document.querySelector('.rb-workspace');
+      if (ws) {
+        ws.classList.remove('is-tab-edit', 'is-tab-preview');
+        ws.classList.add('is-tab-' + tabName);
+      }
+      if (tabName === 'preview') {
+        updatePreview();
+      }
     }
   </script>
 </body>

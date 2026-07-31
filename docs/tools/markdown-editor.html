@@ -3,750 +3,1126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Markdown 编辑器 - wychmod Developer Workspace</title>
-  <meta name="description" content="在线Markdown编辑器，支持实时预览、语法高亮、导出HTML和PDF功能">
-  <meta name="keywords" content="Markdown编辑器,Markdown预览,在线编辑,HTML导出,PDF导出">
+  <title>Markdown 编辑器 / Writing Desk - wychmod Developer Workspace</title>
+  <meta name="description" content="本地 Markdown 写作台：左侧编辑、右侧实时预览、页边大纲与字数，支持 HTML 导出与打印保存 PDF。所有处理在浏览器本地完成，不上传服务器。">
+  <link rel="canonical" href="https://wychmod.github.io/tools/markdown-editor.html">
+  <!-- 视觉母体令牌(只读复用) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <!-- 工具页共享外壳(scoped) -->
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260730a">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ===========================================================
+       P018 Markdown 编辑器专属样式 (page-scoped, 限定在 .mdw-page 下)
+       外壳基类来自 tool-studio.css; 此处放:
+       - 工具条 / 移动 tabs / 移动底栏
+       - 双栏写作台 (编辑 / 预览 / 页边大纲)
+       - 行号 gutter / 大纲 / 字数 / 写作提示
+       - 预览纸面排版 (衬线标题 / 暖金引用线 / 纸灰表格)
+       令牌优先复用 studio-tokens.css
+       =========================================================== */
+
+    .mdw-page {
+      /* 草稿纸编辑器表面 (本页专属, 不入 token) */
+      --mdw-editor-bg: #fbf7ef;
+      --mdw-editor-border: #ddd4c5;
+      --mdw-editor-line: rgba(32, 33, 29, 0.08);
+      --mdw-gutter: #b7aea0;
+      --mdw-placeholder: #b7aea0;
+      /* 预览纸面专属 */
+      --mdw-preview-bg: #f4efe5;
+      --mdw-preview-card: #fbf7ef;
+      /* 写作台强调 */
+      --mdw-ink: #151915;
+      --mdw-error: #b6473b;
+      --mdw-warn: #b97219;
     }
 
-    :root {
-      --accent-main: #6d4aff;
-      --accent-light: #0b6bcb;
-      --accent-dark: #5636d7;
-      --bg-primary: #f7f6f3;
-      --bg-secondary: #fbfaf8;
-      --bg-tertiary: #ffffff;
-      --text-primary: #37352f;
-      --text-secondary: #5f5d57;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
-      color: var(--text-primary);
-      padding: 20px;
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--accent-main);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 16px;
-      padding: 10px 20px;
-      border: 2px solid var(--accent-dark);
-      border-radius: 25px;
-      transition: all 0.3s ease;
-      background: rgba(59, 130, 246, 0.1);
-      margin-bottom: 20px;
-    }
-
-    .back-link:hover {
-      color: var(--accent-light);
-      border-color: var(--accent-light);
-      transform: translateX(-5px);
-      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.12);
-    }
-
-    .header {
-      text-align: center;
-      padding: 25px 0;
-      margin-bottom: 25px;
-      border-bottom: 2px solid var(--accent-main);
-    }
-
-    .header h1 {
-      color: var(--accent-light);
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 10px rgba(96, 165, 250, 0.3);
-    }
-
-    .header p {
-      color: var(--text-secondary);
-      font-size: 1.1em;
-    }
-
-    /* 工具栏 */
-    .toolbar {
+    /* ---------- 工具条 ---------- */
+    .mdw-toolbar {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      padding: 15px;
-      background: var(--bg-tertiary);
-      border-radius: 12px 12px 0 0;
-      border: 2px solid var(--accent-dark);
-      border-bottom: none;
+      margin-bottom: var(--studio-space-5);
+      padding: 10px 12px;
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
       align-items: center;
     }
-
-    .toolbar-group {
+    .mdw-toolbar__group {
       display: flex;
-      gap: 5px;
-      padding-right: 15px;
-      border-right: 1px solid var(--accent-dark);
+      gap: 4px;
+      padding-right: 8px;
+      border-right: 1px solid var(--studio-paper-line);
     }
-
-    .toolbar-group:last-child {
+    .mdw-toolbar__group:last-of-type {
       border-right: none;
       margin-left: auto;
     }
+    .mdw-toolbar .ts-btn {
+      padding: 5px 10px;
+      font-size: 13px;
+      font-family: var(--studio-font-mono);
+      letter-spacing: 0.02em;
+    }
+    .mdw-toolbar .ts-btn b { font-family: var(--studio-font-body); font-weight: 700; }
+    .mdw-toolbar .ts-btn i { font-family: var(--studio-font-body); font-style: italic; }
+    .mdw-toolbar .ts-btn s { font-family: var(--studio-font-body); text-decoration: line-through; }
+    .mdw-toolbar__sep {
+      width: 1px;
+      height: 18px;
+      background: var(--studio-paper-line);
+      margin: 0 2px;
+    }
 
-    .toolbar button {
-      background: var(--bg-secondary);
-      color: var(--accent-main);
-      border: 1px solid var(--accent-dark);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 14px;
+    /* ---------- 移动 tabs (桌面隐藏) ---------- */
+    .mdw-tabs {
+      display: none;
+      gap: var(--studio-space-1);
+      border-bottom: 1px solid var(--studio-paper-line);
+      margin-bottom: var(--studio-space-4);
+    }
+    .mdw-tab {
+      flex: 1;
+      padding: 12px 8px;
+      min-height: 44px;
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      font-family: var(--studio-font-body);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--studio-text-muted);
       cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      transition: color var(--studio-dur-fast) var(--studio-ease),
+                  border-color var(--studio-dur-fast) var(--studio-ease);
     }
-
-    .toolbar button:hover {
-      background: rgba(109, 74, 255, 0.10);
-      border-color: var(--accent-main);
-      transform: translateY(-1px);
-    }
-
-    .toolbar button.primary {
-      background: linear-gradient(135deg, var(--accent-dark), var(--accent-main));
-      color: #fff;
+    .mdw-tab:hover { color: var(--studio-text); }
+    .mdw-tab.is-active {
+      color: var(--studio-text);
+      border-bottom-color: var(--studio-gold);
       font-weight: 600;
+      background: var(--studio-paper-50);
     }
 
-    .toolbar button.primary:hover {
-      background: linear-gradient(135deg, var(--accent-main), var(--accent-light));
-    }
-
-    /* 编辑器容器 */
-    .editor-container {
+    /* ---------- 写作台三栏 ---------- */
+    .mdw-desk {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      background: var(--bg-secondary);
-      border: 2px solid var(--accent-dark);
-      border-radius: 0 0 12px 12px;
-      overflow: hidden;
-      min-height: 600px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 220px;
+      gap: var(--studio-space-5);
+      align-items: stretch;
+      margin-bottom: var(--studio-space-5);
     }
 
-    @media (max-width: 1024px) {
-      .editor-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-      }
-    }
-
-    /* 编辑面板 */
-    .editor-panel, .preview-panel {
+    .mdw-panel {
       display: flex;
       flex-direction: column;
+      background: var(--mdw-preview-card);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      overflow: hidden;
+      min-height: 520px;
     }
 
-    .editor-panel {
-      border-right: 2px solid var(--accent-dark);
-    }
-
-    @media (max-width: 1024px) {
-      .editor-panel {
-        border-right: none;
-        border-bottom: 2px solid var(--accent-dark);
-      }
-    }
-
-    .panel-header {
+    .mdw-panel__header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 12px 15px;
-      background: var(--bg-tertiary);
-      border-bottom: 1px solid var(--accent-dark);
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--studio-paper-50);
+      border-bottom: 1px solid var(--studio-paper-line);
+      flex: 0 0 auto;
     }
-
-    .panel-title {
-      color: var(--accent-main);
-      font-weight: 600;
+    .mdw-panel__title {
+      margin: 0;
+      font-family: var(--studio-font-display);
       font-size: 14px;
+      font-weight: 600;
+      color: var(--studio-text);
+      letter-spacing: 0.02em;
+    }
+    .mdw-panel__meta {
+      margin-left: auto;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--studio-text-muted);
+    }
+    .mdw-panel__meta-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--studio-green);
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    /* ---------- 编辑器框架 + 行号 gutter ---------- */
+    .mdw-editor__frame {
+      position: relative;
+      flex: 1 1 auto;
       display: flex;
-      align-items: center;
-      gap: 8px;
+      min-height: 0;
+      background: var(--mdw-editor-bg);
     }
-
-    .panel-info {
-      color: var(--text-secondary);
-      font-size: 12px;
+    .mdw-line-gutter {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 48px;
+      margin: 0;
+      padding: 16px 8px 16px 0;
+      overflow: hidden;
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--mdw-gutter);
+      text-align: right;
+      background: transparent;
+      border-right: 1px solid var(--mdw-editor-line);
+      pointer-events: none;
+      user-select: none;
+      white-space: pre;
     }
-
-    /* Markdown编辑器 */
-    .markdown-input {
-      flex: 1;
+    .mdw-input {
       width: 100%;
-      background: var(--bg-primary);
-      border: none;
-      padding: 20px;
-      color: var(--text-primary);
-      font-family: 'Consolas', 'Monaco', 'Fira Code', monospace;
+      flex: 1 1 auto;
+      min-height: 480px;
+      padding: 16px 18px 16px 60px;
+      background: transparent;
+      border: 0;
+      color: var(--studio-text);
+      font-family: var(--studio-font-mono);
       font-size: 14px;
       line-height: 1.8;
-      resize: none;
       tab-size: 2;
-    }
-
-    .markdown-input:focus {
+      resize: vertical;
       outline: none;
     }
+    .mdw-input::placeholder { color: var(--mdw-placeholder); }
+    .mdw-input:focus { box-shadow: inset 0 0 0 1px var(--studio-green); }
 
-    /* 预览区域 */
-    .preview-content {
-      flex: 1;
-      padding: 20px;
-      background: var(--bg-primary);
-      overflow-y: auto;
-      color: var(--text-primary);
+    /* ---------- 预览纸面 ---------- */
+    .mdw-preview__body {
+      flex: 1 1 auto;
+      overflow: auto;
+      padding: 28px 32px;
+      background: var(--mdw-preview-bg);
+      color: var(--studio-text);
+      font-family: var(--studio-font-body);
+      font-size: 15px;
+      line-height: 1.75;
+      tabindex: 0;
     }
-
-    /* Markdown 渲染样式 */
-    .preview-content h1 {
-      color: var(--accent-light);
-      font-size: 2em;
-      margin: 0 0 20px 0;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--accent-main);
-    }
-
-    .preview-content h2 {
-      color: var(--accent-main);
-      font-size: 1.6em;
-      margin: 25px 0 15px 0;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--accent-dark);
-    }
-
-    .preview-content h3 {
-      color: var(--accent-main);
-      font-size: 1.3em;
-      margin: 20px 0 12px 0;
-    }
-
-    .preview-content h4, .preview-content h5, .preview-content h6 {
-      color: var(--text-primary);
-      margin: 15px 0 10px 0;
-    }
-
-    .preview-content p {
-      margin: 12px 0;
-      line-height: 1.8;
-    }
-
-    .preview-content a {
-      color: var(--accent-main);
-      text-decoration: none;
-    }
-
-    .preview-content a:hover {
-      color: var(--accent-light);
-      text-decoration: underline;
-    }
-
-    .preview-content strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .preview-content em {
-      font-style: italic;
-      color: var(--text-secondary);
-    }
-
-    .preview-content code {
-      background: rgba(59, 130, 246, 0.15);
-      color: var(--accent-main);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 0.9em;
-    }
-
-    .preview-content pre {
-      background: var(--bg-secondary);
-      border: 1px solid var(--accent-dark);
-      border-radius: 8px;
-      padding: 15px;
-      overflow-x: auto;
-      margin: 15px 0;
-    }
-
-    .preview-content pre code {
-      background: none;
-      padding: 0;
-      color: var(--text-primary);
-    }
-
-    .preview-content blockquote {
-      border-left: 4px solid var(--accent-main);
-      background: rgba(59, 130, 246, 0.1);
-      padding: 15px 20px;
-      margin: 15px 0;
-      border-radius: 0 8px 8px 0;
-    }
-
-    .preview-content blockquote p {
+    .mdw-preview__body:focus { outline: 2px solid var(--studio-focus); outline-offset: -2px; }
+    .mdw-preview__empty {
       margin: 0;
+      padding: 24px;
+      color: var(--studio-text-muted);
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: center;
     }
 
-    .preview-content ul, .preview-content ol {
-      padding-left: 25px;
-      margin: 12px 0;
+    /* 预览排版 (纸白文章内页气质) */
+    .mdw-preview__body h1 {
+      margin: 0 0 18px;
+      font-family: var(--studio-font-display);
+      font-size: 34px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--studio-text);
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--studio-paper-line);
     }
-
-    .preview-content li {
-      margin: 8px 0;
+    .mdw-preview__body h2 {
+      margin: 28px 0 14px;
+      font-family: var(--studio-font-display);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--studio-text);
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--studio-paper-line);
+    }
+    .mdw-preview__body h3 {
+      margin: 22px 0 10px;
+      font-family: var(--studio-font-display);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--studio-text);
+    }
+    .mdw-preview__body h4,
+    .mdw-preview__body h5,
+    .mdw-preview__body h6 {
+      margin: 16px 0 8px;
+      font-family: var(--studio-font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--studio-text);
+    }
+    .mdw-preview__body p { margin: 12px 0; line-height: 1.85; }
+    .mdw-preview__body a {
+      color: var(--studio-green-dark);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .mdw-preview__body a:hover { color: var(--studio-ink-900); }
+    .mdw-preview__body strong { font-weight: 700; color: var(--studio-text); }
+    .mdw-preview__body em { font-style: italic; color: var(--studio-text); }
+    .mdw-preview__body del { color: var(--studio-text-muted); }
+    .mdw-preview__body code {
+      background: rgba(32, 33, 29, 0.06);
+      color: var(--studio-ink-900);
+      padding: 2px 6px;
+      border-radius: var(--studio-radius-sm);
+      font-family: var(--studio-font-mono);
+      font-size: 0.88em;
+    }
+    .mdw-preview__body pre {
+      background: var(--mdw-editor-bg);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      padding: 14px 16px;
+      overflow-x: auto;
+      margin: 14px 0;
+      font-size: 13px;
       line-height: 1.6;
     }
-
-    .preview-content hr {
-      border: none;
-      border-top: 2px solid var(--accent-dark);
-      margin: 25px 0;
+    .mdw-preview__body pre code {
+      background: none;
+      padding: 0;
+      color: var(--studio-text);
+      font-size: 13px;
     }
-
-    .preview-content table {
+    .mdw-preview__body blockquote {
+      margin: 14px 0;
+      padding: 10px 18px;
+      background: rgba(200, 169, 107, 0.06);
+      border-left: 3px solid var(--studio-gold);
+      color: var(--studio-text);
+    }
+    .mdw-preview__body blockquote p { margin: 0; }
+    .mdw-preview__body ul,
+    .mdw-preview__body ol {
+      padding-left: 24px;
+      margin: 10px 0;
+    }
+    .mdw-preview__body li { margin: 6px 0; line-height: 1.75; }
+    .mdw-preview__body hr {
+      border: 0;
+      border-top: 1px solid var(--studio-paper-line);
+      margin: 22px 0;
+    }
+    .mdw-preview__body table {
       width: 100%;
       border-collapse: collapse;
-      margin: 15px 0;
+      margin: 14px 0;
+      font-size: 14px;
     }
-
-    .preview-content th {
-      background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
-      color: var(--accent-main);
-      font-weight: 600;
-      padding: 12px;
+    .mdw-preview__body th,
+    .mdw-preview__body td {
+      border: 1px solid var(--studio-paper-line);
+      padding: 8px 12px;
       text-align: left;
-      border: 1px solid var(--accent-dark);
+      vertical-align: top;
     }
-
-    .preview-content td {
-      padding: 10px 12px;
-      border: 1px solid var(--accent-dark);
+    .mdw-preview__body th {
+      background: var(--studio-paper-50);
+      font-family: var(--studio-font-display);
+      font-weight: 600;
+      color: var(--studio-text);
     }
-
-    .preview-content tr:nth-child(even) {
-      background: rgba(109, 74, 255, 0.05);
-    }
-
-    .preview-content img {
+    .mdw-preview__body tr:nth-child(even) td { background: rgba(32, 33, 29, 0.02); }
+    .mdw-preview__body img {
       max-width: 100%;
-      border-radius: 8px;
-      margin: 15px 0;
-    }
-
-    .preview-content .task-list {
-      padding-left: 0;
+      height: auto;
+      border-radius: var(--studio-radius-sm);
       margin: 12px 0;
     }
-
-    .preview-content .task-list-item {
+    .mdw-preview__body .task-list { list-style: none; padding-left: 8px; }
+    .mdw-preview__body .task-list-item {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 8px;
-      min-height: 24px;
       list-style: none;
       margin-left: 0;
     }
-
-    .preview-content .task-list-item input[type="checkbox"] {
-      width: 16px !important;
-      height: 16px !important;
-      min-height: 16px !important;
+    .mdw-preview__body .task-list-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      min-height: 16px;
       flex: 0 0 16px;
-      margin: 0 !important;
-      padding: 0 !important;
-      border: 1px solid #bdb8af !important;
-      border-radius: 4px !important;
-      box-shadow: none !important;
-      background: initial !important;
-      appearance: auto !important;
-      accent-color: var(--accent-main);
+      margin: 4px 0 0 0;
+      padding: 0;
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      box-shadow: none;
+      background: initial;
+      appearance: auto;
+      accent-color: var(--studio-green);
       cursor: default;
     }
 
-    /* Toast通知 */
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
-      border: 2px solid var(--accent-main);
-      border-radius: 12px;
-      padding: 15px 25px;
-      color: var(--text-primary);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s ease;
+    /* ---------- 右侧页边栏 ---------- */
+    .mdw-aside {
+      display: flex;
+      flex-direction: column;
+      gap: var(--studio-space-4);
     }
+    .mdw-aside .ts-panel { padding: 16px; }
+    .mdw-aside__title {
+      margin: 0 0 var(--studio-space-3);
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--studio-text-muted);
+      text-transform: uppercase;
+    }
+    .mdw-outline { list-style: none; margin: 0; padding: 0; }
+    .mdw-outline__item {
+      display: block;
+      padding: 4px 0;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--studio-text-muted);
+      border-left: 2px solid transparent;
+      padding-left: 10px;
+      margin-left: -2px;
+      cursor: pointer;
+      transition: color var(--studio-dur-fast) var(--studio-ease),
+                  border-color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .mdw-outline__item:hover {
+      color: var(--studio-text);
+      border-left-color: var(--studio-gold);
+    }
+    .mdw-outline__item[data-level="2"] { padding-left: 18px; font-size: 12.5px; }
+    .mdw-outline__item[data-level="3"] { padding-left: 26px; font-size: 12px; color: var(--studio-text-muted); }
+    .mdw-outline__empty {
+      margin: 0;
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      line-height: 1.6;
+    }
+    .mdw-counts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mdw-counts__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text-muted);
+    }
+    .mdw-counts__row strong {
+      color: var(--studio-text);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .mdw-tips {
+      margin: 0;
+      padding-left: 14px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--studio-text-muted);
+    }
+    .mdw-tips li { margin: 4px 0; }
+    .mdw-tips li::marker { color: var(--studio-gold); }
+    .mdw-notes {
+      width: 100%;
+      min-height: 80px;
+      padding: 8px 10px;
+      font-family: var(--studio-font-body);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--studio-text);
+      background: var(--mdw-editor-bg);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      resize: vertical;
+      outline: none;
+    }
+    .mdw-notes:focus { border-color: var(--studio-green); box-shadow: 0 0 0 3px rgba(36, 209, 143, 0.18); }
 
-    .toast.show {
+    /* ---------- 底部状态栏 ---------- */
+    .mdw-statusbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--studio-space-5);
+      align-items: center;
+      padding: 10px 16px;
+      margin-bottom: var(--studio-space-5);
+      background: var(--studio-ink-950);
+      border-radius: var(--studio-radius-md);
+      color: var(--studio-on-dark-muted);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+    .mdw-statusbar__item { display: inline-flex; align-items: center; gap: 6px; }
+    .mdw-statusbar__item strong { color: var(--studio-on-dark); font-weight: 600; }
+    .mdw-statusbar__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--studio-green);
+      box-shadow: 0 0 0 2px rgba(36, 209, 143, 0.18);
+    }
+    .mdw-statusbar__sep { color: var(--studio-line-dark); }
+    .mdw-statusbar__save {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mdw-statusbar__save[data-state="saving"] .mdw-statusbar__dot { background: var(--studio-gold); box-shadow: none; }
+    .mdw-statusbar__save[data-state="error"] .mdw-statusbar__dot { background: var(--studio-vermilion); box-shadow: none; }
+
+    /* ---------- Toast 通知 ---------- */
+    .mdw-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      padding: 12px 20px;
+      background: var(--studio-ink-950);
+      color: var(--studio-on-dark);
+      border: 1px solid var(--studio-line-dark);
+      border-left: 3px solid var(--studio-green);
+      border-radius: var(--studio-radius-md);
+      font-family: var(--studio-font-body);
+      font-size: 14px;
+      line-height: 1.5;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform var(--studio-dur-base) var(--studio-ease),
+                  opacity var(--studio-dur-base) var(--studio-ease);
+      max-width: min(80vw, 360px);
+    }
+    .mdw-toast.is-show {
       transform: translateY(0);
       opacity: 1;
     }
+    .mdw-toast--error { border-left-color: var(--studio-vermilion); }
+    .mdw-toast--warn { border-left-color: var(--studio-gold); }
 
-    .toast.success {
-      border-color: #4caf50;
+    /* ---------- 移动端固定导出栏 (桌面隐藏) ---------- */
+    .mdw-mobile-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      padding: 10px 14px env(safe-area-inset-bottom, 10px);
+      background: var(--studio-ink-950);
+      border-top: 1px solid var(--studio-line-dark);
+      gap: 8px;
+      align-items: center;
     }
-
-    .toast.error {
-      border-color: #f44336;
+    .mdw-mobile-bar__status {
+      flex: 1;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--studio-on-dark-muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-
-    /* 帮助提示 */
-    .help-section {
-      margin-top: 25px;
-      background: rgba(59, 130, 246, 0.1);
-      border: 2px solid var(--accent-dark);
-      border-radius: 12px;
-      padding: 25px;
-    }
-
-    .help-section h3 {
-      color: var(--accent-light);
-      margin-bottom: 15px;
-      font-size: 1.2em;
-    }
-
-    .syntax-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-    }
-
-    .syntax-item {
-      background: var(--bg-secondary);
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid var(--accent-dark);
-    }
-
-    .syntax-item code {
-      color: var(--accent-main);
-      font-family: monospace;
-      font-size: 13px;
-    }
-
-    .syntax-item span {
-      color: var(--text-secondary);
+    .mdw-mobile-bar .ts-btn {
+      padding: 6px 12px;
       font-size: 12px;
+    }
+
+    /* ---------- 语法速查面板 ---------- */
+    .mdw-help {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--studio-space-4);
+      margin-bottom: var(--studio-space-5);
+    }
+    .mdw-help__item {
+      padding: 12px 14px;
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+    }
+    .mdw-help__item code {
       display: block;
-      margin-top: 5px;
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      color: var(--studio-ink-900);
+      word-break: break-all;
+    }
+    .mdw-help__item span {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--studio-text-muted);
     }
 
-    /* 页脚 */
-    .footer {
-      text-align: center;
-      padding: 30px 20px;
-      margin-top: 40px;
-      border-top: 1px solid var(--bg-tertiary);
-      color: var(--text-secondary);
+    /* ---------- 响应式: 平板双栏, 侧栏下移 ---------- */
+    @media (max-width: 1180px) {
+      .mdw-desk {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+      .mdw-aside {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .mdw-aside .ts-panel { flex: 1 1 240px; }
     }
 
-    .footer a {
-      color: var(--accent-main);
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      color: var(--accent-light);
-    }
-
-    /* 响应式 */
+    /* ---------- 响应式: 移动端单任务 tab ---------- */
     @media (max-width: 768px) {
-      .header h1 {
-        font-size: 1.8em;
+      .mdw-page .ts-main { padding-bottom: 92px; }
+      .mdw-toolbar {
+        gap: 4px;
+        padding: 8px;
       }
-
-      .toolbar {
-        padding: 10px;
+      .mdw-toolbar__group {
+        padding-right: 4px;
       }
-
-      .toolbar-group {
-        padding-right: 10px;
+      .mdw-toolbar .ts-btn {
+        min-width: 44px;
+        padding: 6px 8px;
+        font-size: 12px;
       }
-
-      .toolbar button {
-        padding: 6px 10px;
+      .mdw-tabs { display: flex; }
+      .mdw-desk {
+        grid-template-columns: 1fr;
+        gap: var(--studio-space-4);
+      }
+      .mdw-panel { min-height: 420px; }
+      .mdw-panel.is-hidden { display: none; }
+      .mdw-aside {
+        flex-direction: column;
+      }
+      .mdw-aside .ts-panel { flex: 1 1 auto; }
+      .mdw-input {
         font-size: 13px;
+        padding: 14px 14px 14px 52px;
+        line-height: 1.75;
       }
+      .mdw-line-gutter {
+        width: 40px;
+        font-size: 12px;
+        padding: 14px 6px 14px 0;
+      }
+      .mdw-preview__body {
+        padding: 20px 18px;
+        font-size: 14px;
+      }
+      .mdw-preview__body h1 { font-size: 28px; }
+      .mdw-preview__body h2 { font-size: 20px; }
+      .mdw-statusbar {
+        font-size: 11px;
+        gap: var(--studio-space-3);
+        padding: 8px 12px;
+      }
+      .mdw-statusbar__save { margin-left: 0; width: 100%; }
+      .mdw-mobile-bar { display: flex; }
+      .mdw-help { grid-template-columns: 1fr; }
+    }
 
-      .editor-container {
-        min-height: 400px;
+    @media (max-width: 480px) {
+      .mdw-toolbar {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+      .mdw-toolbar__group {
+        border-right: none;
+        padding-right: 4px;
+      }
+    }
+
+    /* 尊重 reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .mdw-toast, .mdw-tab, .mdw-outline__item, .mdw-input, .mdw-notes {
+        transition: none !important;
       }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
-<body>
-  <div class="container">
-    <a href="/tools/" class="back-link">← 返回工具集</a>
+<body class="tool-studio mdw-page">
+  <a class="ts-skip-link" href="#ts-main">跳到主内容</a>
 
-    <div class="header">
-      <h1>📝 Markdown 编辑器</h1>
-      <p>实时预览 · 语法高亮 · 一键导出</p>
-    </div>
-
-    <!-- 工具栏 -->
-    <div class="toolbar">
-      <div class="toolbar-group">
-        <button onclick="insertText('**', '**')" title="加粗 (Ctrl+B)"><b>B</b></button>
-        <button onclick="insertText('*', '*')" title="斜体 (Ctrl+I)"><i>I</i></button>
-        <button onclick="insertText('~~', '~~')" title="删除线"><s>S</s></button>
-        <button onclick="insertText('`', '`')" title="行内代码">&lt;/&gt;</button>
-      </div>
-      <div class="toolbar-group">
-        <button onclick="insertHeading(1)" title="一级标题">H1</button>
-        <button onclick="insertHeading(2)" title="二级标题">H2</button>
-        <button onclick="insertHeading(3)" title="三级标题">H3</button>
-      </div>
-      <div class="toolbar-group">
-        <button onclick="insertList('ul')" title="无序列表">• 无序列表</button>
-        <button onclick="insertList('ol')" title="有序列表">1. 有序列表</button>
-        <button onclick="insertList('task')" title="任务列表">☐ 任务</button>
-      </div>
-      <div class="toolbar-group">
-        <button onclick="insertLink()" title="插入链接">🔗 链接</button>
-        <button onclick="insertImage()" title="插入图片">🖼️ 图片</button>
-        <button onclick="insertTable()" title="插入表格">📊 表格</button>
-        <button onclick="insertCodeBlock()" title="代码块">📦 代码块</button>
-      </div>
-      <div class="toolbar-group">
-        <button onclick="insertQuote()" title="引用块">💬 引用</button>
-        <button onclick="insertHr()" title="分隔线">— 分隔</button>
-      </div>
-      <div class="toolbar-group">
-        <button onclick="exportHTML()" class="primary" title="导出为HTML">📄 导出HTML</button>
-        <button onclick="exportPDF()" class="primary" title="导出为PDF">📑 导出PDF</button>
-        <button onclick="clearEditor()" title="清空编辑器">🗑️ 清空</button>
+  <!-- 顶部工具导航(暖石墨) -->
+  <header class="ts-topbar">
+    <div class="ts-topbar__inner">
+      <button class="ts-topbar__menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="ts-topbar-nav">≡</button>
+      <a class="ts-topbar__brand" href="/#/" aria-label="wychmod 主站">
+        <span class="ts-topbar__logo" aria-hidden="true">W</span>
+        <span class="ts-topbar__brand-text">
+          <span class="ts-topbar__brand-name">wychmod</span>
+          <span class="ts-topbar__brand-sub">Developer Workspace</span>
+        </span>
+      </a>
+      <nav class="ts-topbar__nav" id="ts-topbar-nav" aria-label="主导航">
+        <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
+        <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
+        <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="ts-topbar__actions">
+        <span class="ts-topbar__status" title="核心处理在浏览器本地完成">
+          <span class="ts-topbar__status-dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-topbar__avatar" role="img" aria-label="wychmod 的 GitHub 头像">
+          <span class="ts-topbar__avatar-fallback" aria-hidden="true">W</span>
+          <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="32" height="32" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+        </span>
       </div>
     </div>
+  </header>
 
-    <!-- 编辑器容器 -->
-    <div class="editor-container">
-      <!-- 编辑面板 -->
-      <div class="editor-panel">
-        <div class="panel-header">
-          <span class="panel-title">📝 Markdown 编辑</span>
-          <span class="panel-info" id="charCount">0 字符</span>
-        </div>
-        <textarea 
-          class="markdown-input" 
-          id="markdownInput" 
-          placeholder="在此输入 Markdown 内容..."
-          spellcheck="false"
-        ></textarea>
+  <!-- 主内容 -->
+  <main class="ts-main" id="ts-main">
+    <div class="ts-container">
+
+      <!-- 面包屑 -->
+      <nav class="ts-breadcrumb" aria-label="路径">
+        <span class="ts-breadcrumb__item">WYCHMOD</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <a class="ts-breadcrumb__item" href="/tools/index.html">TOOLS</a>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item is-current" aria-current="location">MARKDOWN</span>
+      </nav>
+
+      <!-- 标题块 -->
+      <div class="ts-titleblock">
+        <h1 class="ts-titleblock__h1">Markdown 编辑器<span class="ts-titleblock__h1-en"> / Writing Desk</span></h1>
+        <p class="ts-titleblock__desc">把一整篇文章摊在写作桌上：左侧写 Markdown，右侧看排版后的纸面，最右侧是页边大纲与字数。本地草稿自动保存到浏览器，不上传服务器。支持常用 Markdown：标题、粗斜体、删除线、代码、列表、任务列表、引用、表格、链接、图片和分隔线；可导出 HTML 或通过打印保存 PDF。</p>
       </div>
 
-      <!-- 预览面板 -->
-      <div class="preview-panel">
-        <div class="panel-header">
-          <span class="panel-title">👁️ 实时预览</span>
-          <span class="panel-info" id="wordCount">0 字</span>
-        </div>
-        <div class="preview-content" id="previewContent"></div>
+      <!-- 状态条 -->
+      <div class="ts-status" role="group" aria-label="工具状态">
+        <span class="ts-status__item">
+          <span class="ts-status__dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item">
+          <span class="ts-status__label">字符</span>
+          <span class="ts-status__value" id="statusCharCount">0</span>
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item">
+          <span class="ts-status__label">行</span>
+          <span class="ts-status__value" id="statusLineCount">1</span>
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item">
+          <span class="ts-status__label">保存</span>
+          <span class="ts-status__value" id="statusSaveState" aria-live="polite">未开启</span>
+        </span>
       </div>
-    </div>
 
-    <!-- 语法帮助 -->
-    <div class="help-section">
-      <h3>📖 Markdown 语法速查</h3>
-      <div class="syntax-grid">
-        <div class="syntax-item">
-          <code># 标题</code>
-          <span>一级到六级标题 (# ~ ######)</span>
+      <!-- 工具条 -->
+      <div class="mdw-toolbar" role="toolbar" aria-label="Markdown 编辑工具条">
+        <div class="mdw-toolbar__group" role="group" aria-label="文本格式">
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertText('**', '**')" title="加粗 (Ctrl+B)" aria-label="加粗"><b>B</b></button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertText('*', '*')" title="斜体 (Ctrl+I)" aria-label="斜体"><i>I</i></button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertText('~~', '~~')" title="删除线" aria-label="删除线"><s>S</s></button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertText('`', '`')" title="行内代码" aria-label="行内代码">&lt;/&gt;</button>
         </div>
-        <div class="syntax-item">
-          <code>**粗体** 或 *斜体*</code>
-          <span>文本格式化</span>
+        <div class="mdw-toolbar__group" role="group" aria-label="标题">
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertHeading(1)" title="一级标题" aria-label="一级标题">H1</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertHeading(2)" title="二级标题" aria-label="二级标题">H2</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertHeading(3)" title="三级标题" aria-label="三级标题">H3</button>
         </div>
-        <div class="syntax-item">
-          <code>[链接文本](URL)</code>
-          <span>超链接</span>
+        <div class="mdw-toolbar__group" role="group" aria-label="列表">
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertList('ul')" title="无序列表" aria-label="无序列表">• 列表</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertList('ol')" title="有序列表" aria-label="有序列表">1. 列表</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertList('task')" title="任务列表" aria-label="任务列表">☐ 任务</button>
         </div>
-        <div class="syntax-item">
-          <code>![图片描述](URL)</code>
-          <span>图片</span>
+        <div class="mdw-toolbar__group" role="group" aria-label="插入">
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertLink()" title="插入链接 (Ctrl+K)" aria-label="插入链接">链接</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertImage()" title="插入图片" aria-label="插入图片">图片</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertTable()" title="插入表格" aria-label="插入表格">表格</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertCodeBlock()" title="代码块" aria-label="插入代码块">代码块</button>
         </div>
-        <div class="syntax-item">
-          <code>`代码` 或 ```代码块```</code>
-          <span>代码展示</span>
+        <div class="mdw-toolbar__group" role="group" aria-label="结构">
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertQuote()" title="引用块" aria-label="插入引用">引用</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="insertHr()" title="分隔线" aria-label="插入分隔线">分隔线</button>
         </div>
-        <div class="syntax-item">
-          <code>> 引用文本</code>
-          <span>引用块</span>
-        </div>
-        <div class="syntax-item">
-          <code>- 或 * 或 1.</code>
-          <span>列表</span>
-        </div>
-        <div class="syntax-item">
-          <code>| 表头 | 表头 |</code>
-          <span>表格</span>
+        <div class="mdw-toolbar__group" role="group" aria-label="导出与清空">
+          <button class="ts-btn ts-btn--primary" type="button" onclick="exportHTML()" title="导出为 HTML 文件" aria-label="导出为 HTML">导出 HTML</button>
+          <button class="ts-btn ts-btn--green" type="button" onclick="exportPDF()" title="打开打印窗口保存为 PDF" aria-label="导出为 PDF">导出 PDF</button>
+          <button class="ts-btn ts-btn--danger" type="button" onclick="clearEditor()" title="清空编辑器" aria-label="清空编辑器">清空</button>
         </div>
       </div>
-    </div>
 
-    <div class="footer">
-      <p>© 2024-2026 wychmod Developer Workspace | 
-        <a href="https://github.com/wychmod/wychmod.github.io" target="_blank">GitHub</a> | 
-        <a href="/tools/">更多工具</a>
-      </p>
+      <!-- 移动端 Tab (EDIT / PREVIEW / OUTLINE) -->
+      <div class="mdw-tabs" role="tablist" aria-label="移动端视图切换">
+        <button class="mdw-tab is-active" type="button" role="tab" id="mdw-tab-edit" aria-selected="true" aria-controls="mdw-panel-edit" onclick="setActiveWritingTab('edit')">EDIT</button>
+        <button class="mdw-tab" type="button" role="tab" id="mdw-tab-preview" aria-selected="false" aria-controls="mdw-panel-preview" onclick="setActiveWritingTab('preview')">PREVIEW</button>
+        <button class="mdw-tab" type="button" role="tab" id="mdw-tab-outline" aria-selected="false" aria-controls="mdw-panel-aside" onclick="setActiveWritingTab('outline')">OUTLINE</button>
+      </div>
+
+      <!-- 写作台 -->
+      <div class="mdw-desk">
+
+        <!-- 编辑面板 -->
+        <section class="mdw-panel" id="mdw-panel-edit" role="tabpanel" aria-labelledby="mdw-tab-edit">
+          <div class="mdw-panel__header">
+            <h2 class="mdw-panel__title">Markdown 编辑</h2>
+            <span class="mdw-panel__meta" id="charCount">0 字符</span>
+          </div>
+          <div class="mdw-editor__frame">
+            <pre class="mdw-line-gutter" id="lineGutter" aria-hidden="true">1</pre>
+            <label for="markdownInput" class="sr-only" style="position:absolute;left:-9999px;">Markdown 输入区</label>
+            <textarea
+              class="mdw-input"
+              id="markdownInput"
+              placeholder="在此输入 Markdown 内容..."
+              spellcheck="false"
+              aria-label="Markdown 输入区"
+            ></textarea>
+          </div>
+        </section>
+
+        <!-- 预览面板 -->
+        <section class="mdw-panel" id="mdw-panel-preview" role="tabpanel" aria-labelledby="mdw-tab-preview">
+          <div class="mdw-panel__header">
+            <h2 class="mdw-panel__title">实时预览</h2>
+            <span class="mdw-panel__meta"><span class="mdw-panel__meta-dot" aria-hidden="true"></span><span id="wordCount">0 字</span></span>
+          </div>
+          <div class="mdw-preview__body" id="previewContent" tabindex="0" aria-label="Markdown 渲染预览"></div>
+        </section>
+
+        <!-- 右侧页边栏 -->
+        <aside class="mdw-aside" id="mdw-panel-aside" role="tabpanel" aria-labelledby="mdw-tab-outline" aria-label="页边大纲与字数">
+
+          <section class="ts-panel">
+            <h2 class="mdw-aside__title">ON THIS PAGE</h2>
+            <ul class="mdw-outline" id="outlineList" aria-label="当前文档大纲">
+              <li class="mdw-outline__empty">当前文档还没有标题。</li>
+            </ul>
+          </section>
+
+          <section class="ts-panel">
+            <h2 class="mdw-aside__title">WORD COUNT</h2>
+            <div class="mdw-counts">
+              <div class="mdw-counts__row"><span>Markdown 字符</span><strong id="countMdChar">0</strong></div>
+              <div class="mdw-counts__row"><span>纯文本字符</span><strong id="countPlainChar">0</strong></div>
+              <div class="mdw-counts__row"><span>英文单词</span><strong id="countEnWord">0</strong></div>
+              <div class="mdw-counts__row"><span>行数</span><strong id="countLine">1</strong></div>
+            </div>
+          </section>
+
+          <section class="ts-panel">
+            <h2 class="mdw-aside__title">NOTES</h2>
+            <textarea
+              class="mdw-notes"
+              id="notesInput"
+              placeholder="写一句本地备注，仅保存在此浏览器..."
+              aria-label="本地写作备注"
+            ></textarea>
+          </section>
+
+          <section class="ts-panel">
+            <h2 class="mdw-aside__title">WRITING TIPS</h2>
+            <ul class="mdw-tips">
+              <li>保持标题短，一段一个观点。</li>
+              <li>导出前检查表格在预览中是否横向溢出。</li>
+              <li>快捷键：Ctrl/Cmd + B 加粗、Ctrl/Cmd + I 斜体、Ctrl/Cmd + K 链接。</li>
+              <li>Tab 键插入两个空格，不切焦点。</li>
+            </ul>
+          </section>
+
+        </aside>
+      </div>
+
+      <!-- 底部状态栏 -->
+      <div class="mdw-statusbar" role="status" aria-label="写作状态">
+        <span class="mdw-statusbar__item"><span class="mdw-statusbar__dot" aria-hidden="true"></span>MARKDOWN</span>
+        <span class="mdw-statusbar__sep" aria-hidden="true">·</span>
+        <span class="mdw-statusbar__item"><strong id="statusbarWords">0</strong> WORDS</span>
+        <span class="mdw-statusbar__sep" aria-hidden="true">·</span>
+        <span class="mdw-statusbar__item"><strong id="statusbarChars">0</strong> CHARACTERS</span>
+        <span class="mdw-statusbar__save" id="statusbarSave" data-state="idle">
+          <span class="mdw-statusbar__dot" aria-hidden="true"></span>
+          <span id="statusbarSaveText">AUTO-SAVE ON</span>
+        </span>
+      </div>
+
+      <!-- 语法速查 -->
+      <details class="ts-panel" open>
+        <summary class="mdw-aside__title" style="cursor:pointer;list-style:none;">Markdown 语法速查</summary>
+        <div class="mdw-help" style="margin-top: var(--studio-space-4);">
+          <div class="mdw-help__item"><code># 标题</code><span>一级到六级标题 (# ~ ######)</span></div>
+          <div class="mdw-help__item"><code>**粗体** 或 *斜体*</code><span>文本格式化</span></div>
+          <div class="mdw-help__item"><code>[链接文本](URL)</code><span>超链接</span></div>
+          <div class="mdw-help__item"><code>![图片描述](URL)</code><span>图片</span></div>
+          <div class="mdw-help__item"><code>`代码` 或 ```代码块```</code><span>代码展示</span></div>
+          <div class="mdw-help__item"><code>&gt; 引用文本</code><span>引用块</span></div>
+          <div class="mdw-help__item"><code>- 或 * 或 1.</code><span>列表</span></div>
+          <div class="mdw-help__item"><code>| 表头 | 表头 |</code><span>表格</span></div>
+        </div>
+      </details>
+
     </div>
+  </main>
+
+  <!-- 移动端固定导出栏 -->
+  <div class="mdw-mobile-bar" aria-label="移动端导出栏">
+    <span class="mdw-mobile-bar__status" id="mobileBarStatus">MARKDOWN · 0 字</span>
+    <button class="ts-btn ts-btn--primary" type="button" onclick="exportHTML()" aria-label="导出 HTML">HTML</button>
+    <button class="ts-btn ts-btn--green" type="button" onclick="exportPDF()" aria-label="导出 PDF">PDF</button>
   </div>
 
+  <!-- 页脚 -->
+  <footer class="ts-foot">
+    <div class="ts-foot__inner">
+      <span>© 2024–2026 wychmod Developer Workspace</span>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/tools/index.html">工具集</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/#/">返回主站</a>
+    </div>
+  </footer>
+
   <!-- Toast 通知 -->
-  <div class="toast" id="toast"></div>
+  <div class="mdw-toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // 默认Markdown示例
-    const defaultMarkdown = `# Markdown 编辑器演示
+    /* ===========================================================
+       P018 Markdown 编辑器 - 脚本
+       保留所有原函数名/ID/事件入口; 新增本地草稿/大纲/行号/Tab 切换
+       安全: parseMarkdown 全面转义用户文本 + sanitizeUrl
+       =========================================================== */
 
-欢迎使用 **Markdown 编辑器**！这是一个功能强大的在线编辑工具。
+    // 默认 Markdown 示例 (本地文本, 无远程图片)
+    const defaultMarkdown = `# Writing Desk
 
-## 基本语法示例
+A calm, focused space for long-form thinking.
+Draft in Markdown. Export to HTML or print to PDF.
 
-### 文本格式
+## Principles
 
-这是一段普通文本。你可以使用 **粗体**、*斜体*、~~删除线~~ 来强调文本。
+- Clear structure
+- Durable writing
+- Respect the reader
+- Build a compounding archive
 
-也可以使用 \`行内代码\` 来展示代码片段。
+## A Note on Process
 
-### 列表
+Writing is design.
+We outline, refine, and ship.
+Each piece should stand alone and connect.
 
-无序列表：
-- 项目 1
-- 项目 2
-  - 嵌套项目 2.1
-  - 嵌套项目 2.2
-- 项目 3
+> Good documentation is a kindness
+> to your future self.
 
-有序列表：
-1. 第一步
-2. 第二步
-3. 第三步
+### Task List
 
-任务列表：
-- [x] 已完成的任务
-- [ ] 待办任务
-- [ ] 另一个待办
+- [x] 审阅大纲
+- [x] 写第一稿
+- [ ] 修订结尾
+- [ ] 导出 HTML
 
-### 引用
+## Example: Data Table
 
-> 这是一段引用文本。
-> Markdown 让写作变得更加简单和优雅。
-> — 作者
+| Metric | Q1 | Q2 | Q3 |
+|---|---:|---:|---:|
+| Notes created | 128 | 142 | 176 |
+| Articles published | 7 | 9 | 11 |
+| Words written | 24k | 31k | 38k |
 
-### 代码块
+## Code
 
 \`\`\`javascript
 function greet(name) {
-  console.log(\`Hello, \${name}!\`);
-  return true;
+  return \`Hello, \${name}!\`;
 }
-
-greet('World');
 \`\`\`
 
-### 表格
+Inline code: \`const x = 42;\`
 
-| 功能 | 快捷键 | 说明 |
-|------|--------|------|
-| 加粗 | Ctrl+B | 将选中文本加粗 |
-| 斜体 | Ctrl+I | 将选中文本变为斜体 |
-| 链接 | Ctrl+K | 插入超链接 |
+## Links
 
-### 链接和图片
-
-这是一个 [链接示例](https://github.com)。
-
-图片示例：
-![示例图片](https://via.placeholder.com/400x200/1a1a1a/d4af37?text=Markdown+Editor)
-
-### 分隔线
+这是一个 [链接示例](https://github.com)，导出后仍然可点击。
 
 ---
 
-## 高级功能
-
-本编辑器支持：
-- ✅ 实时预览
-- ✅ 语法高亮
-- ✅ 导出 HTML
-- ✅ 导出 PDF
-- ✅ 快捷键操作
-
-开始你的创作吧！🚀
+<!-- editor: keep headings short, one idea per paragraph. -->
 `;
 
-    // DOM元素
+    /* ---------- DOM 元素 ---------- */
     const markdownInput = document.getElementById('markdownInput');
     const previewContent = document.getElementById('previewContent');
     const charCount = document.getElementById('charCount');
     const wordCount = document.getElementById('wordCount');
     const toast = document.getElementById('toast');
+    const lineGutter = document.getElementById('lineGutter');
+    const outlineList = document.getElementById('outlineList');
+    const notesInput = document.getElementById('notesInput');
+    const statusCharCount = document.getElementById('statusCharCount');
+    const statusLineCount = document.getElementById('statusLineCount');
+    const statusSaveState = document.getElementById('statusSaveState');
+    const countMdChar = document.getElementById('countMdChar');
+    const countPlainChar = document.getElementById('countPlainChar');
+    const countEnWord = document.getElementById('countEnWord');
+    const countLine = document.getElementById('countLine');
+    const statusbarWords = document.getElementById('statusbarWords');
+    const statusbarChars = document.getElementById('statusbarChars');
+    const statusbarSave = document.getElementById('statusbarSave');
+    const statusbarSaveText = document.getElementById('statusbarSaveText');
+    const mobileBarStatus = document.getElementById('mobileBarStatus');
 
-    // 初始化
-    document.addEventListener('DOMContentLoaded', function() {
-      markdownInput.value = defaultMarkdown;
-      updatePreview();
-      updateCounts();
-      
-      // 实时预览
-      markdownInput.addEventListener('input', function() {
-        updatePreview();
-        updateCounts();
-      });
-      
-      // 快捷键支持
-      markdownInput.addEventListener('keydown', handleKeyboard);
-      
-      // Tab键支持
-      markdownInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Tab') {
-          e.preventDefault();
-          insertAtCursor('  ');
+    /* ---------- 本地草稿存储 ---------- */
+    const DRAFT_KEY = 'wychmod.markdownEditor.draft.v1';
+    let draftRevision = 0;
+    let lastSavedSignature = '';
+    let saveTimer = null;
+    let storageAvailable = false;
+
+    function detectStorage() {
+      try {
+        const k = '__mdw_test__';
+        window.localStorage.setItem(k, '1');
+        window.localStorage.removeItem(k);
+        storageAvailable = true;
+      } catch (e) {
+        storageAvailable = false;
+      }
+    }
+
+    function loadLocalDraft() {
+      if (!storageAvailable) {
+        updateSaveStatus('unavailable');
+        return false;
+      }
+      try {
+        const raw = window.localStorage.getItem(DRAFT_KEY);
+        if (!raw) return false;
+        const data = JSON.parse(raw);
+        if (data && typeof data.markdown === 'string') {
+          markdownInput.value = data.markdown;
+          if (typeof data.notes === 'string') notesInput.value = data.notes;
+          draftRevision = Number(data.revision) || 0;
+          lastSavedSignature = signatureOf(data.markdown, data.notes || '');
+          updateSaveStatus('saved', data.savedAt, draftRevision);
+          return true;
         }
-      });
-    });
+      } catch (e) {
+        updateSaveStatus('error');
+      }
+      return false;
+    }
 
-    // 更新预览
+    function signatureOf(markdown, notes) {
+      return markdown.length + ':' + markdown.slice(0, 64) + '|' + notes.length + ':' + notes.slice(0, 32);
+    }
+
+    function saveLocalDraftNow() {
+      if (!storageAvailable) return;
+      const markdown = markdownInput.value;
+      const notes = notesInput.value;
+      const sig = signatureOf(markdown, notes);
+      if (sig === lastSavedSignature) return;
+      draftRevision += 1;
+      const record = {
+        markdown: markdown,
+        notes: notes,
+        savedAt: new Date().toISOString(),
+        revision: draftRevision
+      };
+      try {
+        window.localStorage.setItem(DRAFT_KEY, JSON.stringify(record));
+        lastSavedSignature = sig;
+        updateSaveStatus('saved', record.savedAt, draftRevision);
+      } catch (e) {
+        updateSaveStatus('error');
+      }
+    }
+
+    function saveLocalDraftDebounced() {
+      if (!storageAvailable) return;
+      updateSaveStatus('saving');
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(saveLocalDraftNow, 1000);
+    }
+
+    function formatSaveTime(iso) {
+      try {
+        const d = new Date(iso);
+        const hh = String(d.getHours()).padStart(2, '0');
+        const mm = String(d.getMinutes()).padStart(2, '0');
+        return hh + ':' + mm;
+      } catch (e) { return ''; }
+    }
+
+    function updateSaveStatus(state, isoTime, revision) {
+      const dotEl = statusbarSave.querySelector('.mdw-statusbar__dot');
+      if (state === 'saved') {
+        statusbarSave.setAttribute('data-state', 'idle');
+        statusbarSaveText.textContent = 'SAVED · ' + formatSaveTime(isoTime) + ' · REV ' + revision;
+        statusSaveState.textContent = '已保存 · ' + formatSaveTime(isoTime) + ' · REV ' + revision;
+      } else if (state === 'saving') {
+        statusbarSave.setAttribute('data-state', 'saving');
+        statusbarSaveText.textContent = 'SAVING...';
+        statusSaveState.textContent = '保存中...';
+      } else if (state === 'error') {
+        statusbarSave.setAttribute('data-state', 'error');
+        statusbarSaveText.textContent = 'SAVE FAILED';
+        statusSaveState.textContent = '保存失败';
+      } else if (state === 'unavailable') {
+        statusbarSave.setAttribute('data-state', 'idle');
+        statusbarSaveText.textContent = 'LOCAL ONLY';
+        statusSaveState.textContent = '本地未保存';
+      } else {
+        statusbarSave.setAttribute('data-state', 'idle');
+        statusbarSaveText.textContent = 'AUTO-SAVE ON';
+        statusSaveState.textContent = '自动保存已开启';
+      }
+    }
+
+    /* ---------- 预览更新 ---------- */
     function updatePreview() {
       const markdown = markdownInput.value;
       const html = parseMarkdown(markdown);
-      previewContent.innerHTML = html;
+      previewContent.innerHTML = sanitizeRenderedHtml(html);
+      renderOutline(markdown);
     }
 
-    // 更新字数统计
     function updateCounts() {
       const text = markdownInput.value;
       const plainText = markdownToPlainText(text);
-      charCount.textContent = `Markdown ${text.length.toLocaleString()} 字符`;
-      wordCount.textContent = `纯文本 ${plainText.length.toLocaleString()} 字符`;
+      const mdChar = text.length;
+      const plainChar = plainText.length;
+      const enWord = (plainText.match(/[A-Za-z][A-Za-z'-]*/g) || []).length;
+      const lineNum = text === '' ? 1 : text.split('\n').length;
+
+      charCount.textContent = mdChar.toLocaleString() + ' 字符';
+      wordCount.textContent = plainChar.toLocaleString() + ' 字';
+
+      statusCharCount.textContent = mdChar.toLocaleString();
+      statusLineCount.textContent = lineNum.toLocaleString();
+      countMdChar.textContent = mdChar.toLocaleString();
+      countPlainChar.textContent = plainChar.toLocaleString();
+      countEnWord.textContent = enWord.toLocaleString();
+      countLine.textContent = lineNum.toLocaleString();
+
+      statusbarWords.textContent = plainChar.toLocaleString();
+      statusbarChars.textContent = mdChar.toLocaleString();
+      mobileBarStatus.textContent = 'MARKDOWN · ' + plainChar.toLocaleString() + ' 字';
     }
 
     function markdownToPlainText(markdown) {
@@ -759,101 +1135,112 @@ greet('World');
         .trim();
     }
 
-    // Markdown解析器
-    function parseMarkdown(md) {
-      let html = md;
-      
-      // 转义HTML特殊字符（在代码块之外）
-      // 先处理代码块，保护其内容
-      const codeBlocks = [];
-      html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, (match, lang, code) => {
-        const index = codeBlocks.length;
-        codeBlocks.push(`<pre><code class="language-${lang}">${escapeHtml(code.trim())}</code></pre>`);
-        return `___CODEBLOCK_${index}___`;
-      });
-      
-      // 行内代码
-      const inlineCodes = [];
-      html = html.replace(/`([^`]+)`/g, (match, code) => {
-        const index = inlineCodes.length;
-        inlineCodes.push(`<code>${escapeHtml(code)}</code>`);
-        return `___INLINECODE_${index}___`;
-      });
-
-      // 标题
-      html = html.replace(/^###### (.+)$/gm, '<h6>$1</h6>');
-      html = html.replace(/^##### (.+)$/gm, '<h5>$1</h5>');
-      html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
-      html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-      html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-      html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-
-      // 分隔线
-      html = html.replace(/^---+$/gm, '<hr>');
-      html = html.replace(/^\*\*\*+$/gm, '<hr>');
-
-      // 引用块
-      html = html.replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>');
-      html = html.replace(/<\/blockquote>\n<blockquote>/g, '\n');
-
-      // 任务列表
-      html = html.replace(/^- \[x\] (.+)$/gm, '<li class="task-list-item"><input type="checkbox" checked disabled> $1</li>');
-      html = html.replace(/^- \[ \] (.+)$/gm, '<li class="task-list-item"><input type="checkbox" disabled> $1</li>');
-      html = html.replace(/(<li class="task-list-item">.*<\/li>\n?)+/g, '<ul class="task-list">$&</ul>');
-
-      // 无序列表
-      html = html.replace(/^[\*\-] (.+)$/gm, '<li>$1</li>');
-      html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
-
-      // 有序列表
-      html = html.replace(/^\d+\. (.+)$/gm, '<oli>$1</oli>');
-      html = html.replace(/(<oli>.*<\/oli>\n?)+/g, match => {
-        return '<ol>' + match.replace(/<\/?oli>/g, m => m === '<oli>' ? '<li>' : '</li>') + '</ol>';
-      });
-
-      // 表格
-      html = html.replace(/^\|(.+)\|\n\|[-:\| ]+\|\n((\|.+\|\n?)+)/gm, (match, header, sep, body) => {
-        const headers = header.split('|').filter(h => h.trim()).map(h => `<th>${h.trim()}</th>`).join('');
-        const rows = body.trim().split('\n').map(row => {
-          const cells = row.split('|').filter(c => c.trim()).map(c => `<td>${c.trim()}</td>`).join('');
-          return `<tr>${cells}</tr>`;
-        }).join('');
-        return `<table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
-      });
-
-      // 图片
-      html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
-
-      // 链接
-      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-
-      // 粗体和斜体
-      html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-      html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-      html = html.replace(/~~(.+?)~~/g, '<del>$1</del>');
-
-      // 段落
-      html = html.replace(/\n\n+/g, '</p><p>');
-      html = '<p>' + html + '</p>';
-      html = html.replace(/<p>\s*<(h[1-6]|ul|ol|blockquote|pre|hr|table)/g, '<$1');
-      html = html.replace(/<\/(h[1-6]|ul|ol|blockquote|pre|hr|table)>\s*<\/p>/g, '</$1>');
-      html = html.replace(/<p>\s*<\/p>/g, '');
-
-      // 还原代码块
-      codeBlocks.forEach((block, index) => {
-        html = html.replace(`___CODEBLOCK_${index}___`, block);
-      });
-      
-      // 还原行内代码
-      inlineCodes.forEach((code, index) => {
-        html = html.replace(`___INLINECODE_${index}___`, code);
-      });
-
-      return html;
+    /* ---------- 行号 ---------- */
+    function updateLineNumbers() {
+      const text = markdownInput.value;
+      const lines = text === '' ? 1 : text.split('\n').length;
+      let buf = '';
+      for (let i = 1; i <= lines; i++) {
+        buf += i + '\n';
+      }
+      lineGutter.textContent = buf;
     }
 
-    // HTML转义
+    function syncEditorScroll() {
+      const textarea = markdownInput;
+      const ratio = textarea.scrollTop / (textarea.scrollHeight - textarea.clientHeight || 1);
+      const max = lineGutter.scrollHeight - lineGutter.clientHeight;
+      lineGutter.scrollTop = ratio * max;
+    }
+
+    /* ---------- 大纲 ---------- */
+    function extractOutline(markdown) {
+      const outline = [];
+      const lines = markdown.split('\n');
+      let inCodeBlock = false;
+      let idx = 0;
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (/^```/.test(line)) { inCodeBlock = !inCodeBlock; continue; }
+        if (inCodeBlock) continue;
+        const m = line.match(/^(#{1,6})\s+(.+?)\s*#*\s*$/);
+        if (m) {
+          const level = m[1].length;
+          const text = m[2];
+          idx += 1;
+          outline.push({ level: level, text: text, id: 'mdw-h-' + idx, index: idx });
+        }
+      }
+      return outline;
+    }
+
+    function slugifyHeading(text, index) {
+      return 'mdw-h-' + index;
+    }
+
+    function renderOutline(markdown) {
+      const outline = extractOutline(markdown);
+      if (outline.length === 0) {
+        outlineList.innerHTML = '<li class="mdw-outline__empty">当前文档还没有标题。</li>';
+        return;
+      }
+      let html = '';
+      for (let i = 0; i < outline.length; i++) {
+        const item = outline[i];
+        if (item.level > 3) continue;
+        const safe = escapeHtml(item.text);
+        html += '<li class="mdw-outline__item" data-level="' + item.level + '" data-target="' + item.id + '" tabindex="0" role="button" aria-label="滚动到 ' + safe + '">' + safe + '</li>';
+      }
+      outlineList.innerHTML = html;
+    }
+
+    outlineList.addEventListener('click', function (e) {
+      const item = e.target.closest('.mdw-outline__item');
+      if (!item) return;
+      scrollToHeading(item.getAttribute('data-target'));
+    });
+    outlineList.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const item = e.target.closest('.mdw-outline__item');
+      if (!item) return;
+      e.preventDefault();
+      scrollToHeading(item.getAttribute('data-target'));
+    });
+
+    function scrollToHeading(id) {
+      const el = previewContent.querySelector('#' + CSS.escape(id));
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.setAttribute('tabindex', '-1');
+      el.focus({ preventScroll: true });
+    }
+
+    /* ---------- 移动端 Tab ---------- */
+    function setActiveWritingTab(tabName) {
+      var tabs = document.querySelectorAll('.mdw-tab');
+      var panels = {
+        edit: document.getElementById('mdw-panel-edit'),
+        preview: document.getElementById('mdw-panel-preview'),
+        outline: document.getElementById('mdw-panel-aside')
+      };
+      for (var i = 0; i < tabs.length; i++) {
+        var isActive = tabs[i].id === 'mdw-tab-' + tabName;
+        tabs[i].classList.toggle('is-active', isActive);
+        tabs[i].setAttribute('aria-selected', isActive ? 'true' : 'false');
+      }
+      for (var key in panels) {
+        if (!panels.hasOwnProperty(key)) continue;
+        if (key === tabName) {
+          panels[key].classList.remove('is-hidden');
+        } else {
+          panels[key].classList.add('is-hidden');
+        }
+      }
+      // 切换到预览时确保最新渲染
+      if (tabName === 'preview') updatePreview();
+    }
+
+    /* ---------- 安全 Markdown 解析器 ---------- */
     function escapeHtml(text) {
       const map = {
         '&': '&amp;',
@@ -862,121 +1249,307 @@ greet('World');
         '"': '&quot;',
         "'": '&#039;'
       };
-      return text.replace(/[&<>"']/g, m => map[m]);
+      return String(text).replace(/[&<>"']/g, m => map[m]);
     }
 
-    // 在光标位置插入文本
+    function sanitizeUrl(url) {
+      if (url == null) return '';
+      let u = String(url).trim();
+      // 解码常见 HTML 实体, 防止 javascript: 变体
+      u = u.replace(/&amp;/g, '&').replace(/&#0*106;|&#x0*6a;/gi, 'j')
+           .replace(/&#0*97;|&#x0*61;/gi, 'a').replace(/&#0*118;|&#x0*76;/gi, 'v')
+           .replace(/&#0*115;|&#x0*73;/gi, 's').replace(/&#0*99;|&#x0*63;/gi, 'c')
+           .replace(/&#0*58;|&#x0*3a;/gi, ':').replace(/&#0*32;|&#x0*20;/gi, ' ');
+      // 去除所有控制字符与不可见字符
+      u = u.replace(/[\u0000-\u001f\u007f-\u009f\u200b-\u200d\ufeff]/g, '');
+      const lower = u.toLowerCase();
+      // 禁止危险协议
+      if (/^\s*javascript:/i.test(u)) return '';
+      if (/^\s*data:/i.test(u)) return '';
+      if (/^\s*vbscript:/i.test(u)) return '';
+      if (/^\s*file:/i.test(u)) return '';
+      // 允许 http / https / mailto / tel
+      if (/^https?:\/\//i.test(u)) return u;
+      if (/^mailto:/i.test(u)) return u;
+      if (/^tel:/i.test(u)) return u;
+      // 允许相对路径与锚点
+      if (/^[a-z][a-z0-9+.-]*:/i.test(u)) return ''; // 其它未知协议一律拒绝
+      return u;
+    }
+
+    function sanitizeRenderedHtml(html) {
+      const template = document.createElement('template');
+      template.innerHTML = String(html || '');
+      const allowedTags = new Set([
+        'A', 'BLOCKQUOTE', 'BR', 'CODE', 'DEL', 'EM', 'H1', 'H2', 'H3',
+        'H4', 'H5', 'H6', 'HR', 'IMG', 'INPUT', 'LI', 'OL', 'P', 'PRE',
+        'STRONG', 'TABLE', 'TBODY', 'TD', 'TH', 'THEAD', 'TR', 'UL'
+      ]);
+      const allowedAttrs = {
+        A: ['href', 'target', 'rel'],
+        CODE: ['class'],
+        H1: ['id'],
+        H2: ['id'],
+        H3: ['id'],
+        H4: ['id'],
+        H5: ['id'],
+        H6: ['id'],
+        IMG: ['src', 'alt', 'loading'],
+        INPUT: ['type', 'checked', 'disabled', 'class', 'aria-label'],
+        LI: ['class'],
+        UL: ['class']
+      };
+
+      function scrub(node) {
+        if (node.nodeType === Node.COMMENT_NODE) {
+          node.remove();
+          return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+        const tag = node.tagName;
+        if (!allowedTags.has(tag)) {
+          node.replaceWith(document.createTextNode(node.textContent || ''));
+          return;
+        }
+
+        const allowed = allowedAttrs[tag] || [];
+        Array.from(node.attributes).forEach(attr => {
+          if (!allowed.includes(attr.name)) {
+            node.removeAttribute(attr.name);
+          }
+        });
+
+        if (tag === 'A') {
+          const safeHref = sanitizeUrl(node.getAttribute('href') || '');
+          if (!safeHref) {
+            node.removeAttribute('href');
+          } else {
+            node.setAttribute('href', safeHref);
+          }
+          node.setAttribute('target', '_blank');
+          node.setAttribute('rel', 'noopener noreferrer');
+        }
+
+        if (tag === 'IMG') {
+          const safeSrc = sanitizeUrl(node.getAttribute('src') || '');
+          if (!safeSrc) {
+            node.remove();
+            return;
+          }
+          node.setAttribute('src', safeSrc);
+          node.setAttribute('alt', node.getAttribute('alt') || '');
+          node.setAttribute('loading', 'lazy');
+        }
+
+        if (tag === 'INPUT') {
+          if ((node.getAttribute('type') || '').toLowerCase() !== 'checkbox') {
+            node.remove();
+            return;
+          }
+          node.setAttribute('disabled', '');
+          node.setAttribute('aria-label', node.checked ? '已完成任务项' : '未完成任务项');
+        }
+
+        Array.from(node.childNodes).forEach(scrub);
+      }
+
+      Array.from(template.content.childNodes).forEach(scrub);
+      return template.innerHTML;
+    }
+
+    function parseMarkdown(md) {
+      let html = String(md || '');
+
+      // 1. 先抽出代码块, 保护其内容 (已转义)
+      const codeBlocks = [];
+      html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, (match, lang, code) => {
+        const index = codeBlocks.length;
+        const langClass = lang ? ' class="language-' + escapeHtml(lang) + '"' : '';
+        codeBlocks.push('<pre><code' + langClass + '>' + escapeHtml(code.trim()) + '</code></pre>');
+        return '@@MDW_CODEBLOCK_' + index + '@@';
+      });
+
+      // 2. 行内代码 (已转义)
+      const inlineCodes = [];
+      html = html.replace(/`([^`]+)`/g, (match, code) => {
+        const index = inlineCodes.length;
+        inlineCodes.push('<code>' + escapeHtml(code) + '</code>');
+        return '@@MDW_INLINECODE_' + index + '@@';
+      });
+
+      // 3. 标题 (转义用户文本, 注入 ID 用于大纲跳转)
+      let headingIdx = 0;
+      html = html.replace(/^(#{1,6})\s+(.+?)\s*#*\s*$/gm, (match, hashes, text) => {
+        headingIdx += 1;
+        const level = hashes.length;
+        const id = 'mdw-h-' + headingIdx;
+        return '<h' + level + ' id="' + id + '">' + escapeHtml(text) + '</h' + level + '>';
+      });
+
+      // 4. 分隔线
+      html = html.replace(/^---+$/gm, '<hr>');
+      html = html.replace(/^\*\*\*+$/gm, '<hr>');
+
+      // 5. 引用块 (转义文本)
+      html = html.replace(/^>\s?(.+)$/gm, (match, text) => '<blockquote__p>' + escapeHtml(text) + '</blockquote__p>');
+      html = html.replace(/(<blockquote__p>[\s\S]*?<\/blockquote__p>)(\n\n|$)/g, '<blockquote>$1</blockquote>$2');
+      html = html.replace(/<\/blockquote__p>\n<blockquote__p>/g, '\n');
+      html = html.replace(/blockquote__p/g, 'p');
+
+      // 6. 任务列表 (转义文本)
+      html = html.replace(/^[-*]\s+\[x\]\s+(.+)$/gim, (m, t) => '<li class="task-list-item"><input type="checkbox" checked disabled> ' + escapeHtml(t) + '</li>');
+      html = html.replace(/^[-*]\s+\[\s\]\s+(.+)$/gim, (m, t) => '<li class="task-list-item"><input type="checkbox" disabled> ' + escapeHtml(t) + '</li>');
+      html = html.replace(/(<li class="task-list-item">[\s\S]*?<\/li>\n?)+/g, m => '<ul class="task-list">' + m + '</ul>');
+
+      // 7. 无序列表 (转义文本)
+      html = html.replace(/^[-*]\s+(.+)$/gm, (m, t) => '<li>' + escapeHtml(t) + '</li>');
+      html = html.replace(/(<li>(?! class="task)[\s\S]*?<\/li>\n?)+/g, m => '<ul>' + m + '</ul>');
+
+      // 8. 有序列表 (转义文本)
+      html = html.replace(/^\d+\.\s+(.+)$/gm, (m, t) => '<oli>' + escapeHtml(t) + '</oli>');
+      html = html.replace(/(<oli>[\s\S]*?<\/oli>\n?)+/g, m => '<ol>' + m.replace(/<\/?oli>/g, mm => mm === '<oli>' ? '<li>' : '</li>') + '</ol>');
+
+      // 9. 表格 (转义单元格)
+      html = html.replace(/^\|(.+)\|\n\|[-:|\s]+\|\n((?:\|.+\|\n?)+)/gm, (match, header, body) => {
+        const headers = header.split('|').filter(h => h.trim()).map(h => '<th>' + escapeHtml(h.trim()) + '</th>').join('');
+        const rows = body.trim().split('\n').map(row => {
+          const cells = row.split('|').filter(c => c.trim()).map(c => '<td>' + escapeHtml(c.trim()) + '</td>').join('');
+          return '<tr>' + cells + '</tr>';
+        }).join('');
+        return '<table><thead><tr>' + headers + '</tr></thead><tbody>' + rows + '</tbody></table>';
+      });
+
+      // 10. 图片 (转义 alt, 校验 URL)
+      html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (m, alt, url) => {
+        const safeUrl = sanitizeUrl(url);
+        if (!safeUrl) return '';
+        return '<img src="' + escapeHtml(safeUrl) + '" alt="' + escapeHtml(alt) + '" loading="lazy">';
+      });
+
+      // 11. 链接 (转义文本, 校验 URL, 加 rel)
+      html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, text, url) => {
+        const safeUrl = sanitizeUrl(url);
+        if (!safeUrl) return escapeHtml(text);
+        return '<a href="' + escapeHtml(safeUrl) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(text) + '</a>';
+      });
+
+      // 12. 粗体 / 斜体 / 删除线 (内部文本已被上方转义, 安全)
+      html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      html = html.replace(/~~(.+?)~~/g, '<del>$1</del>');
+
+      // 13. 段落 (保护占位符)
+      html = html.replace(/\n\n+/g, '</p><p>');
+      html = '<p>' + html + '</p>';
+      html = html.replace(/<p>\s*<(h[1-6]|ul|ol|blockquote|pre|hr|table)(\s|>)/g, '<$1$2');
+      html = html.replace(/<\/(h[1-6]|ul|ol|blockquote|pre|hr|table)>\s*<\/p>/g, '</$1>');
+      html = html.replace(/<p>\s*<\/p>/g, '');
+
+      // 14. 还原代码块
+      for (let i = 0; i < codeBlocks.length; i++) {
+        html = html.replace('@@MDW_CODEBLOCK_' + i + '@@', codeBlocks[i]);
+      }
+      // 15. 还原行内代码
+      for (let i = 0; i < inlineCodes.length; i++) {
+        html = html.replace('@@MDW_INLINECODE_' + i + '@@', inlineCodes[i]);
+      }
+
+      return html;
+    }
+
+    /* ---------- 插入工具 (保留原函数签名) ---------- */
     function insertAtCursor(text) {
       const start = markdownInput.selectionStart;
       const end = markdownInput.selectionEnd;
       const value = markdownInput.value;
-      
+
       markdownInput.value = value.substring(0, start) + text + value.substring(end);
       markdownInput.selectionStart = markdownInput.selectionEnd = start + text.length;
       markdownInput.focus();
-      updatePreview();
-      updateCounts();
+      afterEditorChange();
     }
 
-    // 插入包围文本
     function insertText(before, after) {
       const start = markdownInput.selectionStart;
       const end = markdownInput.selectionEnd;
       const value = markdownInput.value;
       const selectedText = value.substring(start, end) || '文本';
-      
+
       markdownInput.value = value.substring(0, start) + before + selectedText + after + value.substring(end);
       markdownInput.selectionStart = start + before.length;
       markdownInput.selectionEnd = start + before.length + selectedText.length;
       markdownInput.focus();
-      updatePreview();
-      updateCounts();
+      afterEditorChange();
     }
 
-    // 插入标题
     function insertHeading(level) {
       const prefix = '#'.repeat(level) + ' ';
       const start = markdownInput.selectionStart;
       const value = markdownInput.value;
-      
-      // 找到当前行的开始
+
       let lineStart = start;
       while (lineStart > 0 && value[lineStart - 1] !== '\n') {
         lineStart--;
       }
-      
-      // 检查是否已有标题符号
+
       const lineContent = value.substring(lineStart);
       const existingMatch = lineContent.match(/^#+\s*/);
-      
+
       if (existingMatch) {
-        // 替换现有标题符号
         markdownInput.value = value.substring(0, lineStart) + prefix + lineContent.substring(existingMatch[0].length);
       } else {
-        // 添加标题符号
         markdownInput.value = value.substring(0, lineStart) + prefix + value.substring(lineStart);
       }
-      
+
       markdownInput.focus();
-      updatePreview();
-      updateCounts();
+      afterEditorChange();
     }
 
-    // 插入列表
     function insertList(type) {
       let prefix;
       switch(type) {
         case 'ul': prefix = '- '; break;
         case 'ol': prefix = '1. '; break;
         case 'task': prefix = '- [ ] '; break;
+        default: prefix = '- ';
       }
       insertAtCursor('\n' + prefix + '列表项\n');
     }
 
-    // 插入链接
     function insertLink() {
       const url = prompt('请输入链接地址:', 'https://');
       if (url) {
-        insertText('[', `](${url})`);
+        insertText('[', '](' + url + ')');
       }
     }
 
-    // 插入图片
     function insertImage() {
       const url = prompt('请输入图片地址:', 'https://');
       if (url) {
-        insertAtCursor(`![图片描述](${url})`);
+        insertAtCursor('![图片描述](' + url + ')');
       }
     }
 
-    // 插入表格
     function insertTable() {
-      const table = `
-| 表头1 | 表头2 | 表头3 |
-|-------|-------|-------|
-| 单元格 | 单元格 | 单元格 |
-| 单元格 | 单元格 | 单元格 |
-`;
+      const table = '\n| 表头1 | 表头2 | 表头3 |\n|-------|-------|-------|\n| 单元格 | 单元格 | 单元格 |\n| 单元格 | 单元格 | 单元格 |\n';
       insertAtCursor(table);
     }
 
-    // 插入代码块
     function insertCodeBlock() {
       const lang = prompt('请输入编程语言 (如 javascript, python):', 'javascript');
       insertAtCursor('\n```' + (lang || '') + '\n// 代码\n```\n');
     }
 
-    // 插入引用
     function insertQuote() {
       insertAtCursor('\n> 引用文本\n');
     }
 
-    // 插入分隔线
     function insertHr() {
       insertAtCursor('\n---\n');
     }
 
-    // 快捷键处理
     function handleKeyboard(e) {
       if (e.ctrlKey || e.metaKey) {
         switch(e.key.toLowerCase()) {
@@ -996,102 +1569,71 @@ greet('World');
       }
     }
 
-    // 导出HTML
-    function exportHTML() {
-      const markdown = markdownInput.value;
-      const htmlContent = parseMarkdown(markdown);
-      
-      const fullHtml = `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Markdown 导出<\/title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      line-height: 1.6;
-      color: #333;
+    /* ---------- 编辑器变更统一处理 ---------- */
+    function afterEditorChange() {
+      updatePreview();
+      updateCounts();
+      updateLineNumbers();
+      saveLocalDraftDebounced();
     }
-    h1 { border-bottom: 2px solid #6d4aff; padding-bottom: 10px; }
-    h2 { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
-    code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
-    pre { background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto; }
-    pre code { background: none; padding: 0; }
-    blockquote { border-left: 4px solid #6d4aff; padding-left: 20px; margin-left: 0; color: #666; }
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ddd; padding: 10px; }
-    th { background: #f5f5f5; }
-    img { max-width: 100%; }
-    a { color: #6d4aff; }
-  <\/style>
-<\/head>
-<body>
-${htmlContent}
-<\/body>
-<\/html>`;
-      
+
+    /* ---------- 导出 ---------- */
+    function buildExportHtml(title) {
+      const markdown = markdownInput.value;
+      const bodyHtml = parseMarkdown(markdown);
+      return '<!DOCTYPE html>\n' +
+        '<html lang="zh-CN">\n' +
+        '<head>\n' +
+        '  <meta charset="UTF-8">\n' +
+        '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+        '  <title>' + escapeHtml(title) + '</title>\n' +
+        '  <style>\n' +
+        '    body { font-family: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif; max-width: 760px; margin: 0 auto; padding: 48px 24px; line-height: 1.75; color: #20211d; background: #f4efe5; }\n' +
+        '    h1 { font-family: "Source Han Serif SC", "Noto Serif SC", SimSun, serif; font-size: 34px; margin: 0 0 18px; padding-bottom: 10px; border-bottom: 1px solid #c9c3b7; font-weight: 600; }\n' +
+        '    h2 { font-family: "Source Han Serif SC", "Noto Serif SC", SimSun, serif; font-size: 22px; margin: 28px 0 14px; padding-bottom: 6px; border-bottom: 1px solid #c9c3b7; font-weight: 600; }\n' +
+        '    h3 { font-family: "Source Han Serif SC", "Noto Serif SC", SimSun, serif; font-size: 17px; margin: 22px 0 10px; font-weight: 600; }\n' +
+        '    p { margin: 12px 0; }\n' +
+        '    a { color: #159867; text-decoration: underline; }\n' +
+        '    code { background: rgba(32,33,29,0.06); padding: 2px 6px; border-radius: 3px; font-family: "IBM Plex Mono", Consolas, monospace; font-size: 0.9em; color: #20211d; }\n' +
+        '    pre { background: #fbf7ef; border: 1px solid #c9c3b7; border-radius: 6px; padding: 14px 16px; overflow-x: auto; margin: 14px 0; }\n' +
+        '    pre code { background: none; padding: 0; }\n' +
+        '    blockquote { margin: 14px 0; padding: 10px 18px; background: rgba(200,169,107,0.08); border-left: 3px solid #c8a96b; color: #20211d; }\n' +
+        '    blockquote p { margin: 0; }\n' +
+        '    ul, ol { padding-left: 24px; margin: 10px 0; }\n' +
+        '    li { margin: 6px 0; }\n' +
+        '    hr { border: 0; border-top: 1px solid #c9c3b7; margin: 22px 0; }\n' +
+        '    table { width: 100%; border-collapse: collapse; margin: 14px 0; }\n' +
+        '    th, td { border: 1px solid #c9c3b7; padding: 8px 12px; text-align: left; vertical-align: top; }\n' +
+        '    th { background: #f2eee5; font-weight: 600; }\n' +
+        '    img { max-width: 100%; height: auto; }\n' +
+        '    .task-list { list-style: none; padding-left: 8px; }\n' +
+        '    .task-list-item { display: flex; align-items: baseline; gap: 8px; }\n' +
+        '  </style>\n' +
+        '</head>\n' +
+        '<body>\n' + bodyHtml + '\n</body>\n</html>';
+    }
+
+    function exportHTML() {
+      const fullHtml = buildExportHtml('Markdown 导出');
       downloadFile(fullHtml, 'markdown-export.html', 'text/html');
       showToast('HTML 导出成功', 'success');
     }
 
-    // 导出PDF
     function exportPDF() {
-      const markdown = markdownInput.value;
-      const htmlContent = parseMarkdown(markdown);
-      
-      // 创建打印窗口
+      const htmlContent = buildExportHtml('Markdown 导出');
       const printWindow = window.open('', '_blank');
-      printWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="UTF-8">
-          <title>Markdown 导出<\/title>
-          <style>
-            body {
-              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-              max-width: 800px;
-              margin: 0 auto;
-              padding: 40px;
-              line-height: 1.6;
-              color: #333;
-            }
-            h1 { border-bottom: 2px solid #6d4aff; padding-bottom: 10px; }
-            h2 { border-bottom: 1px solid #ddd; padding-bottom: 8px; }
-            code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
-            pre { background: #f5f5f5; padding: 15px; border-radius: 8px; overflow-x: auto; }
-            pre code { background: none; padding: 0; }
-            blockquote { border-left: 4px solid #6d4aff; padding-left: 20px; margin-left: 0; color: #666; }
-            table { border-collapse: collapse; width: 100%; }
-            th, td { border: 1px solid #ddd; padding: 10px; }
-            th { background: #f5f5f5; }
-            img { max-width: 100%; }
-            a { color: #6d4aff; }
-            @media print {
-              body { padding: 20px; }
-            }
-          <\/style>
-        <\/head>
-        <body>
-          ${htmlContent}
-          <script>
-            window.onload = function() {
-              window.print();
-            };
-          <\/script>
-        <\/body>
-        <\/html>
-      `);
+      if (!printWindow) {
+        showToast('弹窗被拦截，请允许此站点弹窗后再试', 'error');
+        return;
+      }
+      const printable =
+        htmlContent.replace('</body>',
+          '<script>window.onload=function(){window.print();};<\/script></body>');
+      printWindow.document.write(printable);
       printWindow.document.close();
-      
-      showToast('请在打印对话框中选择"保存为PDF"', 'success');
+      showToast('已打开打印窗口，请选择“保存为 PDF”', 'success');
     }
 
-    // 下载文件
     function downloadFile(content, filename, type) {
       const blob = new Blob([content], { type: type });
       const url = URL.createObjectURL(blob);
@@ -1104,24 +1646,87 @@ ${htmlContent}
       URL.revokeObjectURL(url);
     }
 
-    // 清空编辑器
     function clearEditor() {
-      if (confirm('确定要清空编辑器吗？')) {
+      if (confirm('确定要清空编辑器吗？本地草稿会被覆盖。')) {
         markdownInput.value = '';
         updatePreview();
         updateCounts();
+        updateLineNumbers();
+        saveLocalDraftDebounced();
         showToast('编辑器已清空', 'success');
       }
     }
 
-    // Toast通知
-    function showToast(message, type = 'success') {
+    /* ---------- Toast 通知 ---------- */
+    let toastTimer = null;
+    function showToast(message, type) {
       toast.textContent = message;
-      toast.className = 'toast ' + type + ' show';
-      setTimeout(() => {
-        toast.classList.remove('show');
+      toast.className = 'mdw-toast';
+      if (type === 'error') toast.classList.add('mdw-toast--error');
+      else if (type === 'warn') toast.classList.add('mdw-toast--warn');
+      // force reflow then show
+      void toast.offsetWidth;
+      toast.classList.add('is-show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('is-show');
       }, 2500);
     }
+
+    /* ---------- 初始化 ---------- */
+    document.addEventListener('DOMContentLoaded', function() {
+      detectStorage();
+
+      // 顶部导航抽屉 (移动端)
+      var topbar = document.querySelector('.ts-topbar');
+      var menuBtn = topbar && topbar.querySelector('.ts-topbar__menu-btn');
+      var nav = topbar && topbar.querySelector('.ts-topbar__nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('.ts-topbar__nav-item')) {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      // 载入本地草稿; 没有则使用默认示例
+      const restored = loadLocalDraft();
+      if (!restored) {
+        markdownInput.value = defaultMarkdown;
+        updateSaveStatus(storageAvailable ? 'idle' : 'unavailable');
+      }
+
+      // 实时预览 + 字数 + 行号
+      markdownInput.addEventListener('input', function() {
+        updatePreview();
+        updateCounts();
+        updateLineNumbers();
+        saveLocalDraftDebounced();
+      });
+
+      // 快捷键 + Tab
+      markdownInput.addEventListener('keydown', handleKeyboard);
+      markdownInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          insertAtCursor('  ');
+        }
+      });
+      markdownInput.addEventListener('scroll', syncEditorScroll);
+
+      // 备注保存
+      notesInput.addEventListener('input', saveLocalDraftDebounced);
+
+      // 初始化渲染
+      updatePreview();
+      updateCounts();
+      updateLineNumbers();
+    });
   </script>
 </body>
 </html>

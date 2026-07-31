@@ -3,604 +3,1494 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>项目结构分析工具 - wychmod Developer Workspace</title>
+  <title>项目结构分析工具 / REPOSITORY MAP - wychmod Developer Workspace</title>
+  <meta name="description" content="本地解析 JSON 或 Tree 命令输出，生成可点击的目录结构树、节点详情、统计与启发式结构说明。核心处理在浏览器本地完成。">
+  <link rel="canonical" href="https://wychmod.github.io/tools/structure-tool.html">
+  <!-- 视觉母体令牌(只读复用) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <!-- 工具页共享外壳(scoped) -->
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260730a">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* ===========================================================
+       P022 项目结构分析工具 专属样式 (page-specific, scoped under .tool-studio)
+       外壳基类来自 tool-studio.css; 这里只放仓库地图相关布局
+       =========================================================== */
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
-      color: #37352f;
-      padding: 20px;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .header {
-      text-align: center;
-      padding: 30px 0;
-      margin-bottom: 30px;
-      border-bottom: 2px solid #6d4aff;
-    }
-
-    .header h1 {
-      color: #0b6bcb;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-
-    .header p {
-      color: #5f5d57;
-      font-size: 1.1em;
-    }
-
-    .tip-box {
-      background: rgba(96, 165, 250, 0.15);
-      border: 2px solid #0b6bcb;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 30px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .tip-icon {
-      font-size: 48px;
-    }
-
-    .tip-content h3 {
-      color: #0b6bcb;
-      margin-bottom: 8px;
-    }
-
-    .tip-content p {
-      color: #5f5d57;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .tool-container {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-
-    @media screen and (max-width: 768px) {
-      .tool-container {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .button-group {
+    /* ---------- 操作按钮组 ---------- */
+    .rm-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 25px;
-      grid-column: 1 / -1;
-      justify-content: center;
+      gap: var(--studio-space-2);
+      margin-bottom: var(--studio-space-5);
+    }
+    .rm-actions .ts-btn {
+      font-size: 13px;
+      padding: 8px 14px;
     }
 
-    button {
-      background: linear-gradient(135deg, #6d4aff, #0b6bcb);
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
+    /* ---------- 仓库四栏栅格 ---------- */
+    .rm-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 30fr) minmax(0, 26fr) minmax(0, 21fr) minmax(0, 23fr);
+      gap: var(--studio-space-4);
+      align-items: start;
+    }
+
+    /* ---------- 通用面板头 ---------- */
+    .rm-panel-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--studio-space-3);
+      margin-bottom: var(--studio-space-3);
+    }
+    .rm-panel-head__title {
+      margin: 0;
+      font-family: var(--studio-font-display);
+      font-size: 15px;
       font-weight: 600;
-      font-size: 14px;
+      color: var(--studio-text);
+    }
+    .rm-panel-head__sub {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
+    }
+
+    /* ---------- 输入栏(深色) ---------- */
+    .rm-input-panel {
+      background: var(--studio-ink-900);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-md);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .rm-input-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--studio-line-dark);
+    }
+    .rm-input-tabs__item {
+      padding: 10px 14px;
+      font-family: var(--studio-font-body);
+      font-size: 13px;
+      color: var(--studio-on-dark-muted);
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
       cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 2px 8px rgba(109, 74, 255, 0.22);
+      transition: color var(--studio-dur-fast) var(--studio-ease),
+                  border-color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .rm-input-tabs__item:hover { color: var(--studio-on-dark); }
+    .rm-input-tabs__item.is-active {
+      color: var(--studio-on-dark);
+      border-bottom-color: var(--studio-gold);
+      font-weight: 600;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.35);
+    .rm-code-editor {
+      position: relative;
+      flex: 1;
+      display: flex;
+      min-height: 0;
+    }
+    .rm-line-nums {
+      flex: 0 0 auto;
+      padding: 12px 8px 12px 12px;
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--studio-on-dark-muted);
+      opacity: 0.55;
+      text-align: right;
+      user-select: none;
+      border-right: 1px solid var(--studio-line-dark);
+      white-space: pre;
+      overflow: hidden;
+    }
+    .rm-input-area {
+      flex: 1;
+      min-width: 0;
+      min-height: 540px;
+      padding: 12px 14px;
+      background: transparent;
+      border: 0;
+      color: var(--studio-on-dark);
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      resize: vertical;
+    }
+    .rm-input-area:focus {
+      outline: none;
+      box-shadow: inset 0 0 0 1px var(--studio-green);
+    }
+    .rm-input-area::placeholder { color: var(--studio-on-dark-muted); opacity: 0.6; }
+
+    .rm-hints {
+      padding: 10px 14px;
+      border-top: 1px solid var(--studio-line-dark);
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--studio-on-dark-muted);
+      min-height: 44px;
+    }
+    .rm-hints--error {
+      color: var(--studio-vermilion);
+      background: rgba(230, 102, 62, 0.08);
+    }
+    .rm-hints code {
+      font-family: var(--studio-font-mono);
+      color: var(--studio-gold);
     }
 
-    button.secondary-btn {
-      background: rgba(109, 74, 255, 0.10);
-      color: #0b6bcb;
-      border: 1px solid #6d4aff;
-    }
-
-    button.clear-btn {
-      background: rgba(255, 77, 77, 0.8);
-      color: #fff;
-    }
-
-    .input-section, .output-section {
+    /* ---------- 目录树栏(纸白) ---------- */
+    .rm-tree-panel {
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
       display: flex;
       flex-direction: column;
     }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .section-label {
-      color: #6d4aff;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .status {
-      color: #5f5d57;
-      font-size: 14px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 500px;
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 15px;
-      color: #37352f;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 14px;
-      resize: vertical;
-      line-height: 1.5;
-    }
-
-    textarea:focus {
-      outline: none;
-      border-color: #6d4aff;
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
-    }
-
-    .tree-view {
-      height: 500px;
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 15px;
+    .rm-tree {
+      flex: 1;
+      min-height: 540px;
+      max-height: 640px;
       overflow: auto;
-      font-family: 'Segoe UI', sans-serif;
+      padding: 8px 6px 12px 6px;
+      font-family: var(--studio-font-body);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .rm-tree-empty {
+      padding: 40px 16px;
+      text-align: center;
+      color: var(--studio-text-muted);
+      font-size: 13px;
+    }
+    .rm-tree-empty__hint {
+      margin-top: 8px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      opacity: 0.7;
     }
 
-    .tree-node {
-      margin-left: 20px;
-      line-height: 1.8;
+    /* ---------- 树节点 ---------- */
+    .rm-node {
+      margin: 0;
     }
+    .rm-node__children { display: none; }
+    .rm-node__children.is-open { display: block; }
 
-    .tree-content {
+    .rm-row {
       display: flex;
       align-items: center;
+      gap: 4px;
+      width: 100%;
+      min-height: 30px;
+      padding: 2px 6px;
+      background: transparent;
+      border: 0;
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-text);
+      font-family: var(--studio-font-body);
+      font-size: 14px;
+      text-align: left;
       cursor: pointer;
-      padding: 2px 5px;
-      border-radius: 4px;
+      transition: background var(--studio-dur-fast) var(--studio-ease);
+    }
+    .rm-row:hover { background: rgba(32, 33, 29, 0.05); }
+    .rm-row.is-selected { background: #efe4cf; }
+    .rm-row.is-selected:hover { background: #e8dcc0; }
+    .rm-row:focus-visible {
+      outline: 2px solid var(--studio-focus);
+      outline-offset: -2px;
     }
 
-    .tree-content:hover {
-      background: rgba(59, 130, 246, 0.1);
-    }
-
-    .tree-icon {
-      margin-right: 8px;
-      width: 20px;
-      text-align: center;
-      color: #0b6bcb;
-    }
-
-    .tree-label {
-      color: #37352f;
-    }
-
-    .tree-children {
-      display: none;
-    }
-
-    .tree-children.expanded {
-      display: block;
-    }
-
-    .tree-toggle {
+    .rm-toggle {
+      flex: 0 0 auto;
       width: 16px;
       height: 16px;
-      margin-right: 4px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: #888;
-      transition: transform 0.2s;
+      color: var(--studio-text-muted);
+      transition: transform var(--studio-dur-fast) var(--studio-ease);
+      font-family: var(--studio-font-mono);
+      font-size: 10px;
+    }
+    .rm-toggle.is-open { transform: rotate(90deg); }
+    .rm-toggle--empty { visibility: hidden; }
+
+    .rm-icon {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      color: var(--studio-text-muted);
+    }
+    .rm-row.is-selected .rm-icon { color: var(--studio-gold); }
+
+    .rm-label {
+      flex: 1 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--studio-text);
+    }
+    .rm-label--file { color: var(--studio-text); }
+    .rm-label--dir { font-weight: 500; }
+    .rm-meta {
+      flex: 0 0 auto;
+      font-family: var(--studio-font-mono);
+      font-size: 10px;
+      color: var(--studio-text-muted);
+      opacity: 0.7;
+      padding-left: 6px;
     }
 
-    .tree-toggle.expanded {
-      transform: rotate(90deg);
+    /* ---------- 节点详情栏(纸白) ---------- */
+    .rm-detail-panel {
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      padding: var(--studio-space-4);
+      min-height: 320px;
+    }
+    .rm-detail-empty {
+      padding: 32px 8px;
+      text-align: center;
+      color: var(--studio-text-muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .rm-detail-empty__hint {
+      margin-top: 8px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      opacity: 0.7;
+    }
+    .rm-detail-fields {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 6px 12px;
+      margin-bottom: var(--studio-space-4);
+    }
+    .rm-detail-fields dt {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
+      padding-top: 2px;
+    }
+    .rm-detail-fields dd {
+      margin: 0;
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      color: var(--studio-text);
+      word-break: break-all;
+    }
+    .rm-detail-fields dd.rm-detail--muted { color: var(--studio-text-muted); }
+
+    /* ---------- 统计区(嵌入详情栏) ---------- */
+    .rm-stats {
+      margin-top: var(--studio-space-3);
+      padding-top: var(--studio-space-3);
+      border-top: 1px solid var(--studio-paper-line);
+    }
+    .rm-stats__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 12px;
+      margin-bottom: var(--studio-space-3);
+    }
+    .rm-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .rm-stat__label {
+      font-family: var(--studio-font-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--studio-text-muted);
+    }
+    .rm-stat__value {
+      font-family: var(--studio-font-mono);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--studio-text);
     }
 
-    .stats {
-      margin-top: 15px;
-      padding: 15px;
-      background: rgba(59, 130, 246, 0.1);
-      border-radius: 8px;
-      color: #5f5d57;
-      font-size: 14px;
-      grid-column: 1 / -1;
+    .rm-ext-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .rm-ext-row {
+      display: grid;
+      grid-template-columns: 70px 1fr 48px;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+    }
+    .rm-ext-name { color: var(--studio-text); }
+    .rm-ext-bar {
+      height: 6px;
+      background: rgba(32, 33, 29, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .rm-ext-fill {
+      height: 100%;
+      background: var(--studio-gold);
+      transition: width var(--studio-dur-base) var(--studio-ease);
+    }
+    .rm-ext-count {
+      text-align: right;
+      color: var(--studio-text-muted);
+    }
+    .rm-ext-empty {
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      font-style: italic;
+    }
+
+    /* ---------- 结构解释栏(纸白) ---------- */
+    .rm-explain-panel {
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      padding: var(--studio-space-4);
+      min-height: 320px;
+    }
+    .rm-explain-empty {
+      padding: 32px 8px;
+      text-align: center;
+      color: var(--studio-text-muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .rm-explain-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--studio-space-3);
+      margin-bottom: var(--studio-space-4);
+    }
+    .rm-explain-item {
+      padding-left: 12px;
+      border-left: 2px solid var(--studio-gold);
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--studio-text);
+    }
+    .rm-explain-item__path {
+      display: block;
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-text-muted);
+      margin-bottom: 2px;
+    }
+    .rm-explain-principle {
+      padding: var(--studio-space-3);
+      background: var(--studio-paper-100);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--studio-text-muted);
+    }
+    .rm-explain-principle strong {
+      color: var(--studio-text);
+      font-family: var(--studio-font-display);
+      font-size: 13px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* ---------- 状态行(标题旁) ---------- */
+    .rm-status-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text-muted);
+    }
+    .rm-status-line__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--studio-text-muted);
+    }
+    .rm-status-line.is-ready .rm-status-line__dot { background: var(--studio-green); }
+    .rm-status-line.is-error .rm-status-line__dot { background: var(--studio-vermilion); }
+
+    /* ---------- 移动端 tabs ---------- */
+    .rm-mobile-tabs {
       display: none;
     }
+    .rm-mobile-tabs .ts-tabs__item { flex: 1 1 0; }
 
-    .stats.show {
-      display: block;
-    }
-
-    .stats-content {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .stat-item strong {
-      color: #0b6bcb;
-    }
-
-    .message {
+    /* ---------- 移动端详情 sheet ---------- */
+    .rm-sheet-backdrop {
+      display: none;
       position: fixed;
-      top: 100px;
-      right: 30px;
-      padding: 15px 25px;
-      border-radius: 8px;
+      inset: 0;
+      background: rgba(13, 16, 14, 0.4);
+      z-index: 200;
+    }
+    .rm-sheet-backdrop.is-open { display: block; }
+    .rm-sheet {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 201;
+      transform: translateY(100%);
+      transition: transform var(--studio-dur-base) var(--studio-ease);
+      background: var(--studio-paper-50);
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      border-top: 1px solid var(--studio-paper-line);
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.12);
+    }
+    .rm-sheet.is-open { transform: translateY(0); }
+    .rm-sheet__handle {
+      flex: 0 0 auto;
+      width: 40px;
+      height: 4px;
+      background: var(--studio-paper-line);
+      border-radius: 2px;
+      margin: 8px auto 4px;
+    }
+    .rm-sheet__head {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 16px 12px;
+      border-bottom: 1px solid var(--studio-paper-line);
+    }
+    .rm-sheet__title {
+      margin: 0;
+      font-family: var(--studio-font-display);
+      font-size: 15px;
       font-weight: 600;
-      z-index: 10000;
-      animation: slideIn 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      color: var(--studio-text);
+    }
+    .rm-sheet__close {
+      min-height: 36px;
+      min-width: 36px;
+      padding: 4px 10px;
+      background: transparent;
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-text-muted);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .rm-sheet__body {
+      flex: 1;
+      overflow: auto;
+      padding: 16px;
     }
 
-    .message.success {
-      background: rgba(23, 143, 85, 0.12);
-      color: #178f55;
-      border: 2px solid #178f55;
+    /* ---------- Toast 消息(非 alert) ---------- */
+    .rm-toast {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 300;
+      padding: 10px 16px;
+      background: var(--studio-ink-900);
+      color: var(--studio-on-dark);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      font-size: 13px;
+      font-family: var(--studio-font-body);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+      transform: translateX(120%);
+      opacity: 0;
+      transition: transform var(--studio-dur-base) var(--studio-ease),
+                  opacity var(--studio-dur-base) var(--studio-ease);
+      max-width: 320px;
+    }
+    .rm-toast.is-show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .rm-toast--success { border-left: 3px solid var(--studio-green); }
+    .rm-toast--error { border-left: 3px solid var(--studio-vermilion); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rm-sheet, .rm-toast, .rm-toggle, .rm-row, .rm-ext-fill {
+        transition: none !important;
+      }
     }
 
-    .message.error {
-      background: rgba(214, 69, 69, 0.12);
-      color: #d64545;
-      border: 2px solid #d64545;
+    /* ---------- 中等宽度: 两行布局 ---------- */
+    @media (max-width: 1180px) {
+      .rm-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas:
+          "input tree"
+          "detail explain";
+      }
+      .rm-input-panel  { grid-area: input; }
+      .rm-tree-panel   { grid-area: tree; }
+      .rm-detail-panel  { grid-area: detail; }
+      .rm-explain-panel { grid-area: explain; }
     }
 
-    @keyframes slideIn {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+    /* ---------- 移动端: tabs + bottom sheet ---------- */
+    @media (max-width: 768px) {
+      .rm-grid {
+        display: block;
+      }
+      .rm-mobile-tabs {
+        display: flex;
+        margin-bottom: var(--studio-space-4);
+      }
+      .rm-input-panel,
+      .rm-tree-panel,
+      .rm-detail-panel,
+      .rm-explain-panel {
+        display: none;
+      }
+      .rm-panel--mobile-active {
+        display: flex !important;
+      }
+      .rm-explain-panel.rm-panel--mobile-active { display: block !important; }
+      .rm-detail-panel.rm-panel--mobile-active { display: block !important; }
+
+      .rm-input-area,
+      .rm-tree {
+        min-height: 420px;
+      }
+      .rm-tree { max-height: 520px; }
+
+      .rm-status-line { font-size: 11px; }
     }
 
-    @keyframes slideOut {
-      from { transform: translateX(0); opacity: 1; }
-      to { transform: translateX(100%); opacity: 0; }
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #6d4aff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-
-    .back-link:hover {
-      color: #0b6bcb;
+    @media (max-width: 360px) {
+      .rm-actions .ts-btn {
+        font-size: 12px;
+        padding: 8px 10px;
+        flex: 1 1 calc(50% - 4px);
+      }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
-<body>
-  <div class="container">
-    <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
-      <a href="/#/" class="back-link">← 返回主站</a>
-      <a href="index.html" class="back-link">← 返回工具集</a>
-    </div>
-    
-    <div class="header">
-      <h1>📂 项目结构分析工具</h1>
-      <p>智能解析项目文件结构，可视化分析与统计</p>
-    </div>
+<body class="tool-studio">
+  <a class="ts-skip-link" href="#ts-main">跳到主内容</a>
 
-    <div class="tip-box">
-      <div class="tip-icon">💡</div>
-      <div class="tip-content">
-        <h3>支持多种格式输入</h3>
-        <p>
-          • <strong>JSON格式</strong>：标准的嵌套JSON对象<br/>
-          • <strong>Tree命令输出</strong>：支持 `tree` 命令生成的文本树形结构<br/>
-          • <strong>缩进文本</strong>：使用空格或制表符缩进表示层级
-        </p>
+  <!-- 顶部工具导航(暖石墨) -->
+  <header class="ts-topbar">
+    <div class="ts-topbar__inner">
+      <button class="ts-topbar__menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="ts-topbar-nav">≡</button>
+      <a class="ts-topbar__brand" href="/#/" aria-label="wychmod 主站">
+        <span class="ts-topbar__logo" aria-hidden="true">W</span>
+        <span class="ts-topbar__brand-text">
+          <span class="ts-topbar__brand-name">wychmod</span>
+          <span class="ts-topbar__brand-sub">Developer Workspace</span>
+        </span>
+      </a>
+      <nav class="ts-topbar__nav" id="ts-topbar-nav" aria-label="主导航">
+        <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
+        <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
+        <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="ts-topbar__actions">
+        <span class="ts-topbar__status" title="核心处理在浏览器本地完成">
+          <span class="ts-topbar__status-dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-topbar__avatar" role="img" aria-label="wychmod 的 GitHub 头像">
+          <span class="ts-topbar__avatar-fallback" aria-hidden="true">W</span>
+          <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="32" height="32" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+        </span>
       </div>
     </div>
+  </header>
 
-    <div class="tool-container">
-      <div class="button-group">
-        <button onclick="parseInput()">🚀 解析结构</button>
-        <button onclick="loadExample('json')" class="secondary-btn">📄 示例JSON</button>
-        <button onclick="loadExample('tree')" class="secondary-btn">🌳 示例Tree</button>
-        <button onclick="expandAll()" class="secondary-btn">➕ 展开所有</button>
-        <button onclick="collapseAll()" class="secondary-btn">➖ 收起所有</button>
-        <button onclick="runSelfTest()" class="secondary-btn">🧪 运行自测</button>
-        <button onclick="clearAll()" class="clear-btn">🗑️ 清空</button>
+  <!-- 主内容 -->
+  <main class="ts-main" id="ts-main">
+    <div class="ts-container">
+
+      <!-- 面包屑 -->
+      <nav class="ts-breadcrumb" aria-label="路径">
+        <span class="ts-breadcrumb__item">WYCHMOD</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <a class="ts-breadcrumb__item" href="/tools/index.html">TOOLS</a>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item is-current" aria-current="location">STRUCTURE</span>
+      </nav>
+
+      <!-- 标题块 -->
+      <div class="ts-titleblock">
+        <h1 class="ts-titleblock__h1">数据结构可视化工具<span class="ts-titleblock__h1-en"> / REPOSITORY MAP</span></h1>
+        <p class="ts-titleblock__desc">粘贴 JSON 或 <code style="font-family:var(--studio-font-mono);font-size:13px">tree</code> 命令输出，生成可点击的目录结构树、节点详情、统计与启发式结构说明。核心处理在浏览器本地完成，不上传任何输入。</p>
       </div>
 
-      <div class="input-section">
-        <div class="section-header">
-          <span class="section-label">📝 输入结构数据</span>
-          <span class="status" id="status">等待输入...</span>
-        </div>
-        <textarea id="input" placeholder="请粘贴 JSON 或 Tree 命令输出..."></textarea>
+      <!-- 状态条 -->
+      <div class="ts-status" role="group" aria-label="工具状态" aria-live="polite">
+        <span class="ts-status__item">
+          <span class="ts-status__dot" aria-hidden="true"></span>
+          本地处理 · 不上传
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">状态</span> <span class="ts-status__value" id="status">等待输入</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">节点数</span> <span class="ts-status__value" id="statusNodeCount">0</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">耗时</span> <span class="ts-status__value" id="statusParseTime">-</span></span>
       </div>
 
-      <div class="output-section">
-        <div class="section-header">
-          <span class="section-label">👀 可视化预览</span>
-          <button onclick="exportJSON()" class="secondary-btn" style="padding: 4px 10px; font-size: 12px;">📤 导出JSON</button>
-        </div>
-        <div id="treeView" class="tree-view"></div>
+      <!-- 操作按钮组 -->
+      <div class="rm-actions" role="toolbar" aria-label="结构工具操作">
+        <button class="ts-btn ts-btn--primary" type="button" onclick="parseInput()">解析结构</button>
+        <button class="ts-btn ts-btn--secondary" type="button" onclick="loadExample('json')" aria-label="载入示例 JSON">示例 JSON</button>
+        <button class="ts-btn ts-btn--secondary" type="button" onclick="loadExample('tree')" aria-label="载入示例 Tree">示例 Tree</button>
+        <button class="ts-btn ts-btn--secondary" type="button" onclick="expandAll()">展开所有</button>
+        <button class="ts-btn ts-btn--secondary" type="button" onclick="collapseAll()">收起所有</button>
+        <button class="ts-btn ts-btn--secondary" type="button" onclick="runSelfTest()">运行自测</button>
+        <button class="ts-btn ts-btn--ghost" type="button" onclick="copyResult()" aria-label="复制当前解析结果为 JSON">复制结果</button>
+        <button class="ts-btn ts-btn--secondary" type="button" onclick="exportJSON()">导出 JSON</button>
+        <button class="ts-btn ts-btn--danger" type="button" onclick="clearAll()">清空</button>
       </div>
 
-      <div class="stats" id="stats">
-        <div class="stats-content">
-          <span class="stat-item">📁 目录数: <strong id="dirCount">0</strong></span>
-          <span class="stat-item">📄 文件数: <strong id="fileCount">0</strong></span>
-          <span class="stat-item">📏 最大深度: <strong id="maxDepth">0</strong></span>
-          <span class="stat-item">⏱️ 解析耗时: <strong id="parseTime">0ms</strong></span>
-        </div>
+      <!-- 移动端 tabs -->
+      <div class="rm-mobile-tabs ts-tabs" role="tablist" aria-label="移动端面板切换">
+        <button class="ts-tabs__item is-active" type="button" data-mobile-tab="input" role="tab" aria-selected="true">输入</button>
+        <button class="ts-tabs__item" type="button" data-mobile-tab="tree" role="tab" aria-selected="false">目录树</button>
+        <button class="ts-tabs__item" type="button" data-mobile-tab="detail" role="tab" aria-selected="false">节点详情</button>
+      </div>
+
+      <!-- 仓库四栏栅格 -->
+      <div class="rm-grid">
+
+        <!-- 1. 输入栏(深色) -->
+        <section class="rm-input-panel" data-panel="input" aria-label="结构数据输入">
+          <div class="rm-input-tabs" role="tablist" aria-label="输入格式">
+            <button class="rm-input-tabs__item is-active" type="button" data-input-mode="json" role="tab" aria-selected="true">输入（JSON）</button>
+            <button class="rm-input-tabs__item" type="button" data-input-mode="tree" role="tab" aria-selected="false">输入（Tree）</button>
+          </div>
+          <div class="rm-code-editor">
+            <div class="rm-line-nums" id="lineNums" aria-hidden="true">1</div>
+            <textarea id="input" class="rm-input-area" placeholder="请粘贴 JSON 或 Tree 命令输出..." aria-label="结构输入内容" aria-describedby="formatHints" spellcheck="false"></textarea>
+          </div>
+          <div class="rm-hints" id="formatHints" aria-live="polite">
+            <span id="hintJson">支持 <code>{ name, type, children }</code> 节点格式与旧版嵌套对象格式</span>
+            <span id="hintTree" style="display:none">支持 <code>├──</code> <code>└──</code> <code>│</code> 与空格缩进</span>
+          </div>
+        </section>
+
+        <!-- 2. 目录树栏(纸白) -->
+        <section class="rm-tree-panel" data-panel="tree" aria-label="目录结构">
+          <div class="rm-panel-head" style="padding:12px 14px 0;">
+            <h2 class="rm-panel-head__title">目录结构</h2>
+            <span class="rm-panel-head__sub" id="treeNodeCount">0 个节点</span>
+          </div>
+          <div id="treeView" class="rm-tree" role="tree" aria-label="解析后的目录结构树">
+            <div class="rm-tree-empty">
+              <div>暂无结构数据</div>
+              <div class="rm-tree-empty__hint">点击「示例 JSON」或「示例 Tree」开始</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. 节点详情 + 统计(纸白) -->
+        <section class="rm-detail-panel" data-panel="detail" aria-label="节点详情与统计">
+          <div class="rm-panel-head">
+            <h2 class="rm-panel-head__title">节点详情</h2>
+            <span class="rm-panel-head__sub">点击节点查看</span>
+          </div>
+          <div id="nodeDetail">
+            <div class="rm-detail-empty">
+              <div>未选中节点</div>
+              <div class="rm-detail-empty__hint">点击左侧目录树中的任意节点</div>
+            </div>
+          </div>
+
+          <div class="rm-stats" id="stats" style="display:none">
+            <div class="rm-panel-head">
+              <h2 class="rm-panel-head__title">结构统计</h2>
+            </div>
+            <div class="rm-stats__grid">
+              <div class="rm-stat">
+                <span class="rm-stat__label">目录数</span>
+                <span class="rm-stat__value" id="dirCount">0</span>
+              </div>
+              <div class="rm-stat">
+                <span class="rm-stat__label">文件数</span>
+                <span class="rm-stat__value" id="fileCount">0</span>
+              </div>
+              <div class="rm-stat">
+                <span class="rm-stat__label">总节点</span>
+                <span class="rm-stat__value" id="totalNodes">0</span>
+              </div>
+              <div class="rm-stat">
+                <span class="rm-stat__label">最大深度</span>
+                <span class="rm-stat__value" id="maxDepth">0</span>
+              </div>
+              <div class="rm-stat">
+                <span class="rm-stat__label">平均深度</span>
+                <span class="rm-stat__value" id="avgDepth">0</span>
+              </div>
+              <div class="rm-stat">
+                <span class="rm-stat__label">解析耗时</span>
+                <span class="rm-stat__value" id="parseTime">0ms</span>
+              </div>
+            </div>
+            <div class="rm-panel-head" style="margin-top:12px;">
+              <h2 class="rm-panel-head__title">文件类型</h2>
+            </div>
+            <div class="rm-ext-list" id="extStats">
+              <p class="rm-ext-empty">无文件</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. 结构解释栏(纸白) -->
+        <section class="rm-explain-panel" data-panel="explain" aria-label="结构解释">
+          <div class="rm-panel-head">
+            <h2 class="rm-panel-head__title">这个目录为什么会这样组织</h2>
+          </div>
+          <div id="explanation">
+            <div class="rm-explain-empty">
+              <div>暂无结构解释</div>
+              <div style="margin-top:8px;font-size:12px;opacity:0.7;">解析后基于目录名给出启发式说明</div>
+            </div>
+          </div>
+        </section>
+
       </div>
     </div>
-  </div>
+  </main>
+
+  <!-- 移动端详情 sheet -->
+  <div class="rm-sheet-backdrop" id="sheetBackdrop" aria-hidden="true"></div>
+  <aside class="rm-sheet" id="nodeSheet" role="dialog" aria-modal="false" aria-label="节点详情" aria-hidden="true">
+    <div class="rm-sheet__handle" aria-hidden="true"></div>
+    <div class="rm-sheet__head">
+      <h2 class="rm-sheet__title">节点详情</h2>
+      <button class="rm-sheet__close" type="button" id="sheetClose" aria-label="关闭节点详情">关闭</button>
+    </div>
+    <div class="rm-sheet__body" id="sheetBody"></div>
+  </aside>
+
+  <!-- 页脚 -->
+  <footer class="ts-foot">
+    <div class="ts-foot__inner">
+      <span>© 2024–2026 wychmod Developer Workspace</span>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/tools/index.html">工具集</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/#/">返回主站</a>
+    </div>
+  </footer>
 
   <script>
+    /* ===========================================================
+       项目结构分析工具 - 业务逻辑
+       保留所有原函数名/ID/事件契约, 重构视觉与解析健壮性
+       =========================================================== */
+
     // 示例数据
     const examples = {
       json: JSON.stringify({
-        "project": {
-          "src": {
-            "components": {
-              "Button.js": {},
-              "Header.js": {}
-            },
-            "utils": {
-              "api.js": {},
-              "format.js": {}
-            },
-            "App.js": {},
-            "index.js": {}
+        "name": "wychmod-app",
+        "type": "directory",
+        "children": [
+          {
+            "name": "apps",
+            "type": "directory",
+            "children": [
+              {
+                "name": "web",
+                "type": "directory",
+                "children": [
+                  { "name": "src", "type": "directory", "children": [] },
+                  { "name": "public", "type": "directory", "children": [] },
+                  { "name": "package.json", "type": "file" },
+                  { "name": "tsconfig.json", "type": "file" }
+                ]
+              },
+              { "name": "mobile", "type": "directory", "children": [] }
+            ]
           },
-          "public": {
-            "index.html": {},
-            "favicon.ico": {}
+          {
+            "name": "packages",
+            "type": "directory",
+            "children": [
+              {
+                "name": "ui",
+                "type": "directory",
+                "children": [
+                  { "name": "src", "type": "directory", "children": [] },
+                  { "name": "dist", "type": "directory", "children": [] },
+                  { "name": "package.json", "type": "file" }
+                ]
+              },
+              { "name": "config", "type": "directory", "children": [] },
+              { "name": "utils", "type": "directory", "children": [] }
+            ]
           },
-          "package.json": {},
-          "README.md": {}
-        }
+          { "name": "README.md", "type": "file" },
+          { "name": "package.json", "type": "file" },
+          { "name": "pnpm-lock.yaml", "type": "file" },
+          { "name": ".gitignore", "type": "file" }
+        ]
       }, null, 2),
-      
-      tree: `project
-├── src
-│   ├── components
-│   │   ├── Button.js
-│   │   └── Header.js
-│   ├── utils
-│   │   ├── api.js
-│   │   └── format.js
-│   ├── App.js
-│   └── index.js
-├── public
-│   ├── index.html
-│   └── favicon.ico
+
+      tree: `wychmod-app
+├── apps
+│   ├── web
+│   │   ├── src
+│   │   ├── public
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   └── mobile
+├── packages
+│   ├── ui
+│   │   ├── src
+│   │   ├── dist
+│   │   └── package.json
+│   ├── config
+│   └── utils
+├── README.md
 ├── package.json
-└── README.md`
+├── pnpm-lock.yaml
+└── .gitignore`
     };
 
+    // 当前数据 (保留原 currentData; 新增 currentTree/currentStats/selectedNode)
     let currentData = null;
+    let currentTree = null;
+    let currentStats = null;
+    let selectedNode = null;
+    let inputMode = 'json';
 
-    // 加载示例
-    function loadExample(type) {
-      document.getElementById('input').value = examples[type];
-      parseInput();
+    /* ---------- 归一化: 把任意输入转为统一节点模型 ---------- */
+
+    function normalizeJsonStructure(data) {
+      // 数组 -> 包装成虚拟根
+      if (Array.isArray(data)) {
+        return normalizeNamedNode({ name: 'root', type: 'directory', children: data }, '', 0);
+      }
+      // 参考图节点格式 { name, type, children }
+      if (data && typeof data === 'object' && Object.prototype.hasOwnProperty.call(data, 'name')) {
+        return normalizeNamedNode(data, '', 0);
+      }
+      // 旧版嵌套对象格式
+      return normalizeLegacyObject(data, 'root', '', 0);
     }
 
-    // 清空
-    function clearAll() {
-      document.getElementById('input').value = '';
-      document.getElementById('treeView').innerHTML = '';
-      document.getElementById('stats').classList.remove('show');
-      document.getElementById('status').textContent = '等待输入...';
-      document.getElementById('status').style.color = '#5f5d57';
-      currentData = null;
+    function normalizeNamedNode(node, parentPath, depth) {
+      if (!node || typeof node !== 'object') {
+        return { id: parentPath + '/?', name: '?', type: 'file', path: parentPath, depth: depth, children: [], size: null, modifiedAt: null, createdAt: null, extension: null };
+      }
+      const name = String(node.name || 'unnamed');
+      const path = buildNodePath(parentPath, name);
+      const children = Array.isArray(node.children) ? node.children : [];
+      const type = inferNodeType(name, children, node.type);
+      const normalized = {
+        id: path,
+        name: name,
+        type: type,
+        path: path,
+        depth: depth,
+        children: [],
+        size: node.size != null ? node.size : null,
+        modifiedAt: node.modifiedAt || node.modified || null,
+        createdAt: node.createdAt || node.created || null,
+        extension: type === 'file' ? getExtension(name) : null
+      };
+      normalized.children = children.map(function (c) { return normalizeNamedNode(c, path, depth + 1); });
+      return normalized;
     }
 
-    // 解析入口
+    function normalizeLegacyObject(obj, name, parentPath, depth) {
+      if (!obj || typeof obj !== 'object' || Array.isArray(obj)) {
+        return { id: parentPath + '/' + name, name: name, type: 'file', path: parentPath + '/' + name, depth: depth, children: [], size: null, modifiedAt: null, createdAt: null, extension: getExtension(name) };
+      }
+      const keys = Object.keys(obj);
+      const path = buildNodePath(parentPath, name);
+      // 旧格式: 有子键 = 目录; 空对象 = 文件 (除非显式 type: directory)
+      let type;
+      if (obj.type === 'directory' || obj.type === 'file') {
+        type = obj.type;
+      } else if (keys.length === 0) {
+        type = 'file';
+      } else {
+        type = 'directory';
+      }
+      const normalized = {
+        id: path,
+        name: name,
+        type: type,
+        path: path,
+        depth: depth,
+        children: [],
+        size: obj.size != null ? obj.size : null,
+        modifiedAt: obj.modifiedAt || obj.modified || null,
+        createdAt: obj.createdAt || obj.created || null,
+        extension: type === 'file' ? getExtension(name) : null
+      };
+      if (type === 'directory') {
+        normalized.children = keys.map(function (k) { return normalizeLegacyObject(obj[k], k, path, depth + 1); });
+      }
+      return normalized;
+    }
+
+    function inferNodeType(name, children, explicitType) {
+      if (explicitType === 'directory' || explicitType === 'file') return explicitType;
+      if (children && children.length > 0) return 'directory';
+      // 无子节点 + 有扩展名 -> file; 无扩展名 -> 也按 file (旧格式空对象默认 file)
+      return 'file';
+    }
+
+    function buildNodePath(parentPath, name) {
+      if (!parentPath) return '/' + name;
+      return parentPath + '/' + name;
+    }
+
+    function getExtension(name) {
+      const idx = name.lastIndexOf('.');
+      if (idx <= 0) return null; // 隐藏文件如 .gitignore 无扩展名
+      return name.slice(idx).toLowerCase();
+    }
+
+    /* ---------- Tree 文本解析 (改进版) ---------- */
+
+    function normalizeTreeText(treeText) {
+      return parseTreeString(treeText);
+    }
+
+    function parseTreeString(str) {
+      const lines = str.split('\n').filter(function (line) { return line.trim().length > 0; });
+      if (lines.length === 0) return {};
+
+      // 计算每行的层级 (基于 tree 命令字符 + 空格缩进)
+      const parsed = lines.map(function (line) {
+        // 匹配前缀: tree 字符 (│ ├── └── ─) 或空格
+        const match = line.match(/^([│├└─\s]*)(.*)$/);
+        if (!match) return { name: line.trim(), level: 0 };
+        let prefix = match[1];
+        let name = match[2].trim();
+        // 去除前导树字符后的纯缩进长度 / 4 -> 层级
+        // 标准输出: "│   " "├── " "└── " 每层 4 字符
+        let cleanPrefix = prefix.replace(/[│├└─]/g, ' ');
+        let level = 0;
+        // 每 4 个空格一层; 但允许 2 空格缩进
+        const indent = cleanPrefix.length;
+        if (indent >= 4) {
+          level = Math.floor(indent / 4);
+        } else if (indent >= 2) {
+          level = 1;
+        } else {
+          level = 0;
+        }
+        // 清理名字中残留的树字符
+        name = name.replace(/^[├└─]+\s*/, '');
+        return { name: name, level: level };
+      });
+
+      // 构建嵌套对象 (与旧版兼容: 返回对象, key=节点名)
+      const root = {};
+      const stack = [{ node: root, level: -1 }];
+
+      parsed.forEach(function (item) {
+        // 检测混合缩进: 若 level 非单调, 给出提示
+        while (stack.length > 0 && stack[stack.length - 1].level >= item.level) {
+          stack.pop();
+        }
+        const parent = stack[stack.length - 1].node;
+        const newNode = {};
+        // 若父节点原本是空对象 (被当作文件), 升级为目录
+        parent[item.name] = newNode;
+        stack.push({ node: newNode, level: item.level });
+      });
+
+      return root;
+    }
+
+    /* ---------- 统计 ---------- */
+
+    function flattenNodes(root) {
+      const list = [];
+      (function walk(n) {
+        list.push(n);
+        if (n.children) n.children.forEach(walk);
+      })(root);
+      return list;
+    }
+
+    function computeStructureStats(root, parseTime) {
+      let dirs = 0, files = 0, maxDepth = 0, totalDepth = 0;
+      const nodes = flattenNodes(root);
+      // 跳过虚拟根
+      const realNodes = nodes.filter(function (n) { return n.depth > 0; });
+      realNodes.forEach(function (n) {
+        if (n.type === 'directory') dirs++; else files++;
+        if (n.depth > maxDepth) maxDepth = n.depth;
+        totalDepth += n.depth;
+      });
+      const total = realNodes.length;
+      const avgDepth = total > 0 ? (totalDepth / total) : 0;
+      return {
+        directoryCount: dirs,
+        fileCount: files,
+        totalNodes: total,
+        maxDepth: maxDepth,
+        averageDepth: avgDepth,
+        parseTime: parseTime,
+        extensionStats: computeExtensionStats(realNodes)
+      };
+    }
+
+    function computeExtensionStats(nodes) {
+      const map = {};
+      nodes.filter(function (n) { return n.type === 'file'; }).forEach(function (n) {
+        const ext = n.extension || '其他';
+        if (!map[ext]) map[ext] = { count: 0, label: extLabel(ext) };
+        map[ext].count++;
+      });
+      return map;
+    }
+
+    function extLabel(ext) {
+      const m = {
+        '.ts': 'TypeScript', '.tsx': 'TypeScript',
+        '.js': 'JavaScript', '.jsx': 'JavaScript',
+        '.json': 'JSON',
+        '.md': 'Markdown', '.mdx': 'Markdown',
+        '.css': 'CSS', '.html': 'HTML',
+        '.py': 'Python', '.go': 'Go', '.java': 'Java',
+        '.yaml': 'YAML', '.yml': 'YAML'
+      };
+      return m[ext] || '其他';
+    }
+
+    /* ---------- 渲染: 树 ---------- */
+
+    function renderTree(data) {
+      const container = document.getElementById('treeView');
+      container.innerHTML = '';
+      // data 可能是原始对象 (legacy) 或已归一化节点
+      // 统一使用 currentTree (归一化后) 渲染
+      const root = currentTree || data;
+      const ul = document.createElement('ul');
+      ul.className = 'rm-node';
+      ul.setAttribute('role', 'group');
+      if (root.children && root.children.length > 0) {
+        root.children.forEach(function (child) {
+          ul.appendChild(createTreeNode(child));
+        });
+      } else {
+        container.innerHTML = '<div class="rm-tree-empty"><div>结构为空</div><div class="rm-tree-empty__hint">没有可显示的节点</div></div>';
+        return;
+      }
+      container.appendChild(ul);
+    }
+
+    function createTreeNode(node, isRoot) {
+      const li = document.createElement('li');
+      li.className = 'rm-node';
+      li.setAttribute('role', 'treeitem');
+      li.dataset.nodeId = node.id;
+
+      const hasChildren = node.children && node.children.length > 0;
+      const row = document.createElement('button');
+      row.className = 'rm-row';
+      row.type = 'button';
+      row.setAttribute('aria-expanded', hasChildren ? 'true' : 'false');
+      row.setAttribute('aria-label', node.name + ' (' + (node.type === 'directory' ? '目录' : '文件') + ')');
+      row.setAttribute('title', node.path);
+
+      // 展开/收起箭头
+      const toggle = document.createElement('span');
+      toggle.className = 'rm-toggle' + (hasChildren ? ' is-open' : ' rm-toggle--empty');
+      toggle.setAttribute('aria-hidden', 'true');
+      toggle.textContent = hasChildren ? '▶' : '';
+      row.appendChild(toggle);
+
+      // 图标 (SVG 线性, 非 emoji)
+      const icon = document.createElement('span');
+      icon.className = 'rm-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      icon.innerHTML = node.type === 'directory' ? dirIconSvg() : fileIconSvg();
+      row.appendChild(icon);
+
+      // 名称
+      const label = document.createElement('span');
+      label.className = 'rm-label ' + (node.type === 'directory' ? 'rm-label--dir' : 'rm-label--file');
+      label.textContent = node.name; // textContent 防止 HTML 注入
+      row.appendChild(label);
+
+      // 子节点数 (目录)
+      if (hasChildren) {
+        const meta = document.createElement('span');
+        meta.className = 'rm-meta';
+        meta.textContent = String(node.children.length);
+        meta.setAttribute('aria-hidden', 'true');
+        row.appendChild(meta);
+      }
+
+      li.appendChild(row);
+
+      // 选中节点
+      row.addEventListener('click', function (e) {
+        e.stopPropagation();
+        selectNode(node.id);
+        // 同时切换展开 (若有子节点)
+        if (hasChildren) {
+          const wasOpen = childrenContainer.classList.contains('is-open');
+          toggleCollapse(childrenContainer, toggle, !wasOpen);
+          row.setAttribute('aria-expanded', !wasOpen ? 'true' : 'false');
+        }
+      });
+
+      // 子节点容器
+      if (hasChildren) {
+        const childrenContainer = document.createElement('ul');
+        childrenContainer.className = 'rm-node__children is-open';
+        childrenContainer.setAttribute('role', 'group');
+        node.children.forEach(function (child) {
+          childrenContainer.appendChild(createTreeNode(child));
+        });
+        li.appendChild(childrenContainer);
+      }
+
+      return li;
+    }
+
+    function toggleCollapse(container, toggle, open) {
+      if (open) {
+        container.classList.add('is-open');
+        toggle.classList.add('is-open');
+      } else {
+        container.classList.remove('is-open');
+        toggle.classList.remove('is-open');
+      }
+    }
+
+    function dirIconSvg() {
+      return '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1.5 3.5h4l1.2 1.4h7.8v8.1H1.5z"/></svg>';
+    }
+    function fileIconSvg() {
+      return '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 1.5h6.5L13 5v9.5H3z"/><path d="M9.5 1.5V5H13"/></svg>';
+    }
+
+    /* ---------- 节点详情 ---------- */
+
+    function selectNode(nodeId) {
+      const node = findNodeById(currentTree, nodeId);
+      if (!node) return;
+      selectedNode = node;
+      // 高亮选中行
+      document.querySelectorAll('.rm-row.is-selected').forEach(function (r) { r.classList.remove('is-selected'); });
+      const row = document.querySelector('.rm-node[data-node-id="' + cssEscape(nodeId) + '"] > .rm-row');
+      if (row) row.classList.add('is-selected');
+      // 渲染详情 (桌面 + 移动 sheet)
+      renderNodeDetail(node);
+      if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+        openNodeDetailSheet(node);
+      }
+    }
+
+    function findNodeById(root, id) {
+      if (!root) return null;
+      if (root.id === id) return root;
+      if (!root.children) return null;
+      for (let i = 0; i < root.children.length; i++) {
+        const found = findNodeById(root.children[i], id);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function cssEscape(s) {
+      return String(s).replace(/"/g, '\\"');
+    }
+
+    function renderNodeDetail(node) {
+      const html = '<dl class="rm-detail-fields">' +
+        detailRow('名称', node.name, false) +
+        detailRow('类型', node.type === 'directory' ? '目录 directory' : '文件 file', false) +
+        detailRow('路径', node.path, false) +
+        detailRow('深度', String(node.depth), false) +
+        detailRow('子节点', node.children ? String(node.children.length) : '0', false) +
+        detailRow('大小', node.size != null ? String(node.size) : '-', true) +
+        detailRow('修改时间', node.modifiedAt || '-', true) +
+        detailRow('创建时间', node.createdAt || '-', true) +
+        '</dl>';
+      document.getElementById('nodeDetail').innerHTML = html;
+      // 移动端 sheet 也更新
+      document.getElementById('sheetBody').innerHTML = html;
+    }
+
+    function detailRow(label, value, muted) {
+      return '<dt>' + label + '</dt><dd' + (muted ? ' class="rm-detail--muted"' : '') + '>' + escapeHtml(String(value)) + '</dd>';
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    /* ---------- 统计渲染 ---------- */
+
+    function updateStats(data, startTime) {
+      // 使用归一化树计算统计
+      const root = currentTree || normalizeJsonStructure(data);
+      const endTime = performance.now();
+      const parseTime = (endTime - startTime).toFixed(2) + 'ms';
+      const stats = computeStructureStats(root, parseTime);
+      currentStats = stats;
+
+      document.getElementById('dirCount').textContent = stats.directoryCount;
+      document.getElementById('fileCount').textContent = stats.fileCount;
+      document.getElementById('maxDepth').textContent = stats.maxDepth;
+      document.getElementById('parseTime').textContent = parseTime;
+      document.getElementById('totalNodes').textContent = stats.totalNodes;
+      document.getElementById('avgDepth').textContent = stats.averageDepth.toFixed(1);
+      document.getElementById('stats').style.display = 'block';
+
+      // 状态条
+      document.getElementById('statusNodeCount').textContent = stats.totalNodes;
+      document.getElementById('statusParseTime').textContent = parseTime;
+      document.getElementById('treeNodeCount').textContent = stats.totalNodes + ' 个节点';
+
+      // 文件类型统计
+      renderExtensionStats(stats.extensionStats, stats.fileCount);
+    }
+
+    function renderExtensionStats(extMap, fileCount) {
+      const container = document.getElementById('extStats');
+      const entries = Object.keys(extMap).map(function (k) { return { ext: k, count: extMap[k].count, label: extMap[k].label }; });
+      if (entries.length === 0) {
+        container.innerHTML = '<p class="rm-ext-empty">无文件</p>';
+        return;
+      }
+      entries.sort(function (a, b) { return b.count - a.count; });
+      container.innerHTML = entries.map(function (e) {
+        const pct = fileCount > 0 ? (e.count / fileCount * 100) : 0;
+        return '<div class="rm-ext-row">' +
+          '<span class="rm-ext-name">' + escapeHtml(e.label) + '</span>' +
+          '<span class="rm-ext-bar"><span class="rm-ext-fill" style="width:' + pct.toFixed(1) + '%"></span></span>' +
+          '<span class="rm-ext-count">' + e.count + '</span>' +
+          '</div>';
+      }).join('');
+    }
+
+    /* ---------- 结构解释 (启发式) ---------- */
+
+    function renderStructureExplanation(root) {
+      const container = document.getElementById('explanation');
+      if (!root || !root.children || root.children.length === 0) {
+        container.innerHTML = '<div class="rm-explain-empty"><div>暂无结构解释</div></div>';
+        return;
+      }
+      const items = [];
+      const topNames = root.children.map(function (c) { return c.name.toLowerCase(); });
+
+      function has(name) { return topNames.indexOf(name.toLowerCase()) !== -1; }
+
+      if (has('apps')) {
+        items.push({ path: '/apps', text: '根据目录命名推测，<code>apps</code> 通常表示应用层，可能用于放置不同应用入口（web / mobile 等）。' });
+      }
+      if (has('packages')) {
+        items.push({ path: '/packages', text: '根据目录命名推测，<code>packages</code> 通常表示共享包层，可能用于放置可复用模块（UI / config / utils 等）。' });
+      }
+      if (has('src')) {
+        items.push({ path: '/src', text: '根据目录命名推测，<code>src</code> 通常表示源码目录。' });
+      }
+      if (has('public')) {
+        items.push({ path: '/public', text: '根据目录命名推测，<code>public</code> 通常表示静态资源目录。' });
+      }
+      if (has('docs') || has('doc')) {
+        items.push({ path: '/docs', text: '根据目录命名推测，<code>docs</code> 通常表示文档目录。' });
+      }
+      if (has('tests') || has('test') || has('__tests__')) {
+        items.push({ path: '/tests', text: '根据目录命名推测，<code>tests</code> 通常表示测试目录。' });
+      }
+      if (has('readme.md')) {
+        items.push({ path: '/README.md', text: '<code>README.md</code> 通常是项目说明入口。' });
+      }
+      if (has('package.json')) {
+        items.push({ path: '/package.json', text: '<code>package.json</code> 是 Node 项目元数据与脚本文件。' });
+      }
+      if (has('pnpm-lock.yaml')) {
+        items.push({ path: '/pnpm-lock.yaml', text: '<code>pnpm-lock.yaml</code> 是依赖锁定文件。' });
+      }
+      if (has('tsconfig.json')) {
+        items.push({ path: '/tsconfig.json', text: '<code>tsconfig.json</code> 是 TypeScript 编译配置。' });
+      }
+      if (has('.gitignore')) {
+        items.push({ path: '/.gitignore', text: '<code>.gitignore</code> 用于声明被 Git 忽略的路径。' });
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = '<div class="rm-explain-empty"><div>未识别到常见目录名</div><div style="margin-top:8px;font-size:12px;opacity:0.7;">结构解释仅基于目录命名启发式生成</div></div>';
+        return;
+      }
+
+      let html = '<div class="rm-explain-list">';
+      items.forEach(function (it) {
+        html += '<div class="rm-explain-item"><span class="rm-explain-item__path">' + escapeHtml(it.path) + '</span>' + it.text + '</div>';
+      });
+      html += '</div>';
+      html += '<div class="rm-explain-principle"><strong>说明</strong>以上解释仅根据目录命名推测，不构成对项目实际架构的事实判断。具体职责以项目文档与代码为准。</div>';
+      container.innerHTML = html;
+    }
+
+    /* ---------- 格式提示 ---------- */
+
+    function renderFormatHints(mode, error) {
+      const hints = document.getElementById('formatHints');
+      const hintJson = document.getElementById('hintJson');
+      const hintTree = document.getElementById('hintTree');
+      hintJson.style.display = mode === 'json' ? '' : 'none';
+      hintTree.style.display = mode === 'tree' ? '' : 'none';
+      if (error) {
+        hints.classList.add('rm-hints--error');
+        hints.innerHTML = '<span>' + escapeHtml(error) + '</span>';
+      } else {
+        hints.classList.remove('rm-hints--error');
+        hints.innerHTML = '';
+        hints.appendChild(hintJson);
+        hints.appendChild(hintTree);
+      }
+    }
+
+    function setInputMode(mode) {
+      inputMode = mode;
+      document.querySelectorAll('.rm-input-tabs__item').forEach(function (b) {
+        const isActive = b.dataset.inputMode === mode;
+        b.classList.toggle('is-active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      renderFormatHints(mode, null);
+    }
+
+    /* ---------- 主入口: 解析 ---------- */
+
     function parseInput() {
       const input = document.getElementById('input').value.trim();
       const startTime = performance.now();
-      
+
       if (!input) {
         showMessage('请输入内容', 'error');
+        setStatus('等待输入', 'idle');
         return;
       }
 
       try {
-        // 尝试JSON解析
-        if (input.startsWith('{')) {
-          currentData = JSON.parse(input);
-          renderTree(currentData);
-          updateStats(currentData, startTime);
-          showMessage('JSON解析成功', 'success');
+        let parsed = null;
+        let isJson = false;
+
+        // 改进: 不只看 startsWith('{'), 支持数组与前置空白
+        const firstNonWs = input[0];
+        if (firstNonWs === '{' || firstNonWs === '[') {
+          parsed = JSON.parse(input);
+          isJson = true;
         } else {
-          // 尝试Tree解析
-          currentData = parseTreeString(input);
-          renderTree(currentData);
-          updateStats(currentData, startTime);
-          showMessage('Tree解析成功', 'success');
+          parsed = parseTreeString(input);
+          isJson = false;
         }
-        document.getElementById('status').textContent = '✓ 解析成功';
-        document.getElementById('status').style.color = '#178f55';
+
+        currentData = parsed;
+        currentTree = normalizeJsonStructure(parsed);
+
+        renderTree(currentData);
+        updateStats(currentData, startTime);
+        renderStructureExplanation(currentTree);
+
+        const msg = isJson ? 'JSON 解析成功' : 'Tree 解析成功';
+        showMessage(msg, 'success');
+        setStatus('解析完成 · ' + currentStats.totalNodes + ' 个节点 · ' + currentStats.parseTime, 'ready');
+        renderFormatHints(isJson ? 'json' : 'tree', null);
       } catch (e) {
-        showMessage('解析失败: ' + e.message, 'error');
-        document.getElementById('status').textContent = '✗ 解析失败';
-        document.getElementById('status').style.color = '#d64545';
+        const errMsg = '解析失败: ' + (e.message || String(e));
+        showMessage(errMsg, 'error');
+        setStatus('解析失败', 'error');
+        renderFormatHints(inputMode, errMsg);
         console.error(e);
       }
     }
 
-    // Tree字符串解析逻辑
-    function parseTreeString(str) {
-      const lines = str.split('\n').filter(line => line.trim());
-      const root = {};
-      const stack = [{ node: root, level: -1 }];
-
-      lines.forEach(line => {
-        // 计算层级：检测缩进或特殊符号
-        // tree命令通常使用 │   , ├── , └── 
-        // 简单策略：计算前导非文件名字符的长度
-        const match = line.match(/^([│\s├└─]*)(.*)/);
-        if (!match) return;
-
-        let prefix = match[1];
-        let name = match[2].trim();
-        
-        // 估算层级：每4个字符一层，或者根据├──结构
-        // 这里简化处理：直接统计前导特殊字符数量
-        // 对于标准tree输出，每层通常是4个字符 "│   " 或 "├── "
-        let level = Math.floor(prefix.length / 4);
-        
-        // 根节点特殊处理
-        if (level === 0 && prefix.length === 0) {
-          level = 0;
-        }
-
-        const newNode = {};
-        
-        // 找到父节点
-        while (stack.length > 0 && stack[stack.length - 1].level >= level) {
-          stack.pop();
-        }
-
-        const parent = stack[stack.length - 1].node;
-        
-        // 如果parent是空对象（可能是文件），则不能添加子节点，这在标准Tree中不应发生
-        // 但为了容错，我们假设它变成了目录
-        parent[name] = newNode;
-        stack.push({ node: newNode, level: level });
-      });
-
-      // 如果只有一个根节点，返回该根节点的内容，或者保留根节点
-      // 为了统一，我们返回整个结构
-      return root;
+    function setStatus(text, state) {
+      const el = document.getElementById('status');
+      el.textContent = text;
+      // 状态条容器颜色由 status-line 控制, 这里只更新文字
     }
 
-    // 渲染树
-    function renderTree(data) {
-      const container = document.getElementById('treeView');
-      container.innerHTML = '';
-      container.appendChild(createTreeNode(data, 'root', true));
-    }
+    /* ---------- 展开/收起 ---------- */
 
-    function createTreeNode(node, name, isRoot = false) {
-      const isDir = Object.keys(node).length > 0;
-      const div = document.createElement('div');
-      div.className = 'tree-node';
-
-      const content = document.createElement('div');
-      content.className = 'tree-content';
-      
-      const toggle = document.createElement('span');
-      toggle.className = 'tree-toggle' + (isDir ? ' expanded' : '');
-      toggle.textContent = isDir ? '▶' : '';
-      
-      const icon = document.createElement('span');
-      icon.className = 'tree-icon';
-      icon.textContent = isDir ? '📂' : '📄';
-
-      const label = document.createElement('span');
-      label.className = 'tree-label';
-      label.textContent = name === 'root' && isRoot ? 'Project Root' : name;
-
-      content.appendChild(toggle);
-      content.appendChild(icon);
-      content.appendChild(label);
-      div.appendChild(content);
-
-      if (isDir) {
-        const childrenContainer = document.createElement('div');
-        childrenContainer.className = 'tree-children expanded';
-        
-        for (const [key, value] of Object.entries(node)) {
-          childrenContainer.appendChild(createTreeNode(value, key));
-        }
-        
-        div.appendChild(childrenContainer);
-
-        content.addEventListener('click', (e) => {
-          e.stopPropagation();
-          childrenContainer.classList.toggle('expanded');
-          toggle.classList.toggle('expanded');
-          icon.textContent = childrenContainer.classList.contains('expanded') ? '📂' : '📁';
-        });
-      }
-
-      return div;
-    }
-
-    // 统计更新
-    function updateStats(data, startTime) {
-      let files = 0;
-      let dirs = 0;
-      let maxDepth = 0;
-
-      function traverse(node, depth) {
-        const keys = Object.keys(node);
-        if (keys.length > 0) {
-          dirs++;
-          if (depth > maxDepth) maxDepth = depth;
-          keys.forEach(key => traverse(node[key], depth + 1));
-        } else {
-          files++;
-          if (depth > maxDepth) maxDepth = depth;
-        }
-      }
-
-      // 如果根节点包含多个项目，视作第一层
-      traverse(data, 0);
-      // 根节点本身不算目录，减1
-      dirs = Math.max(0, dirs - 1);
-
-      document.getElementById('dirCount').textContent = dirs;
-      document.getElementById('fileCount').textContent = files;
-      document.getElementById('maxDepth').textContent = maxDepth;
-      
-      const endTime = performance.now();
-      document.getElementById('parseTime').textContent = (endTime - startTime).toFixed(2) + 'ms';
-      document.getElementById('stats').classList.add('show');
-    }
-
-    // 展开/收起
     function expandAll() {
-      document.querySelectorAll('.tree-children').forEach(el => el.classList.add('expanded'));
-      document.querySelectorAll('.tree-toggle').forEach(el => el.classList.add('expanded'));
+      document.querySelectorAll('.rm-node__children').forEach(function (el) { el.classList.add('is-open'); });
+      document.querySelectorAll('.rm-toggle').forEach(function (el) {
+        if (!el.classList.contains('rm-toggle--empty')) el.classList.add('is-open');
+      });
+      document.querySelectorAll('.rm-row').forEach(function (r) { r.setAttribute('aria-expanded', 'true'); });
     }
 
     function collapseAll() {
-      document.querySelectorAll('.tree-children').forEach(el => el.classList.remove('expanded'));
-      document.querySelectorAll('.tree-toggle').forEach(el => el.classList.remove('expanded'));
+      document.querySelectorAll('.rm-node__children').forEach(function (el) { el.classList.remove('is-open'); });
+      document.querySelectorAll('.rm-toggle').forEach(function (el) { el.classList.remove('is-open'); });
+      document.querySelectorAll('.rm-row').forEach(function (r) {
+        // 仅目录节点改 false
+        if (r.querySelector('.rm-toggle:not(.rm-toggle--empty)')) {
+          r.setAttribute('aria-expanded', 'false');
+        }
+      });
     }
 
-    // 导出
+    /* ---------- 清空 ---------- */
+
+    function clearAll() {
+      document.getElementById('input').value = '';
+      document.getElementById('treeView').innerHTML = '<div class="rm-tree-empty"><div>暂无结构数据</div><div class="rm-tree-empty__hint">点击「示例 JSON」或「示例 Tree」开始</div></div>';
+      document.getElementById('stats').style.display = 'none';
+      document.getElementById('nodeDetail').innerHTML = '<div class="rm-detail-empty"><div>未选中节点</div><div class="rm-detail-empty__hint">点击左侧目录树中的任意节点</div></div>';
+      document.getElementById('explanation').innerHTML = '<div class="rm-explain-empty"><div>暂无结构解释</div></div>';
+      document.getElementById('status').textContent = '等待输入';
+      document.getElementById('statusNodeCount').textContent = '0';
+      document.getElementById('statusParseTime').textContent = '-';
+      document.getElementById('treeNodeCount').textContent = '0 个节点';
+      currentData = null;
+      currentTree = null;
+      currentStats = null;
+      selectedNode = null;
+      updateLineNumbers();
+      renderFormatHints(inputMode, null);
+    }
+
+    /* ---------- 示例加载 ---------- */
+
+    function loadExample(type) {
+      document.getElementById('input').value = examples[type];
+      setInputMode(type);
+      updateLineNumbers();
+      parseInput();
+    }
+
+    /* ---------- 导出 (修复: appendChild + cleanup) ---------- */
+
     function exportJSON() {
       if (!currentData) {
         showMessage('没有数据可导出', 'error');
@@ -612,65 +1502,240 @@
       const a = document.createElement('a');
       a.href = url;
       a.download = 'project-structure.json';
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showMessage('JSON导出成功', 'success');
+      showMessage('JSON 导出成功', 'success');
     }
 
-    // 消息提示
+    /* ---------- 复制结果 (剪贴板 + 回退) ---------- */
+
+    function copyResult() {
+      if (!currentData) {
+        showMessage('没有数据可复制', 'error');
+        return;
+      }
+      const jsonStr = JSON.stringify(currentData, null, 2);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(jsonStr).then(function () {
+          showMessage('已复制到剪贴板', 'success');
+        }).catch(function () {
+          fallbackCopy(jsonStr);
+        });
+      } else {
+        fallbackCopy(jsonStr);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showMessage('已复制到剪贴板', 'success');
+      } catch (e) {
+        showMessage('复制失败, 请手动选择', 'error');
+      }
+      document.body.removeChild(ta);
+    }
+
+    /* ---------- Toast 消息 (替代 alert) ---------- */
+
+    let toastTimer = null;
     function showMessage(message, type) {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${type}`;
-      messageDiv.textContent = message;
-      document.body.appendChild(messageDiv);
-      setTimeout(() => {
-        messageDiv.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => document.body.removeChild(messageDiv), 300);
-      }, 2000);
+      // 移除已有 toast
+      const existing = document.querySelector('.rm-toast');
+      if (existing) existing.remove();
+      if (toastTimer) { clearTimeout(toastTimer); toastTimer = null; }
+
+      const toast = document.createElement('div');
+      toast.className = 'rm-toast rm-toast--' + (type || 'success');
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      // 触发显示
+      requestAnimationFrame(function () { toast.classList.add('is-show'); });
+      toastTimer = setTimeout(function () {
+        toast.classList.remove('is-show');
+        setTimeout(function () { toast.remove(); }, 250);
+      }, 2400);
     }
 
-    // 自测功能
+    /* ---------- 自测 ---------- */
+
     function runSelfTest() {
       const tests = [
         {
           name: 'JSON Parse Test',
           input: '{"a": {"b": {}}}',
-          expect: (res) => res.a && res.a.b
+          expect: function (res) { return res.a && res.a.b; }
         },
         {
           name: 'Tree Parse Test',
           input: 'root\n├── a\n│   └── b',
-          expect: (res) => res.root && res.root.a && res.root.a.b
+          expect: function (res) { return res.root && res.root.a && res.root.a.b; }
+        },
+        {
+          name: 'Named Node JSON Test',
+          input: JSON.stringify({ name: 'r', type: 'directory', children: [{ name: 'a', type: 'file' }] }),
+          expect: function (res) {
+            const tree = normalizeJsonStructure(res);
+            return tree.name === 'r' && tree.children[0].name === 'a' && tree.children[0].type === 'file';
+          }
         }
       ];
 
       let passed = 0;
-      tests.forEach(test => {
+      tests.forEach(function (test) {
         try {
           let res;
-          if (test.input.startsWith('{')) {
+          if (test.input.trim()[0] === '{' || test.input.trim()[0] === '[') {
             res = JSON.parse(test.input);
           } else {
             res = parseTreeString(test.input);
           }
-          
           if (test.expect(res)) {
-            console.log(`✅ ${test.name} Passed`);
+            console.log('PASS ' + test.name);
             passed++;
           } else {
-            console.error(`❌ ${test.name} Failed`);
+            console.error('FAIL ' + test.name);
           }
         } catch (e) {
-          console.error(`❌ ${test.name} Error:`, e);
+          console.error('ERROR ' + test.name + ':', e);
         }
       });
 
       if (passed === tests.length) {
-        showMessage(`自测通过: ${passed}/${tests.length}`, 'success');
+        showMessage('自测通过: ' + passed + '/' + tests.length, 'success');
       } else {
-        showMessage(`自测失败: ${passed}/${tests.length}`, 'error');
+        showMessage('自测失败: ' + passed + '/' + tests.length, 'error');
       }
     }
+
+    /* ---------- 行号同步 ---------- */
+
+    function updateLineNumbers() {
+      const ta = document.getElementById('input');
+      const ln = document.getElementById('lineNums');
+      const lines = ta.value.split('\n').length;
+      let nums = '';
+      for (let i = 1; i <= lines; i++) {
+        nums += i + '\n';
+      }
+      ln.textContent = nums;
+    }
+
+    /* ---------- 移动端 sheet ---------- */
+
+    function openNodeDetailSheet(node) {
+      const sheet = document.getElementById('nodeSheet');
+      const backdrop = document.getElementById('sheetBackdrop');
+      sheet.classList.add('is-open');
+      backdrop.classList.add('is-open');
+      sheet.setAttribute('aria-hidden', 'false');
+      // 焦点进入 sheet
+      const closeBtn = document.getElementById('sheetClose');
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeNodeDetailSheet() {
+      const sheet = document.getElementById('nodeSheet');
+      const backdrop = document.getElementById('sheetBackdrop');
+      sheet.classList.remove('is-open');
+      backdrop.classList.remove('is-open');
+      sheet.setAttribute('aria-hidden', 'true');
+    }
+
+    /* ---------- 移动端 tabs ---------- */
+
+    function setMobileStructureTab(tabName) {
+      document.querySelectorAll('.rm-mobile-tabs .ts-tabs__item').forEach(function (b) {
+        const isActive = b.dataset.mobileTab === tabName;
+        b.classList.toggle('is-active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      document.querySelectorAll('.rm-grid > [data-panel]').forEach(function (p) {
+        p.classList.toggle('rm-panel--mobile-active', p.dataset.panel === tabName);
+      });
+    }
+
+    /* ---------- 顶部导航抽屉 (与 tools/index.html 一致) ---------- */
+
+    (function () {
+      var topbar = document.querySelector('.ts-topbar');
+      var menuBtn = topbar && topbar.querySelector('.ts-topbar__menu-btn');
+      var nav = topbar && topbar.querySelector('.ts-topbar__nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('.ts-topbar__nav-item')) {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+
+      /* 输入格式 tabs */
+      document.querySelectorAll('.rm-input-tabs__item').forEach(function (b) {
+        b.addEventListener('click', function () {
+          setInputMode(b.dataset.inputMode);
+        });
+      });
+
+      /* 输入框行号同步 */
+      var ta = document.getElementById('input');
+      if (ta) {
+        ta.addEventListener('input', updateLineNumbers);
+        ta.addEventListener('scroll', function () {
+          var ln = document.getElementById('lineNums');
+          ln.scrollTop = ta.scrollTop;
+        });
+        // Ctrl/Cmd + Enter 解析
+        ta.addEventListener('keydown', function (e) {
+          if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            parseInput();
+          }
+        });
+      }
+
+      /* 移动端 tabs */
+      document.querySelectorAll('.rm-mobile-tabs .ts-tabs__item').forEach(function (b) {
+        b.addEventListener('click', function () {
+          setMobileStructureTab(b.dataset.mobileTab);
+        });
+      });
+      // 默认显示输入
+      setMobileStructureTab('input');
+
+      /* sheet 关闭 */
+      var sheetClose = document.getElementById('sheetClose');
+      var backdrop = document.getElementById('sheetBackdrop');
+      if (sheetClose) sheetClose.addEventListener('click', closeNodeDetailSheet);
+      if (backdrop) backdrop.addEventListener('click', closeNodeDetailSheet);
+
+      /* Esc 关闭 sheet */
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (document.getElementById('nodeSheet').classList.contains('is-open')) {
+            closeNodeDetailSheet();
+          }
+        }
+      });
+
+      /* 初始化行号 + 格式提示 */
+      updateLineNumbers();
+      renderFormatHints('json', null);
+    })();
   </script>
 </body>
 </html>

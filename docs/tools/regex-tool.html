@@ -3,688 +3,2157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>正则表达式测试工具 - wychmod Developer Workspace</title>
+  <title>正则表达式工具 / PATTERN LAB - wychmod Developer Workspace</title>
+  <meta name="description" content="本地 JavaScript RegExp 实验室：输入正则、切换 flags、查看真实匹配、捕获组、范围与替换预览。所有计算在浏览器本地完成，不上传任何输入。">
+  <link rel="canonical" href="https://wychmod.github.io/tools/regex-tool.html">
+  <!-- 视觉母体令牌(只读复用, 不改其值) -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <!-- 工具页共享外壳(scoped) -->
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260730a">
   <style>
-    * {
+    /* ===========================================================
+       P020 正则工具专属样式 (page-scoped under .tool-studio .pl-*)
+       外壳基类来自 tool-studio.css; 此处只放 Pattern Lab / Library
+       色彩全部走 var(--studio-*), 不引入紫蓝渐变 / emoji / 发光
+       =========================================================== */
+
+    .pl-section-title {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--studio-text-muted);
+      margin: 0 0 var(--studio-space-3);
+    }
+
+    /* ---------- Dark Pattern Lab ---------- */
+    .pl-lab {
+      background: var(--studio-ink-950);
+      color: var(--studio-on-dark);
+      border-radius: var(--studio-radius-md);
+      padding: var(--studio-space-6);
+      margin-bottom: var(--studio-space-6);
+      background-image:
+        radial-gradient(ellipse at top right, rgba(200, 169, 107, 0.05), transparent 55%),
+        radial-gradient(ellipse at bottom left, rgba(36, 209, 143, 0.04), transparent 55%);
+    }
+    .pl-lab .pl-breadcrumb {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--studio-on-dark-muted);
+      margin-bottom: var(--studio-space-4);
+    }
+    .pl-lab .pl-breadcrumb__sep { color: var(--studio-line-dark); }
+    .pl-lab .pl-breadcrumb__item.is-current { color: var(--studio-on-dark); }
+
+    .pl-hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: var(--studio-space-4);
+      margin-bottom: var(--studio-space-5);
+    }
+    .pl-hero__title {
+      font-family: var(--studio-font-display);
+      font-size: clamp(28px, 3vw, 34px);
+      font-weight: 600;
+      color: var(--studio-on-dark);
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      line-height: 1.15;
     }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 50%, #fbfaf8 100%);
-      color: #37352f;
-      padding: 20px;
-      min-height: 100vh;
+    .pl-hero__sub {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      color: var(--studio-on-dark-muted);
+      margin-top: 6px;
+      text-transform: uppercase;
     }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .header {
-      text-align: center;
-      padding: 30px 0;
-      margin-bottom: 30px;
-      border-bottom: 2px solid #6d4aff;
-    }
-
-    .header h1 {
-      color: #0b6bcb;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-
-    .header p {
-      color: #5f5d57;
-      font-size: 1.1em;
-    }
-
-    .back-links {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .back-link {
-      display: inline-block;
-      color: #6d4aff;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s;
-    }
-
-    .back-link:hover {
-      color: #0b6bcb;
-    }
-
-    /* 正则输入区 */
-    .regex-input-section {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
-    }
-
-    .regex-input-row {
-      display: flex;
-      gap: 15px;
+    .pl-syntax {
+      display: inline-flex;
       align-items: center;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--studio-on-dark-muted);
+      background: var(--studio-ink-900);
+    }
+    .pl-syntax__dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--studio-text-muted);
+    }
+    .pl-syntax.is-valid .pl-syntax__dot {
+      background: var(--studio-green);
+      box-shadow: 0 0 0 2px rgba(36, 209, 143, 0.22);
+    }
+    .pl-syntax.is-valid { color: var(--studio-on-dark); }
+    .pl-syntax.is-invalid .pl-syntax__dot { background: #b64b45; }
+    .pl-syntax.is-invalid {
+      color: #e6a39e;
+      border-color: rgba(182, 75, 69, 0.45);
     }
 
-    .regex-input-wrapper {
-      flex: 1;
-      min-width: 300px;
-    }
-
-    .input-label {
-      color: #6d4aff;
-      font-size: 14px;
-      margin-bottom: 8px;
-      display: block;
-      font-weight: 600;
-    }
-
-    .regex-input {
-      width: 100%;
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 12px 15px;
-      color: #37352f;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 14px;
-      transition: all 0.3s;
-    }
-
-    .regex-input:focus {
-      outline: none;
-      border-color: #6d4aff;
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
-    }
-
-    .regex-input.error {
-      border-color: #d64545;
-    }
-
-    .regex-flags {
+    /* ---------- Pattern input row ---------- */
+    .pl-pattern-row {
       display: flex;
-      gap: 15px;
+      gap: var(--studio-space-3);
+      align-items: stretch;
       flex-wrap: wrap;
+      margin-bottom: var(--studio-space-3);
     }
-
-    .flag-item {
+    .pl-pattern-shell {
+      flex: 1 1 360px;
+      display: flex;
+      align-items: stretch;
+      background: var(--studio-ink-900);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      overflow: hidden;
+      transition: border-color var(--studio-dur-fast) var(--studio-ease),
+                  box-shadow var(--studio-dur-fast) var(--studio-ease);
+    }
+    .pl-pattern-shell:focus-within {
+      border-color: var(--studio-green);
+      box-shadow: 0 0 0 3px rgba(36, 209, 143, 0.20);
+    }
+    .pl-pattern-shell.is-error {
+      border-color: #b64b45;
+      box-shadow: 0 0 0 3px rgba(182, 75, 69, 0.18);
+    }
+    .pl-pattern-shell__delim {
       display: flex;
       align-items: center;
-      gap: 6px;
-      cursor: pointer;
+      padding: 0 10px;
+      font-family: var(--studio-font-mono);
+      font-size: 18px;
+      color: var(--studio-gold);
       user-select: none;
     }
-
-    .flag-item input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
+    .pl-pattern-input {
+      flex: 1;
+      min-width: 0;
+      min-height: 48px;
+      padding: 12px 4px;
+      background: transparent;
+      border: 0;
+      color: var(--studio-on-dark);
+      font-family: var(--studio-font-mono);
+      font-size: 15px;
+      line-height: 1.4;
     }
-
-    .flag-item label {
-      color: #5f5d57;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .button-group {
+    .pl-pattern-input:focus { outline: none; }
+    .pl-pattern-input::placeholder { color: var(--studio-on-dark-muted); }
+    .pl-pattern-shell__flags {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 15px;
+      align-items: center;
+      padding: 0 8px;
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      color: var(--studio-gold);
+      border-left: 1px solid var(--studio-line-dark);
+      white-space: nowrap;
     }
-
-    button {
-      background: linear-gradient(135deg, #6d4aff, #0b6bcb);
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 14px;
+    .pl-pattern-shell__clear {
+      padding: 0 14px;
+      background: transparent;
+      border: 0;
+      border-left: 1px solid var(--studio-line-dark);
+      color: var(--studio-on-dark-muted);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
       cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 2px 8px rgba(109, 74, 255, 0.22);
+      min-height: 48px;
+      transition: color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .pl-pattern-shell__clear:hover { color: var(--studio-on-dark); }
+
+    /* ---------- Flags segmented toggle ---------- */
+    .pl-flags {
+      display: inline-flex;
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      overflow: hidden;
+      background: var(--studio-ink-900);
+    }
+    .pl-flag {
+      position: relative;
+      display: inline-flex;
+    }
+    .pl-flag + .pl-flag { border-left: 1px solid var(--studio-line-dark); }
+    .pl-flag input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .pl-flag label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 48px;
+      padding: 0 12px;
+      font-family: var(--studio-font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--studio-on-dark-muted);
+      cursor: pointer;
+      transition: background var(--studio-dur-fast) var(--studio-ease),
+                  color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .pl-flag label:hover { color: var(--studio-on-dark); }
+    .pl-flag input:checked + label {
+      background: var(--studio-gold);
+      color: var(--studio-ink-950);
+    }
+    .pl-flag input:focus-visible + label {
+      outline: 2px solid var(--studio-focus);
+      outline-offset: -2px;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(109, 74, 255, 0.35);
+    /* ---------- Mode toggle (Test / Replace) ---------- */
+    .pl-mode {
+      display: inline-flex;
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      overflow: hidden;
+      background: var(--studio-ink-900);
+    }
+    .pl-mode__btn {
+      padding: 0 18px;
+      min-height: 48px;
+      background: transparent;
+      border: 0;
+      color: var(--studio-on-dark-muted);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background var(--studio-dur-fast) var(--studio-ease),
+                  color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .pl-mode__btn + .pl-mode__btn { border-left: 1px solid var(--studio-line-dark); }
+    .pl-mode__btn:hover { color: var(--studio-on-dark); }
+    .pl-mode__btn.is-active {
+      background: var(--studio-gold);
+      color: var(--studio-ink-950);
     }
 
-    button.secondary-btn {
-      background: rgba(109, 74, 255, 0.12);
-      color: #0b6bcb;
-      border: 1px solid #6d4aff;
+    /* ---------- Action row ---------- */
+    .pl-actions {
+      display: flex;
+      gap: var(--studio-space-2);
+      flex-wrap: wrap;
+      margin: var(--studio-space-4) 0 var(--studio-space-5);
+    }
+    /* override ts-btn for dark lab context */
+    .pl-lab .ts-btn--secondary {
+      background: transparent;
+      color: var(--studio-on-dark);
+      border-color: var(--studio-line-dark);
+    }
+    .pl-lab .ts-btn--secondary:hover {
+      background: var(--studio-ink-900);
+      border-color: var(--studio-on-dark-muted);
+    }
+    .pl-lab .ts-btn--primary {
+      background: var(--studio-gold);
+      color: var(--studio-ink-950);
+      border-color: var(--studio-gold);
+      font-weight: 600;
+    }
+    .pl-lab .ts-btn--primary:hover {
+      background: #d9bd7d;
+      border-color: #d9bd7d;
     }
 
-    /* 主体区域 */
-    .main-content {
+    /* ---------- Replace input row ---------- */
+    .pl-replace-row {
+      display: none;
+      gap: var(--studio-space-3);
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--studio-space-4);
+    }
+    .pl-replace-row.is-visible { display: flex; }
+    .pl-replace-row__label {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--studio-on-dark-muted);
+      text-transform: uppercase;
+    }
+    .pl-replace-input {
+      flex: 1 1 320px;
+      min-height: 44px;
+      padding: 10px 12px;
+      background: var(--studio-ink-900);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-on-dark);
+      font-family: var(--studio-font-mono);
+      font-size: 14px;
+    }
+    .pl-replace-input:focus {
+      outline: none;
+      border-color: var(--studio-green);
+      box-shadow: 0 0 0 3px rgba(36, 209, 143, 0.20);
+    }
+
+    /* ---------- Workbench ---------- */
+    .pl-workbench {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-      margin-bottom: 25px;
+      grid-template-columns: minmax(0, 36fr) minmax(0, 64fr);
+      gap: var(--studio-space-4);
+      align-items: stretch;
     }
-
-    .content-panel {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
+    .pl-panel {
+      background: var(--studio-ink-900);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-md);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
     }
-
-    .panel-header {
+    .pl-panel__head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--studio-line-dark);
+      gap: var(--studio-space-3);
+      flex-wrap: wrap;
+    }
+    .pl-panel__title {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--studio-on-dark-muted);
+      text-transform: uppercase;
+    }
+    .pl-panel__meta {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-on-dark-muted);
+      letter-spacing: 0.04em;
+    }
+    .pl-panel__body {
+      flex: 1;
+      padding: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
     }
 
-    .panel-title {
-      color: #0b6bcb;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .char-count {
-      color: #888;
-      font-size: 13px;
-    }
-
-    textarea {
+    /* test text */
+    .pl-test-text {
       width: 100%;
-      height: 300px;
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 15px;
-      color: #37352f;
-      font-family: 'Consolas', 'Monaco', monospace;
+      min-height: 320px;
+      padding: 16px;
+      background: transparent;
+      border: 0;
+      color: var(--studio-on-dark);
+      font-family: var(--studio-font-mono);
       font-size: 14px;
+      line-height: 1.65;
       resize: vertical;
+      flex: 1;
+    }
+    .pl-test-text:focus { outline: none; }
+
+    /* highlight preview */
+    .pl-preview {
+      padding: 16px;
+      margin: 12px;
+      background: var(--studio-ink-950);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-on-dark);
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 360px;
+      overflow: auto;
+    }
+    .pl-preview__match {
+      background: rgba(36, 209, 143, 0.30);
+      border-bottom: 1px solid rgba(36, 209, 143, 0.75);
+      border-radius: 2px;
+      padding: 1px 0;
+    }
+    .pl-preview__match--zero {
+      background: rgba(200, 169, 107, 0.25);
+      border-bottom: 1px dotted rgba(200, 169, 107, 0.7);
+    }
+    .pl-preview__empty {
+      color: var(--studio-on-dark-muted);
+      font-style: italic;
+    }
+
+    /* results */
+    .pl-results {
+      max-height: 560px;
+      overflow: auto;
+      padding: 12px;
+      flex: 1;
+    }
+    .pl-results__empty {
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--studio-on-dark-muted);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+    }
+    .pl-results__error {
+      padding: 12px 14px;
+      color: #e6a39e;
+      background: rgba(182, 75, 69, 0.10);
+      border: 1px solid rgba(182, 75, 69, 0.40);
+      border-radius: var(--studio-radius-sm);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
       line-height: 1.6;
+      word-break: break-word;
     }
-
-    textarea:focus {
-      outline: none;
-      border-color: #6d4aff;
-      box-shadow: 0 0 0 3px rgba(109, 74, 255, 0.10);
-    }
-
-    /* 匹配结果区 */
-    .match-results {
-      background: #f7f6f3;
-      border: 2px solid #5636d7;
-      border-radius: 8px;
-      padding: 15px;
-      height: 300px;
-      overflow-y: auto;
-      font-family: 'Consolas', 'Monaco', monospace;
-      font-size: 13px;
-    }
-
-    .match-item {
-      background: rgba(59, 130, 246, 0.1);
-      border-left: 3px solid #6d4aff;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .match-item:hover {
-      background: rgba(109, 74, 255, 0.10);
-    }
-
-    .match-index {
-      color: #0b6bcb;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .match-content {
-      color: #37352f;
-      word-break: break-all;
-    }
-
-    .match-position {
-      color: #888;
-      font-size: 12px;
-      margin-top: 5px;
-    }
-
-    .no-matches {
-      color: #888;
-      text-align: center;
-      padding: 20px;
-    }
-
-    /* 统计信息 */
-    .stats-section {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
-      display: none;
-    }
-
-    .stats-section.show {
-      display: block;
-    }
-
-    .stats-grid {
+    .pl-match {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-    }
-
-    .stat-item {
-      background: rgba(59, 130, 246, 0.1);
-      border-radius: 8px;
-      padding: 15px;
-      text-align: center;
-    }
-
-    .stat-label {
-      color: #888;
-      font-size: 13px;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      background: var(--studio-ink-950);
       margin-bottom: 8px;
     }
-
-    .stat-value {
-      color: #0b6bcb;
-      font-size: 24px;
+    .pl-match:last-child { margin-bottom: 0; }
+    .pl-match__num {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      background: var(--studio-gold);
+      color: var(--studio-ink-950);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
       font-weight: 700;
-      font-family: 'Consolas', 'Monaco', monospace;
+      border-radius: var(--studio-radius-sm);
     }
-
-    /* 消息提示 */
-    .message {
-      position: fixed;
-      top: 100px;
-      right: 30px;
-      padding: 15px 25px;
-      border-radius: 8px;
-      font-weight: 600;
-      z-index: 10000;
-      animation: slideIn 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    .pl-match__body {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
-
-    .message.success {
-      background: rgba(23, 143, 85, 0.12);
-      color: #178f55;
-      border: 2px solid #178f55;
+    .pl-match__text {
+      font-family: var(--studio-font-mono);
+      font-size: 14px;
+      color: var(--studio-on-dark);
+      word-break: break-all;
+      background: rgba(36, 209, 143, 0.14);
+      padding: 3px 8px;
+      border-radius: 2px;
+      align-self: flex-start;
+      max-width: 100%;
     }
-
-    .message.error {
-      background: rgba(214, 69, 69, 0.12);
-      color: #d64545;
-      border: 2px solid #d64545;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    /* 常用正则库 */
-    .regex-library {
-      background: linear-gradient(135deg, #f7f6f3 0%, #fbfaf8 100%);
-      border: 2px solid #6d4aff;
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 20px rgba(109, 74, 255, 0.12);
-      display: none;
-    }
-
-    .regex-library.show {
-      display: block;
-    }
-
-    .library-grid {
+    .pl-match__row {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 15px;
-    }
-
-    .library-item {
-      background: rgba(59, 130, 246, 0.1);
-      border: 1px solid #5636d7;
-      border-radius: 8px;
-      padding: 15px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .library-item:hover {
-      background: rgba(109, 74, 255, 0.10);
-      border-color: #6d4aff;
-    }
-
-    .library-title {
-      color: #0b6bcb;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .library-pattern {
-      color: #37352f;
-      font-family: 'Consolas', 'Monaco', monospace;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 10px;
+      font-family: var(--studio-font-mono);
       font-size: 12px;
+      line-height: 1.55;
+    }
+    .pl-match__label {
+      color: var(--studio-on-dark-muted);
+      letter-spacing: 0.04em;
+    }
+    .pl-match__value {
+      color: var(--studio-on-dark);
       word-break: break-all;
     }
+    .pl-match__value--muted { color: var(--studio-on-dark-muted); }
+    .pl-match__replace {
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      color: var(--studio-gold);
+      background: rgba(200, 169, 107, 0.10);
+      padding: 3px 8px;
+      border-radius: 2px;
+      align-self: flex-start;
+      max-width: 100%;
+      word-break: break-all;
+    }
+    .pl-groups {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pl-group-chip {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      padding: 2px 8px;
+      background: rgba(200, 169, 107, 0.12);
+      border: 1px solid rgba(200, 169, 107, 0.30);
+      border-radius: var(--studio-radius-sm);
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+    }
+    .pl-group-chip__n {
+      color: var(--studio-gold);
+      font-weight: 700;
+    }
+    .pl-group-chip__v {
+      color: var(--studio-on-dark);
+      word-break: break-all;
+    }
+    .pl-group-chip__name {
+      color: var(--studio-on-dark-muted);
+      font-style: italic;
+    }
+    .pl-group-chip--empty {
+      background: transparent;
+      border-style: dashed;
+    }
+    .pl-group-chip--empty .pl-group-chip__v { color: var(--studio-on-dark-muted); }
 
-    @media screen and (max-width: 768px) {
-      .main-content {
-        grid-template-columns: 1fr;
-      }
+    /* stats strip */
+    .pl-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--studio-space-5);
+      padding: 10px 16px;
+      border-top: 1px solid var(--studio-line-dark);
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-on-dark-muted);
+      letter-spacing: 0.04em;
+    }
+    .pl-stat__label { color: var(--studio-on-dark-muted); }
+    .pl-stat__value { color: var(--studio-on-dark); font-weight: 600; }
 
-      .header h1 {
-        font-size: 1.8em;
-      }
+    /* replace full preview */
+    .pl-replace-preview {
+      padding: 16px;
+      margin: 12px;
+      background: var(--studio-ink-950);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-on-dark);
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 280px;
+      overflow: auto;
+    }
 
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    /* explanation + mismatch */
+    .pl-explain {
+      margin-top: var(--studio-space-4);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--studio-space-4);
+    }
+    .pl-explain__panel {
+      background: var(--studio-ink-900);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-md);
+      padding: 16px;
+    }
+    .pl-explain__title {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--studio-on-dark-muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .pl-token-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-height: 300px;
+      overflow: auto;
+    }
+    .pl-token {
+      display: grid;
+      grid-template-columns: 100px minmax(0, 1fr);
+      gap: 10px;
+      padding: 4px 0;
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    .pl-token__literal {
+      color: var(--studio-gold);
+      word-break: break-all;
+    }
+    .pl-token__desc { color: var(--studio-on-dark); }
+    .pl-token--unknown .pl-token__literal { color: var(--studio-on-dark-muted); }
+    .pl-token--unknown .pl-token__desc {
+      color: var(--studio-on-dark-muted);
+      font-style: italic;
+    }
+    .pl-explain__note {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--studio-on-dark-muted);
+      line-height: 1.6;
+      font-style: italic;
+    }
+    .pl-mismatch-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 300px;
+      overflow: auto;
+    }
+    .pl-mismatch {
+      display: flex;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--studio-on-dark);
+    }
+    .pl-mismatch__dot {
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--studio-gold);
+    }
+    .pl-mismatch--none {
+      color: var(--studio-on-dark-muted);
+      font-style: italic;
+    }
 
-      .library-grid {
-        grid-template-columns: 1fr;
-      }
+    /* mobile tabs */
+    .pl-tabs {
+      display: none;
+      border-bottom: 1px solid var(--studio-line-dark);
+      margin-bottom: var(--studio-space-4);
+    }
+    .pl-tabs__btn {
+      flex: 1;
+      padding: 12px 8px;
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      color: var(--studio-on-dark-muted);
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color var(--studio-dur-fast) var(--studio-ease),
+                  border-color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .pl-tabs__btn:hover { color: var(--studio-on-dark); }
+    .pl-tabs__btn.is-active {
+      color: var(--studio-on-dark);
+      border-bottom-color: var(--studio-gold);
+    }
+    .pl-tab-panel { display: none; }
+    .pl-tab-panel.is-active { display: flex; }
+
+    /* ---------- Pattern Library (paper-white) ---------- */
+    .pl-library {
+      background: var(--studio-paper-50);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      padding: var(--studio-space-6);
+    }
+    .pl-library__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: var(--studio-space-4);
+      margin-bottom: var(--studio-space-5);
+    }
+    .pl-library__h2 {
+      font-family: var(--studio-font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--studio-text);
+      margin: 0;
+      line-height: 1.2;
+    }
+    .pl-library__sub {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--studio-text-muted);
+      margin-top: 6px;
+    }
+    .pl-library__search {
+      position: relative;
+      min-width: 240px;
+      flex: 0 1 320px;
+    }
+    .pl-library__search-input {
+      width: 100%;
+      min-height: 38px;
+      padding: 8px 64px 8px 12px;
+      background: var(--studio-paper-100);
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-text);
+      font-family: var(--studio-font-body);
+      font-size: 13px;
+    }
+    .pl-library__search-input:focus {
+      outline: none;
+      border-color: var(--studio-green);
+      box-shadow: 0 0 0 3px rgba(36, 209, 143, 0.20);
+    }
+    .pl-library__search-clear {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 4px 10px;
+      background: transparent;
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-text-muted);
+      font-family: var(--studio-font-body);
+      font-size: 11px;
+      cursor: pointer;
+      min-height: 28px;
+    }
+    .pl-library__search-clear:hover { color: var(--studio-text); border-color: var(--studio-text-muted); }
+
+    .pl-library-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .pl-library-table thead th {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--studio-paper-line);
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--studio-text-muted);
+      text-transform: uppercase;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .pl-library-table tbody td {
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(201, 195, 183, 0.55);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    .pl-library-table tbody tr:last-child td { border-bottom: 0; }
+    .pl-library-table tbody tr:hover { background: var(--studio-paper-100); }
+    .pl-lib-name {
+      font-family: var(--studio-font-body);
+      font-weight: 600;
+      color: var(--studio-text);
+      font-size: 14px;
+    }
+    .pl-lib-use {
+      color: var(--studio-text-muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    .pl-lib-pattern {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-ink-800);
+      background: var(--studio-paper-100);
+      padding: 4px 8px;
+      border-radius: 2px;
+      display: inline-block;
+      word-break: break-all;
+    }
+    .pl-lib-boundaries {
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      line-height: 1.55;
+    }
+    .pl-lib-example {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text);
+      word-break: break-all;
+    }
+    .pl-lib-source {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--studio-rust);
+      white-space: nowrap;
+    }
+    .pl-lib-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: nowrap;
+    }
+    .pl-lib-btn {
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-sm);
+      color: var(--studio-text);
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      white-space: nowrap;
+      min-height: 32px;
+      transition: background var(--studio-dur-fast) var(--studio-ease),
+                  border-color var(--studio-dur-fast) var(--studio-ease);
+    }
+    .pl-lib-btn:hover {
+      background: var(--studio-paper-100);
+      border-color: var(--studio-text-muted);
+    }
+    .pl-lib-btn--apply {
+      background: var(--studio-ink-900);
+      color: var(--studio-on-dark);
+      border-color: var(--studio-ink-900);
+    }
+    .pl-lib-btn--apply:hover {
+      background: var(--studio-ink-800);
+      border-color: var(--studio-ink-800);
+    }
+    .pl-lib-empty {
+      padding: 32px;
+      text-align: center;
+      color: var(--studio-text-muted);
+      font-size: 13px;
+    }
+
+    /* mobile library cards */
+    .pl-lib-cards { display: none; flex-direction: column; gap: 12px; }
+    .pl-lib-card {
+      border: 1px solid var(--studio-paper-line);
+      border-radius: var(--studio-radius-md);
+      padding: 14px;
+      background: var(--studio-paper-50);
+    }
+    .pl-lib-card__name {
+      font-family: var(--studio-font-body);
+      font-weight: 600;
+      color: var(--studio-text);
+      font-size: 15px;
+    }
+    .pl-lib-card__use {
+      color: var(--studio-text-muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .pl-lib-card__pattern {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-ink-800);
+      background: var(--studio-paper-100);
+      padding: 6px 8px;
+      border-radius: 2px;
+      margin-top: 8px;
+      word-break: break-all;
+    }
+    .pl-lib-card__boundaries {
+      font-size: 12px;
+      color: var(--studio-text-muted);
+      margin-top: 8px;
+      line-height: 1.55;
+    }
+    .pl-lib-card__example {
+      font-family: var(--studio-font-mono);
+      font-size: 12px;
+      color: var(--studio-text);
+      margin-top: 6px;
+      word-break: break-all;
+    }
+    .pl-lib-card__source {
+      font-family: var(--studio-font-mono);
+      font-size: 11px;
+      color: var(--studio-rust);
+      margin-top: 4px;
+    }
+    .pl-lib-card__actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .pl-lib-card__actions .pl-lib-btn { flex: 1; }
+
+    /* ---------- Toast ---------- */
+    .pl-toast {
+      position: fixed;
+      top: 80px;
+      right: 24px;
+      padding: 12px 20px;
+      background: var(--studio-ink-950);
+      color: var(--studio-on-dark);
+      border: 1px solid var(--studio-line-dark);
+      border-radius: var(--studio-radius-sm);
+      font-family: var(--studio-font-body);
+      font-size: 13px;
+      z-index: 1000;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+      animation: pl-toast-in 0.22s var(--studio-ease);
+      max-width: calc(100vw - 48px);
+    }
+    .pl-toast.is-success { border-color: var(--studio-green); }
+    .pl-toast.is-error { border-color: #b64b45; color: #e6a39e; }
+    .pl-toast.is-out { animation: pl-toast-out 0.22s var(--studio-ease) forwards; }
+    @keyframes pl-toast-in {
+      from { transform: translateX(20px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes pl-toast-out {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(20px); opacity: 0; }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1024px) {
+      .pl-workbench { grid-template-columns: 1fr; }
+      .pl-explain { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .pl-lab { padding: var(--studio-space-5) var(--studio-space-4); }
+      .pl-tabs { display: flex; }
+      .pl-tab-panel { display: none !important; }
+      .pl-tab-panel.is-active { display: flex !important; }
+      .pl-library { padding: var(--studio-space-5) var(--studio-space-4); }
+      .pl-library-table { display: none; }
+      .pl-lib-cards { display: flex; }
+      .pl-pattern-shell { flex: 1 1 100%; }
+      .pl-flags { flex: 1 1 100%; }
+      .pl-flags label { flex: 1; min-width: 0; }
+      .pl-mode { flex: 1 1 100%; }
+      .pl-mode__btn { flex: 1; }
+      .pl-test-text { min-height: 260px; }
+      .pl-results { max-height: none; }
+      .pl-match__row { grid-template-columns: 60px minmax(0, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .pl-hero { flex-direction: column; align-items: flex-start; }
+      .pl-actions .ts-btn { flex: 1 1 calc(50% - 4px); }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/tools-notion.css?v=20260531">
 </head>
-<body>
-  <div class="container">
-    <div class="back-links">
-      <a href="/#/" class="back-link">← 返回主站</a>
-      <a href="index.html" class="back-link">← 返回工具集</a>
-    </div>
-    
-    <div class="header">
-      <h1>🔍 正则表达式测试工具</h1>
-      <p>实时测试、匹配高亮、捕获组分析</p>
-    </div>
+<body class="tool-studio">
+  <a class="ts-skip-link" href="#ts-main">跳到主内容</a>
 
-    <!-- 正则输入区 -->
-    <div class="regex-input-section">
-      <div class="regex-input-wrapper">
-        <label class="input-label">🎯 正则表达式</label>
-        <input type="text" id="regexInput" class="regex-input" placeholder="请输入正则表达式，例如：\d{3}-\d{4}" value="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b">
+  <!-- 顶部工具导航(暖石墨) -->
+  <header class="ts-topbar">
+    <div class="ts-topbar__inner">
+      <button class="ts-topbar__menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="ts-topbar-nav">≡</button>
+      <a class="ts-topbar__brand" href="/#/" aria-label="wychmod 主站">
+        <span class="ts-topbar__logo" aria-hidden="true">W</span>
+        <span class="ts-topbar__brand-text">
+          <span class="ts-topbar__brand-name">wychmod</span>
+          <span class="ts-topbar__brand-sub">Developer Workspace</span>
+        </span>
+      </a>
+      <nav class="ts-topbar__nav" id="ts-topbar-nav" aria-label="主导航">
+        <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
+        <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
+        <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+      <div class="ts-topbar__actions">
+        <span class="ts-topbar__status" title="核心处理在浏览器本地完成">
+          <span class="ts-topbar__status-dot" aria-hidden="true"></span>
+          本地处理
+        </span>
+        <span class="ts-topbar__avatar" role="img" aria-label="wychmod 的 GitHub 头像">
+          <span class="ts-topbar__avatar-fallback" aria-hidden="true">W</span>
+          <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="32" height="32" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">
+        </span>
       </div>
-      
-      <div style="margin: 15px 0;">
-        <label class="input-label">⚙️ 正则标志</label>
-        <div class="regex-flags">
-          <div class="flag-item">
-            <input type="checkbox" id="flagG" checked>
-            <label for="flagG">g (全局匹配)</label>
+    </div>
+  </header>
+
+  <!-- 主内容 -->
+  <main class="ts-main" id="ts-main">
+    <div class="ts-container">
+
+      <!-- 面包屑 -->
+      <nav class="ts-breadcrumb" aria-label="路径">
+        <span class="ts-breadcrumb__item">WYCHMOD</span>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <a class="ts-breadcrumb__item" href="/tools/index.html">TOOLS</a>
+        <span class="ts-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="ts-breadcrumb__item is-current" aria-current="location">REGEX</span>
+      </nav>
+
+      <!-- 标题块 -->
+      <div class="ts-titleblock">
+        <h1 class="ts-titleblock__h1">正则表达式工具<span class="ts-titleblock__h1-en"> / PATTERN LAB</span></h1>
+        <p class="ts-titleblock__desc">本地 JavaScript RegExp 实验室。输入正则、切换 flags、在测试文本里查看真实匹配、捕获组、范围与替换预览。所有计算在浏览器本地完成，不上传任何输入；正则解释为有限 token 辅助说明，并非完整语法解析器。</p>
+      </div>
+
+      <!-- 状态条 -->
+      <div class="ts-status" role="group" aria-label="工具状态">
+        <span class="ts-status__item">
+          <span class="ts-status__dot" aria-hidden="true"></span>
+          本地处理 · 不上传
+        </span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">引擎</span> <span class="ts-status__value">浏览器 RegExp</span></span>
+        <span class="ts-status__divider" aria-hidden="true"></span>
+        <span class="ts-status__item"><span class="ts-status__label">路径</span> <span class="ts-status__value">/tools/regex-tool.html</span></span>
+      </div>
+
+      <!-- ============ Pattern Lab (dark) ============ -->
+      <section class="pl-lab" aria-label="正则实验区">
+
+        <!-- 移动端 tabs (CSS 控制显示) -->
+        <div class="pl-tabs" role="tablist" aria-label="正则工具视图">
+          <button class="pl-tabs__btn is-active" role="tab" aria-selected="true" aria-controls="pl-tab-input" id="pl-tabbtn-input" type="button" data-tab="input">输入</button>
+          <button class="pl-tabs__btn" role="tab" aria-selected="false" aria-controls="pl-tab-results" id="pl-tabbtn-results" type="button" data-tab="results">结果</button>
+          <button class="pl-tabs__btn" role="tab" aria-selected="false" aria-controls="pl-tab-explain" id="pl-tabbtn-explain" type="button" data-tab="explain">解释</button>
+        </div>
+
+        <!-- Hero: 标题 + 语法状态 -->
+        <div class="pl-hero">
+          <div>
+            <h2 class="pl-hero__title">Pattern Lab</h2>
+            <div class="pl-hero__sub">Regular Expression Tester</div>
           </div>
-          <div class="flag-item">
-            <input type="checkbox" id="flagI">
-            <label for="flagI">i (忽略大小写)</label>
-          </div>
-          <div class="flag-item">
-            <input type="checkbox" id="flagM">
-            <label for="flagM">m (多行模式)</label>
-          </div>
-          <div class="flag-item">
-            <input type="checkbox" id="flagS">
-            <label for="flagS">s (点号匹配所有)</label>
-          </div>
-          <div class="flag-item">
-            <input type="checkbox" id="flagU">
-            <label for="flagU">u (Unicode模式)</label>
+          <div class="pl-syntax" id="syntaxStatus" aria-live="polite">
+            <span class="pl-syntax__dot" aria-hidden="true"></span>
+            <span>SYNTAX: <span id="syntaxLabel">WAITING</span></span>
           </div>
         </div>
-      </div>
 
-      <div class="button-group">
-        <button onclick="testRegex()">🚀 测试匹配</button>
-        <button onclick="toggleLibrary()" class="secondary-btn">📚 常用正则库</button>
-        <button onclick="loadExample()" class="secondary-btn">📄 加载示例</button>
-        <button onclick="clearAll()" class="secondary-btn">🗑️ 清空</button>
-      </div>
+        <!-- Pattern 输入行 -->
+        <div class="pl-pattern-row">
+          <div class="pl-pattern-shell" id="patternShell">
+            <span class="pl-pattern-shell__delim" aria-hidden="true">/</span>
+            <input id="regexInput" class="pl-pattern-input" type="text" placeholder="输入正则，如 \b[A-Z][a-z]+\s\d{4}" value="(\b[A-Z][a-z]+)\s(\d{4})" aria-label="正则表达式" autocomplete="off" spellcheck="false">
+            <span class="pl-pattern-shell__delim" aria-hidden="true">/</span>
+            <span class="pl-pattern-shell__flags" id="flagsDisplay" aria-label="当前 flags">g</span>
+            <button class="pl-pattern-shell__clear" type="button" id="patternClearBtn" aria-label="清空正则输入">清空</button>
+          </div>
+
+          <div class="pl-flags" role="group" aria-label="正则 flags">
+            <span class="pl-flag">
+              <input type="checkbox" id="flagG" checked>
+              <label for="flagG" title="全局匹配 (global)">g</label>
+            </span>
+            <span class="pl-flag">
+              <input type="checkbox" id="flagI">
+              <label for="flagI" title="忽略大小写 (ignoreCase)">i</label>
+            </span>
+            <span class="pl-flag">
+              <input type="checkbox" id="flagM">
+              <label for="flagM" title="多行模式 (multiline)">m</label>
+            </span>
+            <span class="pl-flag">
+              <input type="checkbox" id="flagS">
+              <label for="flagS" title="点号匹配所有字符 (dotAll)">s</label>
+            </span>
+            <span class="pl-flag">
+              <input type="checkbox" id="flagU">
+              <label for="flagU" title="Unicode 模式 (unicode)">u</label>
+            </span>
+          </div>
+
+          <div class="pl-mode" role="group" aria-label="匹配模式">
+            <button class="pl-mode__btn is-active" type="button" id="modeTestBtn" aria-pressed="true">TEST</button>
+            <button class="pl-mode__btn" type="button" id="modeReplaceBtn" aria-pressed="false">REPLACE</button>
+          </div>
+        </div>
+
+        <!-- Replace 输入行 (默认隐藏) -->
+        <div class="pl-replace-row" id="replaceRow">
+          <label class="pl-replace-row__label" for="replaceInput">REPLACE</label>
+          <input id="replaceInput" class="pl-replace-input" type="text" placeholder="替换模板，如 <$1> - <$2>" value="<$1> - <$2>" aria-label="替换模板" autocomplete="off" spellcheck="false">
+        </div>
+
+        <!-- Action 行 -->
+        <div class="pl-actions">
+          <button class="ts-btn ts-btn--primary" type="button" onclick="testRegex()">测试匹配</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="toggleLibrary()">常用正则库</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="loadExample()">加载示例</button>
+          <button class="ts-btn ts-btn--secondary" type="button" onclick="clearAll()">清空</button>
+        </div>
+
+        <!-- Workbench: 测试文本 + 结果 -->
+        <div class="pl-workbench">
+          <!-- 测试文本面板 -->
+          <div class="pl-panel pl-tab-panel is-active" id="pl-tab-input" role="tabpanel" aria-labelledby="pl-tabbtn-input">
+            <div class="pl-panel__head">
+              <span class="pl-panel__title">测试文本</span>
+              <span class="pl-panel__meta" id="textCharCount">字符数: 0</span>
+            </div>
+            <div class="pl-panel__body">
+              <textarea id="testText" class="pl-test-text" placeholder="请输入要测试的文本..." aria-label="测试文本" spellcheck="false">1969: Apollo 11 landed.
+In 1997, Depeche Mode released Ultra.
+The price was $1,299.00 in 2024.
+Contact us at hello@wychmod.com.
+Order #A1001 shipped on 2024-05-12.
+IPv6 example: 2001:db8::1
+Path: C:\Program Files\WYCHMOD\app</textarea>
+            </div>
+          </div>
+
+          <!-- 结果面板 -->
+          <div class="pl-panel pl-tab-panel" id="pl-tab-results" role="tabpanel" aria-labelledby="pl-tabbtn-results">
+            <div class="pl-panel__head">
+              <span class="pl-panel__title">匹配结果</span>
+              <span class="pl-panel__meta"><span id="matchCount">匹配数: 0</span><span id="resultMeta"></span></span>
+            </div>
+            <div class="pl-panel__body">
+              <div class="pl-results" id="matchResults" aria-live="polite" aria-label="匹配结果列表">
+                <div class="pl-results__empty">等待测试...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 统计条 -->
+        <div class="pl-stats" id="statsSection" role="group" aria-label="匹配统计">
+          <span class="pl-stat"><span class="pl-stat__label">匹配总数</span> <span class="pl-stat__value" id="statTotal">0</span></span>
+          <span class="pl-stat"><span class="pl-stat__label">执行时间</span> <span class="pl-stat__value" id="statTime">0ms</span></span>
+          <span class="pl-stat"><span class="pl-stat__label">捕获组数</span> <span class="pl-stat__value" id="statGroups">0</span></span>
+          <span class="pl-stat"><span class="pl-stat__label">文本长度</span> <span class="pl-stat__value" id="statTextLen">0</span></span>
+        </div>
+
+        <!-- 高亮预览 -->
+        <div class="pl-panel" style="margin-top: var(--studio-space-4);">
+          <div class="pl-panel__head">
+            <span class="pl-panel__title">高亮预览</span>
+            <span class="pl-panel__meta" id="previewMeta">只读预览，编辑请在「测试文本」中操作</span>
+          </div>
+          <div class="pl-preview" id="highlightPreview" aria-label="匹配高亮预览">
+            <span class="pl-preview__empty">等待测试...</span>
+          </div>
+        </div>
+
+        <!-- 替换后全文预览 (仅 REPLACE 模式显示) -->
+        <div class="pl-panel" id="replaceFullPanel" style="display: none; margin-top: var(--studio-space-4);">
+          <div class="pl-panel__head">
+            <span class="pl-panel__title">替换后全文预览</span>
+            <span class="pl-panel__meta" id="replaceNote"></span>
+          </div>
+          <div class="pl-replace-preview" id="replacePreview" aria-label="替换后文本"></div>
+        </div>
+
+        <!-- 解释 + 误匹配提示 -->
+        <div class="pl-explain pl-tab-panel" id="pl-tab-explain" role="tabpanel" aria-labelledby="pl-tabbtn-explain">
+          <div class="pl-explain__panel">
+            <div class="pl-explain__title">正则拆解</div>
+            <div class="pl-token-list" id="tokenList" aria-live="polite" aria-label="正则 token 解释"></div>
+            <p class="pl-explain__note">解释为常见 JavaScript RegExp token 的辅助说明，并非完整语法解析器；不支持的 token 标注为「未解析」。</p>
+          </div>
+          <div class="pl-explain__panel">
+            <div class="pl-explain__title">可能的误匹配</div>
+            <div class="pl-mismatch-list" id="mismatchList" aria-live="polite" aria-label="误匹配启发式提示"></div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============ Pattern Library (paper-white) ============ -->
+      <section class="pl-library" id="regexLibrary" aria-label="常用正则表达式库">
+        <div class="pl-library__head">
+          <div>
+            <h2 class="pl-library__h2">Pattern Library</h2>
+            <div class="pl-library__sub">常用模式 · 边界说明 · 真实示例 · 实践参考</div>
+          </div>
+          <div class="pl-library__search">
+            <input id="librarySearch" class="pl-library__search-input" type="search" placeholder="过滤模式..." aria-label="过滤模式库" autocomplete="off">
+            <button class="pl-library__search-clear" id="librarySearchClear" type="button" aria-label="清空搜索" hidden>清空</button>
+          </div>
+        </div>
+
+        <table class="pl-library-table" id="libraryTable">
+          <thead>
+            <tr>
+              <th scope="col">名称与用途</th>
+              <th scope="col">模式</th>
+              <th scope="col">边界说明</th>
+              <th scope="col">示例</th>
+              <th scope="col">来源</th>
+              <th scope="col">操作</th>
+            </tr>
+          </thead>
+          <tbody id="libraryGrid"></tbody>
+        </table>
+
+        <div class="pl-lib-cards" id="libraryCards"></div>
+        <p class="pl-lib-empty" id="libraryEmpty" hidden>没有匹配的模式。按 Esc 或点击「清空」重置搜索。</p>
+      </section>
+
     </div>
+  </main>
 
-    <!-- 常用正则库 -->
-    <div class="regex-library" id="regexLibrary">
-      <h3 style="color: #0b6bcb; margin-bottom: 15px;">📚 常用正则表达式模板</h3>
-      <div class="library-grid" id="libraryGrid"></div>
+  <!-- 页脚 -->
+  <footer class="ts-foot">
+    <div class="ts-foot__inner">
+      <span>© 2024–2026 wychmod Developer Workspace</span>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="https://github.com/wychmod/wychmod.github.io/issues" target="_blank" rel="noopener noreferrer">反馈建议</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/tools/index.html">工具集</a>
+      <span class="ts-foot__sep" aria-hidden="true">·</span>
+      <a class="ts-foot__link" href="/#/">返回主站</a>
     </div>
-
-    <!-- 主体内容 -->
-    <div class="main-content">
-      <!-- 测试文本区 -->
-      <div class="content-panel">
-        <div class="panel-header">
-          <span class="panel-title">📝 测试文本</span>
-          <span class="char-count" id="textCharCount">字符数: 0</span>
-        </div>
-        <textarea id="testText" placeholder="请输入要测试的文本...">联系我们：
-邮箱：support@example.com
-技术咨询：tech@company.cn
-客服邮箱：service@demo.org
-无效邮箱：invalid@
-另一个邮箱：user.name+tag@example.co.uk</textarea>
-      </div>
-
-      <!-- 匹配结果区 -->
-      <div class="content-panel">
-        <div class="panel-header">
-          <span class="panel-title">✅ 匹配结果</span>
-          <span class="char-count" id="matchCount">匹配数: 0</span>
-        </div>
-        <div class="match-results" id="matchResults">
-          <div class="no-matches">等待测试...</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 统计信息 -->
-    <div class="stats-section" id="statsSection">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-label">匹配总数</div>
-          <div class="stat-value" id="statTotal">0</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">执行时间</div>
-          <div class="stat-value" id="statTime">0ms</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">捕获组数</div>
-          <div class="stat-value" id="statGroups">0</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">文本长度</div>
-          <div class="stat-value" id="statTextLen">0</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </footer>
 
   <script>
-    // 常用正则表达式库
-    const regexLibrary = [
-      { name: '邮箱地址', pattern: '\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b' },
-      { name: '手机号(中国)', pattern: '^1[3-9]\\d{9}$' },
-      { name: 'URL地址', pattern: 'https?://[\\w\\-]+(\\.[\\w\\-]+)+[/#?]?.*$' },
-      { name: 'IP地址(IPv4)', pattern: '\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b' },
-      { name: '日期(YYYY-MM-DD)', pattern: '\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])' },
-      { name: '身份证号', pattern: '^[1-9]\\d{5}(18|19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}[\\dXx]$' },
-      { name: '整数', pattern: '^-?\\d+$' },
-      { name: '浮点数', pattern: '^-?\\d+\\.\\d+$' },
-      { name: '中文字符', pattern: '[\\u4e00-\\u9fa5]+' },
-      { name: '邮政编码', pattern: '^\\d{6}$' },
-      { name: '用户名(字母数字下划线)', pattern: '^[a-zA-Z0-9_]{3,16}$' },
-      { name: '密码强度(中)', pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$' },
+    /* ============================================================
+       正则表达式工具 - 行为脚本
+       保留原函数: initLibrary / toggleLibrary / updateCharCount /
+                  testRegex / getFlags / loadExample / clearAll /
+                  escapeHtml / showMessage
+       新增能力: 真实 SYNTAX 状态、REPLACE 模式、安全 DOM 高亮、
+                 有限 token 解释器、启发式误匹配、库表格 + 搜索、
+                 移动端 tabs、debounce、软限制
+       ============================================================ */
+
+    // 常用正则表达式库 (扩展为带边界说明的完整结构)
+    var regexLibrary = [
+      { name: '邮箱地址', use: '匹配典型邮箱地址', pattern: '\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b', boundaries: '非 RFC 完整校验；不验证域名真实存在', example: 'hello@wychmod.com', source: '实践模式' },
+      { name: '手机号(中国)', use: '匹配中国大陆手机号', pattern: '^1[3-9]\\d{9}$', boundaries: '仅校验号段与位数；不验证运营商', example: '13812345678', source: '常见模式' },
+      { name: 'URL地址', use: '匹配 http(s) URL', pattern: 'https?://[\\w\\-]+(\\.[\\w\\-]+)+[/#?]?.*$', boundaries: '不完整；不处理 Unicode 域名与端口', example: 'https://wychmod.github.io', source: '实践模式' },
+      { name: 'IPv4 地址', use: '匹配 IPv4 点分十进制', pattern: '\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b', boundaries: '不校验 0-255 范围', example: '192.168.1.1', source: '常见模式' },
+      { name: '日期(YYYY-MM-DD)', use: '匹配日期形状', pattern: '\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])', boundaries: '只校验形状，不校验真实日历', example: '2024-05-12', source: '实践模式' },
+      { name: '身份证号', use: '匹配 18 位身份证', pattern: '^[1-9]\\d{5}(18|19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}[\\dXx]$', boundaries: '校验形状与末位字符；不做校验码计算', example: '11010119900307888X', source: '实践模式' },
+      { name: '整数', use: '匹配可选负号整数', pattern: '^-?\\d+$', boundaries: '不处理千分位与科学计数', example: '-42', source: '常见模式' },
+      { name: '浮点数', use: '匹配十进制浮点', pattern: '^-?\\d+\\.\\d+$', boundaries: '不处理科学计数与无前导零', example: '-3.14', source: '常见模式' },
+      { name: '中文字符', use: '匹配连续中文字符', pattern: '[\\u4e00-\\u9fa5]+', boundaries: '不覆盖扩展汉字区', example: '正则', source: '常见模式' },
+      { name: '邮政编码', use: '匹配中国 6 位邮编', pattern: '^\\d{6}$', boundaries: '仅校验位数；不验证区段存在', example: '100080', source: '常见模式' },
+      { name: '用户名', use: '字母数字下划线 3-16 位', pattern: '^[a-zA-Z0-9_]{3,16}$', boundaries: '不处理 Unicode 用户名', example: 'wychmod_42', source: '实践模式' },
+      { name: '密码强度(中)', use: '至少含大小写与数字 8 位', pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$', boundaries: '不要求特殊符号；不检测常见弱口令', example: 'Abcdef12', source: '实践模式' }
     ];
 
+    // 软限制
+    var MAX_MATCHES = 500;
+    var MAX_TEXT_LEN = 100000;
+    var DEBOUNCE_MS = 280;
+
+    var testTimer = null;
+    var currentMode = 'test'; // 'test' | 'replace'
+
     // 初始化
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       initLibrary();
       updateCharCount();
-      testRegex(); // 自动执行一次测试
-      
-      // 监听输入变化
-      document.getElementById('testText').addEventListener('input', updateCharCount);
-      document.getElementById('regexInput').addEventListener('input', testRegex);
-      
-      // 监听标志变化
-      ['flagG', 'flagI', 'flagM', 'flagS', 'flagU'].forEach(id => {
-        document.getElementById(id).addEventListener('change', testRegex);
+      testRegex();
+
+      // 监听输入变化 (保留原绑定 + 新增 debounce 实时高亮)
+      document.getElementById('testText').addEventListener('input', function () {
+        updateCharCount();
+        debouncedTestRegex();
       });
+      document.getElementById('regexInput').addEventListener('input', debouncedTestRegex);
+      document.getElementById('replaceInput').addEventListener('input', debouncedTestRegex);
+
+      // 监听标志变化
+      ['flagG', 'flagI', 'flagM', 'flagS', 'flagU'].forEach(function (id) {
+        document.getElementById(id).addEventListener('change', function () {
+          syncFlagsDisplay();
+          testRegex();
+        });
+      });
+
+      // Pattern 清空按钮
+      document.getElementById('patternClearBtn').addEventListener('click', function () {
+        document.getElementById('regexInput').value = '';
+        testRegex();
+        document.getElementById('regexInput').focus();
+      });
+
+      // 模式切换
+      document.getElementById('modeTestBtn').addEventListener('click', function () { setPatternMode('test'); });
+      document.getElementById('modeReplaceBtn').addEventListener('click', function () { setPatternMode('replace'); });
+
+      // 库搜索
+      var search = document.getElementById('librarySearch');
+      var clearBtn = document.getElementById('librarySearchClear');
+      search.addEventListener('input', function () {
+        filterPatternLibrary(search.value);
+        clearBtn.hidden = !search.value;
+      });
+      search.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && search.value) {
+          e.preventDefault();
+          search.value = '';
+          filterPatternLibrary('');
+          clearBtn.hidden = true;
+          search.focus();
+        }
+      });
+      clearBtn.addEventListener('click', function () {
+        search.value = '';
+        filterPatternLibrary('');
+        clearBtn.hidden = true;
+        search.focus();
+      });
+
+      // 移动端 tabs
+      Array.prototype.forEach.call(document.querySelectorAll('.pl-tabs__btn'), function (btn) {
+        btn.addEventListener('click', function () { setMobileTab(btn.dataset.tab); });
+      });
+
+      // 顶部导航抽屉 (与 tools/index.html 一致)
+      setupTopbar();
+
+      syncFlagsDisplay();
     });
 
-    // 初始化正则库
-    function initLibrary() {
-      const grid = document.getElementById('libraryGrid');
-      regexLibrary.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'library-item';
-        div.innerHTML = `
-          <div class="library-title">${item.name}</div>
-          <div class="library-pattern">${item.pattern}</div>
-        `;
-        div.onclick = () => {
-          document.getElementById('regexInput').value = item.pattern;
-          testRegex();
-          showMessage(`已加载：${item.name}`, 'success');
-        };
-        grid.appendChild(div);
+    function setupTopbar() {
+      var topbar = document.querySelector('.ts-topbar');
+      var menuBtn = topbar && topbar.querySelector('.ts-topbar__menu-btn');
+      var nav = topbar && topbar.querySelector('.ts-topbar__nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('is-open');
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('.ts-topbar__nav-item')) {
+            nav.classList.remove('is-open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    }
+
+    function debouncedTestRegex() {
+      clearTimeout(testTimer);
+      testTimer = setTimeout(testRegex, DEBOUNCE_MS);
+    }
+
+    function syncFlagsDisplay() {
+      var display = document.getElementById('flagsDisplay');
+      if (display) {
+        var f = getFlags();
+        display.textContent = f || '∅';
+      }
+    }
+
+    function setPatternMode(mode) {
+      currentMode = mode;
+      var testBtn = document.getElementById('modeTestBtn');
+      var replaceBtn = document.getElementById('modeReplaceBtn');
+      var replaceRow = document.getElementById('replaceRow');
+      var replaceFullPanel = document.getElementById('replaceFullPanel');
+      if (mode === 'replace') {
+        testBtn.classList.remove('is-active'); testBtn.setAttribute('aria-pressed', 'false');
+        replaceBtn.classList.add('is-active'); replaceBtn.setAttribute('aria-pressed', 'true');
+        replaceRow.classList.add('is-visible');
+        replaceFullPanel.style.display = '';
+      } else {
+        testBtn.classList.add('is-active'); testBtn.setAttribute('aria-pressed', 'true');
+        replaceBtn.classList.remove('is-active'); replaceBtn.setAttribute('aria-pressed', 'false');
+        replaceRow.classList.remove('is-visible');
+        replaceFullPanel.style.display = 'none';
+      }
+      testRegex();
+    }
+
+    function setMobileTab(tab) {
+      Array.prototype.forEach.call(document.querySelectorAll('.pl-tabs__btn'), function (btn) {
+        var isActive = btn.dataset.tab === tab;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      ['input', 'results', 'explain'].forEach(function (t) {
+        var panel = document.getElementById('pl-tab-' + t);
+        if (panel) panel.classList.toggle('is-active', t === tab);
       });
     }
 
-    // 切换正则库显示
+    // 初始化正则库 (安全 DOM, 不用 innerHTML 拼 pattern)
+    function initLibrary() {
+      var tbody = document.getElementById('libraryGrid');
+      var cards = document.getElementById('libraryCards');
+      tbody.innerHTML = '';
+      cards.innerHTML = '';
+      regexLibrary.forEach(function (item, idx) {
+        // 桌面表格行
+        var tr = document.createElement('tr');
+        tr.className = 'pl-lib-row';
+        tr.dataset.idx = String(idx);
+
+        var tdName = document.createElement('td');
+        var nameEl = document.createElement('div');
+        nameEl.className = 'pl-lib-name'; nameEl.textContent = item.name;
+        var useEl = document.createElement('div');
+        useEl.className = 'pl-lib-use'; useEl.textContent = item.use;
+        tdName.appendChild(nameEl); tdName.appendChild(useEl);
+
+        var tdPattern = document.createElement('td');
+        var pat = document.createElement('code');
+        pat.className = 'pl-lib-pattern'; pat.textContent = item.pattern;
+        tdPattern.appendChild(pat);
+
+        var tdB = document.createElement('td');
+        var bEl = document.createElement('div');
+        bEl.className = 'pl-lib-boundaries'; bEl.textContent = item.boundaries;
+        tdB.appendChild(bEl);
+
+        var tdEx = document.createElement('td');
+        var exEl = document.createElement('div');
+        exEl.className = 'pl-lib-example'; exEl.textContent = item.example;
+        tdEx.appendChild(exEl);
+
+        var tdSrc = document.createElement('td');
+        var srcEl = document.createElement('span');
+        srcEl.className = 'pl-lib-source'; srcEl.textContent = item.source;
+        tdSrc.appendChild(srcEl);
+
+        var tdAct = document.createElement('td');
+        var actWrap = document.createElement('div');
+        actWrap.className = 'pl-lib-actions';
+        var applyBtn = document.createElement('button');
+        applyBtn.type = 'button'; applyBtn.className = 'pl-lib-btn pl-lib-btn--apply';
+        applyBtn.textContent = '应用'; applyBtn.setAttribute('aria-label', '应用 ' + item.name + ' 到输入框');
+        applyBtn.addEventListener('click', function () { applyLibraryPattern(item); });
+        var copyBtn = document.createElement('button');
+        copyBtn.type = 'button'; copyBtn.className = 'pl-lib-btn';
+        copyBtn.textContent = '复制'; copyBtn.setAttribute('aria-label', '复制 ' + item.name + ' 的正则');
+        copyBtn.addEventListener('click', function () { copyText(item.pattern); });
+        actWrap.appendChild(applyBtn); actWrap.appendChild(copyBtn);
+        tdAct.appendChild(actWrap);
+
+        tr.appendChild(tdName); tr.appendChild(tdPattern); tr.appendChild(tdB); tr.appendChild(tdEx); tr.appendChild(tdSrc); tr.appendChild(tdAct);
+        tbody.appendChild(tr);
+
+        // 移动端卡片
+        var card = document.createElement('div');
+        card.className = 'pl-lib-card';
+        card.dataset.idx = String(idx);
+        var cname = document.createElement('div'); cname.className = 'pl-lib-card__name'; cname.textContent = item.name;
+        var cuse = document.createElement('div'); cuse.className = 'pl-lib-card__use'; cuse.textContent = item.use;
+        var cpat = document.createElement('div'); cpat.className = 'pl-lib-card__pattern'; cpat.textContent = item.pattern;
+        var cb = document.createElement('div'); cb.className = 'pl-lib-card__boundaries'; cb.textContent = item.boundaries;
+        var cex = document.createElement('div'); cex.className = 'pl-lib-card__example'; cex.textContent = '示例: ' + item.example;
+        var csrc = document.createElement('div'); csrc.className = 'pl-lib-card__source'; csrc.textContent = item.source;
+        var cact = document.createElement('div'); cact.className = 'pl-lib-card__actions';
+        var ca1 = document.createElement('button'); ca1.type = 'button'; ca1.className = 'pl-lib-btn pl-lib-btn--apply'; ca1.textContent = '应用'; ca1.setAttribute('aria-label', '应用 ' + item.name + ' 到输入框'); ca1.addEventListener('click', function () { applyLibraryPattern(item); });
+        var ca2 = document.createElement('button'); ca2.type = 'button'; ca2.className = 'pl-lib-btn'; ca2.textContent = '复制'; ca2.setAttribute('aria-label', '复制 ' + item.name + ' 的正则'); ca2.addEventListener('click', function () { copyText(item.pattern); });
+        cact.appendChild(ca1); cact.appendChild(ca2);
+        card.appendChild(cname); card.appendChild(cuse); card.appendChild(cpat); card.appendChild(cb); card.appendChild(cex); card.appendChild(csrc); card.appendChild(cact);
+        cards.appendChild(card);
+      });
+    }
+
+    // 切换正则库显示 (新设计下库常驻纸白区, 按钮改为滚动定位)
     function toggleLibrary() {
-      const library = document.getElementById('regexLibrary');
-      library.classList.toggle('show');
+      var library = document.getElementById('regexLibrary');
+      if (library) {
+        library.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function applyLibraryPattern(item) {
+      document.getElementById('regexInput').value = item.pattern;
+      testRegex();
+      showMessage('已加载：' + item.name, 'success');
+      document.getElementById('regexInput').focus();
+    }
+
+    function filterPatternLibrary(query) {
+      var q = (query || '').trim().toLowerCase();
+      var rows = document.querySelectorAll('.pl-lib-row');
+      var cards = document.querySelectorAll('.pl-lib-card');
+      var empty = document.getElementById('libraryEmpty');
+      var anyVisible = false;
+      Array.prototype.forEach.call(rows, function (r) {
+        var hay = (r.textContent || '').toLowerCase();
+        var match = !q || hay.indexOf(q) !== -1;
+        r.hidden = !match;
+        if (match) anyVisible = true;
+      });
+      Array.prototype.forEach.call(cards, function (c) {
+        var hay = (c.textContent || '').toLowerCase();
+        var match = !q || hay.indexOf(q) !== -1;
+        c.hidden = !match;
+      });
+      if (empty) empty.hidden = anyVisible;
+    }
+
+    function copyText(text) {
+      var fallback = function () {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute'; ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); showMessage('已复制', 'success'); }
+        catch (e) { showMessage('复制失败', 'error'); }
+        document.body.removeChild(ta);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          showMessage('已复制', 'success');
+        }).catch(fallback);
+      } else {
+        fallback();
+      }
     }
 
     // 更新字符计数
     function updateCharCount() {
-      const text = document.getElementById('testText').value;
-      document.getElementById('textCharCount').textContent = `字符数: ${text.length}`;
+      var text = document.getElementById('testText').value;
+      var el = document.getElementById('textCharCount');
+      if (el) el.textContent = '字符数: ' + text.length;
     }
 
-    // 测试正则
+    // 测试正则 (核心: 真实 RegExp.exec)
     function testRegex() {
-      const regexInput = document.getElementById('regexInput');
-      const testText = document.getElementById('testText').value;
-      const matchResults = document.getElementById('matchResults');
-      
-      const pattern = regexInput.value.trim();
-      
+      var regexInput = document.getElementById('regexInput');
+      var testText = document.getElementById('testText').value;
+      var matchResults = document.getElementById('matchResults');
+      var pattern = regexInput.value.trim();
+
+      // 清空结果容器 (安全: 重置 DOM)
+      matchResults.innerHTML = '';
+      var previewMeta = document.getElementById('previewMeta');
+      var resultMeta = document.getElementById('resultMeta');
+      resultMeta.textContent = '';
+
       if (!pattern) {
-        matchResults.innerHTML = '<div class="no-matches">请输入正则表达式</div>';
+        appendEmpty(matchResults, '请输入正则表达式');
+        setSyntax('invalid', 'EMPTY');
         document.getElementById('statsSection').classList.remove('show');
+        document.getElementById('statTotal').textContent = '0';
+        document.getElementById('statTime').textContent = '0ms';
+        document.getElementById('statGroups').textContent = '0';
+        document.getElementById('statTextLen').textContent = String(testText.length);
+        document.getElementById('matchCount').textContent = '匹配数: 0';
+        renderHighlightedText(testText, []);
+        renderReplacePreview(null, null, testText);
+        renderRegexExplanation('');
+        buildMismatchNotes('', '');
+        setShellError(false);
         return;
       }
 
-      const startTime = performance.now();
-      
+      // 软长度限制提示
+      if (testText.length > MAX_TEXT_LEN) {
+        previewMeta.textContent = '文本长度 ' + testText.length + ' 超过 ' + MAX_TEXT_LEN + '，实时高亮已截断至前 ' + MAX_TEXT_LEN + ' 字符';
+      } else {
+        previewMeta.textContent = '只读预览，编辑请在「测试文本」中操作';
+      }
+
+      var startTime = performance.now();
       try {
-        // 构建正则表达式
-        const flags = getFlags();
-        const regex = new RegExp(pattern, flags);
-        
-        // 执行匹配
-        const matches = [];
-        let match;
-        
-        if (flags.includes('g')) {
-          while ((match = regex.exec(testText)) !== null) {
+        var flags = getFlags();
+        var regex = new RegExp(pattern, flags);
+
+        // 收集匹配
+        var matches = [];
+        var textForMatching = testText.length > MAX_TEXT_LEN ? testText.slice(0, MAX_TEXT_LEN) : testText;
+
+        if (flags.indexOf('g') !== -1) {
+          var match;
+          var guard = 0;
+          while ((match = regex.exec(textForMatching)) !== null) {
             matches.push({
               index: match.index,
               text: match[0],
-              groups: match.slice(1),
-              fullMatch: match
+              groups: Array.prototype.slice.call(match, 1),
+              namedGroups: match.groups ? Object.assign({}, match.groups) : null
             });
-            
-            // 防止无限循环
+            // 零宽匹配保护: 防止死循环
             if (match.index === regex.lastIndex) {
               regex.lastIndex++;
             }
+            guard++;
+            if (matches.length >= MAX_MATCHES) {
+              break;
+            }
+            if (guard > 1000000) break; // 硬保护
           }
         } else {
-          match = regex.exec(testText);
-          if (match) {
+          var singleMatch = regex.exec(textForMatching);
+          if (singleMatch) {
             matches.push({
-              index: match.index,
-              text: match[0],
-              groups: match.slice(1),
-              fullMatch: match
+              index: singleMatch.index,
+              text: singleMatch[0],
+              groups: Array.prototype.slice.call(singleMatch, 1),
+              namedGroups: singleMatch.groups ? Object.assign({}, singleMatch.groups) : null
             });
           }
         }
-        
-        const endTime = performance.now();
-        
-        // 显示结果
-        if (matches.length > 0) {
-          let html = '';
-          matches.forEach((m, i) => {
-            html += `
-              <div class="match-item">
-                <div class="match-index">匹配 #${i + 1}</div>
-                <div class="match-content">${escapeHtml(m.text)}</div>
-                <div class="match-position">位置: ${m.index} - ${m.index + m.text.length}</div>
-                ${m.groups.length > 0 ? `<div class="match-position">捕获组: ${m.groups.filter(g => g !== undefined).length}</div>` : ''}
-              </div>
-            `;
-          });
-          matchResults.innerHTML = html;
+
+        var endTime = performance.now();
+
+        setSyntax('valid', 'VALID');
+        setShellError(false);
+        regexInput.classList.remove('error'); // 兼容保留
+
+        // 渲染
+        renderMatchTable(matches);
+        renderHighlightedText(textForMatching, matches);
+        renderRegexExplanation(pattern);
+        buildMismatchNotes(pattern, flags);
+
+        // 替换模式
+        if (currentMode === 'replace') {
+          var replacement = document.getElementById('replaceInput').value;
+          renderReplacePreview(regex, replacement, textForMatching);
         } else {
-          matchResults.innerHTML = '<div class="no-matches">未找到匹配项</div>';
+          renderReplacePreview(null, null, testText);
         }
-        
-        // 更新统计
-        document.getElementById('matchCount').textContent = `匹配数: ${matches.length}`;
-        document.getElementById('statTotal').textContent = matches.length;
+
+        // 更新统计 (保留原 ID 行为)
+        document.getElementById('matchCount').textContent = '匹配数: ' + matches.length;
+        document.getElementById('statTotal').textContent = String(matches.length);
         document.getElementById('statTime').textContent = (endTime - startTime).toFixed(2) + 'ms';
-        document.getElementById('statGroups').textContent = matches.length > 0 ? matches[0].groups.length : 0;
-        document.getElementById('statTextLen').textContent = testText.length;
+        document.getElementById('statGroups').textContent = String(matches.length > 0 ? matches[0].groups.length : 0);
+        document.getElementById('statTextLen').textContent = String(testText.length);
         document.getElementById('statsSection').classList.add('show');
-        
-        // 清除错误样式
-        regexInput.classList.remove('error');
-        
+
+        if (matches.length >= MAX_MATCHES) {
+          resultMeta.textContent = ' · 已截断至 ' + MAX_MATCHES;
+        } else if (flags.indexOf('g') === -1 && matches.length > 0) {
+          resultMeta.textContent = ' · 非全局模式仅显示第一条';
+        } else if (matches.length === 0) {
+          resultMeta.textContent = ' · 无匹配';
+        }
       } catch (e) {
-        matchResults.innerHTML = `<div class="no-matches" style="color: #d64545;">正则表达式错误：${escapeHtml(e.message)}</div>`;
-        regexInput.classList.add('error');
+        setSyntax('invalid', 'INVALID');
+        setShellError(true);
+        regexInput.classList.add('error'); // 兼容保留
+
+        // 错误显示 (安全 DOM, 不用 innerHTML)
+        matchResults.innerHTML = '';
+        var errDiv = document.createElement('div');
+        errDiv.className = 'pl-results__error';
+        errDiv.setAttribute('role', 'alert');
+        errDiv.textContent = '正则表达式错误: ' + e.message;
+        matchResults.appendChild(errDiv);
+
         document.getElementById('statsSection').classList.remove('show');
+        document.getElementById('matchCount').textContent = '匹配数: 0';
+        document.getElementById('statTotal').textContent = '0';
+        document.getElementById('statTime').textContent = '0ms';
+        document.getElementById('statGroups').textContent = '0';
+        document.getElementById('statTextLen').textContent = String(testText.length);
+        resultMeta.textContent = ' · 语法错误';
+        renderHighlightedText(testText, []);
+        renderReplacePreview(null, null, testText);
+        renderRegexExplanation(pattern);
+        buildMismatchNotes(pattern, getFlags());
       }
     }
 
-    // 获取标志
+    function setSyntax(state, label) {
+      var el = document.getElementById('syntaxStatus');
+      var lbl = document.getElementById('syntaxLabel');
+      if (!el || !lbl) return;
+      el.classList.remove('is-valid', 'is-invalid');
+      if (state === 'valid') el.classList.add('is-valid');
+      else if (state === 'invalid') el.classList.add('is-invalid');
+      lbl.textContent = label;
+    }
+
+    function setShellError(isError) {
+      var shell = document.getElementById('patternShell');
+      if (shell) shell.classList.toggle('is-error', isError);
+    }
+
+    function appendEmpty(container, message) {
+      var div = document.createElement('div');
+      div.className = 'pl-results__empty';
+      div.textContent = message;
+      container.appendChild(div);
+    }
+
+    function renderMatchTable(matches) {
+      var container = document.getElementById('matchResults');
+      container.innerHTML = '';
+      if (matches.length === 0) {
+        appendEmpty(container, '未找到匹配项');
+        return;
+      }
+      var replacement = currentMode === 'replace' ? document.getElementById('replaceInput').value : null;
+      matches.forEach(function (m, i) {
+        var item = document.createElement('div');
+        item.className = 'pl-match';
+
+        var num = document.createElement('div');
+        num.className = 'pl-match__num';
+        num.textContent = String(i + 1);
+
+        var body = document.createElement('div');
+        body.className = 'pl-match__body';
+
+        // 匹配文本
+        var text = document.createElement('div');
+        text.className = 'pl-match__text';
+        text.textContent = m.text === '' ? '(空匹配)' : m.text;
+        body.appendChild(text);
+
+        // RANGE
+        body.appendChild(buildRow('RANGE', '[' + m.index + ', ' + (m.index + m.text.length) + ')'));
+
+        // GROUPS
+        var groupsWrap = document.createElement('div');
+        groupsWrap.className = 'pl-groups';
+        var hasGroups = m.groups.some(function (g) { return g !== undefined; });
+        if (!hasGroups) {
+          var empty = document.createElement('span');
+          empty.className = 'pl-group-chip pl-group-chip--empty';
+          empty.textContent = '无捕获组';
+          groupsWrap.appendChild(empty);
+        } else {
+          m.groups.forEach(function (g, idx) {
+            var chip = document.createElement('span');
+            chip.className = 'pl-group-chip';
+            var n = document.createElement('span'); n.className = 'pl-group-chip__n'; n.textContent = String(idx + 1);
+            chip.appendChild(n);
+            if (g === undefined) {
+              chip.classList.add('pl-group-chip--empty');
+              var v = document.createElement('span'); v.className = 'pl-group-chip__v'; v.textContent = '-';
+              chip.appendChild(v);
+            } else {
+              var vv = document.createElement('span'); vv.className = 'pl-group-chip__v'; vv.textContent = g;
+              chip.appendChild(vv);
+            }
+            groupsWrap.appendChild(chip);
+          });
+          // 命名捕获组
+          if (m.namedGroups) {
+            Object.keys(m.namedGroups).forEach(function (name) {
+              var chip = document.createElement('span');
+              chip.className = 'pl-group-chip';
+              var nm = document.createElement('span'); nm.className = 'pl-group-chip__name'; nm.textContent = name + ':';
+              var v = document.createElement('span'); v.className = 'pl-group-chip__v';
+              v.textContent = m.namedGroups[name] === undefined ? '-' : m.namedGroups[name];
+              chip.appendChild(nm); chip.appendChild(v);
+              groupsWrap.appendChild(chip);
+            });
+          }
+        }
+        body.appendChild(buildRow('GROUPS', '', groupsWrap));
+
+        // REPLACE PREVIEW (仅 replace 模式)
+        if (replacement !== null) {
+          var preview = computeReplacementPreview(m, replacement);
+          var rpEl = document.createElement('span');
+          rpEl.className = 'pl-match__replace'; rpEl.textContent = preview;
+          body.appendChild(buildRow('REPLACE', '', rpEl));
+        }
+
+        // NOTE
+        var note = m.text === '' ? 'zero-width' : (hasGroups ? m.groups.length + ' 个捕获组' : 'no groups');
+        body.appendChild(buildRow('NOTE', note, null, true));
+
+        item.appendChild(num);
+        item.appendChild(body);
+        container.appendChild(item);
+      });
+    }
+
+    function buildRow(label, valueText, valueEl, muted) {
+      var row = document.createElement('div');
+      row.className = 'pl-match__row';
+      var l = document.createElement('span'); l.className = 'pl-match__label'; l.textContent = label;
+      var v = document.createElement('span');
+      v.className = 'pl-match__value' + (muted ? ' pl-match__value--muted' : '');
+      if (valueEl) {
+        v.appendChild(valueEl);
+      } else {
+        v.textContent = valueText;
+      }
+      row.appendChild(l); row.appendChild(v);
+      return row;
+    }
+
+    // 高亮预览: 安全 DOM (text nodes + span.textContent)
+    function renderHighlightedText(text, matches) {
+      var preview = document.getElementById('highlightPreview');
+      preview.innerHTML = '';
+      if (matches.length === 0) {
+        if (text.length === 0) {
+          var empty = document.createElement('span');
+          empty.className = 'pl-preview__empty';
+          empty.textContent = '等待测试...';
+          preview.appendChild(empty);
+          return;
+        }
+        preview.appendChild(document.createTextNode(text));
+        return;
+      }
+      var sorted = matches.slice().sort(function (a, b) { return a.index - b.index; });
+      var cursor = 0;
+      for (var i = 0; i < sorted.length; i++) {
+        var m = sorted[i];
+        if (m.index < cursor) continue; // 跳过重叠
+        if (m.index > cursor) {
+          preview.appendChild(document.createTextNode(text.slice(cursor, m.index)));
+        }
+        var span = document.createElement('span');
+        span.className = m.text === '' ? 'pl-preview__match pl-preview__match--zero' : 'pl-preview__match';
+        span.textContent = m.text === '' ? '\u200B' : m.text;
+        preview.appendChild(span);
+        cursor = m.index + m.text.length;
+      }
+      if (cursor < text.length) {
+        preview.appendChild(document.createTextNode(text.slice(cursor)));
+      }
+      if (preview.childNodes.length === 0) {
+        preview.appendChild(document.createTextNode(text));
+      }
+    }
+
+    function renderReplacePreview(regex, replacement, text) {
+      var panel = document.getElementById('replaceFullPanel');
+      var note = document.getElementById('replaceNote');
+      var preview = document.getElementById('replacePreview');
+      if (currentMode !== 'replace' || !regex || replacement === null) {
+        panel.style.display = 'none';
+        preview.textContent = '';
+        return;
+      }
+      panel.style.display = '';
+      try {
+        var r;
+        if (regex.flags.indexOf('g') !== -1) {
+          r = regex;
+        } else {
+          r = new RegExp(regex.source, regex.flags);
+        }
+        var result = text.replace(r, replacement);
+        preview.textContent = result;
+        note.textContent = regex.flags.indexOf('g') !== -1 ? '全局替换所有匹配' : '非全局模式仅替换第一条匹配';
+      } catch (e) {
+        preview.textContent = '(替换预览失败: ' + e.message + ')';
+        note.textContent = '替换出错';
+      }
+    }
+
+    function computeReplacementPreview(match, replacement) {
+      try {
+        return substituteReplacement(replacement, match);
+      } catch (e) {
+        return '(替换预览失败)';
+      }
+    }
+
+    // 模拟 JS String.replace 的 $n / $<name> / $& 语义
+    function substituteReplacement(replacement, match) {
+      var out = '';
+      var i = 0;
+      while (i < replacement.length) {
+        var ch = replacement[i];
+        if (ch === '$' && i + 1 < replacement.length) {
+          var next = replacement[i + 1];
+          if (next === '&') { out += match.text; i += 2; continue; }
+          if (next === '`') { out += ''; i += 2; continue; }
+          if (next === "'") { out += ''; i += 2; continue; }
+          if (next === '$') { out += '$'; i += 2; continue; }
+          if (next === '<' && match.namedGroups) {
+            var end = replacement.indexOf('>', i + 2);
+            if (end !== -1) {
+              var name = replacement.slice(i + 2, end);
+              var v = match.namedGroups[name];
+              out += v === undefined ? '' : v;
+              i = end + 1;
+              continue;
+            }
+          }
+          if (next >= '1' && next <= '9') {
+            var j = i + 1;
+            var numStr = '';
+            while (j < replacement.length && /[0-9]/.test(replacement[j]) && numStr.length < 2) {
+              numStr += replacement[j];
+              j++;
+            }
+            var num = parseInt(numStr, 10);
+            if (num >= 1 && num <= match.groups.length) {
+              var gv = match.groups[num - 1];
+              out += gv === undefined ? '' : gv;
+              i = j;
+              continue;
+            }
+          }
+          out += ch;
+          i++;
+        } else {
+          out += ch;
+          i++;
+        }
+      }
+      return out;
+    }
+
+    // 有限正则 tokenizer
+    function renderRegexExplanation(pattern) {
+      var list = document.getElementById('tokenList');
+      list.innerHTML = '';
+      if (!pattern) {
+        var t = document.createElement('div');
+        t.className = 'pl-token pl-token--unknown';
+        var l = document.createElement('span'); l.className = 'pl-token__literal'; l.textContent = '—';
+        var d = document.createElement('span'); d.className = 'pl-token__desc'; d.textContent = '无 pattern';
+        t.appendChild(l); t.appendChild(d);
+        list.appendChild(t);
+        return;
+      }
+      var tokens = tokenizeRegex(pattern);
+      if (tokens.length === 0) {
+        var tt = document.createElement('div');
+        tt.className = 'pl-token pl-token--unknown';
+        var ll = document.createElement('span'); ll.className = 'pl-token__literal'; ll.textContent = pattern;
+        var dd = document.createElement('span'); dd.className = 'pl-token__desc'; dd.textContent = '未解析片段';
+        tt.appendChild(ll); tt.appendChild(dd);
+        list.appendChild(tt);
+        return;
+      }
+      tokens.forEach(function (tok) {
+        var t = document.createElement('div');
+        t.className = 'pl-token' + (tok.unknown ? ' pl-token--unknown' : '');
+        var l = document.createElement('span'); l.className = 'pl-token__literal'; l.textContent = tok.literal;
+        var d = document.createElement('span'); d.className = 'pl-token__desc'; d.textContent = tok.desc;
+        t.appendChild(l); t.appendChild(d);
+        list.appendChild(t);
+      });
+    }
+
+    function tokenizeRegex(pattern) {
+      var tokens = [];
+      var s = pattern;
+      var i = 0;
+      function push(literal, desc, unknown) { tokens.push({ literal: literal, desc: desc, unknown: !!unknown }); }
+
+      while (i < s.length) {
+        var c = s[i];
+
+        // 转义
+        if (c === '\\' && i + 1 < s.length) {
+          var next = s[i + 1];
+          var map = {
+            'b': 'Word boundary',
+            'B': 'Non-word boundary',
+            'd': 'Digit',
+            'D': 'Non-digit',
+            'w': 'Word character',
+            'W': 'Non-word character',
+            's': 'Whitespace',
+            'S': 'Non-whitespace',
+            '.': 'Literal dot',
+            'n': 'Newline',
+            'r': 'Carriage return',
+            't': 'Tab',
+            'v': 'Vertical tab',
+            'f': 'Form feed',
+            '0': 'NUL character'
+          };
+          if (next === 'u') {
+            var j = i + 2;
+            if (s[j] === '{') {
+              var end = s.indexOf('}', j);
+              if (end !== -1) { push(s.slice(i, end + 1), 'Unicode code point', false); i = end + 1; continue; }
+            } else {
+              push(s.slice(i, i + 6), 'Unicode escape', false); i += 6; continue;
+            }
+          }
+          if (next === 'x') { push(s.slice(i, i + 4), 'Hex escape', false); i += 4; continue; }
+          if (next === 'p' || next === 'P') {
+            var jj = i + 2;
+            if (s[jj] === '{') {
+              var endp = s.indexOf('}', jj);
+              if (endp !== -1) {
+                push(s.slice(i, endp + 1), 'Unicode property ' + (next === 'p' ? '' : 'negated '), false);
+                i = endp + 1;
+                continue;
+              }
+            }
+          }
+          if (next === 'k' && s[i + 2] === '<') {
+            var endk = s.indexOf('>', i + 3);
+            if (endk !== -1) { push(s.slice(i, endk + 1), 'Named backreference', false); i = endk + 1; continue; }
+          }
+          if (next >= '1' && next <= '9') { push(s.slice(i, i + 2), 'Backreference', false); i += 2; continue; }
+          if (map[next]) { push(s.slice(i, i + 2), map[next], false); i += 2; continue; }
+          push(s.slice(i, i + 2), '未解析转义', true); i += 2; continue;
+        }
+
+        // 锚点
+        if (c === '^') { push('^', 'Start of string (or line in m flag)', false); i++; continue; }
+        if (c === '$') { push('$', 'End of string (or line in m flag)', false); i++; continue; }
+
+        // 量词
+        if (c === '+') { push('+', 'One or more', false); i++; continue; }
+        if (c === '*') { push('*', 'Zero or more', false); i++; continue; }
+        if (c === '?') { push('?', 'Optional / lazy modifier', false); i++; continue; }
+
+        // {n} {n,} {m,n}
+        if (c === '{') {
+          var m = s.slice(i).match(/^\{(\d+)(,(\d+)?)?\}/);
+          if (m) {
+            var literal = m[0];
+            var desc;
+            if (m[2] === undefined) desc = 'Exactly ' + m[1] + ' times';
+            else if (m[3] === undefined) desc = m[1] + ' or more times';
+            else desc = 'Between ' + m[1] + ' and ' + m[3] + ' times';
+            push(literal, desc, false);
+            i += literal.length;
+            continue;
+          }
+          push('{', 'Literal brace', false); i++; continue;
+        }
+
+        if (c === '|') { push('|', 'Alternation', false); i++; continue; }
+        if (c === '.') { push('.', 'Any character except newline (unless s flag)', false); i++; continue; }
+
+        // 分组
+        if (c === '(') {
+          if (s[i + 1] === '?') {
+            if (s[i + 2] === ':') {
+              var close = findCloseParen(s, i);
+              if (close !== -1) { push(s.slice(i, close + 1), 'Non-capturing group', false); i = close + 1; continue; }
+            } else if (s[i + 2] === '=') {
+              var close1 = findCloseParen(s, i);
+              if (close1 !== -1) { push(s.slice(i, close1 + 1), 'Lookahead assertion', false); i = close1 + 1; continue; }
+            } else if (s[i + 2] === '!') {
+              var close2 = findCloseParen(s, i);
+              if (close2 !== -1) { push(s.slice(i, close2 + 1), 'Negative lookahead', false); i = close2 + 1; continue; }
+            } else if (s[i + 2] === '<') {
+              if (s[i + 3] === '=' || s[i + 3] === '!') {
+                var close3 = findCloseParen(s, i);
+                if (close3 !== -1) { push(s.slice(i, close3 + 1), s[i + 3] === '=' ? 'Lookbehind assertion' : 'Negative lookbehind', false); i = close3 + 1; continue; }
+              } else {
+                var close4 = findCloseParen(s, i);
+                if (close4 !== -1) { push(s.slice(i, close4 + 1), 'Named capturing group', false); i = close4 + 1; continue; }
+              }
+            }
+          } else {
+            var close5 = findCloseParen(s, i);
+            if (close5 !== -1) { push(s.slice(i, close5 + 1), 'Capturing group', false); i = close5 + 1; continue; }
+          }
+          push('(', 'Unbalanced open paren', true); i++; continue;
+        }
+
+        // 字符类
+        if (c === '[') {
+          var cc = s.indexOf(']', i + 1);
+          if (cc !== -1) {
+            var lit = s.slice(i, cc + 1);
+            push(lit, describeCharClass(lit), false);
+            i = cc + 1;
+            continue;
+          }
+          push('[', 'Unbalanced char class', true); i++; continue;
+        }
+
+        // 默认字面量
+        push(c, 'Literal "' + c + '"', false);
+        i++;
+      }
+      return tokens;
+    }
+
+    function findCloseParen(s, start) {
+      var depth = 0;
+      for (var i = start; i < s.length; i++) {
+        var c = s[i];
+        if (c === '\\' && i + 1 < s.length) { i++; continue; }
+        if (c === '[') {
+          var cc = s.indexOf(']', i + 1);
+          if (cc !== -1) { i = cc; continue; }
+        }
+        if (c === '(') depth++;
+        else if (c === ')') { depth--; if (depth === 0) return i; }
+      }
+      return -1;
+    }
+
+    function describeCharClass(literal) {
+      var inner = literal.slice(1, -1);
+      var neg = inner.charAt(0) === '^';
+      var body = neg ? inner.slice(1) : inner;
+      var parts = [];
+      if (body.indexOf('A-Z') !== -1) parts.push('uppercase letters');
+      if (body.indexOf('a-z') !== -1) parts.push('lowercase letters');
+      if (body.indexOf('0-9') !== -1) parts.push('digits');
+      if (body.indexOf('_') !== -1) parts.push('underscore');
+      if (body.indexOf('.') !== -1) parts.push('dot (literal inside class)');
+      var desc = parts.length ? parts.join(', ') : 'character set';
+      return (neg ? 'None of: ' : 'One of: ') + desc;
+    }
+
+    // 启发式误匹配提示 (语气: 可能)
+    function buildMismatchNotes(pattern, flags) {
+      var list = document.getElementById('mismatchList');
+      list.innerHTML = '';
+      var notes = [];
+
+      if (!pattern) {
+        var empty = document.createElement('div');
+        empty.className = 'pl-mismatch pl-mismatch--none';
+        empty.textContent = '无 pattern，无可参考的边界提示。';
+        list.appendChild(empty);
+        return;
+      }
+
+      if (/[A-Z]/.test(pattern) && flags.indexOf('i') === -1) {
+        notes.push('Pattern 含大写字母且 i 未开启，可能漏掉小写形式。');
+      }
+      if (!/\\b/.test(pattern) && /[A-Za-z]/.test(pattern)) {
+        notes.push('未使用 \\b 边界，可能在更长单词内部误匹配。');
+      }
+      if (/\.\*/.test(pattern) || /\.\+/.test(pattern)) {
+        notes.push('贪婪 .* 或 .+ 可能过度匹配，建议收窄字符类。');
+      }
+      if (/\d\{4\}/.test(pattern) || /\(\?<[a-zA-Z]/.test(pattern)) {
+        notes.push('日期模板只校验形状，不校验真实日历。');
+      }
+      if (/@/.test(pattern)) {
+        notes.push('邮箱模板只校验格式，不验证域名是否真实存在。');
+      }
+      if (flags.indexOf('g') === -1) {
+        notes.push('g flag 关闭：仅显示/替换第一条匹配。');
+      }
+      if (/\(\?</.test(pattern)) {
+        notes.push('使用命名捕获组，替换可用 $<name> 引用。');
+      }
+      if (/\(\?<[=!]/.test(pattern)) {
+        notes.push('Lookbehind 在部分旧浏览器不支持，移动端可能报错。');
+      }
+
+      if (notes.length === 0) {
+        var none = document.createElement('div');
+        none.className = 'pl-mismatch pl-mismatch--none';
+        none.textContent = '没有可参考的明显边界风险。这只是启发式提示，不是权威诊断。';
+        list.appendChild(none);
+        return;
+      }
+
+      notes.forEach(function (text) {
+        var n = document.createElement('div');
+        n.className = 'pl-mismatch';
+        var d = document.createElement('span'); d.className = 'pl-mismatch__dot'; d.setAttribute('aria-hidden', 'true');
+        var t = document.createElement('span'); t.textContent = text;
+        n.appendChild(d); n.appendChild(t);
+        list.appendChild(n);
+      });
+    }
+
+    // 获取标志 (保留原实现)
     function getFlags() {
-      let flags = '';
+      var flags = '';
       if (document.getElementById('flagG').checked) flags += 'g';
       if (document.getElementById('flagI').checked) flags += 'i';
       if (document.getElementById('flagM').checked) flags += 'm';
@@ -693,16 +2162,17 @@
       return flags;
     }
 
-    // 加载示例
+    // 加载示例 (保留 email 演示, 与默认 Apollo 演示区分)
     function loadExample() {
-      document.getElementById('regexInput').value = '\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b';
+      document.getElementById('regexInput').value = '\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b';
       document.getElementById('flagG').checked = true;
-      document.getElementById('testText').value = `联系我们：
-邮箱：support@example.com
-技术咨询：tech@company.cn
-客服邮箱：service@demo.org
-无效邮箱：invalid@
-另一个邮箱：user.name+tag@example.co.uk`;
+      document.getElementById('flagI').checked = false;
+      document.getElementById('flagM').checked = false;
+      document.getElementById('flagS').checked = false;
+      document.getElementById('flagU').checked = false;
+      document.getElementById('testText').value = '联系我们：\n邮箱：support@example.com\n技术咨询：tech@company.cn\n客服邮箱：service@demo.org\n无效邮箱：invalid@\n另一个邮箱：user.name+tag@example.co.uk';
+      syncFlagsDisplay();
+      updateCharCount();
       testRegex();
       showMessage('示例已加载', 'success');
     }
@@ -711,30 +2181,52 @@
     function clearAll() {
       document.getElementById('regexInput').value = '';
       document.getElementById('testText').value = '';
-      document.getElementById('matchResults').innerHTML = '<div class="no-matches">等待测试...</div>';
+      var matchResults = document.getElementById('matchResults');
+      matchResults.innerHTML = '';
+      appendEmpty(matchResults, '已清空');
       document.getElementById('statsSection').classList.remove('show');
+      document.getElementById('highlightPreview').innerHTML = '';
+      appendEmpty(document.getElementById('highlightPreview'), '等待测试...');
+      document.getElementById('tokenList').innerHTML = '';
+      document.getElementById('mismatchList').innerHTML = '';
+      var replacePreview = document.getElementById('replacePreview');
+      if (replacePreview) replacePreview.textContent = '';
+      var replaceFullPanel = document.getElementById('replaceFullPanel');
+      if (replaceFullPanel) replaceFullPanel.style.display = 'none';
+      setSyntax('invalid', 'EMPTY');
+      setShellError(false);
+      document.getElementById('matchCount').textContent = '匹配数: 0';
+      document.getElementById('resultMeta').textContent = '';
+      document.getElementById('statTotal').textContent = '0';
+      document.getElementById('statTime').textContent = '0ms';
+      document.getElementById('statGroups').textContent = '0';
+      document.getElementById('statTextLen').textContent = '0';
       updateCharCount();
       showMessage('已清空', 'success');
     }
 
-    // 转义HTML
+    // 转义 HTML (保留原实现)
     function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = text;
+      var div = document.createElement('div');
+      div.textContent = text == null ? '' : String(text);
       return div.innerHTML;
     }
 
-    // 显示消息
+    // 显示消息 (toast, 替代原 slideOut 未定义的 CSS)
     function showMessage(message, type) {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${type}`;
-      messageDiv.textContent = message;
-      document.body.appendChild(messageDiv);
-      
-      setTimeout(() => {
-        messageDiv.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => document.body.removeChild(messageDiv), 300);
-      }, 2000);
+      var existing = document.querySelector('.pl-toast');
+      if (existing) existing.remove();
+      var div = document.createElement('div');
+      div.className = 'pl-toast is-' + (type || 'success');
+      div.setAttribute('role', 'status');
+      div.textContent = message;
+      document.body.appendChild(div);
+      setTimeout(function () {
+        div.classList.add('is-out');
+        setTimeout(function () {
+          if (div.parentNode) div.parentNode.removeChild(div);
+        }, 240);
+      }, 1800);
     }
   </script>
 </body>
