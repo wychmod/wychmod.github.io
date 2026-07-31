@@ -2,7 +2,7 @@ const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
-const OUTPUT = path.join(__dirname, 'output', 'mobile-screenshots');
+const OUTPUT = path.join(__dirname, '..', 'output', 'mobile-screenshots');
 if (!fs.existsSync(OUTPUT)) fs.mkdirSync(OUTPUT, { recursive: true });
 
 const PAGES = [

@@ -19,3 +19,7 @@ Thumbs.db
 
 # === Obsidian 个人配置 ===
 .obsidian/
+/output/playwright
+/output
+/node_modules
+/test-results

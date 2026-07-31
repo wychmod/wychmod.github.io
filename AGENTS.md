@@ -17,11 +17,14 @@
 wychmod.github.io/
 ├── AGENTS.md                    ← 本文件（AI 协作指南）
 ├── CLAUDE.md                    ← 同上（适配 Claude）
+├── DESIGN.md                    ← 旧版 Notion 风格历史参考（不再作为首页决策依据）
+├── README.md                    ← 仓库级说明
 ├── docs/                        ← Docsify 站点根目录
 │   ├── index.html               ← 站点入口（Docsify 配置 + 终端系统）
 │   ├── _sidebar.md              ← 侧边栏导航（必须与主线文档同步）
 │   ├── _navbar.md               ← 顶部导航栏
 │   ├── _coverpage.md            ← 封面页
+│   ├── _404.md                  ← 404 状态页
 │   ├── README.md                ← 首页（快速导航 + 项目维护链接）
 │   ├── md/                      ← 主线文档（9 大分类）
 │   │   ├── 01-计算机基础/       ← Java/Python/算法/系统/Go
@@ -40,18 +43,52 @@ wychmod.github.io/
 │   │       └── README.md        ← 归档来源映射表
 │   ├── _meta/                   ← 项目管理文档
 │   │   ├── HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md ← 首页视觉系统、实现规范与 AI Harness（权威）
-│   │   ├── REFACTOR_GUIDELINES.md  ← 写作规范
-│   │   ├── REFACTOR_STATUS.md      ← 重构状态
-│   │   ├── REFACTOR_PLAN.md        ← 重构方案
-│   │   └── CORRECTIONS.md          ← 改正台账
+│   │   ├── UI_REFACTOR_OVERVIEW.md      ← UI 重构概览与关键决策
+│   │   ├── UI_IMAGE_GENERATION_PROMPTS.md / UI_IMAGE_GENERATION_PROMPTS_FINAL.md ← 视觉生成提示词
+│   │   ├── REFACTOR_GUIDELINES.md       ← 写作规范
+│   │   ├── REFACTOR_STATUS.md           ← 重构状态
+│   │   ├── REFACTOR_PLAN.md             ← 重构方案
+│   │   ├── CORRECTIONS.md               ← 改正台账
+│   │   ├── ui-redesign/                 ← UI 改版详细规范与页面级文档
+│   │   └── assets/                      ← 首页设计参考图等元资产
 │   ├── tools/                   ← 在线工具箱（独立 HTML）
 │   └── assets/                  ← CSS/JS/图片资源
+│       ├── css/
+│       │   ├── modern-theme.css     ← 全站遗留主题
+│       │   ├── studio-tokens.css    ← 新视觉系统令牌
+│       │   ├── homepage-v2.css      ← 首页 V2 样式
+│       │   ├── article-reading.css  ← 文章页阅读系统
+│       │   ├── tool-studio.css      ← 工具页共享外壳
+│       │   └── ...
+│       ├── js/
+│       │   ├── homepage-v2.js       ← 首页交互与路由状态
+│       │   ├── ai-assistant.js      ← 终端 AI 助手
+│       │   └── ...
+│       └── img/
 └── scripts/                     ← 辅助脚本
     ├── check-links.js           ← 死链扫描
     ├── sidebar-check.js         ← 侧边栏入口检查
     ├── count-archive.js         ← 归档规模统计
-    └── inline-archive.js        ← 小归档内联
+    ├── inline-archive.js        ← 小归档内联
+    ├── screenshot-mobile.js     ← 多视口移动端截图（Playwright）
+    └── ...
 ```
+
+---
+
+## 2.1 文件归位约定
+
+为了保持仓库根目录干净、AI 和协作者能快速定位文件，遵循以下归位规则：
+
+| 文件类型 | 正确位置 | 反例（不应出现） |
+|---|---|---|
+| 辅助脚本 / 检查脚本 | `scripts/` | 根目录下的 `screenshot-mobile.js` |
+| 项目/重构/设计说明 | `docs/_meta/` | 根目录下的 `overview.md` |
+| 站点级样式 / 脚本 | `docs/assets/css/` / `docs/assets/js/` | 根目录或工具页外部 |
+| 运行时产物 | 已加入 `.gitignore`，不入库 | `node_modules/`、`output/`、`test-results/` |
+| 工具页专属逻辑 | 各 `docs/tools/*.html` 内联或 `tool-studio.css` | 回填到 `modern-theme.css` 末尾 |
+
+新增文件前先判断：它属于脚本、元文档、站点资产、工具页还是运行时产物，然后放到对应目录。
 
 ---
 
@@ -258,6 +295,9 @@ node scripts/sidebar-check.js
 
 # 归档规模统计
 node scripts/count-archive.js
+
+# 多视口移动端截图（需先启动本地预览）
+node scripts/screenshot-mobile.js
 
 # 本地预览
 npx docsify-cli serve docs --port 3000
