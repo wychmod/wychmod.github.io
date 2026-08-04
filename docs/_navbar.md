@@ -1,3 +1,5 @@
+<!-- 当前 docs/index.html 配置为 loadNavbar: false，本文件未参与渲染，保留作导航内容备份。 -->
+
 - [Docs](/README)
 - [AI](/AI-ASSISTANT-GUIDE)
 - <a href="/tools/index.html" target="_blank">Tools</a>

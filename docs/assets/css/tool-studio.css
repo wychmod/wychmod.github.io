@@ -467,6 +467,11 @@
 
 /* ---------- 移动端 ---------- */
 @media (max-width: 768px) {
+  /* 触控目标统一 44px (README §9.4 遗留回填: 原由各工具页页内补丁承担,
+     现集中到共享外壳; 基类 .ts-btn 本身已为 44px, 此处作为移动端显式保障) */
+  .tool-studio .ts-btn {
+    min-height: 44px;
+  }
   .ts-topbar__inner {
     height: 56px;
     padding: 0 16px;

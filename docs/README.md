@@ -88,74 +88,76 @@
     <div class="home-index-col">
       <h3>计算机基础</h3>
       <ul>
-        <li><a href="/md/01-计算机基础/00-Java与JVM.md">Java 与 JVM</a><span class="home-index-desc">Java 基础 / Spring 全家桶 / JVM 调优</span></li>
-        <li><a href="/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span class="home-index-desc">高级 + 源码 + Django + Flask</span></li>
-        <li><a href="/md/01-计算机基础/20-算法与数据结构.md">算法与数据结构</a><span class="home-index-desc">动态规划 + 排序 + 9章算法 + 左神</span></li>
-        <li><a href="/md/01-计算机基础/30-计算机系统与并发.md">计算机系统与并发</a><span class="home-index-desc">OS / 网络 / TCP / HTTP / 多线程</span></li>
-        <li><a href="/md/01-计算机基础/40-Go语言.md">Go 语言</a><span class="home-index-desc">基础 + 工程 + GORM + 高性能</span></li>
+        <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 与 JVM</a><span class="home-index-desc">Java 基础 / Spring 全家桶 / JVM 调优</span></li>
+        <li><a href="#/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span class="home-index-desc">高级 + 源码 + Django + Flask</span></li>
+        <li><a href="#/md/01-计算机基础/20-算法与数据结构.md">算法与数据结构</a><span class="home-index-desc">动态规划 + 排序 + 9章算法 + 左神</span></li>
+        <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">计算机系统与并发</a><span class="home-index-desc">OS / 网络 / TCP / HTTP / 多线程</span></li>
+        <li><a href="#/md/01-计算机基础/40-Go语言.md">Go 语言</a><span class="home-index-desc">基础 + 工程 + GORM + 高性能</span></li>
       </ul>
       <h3>后端开发</h3>
       <ul>
-        <li><a href="/md/02-后端开发/00-MySQL数据库.md">MySQL 数据库</a><span class="home-index-desc">性能优化 + InnoDB 架构 + 2026 生态</span></li>
-        <li><a href="/md/02-后端开发/10-Redis缓存.md">Redis 缓存</a><span class="home-index-desc">数据结构 / 高级 / 雪崩穿透击穿</span></li>
-        <li><a href="/md/02-后端开发/20-消息队列.md">消息队列</a><span class="home-index-desc">RabbitMQ / RocketMQ / Kafka 对比选型</span></li>
-        <li><a href="/md/02-后端开发/30-分布式协调与搜索.md">分布式协调与搜索</a><span class="home-index-desc">Zookeeper + Elasticsearch</span></li>
+        <li><a href="#/md/02-后端开发/00-MySQL数据库.md">MySQL 数据库</a><span class="home-index-desc">性能优化 + InnoDB 架构 + 2026 生态</span></li>
+        <li><a href="#/md/02-后端开发/10-Redis缓存.md">Redis 缓存</a><span class="home-index-desc">数据结构 / 高级 / 雪崩穿透击穿</span></li>
+        <li><a href="#/md/02-后端开发/20-消息队列.md">消息队列</a><span class="home-index-desc">RabbitMQ / RocketMQ / Kafka 对比选型</span></li>
+        <li><a href="#/md/02-后端开发/30-分布式协调与搜索.md">分布式协调与搜索</a><span class="home-index-desc">Zookeeper + Elasticsearch</span></li>
       </ul>
       <h3>云原生与运维</h3>
       <ul>
-        <li><a href="/md/03-云原生与运维/00-Docker容器化.md">Docker 容器化</a><span class="home-index-desc">镜像/容器/网络/卷 + Compose</span></li>
-        <li><a href="/md/03-云原生与运维/10-Kubernetes编排.md">Kubernetes 编排</a><span class="home-index-desc">Pod/Deployment/Service + 实战</span></li>
-        <li><a href="/md/03-云原生与运维/20-CI-CD持续集成.md">CI/CD 持续集成</a><span class="home-index-desc">Jenkins + Actions + 灰度发布</span></li>
-        <li><a href="/md/03-云原生与运维/30-Linux运维.md">Linux 运维</a><span class="home-index-desc">命令速查 + Shell 脚本</span></li>
-        <li><a href="/md/03-云原生与运维/40-云原生架构.md">云原生架构</a><span class="home-index-desc">4 大特征 + 12 因素 + 2026 现状</span></li>
+        <li><a href="#/md/03-云原生与运维/00-Docker容器化.md">Docker 容器化</a><span class="home-index-desc">镜像/容器/网络/卷 + Compose</span></li>
+        <li><a href="#/md/03-云原生与运维/10-Kubernetes编排.md">Kubernetes 编排</a><span class="home-index-desc">Pod/Deployment/Service + 实战</span></li>
+        <li><a href="#/md/03-云原生与运维/20-CI-CD持续集成.md">CI/CD 持续集成</a><span class="home-index-desc">Jenkins + Actions + 灰度发布</span></li>
+        <li><a href="#/md/03-云原生与运维/30-Linux运维.md">Linux 运维</a><span class="home-index-desc">命令速查 + Shell 脚本</span></li>
+        <li><a href="#/md/03-云原生与运维/40-云原生架构.md">云原生架构</a><span class="home-index-desc">4 大特征 + 12 因素 + 2026 现状</span></li>
       </ul>
     </div>
     <div class="home-index-col">
       <h3>前端开发</h3>
       <ul>
-        <li><a href="/md/04-前端/00-React基础与状态管理.md">React 基础与状态管理</a><span class="home-index-desc">React16 + Redux + 函数式工具</span></li>
-        <li><a href="/md/04-前端/10-Taro多端开发.md">Taro 多端开发</a><span class="home-index-desc">一套代码编译 6+ 端</span></li>
-        <li><a href="/md/04-前端/20-Vue与小程序.md">Vue 与小程序</a><span class="home-index-desc">Vue3 CLI + 微信小程序</span></li>
+        <li><a href="#/md/04-前端/00-React基础与状态管理.md">React 基础与状态管理</a><span class="home-index-desc">React16 + Redux + 函数式工具</span></li>
+        <li><a href="#/md/04-前端/10-Taro多端开发.md">Taro 多端开发</a><span class="home-index-desc">一套代码编译 6+ 端</span></li>
+        <li><a href="#/md/04-前端/20-Vue与小程序.md">Vue 与小程序</a><span class="home-index-desc">Vue3 CLI + 微信小程序</span></li>
       </ul>
       <h3>AI 与 Agent</h3>
       <ul>
-        <li><a href="/md/05-AI与Agent/00-AI编程三件套方法论.md">AI 编程三件套</a><span class="home-index-desc">SDD + Harness + Loop</span></li>
-        <li><a href="/md/05-AI与Agent/10-Agent设计模式与多Agent.md">Agent 设计模式与多 Agent</a><span class="home-index-desc">5 种设计 + 多 Agent</span></li>
-        <li><a href="/md/05-AI与Agent/20-协议与工程/MCP协议.md">MCP 协议</a></li>
-        <li><a href="/md/05-AI与Agent/20-协议与工程/A2A协议.md">A2A 协议</a></li>
-        <li><a href="/md/05-AI与Agent/20-协议与工程/DDD领域驱动.md">DDD 领域驱动</a></li>
-        <li><a href="/md/05-AI与Agent/30-参考架构/manus架构设计.md">manus 架构设计</a></li>
-        <li><a href="/md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md">Alembic 数据库迁移</a></li>
-        <li><a href="/md/05-AI与Agent/40-大模型应用.md">大模型应用</a><span class="home-index-desc">GPT 演进 + Embedding + 奈学 NLP</span></li>
-        <li><a href="/md/05-AI与Agent/50-ML与DL基础.md">ML 与 DL 基础</a><span class="home-index-desc">目标检测 + YOLOv5 + 2026 路径</span></li>
+        <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">AI 编程三件套</a><span class="home-index-desc">SDD + Harness + Loop</span></li>
+        <li><a href="#/md/05-AI与Agent/10-Agent设计模式与多Agent.md">Agent 设计模式与多 Agent</a><span class="home-index-desc">5 种设计 + 多 Agent</span></li>
+        <li><a href="#/md/05-AI与Agent/20-协议与工程/MCP协议.md">MCP 协议</a></li>
+        <li><a href="#/md/05-AI与Agent/20-协议与工程/A2A协议.md">A2A 协议</a></li>
+        <li><a href="#/md/05-AI与Agent/20-协议与工程/DDD领域驱动.md">DDD 领域驱动</a></li>
+        <li><a href="#/md/05-AI与Agent/30-参考架构/manus架构设计.md">manus 架构设计</a></li>
+        <li><a href="#/md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md">Alembic 数据库迁移</a></li>
+        <li><a href="#/md/05-AI与Agent/40-大模型应用.md">大模型应用</a><span class="home-index-desc">GPT 演进 + Embedding + 奈学 NLP</span></li>
+        <li><a href="#/md/05-AI与Agent/50-ML与DL基础.md">ML 与 DL 基础</a><span class="home-index-desc">目标检测 + YOLOv5 + 2026 路径</span></li>
       </ul>
       <h3>软件工程</h3>
       <ul>
-        <li><a href="/md/06-软件工程/00-系统设计与设计模式.md">系统设计与设计模式</a><span class="home-index-desc">23 种设计模式 + 10 大系统设计</span></li>
-        <li><a href="/md/06-软件工程/10-软件测试.md">软件测试</a><span class="home-index-desc">测试基础 + JaCoCo + Chrome 插件</span></li>
-        <li><a href="/md/06-软件工程/20-软实力.md">软实力</a><span class="home-index-desc">3 大软实力 + 职场进阶</span></li>
+        <li><a href="#/md/06-软件工程/00-系统设计与设计模式.md">系统设计与设计模式</a><span class="home-index-desc">23 种设计模式 + 10 大系统设计</span></li>
+        <li><a href="#/md/06-软件工程/10-软件测试.md">软件测试</a><span class="home-index-desc">测试基础 + JaCoCo + Chrome 插件</span></li>
+        <li><a href="#/md/06-软件工程/20-软实力.md">软实力</a><span class="home-index-desc">3 大软实力 + 职场进阶</span></li>
       </ul>
     </div>
     <div class="home-index-col">
       <h3>面试求职</h3>
       <ul>
-        <li><a href="/md/07-求职/00-面试方法论.md">面试方法论</a><span class="home-index-desc">自我介绍 / HR / 谈薪</span></li>
-        <li><a href="/md/07-求职/10-Java面试核心速查.md">Java 面试核心速查</a><span class="home-index-desc">高频 30 题</span></li>
-        <li><a href="/md/07-求职/20-Python面试.md">Python 面试核心速查</a><span class="home-index-desc">基础 / 数据结构 / 设计模式</span></li>
-        <li><a href="/md/07-求职/30-实习与校招.md">实习与校招</a><span class="home-index-desc">实习面试 + 校招投递</span></li>
+        <li><a href="#/md/07-求职/00-面试方法论.md">面试方法论</a><span class="home-index-desc">自我介绍 / HR / 谈薪</span></li>
+        <li><a href="#/md/07-求职/10-Java面试核心速查.md">Java 面试核心速查</a><span class="home-index-desc">高频 30 题</span></li>
+        <li><a href="#/md/07-求职/20-Python面试.md">Python 面试核心速查</a><span class="home-index-desc">基础 / 数据结构 / 设计模式</span></li>
+        <li><a href="#/md/07-求职/30-实习与校招.md">实习与校招</a><span class="home-index-desc">实习面试 + 校招投递</span></li>
       </ul>
       <h3>过时技术（存档）</h3>
       <ul>
-        <li><a href="/md/08-过时技术/00-爬虫技术.md">爬虫技术</a><span class="home-index-desc">通用爬虫已被 API 替代</span></li>
-        <li><a href="/md/08-过时技术/10-Electron桌面开发.md">Electron 桌面开发</a><span class="home-index-desc">Tauri 崛起</span></li>
-        <li><a href="/md/08-过时技术/20-Hadoop-Spark大数据.md">Hadoop / Spark 大数据</a><span class="home-index-desc">云数仓替代</span></li>
-        <li><a href="/md/08-过时技术/30-NLP与聊天机器人.md">NLP 与聊天机器人</a><span class="home-index-desc">传统 NLP 被 LLM 替代</span></li>
+        <li><a href="#/md/08-过时技术/00-爬虫技术.md">爬虫技术</a><span class="home-index-desc">通用爬虫已被 API 替代</span></li>
+        <li><a href="#/md/08-过时技术/10-Electron桌面开发.md">Electron 桌面开发</a><span class="home-index-desc">Tauri 崛起</span></li>
+        <li><a href="#/md/08-过时技术/20-Hadoop-Spark大数据.md">Hadoop / Spark 大数据</a><span class="home-index-desc">云数仓替代</span></li>
+        <li><a href="#/md/08-过时技术/30-NLP与聊天机器人.md">NLP 与聊天机器人</a><span class="home-index-desc">传统 NLP 被 LLM 替代</span></li>
       </ul>
       <h3>开发工具</h3>
       <ul>
-        <li><a href="/md/09-开发工具/00-Git版本控制.md">Git 版本控制</a><span class="home-index-desc">命令、分支、协作与练习</span></li>
-        <li><a href="/md/09-开发工具/10-工具箱与资源.md">工具箱与资源</a><span class="home-index-desc">站内工具、CSS 片段与资源索引</span></li>
-        <li><a href="/AI-ASSISTANT-GUIDE.md">AI 助手使用指南</a><span class="home-index-desc">终端式技术助手</span></li>
+        <li><a href="#/md/09-开发工具/00-Git版本控制.md">Git 版本控制</a><span class="home-index-desc">命令、分支、协作与练习</span></li>
+        <li><a href="#/md/09-开发工具/10-工具箱与资源.md">工具箱与资源</a><span class="home-index-desc">站内工具、CSS 片段与资源索引</span></li>
+        <li><a href="#/md/Index">全站地图</a><span class="home-index-desc">按 9 大领域浏览全部主线文档</span></li>
+        <li><a href="#/README-Terminal">终端使用指南</a><span class="home-index-desc">命令行终端的命令与快捷键</span></li>
+        <li><a href="#/AI-ASSISTANT-GUIDE">AI 助手使用指南</a><span class="home-index-desc">终端式技术助手</span></li>
       </ul>
     </div>
   </div>
@@ -222,6 +224,11 @@
         <a class="home-footer-link" href="#/_meta/CORRECTIONS">
           <span class="home-footer-link-icon"><i data-lucide="clipboard-list" aria-hidden="true"></i></span>
           <span class="home-footer-link-text">改正记录台账</span>
+          <span class="home-footer-link-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="home-footer-link" href="/tools/index.html">
+          <span class="home-footer-link-icon"><i data-lucide="wrench" aria-hidden="true"></i></span>
+          <span class="home-footer-link-text">在线工具箱</span>
           <span class="home-footer-link-arrow" aria-hidden="true">→</span>
         </a>
       </nav>

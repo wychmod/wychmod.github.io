@@ -435,8 +435,8 @@
     }
 
     /* ---------- 手机: 单列堆叠, 按钮全宽 ---------- */
-    /* NOTE: tool-studio.css 的 .ts-btn min-height 为 38px, 移动端触控目标偏小;
-       此处页面级补到 44px(规范 §6), 不回填共享外壳。 */
+    /* NOTE: .ts-btn 触控目标 44px 已统一由 tool-studio.css 共享外壳保障
+       (README §9.4 遗留回填), 本页不再需要页内补丁。 */
     @media (max-width: 768px) {
       .b64-grid { grid-template-columns: 1fr; }
       .b64-textarea { min-height: 150px; }
@@ -490,6 +490,8 @@
         <a class="ts-topbar__nav-item" href="/#/README">知识库</a>
         <a class="ts-topbar__nav-item is-active" href="/tools/index.html" aria-current="page">工具</a>
         <a class="ts-topbar__nav-item" href="https://github.com/wychmod/wychmod.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="ts-topbar__nav-item" href="/me.html">关于</a>
+        <a class="ts-topbar__nav-item" href="/resume.html">简历</a>
       </nav>
       <div class="ts-topbar__actions">
         <span class="ts-topbar__status" title="核心处理在浏览器本地完成, 不上传服务器">

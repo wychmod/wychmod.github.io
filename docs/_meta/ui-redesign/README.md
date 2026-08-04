@@ -204,8 +204,8 @@ node scripts/check-links.js
 | 11 | 重复侧边栏参考 | 不单独实施 | 🔒 只读 |
 | 12 | `docs/tools/index.html` | 工具总览（复用 `tool-studio.css` 外壳） | ✅ |
 | 13–24 | 12 个工具页 | 各自重构 `.html`，接入 `tool-studio.css`，函数/ID 全保留 | ✅ |
-| 25 | `docs/me.html` | 用户要求暂缓 | ⏸️ 暂缓 |
-| 26 | `docs/resume.html` | 用户要求暂缓 | ⏸️ 暂缓 |
+| 25 | `docs/me.html` | 仅补导航（知识库返回入口），视觉改造继续暂缓 | ⏸️ 暂缓 |
+| 26 | `docs/resume.html` | 仅补导航（知识库返回入口），视觉改造继续暂缓 | ⏸️ 暂缓 |
 
 ### 9.2 新增共享资产
 
@@ -229,6 +229,14 @@ node scripts/check-links.js
 
 ### 9.4 已知遗留
 
-- 工具页移动端 `.ts-btn` min-height 为 38px，各工具页以页内 `.tool-studio .ts-btn{min-height:44px}`（≤768px）补足 44px 触控目标；共享外壳未统一回填，后续可择机合并。
-- `--studio-vermilion` token（`#e6663e`）与 spec 朱砂（`#b64b45`）存在色值差异，各工具页按 spec 用 `#b64b45` 页内定义。
-- 25/26（个人页/简历页）暂缓，待用户确认后再实施；两页共用 `me-page.css`/`me-page.js`，需联合回归（断网 GitHub 降级、mailto 兜底、A4 打印）。
+#### 本轮已完成（登记收口）
+
+- (a) `.ts-btn` 44px 触控目标已回填 `tool-studio.css`（移动端显式保障）；经核查工具页内联补丁实为非 `.ts-btn` 组件，无需清理。
+- (b) `--studio-vermilion` 已统一为 spec 朱砂 `#b64b45`。
+- (c) 跳转串联完成：`_sidebar`/`README`/`Index` 新增全站地图与终端指南入口、me/resume 补知识库返回、13 个工具页 topbar 加关于/简历、`_404` 恢复回路重写、`Index.md` 与 `README.md` 内链 hash 路由化。
+- (d) 视觉缺陷修复：gitalk 脱蓝、空分页容器隐藏、横向溢出、搜索高亮朱砂化、me.html og:image 修正。
+- (e) 死 CSS 清理：`tools-notion.css`（工具页已全部迁移到 `tool-studio.css`，运行时零引用）与本地 `vue.css`（index.html 实际加载 CDN 版本）已删除。
+
+#### 剩余遗留
+
+- 25/26（个人页/简历页）视觉改造，待作者确认后再实施；两页共用 `me-page.css`/`me-page.js`，需联合回归（断网 GitHub 降级、mailto 兜底、A4 打印）。

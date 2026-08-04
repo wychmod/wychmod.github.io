@@ -1816,3 +1816,144 @@ body.is-article .not-found-page pre code {
     font-size: 12px !important;
   }
 }
+
+/* =========================================================
+   §20. 视觉复核残留缺陷修复 (Task #3 回填)
+   缺陷 #1 Gitalk 默认蓝 / #2 空分页容器 / #3 横向溢出 /
+   #4 桌面 sidebar-toggle / #7 搜索高亮偏弱
+   ========================================================= */
+
+/* --- 缺陷 #1: Gitalk 登录按钮与未初始化提示 (纸白主题化) ---
+   gitalk.css 先于本文件加载, 此段局部使用 !important 覆盖;
+   容器由 index.html doneEach 注入到 .content (非 .markdown-section 内) */
+body.is-article .gitalk-container .gitalk {
+  color: var(--studio-text) !important;
+  font-family: var(--studio-font-body) !important;
+}
+body.is-article .gitalk-container .gitalk .gt-btn,
+body.is-article .gitalk .gt-btn,
+body.is-article .gt-btn {
+  background: var(--studio-ink-900) !important;
+  border: 1px solid var(--studio-ink-900) !important;
+  color: var(--studio-on-dark) !important;
+  border-radius: var(--studio-radius-sm) !important;
+  transition: background var(--studio-dur-fast) var(--studio-ease),
+              border-color var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .gitalk-container .gitalk .gt-btn:hover,
+body.is-article .gitalk .gt-btn:hover,
+body.is-article .gt-btn:hover {
+  background: var(--studio-ink-950) !important;
+  border-color: var(--studio-gold) !important;
+}
+body.is-article .gitalk-container .gitalk .gt-btn:focus-visible,
+body.is-article .gitalk .gt-btn:focus-visible,
+body.is-article .gt-btn:focus-visible {
+  outline: 2px solid var(--studio-focus) !important;
+  outline-offset: 2px !important;
+}
+body.is-article .gitalk-container .gitalk .gt-btn.is--loading,
+body.is-article .gitalk .gt-btn.is--loading,
+body.is-article .gt-btn.is--loading {
+  opacity: 0.7 !important;
+}
+/* .gt-no-init 分支下的按钮(未初始化/未登录态, 回归修复 B): 同样脱蓝 */
+body.is-article .gt-no-init .gt-btn {
+  background: var(--studio-ink-900) !important;
+  border: 1px solid var(--studio-ink-900) !important;
+  color: var(--studio-on-dark) !important;
+}
+body.is-article .gt-no-init .gt-btn:hover {
+  background: var(--studio-ink-950) !important;
+  border-color: var(--studio-gold) !important;
+}
+/* 未初始化提示: 纸白卡片 + 旧金左线, 融入阅读面 */
+body.is-article .gitalk-container .gitalk .gt-no-init {
+  margin: 12px 0 !important;
+  padding: 14px 16px !important;
+  background: var(--studio-paper-100) !important;
+  border: 1px solid var(--studio-paper-line) !important;
+  border-left: 3px solid var(--studio-gold) !important;
+  border-radius: 0 var(--studio-radius-sm) var(--studio-radius-sm) 0 !important;
+  color: var(--studio-text-muted) !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+}
+body.is-article .gitalk-container .gitalk .gt-no-init a,
+body.is-article .gitalk-container .gitalk .gt-link {
+  color: var(--studio-text) !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid var(--studio-gold) !important;
+}
+body.is-article .gitalk-container .gitalk .gt-no-init a:hover,
+body.is-article .gitalk-container .gitalk .gt-link:hover {
+  color: var(--studio-green-dark) !important;
+  border-bottom-color: var(--studio-green-dark) !important;
+}
+
+/* --- 缺陷 #2: 空分页容器隐藏 ---
+   docsify-pagination 插件 afterEach 恒注入容器, 当前页不在 _sidebar.md
+   链接序列时 (如 404 页) prev/next 皆空, 容器仅剩 1px border-top 残线 */
+body.is-article .docsify-pagination-container:empty {
+  display: none !important;
+}
+
+/* --- 缺陷 #3: 横向溢出治本 ---
+   根因 A: docsify vue.css 给所有 <main> 设 width:100vw。
+     有经典滚动条时 100vw > clientWidth, 产生横向溢出 (复核所见残量);
+     md/Index.md 内嵌 <main class="sm-main"> 同样命中该规则,
+     导致全站地图中栏被撑成 100vw 破坏三栏 grid。
+   根因 B: 归档迁移文章中的超长 URL 不换行 (如 CI-CD 页 juejin 长链)。
+   根因 C: 归档迁移文章中的残缺 HTML (如 React 页未闭合 <button>),
+     形成超宽 inline-block 块。
+   兼底: main 自身 overflow-x: clip (不产生滚动容器, fixed 元素不受影响) */
+body.is-article main {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: clip !important;
+}
+body.is-article .markdown-section a,
+body.is-article .markdown-section p,
+body.is-article .markdown-section li {
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+body.is-article .markdown-section button {
+  max-width: 100% !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+body.is-article .markdown-section img,
+body.is-article .markdown-section iframe,
+body.is-article .markdown-section video {
+  max-width: 100% !important;
+}
+
+/* --- 缺陷 #4: 桌面端 sidebar-toggle ---
+   桌面(>=1025px) 知识目录为固定左栏, 无需 toggle; 抽屉入口仅属 <=1024px
+   的 P008 移动抽屉 (§17)。现代主题已将其收成 0x0, 此处显式 display:none
+   并清零盒模型, 确保不残留任何空白块; 不引入第二套抽屉 */
+@media screen and (min-width: 1025px) {
+  body.is-article .sidebar-toggle {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+}
+
+/* --- 缺陷 #7: 搜索高亮增强 ---
+   docsify search 插件生成的 .search-keyword: 朱砂字色 + 加深旧金底,
+   #b64b45 对纸白底约 4.9:1, 满足 WCAG AA (覆盖 §3 原规则) */
+body.is-article .sidebar .search .search-keyword {
+  color: var(--studio-vermilion) !important;
+  background: rgba(200, 169, 107, 0.30) !important;
+  border-bottom: 2px solid var(--studio-vermilion) !important;
+  padding: 0 2px !important;
+  border-radius: 2px !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+}
