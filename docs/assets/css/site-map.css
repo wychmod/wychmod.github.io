@@ -1,0 +1,834 @@
+/* =========================================================
+   Site Map - 全站地图 / Knowledge Index 页面专用样式 (P003)
+   依据: docs/_meta/ui-redesign/pages/03-site-map.md (权威)
+   继承: docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md (视觉母体)
+   作用域: body[data-page="md/Index.md"] (由 homepage-v2.js 路由状态设置)
+   隔离: 不影响 body.is-home (首页) 和其他文章页
+   依赖: studio-tokens.css (只读取令牌)
+   ========================================================= */
+
+/* =========================================================
+   §1. 作用域守卫 + 页面基础
+   ========================================================= */
+body[data-page="md/Index.md"] {
+  background: var(--studio-paper-100) !important;
+}
+
+/* 隐藏 Docsify 原生侧边栏，本页使用自定义左栏 */
+body[data-page="md/Index.md"] .sidebar {
+  display: none !important;
+}
+
+body[data-page="md/Index.md"] .sidebar-toggle {
+  display: none !important;
+}
+
+/* 覆盖 article-reading 的内容区布局 */
+body[data-page="md/Index.md"] .content {
+  padding-top: 60px !important;
+  left: 0 !important;
+  padding-right: 0 !important;
+  background: var(--studio-paper-100) !important;
+}
+
+body[data-page="md/Index.md"] .markdown-section {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 隐藏 article-reading 的编辑此页链接 */
+body[data-page="md/Index.md"] .markdown-section > .edit-page-link {
+  display: none !important;
+}
+
+/* =========================================================
+   §2. 页面容器
+   ========================================================= */
+.sm-page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+/* =========================================================
+   §3. 系统路径条
+   ========================================================= */
+.sm-pathbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  border-bottom: 1px solid rgba(32, 33, 29, 0.14);
+  margin-bottom: 48px;
+}
+
+.sm-pathbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sm-path-item {
+  font-family: var(--studio-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--studio-text-muted);
+  text-transform: uppercase;
+}
+
+.sm-path-sep {
+  font-family: var(--studio-font-mono);
+  font-size: 12px;
+  color: var(--studio-paper-line);
+}
+
+.sm-path-current {
+  color: var(--studio-green);
+  font-weight: 600;
+}
+
+.sm-pathbar-right {
+  font-family: var(--studio-font-mono);
+  font-size: 12px;
+  color: var(--studio-text-muted);
+}
+
+/* =========================================================
+   §4. 页面标题
+   ========================================================= */
+.sm-header {
+  margin-bottom: 40px;
+}
+
+.sm-title {
+  font-family: var(--studio-font-display) !important;
+  font-size: 38px !important;
+  font-weight: 700 !important;
+  color: var(--studio-text) !important;
+  line-height: 1.2 !important;
+  margin: 0 0 12px !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.sm-lead {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--studio-text-muted);
+  margin: 0;
+  max-width: 600px;
+}
+
+/* =========================================================
+   §5. 三栏布局
+   ========================================================= */
+.sm-layout {
+  display: grid;
+  grid-template-columns: 260px 700px 220px;
+  justify-content: center;
+  column-gap: 40px;
+  max-width: 1440px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* =========================================================
+   §6. 左栏：快速索引
+   ========================================================= */
+.sm-aside-left {
+  border-right: 1px solid rgba(32, 33, 29, 0.14);
+  padding-right: 28px;
+}
+
+.sm-aside-left-inner {
+  position: sticky;
+  top: 120px;
+}
+
+.sm-index-head {
+  margin-bottom: 16px;
+}
+
+.sm-index-label {
+  display: block;
+  font-family: var(--studio-font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--studio-text);
+  margin-bottom: 10px;
+}
+
+.sm-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  color: var(--studio-text-muted);
+}
+
+/* 通用圆点 */
+.sm-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sm-dot-green {
+  background: var(--studio-green);
+}
+
+/* 收起/展开切换 */
+.sm-quick-nav-details {
+  border: none;
+  margin: 0;
+}
+
+.sm-quick-nav-details > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin-bottom: 12px;
+  font-family: var(--studio-font-body);
+  font-size: 13px;
+  color: var(--studio-text-muted);
+  transition: color var(--studio-dur-fast);
+}
+
+.sm-quick-nav-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.sm-quick-nav-details > summary:hover {
+  color: var(--studio-text);
+}
+
+.sm-quick-nav-details > summary .sm-toggle-icon {
+  display: inline-block;
+  transition: transform var(--studio-dur-fast) var(--studio-ease);
+  margin-left: 8px;
+}
+
+.sm-quick-nav-details:not([open]) > summary .sm-toggle-icon {
+  transform: rotate(-90deg);
+}
+
+.sm-quick-nav-details[open] .sm-toggle-open,
+.sm-quick-nav-details:not([open]) .sm-toggle-closed {
+  display: inline;
+}
+
+.sm-quick-nav-details:not([open]) .sm-toggle-open,
+.sm-quick-nav-details[open] .sm-toggle-closed {
+  display: none;
+}
+
+/* 快速导航列表 */
+.sm-quick-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.sm-quick-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 8px;
+  border-bottom: 1px solid rgba(32, 33, 29, 0.06);
+  text-decoration: none !important;
+  color: var(--studio-text) !important;
+  transition: background var(--studio-dur-fast) var(--studio-ease);
+  border-radius: var(--studio-radius-sm);
+  border-bottom-color: transparent !important;
+}
+
+.sm-quick-item:hover {
+  background: rgba(200, 169, 107, 0.06);
+}
+
+.sm-quick-item.is-current {
+  background: rgba(200, 169, 107, 0.08);
+}
+
+.sm-quick-item.is-current .sm-quick-name {
+  color: var(--studio-gold);
+}
+
+.sm-quick-item:focus-visible {
+  outline: 2px solid var(--studio-focus);
+  outline-offset: -2px;
+}
+
+.sm-quick-num {
+  font-family: var(--studio-font-mono);
+  font-size: 12px;
+  color: var(--studio-text-muted);
+  width: 20px;
+}
+
+.sm-quick-name {
+  font-size: 14px;
+  flex: 1;
+}
+
+.sm-quick-arrow {
+  font-size: 13px;
+  color: var(--studio-text-muted);
+  opacity: 0;
+  transition: opacity var(--studio-dur-fast);
+}
+
+.sm-quick-item:hover .sm-quick-arrow,
+.sm-quick-item.is-current .sm-quick-arrow {
+  opacity: 1;
+}
+
+/* 左栏底部说明 */
+.sm-aside-notes {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--studio-line-paper);
+}
+
+.sm-aside-note {
+  margin-bottom: 24px;
+}
+
+.sm-aside-note:last-child {
+  margin-bottom: 0;
+}
+
+.sm-aside-note strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--studio-text);
+  margin-bottom: 8px;
+}
+
+.sm-aside-note p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--studio-text-muted);
+  margin: 0;
+}
+
+/* =========================================================
+   §7. 中栏：9 大领域列表
+   ========================================================= */
+.sm-main {
+  padding: 0 36px;
+  min-width: 0;
+}
+
+/* 移动端目录总控按钮 - 桌面隐藏 */
+.sm-toc-toggle {
+  display: none;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain {
+  border: none !important;
+  border-bottom: 1px solid rgba(32, 33, 29, 0.14) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain:first-child {
+  border-top: 1px solid rgba(32, 33, 29, 0.14) !important;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain-summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 44px 24px 12px;
+  cursor: pointer;
+  transition: background var(--studio-dur-fast) var(--studio-ease);
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  min-height: 92px;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain-summary::-webkit-details-marker {
+  display: none;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain-summary:hover {
+  background: rgba(200, 169, 107, 0.06) !important;
+}
+
+.sm-domain-num {
+  font-family: var(--studio-font-display);
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--studio-gold);
+  line-height: 1;
+  width: 88px;
+  flex-shrink: 0;
+  text-align: left;
+}
+
+.sm-domain-summary:hover .sm-domain-num,
+.sm-domain[open] .sm-domain-num {
+  color: var(--studio-gold-dark, #a98b52);
+}
+
+.sm-domain-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.sm-domain-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--studio-font-display) !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  color: var(--studio-text) !important;
+  margin: 0 0 6px !important;
+  padding: 0 !important;
+  border: none !important;
+  line-height: 1.3 !important;
+}
+
+.sm-domain-title .sm-dot {
+  width: 8px;
+  height: 8px;
+}
+
+.sm-domain-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--studio-text-muted);
+  margin: 0;
+}
+
+.sm-domain-arrow {
+  font-size: 18px;
+  color: var(--studio-text-muted);
+  flex-shrink: 0;
+  transition: transform var(--studio-dur-fast) var(--studio-ease),
+              color var(--studio-dur-fast);
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  /* 桌面折叠态：↓ 旋转 -90° 呈现参考图的右箭头 → */
+  transform: translateY(-50%) rotate(-90deg);
+  line-height: 1;
+}
+
+.sm-domain-summary:hover .sm-domain-arrow {
+  color: var(--studio-gold);
+}
+
+/* 桌面展开态：恢复 ↓ 指向链接列表 */
+body[data-page="md/Index.md"] .markdown-section .sm-domain[open] .sm-domain-arrow {
+  transform: translateY(-50%) rotate(0deg);
+  color: var(--studio-gold);
+}
+
+/* 文档链接列表 */
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 4px 12px 24px 120px !important;
+  display: block !important;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(32, 33, 29, 0.05);
+  margin: 0 !important;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links li:last-child {
+  border-bottom: none;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links a {
+  font-size: 15px;
+  color: var(--studio-text) !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: color var(--studio-dur-fast);
+  border-bottom: none !important;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links a:hover {
+  color: var(--studio-green-dark) !important;
+  text-decoration: underline !important;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links a:focus-visible {
+  outline: 2px solid var(--studio-focus);
+  outline-offset: 2px;
+}
+
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links span {
+  font-size: 13px;
+  color: var(--studio-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   §8. 右栏：帮助信息
+   ========================================================= */
+.sm-aside-right {
+  border-left: 1px solid rgba(32, 33, 29, 0.14);
+  background: var(--studio-paper-50);
+}
+
+.sm-aside-right-inner {
+  position: sticky;
+  top: 120px;
+  padding: 32px 28px;
+}
+
+.sm-helper-block {
+  margin-bottom: 36px;
+}
+
+.sm-helper-block:last-child {
+  margin-bottom: 0;
+}
+
+.sm-helper-title {
+  font-family: var(--studio-font-body) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: var(--studio-text) !important;
+  margin: 0 0 10px !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.sm-helper-line {
+  width: 32px;
+  height: 1px;
+  background: var(--studio-gold);
+  margin-bottom: 16px;
+}
+
+.sm-helper-list {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.sm-helper-list li {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--studio-text-muted);
+  padding: 3px 0;
+  margin: 0 !important;
+}
+
+.sm-helper-list a {
+  color: var(--studio-text) !important;
+  text-decoration: none !important;
+  transition: color var(--studio-dur-fast);
+  border-bottom: none !important;
+}
+
+.sm-helper-list a:hover {
+  color: var(--studio-green-dark) !important;
+}
+
+.sm-helper-list a:focus-visible {
+  outline: 2px solid var(--studio-focus);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   §9. 响应式 - 平板 (<=1200px): 隐藏右栏
+   ========================================================= */
+@media screen and (max-width: 1200px) {
+  .sm-layout {
+    grid-template-columns: 240px 1fr;
+  }
+
+  .sm-aside-right {
+    display: none;
+  }
+
+  .sm-page {
+    padding: 0 28px 60px;
+  }
+
+  .sm-main {
+    padding: 0 24px;
+  }
+}
+
+/* =========================================================
+   §10. 响应式 - 小平板 (<=1024px): 单列折叠
+   ========================================================= */
+@media screen and (max-width: 1024px) {
+  .sm-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sm-aside-left {
+    display: none;
+  }
+
+  .sm-aside-right {
+    display: none;
+  }
+
+  .sm-main {
+    padding: 0;
+  }
+
+  .sm-page {
+    padding: 0 24px 60px;
+  }
+
+  /* 显示移动端目录总控按钮 */
+  .sm-toc-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    margin-bottom: 16px;
+    background: var(--studio-paper-50);
+    border: 1px solid var(--studio-line-paper);
+    border-radius: var(--studio-radius-sm);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--studio-text);
+    cursor: pointer;
+    transition: background var(--studio-dur-fast);
+  }
+
+  .sm-toc-toggle:hover {
+    background: rgba(200, 169, 107, 0.08);
+  }
+
+  .sm-toc-toggle svg {
+    color: var(--studio-text-muted);
+    flex-shrink: 0;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-summary {
+    cursor: pointer;
+    padding: 18px 36px 18px 8px;
+    min-height: 60px;
+    gap: 16px;
+  }
+
+  /* 移动端折叠行只显示编号+领域名，保持 58–64px 行高 */
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-desc {
+    display: none;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-title {
+    margin: 0 !important;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain:not([open]) .sm-domain-links {
+    display: none;
+  }
+
+  /* 移动端折叠态：直接显示 ↓ */
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-arrow {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  /* 移动端展开态：翻转 ↑ */
+  body[data-page="md/Index.md"] .markdown-section .sm-domain[open] .sm-domain-arrow {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-num {
+    font-size: 30px;
+    width: 52px;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-title {
+    font-size: 17px !important;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-desc {
+    font-size: 13px;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-links {
+    padding: 0 8px 20px 60px !important;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-links li {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-links a {
+    white-space: normal;
+  }
+}
+
+/* =========================================================
+   §11. 响应式 - 手机 (<=768px)
+   ========================================================= */
+@media screen and (max-width: 768px) {
+  body[data-page="md/Index.md"] .content {
+    padding-top: 56px !important;
+  }
+
+  .sm-page {
+    padding: 0 16px 48px;
+  }
+
+  .sm-pathbar {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 14px 0;
+    gap: 6px;
+  }
+
+  .sm-title {
+    font-size: 26px !important;
+  }
+
+  .sm-lead {
+    font-size: 14px;
+  }
+
+  .sm-header {
+    margin-bottom: 28px;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-summary {
+    padding: 18px 32px 18px 4px;
+    gap: 14px;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-num {
+    font-size: 28px;
+    width: 44px;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-title {
+    font-size: 16px !important;
+  }
+
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-links {
+    padding: 0 4px 16px 48px !important;
+  }
+
+  .sm-domain-links a {
+    font-size: 14px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* =========================================================
+   §12. 响应式 - 极窄手机 (<=360px)
+   ========================================================= */
+@media screen and (max-width: 360px) {
+  .sm-page {
+    padding: 0 12px 40px;
+  }
+
+  .sm-domain-num {
+    font-size: 24px;
+    width: 38px;
+  }
+
+  .sm-domain-title {
+    font-size: 15px !important;
+  }
+
+  .sm-path-item {
+    font-size: 11px;
+  }
+}
+
+/* =========================================================
+   §13. 焦点与可访问性
+   ========================================================= */
+.sm-domain-summary:focus-visible {
+  outline: 2px solid var(--studio-focus);
+  outline-offset: -2px;
+}
+
+.sm-toc-toggle:focus-visible {
+  outline: 2px solid var(--studio-focus);
+  outline-offset: 2px;
+}
+
+/* 减少动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .sm-quick-item,
+  .sm-quick-arrow,
+  .sm-domain-summary,
+  .sm-domain-arrow,
+  .sm-helper-list a,
+  .sm-toc-toggle,
+  .sm-toggle-icon {
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   §15. 覆盖 article-reading 的链接下划线
+   ========================================================= */
+body[data-page="md/Index.md"] .sm-page a,
+body[data-page="md/Index.md"] .sm-page a:hover {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+/* =========================================================
+   §16. 打印样式
+   ========================================================= */
+@media print {
+  .sm-aside-left,
+  .sm-aside-right,
+  .sm-toc-toggle {
+    display: none !important;
+  }
+
+  .sm-layout {
+    display: block;
+  }
+
+  .sm-domain-links {
+    display: block !important;
+  }
+
+  .sm-domain-summary {
+    cursor: default;
+  }
+}

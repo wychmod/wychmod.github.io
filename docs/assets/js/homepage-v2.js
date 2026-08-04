@@ -117,6 +117,90 @@
     });
   }
 
+  /* ---------- 知识图谱连线布局(规范 §6.7) ---------- */
+  // 连线/端点不再写死坐标: 按当前实际布局计算 中心->节点盒边界 的交点,
+  // 起点贴在中心圆边缘, 终点在盒界外留 6px 间隙, 任何视口都不穿节点盒子.
+  // 幂等: 纯函数, 每次 doneEach/resize 重算即可.
+  var KG_VB_W = 240, KG_VB_H = 180;
+  function layoutGraphLinks() {
+    var graph = document.querySelector('.home-graph');
+    if (!graph) return;
+    var svg = graph.querySelector('.home-graph-svg');
+    if (!svg || getComputedStyle(svg).display === 'none') return;  // 移动端索引模式无连线
+    var gr = graph.getBoundingClientRect();
+    var W = gr.width, H = gr.height;
+    if (!W || !H) return;
+
+    var cx = W / 2, cy = H / 2;
+    var centerEl = graph.querySelector('.home-graph-center');
+    var centerR = centerEl ? centerEl.offsetWidth / 2 : 0;
+    var dotR = 3 * Math.sqrt((KG_VB_W / W) * (KG_VB_H / H));  // 视觉半径约 3px
+
+    var nodes = graph.querySelectorAll('.home-graph-node');
+    for (var k = 0; k < nodes.length; k++) {
+      var node = nodes[k];
+      var i = node.getAttribute('data-kg-i');
+      var line = svg.querySelector('.kg-line-' + i);
+      var dot = svg.querySelector('.kg-dot-' + i);
+      if (!line) continue;
+
+      // 用 getBoundingClientRect: 包含 translateX(-50%) 等变换, offsetLeft 会漏算
+      var nr = node.getBoundingClientRect();
+      var nx = nr.left - gr.left, ny = nr.top - gr.top;
+      var nw = nr.width, nh = nr.height;
+      var dx = nx + nw / 2 - cx, dy = ny + nh / 2 - cy;
+      var len = Math.sqrt(dx * dx + dy * dy);
+      if (!len) continue;
+
+      // 射线与节点盒的交点(slab 法): 进入参数取两轴最大值,
+      // 直接取最小值会把边所在直线的延长线误判为命中, 导致终点落回中心圆
+      var txe = dx > 0 ? (nx - cx) / dx : (dx < 0 ? (nx + nw - cx) / dx : -Infinity);
+      var tye = dy > 0 ? (ny - cy) / dy : (dy < 0 ? (ny + nh - cy) / dy : -Infinity);
+      var t = Math.max(txe, tye);
+      if (!isFinite(t) || t <= 0 || t > 1) t = 1;
+
+      var ux = dx / len, uy = dy / len;
+      var ex = cx + dx * t - ux * 6;           // 终点: 盒界外 6px
+      var ey = cy + dy * t - uy * 6;
+      var sx = cx + ux * (centerR + 5);        // 起点: 中心圆边缘外 5px
+      var sy = cy + uy * (centerR + 5);
+
+      line.setAttribute('x1', (sx / W * KG_VB_W).toFixed(1));
+      line.setAttribute('y1', (sy / H * KG_VB_H).toFixed(1));
+      line.setAttribute('x2', (ex / W * KG_VB_W).toFixed(1));
+      line.setAttribute('y2', (ey / H * KG_VB_H).toFixed(1));
+      if (dot) {
+        dot.setAttribute('cx', (ex / W * KG_VB_W).toFixed(1));
+        dot.setAttribute('cy', (ey / H * KG_VB_H).toFixed(1));
+        dot.setAttribute('r', dotR.toFixed(2));
+      }
+    }
+  }
+
+  function bindGraphResize() {
+    if (window.__homeGraphResizeBound) return;
+    window.__homeGraphResizeBound = true;
+    var timer = null;
+    window.addEventListener('resize', function () {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(layoutGraphLinks, 120);
+    });
+  }
+
+  /* ---------- 页脚统计：从知识索引网格计算真实文档数 ---------- */
+  function updateHomeFooterStats() {
+    var footer = document.getElementById('home-footer');
+    if (!footer) return;
+
+    var docsEl = footer.querySelector('[data-stat="docs"]');
+    if (docsEl && docsEl.dataset.computed !== 'true') {
+      // 只统计知识索引三列中可见的主线文档链接（排除 AI 助手使用指南这类站外/辅助页）
+      var indexLinks = document.querySelectorAll('.home-index-col li a[href^="/md/"]');
+      docsEl.textContent = String(indexLinks.length);
+      docsEl.dataset.computed = 'true';
+    }
+  }
+
   /* ---------- Lucide 图标重绘(规范 §11.5) ---------- */
   // 0.468.0 UMD: lucide.createIcons({ icons: lucide.icons }) 自动替换 [data-lucide]
   function renderLucideIcons() {
@@ -163,6 +247,9 @@
       bindHomeSearchPanel();
       bindTerminalTriggers();
       bindScrollLinks();
+      layoutGraphLinks();
+      bindGraphResize();
+      updateHomeFooterStats();
       ensureLucideIcons();
     });
   }

@@ -31,6 +31,20 @@
   --studio-rust: #a66b45;
   --studio-focus: #7ee8bc;
 
+  /* —— 领域编码色(仅小面积: 图谱图标/主题列表点/连线端点/hover 描边, 依据参考图 V1.2) —— */
+  --kg-0: #22c55e;  /* 计算机基础 绿 */
+  --kg-1: #58b7c7;  /* 后端开发 青 */
+  --kg-2: #34d399;  /* 云原生/运维 翠绿 */
+  --kg-3: #f59e0b;  /* 前端 琥珀 */
+  --kg-4: #a78bfa;  /* AI 与 Agent 紫(参考图同款, 仅限小面积编码) */
+  --kg-5: #60a5fa;  /* 软件工程 蓝 */
+  --kg-6: #e6663e;  /* 求职 朱砂 */
+  --kg-7: #c084fc;  /* 过时技术归档 兰紫(参考图同款, 仅限小面积编码) */
+  --kg-8: #c8a96b;  /* 开发工具 旧金 */
+
+  /* —— 终端预览底色(带绿调的石墨) —— */
+  --studio-terminal-bg: #0f1713;
+
   /* —— 字体 —— */
   --studio-font-display: "Source Han Serif SC", "Noto Serif SC", "Songti SC", SimSun, serif;
   --studio-font-body: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
@@ -64,8 +78,8 @@
   --studio-dur-base: 220ms;
   --studio-dur-enter: 280ms;
 
-  /* —— 内容宽度 —— */
-  --studio-content-max: 1440px;
+  /* —— 内容宽度 —— 外层盒上限(含 gutter): <=1920 视口全出血, >1920 居中(V1.4) —— */
+  --studio-content-max: 1920px;
   --studio-gutter: 40px;
 }
 
