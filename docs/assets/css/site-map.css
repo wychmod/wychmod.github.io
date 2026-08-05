@@ -140,13 +140,16 @@ body[data-page="md/Index.md"] .markdown-section > .edit-page-link {
    §6. 左栏：快速索引
    ========================================================= */
 .sm-aside-left {
-  border-right: 1px solid rgba(32, 33, 29, 0.14);
-  padding-right: 28px;
+  border-right: none;
+  padding-right: 0;
 }
 
 .sm-aside-left-inner {
   position: sticky;
   top: 120px;
+  padding: 20px;
+  background: var(--studio-paper-50);
+  border-radius: var(--studio-radius-sm);
 }
 
 .sm-index-head {

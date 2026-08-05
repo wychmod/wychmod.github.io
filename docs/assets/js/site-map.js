@@ -115,7 +115,9 @@
   }
 
   function tryInit() {
-    if (!document.body.dataset.page || document.body.dataset.page !== 'md/Index.md') return;
+    // 兼容首页嵌入版（README.md）与独立全站地图页（md/Index.md）：
+    // 只要当前页面存在 .sm-page 就初始化，避免 #sm-d01 等锚点被 Docsify hash 路由拦截成 404。
+    if (!document.querySelector('.sm-page')) return;
     init();
   }
 

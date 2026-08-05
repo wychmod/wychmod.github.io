@@ -79,11 +79,14 @@
   <div class="home-note-mark" aria-hidden="true">W</div>
 </div>
 
+<div class="home-binding">
+  <span class="home-binding-tag">卷二 / VOL.02</span>
+  <span class="home-binding-title"><span class="home-binding-title-en">KNOWLEDGE INDEX</span> / 知识索引</span>
+  <span class="home-binding-rule" aria-hidden="true"></span>
+  <span class="home-binding-chapter"><span class="home-binding-chapter-num">02</span> CHAPTER</span>
+</div>
+
 <div class="home-index home-index--sitemap" id="knowledge-index">
-  <div class="home-index-head">
-    <span class="home-section-eyebrow">KNOWLEDGE INDEX</span>
-    <h2 class="home-section-title">知识索引</h2>
-  </div>
   <div class="sm-page">
     <!-- 系统路径条 -->
     <div class="sm-pathbar" role="navigation" aria-label="系统路径">
