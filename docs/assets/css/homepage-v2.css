@@ -1395,7 +1395,7 @@ body.is-home .home-footer-brand-copy strong {
   font-family: var(--studio-font-body);
   font-size: 18px;
   font-weight: 700;
-  color: var(--studio-on-dark);
+  color: #ffffff;
 }
 body.is-home .home-footer-brand-copy span {
   font-family: var(--studio-font-mono);
@@ -1403,7 +1403,7 @@ body.is-home .home-footer-brand-copy span {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--studio-on-dark-muted);
+  color: #c9cec6;
 }
 body.is-home .home-footer-brand-desc {
   max-width: 280px;
@@ -1411,7 +1411,7 @@ body.is-home .home-footer-brand-desc {
   font-family: var(--studio-font-display);
   font-size: 15px;
   line-height: 1.6;
-  color: var(--studio-on-dark-muted);
+  color: #c9cec6;
 }
 body.is-home .home-footer-stats {
   display: flex;

@@ -195,7 +195,7 @@
     var docsEl = footer.querySelector('[data-stat="docs"]');
     if (docsEl && docsEl.dataset.computed !== 'true') {
       // 只统计知识索引三列中可见的主线文档链接（排除 AI 助手使用指南这类站外/辅助页）
-      var indexLinks = document.querySelectorAll('.home-index-col li a[href^="/md/"]');
+      var indexLinks = document.querySelectorAll('.home-index-col li a[href^="#/md/"]');
       docsEl.textContent = String(indexLinks.length);
       docsEl.dataset.computed = 'true';
     }
