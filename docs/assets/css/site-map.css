@@ -336,7 +336,8 @@ body[data-page="md/Index.md"] .markdown-section > .edit-page-link {
   display: none;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain {
+body[data-page="md/Index.md"] .markdown-section .sm-domain,
+body.is-home .home-index--sitemap .sm-domain {
   border: none !important;
   border-bottom: 1px solid rgba(32, 33, 29, 0.14) !important;
   background: transparent !important;
@@ -346,11 +347,13 @@ body[data-page="md/Index.md"] .markdown-section .sm-domain {
   padding: 0 !important;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain:first-child {
+body[data-page="md/Index.md"] .markdown-section .sm-domain:first-child,
+body.is-home .home-index--sitemap .sm-domain:first-child {
   border-top: 1px solid rgba(32, 33, 29, 0.14) !important;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain-summary {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-summary,
+body.is-home .home-index--sitemap .sm-domain-summary {
   list-style: none;
   display: flex;
   align-items: center;
@@ -369,11 +372,13 @@ body[data-page="md/Index.md"] .markdown-section .sm-domain-summary {
   min-height: 92px;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain-summary::-webkit-details-marker {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-summary::-webkit-details-marker,
+body.is-home .home-index--sitemap .sm-domain-summary::-webkit-details-marker {
   display: none;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain-summary:hover {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-summary:hover,
+body.is-home .home-index--sitemap .sm-domain-summary:hover {
   background: rgba(200, 169, 107, 0.06) !important;
 }
 
@@ -443,20 +448,23 @@ body[data-page="md/Index.md"] .markdown-section .sm-domain-summary:hover {
 }
 
 /* 桌面展开态：恢复 ↓ 指向链接列表 */
-body[data-page="md/Index.md"] .markdown-section .sm-domain[open] .sm-domain-arrow {
+body[data-page="md/Index.md"] .markdown-section .sm-domain[open] .sm-domain-arrow,
+body.is-home .home-index--sitemap .sm-domain[open] .sm-domain-arrow {
   transform: translateY(-50%) rotate(0deg);
   color: var(--studio-gold);
 }
 
 /* 文档链接列表 */
-body[data-page="md/Index.md"] .markdown-section .sm-domain-links {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links,
+body.is-home .home-index--sitemap .sm-domain-links {
   list-style: none !important;
   margin: 0 !important;
   padding: 4px 12px 24px 120px !important;
   display: block !important;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain-links li {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links li,
+body.is-home .home-index--sitemap .sm-domain-links li {
   display: flex;
   align-items: baseline;
   gap: 12px;
@@ -465,11 +473,13 @@ body[data-page="md/Index.md"] .markdown-section .sm-domain-links li {
   margin: 0 !important;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain-links li:last-child {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links li:last-child,
+body.is-home .home-index--sitemap .sm-domain-links li:last-child {
   border-bottom: none;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain-links a {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links a,
+body.is-home .home-index--sitemap .sm-domain-links a {
   font-size: 15px;
   color: var(--studio-text) !important;
   text-decoration: none !important;
@@ -478,17 +488,20 @@ body[data-page="md/Index.md"] .markdown-section .sm-domain-links a {
   border-bottom: none !important;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain-links a:hover {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links a:hover,
+body.is-home .home-index--sitemap .sm-domain-links a:hover {
   color: var(--studio-green-dark) !important;
   text-decoration: underline !important;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain-links a:focus-visible {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links a:focus-visible,
+body.is-home .home-index--sitemap .sm-domain-links a:focus-visible {
   outline: 2px solid var(--studio-focus);
   outline-offset: 2px;
 }
 
-body[data-page="md/Index.md"] .markdown-section .sm-domain-links span {
+body[data-page="md/Index.md"] .markdown-section .sm-domain-links span,
+body.is-home .home-index--sitemap .sm-domain-links span {
   font-size: 13px;
   color: var(--studio-text-muted);
   white-space: nowrap;
@@ -638,7 +651,8 @@ body[data-page="md/Index.md"] .markdown-section .sm-domain-links span {
     flex-shrink: 0;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-summary {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-summary,
+  body.is-home .home-index--sitemap .sm-domain-summary {
     cursor: pointer;
     padding: 18px 36px 18px 8px;
     min-height: 60px;
@@ -646,51 +660,62 @@ body[data-page="md/Index.md"] .markdown-section .sm-domain-links span {
   }
 
   /* 移动端折叠行只显示编号+领域名，保持 58–64px 行高 */
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-desc {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-desc,
+  body.is-home .home-index--sitemap .sm-domain-desc {
     display: none;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-title {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-title,
+  body.is-home .home-index--sitemap .sm-domain-title {
     margin: 0 !important;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain:not([open]) .sm-domain-links {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain:not([open]) .sm-domain-links,
+  body.is-home .home-index--sitemap .sm-domain:not([open]) .sm-domain-links {
     display: none;
   }
 
   /* 移动端折叠态：直接显示 ↓ */
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-arrow {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-arrow,
+  body.is-home .home-index--sitemap .sm-domain-arrow {
     transform: translateY(-50%) rotate(0deg);
   }
 
   /* 移动端展开态：翻转 ↑ */
-  body[data-page="md/Index.md"] .markdown-section .sm-domain[open] .sm-domain-arrow {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain[open] .sm-domain-arrow,
+  body.is-home .home-index--sitemap .sm-domain[open] .sm-domain-arrow {
     transform: translateY(-50%) rotate(180deg);
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-num {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-num,
+  body.is-home .home-index--sitemap .sm-domain-num {
     font-size: 30px;
     width: 52px;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-title {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-title,
+  body.is-home .home-index--sitemap .sm-domain-title {
     font-size: 17px !important;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-desc {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-desc,
+  body.is-home .home-index--sitemap .sm-domain-desc {
     font-size: 13px;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-links {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-links,
+  body.is-home .home-index--sitemap .sm-domain-links {
     padding: 0 8px 20px 60px !important;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-links li {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-links li,
+  body.is-home .home-index--sitemap .sm-domain-links li {
     flex-direction: column;
     gap: 2px;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-links a {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-links a,
+  body.is-home .home-index--sitemap .sm-domain-links a {
     white-space: normal;
   }
 }
@@ -727,21 +752,25 @@ body[data-page="md/Index.md"] .markdown-section .sm-domain-links span {
     margin-bottom: 28px;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-summary {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-summary,
+  body.is-home .home-index--sitemap .sm-domain-summary {
     padding: 18px 32px 18px 4px;
     gap: 14px;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-num {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-num,
+  body.is-home .home-index--sitemap .sm-domain-num {
     font-size: 28px;
     width: 44px;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-title {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-title,
+  body.is-home .home-index--sitemap .sm-domain-title {
     font-size: 16px !important;
   }
 
-  body[data-page="md/Index.md"] .markdown-section .sm-domain-links {
+  body[data-page="md/Index.md"] .markdown-section .sm-domain-links,
+  body.is-home .home-index--sitemap .sm-domain-links {
     padding: 0 4px 16px 48px !important;
   }
 
@@ -805,13 +834,82 @@ body[data-page="md/Index.md"] .markdown-section .sm-domain-links span {
    §15. 覆盖 article-reading 的链接下划线
    ========================================================= */
 body[data-page="md/Index.md"] .sm-page a,
-body[data-page="md/Index.md"] .sm-page a:hover {
+body.is-home .home-index--sitemap .sm-page a,
+body[data-page="md/Index.md"] .sm-page a:hover,
+body.is-home .home-index--sitemap .sm-page a:hover {
   border-bottom: none !important;
   text-decoration: none !important;
 }
 
 /* =========================================================
-   §16. 打印样式
+   §17. 首页嵌入版适配（README.md 知识索引区）
+   ========================================================= */
+body.is-home .home-index--sitemap {
+  max-width: none;
+  padding: var(--studio-space-6) var(--studio-gutter);
+}
+
+body.is-home .home-index--sitemap .sm-page {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 隐藏首页嵌入版的路径条与页面大标题，避免与首页章节标题重复 */
+body.is-home .home-index--sitemap .sm-pathbar,
+body.is-home .home-index--sitemap .sm-title {
+  display: none;
+}
+
+body.is-home .home-index--sitemap .sm-header {
+  margin-bottom: var(--studio-space-5);
+}
+
+/* 首页容器内三栏居中 */
+body.is-home .home-index--sitemap .sm-layout {
+  justify-content: center;
+}
+
+/* 小桌面/平板：保持双栏，右栏隐藏 */
+@media screen and (max-width: 1200px) {
+  body.is-home .home-index--sitemap .sm-layout {
+    grid-template-columns: 240px 1fr;
+  }
+
+  body.is-home .home-index--sitemap .sm-aside-right {
+    display: none;
+  }
+}
+
+/* 平板竖屏以下：按全站地图原生单列 */
+@media screen and (max-width: 1024px) {
+  body.is-home .home-index--sitemap {
+    padding: var(--studio-space-5) var(--studio-gutter);
+  }
+
+  body.is-home .home-index--sitemap .sm-layout {
+    grid-template-columns: 1fr;
+  }
+
+  body.is-home .home-index--sitemap .sm-aside-left,
+  body.is-home .home-index--sitemap .sm-aside-right {
+    display: none;
+  }
+
+  body.is-home .home-index--sitemap .sm-main {
+    padding: 0;
+  }
+}
+
+/* 手机 */
+@media screen and (max-width: 768px) {
+  body.is-home .home-index--sitemap {
+    padding: var(--studio-space-4) 16px;
+  }
+}
+
+/* =========================================================
+   §18. 打印样式
    ========================================================= */
 @media print {
   .sm-aside-left,

@@ -187,15 +187,22 @@
     });
   }
 
-  /* ---------- 页脚统计：从知识索引网格计算真实文档数 ---------- */
+  /* ---------- 页脚统计：从首页全站地图计算真实数据 ---------- */
   function updateHomeFooterStats() {
     var footer = document.getElementById('home-footer');
     if (!footer) return;
 
+    var domainsEl = footer.querySelector('[data-stat="domains"]');
+    if (domainsEl && domainsEl.dataset.computed !== 'true') {
+      var domainBlocks = document.querySelectorAll('.home-index--sitemap .sm-domain');
+      domainsEl.textContent = String(domainBlocks.length);
+      domainsEl.dataset.computed = 'true';
+    }
+
     var docsEl = footer.querySelector('[data-stat="docs"]');
     if (docsEl && docsEl.dataset.computed !== 'true') {
-      // 只统计知识索引三列中可见的主线文档链接（排除 AI 助手使用指南这类站外/辅助页）
-      var indexLinks = document.querySelectorAll('.home-index-col li a[href^="#/md/"]');
+      // 只统计首页全站地图中可见的主线文档链接（排除 AI 助手使用指南这类站外/辅助页）
+      var indexLinks = document.querySelectorAll('.home-index--sitemap .sm-domain-links li a[href^="#/md/"]');
       docsEl.textContent = String(indexLinks.length);
       docsEl.dataset.computed = 'true';
     }
