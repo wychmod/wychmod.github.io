@@ -99,13 +99,13 @@
       </div>
       <div class="sm-pathbar-right">主线文档持续修订</div>
     </div>
-    <!-- 页面标题 -->
-    <header class="sm-header">
-      <h1 class="sm-title">Knowledge Index / 全站地图</h1>
-      <p class="sm-lead">按 9 大知识领域编排主线文档，归档原始笔记只作为历史来源保留。</p>
-    </header>
     <!-- 三栏布局 -->
     <div class="sm-layout">
+      <!-- 页面标题 -->
+      <header class="sm-header">
+        <h1 class="sm-title">Knowledge Index / 全站地图</h1>
+        <p class="sm-lead">按 9 大知识领域编排主线文档，归档原始笔记只作为历史来源保留。</p>
+      </header>
     <!-- 左栏：快速索引 -->
     <aside class="sm-aside-left">
       <div class="sm-aside-left-inner">
