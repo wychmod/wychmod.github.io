@@ -78,6 +78,9 @@ body.is-home .markdown-section {
   max-width: none !important;
   margin: 0 !important;
   padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
 }
 body.is-home .markdown-section > *:first-child {
   margin-top: 0;
@@ -1297,7 +1300,7 @@ body.is-home .home-footer {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  margin-top: auto;
   background: var(--studio-ink-950);
   color: var(--studio-on-dark);
   overflow: hidden;
