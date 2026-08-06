@@ -1295,6 +1295,9 @@ body.is-home .notion-chips {
    ========================================================= */
 body.is-home .home-footer {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background: var(--studio-ink-950);
   color: var(--studio-on-dark);
   overflow: hidden;
@@ -1328,6 +1331,7 @@ body.is-home .home-footer-boundary-label {
 body.is-home .home-footer-main {
   position: relative;
   z-index: 1;
+  flex: 1 0 auto;
   display: grid;
   grid-template-columns: 1.1fr 1fr 1fr;
   gap: var(--studio-space-7);
@@ -1393,9 +1397,9 @@ body.is-home .home-footer-brand-copy {
 }
 body.is-home .home-footer-brand-copy strong {
   font-family: var(--studio-font-body);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--studio-on-dark) !important;
 }
 body.is-home .home-footer-brand-copy span {
   font-family: var(--studio-font-mono);
@@ -1403,15 +1407,97 @@ body.is-home .home-footer-brand-copy span {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #c9cec6;
+  color: var(--studio-on-dark) !important;
 }
 body.is-home .home-footer-brand-desc {
-  max-width: 280px;
+  max-width: 320px;
   margin: 0 !important;
   font-family: var(--studio-font-display);
   font-size: 15px;
-  line-height: 1.6;
-  color: #c9cec6;
+  line-height: 1.7;
+  color: var(--studio-on-dark) !important;
+}
+
+/* 身份标签 */
+body.is-home .home-footer-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 320px;
+}
+body.is-home .home-footer-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: var(--studio-radius-sm);
+  border: 1px solid var(--studio-line-dark);
+  background: rgba(242, 239, 231, 0.05);
+  font-family: var(--studio-font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--studio-on-dark);
+  letter-spacing: 0.02em;
+}
+
+/* 当前关注 */
+body.is-home .home-footer-focus {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  max-width: 320px;
+}
+body.is-home .home-footer-focus-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--studio-font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--studio-green);
+}
+body.is-home .home-footer-focus-label::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--studio-green);
+}
+body.is-home .home-footer-focus-item {
+  font-family: var(--studio-font-body);
+  font-size: 13px;
+  color: var(--studio-on-dark-muted);
+}
+
+/* 座右铭 */
+body.is-home .home-footer-motto {
+  position: relative;
+  max-width: 320px;
+  margin: 0;
+  padding: 0 0 0 14px;
+  border: none !important;
+  border-left: 2px solid var(--studio-gold) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+body.is-home .home-footer-motto p {
+  margin: 0 !important;
+  font-family: var(--studio-font-display);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--studio-on-dark-muted);
+  font-style: italic;
+}
+
+/* 首页不显示 Docsify 分页条，避免页脚后出现纸白条 */
+body.is-home .pagination,
+body.is-home .docsify-pagination-container {
+  display: none !important;
 }
 body.is-home .home-footer-stats {
   display: flex;
@@ -1726,6 +1812,9 @@ body.is-home .home-footer-mark {
   }
   body.is-home .home-footer-title { font-size: 26px !important; }
   body.is-home .home-footer-brand-desc { max-width: none; }
+  body.is-home .home-footer-tags { max-width: none; }
+  body.is-home .home-footer-focus { max-width: none; }
+  body.is-home .home-footer-motto { max-width: none; }
   body.is-home .home-footer-stats { gap: var(--studio-space-5); }
   body.is-home .home-footer-stat-num { font-size: 24px; }
   body.is-home .home-footer-link { font-size: 15px; padding: 14px 0; }

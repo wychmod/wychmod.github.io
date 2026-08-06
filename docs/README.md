@@ -386,6 +386,20 @@
         </div>
       </div>
       <p class="home-footer-brand-desc">在代码、书页与实践之间，整理问题，也整理知识。</p>
+      <div class="home-footer-tags">
+        <span class="home-footer-tag">Java / Python</span>
+        <span class="home-footer-tag">后端开发</span>
+        <span class="home-footer-tag">AI Agent</span>
+      </div>
+      <div class="home-footer-focus">
+        <span class="home-footer-focus-label">当前关注</span>
+        <span class="home-footer-focus-item">系统设计与架构</span>
+        <span class="home-footer-focus-item">大模型工程化</span>
+        <span class="home-footer-focus-item">云原生交付</span>
+      </div>
+      <blockquote class="home-footer-motto">
+        <p>“先让问题变清晰，再让答案变简单。”</p>
+      </blockquote>
       <div class="home-footer-stats" aria-label="站点规模">
         <div class="home-footer-stat">
           <span class="home-footer-stat-num" data-stat="domains">10</span>
