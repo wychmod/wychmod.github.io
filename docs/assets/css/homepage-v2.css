@@ -1443,39 +1443,6 @@ body.is-home .home-footer-tag {
   letter-spacing: 0.02em;
 }
 
-/* 当前关注 */
-body.is-home .home-footer-focus {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 10px;
-  max-width: 320px;
-}
-body.is-home .home-footer-focus-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--studio-font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--studio-green);
-}
-body.is-home .home-footer-focus-label::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--studio-green);
-}
-body.is-home .home-footer-focus-item {
-  font-family: var(--studio-font-body);
-  font-size: 13px;
-  color: var(--studio-on-dark-muted);
-}
-
 /* 座右铭 */
 body.is-home .home-footer-motto {
   position: relative;
@@ -1816,7 +1783,6 @@ body.is-home .home-footer-mark {
   body.is-home .home-footer-title { font-size: 26px !important; }
   body.is-home .home-footer-brand-desc { max-width: none; }
   body.is-home .home-footer-tags { max-width: none; }
-  body.is-home .home-footer-focus { max-width: none; }
   body.is-home .home-footer-motto { max-width: none; }
   body.is-home .home-footer-stats { gap: var(--studio-space-5); }
   body.is-home .home-footer-stat-num { font-size: 24px; }

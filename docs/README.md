@@ -391,12 +391,6 @@
         <span class="home-footer-tag">后端开发</span>
         <span class="home-footer-tag">AI Agent</span>
       </div>
-      <div class="home-footer-focus">
-        <span class="home-footer-focus-label">当前关注</span>
-        <span class="home-footer-focus-item">系统设计与架构</span>
-        <span class="home-footer-focus-item">大模型工程化</span>
-        <span class="home-footer-focus-item">云原生交付</span>
-      </div>
       <blockquote class="home-footer-motto">
         <p>“先让问题变清晰，再让答案变简单。”</p>
       </blockquote>
