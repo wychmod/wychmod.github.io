@@ -383,7 +383,7 @@ body.is-home .cover .cover-title,
   flex: 0 0 auto;
   border-radius: 50%;            /* 参考图为圆形印章头像(规范 §6.3 允许圆形/方形二选一) */
   overflow: hidden;
-  background: var(--studio-ink-800);
+  background: var(--studio-ink-800) url('https://github.com/wychmod.png?size=160') center/cover no-repeat;
   border: 1px solid var(--studio-line-dark);
   box-shadow: 0 0 0 4px rgba(242,239,231,0.05);
 }
@@ -395,22 +395,7 @@ body.is-home .cover .cover-title,
   height: 64px;
   object-fit: cover;
 }
-.home-avatar-fallback {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  font-family: var(--studio-font-display);
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--studio-on-dark);
-  background: var(--studio-ink-800);
-}
+/* 当 <img> 加载失败时，隐藏它并露出背景中的 GitHub 头像 */
 .home-avatar img:not([src]),
 .home-avatar img[src=""],
 .home-avatar.is-failed img { visibility: hidden; }

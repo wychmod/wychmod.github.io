@@ -7,7 +7,6 @@
   <div class="home-author">
     <span class="home-avatar">
       <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="64" height="64" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('is-failed')">
-      <span class="home-avatar-fallback" aria-hidden="true">W</span>
     </span>
     <span class="home-author-text">
       <span class="home-author-line">
