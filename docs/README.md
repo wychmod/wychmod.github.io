@@ -17,7 +17,7 @@
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">AI 编程三件套方法论</h3>
-        <p class="home-recent-excerpt">更新 2026 实践建议，新增 AI 预期、多模型交替使用与开发环境纪律（NVM / Git）。</p>
+        <p class="home-recent-excerpt">更新 2026 实践建议，新增 AI 预期、多模型交替使用、开发环境纪律，以及 Claude Code / Codex 配置分层。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
