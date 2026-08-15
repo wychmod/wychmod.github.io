@@ -61,16 +61,16 @@
     <div class="home-marginalia">
       <div class="home-marginalia-list">
         <div class="home-marginalia-item">
-          <p class="home-marginalia-quote">客户端与服务端通信默认采用同步长连接，服务端为每个连接创建线程，断开后缓存到线程池供新连接复用。</p>
-          <p class="home-marginalia-source">摘自 <a href="#/md/02-后端开发/00-MySQL数据库">MySQL 数据库 · 架构与执行流程</a></p>
+          <p class="home-marginalia-quote">客户端与服务端通信默认采用同步长连接，支持 TCP/IP、Unix Socket 等方式。服务端每收到一个连接都会创建一个线程处理，断开后线程会被缓存到线程池供新连接复用，以降低频繁创建线程的开销。</p>
+          <p class="home-marginalia-source">摘自 <a href="#/md/02-后端开发/00-MySQL数据库">MySQL 数据库 · 架构与执行流程</a> · 2026-07-22</p>
         </div>
         <div class="home-marginalia-item">
-          <p class="home-marginalia-quote">容器崩溃后约 1 秒内启动新容器；访问量变大时横向扩展，由编排系统自动管理容器化应用。</p>
-          <p class="home-marginalia-source">摘自 <a href="#/md/03-云原生与运维/10-Kubernetes编排">Kubernetes 编排 · 核心能力</a></p>
+          <p class="home-marginalia-quote">容器化带来了便利，但也产生了编排问题：容器故障如何自动替补、访问量变大如何横向扩展等。Kubernetes 提供的核心能力包括自我修复、弹性伸缩、服务发现与负载均衡，让容器化应用更具韧性。</p>
+          <p class="home-marginalia-source">摘自 <a href="#/md/03-云原生与运维/10-Kubernetes编排">Kubernetes 编排 · 核心能力</a> · 2026-07-22</p>
         </div>
         <div class="home-marginalia-item">
-          <p class="home-marginalia-quote">通过通信来共享内存——以 goroutine + channel 实现 CSP 并发模型，是 Go 的默认范式。</p>
-          <p class="home-marginalia-source">摘自 <a href="#/md/01-计算机基础/40-Go语言">Go 语言 · 核心概述</a></p>
+          <p class="home-marginalia-quote">Go 原生支持轻量级 goroutine，配合 channel 实现高效并发。Goroutine 由 Go 运行时调度，Channel 是引用类型，分为无缓冲与带缓冲两种，用于在 goroutine 之间安全地传递数据，是 CSP 并发范式的核心载体。</p>
+          <p class="home-marginalia-source">摘自 <a href="#/md/01-计算机基础/40-Go语言">Go 语言 · 核心概述</a> · 2026-07-22</p>
         </div>
       </div>
     </div>
