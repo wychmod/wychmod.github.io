@@ -1,5 +1,5 @@
 <div class="home-binding">
-  <span class="home-binding-tag">卷一 / VOL.01</span>
+  <span class="home-binding-tag"><strong>卷一</strong><span>VOL.01</span></span>
   <span class="home-binding-title"><span class="home-binding-title-en">FIELD NOTES</span> / 近期写作与研究</span>
   <span class="home-binding-rule" aria-hidden="true"></span>
   <span class="home-binding-chapter"><span class="home-binding-chapter-num">01</span> CHAPTER</span>
@@ -9,6 +9,7 @@
   <div class="home-section-head">
     <span class="home-section-eyebrow">FIELD NOTES · 01</span>
     <h2 class="home-section-title">最近更新</h2>
+    <a class="home-section-more" href="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
     <a class="home-recent-row" href="#/md/02-后端开发/00-MySQL数据库">
@@ -18,9 +19,10 @@
         <p class="home-recent-excerpt">整合 7 份笔记，覆盖从使用、运行到优化的完整链；含 InnoDB 索引、MVCC、锁与 8.0+ 主从新语法。</p>
       </div>
       <div class="home-recent-meta">
-        <span class="home-recent-cat">后端开发</span>
+        <span class="home-recent-cat" style="--cat-color:var(--kg-1)">后端开发</span>
         <span class="home-recent-date">2026-07-22</span>
       </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
     <a class="home-recent-row" href="#/md/03-云原生与运维/10-Kubernetes编排">
       <span class="home-recent-num">02</span>
@@ -29,9 +31,10 @@
         <p class="home-recent-excerpt">源自 Google Borg 的容器编排系统，覆盖 Pod、控制器、Service、存储与安全全链，版本参考 1.33+。</p>
       </div>
       <div class="home-recent-meta">
-        <span class="home-recent-cat">云原生运维</span>
+        <span class="home-recent-cat" style="--cat-color:var(--kg-2)">云原生运维</span>
         <span class="home-recent-date">2026-07-22</span>
       </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
     <a class="home-recent-row" href="#/md/01-计算机基础/40-Go语言">
       <span class="home-recent-num">03</span>
@@ -40,9 +43,10 @@
         <p class="home-recent-excerpt">静态类型系统级语言，以 goroutine + channel 的 CSP 并发模型为核心；版本建议 1.23+。</p>
       </div>
       <div class="home-recent-meta">
-        <span class="home-recent-cat">计算机基础</span>
+        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
         <span class="home-recent-date">2026-07-22</span>
       </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
   </div>
 </section>
@@ -74,13 +78,13 @@
 
 <div class="home-note">
   <div class="home-note-label"><strong>作者手记</strong><span>/ LETTER FROM THE AUTHOR</span></div>
+  <span class="home-note-quote" aria-hidden="true">“</span>
   <p class="home-note-text">这里整理技术笔记、代码实验与持续订正记录。<br>内容会随着新的阅读与实践继续修订。</p>
   <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-07-22</span></p>
-  <div class="home-note-mark" aria-hidden="true">W</div>
 </div>
 
 <div class="home-binding">
-  <span class="home-binding-tag">卷二 / VOL.02</span>
+  <span class="home-binding-tag"><strong>卷二</strong><span>VOL.02</span></span>
   <span class="home-binding-title"><span class="home-binding-title-en">KNOWLEDGE INDEX</span> / 知识索引</span>
   <span class="home-binding-rule" aria-hidden="true"></span>
   <span class="home-binding-chapter"><span class="home-binding-chapter-num">02</span> CHAPTER</span>
