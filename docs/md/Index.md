@@ -18,7 +18,6 @@
   <!-- 页面标题 -->
   <header class="sm-header">
     <h1 class="sm-title">Knowledge Index / 全站地图</h1>
-    <p class="sm-lead">按 9 大知识领域编排主线文档，归档原始笔记只作为历史来源保留。</p>
   </header>
 
 <!-- 左栏：快速索引 -->
@@ -48,6 +47,10 @@
       </nav>
     </details>
     <div class="sm-aside-notes">
+      <div class="sm-aside-note">
+        <strong>主线如何编排</strong>
+        <p>按 9 大知识领域编排主线文档，归档原始笔记只作为历史来源保留。</p>
+      </div>
       <div class="sm-aside-note">
         <strong>作者如何组织知识</strong>
         <p>以工程实践为主线，按学习路径与工作中的真实任务分主题，尽量保持独立、可组合、可迁移。</p>

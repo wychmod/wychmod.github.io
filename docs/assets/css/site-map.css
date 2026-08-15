@@ -117,13 +117,6 @@ body[data-page="md/Index.md"] .markdown-section > .edit-page-link {
   border: none !important;
 }
 
-.sm-lead {
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--studio-text-muted);
-  margin: 0;
-}
-
 /* =========================================================
    §5. 三栏布局
    ========================================================= */
@@ -361,6 +354,13 @@ body.is-home .home-index--sitemap .sm-quick-nav-details > summary:hover {
   grid-row: 2 / 3;
   padding: 0 36px;
   min-width: 0;
+  /* 回收 docsify vue.css 的 main{width:100vw} 遗留规则: <main class="sm-main">
+     在首页嵌入版(body.is-home)同样命中, 中栏被撑成 100vw 脱离 700px 轨道,
+     导致三栏右偏、右栏被覆盖、整页横向溢出(article-reading 缺陷#3 的修复
+     仅覆盖 body.is-article, 此处按 grid 轨道在组件层治本, 两处使用点同益) */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 /* 移动端目录总控按钮 - 桌面隐藏 */
@@ -812,10 +812,6 @@ body.is-home .home-index--sitemap .sm-helper-title {
 
   .sm-title {
     font-size: 26px !important;
-  }
-
-  .sm-lead {
-    font-size: 14px;
   }
 
   .sm-header {
