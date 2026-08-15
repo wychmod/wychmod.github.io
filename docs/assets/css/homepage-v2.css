@@ -303,7 +303,7 @@ body.is-home .cover-main {
   max-width: var(--studio-content-max) !important;
   width: 100% !important;
   margin: 0 auto !important;
-  padding: 72px var(--studio-gutter) 34px !important;
+  padding: 72px var(--studio-gutter) 54px !important;
   text-align: left !important;
 }
 body.is-home .cover-main > .home-v2 {
@@ -1309,8 +1309,8 @@ body.is-home .notion-chips {
 
 /* 小桌面/平板横屏 1024–1279 */
 @media screen and (max-width: 1279px) {
-  /* 底 padding 45px: 为装订带 28px 上叠让出空间, 避免裁切研究方法五步标签(V1.5) */
-  body.is-home .cover-main { padding: 72px var(--studio-gutter) 45px !important; }
+  /* 底 padding 64px: 为装订带 28px 上叠让出空间并保留深色过渡带(V1.7) */
+  body.is-home .cover-main { padding: 72px var(--studio-gutter) 64px !important; }
   body.is-home .cover-main > .home-v2 { grid-template-columns: 5fr 7fr; gap: var(--studio-space-5); }
   body.is-home .cover h1, .home-hero h1 { font-size: 60px !important; }
   .home-hero-desc { font-size: 18px; }
@@ -1333,7 +1333,7 @@ body.is-home .notion-chips {
 
 /* 平板竖屏 768–1023: Hero 上下 + 9 域径向图谱改为文本索引(规范 §8.3/§8.4) */
 @media screen and (max-width: 1023px) {
-  body.is-home .cover-main { padding: 72px var(--studio-gutter) 48px !important; }
+  body.is-home .cover-main { padding: 72px var(--studio-gutter) 64px !important; }
   body.is-home .cover-main > .home-v2 { grid-template-columns: 1fr; }
   body.is-home .cover h1, .home-hero h1 { font-size: 44px !important; }
   .home-hero { justify-content: flex-start; }
@@ -1797,7 +1797,7 @@ body.is-home .home-footer-mark {
     box-shadow: none !important;
   }
 
-  body.is-home .cover-main { padding: 68px 16px 40px !important; }
+  body.is-home .cover-main { padding: 68px 16px 56px !important; }
   body.is-home .cover h1,
   body.is-home .cover .cover-title,
   .home-hero h1 {
