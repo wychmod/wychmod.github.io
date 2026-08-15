@@ -23,7 +23,7 @@
   </form>
   <div class="home-cta-row">
     <a class="home-cta home-cta--primary" href="#/README" data-scroll-to="#knowledge-index">进入知识库 <span class="home-cta-arrow" aria-hidden="true">-></span></a>
-    <a class="home-cta home-cta--ghost" href="#/README" data-scroll-to="#recently-updated">查看最新笔记 <span class="home-cta-arrow" aria-hidden="true">-></span></a>
+    <a class="home-cta home-cta--ghost" href="#/README" data-scroll-to="#field-notes">查看最新笔记 <span class="home-cta-arrow" aria-hidden="true">-></span></a>
   </div>
   <div class="home-method" aria-label="研究方法">
     <span class="home-method-step"><span class="home-method-num">01</span><span class="home-method-text">提出问题</span></span>

@@ -1,4 +1,5 @@
-<div class="home-binding">
+<div class="home-binding" id="field-notes">
+  <button type="button" class="home-scroll-cue" data-scroll-to="#field-notes" aria-label="向下滚动到近期写作与研究"></button>
   <span class="home-binding-tag"><strong>卷一</strong><span>VOL.01</span></span>
   <span class="home-binding-title"><span class="home-binding-title-en">FIELD NOTES</span> / 近期写作与研究</span>
   <span class="home-binding-rule" aria-hidden="true"></span>

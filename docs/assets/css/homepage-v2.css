@@ -880,7 +880,10 @@ body.is-home .markdown-section > * { position: relative; z-index: 1; }
   margin: 0 auto !important;
   max-width: var(--studio-content-max);
   min-height: 64px;
-  padding: var(--studio-space-3) var(--studio-gutter);
+  /* V1.8: 上下留白 12->24px, 标题与上下边框拉开距离 */
+  padding: var(--studio-space-5) var(--studio-gutter);
+  /* V1.8: CTA/半圆滚动落点避开 60px 固定导航 */
+  scroll-margin-top: calc(60px + var(--studio-space-3));
   display: flex;
   align-items: center;
   gap: var(--studio-space-4);
@@ -888,6 +891,13 @@ body.is-home .markdown-section > * { position: relative; z-index: 1; }
   border-bottom: 1px solid var(--studio-line-paper);
   background: var(--studio-paper-100);
 }
+/* V1.8: 恢复带面 z-index:2 的原始意图 — body.is-home .markdown-section > * 的 z-index:1
+   特异性更高, 会覆盖 .home-binding 的 z2 */
+body.is-home .markdown-section > .home-binding { z-index: 2; }
+/* V1.8: 纸白栏整体抬高一层 — vue.css 的 main{position:relative;z-index:0} 形成 0 层级叠上下文,
+   而封面 .cover-main 是遗留 z1!important(正值层), DOM 中封面虽先于 main, 仍整层盖在纸白栏之上,
+   在带面上探区(28px)拦截半圆提示点击; 封面底部为透明 padding, 抬高后视觉不变 */
+body.is-home main { z-index: 1; }
 /* 首条装订带向上覆盖深色封面 28px(规范 §6.9: 24-32px; 仅平板及以上, 移动端不重叠) */
 @media screen and (min-width: 768px) {
   body.is-home .markdown-section > .home-binding:first-child {
@@ -899,21 +909,26 @@ body.is-home .markdown-section > * { position: relative; z-index: 1; }
     padding-right: max(var(--studio-gutter), calc((100vw - var(--studio-content-max)) / 2 + var(--studio-gutter)));
   }
 }
-/* 深色小标签(规范 §6.9 / 参考图): 深石墨方块, 卷名两行, 上下探出带面 */
+/* 深色小标签(规范 §6.9 / 参考图): 深石墨方块从带面顶缘垂下, 卷名两行居中, 底部圆角(V1.8),
+   黑块加宽(V1.9), 底部中央下垂尖角形状(V1.10, 取代 V1.9 的箭头图标) */
 .home-binding-tag {
   position: relative;
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   gap: 3px;
-  margin: -14px 0;
-  padding: 10px 14px;
+  align-self: flex-start;
+  /* 穿过上 padding(24px)+边框(1px)后再上探 10px, 形成从顶部垂下的悬挂标签 */
+  margin: calc(-1 * var(--studio-space-5) - 11px) 0 0;
+  padding: 22px 28px 20px;  /* V1.11: 黑块加高加宽; V1.12/V1.13: 再加高(仅 padding, 字号不变) */
   color: var(--studio-paper-50);
   background: var(--studio-ink-950);
-  border-radius: var(--studio-radius-sm) var(--studio-radius-sm) 0 0;
+  border-radius: 0 0 var(--studio-radius-md) var(--studio-radius-md);
   flex: 0 0 auto;
 }
-/* 书签飘带尖角(对齐权威参考图): 盒底中央下垂三角, 纯装饰 */
+/* 底部中央下垂尖角(V1.10): "向下的"是形状而非箭头图标, 纯装饰无布局位移 */
 .home-binding-tag::after {
   content: "";
   position: absolute;
@@ -925,9 +940,9 @@ body.is-home .markdown-section > * { position: relative; z-index: 1; }
   border-top: 8px solid var(--studio-ink-950);
 }
 .home-binding-tag strong {
-  font-family: var(--studio-font-display);
-  font-size: 15px;
-  font-weight: 600;
+  font-family: var(--studio-font-body);
+  font-size: 16px;  /* V1.11: 15->16 */
+  font-weight: 700;
   line-height: 1.1;
   color: var(--studio-paper-50);
 }
@@ -937,7 +952,7 @@ body.is-home .markdown-section .home-binding-tag strong {
 }
 .home-binding-tag span {
   font-family: var(--studio-font-mono);
-  font-size: 10px;
+  font-size: 11px;  /* V1.11: 10->11 */
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--studio-on-dark-muted);
@@ -946,7 +961,7 @@ body.is-home .markdown-section .home-binding-tag strong {
 .home-binding-title {
   font-family: var(--studio-font-display);
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 700;  /* V1.13: 600->700 加粗 */
   color: var(--studio-text);
   white-space: nowrap;
   text-align: left;
@@ -968,7 +983,7 @@ body.is-home .markdown-section .home-binding-tag strong {
   gap: var(--studio-space-2);
   font-family: var(--studio-font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;  /* V1.13: 600->700 加粗 */
   color: var(--studio-text-muted);
   letter-spacing: 0.12em;
   flex: 0 0 auto;
@@ -980,6 +995,29 @@ body.is-home .markdown-section .home-binding-tag strong {
   font-weight: 700;
   line-height: 1;
   color: var(--studio-text);
+}
+
+/* 接缝下滑提示(V1.8): 黑色半圆垂在首条装订带顶缘中央, 点击平滑滚动到 #field-notes.
+   属交互控件, 非 §7.3 禁止的圆弧分割; 平边贴接缝, 圆顶垂入带面.
+   V1.10: 弧度改扁(半椭圆弧, 72x22), 不压标题(22px <= 上 padding 24px) */
+.home-scroll-cue {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background: var(--studio-ink-950);
+  cursor: pointer;
+  z-index: 3;
+  /* V1.9: 应作者要求, 点击/hover 不做下移动画 */
+}
+.home-scroll-cue:focus-visible {
+  outline: 2px solid var(--studio-focus);
+  outline-offset: 2px;
 }
 
 /* 最近更新(规范 §6.10) */
@@ -1814,7 +1852,9 @@ body.is-home .home-footer-mark {
 
   .home-terminal { max-width: none; font-size: 12px; }
   .home-binding { flex-wrap: wrap; gap: var(--studio-space-2) var(--studio-space-3); margin-top: 0 !important; }
-  .home-binding-tag { margin: -8px 0; padding: 8px 11px; }
+  /* 移动端标题独占一行(order:-1), 卷标不可悬挂, 恢复行内样式, 仅保留底部圆角 */
+  .home-binding-tag { align-self: center; margin: -8px 0; padding: 14px 20px 14px; }
+  .home-scroll-cue { display: none; }  /* 移动端自然滚动, 隐藏下滑提示 */
   .home-binding-title {
     width: 100%;
     order: -1;
