@@ -10,7 +10,7 @@
   <div class="home-section-head">
     <span class="home-section-eyebrow">FIELD NOTES · 01</span>
     <h2 class="home-section-title">最近更新</h2>
-    <a class="home-section-more" href="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
+    <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
     <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论">
@@ -85,14 +85,14 @@
   <span class="home-note-mark" aria-hidden="true">W</span>
 </div>
 
-<div class="home-binding">
+<div class="home-binding" id="knowledge-index">
   <span class="home-binding-tag"><strong>卷二</strong><span>VOL.02</span></span>
   <span class="home-binding-title"><span class="home-binding-title-en">KNOWLEDGE INDEX</span> / 知识索引</span>
   <span class="home-binding-rule" aria-hidden="true"></span>
   <span class="home-binding-chapter"><span class="home-binding-chapter-num">02</span> CHAPTER</span>
 </div>
 
-<div class="home-index home-index--sitemap" id="knowledge-index">
+<div class="home-index home-index--sitemap">
   <div class="sm-page">
     <!-- 系统路径条 -->
     <div class="sm-pathbar" role="navigation" aria-label="系统路径">

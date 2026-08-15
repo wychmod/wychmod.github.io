@@ -931,9 +931,21 @@ body.is-home .home-index--sitemap .sm-header {
   margin: 0;
 }
 
-/* 首页容器内三栏居中 */
+/* 首页容器内三栏与卷二装订带同轴: 宽度对齐 content-max, 左栏贴齐装订带左侧,
+   右栏贴齐装订带右侧(02 CHAPTER), 中栏自适应填充, 避免 1440 居中盒造成的拥挤感 */
 body.is-home .home-index--sitemap .sm-layout {
-  justify-content: center;
+  max-width: var(--studio-content-max);
+  margin: 0 auto;
+  justify-content: start;
+  grid-template-columns: 260px 1fr 220px;
+}
+
+body.is-home .home-index--sitemap .sm-aside-left {
+  padding-right: 0;
+}
+
+body.is-home .home-index--sitemap .sm-aside-left-inner {
+  padding-left: 0;
 }
 
 /* 小桌面/平板：保持双栏，右栏隐藏 */
