@@ -82,6 +82,7 @@
   <span class="home-note-quote" aria-hidden="true">“</span>
   <p class="home-note-text">这里整理技术笔记、代码实验与持续订正记录。<br>内容会随着新的阅读与实践继续修订。</p>
   <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-07-22</span></p>
+  <span class="home-note-mark" aria-hidden="true">W</span>
 </div>
 
 <div class="home-binding">

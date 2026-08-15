@@ -1025,7 +1025,7 @@ body.is-home .markdown-section .home-binding-tag strong {
   width: 100%;  /* V1.5: 对抗 flex 列内 auto 边距收缩 */
   max-width: var(--studio-content-max);
   margin: 0 auto;
-  padding: 12px var(--studio-gutter) 14px;
+  padding: var(--studio-space-6) var(--studio-gutter);
 }
 .home-section-head {
   display: flex;
@@ -1080,8 +1080,8 @@ body.is-home .markdown-section .home-section-title {
   grid-template-columns: 44px minmax(0, 1fr) auto 24px;
   align-items: center;
   gap: var(--studio-space-4);
-  min-height: 64px;
-  padding: 10px 0;
+  min-height: 88px;
+  padding: 22px 0;
   border-bottom: 1px solid var(--studio-line-paper);
   text-decoration: none !important;
   color: var(--studio-text) !important;
@@ -1170,10 +1170,10 @@ body.is-home .markdown-section .home-recent-excerpt {
   border: 0;
   background: transparent;
 }
-.home-marginalia-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--studio-space-4); }
+.home-marginalia-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--studio-space-5); }
 .home-marginalia-item {
-  min-height: 124px;
-  padding: var(--studio-space-3);
+  min-height: 180px;
+  padding: var(--studio-space-5);
   border: 1px solid var(--studio-line-paper);
   border-top: 2px solid var(--studio-gold);
   background: rgba(233,229,220,0.45);
@@ -1202,18 +1202,20 @@ body.is-home .markdown-section .home-marginalia-source a {
 .home-note {
   position: relative;
   display: grid;
-  grid-template-columns: 172px 40px minmax(0, 1fr) auto;
+  grid-template-columns: 172px 40px minmax(0, 1fr) auto 100px;
   align-items: center;
   gap: var(--studio-space-5);
   width: 100%;  /* V1.5: 对抗 flex 列内 auto 边距收缩 */
   /* 与兄弟 section 的内容缘对齐: 视口未达上限时按 100vw 收缩(V1.4) */
   max-width: min(calc(100vw - (2 * var(--studio-gutter))), calc(var(--studio-content-max) - (2 * var(--studio-gutter))));
-  min-height: 96px;
-  margin: 0 auto;
-  padding: 0;
+  min-height: calc(100vh - 80px);
+  margin: 0 auto var(--studio-space-8);
+  padding: var(--studio-space-7) 0;
   text-align: left;
-  border-top: 1px solid var(--studio-line-paper);
-  border-bottom: 1px solid var(--studio-line-paper);
+  border-top: 1px solid var(--studio-line-dark);
+  border-bottom: 1px solid var(--studio-line-dark);
+  background: var(--studio-ink-950);
+  color: var(--studio-on-dark);
 }
 .home-note-label {
   align-self: stretch;
@@ -1241,10 +1243,10 @@ body.is-home .markdown-section .home-note-label strong { color: var(--studio-on-
 }
 body.is-home .markdown-section .home-note-text {
   font-family: var(--studio-font-display);
-  font-size: 16px !important;
+  font-size: 18px !important;
   font-weight: 600 !important;
-  color: var(--studio-text) !important;
-  line-height: 1.6 !important;
+  color: var(--studio-on-dark) !important;
+  line-height: 1.7 !important;
   margin: 0 !important;
 }
 body.is-home .markdown-section .home-note-sig {
@@ -1254,10 +1256,25 @@ body.is-home .markdown-section .home-note-sig {
   margin: 0 !important;
   font-family: var(--studio-font-mono);
   font-size: 12px !important;
-  color: var(--studio-text-muted) !important;
+  color: var(--studio-on-dark-muted) !important;
 }
-.home-note-sig strong { color: var(--studio-text); }
+.home-note-sig strong { color: var(--studio-on-dark); }
 .home-note-sig span { white-space: nowrap; }
+/* 参考图: 右侧 W 圆形印章(纯装饰) */
+.home-note-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px solid var(--studio-line-dark);
+  font-family: var(--studio-font-display);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--studio-on-dark);
+  background: rgba(242, 239, 231, 0.06);
+}
 
 /* 知识索引(规范 §6.13) */
 .home-index {
@@ -1877,14 +1894,16 @@ body.is-home .home-footer-mark {
     grid-template-columns: 1fr;
     gap: var(--studio-space-3);
     max-width: none;  /* 移动端由 margin 决定宽度, 不受桌面 min() 公式约束 */
-    margin: 0 16px;
-    padding: var(--studio-space-4) 0;
+    min-height: auto;
+    margin: 0 16px var(--studio-space-6);
+    padding: var(--studio-space-5) var(--studio-space-4);
   }
   .home-note-label { grid-column: 1 / -1; min-height: 64px; padding: var(--studio-space-3); }
   .home-note-quote { display: none; }
   .home-note-text { grid-column: 1 / -1; }
   .home-note-sig { grid-column: 1; }
   .home-note-text { font-size: 16px; }
+  .home-note-mark { display: none; }
 
   body.is-home .home-footer-boundary { padding: 24px 16px 0; }
   body.is-home .home-footer-main {
