@@ -178,16 +178,23 @@ body.is-article .sidebar .search .search-keyword {
   font-weight: 500 !important;
 }
 
-/* 目录分组标题: 编目感 (emoji + 粗体名来自 _sidebar.md) */
+/* 目录三级层次 (规范 §3.1): 一级大标题(计算机基础) > 二级小标题(编程语言) > 文章链接(Java 与 JVM)
+   嵌套 ul 一律零缩进, 层级完全由 padding-left 显式控制 (10 → 22 → 34px), 保证三级严格对齐 */
 body.is-article .sidebar-nav {
   line-height: 1.5 !important;
 }
 body.is-article .sidebar-nav img.emoji {
   display: none !important;  /* 隐藏 octicon/emoji 噪声, 编号由 _sidebar.md 文本承担 */
 }
+body.is-article .sidebar-nav ul,
+body.is-article .sidebar-nav li {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 body.is-article .sidebar-nav > ul > li {
   margin: 10px 0 16px !important;
 }
+/* 一级大标题 (如 "计算机基础") 与顶部入口 (首页/全站地图…): 字大加重 */
 body.is-article .sidebar-nav > ul > li > p,
 body.is-article .sidebar-nav > ul > li > a {
   display: flex !important;
@@ -197,20 +204,21 @@ body.is-article .sidebar-nav > ul > li > a {
   padding: 4px 10px !important;
   color: var(--studio-text) !important;
   font-family: var(--studio-font-body) !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
   letter-spacing: 0.02em !important;
   border-radius: var(--studio-radius-sm) !important;
   background: transparent !important;
   border: 0 !important;
 }
-/* 二级分组 (如 "编程语言") */
-body.is-article .sidebar-nav > ul > li > ul > li > p,
-body.is-article .sidebar-nav > ul > li > ul > li > a {
+/* 二级小标题 (如 "编程语言"): 缩进 12px, 小号弱化, 与一级/三级形成阶梯 */
+body.is-article .sidebar-nav > ul > li > ul > li > p {
+  margin: 8px 0 2px !important;
+  padding: 2px 10px 2px 22px !important;
   color: var(--studio-text-muted) !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.04em !important;
+  letter-spacing: 0.06em !important;
   text-transform: none !important;
 }
 
@@ -235,7 +243,31 @@ body.is-article .sidebar-nav a:hover {
   transform: none !important;
 }
 
-/* 当前文档: 旧金书签强调 (规范 §3.1 / §5.2) */
+/* 二级文章链接 (直接挂在一级分类下的文章, 如 过时技术>爬虫技术):
+   文章样式 (非小标题), 与二级小标题同列 22px */
+body.is-article .sidebar-nav > ul > li > ul > li > a {
+  padding-left: 22px !important;
+  color: var(--studio-text-muted) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+/* 三级文章链接 (如 "Java 与 JVM"): 最深一档 34px */
+body.is-article .sidebar-nav > ul > li > ul > li > ul > li > a {
+  padding-left: 34px !important;
+}
+/* 四级: subMaxLevel 在当前文章下注入的页内目录 (.app-sub-sidebar), 再进一档;
+   去掉 Docsify 默认 "-" 前缀, 层级只靠缩进表达 */
+body.is-article .sidebar-nav .app-sub-sidebar li::before {
+  content: none !important;
+}
+body.is-article .sidebar-nav .app-sub-sidebar a {
+  padding-left: 46px !important;
+  font-size: 12px !important;
+}
+
+/* 当前文档: 旧金书签强调 (规范 §3.1 / §5.2);
+   border-left 占 2px, padding-left 各档减 2px, 保证当前项文字与其余项严格对齐 */
 body.is-article .sidebar-nav .active,
 body.is-article .sidebar-nav li.active > a {
   color: var(--studio-text) !important;
@@ -245,6 +277,12 @@ body.is-article .sidebar-nav li.active > a {
 }
 body.is-article .sidebar-nav li.active > a {
   padding-left: 16px !important;
+}
+body.is-article .sidebar-nav > ul > li > ul > li.active > a {
+  padding-left: 20px !important;
+}
+body.is-article .sidebar-nav > ul > li > ul > li > ul > li.active > a {
+  padding-left: 32px !important;
 }
 
 /* =========================================================
@@ -1334,8 +1372,19 @@ body.is-article .sidebar .search .empty::after {
   body.is-article .sidebar-nav > ul > li > ul > li > a {
     padding-left: 32px !important;
   }
-  body.is-article .sidebar-nav > ul > li > ul > li > ul a {
+  body.is-article .sidebar-nav > ul > li > ul > li > ul > li > a {
     padding-left: 44px !important;
+  }
+  /* 页内目录 (subMaxLevel 注入): 移动端触达最大缩进 48px (规范 §6.4) */
+  body.is-article .sidebar-nav .app-sub-sidebar a {
+    padding-left: 48px !important;
+  }
+  /* 移动端当前项: 与桌面同理补偿 border-left 2px, 保持阶梯对齐 */
+  body.is-article .sidebar-nav > ul > li > ul > li.active > a {
+    padding-left: 30px !important;
+  }
+  body.is-article .sidebar-nav > ul > li > ul > li > ul > li.active > a {
+    padding-left: 42px !important;
   }
 
   /* 当前项滚入可见留白 (依赖 §18 JS hook) */
@@ -1929,19 +1978,69 @@ body.is-article .markdown-section video {
   max-width: 100% !important;
 }
 
-/* --- 缺陷 #4: 桌面端 sidebar-toggle ---
-   桌面(>=1025px) 知识目录为固定左栏, 无需 toggle; 抽屉入口仅属 <=1024px
-   的 P008 移动抽屉 (§17)。现代主题已将其收成 0x0, 此处显式 display:none
-   并清零盒模型, 确保不残留任何空白块; 不引入第二套抽屉 */
+/* --- 桌面端侧栏收回 (>=1025px) ---
+   复用 Docsify 原生 .sidebar-toggle 点击 → body.close 切换;
+   移动端 (<=1024px) 由 P008 抽屉 JS 接管同一按钮, 桌面端 JS 不介入, 语义不冲突。
+   形态: 吸附在侧栏右缘的窄条拉手 (‹ 收回 / › 展开), 收回时侧栏整体移出屏外、正文占满。
+   (取代原"缺陷 #4 桌面隐藏 toggle"决策 — 需求变更为桌面可收回) */
 @media screen and (min-width: 1025px) {
+  body.is-article .sidebar,
+  body.is-article .content {
+    transition: transform var(--studio-dur-base) var(--studio-ease),
+                left var(--studio-dur-base) var(--studio-ease) !important;
+  }
   body.is-article .sidebar-toggle {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
+    display: flex !important;
+    position: fixed !important;
+    top: 50% !important;
+    bottom: auto !important;
+    left: calc(var(--shell-gutter) + 280px - 1px) !important;  /* 吸附侧栏右缘 */
+    width: 20px !important;
+    height: 56px !important;
     margin: 0 !important;
     padding: 0 !important;
-    border: 0 !important;
-    background: transparent !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: translateY(-50%) !important;
+    border: 1px solid var(--studio-line-paper) !important;
+    border-left: 0 !important;
+    border-radius: 0 var(--studio-radius-sm) var(--studio-radius-sm) 0 !important;
+    background: var(--studio-paper-50) !important;
+    box-shadow: 2px 0 6px rgba(32, 33, 29, 0.06) !important;
+    cursor: pointer !important;
+    z-index: 45 !important;
+    transition: left var(--studio-dur-base) var(--studio-ease),
+                background var(--studio-dur-fast) var(--studio-ease) !important;
+  }
+  body.is-article .sidebar-toggle:hover {
+    background: rgba(200, 169, 107, 0.18) !important;  /* 旧金淡底, 与当前项强调同族 */
+  }
+  /* 隐藏汉堡线, 改用 chevron 指示方向 */
+  body.is-article .sidebar-toggle span {
+    display: none !important;
+  }
+  body.is-article .sidebar-toggle::before {
+    content: "‹";
+    font-size: 16px;
+    line-height: 1;
+    color: var(--studio-text-muted);
+  }
+  body.is-article .sidebar-toggle:hover::before {
+    color: var(--studio-text);
+  }
+  /* 收回态: 拉手贴屏幕左缘, chevron 反向 */
+  body.is-article.close .sidebar-toggle {
+    left: 0 !important;
+  }
+  body.is-article.close .sidebar-toggle::before {
+    content: "›";
+  }
+  /* 收回态: 侧栏整体移出屏外 (含宽屏 shell gutter), 正文占满左空间 */
+  body.is-article.close .sidebar {
+    transform: translateX(calc(-100% - var(--shell-gutter))) !important;
+  }
+  body.is-article.close .content {
+    left: 0 !important;
   }
 }
 

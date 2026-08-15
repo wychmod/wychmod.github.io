@@ -1535,7 +1535,15 @@
       sb.id = 'sidebar';
     }
     t.setAttribute('aria-controls', 'sidebar');
-    syncToggleAria(drawerOpen());
+    if (isMobile()) {
+      syncToggleAria(drawerOpen());
+    } else {
+      /* 桌面端: body.close = 侧栏已收回 (由 Docsify 原生 click 切换, 见下方桌面监听) */
+      var collapsed = document.body.classList.contains('close');
+      t.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      t.setAttribute('aria-label', collapsed ? '展开知识目录' : '收起知识目录');
+      t.setAttribute('title', collapsed ? '展开知识目录' : '收起知识目录');
+    }
   }
 
   /* 路由变化后: 移动端默认关闭抽屉, 滚动当前项入视 (规范 §7.4) */
@@ -1592,6 +1600,19 @@
     var a = e.target && e.target.closest && e.target.closest('.sidebar a');
     if (!a) return;
     setTimeout(closeDrawer, 160);
+  }, false);
+
+  /* 桌面端 (>=1025px) 侧栏收回: 不拦截点击, 让 Docsify 原生处理器切换 body.close,
+     这里仅在切换后同步 aria/title (capture=false, 排在原生处理器之后) */
+  document.addEventListener('click', function(e) {
+    var toggle = e.target && e.target.closest && e.target.closest('.sidebar-toggle');
+    if (!toggle || !isArticle() || isMobile()) return;
+    setTimeout(function() {
+      var collapsed = document.body.classList.contains('close');
+      toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      toggle.setAttribute('aria-label', collapsed ? '展开知识目录' : '收起知识目录');
+      toggle.setAttribute('title', collapsed ? '展开知识目录' : '收起知识目录');
+    }, 0);
   }, false);
 
   /* 键盘: Esc 关闭抽屉 (终端打开时 Esc 归终端; 规范 §7.1/§7.3) */
