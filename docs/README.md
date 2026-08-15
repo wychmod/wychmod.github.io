@@ -13,8 +13,20 @@
     <a class="home-section-more" href="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/02-后端开发/00-MySQL数据库">
+    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论">
       <span class="home-recent-num">01</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">AI 编程三件套方法论</h3>
+        <p class="home-recent-excerpt">更新 2026 实践建议，新增 AI 预期、多模型交替使用与开发环境纪律（NVM / Git）。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
+        <span class="home-recent-date">2026-08-15</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/02-后端开发/00-MySQL数据库">
+      <span class="home-recent-num">02</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">MySQL 数据库</h3>
         <p class="home-recent-excerpt">整合 7 份笔记，覆盖从使用、运行到优化的完整链；含 InnoDB 索引、MVCC、锁与 8.0+ 主从新语法。</p>
@@ -26,25 +38,13 @@
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
     <a class="home-recent-row" href="#/md/03-云原生与运维/10-Kubernetes编排">
-      <span class="home-recent-num">02</span>
+      <span class="home-recent-num">03</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">Kubernetes 编排</h3>
         <p class="home-recent-excerpt">源自 Google Borg 的容器编排系统，覆盖 Pod、控制器、Service、存储与安全全链，版本参考 1.33+。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-2)">云原生运维</span>
-        <span class="home-recent-date">2026-07-22</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/01-计算机基础/40-Go语言">
-      <span class="home-recent-num">03</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">Go 语言</h3>
-        <p class="home-recent-excerpt">静态类型系统级语言，以 goroutine + channel 的 CSP 并发模型为核心；版本建议 1.23+。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
         <span class="home-recent-date">2026-07-22</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
@@ -61,16 +61,16 @@
     <div class="home-marginalia">
       <div class="home-marginalia-list">
         <div class="home-marginalia-item">
+          <p class="home-marginalia-quote">AI 时代程序员的核心竞争力不再是手速，而是判断力与驾驭 AI 的能力。把 CLI 当作主动探索的执行者，自己保留决策权与验收权；同时用 NVM 与 Git 等基础纪律，为概率性协作守住安全边界。</p>
+          <p class="home-marginalia-source">摘自 <a href="#/md/05-AI与Agent/00-AI编程三件套方法论">AI 编程三件套方法论 · 2026 实践建议与环境纪律</a> · 2026-08-15</p>
+        </div>
+        <div class="home-marginalia-item">
           <p class="home-marginalia-quote">客户端与服务端通信默认采用同步长连接，支持 TCP/IP、Unix Socket 等方式。服务端每收到一个连接都会创建一个线程处理，断开后线程会被缓存到线程池供新连接复用，以降低频繁创建线程的开销。</p>
           <p class="home-marginalia-source">摘自 <a href="#/md/02-后端开发/00-MySQL数据库">MySQL 数据库 · 架构与执行流程</a> · 2026-07-22</p>
         </div>
         <div class="home-marginalia-item">
           <p class="home-marginalia-quote">容器化带来了便利，但也产生了编排问题：容器故障如何自动替补、访问量变大如何横向扩展等。Kubernetes 提供的核心能力包括自我修复、弹性伸缩、服务发现与负载均衡，让容器化应用更具韧性。</p>
           <p class="home-marginalia-source">摘自 <a href="#/md/03-云原生与运维/10-Kubernetes编排">Kubernetes 编排 · 核心能力</a> · 2026-07-22</p>
-        </div>
-        <div class="home-marginalia-item">
-          <p class="home-marginalia-quote">Go 原生支持轻量级 goroutine，配合 channel 实现高效并发。Goroutine 由 Go 运行时调度，Channel 是引用类型，分为无缓冲与带缓冲两种，用于在 goroutine 之间安全地传递数据，是 CSP 并发范式的核心载体。</p>
-          <p class="home-marginalia-source">摘自 <a href="#/md/01-计算机基础/40-Go语言">Go 语言 · 核心概述</a> · 2026-07-22</p>
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@
   <div class="home-note-label"><strong>作者手记</strong><span>/ LETTER FROM THE AUTHOR</span></div>
   <span class="home-note-quote" aria-hidden="true">“</span>
   <p class="home-note-text">这里整理技术笔记、代码实验与持续订正记录。<br>内容会随着新的阅读与实践继续修订。</p>
-  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-07-22</span></p>
+  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-08-15</span></p>
   <span class="home-note-mark" aria-hidden="true">W</span>
 </div>
 
