@@ -379,7 +379,7 @@
 <section class="home-footer" id="home-footer">
   <div class="home-footer-boundary" aria-hidden="true">
     <span class="home-footer-boundary-rule"></span>
-    <span class="home-footer-boundary-label">END / 卷一终</span>
+    <span class="home-footer-boundary-label">END / 本卷终</span>
     <span class="home-footer-boundary-rule"></span>
   </div>
   <div class="home-footer-main">
@@ -452,6 +452,26 @@
           <span class="home-footer-link-text">在线工具箱</span>
           <span class="home-footer-link-arrow" aria-hidden="true">→</span>
         </a>
+        <a class="home-footer-link" href="#/README-Terminal">
+          <span class="home-footer-link-icon"><i data-lucide="terminal" aria-hidden="true"></i></span>
+          <span class="home-footer-link-text">终端使用指南</span>
+          <span class="home-footer-link-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="home-footer-link" href="#/AI-ASSISTANT-GUIDE">
+          <span class="home-footer-link-icon"><i data-lucide="bot" aria-hidden="true"></i></span>
+          <span class="home-footer-link-text">AI 助手使用指南</span>
+          <span class="home-footer-link-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="home-footer-link" href="#/AI-TROUBLESHOOTING">
+          <span class="home-footer-link-icon"><i data-lucide="bug" aria-hidden="true"></i></span>
+          <span class="home-footer-link-text">AI 故障排查</span>
+          <span class="home-footer-link-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="home-footer-link" href="#/AI-UPDATE-SUMMARY">
+          <span class="home-footer-link-icon"><i data-lucide="history" aria-hidden="true"></i></span>
+          <span class="home-footer-link-text">AI 更新摘要</span>
+          <span class="home-footer-link-arrow" aria-hidden="true">→</span>
+        </a>
       </nav>
     </div>
     <div class="home-footer-col">
@@ -469,11 +489,20 @@
           <span class="home-footer-btn-arrow" aria-hidden="true">→</span>
         </a>
       </div>
-      <button class="home-footer-terminal" type="button" data-open-terminal aria-label="打开命令行终端">
-        <i data-lucide="terminal" aria-hidden="true"></i>
-        <span>打开终端</span>
-        <kbd class="home-footer-terminal-kbd">Ctrl K</kbd>
-      </button>
+      <div class="home-footer-contact" aria-label="联系方式明细">
+        <a class="home-footer-contact-item" href="mailto:wychmod@foxmail.com">
+          <span class="home-footer-contact-icon"><i data-lucide="mail" aria-hidden="true"></i></span>
+          <span class="home-footer-contact-text">wychmod@foxmail.com</span>
+        </a>
+        <span class="home-footer-contact-item">
+          <span class="home-footer-contact-icon"><i data-lucide="message-circle" aria-hidden="true"></i></span>
+          <span class="home-footer-contact-text">微信 · tots-and</span>
+        </span>
+        <span class="home-footer-contact-item">
+          <span class="home-footer-contact-icon"><i data-lucide="messages-square" aria-hidden="true"></i></span>
+          <span class="home-footer-contact-text">QQ · 545480453</span>
+        </span>
+      </div>
     </div>
   </div>
   <div class="home-footer-bottom">

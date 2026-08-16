@@ -1454,17 +1454,26 @@ body.is-home .home-footer-boundary-label {
   color: var(--studio-gold);
 }
 
-/* 主体三栏：品牌 / 维护 / 联系 */
+/* 主体三栏：品牌 / 维护 / 联系。
+   参考知识索引(§17 首页嵌入版)的三栏节奏: content-max 满宽 + 大栏距 + 不对称栏宽,
+   品牌栏承载最多内容加宽, 联系栏仅按钮/终端略收窄, 栏距加大避免左中右拥挤。 */
 body.is-home .home-footer-main {
   position: relative;
   z-index: 1;
   flex: 1 0 auto;
   display: grid;
-  grid-template-columns: 1.1fr 1fr 1fr;
-  gap: var(--studio-space-7);
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.05fr) minmax(0, 0.95fr);
+  column-gap: 72px;
+  row-gap: var(--studio-space-6);
+  align-items: start;
   max-width: var(--studio-content-max);
   margin: 0 auto;
-  padding: 56px var(--studio-gutter) 64px;
+  padding: 72px var(--studio-gutter) 80px;
+}
+
+/* 品牌栏靠右留白, 与维护栏拉开距离(对齐知识索引左栏 padding-right 的呼吸节奏) */
+body.is-home .home-footer-brand {
+  padding-right: 32px;
 }
 
 /* 品牌栏 */
@@ -1537,11 +1546,11 @@ body.is-home .home-footer-brand-copy span {
   color: var(--studio-on-dark) !important;
 }
 body.is-home .home-footer-brand-desc {
-  max-width: 320px;
+  max-width: 460px;
   margin: 0 !important;
   font-family: var(--studio-font-display);
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 16px;
+  line-height: 1.8;
   color: var(--studio-on-dark) !important;
 }
 
@@ -1549,19 +1558,19 @@ body.is-home .home-footer-brand-desc {
 body.is-home .home-footer-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  max-width: 320px;
+  gap: 10px;
+  max-width: 460px;
 }
 body.is-home .home-footer-tag {
   display: inline-flex;
   align-items: center;
-  height: 28px;
-  padding: 0 10px;
+  height: 34px;
+  padding: 0 16px;
   border-radius: var(--studio-radius-sm);
   border: 1px solid var(--studio-line-dark);
   background: rgba(242, 239, 231, 0.05);
   font-family: var(--studio-font-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--studio-on-dark);
   letter-spacing: 0.02em;
@@ -1570,9 +1579,9 @@ body.is-home .home-footer-tag {
 /* 座右铭 */
 body.is-home .home-footer-motto {
   position: relative;
-  max-width: 320px;
+  max-width: 460px;
   margin: 0;
-  padding: 0 0 0 14px;
+  padding: 0 0 0 16px;
   border: none !important;
   border-left: 2px solid var(--studio-gold) !important;
   border-radius: 0 !important;
@@ -1582,9 +1591,9 @@ body.is-home .home-footer-motto {
 body.is-home .home-footer-motto p {
   margin: 0 !important;
   font-family: var(--studio-font-display);
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
-  color: var(--studio-on-dark-muted);
+  color: var(--studio-on-dark) !important;
   font-style: italic;
 }
 
@@ -1606,7 +1615,7 @@ body.is-home .home-footer-stat {
 }
 body.is-home .home-footer-stat-num {
   font-family: var(--studio-font-display);
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 700;
   line-height: 1;
   color: var(--studio-on-dark);
@@ -1631,6 +1640,13 @@ body.is-home .home-footer-eyebrow {
   text-transform: uppercase;
   color: var(--studio-green);
 }
+
+/* 中栏「项目维护」标题(英文 eyebrow + 中文 title)整体居中,
+   与下方两列链接同轴; 联系栏保持左对齐(仅项目维护居中) */
+body.is-home .home-footer-col:first-of-type .home-footer-eyebrow,
+body.is-home .home-footer-col:first-of-type .home-footer-title {
+  text-align: center;
+}
 body.is-home .home-footer-title {
   margin: 0 0 var(--studio-space-4) !important;
   font-family: var(--studio-font-display) !important;
@@ -1641,26 +1657,30 @@ body.is-home .home-footer-title {
   line-height: 1.2 !important;
 }
 
-/* 维护链接 */
+/* 维护链接：两列网格, 摊平 10 条链接避免一列过长。
+   两列按内容自适应宽度并整体居中(相对上方标题同轴), 列间保留 24px 间隔;
+   但每一列内部链接内容整体靠左对齐, 让每列整齐清爽。 */
 body.is-home .home-footer-links {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: center;
+  column-gap: 24px;
 }
 body.is-home .home-footer-link,
 body.is-home .markdown-section .home-footer-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: var(--studio-space-3);
-  padding: 14px 0;
+  padding: 12px 4px;
   border-bottom: 1px solid var(--studio-line-dark);
   color: var(--studio-on-dark) !important;
   font-family: var(--studio-font-body);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   text-decoration: none !important;
   transition: color var(--studio-dur-fast), border-color var(--studio-dur-fast), background var(--studio-dur-fast) !important;
 }
-body.is-home .home-footer-link:first-child { border-top: 1px solid var(--studio-line-dark); }
+body.is-home .home-footer-link:nth-child(-n + 2) { border-top: 1px solid var(--studio-line-dark); }
 body.is-home .home-footer-link-icon {
   display: inline-flex;
   align-items: center;
@@ -1672,7 +1692,7 @@ body.is-home .home-footer-link-icon {
 }
 body.is-home .home-footer-link-icon svg,
 body.is-home .home-footer-link-icon i { width: 18px; height: 18px; }
-body.is-home .home-footer-link-text { flex: 1; min-width: 0; }
+body.is-home .home-footer-link-text { min-width: 0; white-space: nowrap; }
 body.is-home .home-footer-link-arrow {
   font-family: var(--studio-font-mono);
   font-size: 14px;
@@ -1700,11 +1720,11 @@ body.is-home .markdown-section .home-footer-btn {
   display: inline-flex;
   align-items: center;
   gap: var(--studio-space-3);
-  height: 52px;
-  padding: 0 20px;
+  height: 58px;
+  padding: 0 24px;
   border-radius: var(--studio-radius-md);
   font-family: var(--studio-font-body);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   text-decoration: none !important;
   transition: background var(--studio-dur-fast), transform var(--studio-dur-fast), border-color var(--studio-dur-fast), color var(--studio-dur-fast) !important;
@@ -1791,6 +1811,38 @@ body.is-home .home-footer-terminal:hover .home-footer-terminal-kbd {
   color: var(--studio-green);
 }
 
+/* 联系明细：Email / 微信 / QQ 行 */
+body.is-home .home-footer-contact {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 var(--studio-space-4);
+}
+body.is-home .home-footer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--studio-space-3);
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--studio-line-dark);
+  font-family: var(--studio-font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--studio-on-dark);
+}
+body.is-home .home-footer-contact-item:first-child { border-top: 1px solid var(--studio-line-dark); }
+body.is-home a.home-footer-contact-item { text-decoration: none !important; transition: color var(--studio-dur-fast), border-color var(--studio-dur-fast); }
+body.is-home a.home-footer-contact-item:hover { color: var(--studio-gold) !important; border-color: var(--studio-gold) !important; }
+body.is-home .home-footer-contact-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--studio-on-dark-muted);
+}
+body.is-home .home-footer-contact-icon svg,
+body.is-home .home-footer-contact-icon i { width: 20px; height: 20px; }
+body.is-home .home-footer-contact-text { flex: 1; min-width: 0; font-family: var(--studio-font-mono); font-size: 13px; letter-spacing: 0.02em; }
+
 /* 底部栏 */
 body.is-home .home-footer-bottom {
   position: relative;
@@ -1831,6 +1883,20 @@ body.is-home .home-footer-mark {
   opacity: 0.025;
   pointer-events: none;
   user-select: none;
+}
+
+/* 小桌面/平板竖屏 768-1100: 三栏过挤, 品牌栏独占整行, 维护/联系两栏并排
+   (对齐知识索引 ≤1200 收为双栏的思路) */
+@media screen and (max-width: 1100px) and (min-width: 768px) {
+  body.is-home .home-footer-main {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 56px;
+    row-gap: var(--studio-space-6);
+  }
+  body.is-home .home-footer-brand {
+    grid-column: 1 / -1;
+    padding-right: 0;
+  }
 }
 
 /* 手机 <=767 */
@@ -1919,9 +1985,12 @@ body.is-home .home-footer-mark {
   body.is-home .home-footer-motto { max-width: none; }
   body.is-home .home-footer-stats { gap: var(--studio-space-5); }
   body.is-home .home-footer-stat-num { font-size: 24px; }
-  body.is-home .home-footer-link { font-size: 15px; padding: 14px 0; }
+  body.is-home .home-footer-links { grid-template-columns: 1fr; }
+  body.is-home .home-footer-link { font-size: 15px; padding: 14px 0; justify-content: flex-start; }
   body.is-home .home-footer-btn { width: 100%; }
   body.is-home .home-footer-terminal { width: 100%; }
+  body.is-home .home-footer-contact { margin: 0 0 var(--studio-space-4); }
+  body.is-home .home-footer-contact-item { padding: 12px 4px; }
   body.is-home .home-footer-bottom {
     flex-direction: column-reverse;
     align-items: flex-start;
