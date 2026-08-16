@@ -1153,6 +1153,8 @@ GitHub 头像使用 https://github.com/wychmod.png?size=160，并提供固定尺
 
 | 版本 | 日期 | 类型 | 说明 |
 |---|---|---|---|
+| V1.25 | 2026-08-16 | 修复 | 页脚三栏改两侧等宽 `1.1fr / 1fr / 1.1fr`（原 `1.3fr/1.05fr/0.95fr` 不对称导致中栏中心偏右）：栏距相同（72px）时左右栏等宽是中栏中心与整宽居中的「END / 本卷终」边界标签同轴的充要条件；品牌栏内容有 max-width 约束不受影响，联系栏按钮为栏内全宽仅略变宽；缓存号 `?v=20260816h` |
+| V1.24 | 2026-08-16 | 修复 | 修复 V1.23 选择器失效：`.home-footer-col:first-of-type` 按元素类型匹配兄弟节点，而 `.home-footer-main` 的第一个 div 是 `.home-footer-brand`，居中规则从未命中；改为给维护栏加修饰类 `home-footer-col--maintenance`（`docs/README.md`），CSS 选择器同步替换。效果不变：维护栏标题居中、两列链接整体居中与标题同轴、每列内部靠左；缓存号 `?v=20260816g` |
 | V1.23 | 2026-08-16 | 修复 | 页脚中栏「项目维护」对齐规范：标题（英文 `Project Maintenance` eyebrow + 中文 `项目维护` title）通过 `.home-footer-col:first-of-type` 居中；两列链接整体保持居中（`.home-footer-links` `max-content` + `justify-content: center` + `column-gap: 24px`）与标题同轴；但每列内部链接内容去掉 `justify-content: center` 改为整体靠左对齐，使每列整齐清爽；联系栏标题保持左对齐（仅项目维护居中）；缓存号 `?v=20260816f` |
 | V1.22 | 2026-08-16 | 修复 | 页脚座右铭「先让问题变清晰，再让答案变简单。」文字变亮：颜色 `--studio-on-dark-muted`(#a9aea7) → `--studio-on-dark`(#f2efe7)，字号 14→15px，与品牌栏主文字一致；缓存号 `?v=20260816e` |
 | V1.21 | 2026-08-16 | 修复 | 页脚维护链接两列居中：`.home-footer-links` 改 `grid-template-columns: max-content max-content; justify-content: center; column-gap: 24px`（两列按内容自适应宽度整体居中，列间保留 24px 间隔），链接行改 `inline-flex + justify-content: center`、文字去除 `flex:1` 撑开改 `white-space: nowrap`，使每列 icon/文字/箭头紧凑居中；删除联系栏「打开终端」按钮（终端仍可通过导航/悬浮按钮/Ctrl+K 打开）；移动端 ≤767 单列时链接行改 `justify-content: flex-start` 靠左对齐；缓存号 `?v=20260816d` |

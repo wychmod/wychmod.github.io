@@ -418,7 +418,7 @@
         </div>
       </div>
     </div>
-    <div class="home-footer-col">
+    <div class="home-footer-col home-footer-col--maintenance">
       <span class="home-footer-eyebrow">Project Maintenance</span>
       <h2 class="home-footer-title">项目维护</h2>
       <nav class="home-footer-links" aria-label="项目维护链接">

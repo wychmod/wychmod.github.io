@@ -1455,14 +1455,15 @@ body.is-home .home-footer-boundary-label {
 }
 
 /* 主体三栏：品牌 / 维护 / 联系。
-   参考知识索引(§17 首页嵌入版)的三栏节奏: content-max 满宽 + 大栏距 + 不对称栏宽,
-   品牌栏承载最多内容加宽, 联系栏仅按钮/终端略收窄, 栏距加大避免左中右拥挤。 */
+   两侧栏等宽(1.1fr): 中栏中心 = 左栏宽 + 栏距 + 中栏半宽, 栏距相同时
+   只有左右栏等宽才能让中栏中心落在内容宽度中轴上, 与顶部「END / 本卷终」
+   边界标签(整宽居中)同轴; 中栏 1fr 略窄, 突出两侧内容栏。 */
 body.is-home .home-footer-main {
   position: relative;
   z-index: 1;
   flex: 1 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1.1fr);
   column-gap: 72px;
   row-gap: var(--studio-space-6);
   align-items: start;
@@ -1642,9 +1643,11 @@ body.is-home .home-footer-eyebrow {
 }
 
 /* 中栏「项目维护」标题(英文 eyebrow + 中文 title)整体居中,
-   与下方两列链接同轴; 联系栏保持左对齐(仅项目维护居中) */
-body.is-home .home-footer-col:first-of-type .home-footer-eyebrow,
-body.is-home .home-footer-col:first-of-type .home-footer-title {
+   与下方两列链接同轴; 联系栏保持左对齐(仅项目维护居中)。
+   注意不能用 :first-of-type —— 它按元素类型匹配兄弟节点,
+   .home-footer-main 的第一个 div 是品牌栏, 规则会落空。 */
+body.is-home .home-footer-col--maintenance .home-footer-eyebrow,
+body.is-home .home-footer-col--maintenance .home-footer-title {
   text-align: center;
 }
 body.is-home .home-footer-title {
