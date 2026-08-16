@@ -2,9 +2,9 @@
 
 # wychmod 的全站开发笔记与知识汇总🔥
 
->我是**wychmod**，一名24应届计算机研究生，Java与Python双语言的开发者，前端也能写一点。
+> 我是 **wychmod**，一名 24 届人工智能研究生，Java、Python 与 AI Agent 应用开发者，前端也能写一点。
 
-**Java后端和Python后端双语言博客，以及含有部分的前端内容，有Spring、SpringBoot、Redis、Mysql、Python、Django等不同的博客内容，适合初学者当作百科进行查阅。**
+**面向当代 AI 应用程序员的开发笔记与知识汇总：涵盖 Java、Python、云原生与 AI Agent 等领域，涉及 Spring、SpringBoot、Redis、MySQL、Django、大模型应用与 Agent 工程等主题，适合 AI 时代的开发者当作工程参考与知识图谱查阅。**
 
 [博客地址点击这里](https://wychmod.github.io/#/)
 
@@ -12,6 +12,7 @@
 ![](https://img.shields.io/badge/Editor-IntelliJ_IDEA-informational?style=flat&logo=intellij-idea&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Code-Java-informational?style=flat&logo=Java&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Code-Python-informational?style=flat&logo=python&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/Code-AI_Agent-informational?style=flat&logo=openai&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Code-React-informational?style=flat&logo=React&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Code-JavaScript-informational?style=flat&logo=javascript&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Shell-Bash-informational?style=flat&logo=gnu-bash&logoColor=white&color=2bbc8a)

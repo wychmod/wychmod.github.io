@@ -11,7 +11,7 @@
     <span class="home-author-text">
       <span class="home-author-line">
         <span class="home-author-name">wychmod</span>
-        <span class="home-author-role">软件开发者与长期学习者。</span>
+        <span class="home-author-role">AI 应用开发者与长期学习者。</span>
       </span>
       <span class="home-author-bio">在代码、书页与实践之间，整理问题，也整理知识。</span>
       <span class="home-author-status">CURRENTLY READING · RESEARCHING · WRITING</span>
