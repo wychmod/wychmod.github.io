@@ -153,12 +153,13 @@
     <span class="sm-domain-num">05</span>
     <span class="sm-domain-body">
       <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-4)" aria-hidden="true"></i>AI 与 Agent</span>
-      <span class="sm-domain-desc">AI 编程方法论、Agent 模式、协议工程、参考架构、大模型应用与 ML/DL。</span>
+      <span class="sm-domain-desc">AI 编程方法论、前端设计工程化、Agent 模式、协议工程、参考架构、大模型应用与 ML/DL。</span>
     </span>
     <span class="sm-domain-arrow" aria-hidden="true">↓</span>
   </summary>
   <ul class="sm-domain-links">
     <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">AI 编程三件套方法论</a><span>SDD + Harness + Loop</span></li>
+    <li><a href="#/md/05-AI与Agent/60-AI前端设计工程化.md">AI 前端设计工程化</a><span>D2C + Design Skill + 视觉验收</span></li>
     <li><a href="#/md/05-AI与Agent/10-Agent设计模式与多Agent.md">Agent 设计模式与多 Agent</a><span>5 种设计 + 多 Agent</span></li>
     <li><a href="#/md/05-AI与Agent/20-协议与工程/MCP协议.md">MCP 协议</a><span>Model Context Protocol</span></li>
     <li><a href="#/md/05-AI与Agent/20-协议与工程/A2A协议.md">A2A 协议</a><span>Agent-to-Agent 通信协议</span></li>

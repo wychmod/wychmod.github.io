@@ -308,6 +308,37 @@ node scripts/screenshot-mobile.js
 npx docsify-cli serve docs --port 3000
 ```
 
+### 8.1 文档变更验收分级
+
+普通新增或更新文章通常不会影响站点 UI，不需要启动 Docsify 做浏览器自动化、截图或 Playwright 检查。
+
+**普通文章类改动**包括：
+
+- 新增或更新 `docs/md/**/*.md` 主线文档；
+- 同步 `docs/_sidebar.md`、`docs/md/Index.md`；
+- 按真实修改记录同步 `docs/README.md` 的知识索引和「近期写作与研究」文字内容；
+- 追加文末「修改记录」。
+
+这类改动默认只需运行：
+
+```bash
+node scripts/sidebar-check.js
+node scripts/check-links.js
+git diff --check
+```
+
+只有出现以下情况时，才需要跑 UI 自动化、截图或真实浏览器验收：
+
+- 修改了 `docs/_coverpage.md`；
+- 修改了 `docs/index.html`；
+- 修改了 `docs/assets/css/` 或 `docs/assets/js/`；
+- 修改了 `docs/tools/` 下的工具页面；
+- 调整了首页布局、样式、交互、响应式、终端、搜索、头像、图标或数据统计；
+- 用户明确要求做 UI 验收；
+- 新增内容包含复杂 HTML、内联样式、脚本、iframe、图片密集布局等可能影响渲染的内容。
+
+如果只是文章与导航文字同步，即使涉及 `docs/README.md` 的最近更新条目，也按普通文章类改动处理；注意保持标题和摘要简短，避免明显溢出。
+
 ---
 
 ## 9. 禁止事项
@@ -380,7 +411,7 @@ npx docsify-cli serve docs --port 3000
 
 ### 10.6 验收门禁
 
-首页相关代码改动完成后必须：
+首页相关代码或视觉改动完成后必须：
 
 1. 运行 `node scripts/sidebar-check.js`。
 2. 运行 `node scripts/check-links.js`，与当前历史死链基线比较，确保没有新增首页死链。
@@ -389,5 +420,7 @@ npx docsify-cli serve docs --port 3000
 5. 验证搜索、CTA、9 域链接、终端预览、`Ctrl/Cmd + K`、`Esc`、首页与文章页往返。
 6. 检查控制台无新增 error，文本无重叠或溢出，头像和图标成功渲染。
 7. 确认未修改 `docs/md/archive/`。
+
+普通新增或更新文章不适用本节 UI 自动化门禁，按「8.1 文档变更验收分级」执行。
 
 任何 token、组件、数据来源或交互契约变化，都必须同步更新首页规范；不得只改代码不改 Harness。

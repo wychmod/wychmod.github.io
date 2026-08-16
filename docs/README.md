@@ -13,11 +13,23 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论">
+    <a class="home-recent-row" href="#/md/05-AI与Agent/60-AI前端设计工程化">
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
+        <h3 class="home-recent-title">AI 前端设计工程化</h3>
+        <p class="home-recent-excerpt">整理 AI 前端设计协作讲义，说明 D2C、PDE、Design Skill、组件库查询与视觉验收。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
+        <span class="home-recent-date">2026-08-16</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论">
+      <span class="home-recent-num">02</span>
+      <div class="home-recent-main">
         <h3 class="home-recent-title">AI 编程三件套方法论</h3>
-        <p class="home-recent-excerpt">更新 2026 实践建议，新增 AI 预期、多模型交替使用、开发环境纪律，以及 Claude Code / Codex 配置分层。</p>
+        <p class="home-recent-excerpt">新增 AI 预期、多模型使用、环境纪律，以及 Claude Code / Codex 配置分层。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
@@ -26,25 +38,13 @@
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
     <a class="home-recent-row" href="#/md/02-后端开发/00-MySQL数据库">
-      <span class="home-recent-num">02</span>
+      <span class="home-recent-num">03</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">MySQL 数据库</h3>
-        <p class="home-recent-excerpt">整合 7 份笔记，覆盖从使用、运行到优化的完整链；含 InnoDB 索引、MVCC、锁与 8.0+ 主从新语法。</p>
+        <p class="home-recent-excerpt">整合 7 份笔记，覆盖 MySQL 使用、运行与优化；含 InnoDB 索引、MVCC、锁与主从语法。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-1)">后端开发</span>
-        <span class="home-recent-date">2026-07-22</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/03-云原生与运维/10-Kubernetes编排">
-      <span class="home-recent-num">03</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">Kubernetes 编排</h3>
-        <p class="home-recent-excerpt">源自 Google Borg 的容器编排系统，覆盖 Pod、控制器、Service、存储与安全全链，版本参考 1.33+。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-2)">云原生运维</span>
         <span class="home-recent-date">2026-07-22</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
@@ -61,8 +61,8 @@
     <div class="home-marginalia">
       <div class="home-marginalia-list">
         <div class="home-marginalia-item">
-          <p class="home-marginalia-quote">AI 时代程序员的核心竞争力不再是手速，而是判断力与驾驭 AI 的能力。把 CLI 当作主动探索的执行者，自己保留决策权与验收权；同时用 NVM 与 Git 等基础纪律，为概率性协作守住安全边界。</p>
-          <p class="home-marginalia-source">摘自 <a href="#/md/05-AI与Agent/00-AI编程三件套方法论">AI 编程三件套方法论 · 2026 实践建议与环境纪律</a> · 2026-08-15</p>
+          <p class="home-marginalia-quote">过去，前端拿设计稿写页面，设计师在交付和 Review 中兜底。AI 时代以后，产品、前端或 Agent 可能直接在代码仓库里生成页面。这时如果组件用法、设计规则、验收标准仍只存在于人的脑子里，AI 就只能凭记忆猜。</p>
+          <p class="home-marginalia-source">摘自 <a href="#/md/05-AI与Agent/60-AI前端设计工程化">AI 前端设计工程化 · 核心概述</a> · 2026-08-16</p>
         </div>
         <div class="home-marginalia-item">
           <p class="home-marginalia-quote">客户端与服务端通信默认采用同步长连接，支持 TCP/IP、Unix Socket 等方式。服务端每收到一个连接都会创建一个线程处理，断开后线程会被缓存到线程池供新连接复用，以降低频繁创建线程的开销。</p>
@@ -81,7 +81,7 @@
   <div class="home-note-label"><strong>作者手记</strong><span>/ LETTER FROM THE AUTHOR</span></div>
   <span class="home-note-quote" aria-hidden="true">“</span>
   <p class="home-note-text">这里整理技术笔记、代码实验与持续订正记录。<br>内容会随着新的阅读与实践继续修订。</p>
-  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-08-15</span></p>
+  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-08-16</span></p>
   <span class="home-note-mark" aria-hidden="true">W</span>
 </div>
 
@@ -236,12 +236,13 @@
         <span class="sm-domain-num">05</span>
         <span class="sm-domain-body">
           <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-4)" aria-hidden="true"></i>AI 与 Agent</span>
-          <span class="sm-domain-desc">AI 编程方法论、Agent 模式、协议工程、参考架构、大模型应用与 ML/DL。</span>
+          <span class="sm-domain-desc">AI 编程方法论、前端设计工程化、Agent 模式、协议工程、参考架构、大模型应用与 ML/DL。</span>
         </span>
         <span class="sm-domain-arrow" aria-hidden="true">↓</span>
       </summary>
       <ul class="sm-domain-links">
         <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">AI 编程三件套方法论</a><span>SDD + Harness + Loop</span></li>
+        <li><a href="#/md/05-AI与Agent/60-AI前端设计工程化.md">AI 前端设计工程化</a><span>D2C + Design Skill + 视觉验收</span></li>
         <li><a href="#/md/05-AI与Agent/10-Agent设计模式与多Agent.md">Agent 设计模式与多 Agent</a><span>5 种设计 + 多 Agent</span></li>
         <li><a href="#/md/05-AI与Agent/20-协议与工程/MCP协议.md">MCP 协议</a><span>Model Context Protocol</span></li>
         <li><a href="#/md/05-AI与Agent/20-协议与工程/A2A协议.md">A2A 协议</a><span>Agent-to-Agent 通信协议</span></li>

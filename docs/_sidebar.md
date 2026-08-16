@@ -66,6 +66,7 @@
   
   - **Agent 方法论**
     - [AI 编程三件套](/md/05-AI与Agent/00-AI编程三件套方法论.md)
+    - [AI 前端设计工程化](/md/05-AI与Agent/60-AI前端设计工程化.md)
     - [Agent 设计模式与多 Agent](/md/05-AI与Agent/10-Agent设计模式与多Agent.md)
   
   - **协议与工程**
