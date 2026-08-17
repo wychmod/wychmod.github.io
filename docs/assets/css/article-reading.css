@@ -1079,18 +1079,6 @@ body.is-article .sidebar-nav::before {
   font-weight: 600 !important;
   letter-spacing: 0.04em !important;
 }
-body.is-article .sidebar-nav::after {
-  content: "DOMAINS";
-  position: absolute !important;
-  top: 30px;
-  right: 32px;
-  color: var(--studio-text-muted) !important;
-  font-family: var(--studio-font-mono) !important;
-  font-size: 10px !important;
-  letter-spacing: 0.08em !important;
-  pointer-events: none;
-}
-
 /* 领域行容器: 紧凑间距 */
 body.is-article .sidebar-nav > ul > li.an-domain {
   margin: 2px 0 !important;
