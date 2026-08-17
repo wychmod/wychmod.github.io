@@ -2101,10 +2101,6 @@ body {
   font-weight: 600;
 }
 
-#back-to-top {
-  font-size: 0 !important;
-}
-
 #back-to-top::before {
   content: "";
   width: 12px;

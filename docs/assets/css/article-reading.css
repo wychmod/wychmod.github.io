@@ -910,7 +910,6 @@ body.is-article #back-to-top {
   box-shadow: 0 2px 8px rgba(32, 33, 29, 0.08) !important;
   cursor: pointer !important;
   z-index: var(--z-back-to-top) !important;
-  font-size: 18px !important;
   transition: background var(--studio-dur-fast) var(--studio-ease), border-color var(--studio-dur-fast) var(--studio-ease) !important;
 }
 body.is-article #back-to-top.visible {
