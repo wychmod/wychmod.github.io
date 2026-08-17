@@ -17,7 +17,7 @@
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">AI 编程三件套方法论</h3>
-        <p class="home-recent-excerpt">新增 Claude Code 规则与扩展机制小节：paths 懒加载与 Subagent/Skill/Hook/MCP/Plugin 五大件速查。</p>
+        <p class="home-recent-excerpt">新增 Claude Code 规则与扩展机制小节：paths 懒加载、五大件速查与 Skill/Plugin 区别。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
