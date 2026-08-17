@@ -13,8 +13,20 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/05-AI与Agent/60-AI前端设计工程化">
+    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论">
       <span class="home-recent-num">01</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">AI 编程三件套方法论</h3>
+        <p class="home-recent-excerpt">新增 Claude Code 自动记忆小节：机制、开关、写入时机与排查命令。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
+        <span class="home-recent-date">2026-08-17</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/05-AI与Agent/60-AI前端设计工程化">
+      <span class="home-recent-num">02</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">AI 前端设计工程化</h3>
         <p class="home-recent-excerpt">整理 AI 前端设计协作讲义，说明 D2C、PDE、Design Skill、组件库查询与视觉验收。</p>
@@ -22,18 +34,6 @@
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
         <span class="home-recent-date">2026-08-16</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论">
-      <span class="home-recent-num">02</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">AI 编程三件套方法论</h3>
-        <p class="home-recent-excerpt">新增 AI 预期、多模型使用、环境纪律，以及 Claude Code / Codex 配置分层。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
-        <span class="home-recent-date">2026-08-15</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
