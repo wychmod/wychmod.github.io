@@ -1,6 +1,6 @@
 # MySQL 数据库
 
-> **原文归档**：[archive/old-mysql-notes/](../archive/old-mysql-notes/)
+> **原文归档**：[archive/old-mysql-notes/](/md/archive/README?id=old-mysql-notes)
 > 包含：7 个文件（MySQL性能优化 4 篇 + 使用/运行 + 手写数据库）
 
 ## 一、核心主题概述
@@ -6270,3 +6270,5 @@ mysql> SET GLOBAL event_scheduler = ON;
 Query OK, 0 rows affected (0.00 sec)
 ```
 小贴士： event_scheduler其实是一个系统变量，它的值也可以在MySQL服务器启动的时候通过启动参数或者通过配置文件来设置event_scheduler的值。
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

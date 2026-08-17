@@ -1,6 +1,6 @@
 # ML 与 DL 基础
 
-> **原文归档**：[archive/old-ml-dl-notes/](../archive/old-ml-dl-notes/)
+> **原文归档**：[archive/old-ml-dl-notes/](/md/archive/README?id=old-ml-dl-notes)
 > 包含：6 个文件（目标检测 / YOLOv5 / CNN / 批标准化 / 论文笔记 / 深度学习报错）
 
 ## 一、核心主题概述
@@ -1059,3 +1059,5 @@ PDF 文件仅通过链接引用：[LBP特征及其变体和python实现.pdf](../
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（已标注 TF/Keras 为旧栈、推荐 PyTorch、YOLOv8/v11、2026 学习路径完整，基础概念不过时，无需订正） |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

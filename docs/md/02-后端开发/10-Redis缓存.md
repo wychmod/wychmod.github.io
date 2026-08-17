@@ -1,6 +1,6 @@
 # Redis 缓存
 
-> **原文归档**：[archive/old-redis-notes/](../archive/old-redis-notes/)
+> **原文归档**：[archive/old-redis-notes/](/md/archive/README?id=old-redis-notes)
 > 包含：10 个文件（入门 / 实战 / 原理 / Stream / 高级 / 安装部署）
 
 ## 一、核心主题概述
@@ -583,3 +583,5 @@ maxmemory-policy allkeys-lru
 | 2026-07-22 | 订正 | Spring Boot 配置前缀更新为 spring.data.redis（Spring Boot 3.x） |
 | 2026-07-22 | 订正 | Codis 标注“已停维” |
 | 2026-07-22 | 审查 | 全面审查，核心内容完备 |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

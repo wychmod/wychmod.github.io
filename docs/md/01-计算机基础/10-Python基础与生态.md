@@ -1,11 +1,11 @@
 # Python 基础与生态
 
-> **原文归档**：[archive/old-python-notes/](../archive/old-python-notes/) + [archive/old-django-notes/](../archive/old-django-notes/) + [archive/old-flask-notes/](../archive/old-flask-notes/)
+> **原文归档**：[archive/old-python-notes/](/md/archive/README?id=old-python-notes) + [archive/old-django-notes/](/md/archive/README?id=old-django-notes) + [archive/old-flask-notes/](/md/archive/README?id=old-flask-notes)
 > 包含：90+ 文件（Python 高级/高效/源码 + Django + Flask + 数据分析 + 工具生态）
 
 ## 一、核心主题概述
 
-本归档覆盖 Python 从语言基础到工程落地的完整知识栈：语言核心、面向对象与高级特性、并发编程、源码与底层、Django/Flask Web 开发、工具生态、数据科学。核心资料集中在 [Python高级](../archive/old-python-notes/Python高级/)、[Python源码剖析](../archive/old-python-notes/Python源码剖析/)、[Python高效](../archive/old-python-notes/Python高效/)、[Django 笔记](../archive/old-django-notes/)、[Flask 笔记](../archive/old-flask-notes/) 五个目录。
+本归档覆盖 Python 从语言基础到工程落地的完整知识栈：语言核心、面向对象与高级特性、并发编程、源码与底层、Django/Flask Web 开发、工具生态、数据科学。核心资料集中在 [Python高级](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E9%AB%98%E7%BA%A7)、[Python源码剖析](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90)、[Python高效](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E9%AB%98%E6%95%88)、[Django 笔记](/md/archive/README?id=old-django-notes)、[Flask 笔记](/md/archive/README?id=old-flask-notes) 五个目录。
 
 > 💡 补充：源码剖析系列以 CPython 实现为线索；Web 框架系列以项目实战为主，适合快速复现完整业务流。
 
@@ -472,7 +472,7 @@ Makefile 常用于任务编排：`test`、`lint`、`format`、`clean`；代码�
 
 ## 八、数据分析与科学计算
 
-归档 [python数据分析](../archive/old-python-notes/python数据分析/) 包含 NumPy、Pandas、Matplotlib/Seaborn 及股票实战项目。
+归档 [python数据分析](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90) 包含 NumPy、Pandas、Matplotlib/Seaborn 及股票实战项目。
 
 ### 8.1 NumPy
 
@@ -565,15 +565,15 @@ print(isinstance(Dog(), Animal))  # True
 
 `eval`/`exec` 执行动态字符串前需严格校验来源，避免代码注入。详见 [python里的eval是什么](../archive/old-python-notes/Python的语言程序设计/python里的eval是什么.md)。
 
-> 💡 补充：更多源码级细节、面试题与最佳实践请参阅 [Python源码剖析](../archive/old-python-notes/Python源码剖析/) 和 [Effective Python](../archive/old-python-notes/Python书籍阅读/Effective%20Python：编写高质量Python代码的90个有效方法.md)。
+> 💡 补充：更多源码级细节、面试题与最佳实践请参阅 [Python源码剖析](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90) 和 [Effective Python](../archive/old-python-notes/Python书籍阅读/Effective%20Python：编写高质量Python代码的90个有效方法.md)。
 
 ---
 
 ## 📚 完整资料
 
-- [archive/old-python-notes/](../archive/old-python-notes/) — Python 完整笔记归档
-- [archive/old-django-notes/](../archive/old-django-notes/) — Django 系统教程与 DRF 笔记
-- [archive/old-flask-notes/](../archive/old-flask-notes/) — Flask 轻量教程与部署笔记
+- [archive/old-python-notes/](/md/archive/README?id=old-python-notes) — Python 完整笔记归档
+- [archive/old-django-notes/](/md/archive/README?id=old-django-notes) — Django 系统教程与 DRF 笔记
+- [archive/old-flask-notes/](/md/archive/README?id=old-flask-notes) — Flask 轻量教程与部署笔记
 
 ---
 
@@ -585,3 +585,5 @@ print(isinstance(Dog(), Animal))  # True
 | 2026-07-22 | 订正 | 生态表 Web 框架补充 Django 5.x、Flask 3.x 版本标注 |
 | 2026-07-22 | 订正 | uv python pin 示例从 3.12 更新为 3.13；requires-python 从 >=3.11 更新为 >=3.12 |
 | 2026-07-22 | 审查 | 全面审查，核心内容完备，asyncio/Pydantic V2/Ruff/UV 等工具生态描述准确 |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

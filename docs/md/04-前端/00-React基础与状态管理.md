@@ -1,6 +1,6 @@
 # React 基础与状态管理
 
-> **原文归档**：[archive/old-react-notes/](../archive/old-react-notes/)
+> **原文归档**：[archive/old-react-notes/](/md/archive/README?id=old-react-notes)
 > 包含：React16 基础 / Redux 入门与进阶 / Hooks / Router / Next.js + js 函数式工具
 
 ## 一、核心主题概述
@@ -2609,3 +2609,5 @@ console.log(array)  // [ 0, 1, 3, 4, 5, 6 ]
 |---|---|---|
 | 2026-07-22 | 订正 | 修复 use Hook 示例代码笔误 `albumbums` → `albums`；标注 Recoil 已基本停维，新项目不建议选用 |
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（React 18/19、React Compiler、Hooks、Redux Toolkit/Zustand 等时效性良好） |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

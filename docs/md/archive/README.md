@@ -1,3 +1,4 @@
+
 # SOURCE MAP / 归档来源地图
 
 > `WYCHMOD / ARCHIVE / SOURCE MAP`
@@ -33,17 +34,17 @@
 
 | 主线新文档 | 归档目录 | 来源文件数 | 归档时间 | 备注 |
 |---|---|---|---|---|
-| [`md/08-过时技术/00-爬虫技术.md`](../08-过时技术/00-爬虫技术.md) | `old-crawler-notes/` | 2 | 2026-07-14 | 首篇重构示范 |
-| [`md/08-过时技术/10-Electron桌面开发.md`](../08-过时技术/10-Electron桌面开发.md) | `old-electron-notes/` | 1 | 2026-07-14 | 1 篇实操笔记 + 7 张图 |
-| [`md/08-过时技术/20-Hadoop-Spark大数据.md`](../08-过时技术/20-Hadoop-Spark大数据.md) | `old-hadoop-spark-notes/` | 16 | 2026-07-14 | 含 1 docx(跳过) + 10 note + 5 图 |
-| [`md/08-过时技术/30-NLP与聊天机器人.md`](../08-过时技术/30-NLP与聊天机器人.md) | `old-nlp-notes/` | 1 docx + 1 md + 74 图 | 2026-07-14 | docx 11MB 用 pandoc 转 md + 74 图 |
-| [`md/07-求职/00-面试方法论.md`](../07-求职/00-面试方法论.md) | `old-interview-notes/` | 6 文件（5 md + 1 pdf） | 2026-07-14 | 4 篇主线 + 5 原文件 + 1 pdf |
-| [`md/04-前端/00-React基础与状态管理.md`](../04-前端/00-React基础与状态管理.md) | `old-react-notes/` | 7 文件（4 md + 3 PDF） | 2026-07-14 | React16 + Redux + js 函数式 |
-| [`md/04-前端/10-Taro多端开发.md`](../04-前端/10-Taro多端开发.md) | `old-taro-notes/` | 6 md | 2026-07-14 | Taro 6 篇合并 |
-| [`md/04-前端/20-Vue与小程序.md`](../04-前端/20-Vue与小程序.md) | `old-vue-miniapp-notes/` | 2 md | 2026-07-14 | Vue3 + 微信小程序 |
-| [`md/06-软件工程/00-系统设计与设计模式.md`](../06-软件工程/00-系统设计与设计模式.md) | `old-system-design-notes/` | 11 文件（1 md + 10 PDF） | 2026-07-14 | 设计模式 242KB + 10 系统设计 PDF |
-| [`md/06-软件工程/10-软件测试.md`](../06-软件工程/10-软件测试.md) | `old-testing-notes/` | 11 文件（8 md + 1 csv + 1 doc） | 2026-07-14 | 测试基础+jacoco+chrome 插件 |
-| [`md/06-软件工程/20-软实力.md`](../06-软件工程/20-软实力.md) | `old-soft-skills-notes/` | 1 md | 2026-07-14 | 软实力精进 957B |
+| [`md/08-过时技术/00-爬虫技术.md`](../08-过时技术/00-爬虫技术.md) | <a id="old-crawler-notes"></a>[`old-crawler-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-crawler-notes) | 2 | 2026-07-14 | 首篇重构示范 |
+| [`md/08-过时技术/10-Electron桌面开发.md`](../08-过时技术/10-Electron桌面开发.md) | <a id="old-electron-notes"></a>[`old-electron-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-electron-notes) | 1 | 2026-07-14 | 1 篇实操笔记 + 7 张图 |
+| [`md/08-过时技术/20-Hadoop-Spark大数据.md`](../08-过时技术/20-Hadoop-Spark大数据.md) | <a id="old-hadoop-spark-notes"></a>[`old-hadoop-spark-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-hadoop-spark-notes) | 16 | 2026-07-14 | 含 1 docx(跳过) + 10 note + 5 图 |
+| [`md/08-过时技术/30-NLP与聊天机器人.md`](../08-过时技术/30-NLP与聊天机器人.md) | <a id="old-nlp-notes"></a>[`old-nlp-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-nlp-notes) | 1 docx + 1 md + 74 图 | 2026-07-14 | docx 11MB 用 pandoc 转 md + 74 图 |
+| [`md/07-求职/00-面试方法论.md`](../07-求职/00-面试方法论.md) | <a id="old-interview-notes"></a>[`old-interview-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-interview-notes) | 6 文件（5 md + 1 pdf） | 2026-07-14 | 4 篇主线 + 5 原文件 + 1 pdf |
+| [`md/04-前端/00-React基础与状态管理.md`](../04-前端/00-React基础与状态管理.md) | <a id="old-react-notes"></a>[`old-react-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-react-notes) | 7 文件（4 md + 3 PDF） | 2026-07-14 | React16 + Redux + js 函数式 |
+| [`md/04-前端/10-Taro多端开发.md`](../04-前端/10-Taro多端开发.md) | <a id="old-taro-notes"></a>[`old-taro-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-taro-notes) | 6 md | 2026-07-14 | Taro 6 篇合并 |
+| [`md/04-前端/20-Vue与小程序.md`](../04-前端/20-Vue与小程序.md) | <a id="old-vue-miniapp-notes"></a>[`old-vue-miniapp-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-vue-miniapp-notes) | 2 md | 2026-07-14 | Vue3 + 微信小程序 |
+| [`md/06-软件工程/00-系统设计与设计模式.md`](../06-软件工程/00-系统设计与设计模式.md) | <a id="old-system-design-notes"></a>[`old-system-design-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-system-design-notes) | 11 文件（1 md + 10 PDF） | 2026-07-14 | 设计模式 242KB + 10 系统设计 PDF |
+| [`md/06-软件工程/10-软件测试.md`](../06-软件工程/10-软件测试.md) | <a id="old-testing-notes"></a>[`old-testing-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-testing-notes) | 11 文件（8 md + 1 csv + 1 doc） | 2026-07-14 | 测试基础+jacoco+chrome 插件 |
+| [`md/06-软件工程/20-软实力.md`](../06-软件工程/20-软实力.md) | <a id="old-soft-skills-notes"></a>[`old-soft-skills-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-soft-skills-notes) | 1 md | 2026-07-14 | 软实力精进 957B |
 | [`md/05-AI与Agent/00-AI编程三件套方法论.md`](../05-AI与Agent/00-AI编程三件套方法论.md) | `old-agent-notes/agent开发知识/` | 3 md | 2026-07-15 | SDD + Harness + Loop |
 | [`md/05-AI与Agent/10-Agent设计模式与多Agent.md`](../05-AI与Agent/10-Agent设计模式与多Agent.md) | `old-agent-notes/agent系统知识/` | 2 md | 2026-07-15 | 5 种设计模式 + 多 Agent 协作 |
 | [`md/05-AI与Agent/20-协议与工程/MCP协议.md`](../05-AI与Agent/20-协议与工程/MCP协议.md) | `old-agent-notes/agent系统知识/` | 1 md + 2 pdf | 2026-07-15 | MCP 完整教程 |
@@ -51,8 +52,8 @@
 | [`md/05-AI与Agent/20-协议与工程/DDD领域驱动.md`](../05-AI与Agent/20-协议与工程/DDD领域驱动.md) | `old-agent-notes/agent系统知识/` | 1 md | 2026-07-15 | DDD 架构 |
 | [`md/05-AI与Agent/30-参考架构/manus架构设计.md`](../05-AI与Agent/30-参考架构/manus架构设计.md) | `old-agent-notes/agent系统知识/` | 1 md | 2026-07-15 | manus 架构 |
 | [`md/05-AI与Agent/30-参考架构/Alembic数据库迁移.md`](../05-AI与Agent/30-参考架构/Alembic数据库迁移.md) | `old-agent-notes/agent系统知识/` | 1 md | 2026-07-15 | Alembic 迁移 |
-| [`md/09-开发工具/00-Git版本控制.md`](../09-开发工具/00-Git版本控制.md) | `old-git-notes/` | 2 md + 1 xmind | 2026-07-15 | Git 命令 + Learn Git Branching |
-| [`md/09-开发工具/10-工具箱与资源.md`](../09-开发工具/10-工具箱与资源.md) | `old-tools-notes/` + `old-css-notes/` | 2 md | 2026-07-15 | 工具集 README + CSS 便捷代码 |
+| [`md/09-开发工具/00-Git版本控制.md`](../09-开发工具/00-Git版本控制.md) | <a id="old-git-notes"></a>[`old-git-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-git-notes) | 2 md + 1 xmind | 2026-07-15 | Git 命令 + Learn Git Branching |
+| [`md/09-开发工具/10-工具箱与资源.md`](../09-开发工具/10-工具箱与资源.md) | <a id="old-tools-notes"></a>[`old-tools-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-tools-notes) + <a id="old-css-notes"></a>[`old-css-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-css-notes) | 2 md | 2026-07-15 | 工具集 README + CSS 便捷代码 |
 
 ### 2.2 第二阶段：主线深化归档
 
@@ -60,26 +61,26 @@
 
 | 主线新文档 | 归档目录 | 来源文件数 | 归档时间 | 备注 |
 |---|---|---|---|---|
-| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | `old-java-notes/` | 48 md | 2026-07-15 | Java 基础笔记 |
-| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | `old-jvm-notes/` | 5 md | 2026-07-15 | JVM 调优笔记 |
-| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | `old-spring-notes/` | 4 md | 2026-07-15 | Spring 生态笔记（并入 Java 与 JVM） |
-| [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | `old-python-notes/` | 69 md | 2026-07-15 | Python 基础与生态笔记 |
-| [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | `old-django-notes/` | 14 md | 2026-07-15 | Django 笔记（并入 Python 生态） |
-| [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | `old-flask-notes/` | 8 md | 2026-07-15 | Flask 笔记（并入 Python 生态） |
-| [`md/01-计算机基础/20-算法与数据结构.md`](../01-计算机基础/20-算法与数据结构.md) | `old-algorithm-notes/` | 6 md | 2026-07-15 | 算法与数据结构笔记 |
-| [`md/01-计算机基础/30-计算机系统与并发.md`](../01-计算机基础/30-计算机系统与并发.md) | `old-cs-notes/` | 6 md | 2026-07-15 | 计算机系统与并发笔记 |
-| [`md/01-计算机基础/40-Go语言.md`](../01-计算机基础/40-Go语言.md) | `old-go-notes/` | 5 md | 2026-07-15 | Go 语言笔记 |
-| [`md/02-后端开发/00-MySQL数据库.md`](../02-后端开发/00-MySQL数据库.md) | `old-mysql-notes/` | 7 md | 2026-07-15 | MySQL 数据库笔记 |
-| [`md/02-后端开发/10-Redis缓存.md`](../02-后端开发/10-Redis缓存.md) | `old-redis-notes/` | 10 md | 2026-07-15 | Redis 缓存笔记 |
-| [`md/02-后端开发/20-消息队列.md`](../02-后端开发/20-消息队列.md) | `old-mq-notes/` | 6 md | 2026-07-15 | 消息队列笔记 |
-| [`md/02-后端开发/30-分布式协调与搜索.md`](../02-后端开发/30-分布式协调与搜索.md) | `old-distributed-coord-notes/` | 5 md | 2026-07-15 | 分布式协调与搜索笔记 |
-| [`md/03-云原生与运维/00-Docker容器化.md`](../03-云原生与运维/00-Docker容器化.md) | `old-docker-notes/` | 2 md | 2026-07-15 | Docker 容器化笔记 |
-| [`md/03-云原生与运维/10-Kubernetes编排.md`](../03-云原生与运维/10-Kubernetes编排.md) | `old-k8s-notes/` | 7 md | 2026-07-15 | Kubernetes 编排笔记 |
-| [`md/03-云原生与运维/20-CI-CD持续集成.md`](../03-云原生与运维/20-CI-CD持续集成.md) | `old-cicd-notes/` | 13 md | 2026-07-15 | CI/CD 持续集成笔记 |
-| [`md/03-云原生与运维/30-Linux运维.md`](../03-云原生与运维/30-Linux运维.md) | `old-linux-notes/` | 12 md | 2026-07-15 | Linux 运维笔记 |
-| [`md/03-云原生与运维/40-云原生架构.md`](../03-云原生与运维/40-云原生架构.md) | `old-cloud-native-notes/` | 1 md | 2026-07-15 | 云原生架构笔记 |
-| [`md/05-AI与Agent/40-大模型应用.md`](../05-AI与Agent/40-大模型应用.md) | `old-llm-notes/` | 28 md | 2026-07-15 | 大模型应用笔记 |
-| [`md/05-AI与Agent/50-ML与DL基础.md`](../05-AI与Agent/50-ML与DL基础.md) | `old-ml-dl-notes/` | 6 md | 2026-07-15 | ML/DL 基础笔记 |
+| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | <a id="old-java-notes"></a>[`old-java-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-java-notes) | 48 md | 2026-07-15 | Java 基础笔记 |
+| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | <a id="old-jvm-notes"></a>[`old-jvm-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-jvm-notes) | 5 md | 2026-07-15 | JVM 调优笔记 |
+| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | <a id="old-spring-notes"></a>[`old-spring-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-spring-notes) | 4 md | 2026-07-15 | Spring 生态笔记（并入 Java 与 JVM） |
+| [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | <a id="old-python-notes"></a>[`old-python-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes) | 69 md | 2026-07-15 | Python 基础与生态笔记 |
+| [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | <a id="old-django-notes"></a>[`old-django-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-django-notes) | 14 md | 2026-07-15 | Django 笔记（并入 Python 生态） |
+| [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | <a id="old-flask-notes"></a>[`old-flask-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-flask-notes) | 8 md | 2026-07-15 | Flask 笔记（并入 Python 生态） |
+| [`md/01-计算机基础/20-算法与数据结构.md`](../01-计算机基础/20-算法与数据结构.md) | <a id="old-algorithm-notes"></a>[`old-algorithm-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-algorithm-notes) | 6 md | 2026-07-15 | 算法与数据结构笔记 |
+| [`md/01-计算机基础/30-计算机系统与并发.md`](../01-计算机基础/30-计算机系统与并发.md) | <a id="old-cs-notes"></a>[`old-cs-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-cs-notes) | 6 md | 2026-07-15 | 计算机系统与并发笔记 |
+| [`md/01-计算机基础/40-Go语言.md`](../01-计算机基础/40-Go语言.md) | <a id="old-go-notes"></a>[`old-go-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-go-notes) | 5 md | 2026-07-15 | Go 语言笔记 |
+| [`md/02-后端开发/00-MySQL数据库.md`](../02-后端开发/00-MySQL数据库.md) | <a id="old-mysql-notes"></a>[`old-mysql-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-mysql-notes) | 7 md | 2026-07-15 | MySQL 数据库笔记 |
+| [`md/02-后端开发/10-Redis缓存.md`](../02-后端开发/10-Redis缓存.md) | <a id="old-redis-notes"></a>[`old-redis-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-redis-notes) | 10 md | 2026-07-15 | Redis 缓存笔记 |
+| [`md/02-后端开发/20-消息队列.md`](../02-后端开发/20-消息队列.md) | <a id="old-mq-notes"></a>[`old-mq-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-mq-notes) | 6 md | 2026-07-15 | 消息队列笔记 |
+| [`md/02-后端开发/30-分布式协调与搜索.md`](../02-后端开发/30-分布式协调与搜索.md) | <a id="old-distributed-coord-notes"></a>[`old-distributed-coord-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-distributed-coord-notes) | 5 md | 2026-07-15 | 分布式协调与搜索笔记 |
+| [`md/03-云原生与运维/00-Docker容器化.md`](../03-云原生与运维/00-Docker容器化.md) | <a id="old-docker-notes"></a>[`old-docker-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-docker-notes) | 2 md | 2026-07-15 | Docker 容器化笔记 |
+| [`md/03-云原生与运维/10-Kubernetes编排.md`](../03-云原生与运维/10-Kubernetes编排.md) | <a id="old-k8s-notes"></a>[`old-k8s-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-k8s-notes) | 7 md | 2026-07-15 | Kubernetes 编排笔记 |
+| [`md/03-云原生与运维/20-CI-CD持续集成.md`](../03-云原生与运维/20-CI-CD持续集成.md) | <a id="old-cicd-notes"></a>[`old-cicd-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-cicd-notes) | 13 md | 2026-07-15 | CI/CD 持续集成笔记 |
+| [`md/03-云原生与运维/30-Linux运维.md`](../03-云原生与运维/30-Linux运维.md) | <a id="old-linux-notes"></a>[`old-linux-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-linux-notes) | 12 md | 2026-07-15 | Linux 运维笔记 |
+| [`md/03-云原生与运维/40-云原生架构.md`](../03-云原生与运维/40-云原生架构.md) | <a id="old-cloud-native-notes"></a>[`old-cloud-native-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-cloud-native-notes) | 1 md | 2026-07-15 | 云原生架构笔记 |
+| [`md/05-AI与Agent/40-大模型应用.md`](../05-AI与Agent/40-大模型应用.md) | <a id="old-llm-notes"></a>[`old-llm-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-llm-notes) | 28 md | 2026-07-15 | 大模型应用笔记 |
+| [`md/05-AI与Agent/50-ML与DL基础.md`](../05-AI与Agent/50-ML与DL基础.md) | <a id="old-ml-dl-notes"></a>[`old-ml-dl-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-ml-dl-notes) | 6 md | 2026-07-15 | ML/DL 基础笔记 |
 
 ---
 
@@ -172,7 +173,7 @@ md/archive/
 └── old-tools-notes/                      ← 工具箱与资源
 ```
 
-> 说明：`notes-个人写作/` 为个人写作笔记，未并入特定主线文档；`youdaonote-images/` 为共享图片目录，被 `old-react-notes/`、`old-taro-notes/`、`old-vue-miniapp-notes/` 等多个归档引用。两者均只读保留，不出现在来源映射表中。
+> 说明：`notes-个人写作/` 为个人写作笔记，未并入特定主线文档；`youdaonote-images/` 为共享图片目录，被 <a id="old-react-notes"></a>[`old-react-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-react-notes)、<a id="old-taro-notes"></a>[`old-taro-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-taro-notes)、<a id="old-vue-miniapp-notes"></a>[`old-vue-miniapp-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-vue-miniapp-notes) 等多个归档引用。两者均只读保留，不出现在来源映射表中。
 
 ---
 
@@ -218,3 +219,4 @@ md/archive/
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-07-28 | UI 一致性 | 重构为"归档来源地图"页面：新增面包屑、导语、只读边界、快速入口、阅读指引、过时信息提示；补录第二阶段 20 条主线深化映射（来源文件数由 `count-archive.js` 统计，归档时间取 Git 首提交日期），来源地图完整覆盖全部 35 个 `old-*` 归档目录；保留全部原有映射数据、目录结构与归档原则。除本索引外未修改任何归档原文件。 |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |

@@ -1,13 +1,13 @@
 # Java 与 JVM
 
-> **原文归档**：[`archive/old-java-notes/`](../archive/old-java-notes/) + [`archive/old-jvm-notes/`](../archive/old-jvm-notes/) + [`archive/old-spring-notes/`](../archive/old-spring-notes/)
+> **原文归档**：[`archive/old-java-notes/`](/md/archive/README?id=old-java-notes) + [`archive/old-jvm-notes/`](/md/archive/README?id=old-jvm-notes) + [`archive/old-spring-notes/`](/md/archive/README?id=old-spring-notes)
 > 包含：60+ 文件（Java 基础 / Spring 全家桶 / JVM / 手写 RPC / 短链 / 抽奖 / 监控 / Netty / 自动化测试）
 
 ---
 
 ## 一、Java 基础
 
-> 📚 完整 Java 笔记见 [`archive/old-java-notes/`](../archive/old-java-notes/)
+> 📚 完整 Java 笔记见 [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes)
 
 ### 1.1 核心概念
 
@@ -50,7 +50,7 @@
 
 ## 二、JVM 调优
 
-> 📚 [JVM实战 1-4](../archive/old-jvm-notes/)（4 篇，30KB+）
+> 📚 [JVM实战 1-4](/md/archive/README?id=old-jvm-notes)（4 篇，30KB+）
 
 ### 2.1 内存模型
 
@@ -138,7 +138,7 @@ public class App {
 
 ## 四、实战项目
 
-> 📚 完整实战笔记见 [`archive/old-java-notes/`](../archive/old-java-notes/)
+> 📚 完整实战笔记见 [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes)
 
 - **手写 RPC**：Netty + 动态代理
 - **手写 Spring**：IoC + AOP 实现
@@ -170,9 +170,9 @@ public class App {
 
 ## 📚 完整资料
 
-- [`archive/old-java-notes/`](../archive/old-java-notes/) — Java 完整笔记归档
-- [`archive/old-jvm-notes/`](../archive/old-jvm-notes/) — JVM 笔记归档
-- [`archive/old-spring-notes/`](../archive/old-spring-notes/) — Spring 笔记归档
+- [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes) — Java 完整笔记归档
+- [`archive/old-jvm-notes/`](/md/archive/README?id=old-jvm-notes) — JVM 笔记归档
+- [`archive/old-spring-notes/`](/md/archive/README?id=old-spring-notes) — Spring 笔记归档
 
 ---
 
@@ -185,3 +185,5 @@ public class App {
 | 2026-07-22 | 订正 | 标注 Zuul/Hystrix/Ribbon 已停维 |
 | 2026-07-22 | 订正 | Java 版本现状更新为 21 LTS |
 | 2026-07-22 | 审查 | 全面审查，核心内容完备 |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

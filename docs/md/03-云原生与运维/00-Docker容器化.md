@@ -1,6 +1,6 @@
 # Docker 容器化
 
-> **原文归档**：[archive/old-docker-notes/](../archive/old-docker-notes/)
+> **原文归档**：[archive/old-docker-notes/](/md/archive/README?id=old-docker-notes)
 > 包含：2 个文件（Docker 入门 + CentOS7 安装 Docker）
 
 ## 一、核心主题概述
@@ -1556,3 +1556,5 @@ systemctl restart docker
 |---|---|---|
 | 2026-07-22 | 订正 | 示例镜像版本更新：mysql:5.7.25→8.0（5.7 已 EOL）、node:20→22、golang:1.22→1.24 |
 | 2026-07-22 | 审查 | 全面审查，核心内容完备，BuildKit/Compose V2/容器生态描述符合 2026 现状 |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

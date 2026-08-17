@@ -1,6 +1,6 @@
 # CI-CD 持续集成
 
-> **原文归档**：[archive/old-cicd-notes/](../archive/old-cicd-notes/)
+> **原文归档**：[archive/old-cicd-notes/](/md/archive/README?id=old-cicd-notes)
 > 包含：13 个文件（CI/CD / Jenkins / Docker / K8s 部署 / GitHub Actions）
 
 ## 一、核心主题概述
@@ -2929,3 +2929,5 @@ jobs:
 |---|---|---|
 | 2026-07-22 | 订正 | Dockerfile 示例 nginx:1.15-alpine→alpine；Node 版本 20→22；修正 Sigstore/cosign 拼写 |
 | 2026-07-22 | 审查 | 全面审查，Jenkins/GitHub Actions/Argo CD 等工具描述符合 2026 现状 |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

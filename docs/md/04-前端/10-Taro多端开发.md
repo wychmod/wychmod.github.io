@@ -1,6 +1,6 @@
 # Taro 多端开发
 
-> **原文归档**：[archive/old-taro-notes/](../archive/old-taro-notes/)
+> **原文归档**：[archive/old-taro-notes/](/md/archive/README?id=old-taro-notes)
 > 包含：6 个文件（基本知识 / 环境搭建 / 技术选型 / 自带方法 / 设计思想及架构 / 小程序展示富文本）
 
 ## 一、核心主题概述
@@ -2009,3 +2009,5 @@ config/index.js
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（Taro 3/4 重运行时架构、Vue3 支持、鸿蒙/Skyline、wxParse 迁移等时效性良好，无需订正） |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

@@ -586,3 +586,31 @@
 
 **死链检查**：主线文档与导航文件零死链 ✓
 **侧边栏检查**：40 篇主线文档全部有入口 ✓
+
+---
+
+### 2026-08-18 #11 — 修复归档目录链接
+
+**涉及文件**：
+- 更新：`docs/md/archive/README.md`（34 个顶层 `old-*` 目录加锚点 + GitHub 原始目录链接）
+- 更新：26 篇主线文档中的 57 处归档目录链接
+  - 43 处顶层 `old-*` 目录链接改为 `../archive/README.md?id=old-xxx`
+  - 14 处嵌套子目录链接改为 GitHub tree 直达链接
+
+**改正点**：
+
+| # | 类型 | 原文 | 改正后 | 原因 |
+|---|---|---|---|---|
+| 72 | 死链 | `[archive/old-java-notes/](../archive/old-java-notes/)` 等 43 处顶层目录链接 | `[`old-java-notes/`](../archive/README.md?id=old-java-notes)` | Docsify 无法渲染无 `README.md` 的目录路由，点击后 404 |
+| 73 | 死链 | `[Python源码剖析](../archive/old-python-notes/Python源码剖析/)` 等 14 处嵌套子目录链接 | `https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/...` | 嵌套子目录同样无法渲染，且来源地图未为子目录建锚点，直接链到 GitHub tree |
+| 74 | 格式 | `docs/md/archive/README.md` 映射表中的 `old-xxx/` 仅为内联代码 | 加 `<a id="old-xxx"></a>` 与 GitHub 目录链接 | 让读者既能通过 Docsify 路由跳到对应行，又能直接浏览原始文件 |
+| 75 | 路径修正 | 第一次修复后链接为 `../archive/README.md?id=old-xxx` | 改为绝对 Docsify 路由 `/md/archive/README?id=old-xxx` | Docsify 将相对链接解析为 `#/../archive/README` 导致 404，绝对路由可正常加载 |
+
+**约束遵循**：
+- 未修改 `docs/md/archive/` 下任何归档原文件。
+- 仅修改 `docs/md/archive/README.md` 这一可编辑索引。
+
+**检查**：
+- `node scripts/check-links.js`：7 个死链均为归档原文件历史问题（与本次修复前基线一致），无新增死链 ✓
+- `node scripts/sidebar-check.js`：40 篇主线文档全部有入口 ✓
+- `git diff --check`：无空白错误 ✓

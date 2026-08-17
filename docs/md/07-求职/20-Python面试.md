@@ -1,6 +1,6 @@
 # Python 面试核心速查
 
-> **原文归档**：[archive/old-interview-notes/](../archive/old-interview-notes/)
+> **原文归档**：[archive/old-interview-notes/](/md/archive/README?id=old-interview-notes)
 > 包含：python面试.md + python服务器端面试.md
 
 ## 一、核心主题概述
@@ -1006,3 +1006,5 @@ assert c1 is c2
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（Python 基础、并发、Web 框架、2026 面试重点均正确；存档区保留原貌） |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |

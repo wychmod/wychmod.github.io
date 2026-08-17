@@ -1,6 +1,6 @@
 # Agent 设计模式与多 Agent 协作
 
-> **原文归档**：[archive/old-agent-notes/agent系统知识/](../archive/old-agent-notes/agent系统知识/)
+> **原文归档**：[archive/old-agent-notes/agent系统知识/](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-agent-notes/agent%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86)
 > 包含：2 个文件（agent五种设计模式 / 多Agent协作系统优劣势与性能）
 
 ## 一、核心主题概述
@@ -236,7 +236,7 @@ Agent 设计模式解决的是同一个问题：**怎么把大模型的“说话
 ---
 
 ## 📚 完整资料
-- [archive/old-agent-notes/agent系统知识/](../archive/old-agent-notes/agent系统知识/)
+- [archive/old-agent-notes/agent系统知识/](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-agent-notes/agent%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86)
 
 ---
 
@@ -245,3 +245,4 @@ Agent 设计模式解决的是同一个问题：**怎么把大模型的“说话
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（反思/工具使用/规划/多 Agent/评估器-优化器五种设计模式描述正确，MCP/A2A 趋势表述准确，无需订正） |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |

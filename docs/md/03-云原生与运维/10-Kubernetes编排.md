@@ -1,6 +1,6 @@
 # Kubernetes 编排
 
-> **原文归档**：[archive/old-k8s-notes/](../archive/old-k8s-notes/)
+> **原文归档**：[archive/old-k8s-notes/](/md/archive/README?id=old-k8s-notes)
 > 包含：7 个文件（K8s 介绍 / 集群搭建 / Pod / 控制器 / Service / 实战 / 存储与安全）
 
 ## 一、核心主题概述
@@ -976,7 +976,7 @@ kubectl get pods -n dev -l version=2.0 --show-labels
 
 ## 📚 完整资料
 
-- [archive/old-k8s-notes/](../archive/old-k8s-notes/)
+- [archive/old-k8s-notes/](/md/archive/README?id=old-k8s-notes)
   - [1-k8s的介绍.md](../archive/old-k8s-notes/1-k8s的介绍.md)
   - [2-k8s集群环境的搭建和资源管理.md](../archive/old-k8s-notes/2-k8s集群环境的搭建和资源管理.md)
   - [3-实战.md](../archive/old-k8s-notes/3-实战.md)
@@ -993,3 +993,5 @@ kubectl get pods -n dev -l version=2.0 --show-labels
 |---|---|---|
 | 2026-07-22 | 订正 | 移除已废弃的 `--record` 参数；标注 Recycle 回收策略已移除；PodSecurityPolicy 已移除说明；Dashboard 版本更新为 v3.0.0；K8s 版本参考更新为 1.33+ |
 | 2026-07-22 | 审查 | 全面审查，核心概念与 API 版本正确，2026 生态描述完备 |
+| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
