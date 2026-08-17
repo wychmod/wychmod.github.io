@@ -17,7 +17,7 @@
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">AI 编程三件套方法论</h3>
-        <p class="home-recent-excerpt">新增 Claude Code 自动记忆小节：机制、开关、写入时机与排查命令。</p>
+        <p class="home-recent-excerpt">新增 Claude Code 规则与路径作用域小节：paths 懒加载机制、rules 与 skill 取舍。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
