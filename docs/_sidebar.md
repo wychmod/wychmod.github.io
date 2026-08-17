@@ -1,10 +1,3 @@
-- [:octocat: 首页](/README)
-- [🗺️ 全站地图](/md/Index.md)
-- [⌨️ 终端使用指南](/README-Terminal.md)
-- [🤖 AI智能助手使用指南](/AI-ASSISTANT-GUIDE)
-
----
-
 - 💻 **计算机基础**
   
   - **编程语言**

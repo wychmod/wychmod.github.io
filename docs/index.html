@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
   <link rel="stylesheet" href="/assets/css/homepage-v2.css?v=20260816h">
   <!-- 文章/内容页阅读系统 (作用域 body.is-article, 不影响首页 body.is-home) -->
-  <link rel="stylesheet" href="/assets/css/article-reading.css?v=20260731a">
+  <link rel="stylesheet" href="/assets/css/article-reading.css?v=20260817a">
   <!-- 全站地图 / Knowledge Index 页面 (作用域 body[data-page="md/Index.md"] 与 body.is-home) -->
   <link rel="stylesheet" href="/assets/css/site-map.css?v=20260815c">
 
@@ -118,8 +118,9 @@
         'cache-control': 'no-cache'
       },
       maxLevel: 4,
-      subMaxLevel: 3,
-      
+      /* 左侧栏只保留领域模块, 页内标题改由右侧「本页目录」承担 */
+      subMaxLevel: 0,
+
       // 搜索配置
       search: {
         paths: 'auto',
@@ -171,13 +172,10 @@
         }
       },
       
-      // TOC 目录配置
+      // TOC 目录配置 (docsify-plugin-toc 真实配置键)
       toc: {
-        scope: '.markdown-section',
-        headings: 'h1, h2, h3, h4',
-        title: '目录',
-        tocClassName: 'toc-nav',
-        tocTitleClassName: 'toc-title'
+        target: 'h2, h3, h4',
+        tocMaxLevel: 4
       },
       
       // 页面标题配置
@@ -255,6 +253,8 @@
 <!-- 首页 V2 交互与路由状态(必须在 docsify.min.js 之前, 以便注册插件) -->
 <script src="/assets/js/homepage-v2.js?v=20260805a"></script>
 <script src="/assets/js/site-map.js?v=20260806a"></script>
+<!-- 文章页左侧领域模块折叠导航 (P011, 必须在 docsify.min.js 之前) -->
+<script src="/assets/js/article-nav.js?v=20260817a"></script>
 <script src="/assets/js/docsify.min.js"></script>
 <script src="/assets/js/prism.js"></script>
 <script src="/assets/js/prism-bash.js"></script>
@@ -271,8 +271,8 @@
 </script>
 <script src="https://registry.npmmirror.com/docsify-mermaid/2.0.1/files/dist/docsify-mermaid.js"></script>
 
-<!-- TOC 目录插件 -->
-<script src="https://registry.npmmirror.com/docsify-plugin-toc/1.3.1/files/dist/docsify-plugin-toc.min.js"></script>
+<!-- TOC 目录插件 (本地 vendored, 因 npmmirror 该文件返回 403) -->
+<script src="/assets/js/docsify-plugin-toc.min.js?v=20260817a"></script>
 
 <!--在所有的代码块上添加一个简单的Click to copy按钮来允许用户从你的文档中轻易地复制代码-->
 <script src="https://registry.npmmirror.com/docsify-copy-code/3.0.0/files/dist/docsify-copy-code.min.js"></script>

@@ -93,8 +93,10 @@
 
 1. 新增或扩展文章页专用样式文件，例如 `docs/assets/css/article-reading.css`。
 2. 在 `docs/index.html` 加载该样式文件。
-3. 如必须补充容器，使用 Docsify `doneEach` 幂等插件添加非内容型 wrapper。
-4. 只有导航事实有误时，才同步 `docs/_sidebar.md`、`docs/README.md`、`docs/md/Index.md`。
+3. 新增 `docs/assets/js/article-nav.js`：在 Docsify `doneEach` 中把 `.sidebar-nav` 里 9 个一级领域转为可折叠的领域模块（编号 01-09、彩色圆点、chevron、键盘可访问）。
+4. 本地 vendor `docsify-plugin-toc.min.js`（`docs/assets/js/docsify-plugin-toc.min.js`），替换失效的 npmmirror CDN 引用；在 `docs/index.html` 正确配置 `toc: { target: 'h2, h3, h4', tocMaxLevel: 4 }`。
+5. 如必须补充容器，使用 Docsify `doneEach` 幂等插件添加非内容型 wrapper。
+6. 只有导航事实有误时，才同步 `docs/_sidebar.md`、`docs/README.md`、`docs/md/Index.md`。
 
 不要为了这张图改 39 篇 Markdown。Markdown 只作为真实内容来源和回归样本。
 
@@ -131,6 +133,24 @@
 - 左栏约 `280px`，从页面顶部到视口底部固定。顶部是搜索框，高约 `36px`，左侧搜索图标，右侧快捷键小标。下面是“领域”分组，9 个一级领域每行约 `34–38px`，带彩色小圆点、编号、名称和展开箭头。再下面是当前文章目录树，层级缩进清楚，当前章节有浅旧金底和左侧强调。
 - 中栏宽约 `760–820px`。顶部有等宽路径条：左侧 `WYCHMOD / 操作系统 / Linux 内核设计与实现`，右侧 `UPDATED: 2024-05-27`。路径条下方是卷标 `Vol. OS-2024 · 研究与实践`，再往下是 44px 左右的衬线 H1、两行摘要、来源/状态元信息、水平分割线。
 - 右栏约 `240px`，顶部是“本页目录”，用旧金短线作标题下划线，列出当前二级/三级章节。中段是“页边批注”，包含头像、批注标题、短正文、日期、作者和评论数。右栏底部在 900px 高度内不需要填满。
+
+### 3.1.1 左侧「领域模块」折叠导航
+
+左侧栏只保留 9 个一级领域模块，不再显示站点名、全站地图或顶部快捷链接。每个领域一行，结构为：
+
+- 左侧 7px 彩色圆点（使用 `studio-tokens.css` 中 `--kg-0` 到 `--kg-8`）。
+- 等宽编号 `01`–`09`。
+- 领域名称（来自 `_sidebar.md` 的加粗文本）。
+- 右侧 chevron：收起时向右 `›`，展开时向下旋转 `˅`。
+
+交互规则：
+
+- 点击整行展开/收起该领域下的文章与子分组；点击文章链接沿用 Docsify 原生路由跳转。
+- 含当前文章的领域强制展开，其余领域默认收起。
+- 用户手动展开/收起状态在会话内记忆（`sessionStorage` 或内存对象），刷新后失效，避免破坏默认导航。
+- 键盘可访问：领域行 `tabindex="0"`，`Enter`/`Space` 切换展开。
+
+该模块通过 `article-nav.js` 在 `doneEach` 中对 Docsify 已渲染的 `.sidebar-nav` DOM 做非破坏性转换，数据真相仍是 `_sidebar.md`。
 
 中栏首屏正文包括二级标题、段落、深墨代码块、复制按钮、运行结果状态、工程图解、图注。底部可见修改记录、上一篇/下一篇、相关主题、Gitalk 评论入口、编辑此页、提交 Issue、版权、返回顶部、终端按钮。
 
@@ -197,8 +217,10 @@ body.is-article
 - 宽度：`280px` 最合适，允许 `260–292px`。
 - 背景：`#E9E5DC` 叠加极轻纸纹；右边框 `1px rgba(32,33,29,.14)`。
 - 内边距：顶部 `28–32px`，左右 `24px`。
+- 隐藏站点名 `.app-name` 与 `_sidebar.md` 顶部链接块、全站地图等快捷入口；只保留搜索和 9 大领域模块。
 - 搜索框：高 `36px`，圆角 `4px`，边框 `rgba(32,33,29,.18)`，输入文字 `14px`。
 - 一级领域行：高 `34–38px`；小圆点 `7px`；编号和标题 `14px`；箭头图标 `14px`。
+- 领域内容区（子分组与文章）默认隐藏，展开时显示；含当前文章的领域强制展开。
 - 当前二/三级章节：背景 `rgba(200,169,107,.12)`，左线 `2px #24D18F` 或旧金，圆角 `3px`。
 - 底部“折叠侧栏”区域高约 `44px`，固定在侧栏底部时不能遮挡目录最后一项。
 
@@ -493,6 +515,15 @@ body.is-article .page_toc { ... }
 - 代码/表格局部滚动。
 
 不能通过 `transform: scale(.7)` 或把字号缩到 10px 解决。
+
+### 14.7 TOC 插件失效或配置错误
+
+`docsify-plugin-toc` 的 npmmirror CDN 会返回 403，必须使用本地 vendored 文件。配置键是 `target`（选择器）和 `tocMaxLevel`，不是 `toc` 数组。如果右侧目录不出现：
+
+- 检查 `docs/index.html` 是否引用 `/assets/js/docsify-plugin-toc.min.js`。
+- 检查 `$docsify.toc` 是否为 `{ target: 'h2, h3, h4', tocMaxLevel: 4 }`。
+- 检查 `subMaxLevel` 是否设为 `0`，避免 Docsify 自身 subSidebar 与插件目录冲突。
+- 检查 CSS 是否对 `.toc-nav .page_toc > div` 做了显示和 active 样式。
 
 ---
 
