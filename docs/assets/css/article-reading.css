@@ -306,7 +306,8 @@ body.is-article .content {
    §5. 阅读面 (规范 §5.3)
    .markdown-section 纸白卡片, 居中可读宽度
    ========================================================= */
-body.is-article .markdown-section {
+body.is-article .markdown-section,
+body.is-article #main.markdown-section {
   max-width: 820px !important;
   margin: 0 auto !important;
   padding: 44px 36px 96px !important;
