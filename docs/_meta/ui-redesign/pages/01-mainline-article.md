@@ -72,20 +72,27 @@
 
 ### 2.5 Layout Strategy
 
-桌面是三栏阅读系统，不是居中单列文章：
+桌面端文章页采用**嵌套 CSS Grid 实现原生三栏平铺**（不是 fixed/absolute 浮动卡片）：
+
+- 外层 `body > main` 为 Grid 容器，两轨 `[侧栏 280px | 中栏弹性]`。
+- 中栏 `.content` 自身再设 Grid，两轨 `[正文弹性 | 右栏 TOC auto]`；TOC 空态（`.nothing`）或 `md/Index.md` 时 `auto` 轨塌缩为 0，中栏右缘不留孤立竖线。
+- 左栏 `.sidebar` 与右栏 `.toc-nav` 均使用 `position: sticky` 钉在视口内（`top: 60px` / `top: 84px`），随正文滚动保持可见。
+- 中栏阅读面由 `.content` 整列承担 `--studio-paper-50 #F2EEE5` 背景，`.markdown-section` 透明无边框，消除卡片感。
+- 三栏外壳最大宽度与首页一致，使用 `--shell-max-width`（`1584px`），宽屏居中，两侧为连续纸色。
+- 栏间仅 1px 分隔线：左栏 `border-right` + 右栏 `border-left`，无阴影、无圆角、无浮层间隙。
 
 ```text
 1440 x 900
 ┌──────────────────────────────────────────────────────────────┐
 │ top nav 60px                                                  │
 ├───────────────┬────────────────────────────┬─────────────────┤
-│ left sidebar  │ article reading column      │ right rail      │
-│ 280-292px     │ 760-820px                   │ 220-260px       │
-│ sticky        │ paper page                  │ sticky          │
+│ left sidebar  │ article reading column      │ right rail TOC  │
+│ 280px         │ 760-820px (max 820)         │ 240px           │
+│ sticky        │ paper-50 column             │ sticky          │
 └───────────────┴────────────────────────────┴─────────────────┘
 ```
 
-页面最大宽度与首页一致，保持 `1440px` 语义；文章主体不应被右栏挤到过窄。窄屏时不要缩小三栏，而是逐步降级：`1024px` 隐藏右栏常驻、`768px` 左栏抽屉化、`390px` 单列阅读。
+窄屏时不要缩小三栏，而是逐步降级：`<=1279px` 隐藏右栏并退为两栏、`<=1024px` 左栏抽屉化并退为单轨、`<=768px` 正文单列、`<=390px` 收紧边距。
 
 ### 2.6 Files to Change
 
@@ -250,13 +257,14 @@ body.is-article
 
 ### 5.5 右侧栏
 
-- 宽度：`220–260px`。
-- 左边框：`1px rgba(32,33,29,.14)`。
-- 内边距：`32px 24px`。
-- Sticky 顶部偏移：导航高度 + `24px`，即约 `84px`。
-- 目录标题：`16px` 加粗，下面旧金短线 `36px × 1px`。
-- 目录项：`14px / 1.6`，当前项左侧 `2px` 旧金线，文字墨色；非当前弱文字。
-- 页边批注：每条上边距 `32–40px`；头像 `28–32px`；标题 `16px`；正文 `13–14px / 1.65`；日期 `12px`。
+- 真实 DOM 位置：`aside.toc-nav` 由 `docsify-plugin-toc` 插件插入 `.content` 内，作为 `.content` 嵌套 grid 的第 2 轨；不是 `main` 的直接子元素。
+- 宽度：`240px`。
+- 定位：`position: sticky; top: 84px; height: calc(100vh - 84px)`，左侧 `1px rgba(32,33,29,.14)` 分隔线贯通视口高。
+- 背景：透明，透出页底 `--studio-paper-100`；无边框圆角、无阴影、无玻璃模糊。
+- 空目录（无 h2/h3/h4）时通过 `.toc-nav.nothing` 或 `body.is-article[data-page="md/Index.md"]` 隐藏，`auto` 轨塌缩，中栏右侧不留空白。
+- 目录标题：`13px` 加粗，下面旧金短线 `36px × 1px`。
+- 目录项：`13px / 1.5`，当前项左侧 `2px` 旧金线，文字墨色；非当前弱文字。
+- 页边批注：仅当项目已有真实批注数据源时显示；否则右栏只保留本页目录。
 
 ### 5.6 底部区域
 
@@ -561,3 +569,88 @@ body.is-article .page_toc { ... }
 
 请把所有新增 CSS 限定在 body.is-article 或更窄作用域。禁止改首页 `_coverpage.md`、`README.md`、`homepage-v2.css`、`homepage-v2.js`。如果首页视觉被影响，修复新样式作用域，而不是调整首页。
 ```
+
+---
+
+## 17. 布局实现记述（三栏平铺改造后同步）
+
+本次改造把文章页从“浮动卡片”改为**原生文档流三栏平铺**，实现文件为 `docs/assets/css/article-reading.css`，`index.html` 与 JS 未改动。
+
+### 17.1 运行时 DOM 与 Grid 结构
+
+```text
+body.is-article
+├─ nav.app-nav.top-nav
+├─ aside.sidebar
+│  ├─ .search
+│  └─ .sidebar-nav
+├─ main
+│  └─ section.content
+│     ├─ aside.toc-nav
+│     ├─ article#main.markdown-section
+│     ├─ .gitalk-container
+│     └─ .docsify-pagination-container
+├─ .progress
+├─ .back-to-top
+├─ #terminal-trigger / #terminal-window
+└─ .sidebar-toggle
+```
+
+说明：
+
+- `docsify-plugin-toc` 把 `aside.toc-nav` 插入 `.content` 内部，因此采用**嵌套 grid**：
+  - `body > main`：`grid-template-columns: 280px minmax(0, 1fr)`。
+  - `.content`：`grid-template-columns: minmax(0, 1fr) auto`。
+- 右栏 `auto` 轨宽由 `.toc-nav` 的 `width: 240px` 决定；当 `.toc-nav.nothing` 或 `data-page="md/Index.md"` 时元素 `display:none`，该轨塌缩为 0。
+- `.markdown-section` 及其兄弟节点（Gitalk、分页）通过 `body.is-article .content > * { grid-column: 1 }` 进入正文列。
+
+### 17.2 关键 CSS 段落
+
+| 段落 | 职责 |
+|---|---|
+| §4 | `main` / `.content` 嵌套 grid；sticky sidebar；paper-50 中栏。 |
+| §5 | `.markdown-section` 透明 + 零边框，消除卡片感。 |
+| §11 | `.toc-nav` sticky、透明、左分隔线、满视口高、空目录隐藏。 |
+| §14 | 响应式降级：`≥1280px` 三栏；`≤1279px` 两栏；`≤1024px` 单轨抽屉；`≤768px/390px` 单列收紧。 |
+| §17 | 桌面侧栏滚动条；移动端抽屉（JS 行为在 `docs/index.html` P008）。 |
+| §20 | 桌面侧栏收回动画（grid-template-columns 280px→0 + 侧栏 transform 滑出）；横向溢出治本。 |
+
+### 17.3 Sticky 与 overflow 约束
+
+- `vue.css` 给 `main { height: 100%; overflow: hidden }`，会把 sticky 的 containing block 限制在视口高并截断溢出。
+- 修复：`body.is-article > main:not(.sm-main) { height: auto !important; overflow: visible !important; overflow-x: clip !important; }`。
+- `overflow-x: clip` 用于防止超长 URL / 残缺 HTML 产生横向滚动条，但 `clip` 不会建立滚动容器，不影响 fixed/sticky 元素。
+
+### 17.4 侧栏收回交互（桌面 `≥1025px`）
+
+- 复用 Docsify 原生 `.sidebar-toggle` 点击 → `body.close` 切换。
+- `main` 加 `transition: grid-template-columns`，`body.close` 时首轨从 `280px` 变为 `0`。
+- `.sidebar` 加 `transform` 过渡，关闭时 `translateX(calc(-100% - var(--shell-gutter)))` 滑出屏幕左侧。
+- `.sidebar-toggle` 从侧栏右缘吸附，关闭时贴屏幕左缘，图标在 `‹` / `›` 之间切换。
+- 移动端（`≤1024px`）同一按钮由 P008 抽屉 JS 接管，与桌面收回语义不冲突。
+
+### 17.5 外壳宽度与对齐
+
+- 使用 `--shell-max-width`（`304px + 1280px = 1584px`），与首页 `.app-nav` 的居中 gutter 对齐。
+- `body.is-article > main:not(.sm-main) { max-width: var(--shell-max-width); margin: 0 auto; }`。
+- `body.is-article main` 另有 `width: 100% !important; max-width: 100% !important; overflow-x: clip !important;` 作为兼治内嵌 `.sm-main` 的兜底。
+
+### 17.6 回归验证证据
+
+最近一次改造后执行：
+
+```bash
+node scripts/sidebar-check.js      # 41 篇主线，0 缺失
+node scripts/check-links.js        # 7 个死链均在 docs/md/archive/，非本次新增
+git diff --check                   # 无空白错误
+```
+
+多视口 Playwright 截图（`1440/1280/1279/1024/768/390/1920`）验证：三栏结构、sticky 不飘、close 动画、抽屉开合、无横向溢出、首页不受 grid 规则影响。截图保存在 `output/three-col-check/`。
+
+### 17.7 禁止事项（与本次改造保持一致）
+
+- 不要把 `.toc-nav` 移出 `.content` 去拼“真·三轨 grid”，否则要改插件源码。
+- 不要在文章页使用 `position: fixed` 实现左/右栏，那会破坏文档流和短页背景色。
+- 不要把 `.markdown-section` 背景改回白色卡片或加左右边框。
+- 不要降低 `body.is-article` 作用域去改全局 `.sidebar` / `.content` / `main`。
+- 不要在 `index.html` 中为本次布局新增 wrapper 或修改 TOC 插件配置。
