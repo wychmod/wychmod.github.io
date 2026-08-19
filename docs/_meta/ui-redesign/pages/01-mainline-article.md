@@ -654,3 +654,39 @@ git diff --check                   # 无空白错误
 - 不要把 `.markdown-section` 背景改回白色卡片或加左右边框。
 - 不要降低 `body.is-article` 作用域去改全局 `.sidebar` / `.content` / `main`。
 - 不要在 `index.html` 中为本次布局新增 wrapper 或修改 TOC 插件配置。
+
+---
+
+## 18. 排版精修记述（2026-08-20，对标 image-01.png）
+
+本次只改 `.markdown-section` 内部排版（`article-reading.css` §5/§6/§7/§14），布局零改动。
+
+### 18.1 标题锚点修复（对比度致命缺陷）
+
+- Docsify 把标题**全文**包进 `<a class="anchor"><span>标题文字</span></a>`；旧规则 `.anchor span { color: gold }` 把 h1-h4 整行刷成旧金（纸底上约 1.9:1 不可读），§6 正文链接的 `a { border-bottom: 1px gold }` (0,2,2) 又压过 modern-theme 的 `.anchor { border-bottom: 0 }` (0,1,3) 给标题加了金下划线。
+- 修复：h1-h6 的 `.anchor` / `.anchor span` / `.anchor:hover` 全部 `color: inherit` + `border-bottom: 0`，逐标签列全以压过正文链接规则。
+
+### 18.2 标题字阶（规范 §5.3 落地）
+
+- 桌面：H1 `44px/1.18`、H2 `26px/1.35`（上边距 40px）、H3 `21px/1.4`（上边距 32px）、H4 `17px`（恢复墨色，不再用 muted）、H5/H6 `15px` 无衬线。
+- 移动端级联：≤1024 → 30/23/19；≤768 → 28；≤390 → 26/20。
+- H1/H2 不再带整宽 `border-bottom` 横线，层级靠字阶+留白区分（参考图无下划线）。
+
+### 18.3 行内代码与代码块
+
+- 行内代码：朱砂色 → `--studio-text` 墨色等宽 + paper-100 底 + 细边框（参考图打字机感）。
+- 代码块：`padding: 42px 22px 18px`，顶部 42px 留给右上角复制按钮（规范 §5.4: 36-42px），不再压首行代码。
+
+### 18.4 §5 特异性陷阱（移动端溢出根因）
+
+- §5 曾用 `body.is-article #main.markdown-section`（ID 特异性 1,1,1）声明 `max-width: 820px; padding: 44px 36px 96px`，压死全部移动端覆盖（0,1,2），导致 ≤1024px 视口阅读面保持桌面宽度横向溢出（实测 390px 视口元素宽 460px，文字被 `overflow-x: clip` 切断）。
+- 修复：§5 去掉 `#main` 提权，仅用 `body.is-article .markdown-section` (0,1,2)——已足够压 modern-theme (0,1,0)，移动端覆盖按文件顺序正常生效。
+- **禁止**在任何会被响应式覆盖的规则上加 ID 提权。
+
+### 18.5 验证证据
+
+`scripts/typography-check.js`（Playwright 计算样式断言 + 截图）：
+
+- h1-h3 计算样式 `color: rgb(32,33,29)`、`border-bottom: 0`、h1 `44px`；行内代码墨色；pre `padding-top: 42px`。
+- 断点实测（ms 宽 / padding）：1440 → 820px / 44px 36px；1024 → 100% / 36px 28px；768 → 100% / 28px 18px；390 → 100% / 24px 14px，全部无横向滚动。
+- 截图在 `output/typography-check/`（1440 顶部/h2/代码块、390、800、首页回归）。

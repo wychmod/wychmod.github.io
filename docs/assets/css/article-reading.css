@@ -362,8 +362,11 @@ body.is-article .content > .toc-nav {
    三栏平铺: paper-50 阅读面由 .content 整列承担 (§4), 此处只控行宽与排版,
    背景透明 + 零边框, 消除卡片感 (参考 image-01.png)
    ========================================================= */
-body.is-article .markdown-section,
-body.is-article #main.markdown-section {
+/* 注意: 不要在此加 #main 提权 —— ID 特异性 (1,1,1) 会压死 §14/§17 全部移动端
+   max-width/padding 覆盖 (0,1,2), 导致 ≤1024px 视口阅读面保持桌面 820px+36px
+   内边距而横向溢出 (实测 390px 视口 ms 宽 460px, 文字被 overflow-x:clip 切断).
+   本规则 (0,1,2) 已足够压 modern-theme .markdown-section (0,1,0) 的 860px/64px。 */
+body.is-article .markdown-section {
   max-width: 820px !important;
   margin: 0 auto !important;
   padding: 44px 36px 96px !important;
@@ -413,7 +416,8 @@ body.is-article .markdown-section h1,
 body.is-article .markdown-section h2,
 body.is-article .markdown-section h3,
 body.is-article .markdown-section h4,
-body.is-article .markdown-section h5 {
+body.is-article .markdown-section h5,
+body.is-article .markdown-section h6 {
   font-family: var(--studio-font-display) !important;
   color: var(--studio-text) !important;
   font-weight: 600 !important;
@@ -424,37 +428,67 @@ body.is-article .markdown-section h5 {
   margin-bottom: 0.6em !important;
 }
 
+/* 层级靠字阶+留白区分, 不用下划线 (参考 image-01.png, 规范 §5.3: H1 44-48/1.18) */
 body.is-article .markdown-section h1 {
-  font-size: 36px !important;
-  line-height: 1.22 !important;
+  font-size: 44px !important;
+  line-height: 1.18 !important;
   margin-top: 0.2em !important;
-  margin-bottom: 0.5em !important;
-  padding-bottom: 0.4em !important;
-  border-bottom: 1px solid var(--studio-paper-line) !important;
+  margin-bottom: 0.55em !important;
+  padding-bottom: 0 !important;
+  border-bottom: 0 !important;
 }
 body.is-article .markdown-section h2 {
   font-size: 26px !important;
   line-height: 1.35 !important;
-  margin-top: 2em !important;
-  padding-bottom: 0.2em !important;
-  border-bottom: 1px solid rgba(201, 195, 183, 0.5) !important;
+  margin-top: 40px !important; /* 规范 §5.3: H2 上边距 36-44px */
+  padding-bottom: 0 !important;
+  border-bottom: 0 !important;
 }
 body.is-article .markdown-section h3 {
-  font-size: 20px !important;
-  margin-top: 1.7em !important;
+  font-size: 21px !important;
+  line-height: 1.4 !important;
+  margin-top: 32px !important; /* 规范 §5.3: H3 上边距 28-34px */
 }
 body.is-article .markdown-section h4 {
   font-size: 17px !important;
-  color: var(--studio-text-muted) !important;
   margin-top: 1.5em !important;
+  /* 不再用 muted: 标题是层级信号, 不是辅助文字 */
+}
+body.is-article .markdown-section h5,
+body.is-article .markdown-section h6 {
+  font-size: 15px !important;
+  font-family: var(--studio-font-body) !important; /* 深层级退回无衬线, 避免过小衬线发虚 */
 }
 
-/* 锚点链接颜色 (Docsify .anchor span) */
+/* 标题锚点: Docsify 把标题【全文】包进 <a class="anchor"><span>标题文字</span></a>,
+   必须 color:inherit + 去下划线, 否则整行标题被刷成旧金(1.9:1 不可读)并带金色下划线
+   (此处特异性需压过 §6 正文链接的 a{border-bottom:1px gold}, 故逐标签列全 h1-h6) */
+body.is-article .markdown-section h1 .anchor,
+body.is-article .markdown-section h2 .anchor,
+body.is-article .markdown-section h3 .anchor,
+body.is-article .markdown-section h4 .anchor,
+body.is-article .markdown-section h5 .anchor,
+body.is-article .markdown-section h6 .anchor {
+  color: inherit !important;
+  border-bottom: 0 !important;
+  text-decoration: none !important;
+}
 body.is-article .markdown-section h1 .anchor span,
 body.is-article .markdown-section h2 .anchor span,
 body.is-article .markdown-section h3 .anchor span,
-body.is-article .markdown-section h4 .anchor span {
-  color: var(--studio-gold) !important;
+body.is-article .markdown-section h4 .anchor span,
+body.is-article .markdown-section h5 .anchor span,
+body.is-article .markdown-section h6 .anchor span {
+  color: inherit !important;
+}
+body.is-article .markdown-section h1 .anchor:hover,
+body.is-article .markdown-section h2 .anchor:hover,
+body.is-article .markdown-section h3 .anchor:hover,
+body.is-article .markdown-section h4 .anchor:hover,
+body.is-article .markdown-section h5 .anchor:hover,
+body.is-article .markdown-section h6 .anchor:hover {
+  color: inherit !important; /* 压 §6 a:hover 的信号绿, 标题 hover 不变色 */
+  border-bottom: 0 !important;
 }
 
 body.is-article .markdown-section p,
@@ -502,7 +536,7 @@ body.is-article .markdown-section pre code {
 /* 行内代码: 纸面打字机感 */
 body.is-article .markdown-section :not(pre) > code {
   background: var(--studio-paper-100) !important;
-  color: var(--studio-vermilion) !important;
+  color: var(--studio-text) !important; /* 参考 image-01.png: 墨色等宽+浅纸底, 不用朱砂 */
   padding: 1px 5px !important;
   border-radius: var(--studio-radius-sm) !important;
   border: 1px solid var(--studio-line-paper) !important;
@@ -516,7 +550,7 @@ body.is-article .markdown-section pre {
   color: var(--studio-on-dark) !important;
   border-radius: var(--studio-radius-md) !important;
   border: 1px solid var(--studio-line-dark) !important;
-  padding: 20px 22px !important;
+  padding: 42px 22px 18px !important; /* 顶部 42px 给复制按钮 (规范 §5.4: 36-42px), 防压首行代码 */
   overflow-x: auto !important;
   font-size: 13px !important;
   line-height: 1.65 !important;
@@ -1059,10 +1093,13 @@ body.is-article .progress {
     padding: 36px 28px 80px !important;
   }
   body.is-article .markdown-section h1 {
-    font-size: 32px !important;
+    font-size: 30px !important; /* 桌面 44 放大后, 移动端略收, 防长标题换行过碎 */
   }
   body.is-article .markdown-section h2 {
-    font-size: 24px !important;
+    font-size: 23px !important;
+  }
+  body.is-article .markdown-section h3 {
+    font-size: 19px !important;
   }
 }
 
