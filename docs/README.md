@@ -17,16 +17,28 @@
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">AI 编程三件套方法论</h3>
-        <p class="home-recent-excerpt">新增 Claude Code 规则与扩展机制小节：paths 懒加载、五大件速查与 Skill/Plugin 区别。</p>
+        <p class="home-recent-excerpt">新增非交互调用小节：claude -p 无头模式机制、与 Agent SDK 的关系及 Anthropic API 区别。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
-        <span class="home-recent-date">2026-08-17</span>
+        <span class="home-recent-date">2026-08-20</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/09-开发工具/00-Git版本控制">
+      <span class="home-recent-num">02</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">Git 版本控制</h3>
+        <p class="home-recent-excerpt">新增 Worktree 小节：一份仓库挂多个工作现场的机制、与复制目录的对比及并行验收判据。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-8)">开发工具</span>
+        <span class="home-recent-date">2026-08-20</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
     <a class="home-recent-row" href="#/md/05-AI与Agent/60-AI前端设计工程化">
-      <span class="home-recent-num">02</span>
+      <span class="home-recent-num">03</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">AI 前端设计工程化</h3>
         <p class="home-recent-excerpt">整理 AI 前端设计协作讲义，说明 D2C、PDE、Design Skill、组件库查询与视觉验收。</p>
@@ -34,18 +46,6 @@
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
         <span class="home-recent-date">2026-08-16</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/02-后端开发/00-MySQL数据库">
-      <span class="home-recent-num">03</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">MySQL 数据库</h3>
-        <p class="home-recent-excerpt">整合 7 份笔记，覆盖 MySQL 使用、运行与优化；含 InnoDB 索引、MVCC、锁与主从语法。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-1)">后端开发</span>
-        <span class="home-recent-date">2026-07-22</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>

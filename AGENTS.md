@@ -71,7 +71,8 @@ wychmod.github.io/
     ├── count-archive.js         ← 归档规模统计
     ├── inline-archive.js        ← 小归档内联
     ├── screenshot-mobile.js     ← 多视口移动端截图（Playwright）
-    └── ...
+    ├── typography-check.js      ← 文章页排版精修验收（Playwright）
+    └── archive/                 ← 已完成使命的一次性迁移脚本存档
 ```
 
 ---
@@ -304,6 +305,9 @@ node scripts/count-archive.js
 
 # 多视口移动端截图（需先启动本地预览）
 node scripts/screenshot-mobile.js
+
+# 文章页排版精修验收：样式断言 + 截图（需先启动本地预览 + Playwright）
+node scripts/typography-check.js
 
 # 本地预览
 npx docsify-cli serve docs --port 3000
