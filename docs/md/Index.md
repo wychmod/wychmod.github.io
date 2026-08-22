@@ -230,12 +230,13 @@
     <span class="sm-domain-num">09</span>
     <span class="sm-domain-body">
       <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i>开发工具</span>
-      <span class="sm-domain-desc">Git、站内工具箱与 AI 助手资源。</span>
+      <span class="sm-domain-desc">Git、Maven 构建工具、站内工具箱与 AI 助手资源。</span>
     </span>
     <span class="sm-domain-arrow" aria-hidden="true">↓</span>
   </summary>
   <ul class="sm-domain-links">
     <li><a href="#/md/09-开发工具/00-Git版本控制.md">Git 版本控制</a><span>命令、分支、协作与练习</span></li>
+    <li><a href="#/md/09-开发工具/20-Maven与构建工具.md">Maven 与构建工具</a><span>Wrapper 机制与构建版本一致性</span></li>
     <li><a href="#/md/09-开发工具/10-工具箱与资源.md">工具箱与资源</a><span>站内工具、CSS 片段与资源索引</span></li>
     <li><a href="#/README-Terminal.md">终端使用指南</a><span>命令行终端的命令与快捷键</span></li>
     <li><a href="#/AI-ASSISTANT-GUIDE.md">AI 助手使用指南</a><span>终端式技术助手</span></li>
