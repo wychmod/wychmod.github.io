@@ -13,8 +13,20 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/01-计算机基础/30-计算机系统与并发.md">
+    <a class="home-recent-row" href="#/md/02-后端开发/20-消息队列.md">
       <span class="home-recent-num">01</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">消息队列</h3>
+        <p class="home-recent-excerpt">新增 Outbox 可靠投递小节：本地事务 + 发件箱表机制、轮询与 CDC 流派及配套治理要点。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-1)">后端开发</span>
+        <span class="home-recent-date">2026-08-22</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/01-计算机基础/30-计算机系统与并发.md">
+      <span class="home-recent-num">02</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">计算机系统与并发</h3>
         <p class="home-recent-excerpt">新增 SSE 小节：服务器单向推送协议格式、EventSource/fetch 消费方式与 LLM 流式输出应用。</p>
@@ -26,7 +38,7 @@
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
     <a class="home-recent-row" href="#/md/09-开发工具/20-Maven与构建工具">
-      <span class="home-recent-num">02</span>
+      <span class="home-recent-num">03</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">Maven 与构建工具</h3>
         <p class="home-recent-excerpt">新建文档：Maven Wrapper 机制、mvnw 文件构成、版本一致性价值与常用命令。</p>
@@ -34,18 +46,6 @@
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-8)">开发工具</span>
         <span class="home-recent-date">2026-08-22</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论">
-      <span class="home-recent-num">03</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">AI 编程三件套方法论</h3>
-        <p class="home-recent-excerpt">新增非交互调用小节：claude -p 无头模式机制、与 Agent SDK 的关系及 Anthropic API 区别。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
-        <span class="home-recent-date">2026-08-20</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
