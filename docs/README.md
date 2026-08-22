@@ -13,8 +13,32 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论">
+    <a class="home-recent-row" href="#/md/01-计算机基础/30-计算机系统与并发.md">
       <span class="home-recent-num">01</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">计算机系统与并发</h3>
+        <p class="home-recent-excerpt">新增 SSE 小节：服务器单向推送协议格式、EventSource/fetch 消费方式与 LLM 流式输出应用。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
+        <span class="home-recent-date">2026-08-22</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/09-开发工具/20-Maven与构建工具">
+      <span class="home-recent-num">02</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">Maven 与构建工具</h3>
+        <p class="home-recent-excerpt">新建文档：Maven Wrapper 机制、mvnw 文件构成、版本一致性价值与常用命令。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-8)">开发工具</span>
+        <span class="home-recent-date">2026-08-22</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论">
+      <span class="home-recent-num">03</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">AI 编程三件套方法论</h3>
         <p class="home-recent-excerpt">新增非交互调用小节：claude -p 无头模式机制、与 Agent SDK 的关系及 Anthropic API 区别。</p>
@@ -22,30 +46,6 @@
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
         <span class="home-recent-date">2026-08-20</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/09-开发工具/00-Git版本控制">
-      <span class="home-recent-num">02</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">Git 版本控制</h3>
-        <p class="home-recent-excerpt">新增 Worktree 小节：一份仓库挂多个工作现场的机制、与复制目录的对比及并行验收判据。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-8)">开发工具</span>
-        <span class="home-recent-date">2026-08-20</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/05-AI与Agent/60-AI前端设计工程化">
-      <span class="home-recent-num">03</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">AI 前端设计工程化</h3>
-        <p class="home-recent-excerpt">整理 AI 前端设计协作讲义，说明 D2C、PDE、Design Skill、组件库查询与视觉验收。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
-        <span class="home-recent-date">2026-08-16</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
@@ -309,12 +309,13 @@
         <span class="sm-domain-num">09</span>
         <span class="sm-domain-body">
           <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i>开发工具</span>
-          <span class="sm-domain-desc">Git、站内工具箱与 AI 助手资源。</span>
+          <span class="sm-domain-desc">Git、Maven 构建工具、站内工具箱与 AI 助手资源。</span>
         </span>
         <span class="sm-domain-arrow" aria-hidden="true">↓</span>
       </summary>
       <ul class="sm-domain-links">
         <li><a href="#/md/09-开发工具/00-Git版本控制.md">Git 版本控制</a><span>命令、分支、协作与练习</span></li>
+        <li><a href="#/md/09-开发工具/20-Maven与构建工具.md">Maven 与构建工具</a><span>Wrapper 机制与构建版本一致性</span></li>
         <li><a href="#/md/09-开发工具/10-工具箱与资源.md">工具箱与资源</a><span>站内工具、CSS 片段与资源索引</span></li>
         <li><a href="#/README-Terminal.md">终端使用指南</a><span>命令行终端的命令与快捷键</span></li>
         <li><a href="#/AI-ASSISTANT-GUIDE.md">AI 助手使用指南</a><span>终端式技术助手</span></li>
