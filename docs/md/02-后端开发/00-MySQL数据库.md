@@ -265,7 +265,7 @@ MySQL 所有更新语句都会记录到 Server 层的 **Binlog**。从库通过�
 3. **从库 SQL 线程**：读取 Relay Log，在从库重放。
 
 ```sql
--- 查看主库/从库状态（8.0.22+ 推荐使用新语法）
+-- 查看主库/从库状态（SHOW REPLICA STATUS 为 8.0.22+ 新语法；SHOW BINARY LOG STATUS 为 8.2+ 新语法）
 SHOW BINARY LOG STATUS;    -- 旧：SHOW MASTER STATUS
 SHOW REPLICA STATUS\G     -- 旧：SHOW SLAVE STATUS
 ```
@@ -479,9 +479,12 @@ SELECT * FROM user_innodb WHERE id > 900000 LIMIT 10;
 | 2026-07-22 | 订正 | 主从状态查看补充 8.0.22+ 新语法 SHOW BINARY LOG STATUS / SHOW REPLICA STATUS |
 | 2026-07-22 | 订正 | innodb_autoinc_lock_mode 默认值修正：8.0+ 默认为 2（交错） |
 | 2026-07-22 | 审查 | 全面审查，核心内容完备 |
+| 2026-08-24 | 订正 | SHOW BINARY LOG STATUS 引入版本修正为 8.2+（8.0.22+ 引入的是 SHOW REPLICA STATUS，此前误并列表述） |
+| 2026-08-24 | 订正 | 内联段开头新增总注：标注 2 张 note.youdao.com 死图（图床已失效、无法恢复，对应内容以文字为准） |
 
 # 以下为原内容存档
 > 以下内容为原始归档文件的完整保留，仅修正图片相对路径，文字原貌不变。
+> ⚠️ 图片说明：原文中有 2 张截图托管于已失效的外部图床（note.youdao.com），已无法显示，对应内容以文字为准。
 
 ## MySQL性能优化-架构.md
 

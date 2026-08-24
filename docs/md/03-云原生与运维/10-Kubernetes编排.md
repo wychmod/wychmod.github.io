@@ -169,6 +169,13 @@ Pod 的五种**相位（Phase）**：
 - **Failed**：所有容器终止，至少一个容器终止失败。
 - **Unknown**：apiserver 无法正常获取 Pod 状态，通常由网络通信失败导致。
 
+**终止流程**：删除 Pod 后默认有 30s 宽限期，期间 Pod 被视为 dead 并标记 Terminating，依次执行：
+
+1. 先从所有匹配 Service 的 Endpoints 中摘除该 Pod；
+2. 再同步执行 preStop 钩子；
+3. 随后向容器发送停止信号；
+4. 宽限期结束仍未退出则强制终止。
+
 ### 3.7 初始化容器
 
 Init Container 在主容器启动前运行，特点：
@@ -394,6 +401,8 @@ kubectl rollout pause deploy web-deploy -n dev
 kubectl rollout resume deploy web-deploy -n dev
 ```
 
+**回滚原理**：每次镜像更新都会新建一个 RS，旧 RS 保留但副本缩为 0 而非删除；回滚就是把旧 RS 扩容、当前 RS 缩为 0。`revisionHistoryLimit` 控制保留的历史 RS 数量。
+
 ### 4.5 Horizontal Pod Autoscaler
 
 HPA 根据 CPU 或自定义指标自动调整 Pod 数量。
@@ -470,6 +479,11 @@ spec:
         image: busybox:1.30
         command: ["/bin/sh", "-c", "for i in 9 8 7 6 5 4 3 2 1; do echo $i; sleep 2; done"]
 ```
+
+**restartPolicy 约束**：Job 模板中 restartPolicy 只能为 `Never` 或 `OnFailure`，禁止 `Always`（会无限重启导致一次性任务重复执行）。
+
+- **Never**：容器故障时新建 Pod，并计入 failed 次数。
+- **OnFailure**：原地重启容器，failed 计数不变。
 
 **CronJob**：周期性执行任务。
 
@@ -735,6 +749,11 @@ spec:
       claimName: pvc1
 ```
 
+PV 生命周期四种状态：**Available**（可用）、**Bound**（已绑定）、**Released**（已释放）、**Failed**（失败）。
+
+- PVC 匹配不到满足条件的 PV 时，会无限期处于 Pending；PV 一经绑定即被该 PVC 独占。
+- PVC 删除后 PV 进入 Released，需按回收策略清理后才能再次绑定。
+
 ### 6.5 ConfigMap
 
 ```yaml
@@ -752,6 +771,17 @@ data:
 ```bash
 kubectl create configmap app-config --from-literal=key=value -n dev
 ```
+
+以 Volume 方式挂载消费：
+
+```yaml
+volumes:
+- name: config-volume
+  configMap:
+    name: app-config
+```
+
+key 映射为文件名、value 为文件内容；更新 ConfigMap 后，容器内挂载的文件内容会动态更新。
 
 ### 6.6 Secret
 
@@ -835,6 +865,8 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
+RoleBinding 也可引用 ClusterRole，但权限会被限定在该命名空间内，不会升级为集群级。常用做法：预定义一个 ClusterRole，再在多个命名空间用 RoleBinding 复用。
+
 ### 7.4 准入控制
 
 常用准入控制器：
@@ -871,6 +903,8 @@ kubectl create token dashboard-admin -n kubernetes-dashboard
 - **k3s**：轻量级，适合边缘场景。
 - **kind**：Docker in Docker，适合 CI/CD 测试。
 - **公有云托管**：EKS、AKS、GKE、阿里云 ACK、腾讯云 TKE。
+
+集群拓扑分两类：**一主多从**（搭建简单，但 Master 有单点故障风险，适合测试）；**多主多从**（高可用，搭建复杂、安全性高，适合生产）。
 
 ### 8.2 基础 kubectl 命令
 
@@ -932,6 +966,22 @@ kubectl label pod nginx-pod version=2.0 --overwrite -n dev
 kubectl get pods -n dev -l version=2.0 --show-labels
 ```
 
+**标签选择器（Label Selector）**：基于 Label 筛选对象的机制，分两类：
+
+- **基于等式**：`=`、`!=`，如 `name=slave`、`env!=production`。
+- **基于集合**：`in`、`not in`，如 `name in (master, slave)`、`name not in (frontend)`。
+
+多个选择条件用逗号组合，如 `name=slave,env!=production`。Service/Deployment 的 selector 与 `kubectl -l` 筛选底层都依赖该机制。
+
+集群自带四个默认命名空间：
+
+| 命名空间 | 用途 |
+|---|---|
+| **default** | 未指定命名空间的对象都落在这里。 |
+| **kube-system** | 系统组件 Pod 所在，apiserver、etcd、scheduler 等运行于此。 |
+| **kube-node-lease** | 节点心跳（v1.13+）。 |
+| **kube-public** | 未认证用户可访问。 |
+
 ---
 
 ## 九、2026 年 K8s 生态
@@ -970,6 +1020,8 @@ kubectl get pods -n dev -l version=2.0 --show-labels
 
 8. **HPA 不生效**：确认 metrics-server 已安装并正常运行；确认 Deployment 已设置 resources.requests。
 
+9. **未禁用 swap 导致初始化失败**：swap 对性能有严重负面影响，K8s 要求每个节点禁用 swap（kubeadm 预检会因此失败）；确实无法关闭时，需在集群安装过程中显式配置参数说明。
+
 > 💡 补充：学习 K8s 的核心是掌握对 Pod、Pod 控制器、Service、存储、配置、RBAC 等资源的操作。原始归档的 7 篇笔记对每类资源都有详细展开，遇到具体问题可回查原文。
 
 ---
@@ -995,3 +1047,4 @@ kubectl get pods -n dev -l version=2.0 --show-labels
 | 2026-07-22 | 审查 | 全面审查，核心概念与 API 版本正确，2026 生态描述完备 |
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
+| 2026-08-23 | 新增 | 对照归档分区核对报告补入 10 处缺失知识点（标签选择器语法、四个默认命名空间、集群拓扑选型、禁用 swap、PV 生命周期状态、Deployment 回滚原理、Job restartPolicy 约束、Pod 终止流程、ConfigMap 挂载消费、RBAC 复用模式） |

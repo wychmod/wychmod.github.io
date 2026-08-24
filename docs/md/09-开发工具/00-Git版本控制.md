@@ -216,6 +216,7 @@ git worktree add ../myproject-hotfix hotfix-branch
 ---
 
 # 以下为原内容存档
+> ⚠️ 图片说明：原文中有 4 张截图托管于已停服的有道云图床（note.youdao.com），已无法显示，对应内容以文字为准。
 
 ## git命令笔记.md
 # GIT
@@ -475,3 +476,4 @@ git cherry-pick C2 C4
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-20 | 新增 | 新增 3.6 Worktree 小节：机制、与复制目录对比、典型场景与并行验收判据 |
+| 2026-08-23 | 新增 | 标注 4 处已停服图床的历史截图；总结区核对无事实错误 |

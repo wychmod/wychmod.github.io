@@ -39,11 +39,13 @@
 
 ---
 
-# 以下为原内容存档
+# 原文要点精选
 
 > 原文来自 `docs/md/NLP/聊天机器人.docx`（11MB），用 pandoc 转 md 并提取 74 张图。
 > 全部原文件 + 74 张图归档到 `md/archive/old-nlp-notes/`。
 > 主线文档仅精选 6 张关键图。
+>
+> ⚠️ 订正（2026-08-23）：本节为要点整理而非原文照录，实际引用 9 张关键图（image3/9/23/30/33/42/47/66/70），并非 6 张；原文全文（含全部 74 张图）已完整内联于下方「以下为原内容存档」一节。
 
 ## 一、TensorFlow 1.x 入门
 
@@ -210,6 +212,248 @@ print(response.choices[0].message.content)
 
 ---
 
+# 以下为原内容存档
+
+> 以下内容为原始归档文件的完整保留，文字原貌不变。
+
+## 聊天机器人.md
+
+# NLP技术点
+
+![](../archive/old-nlp-notes/media/image1.png){width="5.361111111111111in"
+height="1.9916666666666667in"}
+
+![](../archive/old-nlp-notes/media/image2.png){width="5.321527777777778in"
+height="3.004861111111111in"}
+
+## TensorFlow框架介绍
+
+![](../archive/old-nlp-notes/media/image3.png){width="4.906944444444444in"
+height="2.0993055555555555in"}
+
+![](../archive/old-nlp-notes/media/image4.png){width="5.761111111111111in"
+height="2.839583333333333in"}
+
+### TensorFlow的三要素：张量、图、会话
+
+![](../archive/old-nlp-notes/media/image5.png){width="5.763194444444444in"
+height="2.6625in"}
+
+![](../archive/old-nlp-notes/media/image6.png){width="5.763888888888889in"
+height="2.2256944444444446in"}
+
+![](../archive/old-nlp-notes/media/image7.png){width="5.756944444444445in"
+height="2.5569444444444445in"}
+
+![](../archive/old-nlp-notes/media/image8.png){width="5.759722222222222in"
+height="2.201388888888889in"}
+
+### 训练原理：
+
+![](../archive/old-nlp-notes/media/image9.png){width="5.759722222222222in"
+height="4.363888888888889in"}
+
+### 安卓：
+
+![](../archive/old-nlp-notes/media/image10.png){width="5.763194444444444in"
+height="2.178472222222222in"}
+
+![](../archive/old-nlp-notes/media/image11.png){width="5.767361111111111in"
+height="4.872222222222222in"}
+
+## NLP基础
+
+卷积神经网络和图片处理相关；
+
+循环神经网络和自然语言相关；
+
+LSTM长短期记忆网络适合预测时间较长的模型。
+
+![](../archive/old-nlp-notes/media/image12.png){width="5.763194444444444in"
+height="2.10625in"}
+
+### 循环神经网络：
+
+![](../archive/old-nlp-notes/media/image13.png){width="5.7659722222222225in"
+height="2.65in"}
+
+#### BP神经网络：
+
+![](../archive/old-nlp-notes/media/image14.png){width="5.763888888888889in"
+height="2.392361111111111in"}![](../archive/old-nlp-notes/media/image15.png){width="5.764583333333333in"
+height="2.3569444444444443in"}
+
+![](../archive/old-nlp-notes/media/image16.png){width="5.767361111111111in"
+height="2.1902777777777778in"}
+
+#### 循环神经网络：
+
+![](../archive/old-nlp-notes/media/image17.png){width="5.766666666666667in"
+height="2.714583333333333in"}
+
+##### ![](../archive/old-nlp-notes/media/image18.png){width="5.759722222222222in" height="2.2333333333333334in"}![](../archive/old-nlp-notes/media/image19.png){width="5.763888888888889in" height="2.4347222222222222in"}![](../archive/old-nlp-notes/media/image20.png){width="5.7659722222222225in" height="2.3645833333333335in"}![](../archive/old-nlp-notes/media/image21.png){width="5.761805555555555in" height="2.238888888888889in"}![](../archive/old-nlp-notes/media/image22.png){width="5.761111111111111in" height="3.2736111111111112in"} 梯度消失和梯度爆炸的解决方法：
+
+![](../archive/old-nlp-notes/media/image23.png){width="5.7659722222222225in"
+height="3.4756944444444446in"}![](../archive/old-nlp-notes/media/image24.png){width="5.761111111111111in"
+height="3.078472222222222in"}![](../archive/old-nlp-notes/media/image25.png){width="5.7659722222222225in"
+height="3.2090277777777776in"}![](../archive/old-nlp-notes/media/image26.png){width="5.760416666666667in"
+height="2.7736111111111112in"}![](../archive/old-nlp-notes/media/image27.png){width="5.766666666666667in"
+height="1.8270833333333334in"}![](../archive/old-nlp-notes/media/image28.png){width="5.758333333333334in"
+height="2.1798611111111112in"}![](../archive/old-nlp-notes/media/image29.png){width="5.760416666666667in"
+height="2.3826388888888888in"}
+
+#### LSTM长短期记忆网络：
+
+![](../archive/old-nlp-notes/media/image30.png){width="5.763888888888889in"
+height="1.8291666666666666in"}![](../archive/old-nlp-notes/media/image31.png){width="5.759027777777778in"
+height="2.470833333333333in"}
+![](../archive/old-nlp-notes/media/image32.png){width="5.767361111111111in"
+height="1.7819444444444446in"}
+
+### NLPJ基础知识：
+
+![](../archive/old-nlp-notes/media/image33.png){width="5.768055555555556in"
+height="3.0381944444444446in"}
+
+#### 什么是NLP：
+
+![](../archive/old-nlp-notes/media/image34.png){width="5.766666666666667in"
+height="1.9131944444444444in"}
+
+#### NLP技术：
+
+![](../archive/old-nlp-notes/media/image35.png){width="5.05in"
+height="3.7916666666666665in"}![](../archive/old-nlp-notes/media/image36.png){width="4.441666666666666in"
+height="4.316666666666666in"}![](../archive/old-nlp-notes/media/image37.png){width="5.759722222222222in"
+height="2.9583333333333335in"}![](../archive/old-nlp-notes/media/image38.png){width="5.761805555555555in"
+height="2.4375in"}![](../archive/old-nlp-notes/media/image39.png){width="5.761805555555555in"
+height="2.2777777777777777in"}![](../archive/old-nlp-notes/media/image40.png){width="5.7652777777777775in"
+height="3.8513888888888888in"}![](../archive/old-nlp-notes/media/image41.png){width="5.7625in"
+height="2.6840277777777777in"}
+
+#### 贝叶斯算法分类：
+
+![](../archive/old-nlp-notes/media/image42.png){width="5.759722222222222in"
+height="1.6972222222222222in"}![](../archive/old-nlp-notes/media/image43.png){width="5.759722222222222in"
+height="2.3340277777777776in"}![](../archive/old-nlp-notes/media/image44.png){width="5.763888888888889in"
+height="1.429861111111111in"}![](../archive/old-nlp-notes/media/image45.png){width="5.409027777777778in"
+height="5.188194444444444in"}![](../archive/old-nlp-notes/media/image46.png){width="5.758333333333334in"
+height="2.00625in"}
+
+#### 马尔科夫模型 ：
+
+![](../archive/old-nlp-notes/media/image47.png){width="5.7625in"
+height="2.24375in"}![](../archive/old-nlp-notes/media/image48.png){width="5.759027777777778in"
+height="2.053472222222222in"}![](../archive/old-nlp-notes/media/image49.png){width="5.764583333333333in"
+height="2.941666666666667in"}![](../archive/old-nlp-notes/media/image50.png){width="5.767361111111111in"
+height="2.459722222222222in"}![](../archive/old-nlp-notes/media/image51.png){width="5.757638888888889in"
+height="2.6416666666666666in"}![](../archive/old-nlp-notes/media/image52.png){width="5.761805555555555in"
+height="2.502083333333333in"}
+
+#### 案例：
+
+![](../archive/old-nlp-notes/media/image53.png){width="5.760416666666667in"
+height="2.175in"}
+
+virtualenv xxxx
+
+pip install -i https://pypi.doubanio.com/simple jieba
+
+pip install -i https://pypi.doubanio.com/simple sklearn
+
+pip install -i https://pypi.doubanio.com/simple scipy
+
+### 语料的获取和处理：
+
+![](../archive/old-nlp-notes/media/image54.png){width="2.8583333333333334in"
+height="2.0416666666666665in"}
+
+#### 什么是语料库：
+
+![](../archive/old-nlp-notes/media/image55.png){width="5.767361111111111in"
+height="1.3486111111111112in"}
+
+#### 语料库的种类：
+
+![](../archive/old-nlp-notes/media/image56.png){width="4.716666666666667in"
+height="3.5in"}
+
+#### 语料获取的途径：
+
+![](../archive/old-nlp-notes/media/image57.png){width="2.825in"
+height="1.6416666666666666in"}
+
+![](../archive/old-nlp-notes/media/image58.png){width="5.766666666666667in"
+height="2.625in"}
+
+#### 语料的处理：
+
+![](../archive/old-nlp-notes/media/image59.png){width="2.475in"
+height="2.158333333333333in"}
+
+### NLP中的语言模型：
+
+![](../archive/old-nlp-notes/media/image60.png){width="5.7625in"
+height="1.4722222222222223in"}
+
+![](../archive/old-nlp-notes/media/image61.png){width="5.764583333333333in"
+height="1.0805555555555555in"}
+
+#### 概率语言模型：
+
+![](../archive/old-nlp-notes/media/image62.png){width="3.375in"
+height="2.425in"}
+
+#### 一元文法统计模型：
+
+![](../archive/old-nlp-notes/media/image63.png){width="5.767361111111111in"
+height="2.3125in"}
+
+#### 二元文法统计模型：
+
+![](../archive/old-nlp-notes/media/image64.png){width="5.764583333333333in"
+height="2.64375in"}
+
+#### N元模型：
+
+![](../archive/old-nlp-notes/media/image65.png){width="5.759722222222222in"
+height="1.6243055555555554in"}
+
+#### 词向量与word2vec：
+
+![](../archive/old-nlp-notes/media/image66.png){width="5.7625in"
+height="2.0027777777777778in"}
+
+#### CBOW:
+
+![](../archive/old-nlp-notes/media/image67.png){width="5.763194444444444in"
+height="2.5479166666666666in"}
+
+#### Skip-gram：
+
+![](../archive/old-nlp-notes/media/image68.png){width="5.764583333333333in"
+height="2.5541666666666667in"}
+
+### 文本处理方法：
+
+![](../archive/old-nlp-notes/media/image69.png){width="5.759722222222222in"
+height="2.4652777777777777in"}
+
+## 实战：
+
+pip install -i https://pypi.doubanio.com/simple tqdm
+
+![](../archive/old-nlp-notes/media/image70.png){width="2.908333333333333in"
+height="5.883333333333334in"}![](../archive/old-nlp-notes/media/image71.png){width="5.761111111111111in"
+height="2.175in"}![](../archive/old-nlp-notes/media/image72.png){width="5.7652777777777775in"
+height="3.51875in"}
+
+![](../archive/old-nlp-notes/media/image73.png){width="5.764583333333333in"
+height="3.6069444444444443in"}![](../archive/old-nlp-notes/media/image74.png){width="5.763194444444444in"
+height="3.3402777777777777in"}
+
+---
+
 ## 📚 关键 takeaway
 
 - **传统 NLP 整套思路**（分词→词向量→分类→对话）现在被 LLM 一行 API 替代
@@ -226,3 +470,4 @@ print(response.choices[0].message.content)
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-07-22 | 审查 | 全面审查，替代方案（LLM API/RAG/Agent/BGE Embedding）均为 2026 年最新主流；存档区保留原貌 |
+| 2026-08-23 | 新增 | 完整内联归档原文「聊天机器人.md」（74 张图路径改指 ../archive/old-nlp-notes/media/）；原「以下为原内容存档」节实为精选整理，更名「原文要点精选」并订正配图数（实为 9 张，非 6 张） |

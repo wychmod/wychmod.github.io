@@ -1286,7 +1286,7 @@ wychmod : friends
 - r:英语read的缩写,表示“读”。就是说可以读这个文件
 - w:英语wite的缩写,表示“写”。就是说可以写/修改这个文件
 - x:英语 execute的缩写,表示“执行运行"。可以运行这个文件
-![image](../../youdaonote-images/8BB56792CE6D4D93B6C137679A50BF7D.png)
+![image](../youdaonote-images/8BB56792CE6D4D93B6C137679A50BF7D.png)
 ### chmod命令：修改文件权限
 - chmod命令:修改文件的访问权限
 - chmod命令不需要是root用户才能运行只要你是此文件所有者,就可以用 chmod来修改文件的访问权限
@@ -1297,7 +1297,7 @@ wychmod : friends
 - chmod g+rfle文件fil的群组其他用户增加读的权限
 - chmod o- r file文件file的其他用户移除读的权限
 - chmod配合-R(大写的R)参数可以递归地修改文件访可权限
-![image](../../youdaonote-images/675C96F055314A8AB2A3D29ECBC4091B.png) 
+![image](../youdaonote-images/675C96F055314A8AB2A3D29ECBC4091B.png) 
 > ## Nano文本编辑器和终端配置
 **Nano是一个文本编辑器,不是文本处理器** 
 - ◆Nano的全称其实是 GNU Nano
@@ -1342,7 +1342,7 @@ wychmod : friends
 - 二进制形式的,包含了安装软件的所有指令
 - 在 Red Hat一族里,软件包的后缀是.rpm
 - **软件包管理包括了依赖关系的管理**
-![image](../../youdaonote-images/49CF83C3BF154CD38D6239C38F77BBE3.png)
+![image](../youdaonote-images/49CF83C3BF154CD38D6239C38F77BBE3.png)
 ### 依赖关系
 - 通常来说,很少有一个软件可以单独在Lnux上运行
 - 一个软件经常需要使用其他程序或者其他程序的片段(称之为库）
@@ -1350,7 +1350,7 @@ wychmod : friends
 - 比如说, Linux下类似 Photoshop的软件GIMP
 - GIMP的正常运作需要调用图片读取的库(例如读取一个JPG图片)
 ### 软件仓库
-![image](../../youdaonote-images/22BD4D59C7CE491BB83090344265A75B.png)
+![image](../youdaonote-images/22BD4D59C7CE491BB83090344265A75B.png)
 - 是用户选择软件仓库,因为基本上各个软件仓库中的软件都是一样的
 - 一般建议用户选择离自己所在地较近的软件仓库的服务器
 ### 切换CentOS软件源
@@ -1474,7 +1474,7 @@ grep -v path /etc/profile
 ### grep的高级用法:配合正则表达式
 - 正则表达式使用单个字符串
 - 来描述、匹配一系列符合某个句法规则的符串
-![image](../../youdaonote-images/AC321D932E094E8A9D45BEA5C3CCED8C.png)
+![image](../youdaonote-images/AC321D932E094E8A9D45BEA5C3CCED8C.png)
 #### -E参数:使用正则表达式
 ```
 [root@VM_0_14_centos ~]# grep -e ^path /etc/profile
@@ -1676,13 +1676,13 @@ yum install epel* -y
 yum install python-pip python-devel -y
 yum install glances -y
 ```
-![image](../../youdaonote-images/AB8B22A5C4A044F69D7DCF6EA22F6535.png)
+![image](../youdaonote-images/AB8B22A5C4A044F69D7DCF6EA22F6535.png)
 ### htop软件
 ```
 yum install epel* -y
 yum install -y htop
 ```
-![image](../../youdaonote-images/6FC76E9746E2413B963F697882D3B72C.png)
+![image](../youdaonote-images/6FC76E9746E2413B963F697882D3B72C.png)
 ### kill令:结束一个进程
 - 可以同时用ki来结束好几个进程,只要用空格隔开它们的P|D
 - 可以用kill -9来立即强制结束进程
@@ -1723,7 +1723,7 @@ yum install -y htop
 ### fg命令:使进程转到前台
 - fg是英语 foreground的意思,表示“前台
 - fg命令的作用是:使进程转为前台运行
-![image](../../youdaonote-images/768307EBCA1045B889D462C089CE7D53.png) 
+![image](../youdaonote-images/768307EBCA1045B889D462C089CE7D53.png) 
 > ## 任务的定时和延期
 ### at命令:延时执行一个程序
 - 可以用at命令来设定一个程序的执行时间
@@ -1754,7 +1754,7 @@ job 1 at Sun Feb 23 15:51:00 2020
 - -l:显示 crontab文件
 - -e:修改 crontab文件
 - -r:删除 crontab文件
-![image](../../youdaonote-images/3D463F833A9841948575B3FE21A3653A.png)
+![image](../youdaonote-images/3D463F833A9841948575B3FE21A3653A.png)
 ```
 [root@VM_0_14_centos ~]# crontab -l
 */1 * * * * /usr/local/qcloud/stargate/admin/start.sh > /dev/null 2>&1 &
@@ -1762,11 +1762,11 @@ job 1 at Sun Feb 23 15:51:00 2020
 ```
  
 > ## 文件的解压和压缩
-![image](../../youdaonote-images/17FE9E252F6449EBAF73BBC1949330E7.png)
+![image](../youdaonote-images/17FE9E252F6449EBAF73BBC1949330E7.png)
 ### 打包和压缩
 - 打包:是将多个文件变成一个总的文件，这个总的文件我们通常称为 archive
 - 压缩:是将一个大文件通过某些压缩算法变成一个小文件
-![image](../../youdaonote-images/18B0A7BB45A4488D8FF2D95A8721284E.png)
+![image](../youdaonote-images/18B0A7BB45A4488D8FF2D95A8721284E.png)
 ### tar命令:打包文件
 - -cvf:创建一个tar归档
 - -c: create的缩写,表示“创建
@@ -1799,7 +1799,7 @@ yum install unzip
 ```
 
 > ## 编译安装软件
-![image](../../youdaonote-images/01F62741926F4B7E8D839F65BC716982.png) 
+![image](../youdaonote-images/01F62741926F4B7E8D839F65BC716982.png) 
 ### alien软件
 - 有个软件可以将deb安装包和rpm安装包互相转换
 - 这个软件是aen(“外星人”的意思)
@@ -1881,12 +1881,12 @@ unrar e Archive.rar DestPath     # 解压
 - Sh: Bourne Shell 的缩写。可以说是目前所有 Shell E的祖先
 - Bash：是Sh的一个进阶版本,比Sh更优秀,linux，macos默认shell
 - Zsh:比较新近的一个 Shell,集Bash,Ksh和Tcsh各家之大成,Github上有一个Zsh的轻松配置程序叫作oh-my-zsh
-![image](../../youdaonote-images/5DBA2DA1D53F45C3B04A8CEBD0978A29.png)  
+![image](../youdaonote-images/5DBA2DA1D53F45C3B04A8CEBD0978A29.png)  
 ### 创建脚本文件
 - vim test.sh
 - 指定脚本要使用的 Shell
 - #!被称作Sha-bang,或者 Shebang
-![image](../../youdaonote-images/2A41F8323EE54890A5A0EE7DFC4CF161.png)
+![image](../youdaonote-images/2A41F8323EE54890A5A0EE7DFC4CF161.png)
 ### 以调试模式运行
 - 调试一个脚本程序bash -x test.sh
 - 参数 -x 表示以调试模式运行
@@ -1950,7 +1950,7 @@ read -p 'Please enter your name:' name -s password
   4 let "b=2"
   5 let "c=a+b"
 ```
-![image](../../youdaonote-images/C83E104939BE47478EA7223CC48CBD76.png)
+![image](../youdaonote-images/C83E104939BE47478EA7223CC48CBD76.png)
 ### 环境变量
 - Shell的环境变量可以被此种Shell的任意脚本程序使用
 - 我们有时也把环境变量称为“全局变量”
@@ -1963,9 +1963,9 @@ echo "$SHELL"
 - /variable.sh参数1参数2参数3
 - 这些个参数1,参数2,参数3….被称为“参数变量”
 - shift命令常被用在循环中,使得参数一个接一个地被处理
-![image](../../youdaonote-images/8A0195E10FFF4434860170F8324C4397.png)
-![image](../../youdaonote-images/2A90C3FE01C443F091725F5704170A9D.png)
-![image](../../youdaonote-images/8AD03BF96FBA4CA187F0168436DFE2F5.png) 
+![image](../youdaonote-images/8A0195E10FFF4434860170F8324C4397.png)
+![image](../youdaonote-images/2A90C3FE01C443F091725F5704170A9D.png)
+![image](../youdaonote-images/8AD03BF96FBA4CA187F0168436DFE2F5.png) 
 ### 数组
 - 数组是这样一种变量,它可以包含多个“格子”
 - (被称为“数组的元素”),就好像一个表格一样
@@ -1980,8 +1980,8 @@ echo "$SHELL"
 ### if条件语句的基本格式
 - 方括号囗中的条件测试两边必须要空一格
 - 不能写成[test],而要写成 [ test ]
-![image](../../youdaonote-images/2C411E7FEDE14F69A60FE6123D23C289.png)
-![image](../../youdaonote-images/68AA4EE728E34DB5970074C14591511F.png)
+![image](../youdaonote-images/2C411E7FEDE14F69A60FE6123D23C289.png)
+![image](../youdaonote-images/68AA4EE728E34DB5970074C14591511F.png)
 ### Shell语言中的“等于”
 - 在 Shell 语言中,“等于"是用一个等号(=)来表示的
 - 这和大多数主流编程语言(例如C语言,Java,C++)不同
@@ -1996,17 +1996,17 @@ echo "$SHELL"
   7         echo "Hello $name !"
   8 fi
 ```
-![image](../../youdaonote-images/EE782CB551424286A943602E3D8BAB74.png)
-![image](../../youdaonote-images/019B8978F4604EB6BA9AFED554F0E061.png)
-![image](../../youdaonote-images/337F9606C0A043A1BC0BA7BE6AAEFB44.png)
+![image](../youdaonote-images/EE782CB551424286A943602E3D8BAB74.png)
+![image](../youdaonote-images/019B8978F4604EB6BA9AFED554F0E061.png)
+![image](../youdaonote-images/337F9606C0A043A1BC0BA7BE6AAEFB44.png)
 ### 测试字符串
-![image](../../youdaonote-images/25B4191D826B40F78061D655C8D91CE1.png)
-![image](../../youdaonote-images/296070CE71EF40C1A7F893B45C75E39B.png)
+![image](../youdaonote-images/25B4191D826B40F78061D655C8D91CE1.png)
+![image](../youdaonote-images/296070CE71EF40C1A7F893B45C75E39B.png)
 ### 测试数字
-![image](../../youdaonote-images/6F7F6F6ADF2C4A5E8E42E735423AE987.png)
+![image](../youdaonote-images/6F7F6F6ADF2C4A5E8E42E735423AE987.png)
 ### 测试文件
-![image](../../youdaonote-images/9D0F4364FEB44E0E9494CED20C3BB542.png)
-![image](../../youdaonote-images/6336FA7C4555417F95AAB7D794595C9B.png)
+![image](../youdaonote-images/9D0F4364FEB44E0E9494CED20C3BB542.png)
+![image](../youdaonote-images/6336FA7C4555417F95AAB7D794595C9B.png)
 ### case条件语句 
 - ;; 是传统编程中的break
 - *）是传统编程中case的else
@@ -2033,14 +2033,14 @@ esac
 ```
 
 ## Shell的循环语句
-![image](../../youdaonote-images/ED493171D39E44ABA4C0B37115A8901D.png)
+![image](../youdaonote-images/ED493171D39E44ABA4C0B37115A8901D.png)
 ### while 循环的逻辑
-![image](../../youdaonote-images/829D58DDD66142A7AA2C26C0FA28AB74.png)
-![image](../../youdaonote-images/57B71C96BD814F64B6F52246AD43EDF1.png)
+![image](../youdaonote-images/829D58DDD66142A7AA2C26C0FA28AB74.png)
+![image](../youdaonote-images/57B71C96BD814F64B6F52246AD43EDF1.png)
 ### until循环 
-![image](../../youdaonote-images/DCA97DC15A374D57A617CDE1AACCCA62.png)
+![image](../youdaonote-images/DCA97DC15A374D57A617CDE1AACCCA62.png)
 ### for循环
-![image](../../youdaonote-images/932D723791E3490093F31DF73469AA72.png)
+![image](../youdaonote-images/932D723791E3490093F31DF73469AA72.png)
 ```
 #!/bin/bash
 
@@ -2073,8 +2073,8 @@ done
 ## Shell的函数
 ### Shell 函数的方式
 - 函数名后面跟着的圆括号里不加任何参数
-![image](../../youdaonote-images/920777A5B78B497E96CA2CDC389D8F7B.png)
-![image](../../youdaonote-images/565907EE0B09468380250BD3A04592D9.png)
+![image](../youdaonote-images/920777A5B78B497E96CA2CDC389D8F7B.png)
+![image](../youdaonote-images/565907EE0B09468380250BD3A04592D9.png)
 ```
   1 #!/bin/bash
   2
@@ -2265,7 +2265,7 @@ statistics $1
 - mouse:鼠标支持 set mouse=a
 
 ## Git 和其他版本控制软件
-![image](../../youdaonote-images/4E806C6CE5BB4944A925E74ED66B17E8.png)
+![image](../youdaonote-images/4E806C6CE5BB4944A925E74ED66B17E8.png)
 ## 安装和配置Git
 [CentOS7中安装Git](https://note.youdao.com/web/#/file/recent/note/wcp1582477242208715/)
 
@@ -2280,7 +2280,7 @@ statistics $1
 - 守护进程的名字通常会在最后有一个d,表示 daemon
 - 例如systemd,httpd,smbd等等
 ### Linux操作系统的开机过程
-![image](../../youdaonote-images/65FFF5CE77B6429EB52E9EABC933A344.png)
+![image](../youdaonote-images/65FFF5CE77B6429EB52E9EABC933A344.png)
 ## 用systemd管理系统服务
 - systemd并不是一个命令,它包含了一组命令
 - systemd是基于事件的
@@ -2311,17 +2311,17 @@ apache   20596  0.0  0.1 226136  3104 ?        S    00:39   0:00 /usr/sbin/httpd
 
 ```
 ## 配置Apache服务 
-![image](../../youdaonote-images/088B40C854A84BD486CA5986A2CA5901.png)
+![image](../youdaonote-images/088B40C854A84BD486CA5986A2CA5901.png)
 ### httpd主配置文件的三种信息类型
-![image](../../youdaonote-images/49AF265BAA0A40DBA7961F3A5827A197.png)
+![image](../youdaonote-images/49AF265BAA0A40DBA7961F3A5827A197.png)
 ### 配置httpd服务的常用参数
-![image](../../youdaonote-images/0817AE4E7C79444D9BC9C7B1612CA9A1.png)
+![image](../youdaonote-images/0817AE4E7C79444D9BC9C7B1612CA9A1.png)
 
 ## SELINUX安全子系统
 - Selinux是 Security- Enhanced linux的缩写
 - 表示“安全增强型 Linux
 - 美国国家安全局在 Linux开源社区帮助下开发的MAC的安全子系统
-![image](../../youdaonote-images/DC5F7114EFF44B45843FFAB3F39EC27E.png)
+![image](../youdaonote-images/DC5F7114EFF44B45843FFAB3F39EC27E.png)
 ### MAC
 - MAC是 Mandatory Access Control的缩写
 - 表示“强制访问控制”
@@ -2329,7 +2329,7 @@ apache   20596  0.0  0.1 226136  3104 ?        S    00:39   0:00 /usr/sbin/httpd
 ### 防火墙和 Selinux的区别
 - 防火墙就像“防盗门”,用于抵御外部的危险
 - SELINUX就像“保险柜”,用于保护內部的资源
-![image](../../youdaonote-images/B2D68525F62C4535A7D33D9505739B5D.png)
+![image](../youdaonote-images/B2D68525F62C4535A7D33D9505739B5D.png)
 ```
 [root@VM_0_14_centos ~]# sestatus
 SELinux status:                 disabled
@@ -2339,16 +2339,16 @@ SELinux status:                 disabled
 - 表示“管理 Selinux",用于管理 Selinux的策略
 - 命令格式为 semanage[选项][文件]
 - yum install policycoreutils-python
-![image](../../youdaonote-images/B376838DF8D64B2BA6B757B6C89942E9.png)
+![image](../youdaonote-images/B376838DF8D64B2BA6B757B6C89942E9.png)
 
 ## Apache的虚拟主机功能，基于IP地址的配置
-![image](../../youdaonote-images/3B2941C92B76492E99876C7D59711EFD.png)
-![image](../../youdaonote-images/DDD9DF476EF643918FDBF29A23A9F511.png)
-![image](../../youdaonote-images/63D9BCB6F2B6471FB7073118F49BF96A.png)
-![image](../../youdaonote-images/CDF6F7699B5742419D54B58855F166E4.png)
-![image](../../youdaonote-images/08B6EA14309A49929A62E08802AB4506.png)
-![image](../../youdaonote-images/C54CCC9E91A846FDB767A1BAC9A8DA3A.png)
-![image](../../youdaonote-images/DE0DA6212C4B43048F1DD6398AC886DB.png)
+![image](../youdaonote-images/3B2941C92B76492E99876C7D59711EFD.png)
+![image](../youdaonote-images/DDD9DF476EF643918FDBF29A23A9F511.png)
+![image](../youdaonote-images/63D9BCB6F2B6471FB7073118F49BF96A.png)
+![image](../youdaonote-images/CDF6F7699B5742419D54B58855F166E4.png)
+![image](../youdaonote-images/08B6EA14309A49929A62E08802AB4506.png)
+![image](../youdaonote-images/C54CCC9E91A846FDB767A1BAC9A8DA3A.png)
+![image](../youdaonote-images/DE0DA6212C4B43048F1DD6398AC886DB.png)
 
 ## 网络和安全.md
 
@@ -2482,3 +2482,4 @@ vagrant destroy 删除虚拟机
 | 2026-07-22 | 审查 | 全面审查，命令正确性已验证，内容稳定无需大幅更新 |
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
+| 2026-08-23 | 订正 | 修复 50 处有道云笔记图片路径错误（../../youdaonote-images/ -> ../youdaonote-images/），图片恢复显示 |

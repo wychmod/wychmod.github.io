@@ -13,12 +13,43 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/01-计算机基础/50-Spring生态.md">
+    <a class="home-recent-row" href="#/md/01-计算机基础/00-Java与JVM.md">
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">Spring 生态</h3>
-        <p class="home-recent-excerpt">新建文档：独立成篇沉淀 Spring 全家桶，含 Actuator 生产监控与全量归档索引。</p>
+        <h3 class="home-recent-title">Java 与 JVM</h3>
+        <p class="home-recent-excerpt">归档核对补全：Java 基础 / JVM 调优 / 实战项目三个维度补入 70+ 核心考点（HashMap 原理、CMS 三色标记、双检锁单例、手写 RPC、抽奖系统 DDD 等）。</p>
       </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
+        <span class="home-recent-date">2026-08-23</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/01-计算机基础/50-Spring生态.md">
+      <span class="home-recent-num">02</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">Spring 生态</h3>
+        <p class="home-recent-excerpt">归档核对补全：新增 Spring MVC、Security + JWT 章节，Boot / Cloud 机制补全 40+ 处（三级缓存、启动流程、Gateway、OpenFeign、Nacos 模型等）。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
+        <span class="home-recent-date">2026-08-23</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/06-软件工程/00-系统设计与设计模式.md">
+      <span class="home-recent-num">03</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">系统设计与设计模式</h3>
+        <p class="home-recent-excerpt">按规范完整内联 242KB 设计模式原文（23 种模式全量资料），摘要区对齐原文结构，缺失示意图加注说明。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-5)">软件工程</span>
+        <span class="home-recent-date">2026-08-23</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
         <span class="home-recent-date">2026-08-23</span>

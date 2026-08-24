@@ -11,6 +11,8 @@ Redis（Remote Dictionary Server）是基于内存的键值型 NoSQL 数据库�
 
 整体架构通常按“浏览器缓存 → CDN → Nginx/OpenResty 本地缓存 → Redis → JVM 本地缓存 → DB”多级展开，Redis 处于核心共享缓存层。
 
+**Redis 为什么快**：核心命令始终单线程执行（4.0 起异步 unlink，6.0 起仅网络 IO 多线程）。快在四点：纯内存操作；瓶颈在网络而非 CPU；单线程避免上下文切换与锁竞争；基于 epoll 的 IO 多路复用并发处理海量连接。
+
 > 💡 补充：归档笔记里使用的 Redis 版本多为 6.2.x，部分命令/配置在 7.x 中已有调整，但核心机制不变。
 
 ## 二、Redis 数据类型与应用
@@ -30,12 +32,14 @@ SELECT index
 
 字符串最大 512 MB，内部可能是 int、embstr（<44 字节）或 raw 编码。
 
+底层不用 C 字符串，而是自建 SDS（简单动态字符串）：len 字段 O(1) 取长度、二进制安全、支持动态扩容——新串 < 1M 时预分配 2 倍空间，> 1M 时多分配 1M。
+
 ```bash
 SET key value EX 60
 GET key
 INCR counter
 INCRBY counter 5
-SETNX lock:order:1 1 EX 10
+SET lock:order:1 1 NX EX 10  # SETNX 不接受 EX 参数，加锁须用 SET ... NX EX
 MGET k1 k2 k3
 ```
 
@@ -44,6 +48,10 @@ MGET k1 k2 k3
 ### 2.3 Hash
 
 适合存储对象字段，底层在数据量小时使用 ListPack（7.0 前为 ZipList），大时转 Dict。
+
+ZipList 的 entry 以 1 或 5 字节 previous_entry_length 记录前一节点长度，连续插入/删除 250~253 字节的 entry 会引发连锁更新（级联空间扩展）——这正是 7.0 用 ListPack 替代 ZipList 的动机。
+
+Dict 含 ht[0]/ht[1] 双哈希表：LoadFactor >= 1（无 bgsave 等子进程时）或 > 5 触发扩容，< 0.1 收缩；扩容/收缩走渐进式 rehash——访问时逐步迁移，新增只写 ht[1]，其余操作两表并查，ht[0] 只减不增。
 
 ```bash
 HSET user:1 name jack age 21
@@ -84,6 +92,8 @@ SUNION tag:redis tag:mysql
 ### 2.6 Sorted Set
 
 按 score 排序，底层 SkipList + Dict（或 ZipList）。
+
+跳表是多层指针的有序链表，层数取 1~32 的随机数；按 score 排序，相同 score 按 ele 字典序。增删改查效率与红黑树相当但实现更简单——“为什么用跳表不用红黑树”是高频追问。
 
 ```bash
 ZADD rank 100 user1 95 user2
@@ -134,6 +144,8 @@ GEOSEARCH shops:food FROMLONLAT 116.4 39.9 BYRADIUS 5 km WITHDIST
 
 5.0 引入的日志型消息队列，支持 Consumer Group、ACK、Pending List。
 
+早期方案都有缺陷，Stream 因此被引入：List 做队列无 ACK、无法避免消息丢失且只支持单消费者；PubSub 不持久化、断线丢消息、消息堆积有上限。
+
 ```bash
 XADD orders * userId 1 voucherId 10
 XREAD BLOCK 5000 STREAMS orders $
@@ -141,7 +153,10 @@ XGROUP CREATE orders g1 $
 XREADGROUP GROUP g1 c1 COUNT 1 BLOCK 2000 STREAMS orders >
 XACK orders g1 1699999999999-0
 XPENDING orders g1
+XCLAIM orders g1 c2 60000 1699999999999-0
 ```
+
+消费者宕机后未 ACK 的消息停留在 Pending 列表：用 XCLAIM 按 min-idle-time 将超时消息转移给其他消费者重新处理并重新 ACK（或 XREADGROUP 传 `"0"` 读 Pending）。
 
 典型应用：异步订单、日志收集、任务分发。
 
@@ -297,6 +312,8 @@ redis-cli --cluster reshard 192.168.150.101:7001
 
 > 💡 补充：在 Cluster 中执行 Lua 脚本或事务时，要求所有 key 必须落在同一 slot；跨 slot 操作会失败。批量操作建议客户端按 slot 分组或使用 hash_tag 谨慎处理数据倾斜。
 
+**选型建议**：集群节点间持续互相 Ping 交换插槽与状态信息，节点越多带宽开销越大，应避免大集群--业务庞大时建多个集群。主从/哨兵架构已可达万级 QPS 且具备高可用，能满足需求时尽量不搭建 Cluster。
+
 ## 六、缓存问题：雪崩 / 穿透 / 击穿
 
 ### 6.1 缓存穿透
@@ -369,6 +386,8 @@ public class RedisData {
 
 ### 7.1 分布式锁
 
+集群部署时每个 Tomcat 有独立 JVM，synchronized 锁对象不跨进程、互斥失效，必须改用多进程可见的分布式锁。
+
 基于 `SET key value NX EX` 实现互斥锁，释放时用 Lua 保证原子性。
 
 ```bash
@@ -410,6 +429,8 @@ if (isLock) {
 
 ### 7.3 秒杀优化
 
+问题背景：并发下“查库存-扣库存”非原子会导致超卖。乐观锁（CAS/版本号）可解决，实战中常用 `stock > 0` 条件更新替代版本号比对，避免高并发下大量扣减失败。
+
 典型流程：
 
 1. 预热库存到 Redis。
@@ -436,6 +457,13 @@ return 0
 
 架构：浏览器 → CDN → OpenResty/Nginx 本地缓存 → Redis → JVM 本地缓存（Caffeine）→ DB。
 
+两级缓存的取舍：
+
+| 对比维度 | 分布式缓存（Redis） | 本地缓存（Caffeine） |
+|---|---|---|
+| 容量与可靠性 | 容量大、可靠性高、可集群共享 | 容量有限、可靠性低、无法共享 |
+| 访问速度 | 有网络开销 | 直读内存、无网络开销，更快 |
+
 - OpenResty 使用 Lua 查询 Nginx 共享字典、Redis、Tomcat。
 - Caffeine 提供 JVM 级高性能本地缓存，支持按容量/时间驱逐。
 - 使用 `hash $request_uri` 负载均衡保证同一商品命中同一 Tomcat，提升 JVM 缓存命中率。
@@ -455,13 +483,15 @@ public Cache<Long, Item> itemCache() {
 - **MQ 异步通知**：业务服务改 DB 后发消息，缓存服务更新 Redis。
 - **Canal 监听 binlog**：零侵入，MySQL 数据变更后通过 Canal 客户端刷新缓存。
 
+Canal 工作原理：MySQL 主从复制中 master 写 binlog、slave 拷贝至 relay log 并重放；Canal 伪装成 MySQL 的一个 slave 节点，订阅并拉取 binlog 变更，再推送给 Canal 客户端刷新缓存。
+
 Canal 部署要点：MySQL 开启 `log-bin` 与 `server-id`，然后运行 `canal/canal-server` 容器并指定 `canal.instance.master.address`、账号及监听库表。
 
 ### 7.6 其他典型场景
 
 - **短信登录/Session 共享**：Hash 存用户信息，token 作 key。
 - **共同关注**：`SINTER follows:user1 follows:user2`。
-- **Feed 流**：Sorted Set 按时间戳 score 推送，滚动分页。
+- **Feed 流**：Sorted Set 按时间戳 score 推送，滚动分页。三种模式：拉模式（读扩散）省空间但延迟高；推模式（写扩散）时效快但大 V 写扩散内存压力大；推拉结合--普通用户推，大 V 写发件箱、活跃粉丝推、非活跃粉丝拉。
 - **附近商户**：`GEOADD` + `GEOSEARCH ... WITHDIST`。
 - **用户签到**：BitMap `SETBIT sign:user:yyyyMM day 1`。
 - **UV 统计**：HyperLogLog `PFADD` / `PFCOUNT`。
@@ -472,6 +502,7 @@ Canal 部署要点：MySQL 开启 `log-bin` 与 `server-id`，然后运行 `cana
 
 - key 格式：`业务名:数据名:id`，不超过 44 字节，避免特殊字符。
 - 拒绝 BigKey：String value < 10 KB，集合元素 < 1000。
+- BigKey 删除：直接 `DEL` 会长时间阻塞主线程；4.0+ 用 `UNLINK` 异步删除，3.0 及以下只能先逐个删除子元素再删 key。
 - 大 Hash 拆分为多个小 Hash，如按 `id / 100` 分桶。
 
 ```bash
@@ -585,3 +616,5 @@ maxmemory-policy allkeys-lru
 | 2026-07-22 | 审查 | 全面审查，核心内容完备 |
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
+| 2026-08-23 | 新增 | 按分区核对报告补齐 14 个缺失点：Redis 为什么快、SDS、Dict 渐进式 rehash、ZipList 连锁更新、跳表选型、List/PubSub 队列缺陷、Stream XCLAIM 转移、JVM 锁失效动机、秒杀超卖与乐观锁、Feed 流推拉结合、分布式/本地缓存对比、Canal 工作原理、BigKey UNLINK 删除、集群代价与主从优先选型 |
+| 2026-08-23 | 订正 | 2.2 节 SETNX 示例改为 SET key value NX EX 10（SETNX 不接受 EX 参数） |

@@ -363,6 +363,7 @@ const config = {
 # 以下为原内容存档
 
 > 以下内容为原始归档文件的完整保留，仅修正图片相对路径，文字原貌不变。
+> ⚠️ 图片说明：原文中有 18 张截图托管于已失效的外部图床（user-gold-cdn.xitu.io），已无法显示，对应内容以文字为准。
 
 ## React-taro基本知识.md
 
@@ -370,11 +371,11 @@ const config = {
 
 ## 一、Taro核心转化图
 
-![image](../../youdaonote-images/C6A31D3909274DDAA8A43F1D83CB2812.png)
+![image](../youdaonote-images/C6A31D3909274DDAA8A43F1D83CB2812.png)
 
 ## 二、初始化目录结构
 
-![image](../../youdaonote-images/A88A05AFE8FA4405A14B47C7AD63C84D.png)
+![image](../youdaonote-images/A88A05AFE8FA4405A14B47C7AD63C84D.png)
 
 **注意事项**
 
@@ -2011,3 +2012,5 @@ config/index.js
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（Taro 3/4 重运行时架构、Vue3 支持、鸿蒙/Skyline、wxParse 迁移等时效性良好，无需订正） |
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
+| 2026-08-23 | 订正 | 修复 2 处有道云笔记图片路径错误（../../youdaonote-images/ -> ../youdaonote-images/），图片恢复显示 |
+| 2026-08-23 | 订正 | 内联段开头新增总注：标注 18 张 user-gold-cdn.xitu.io 死图（掘金旧 CDN 已失效、无法恢复，对应内容以文字为准） |

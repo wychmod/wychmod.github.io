@@ -195,7 +195,7 @@ CMD ["node", "server.js"]
 | `FROM` | 指定基础镜像，必须为首条指令 |
 | `RUN` | 执行命令并创建新镜像层 |
 | `COPY` | 从构建上下文复制文件到镜像 |
-| `ADD` | 类似 COPY，支持自动解压远程 URL |
+| `ADD` | 类似 COPY，支持远程 URL 下载与本地 tar 自动解压（远程 tar 不会解压） |
 | `WORKDIR` | 设置后续命令的工作目录 |
 | `ENV` | 设置环境变量 |
 | `EXPOSE` | 声明暴露端口 |
@@ -1558,3 +1558,4 @@ systemctl restart docker
 | 2026-07-22 | 审查 | 全面审查，核心内容完备，BuildKit/Compose V2/容器生态描述符合 2026 现状 |
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
+| 2026-08-23 | 订正 | ADD 指令语义修正：自动解压仅针对本地 tar 文件，远程 URL 下载的 tar 不会自动解压 |
