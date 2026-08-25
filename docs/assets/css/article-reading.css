@@ -300,6 +300,8 @@ body.is-article .sidebar-nav > ul > li > ul > li > ul > li.active > a {
      .content > (aside.toc-nav + article#main + .gitalk-container)  ← TOC 插件插在 .content 内
    故采用嵌套 grid: main 两轨 [侧栏|中栏], .content 内两轨 [正文|TOC]
    main 选择器用 body > main: md/Index.md 内嵌 <main class="sm-main"> 自带 grid, 不能误伤
+   外壳全宽铺满 (2026-08-25 需求变更): 三栏撑满视口, 左右不再露出 body 底色,
+   取代原 1584px 居中外壳 (--shell-max-width); 顶栏本就全出血, 无需联动
    ========================================================= */
 /* :not(.sm-main) 仅用于提升特异性, 压过 §20 同优先级的 body.is-article main{max-width:100%}
    (.sm-main 是文章内嵌元素, 本就不可能是 body 直接子元素) */
@@ -307,9 +309,7 @@ body.is-article > main:not(.sm-main) {
   display: grid !important;
   grid-template-columns: 280px minmax(0, 1fr) !important;
   column-gap: 0 !important;
-  max-width: var(
-    --shell-max-width
-  ) !important; /* 1584px 外壳, 宽屏居中, 与 .app-nav gutter 对齐 */
+  max-width: 100% !important; /* 全宽铺满: 侧栏贴左缘, TOC 贴右缘 */
   margin: 0 auto !important;
   padding-top: 60px; /* 顶部导航占位, 从 .content 上移到 main */
   height: auto !important; /* 解 vue.css main{height:100%} —— 否则 main 仅视口高, sticky 被限制在 900px 盒内失效 */
@@ -352,9 +352,17 @@ body.is-article .content > * {
   grid-column: 1;
   min-width: 0;
 }
-/* TOC 列: 第 2 轨 (定位与视觉见 §11) */
+/* 正文钉第 1 行: toc-nav 在 DOM 中先于 article, 网格自动放置时游标列从 2 回退到 1
+   会触发行递增, 把 article 推到第 2 行 (行高=TOC 视口高), 形成中栏顶部整屏空白。
+   用 [id] 属性选择器保持类级特异性, 避免 #main ID 提权压死移动端覆盖 (§5 同款顾虑) */
+body.is-article .content > article[id="main"] {
+  grid-row: 1;
+}
+/* TOC 列: 第 2 轨, 纵跨全部内容行 (定位与视觉见 §11);
+   跨行使 sticky 在整篇文档滚动行程内持续吸附, 而非只在第 1 行高度内有效 */
 body.is-article .content > .toc-nav {
   grid-column: 2;
+  grid-row: 1 / span 10;
 }
 
 /* =========================================================
@@ -2416,7 +2424,7 @@ body.is-article .markdown-section video {
     position: fixed !important;
     top: 50% !important;
     bottom: auto !important;
-    left: calc(var(--shell-gutter) + 280px - 1px) !important; /* 吸附侧栏右缘 */
+    left: 279px !important; /* 吸附侧栏右缘 (外壳已全宽铺满, 侧栏右缘恒为 280px 轨, 无 shell gutter) */
     width: 20px !important;
     height: 56px !important;
     margin: 0 !important;
@@ -2463,9 +2471,10 @@ body.is-article .markdown-section video {
   body.is-article.close .sidebar-toggle::before {
     content: "›";
   }
-  /* 收回态: 侧栏整体移出屏外 (含宽屏 shell gutter), 中栏由 grid 轨过渡同步铺开 */
+  /* 收回态: 侧栏整体移出屏外 (外壳已全宽铺满, 侧栏贴左缘, -100% 即完全移出),
+     中栏由 grid 轨过渡同步铺开 */
   body.is-article.close .sidebar {
-    transform: translateX(calc(-100% - var(--shell-gutter))) !important;
+    transform: translateX(-100%) !important;
   }
 }
 
