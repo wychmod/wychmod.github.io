@@ -50,37 +50,6 @@
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
   </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
-        <span class="home-recent-date">2026-08-23</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/06-软件工程/00-系统设计与设计模式.md">
-      <span class="home-recent-num">02</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">系统设计与设计模式</h3>
-        <p class="home-recent-excerpt">新增导出一致性小节：分批查询 vs 并发写的四类破坏、一致性契约与数据层/架构层选型。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-5)">软件工程</span>
-        <span class="home-recent-date">2026-08-23</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/02-后端开发/20-消息队列.md">
-      <span class="home-recent-num">03</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">消息队列</h3>
-        <p class="home-recent-excerpt">新增 Outbox 可靠投递小节：本地事务 + 发件箱表机制、轮询与 CDC 流派及配套治理要点。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-1)">后端开发</span>
-        <span class="home-recent-date">2026-08-22</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-  </div>
 </section>
 
 <section class="home-section" id="desk-side">
