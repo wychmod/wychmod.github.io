@@ -20,7 +20,7 @@ wychmod.github.io/
 ├── DESIGN.md                    ← 旧版 Notion 风格历史参考（不再作为首页决策依据）
 ├── README.md                    ← 仓库级说明
 ├── docs/                        ← Docsify 站点根目录
-│   ├── index.html               ← 站点入口（Docsify 配置 + 终端系统）
+│   ├── index.html               ← 站点入口（Docsify 配置 + 壳层装配）
 │   ├── _sidebar.md              ← 侧边栏导航（必须与主线文档同步）
 │   ├── _navbar.md               ← 顶部导航栏
 │   ├── _coverpage.md            ← 封面页
@@ -54,14 +54,30 @@ wychmod.github.io/
 │   ├── tools/                   ← 在线工具箱（独立 HTML）
 │   └── assets/                  ← CSS/JS/图片资源
 │       ├── css/
+│       │   ├── compat/
+│       │   │   └── modern-theme.css ← 全站遗留主题兼容层
+│       │   ├── pages/
+│       │   │   ├── home.css         ← 首页页面层
+│       │   │   ├── article.css      ← 文章页页面层
+│       │   │   └── site-map.css     ← 全站地图页面层
 │       │   ├── modern-theme.css     ← 全站遗留主题
 │       │   ├── studio-tokens.css    ← 新视觉系统令牌
-│       │   ├── homepage-v2.css      ← 首页 V2 样式
+│       │   ├── shell.css            ← 壳层入口装配
+│       │   ├── tokens.css           ← 令牌入口装配
+│       │   ├── homepage-v2.css      ← 首页 V2 旧样式（遗留）
 │       │   ├── article-reading.css  ← 文章页阅读系统
 │       │   ├── tool-studio.css      ← 工具页共享外壳
 │       │   └── ...
 │       ├── js/
-│       │   ├── homepage-v2.js       ← 首页交互与路由状态
+│       │   ├── bootstrap.js         ← 壳层 bootstrap / Docsify hooks
+│       │   ├── features/
+│       │   │   ├── terminal.js      ← 终端功能层
+│       │   │   └── terminal-a11y.js ← 终端可访问性层
+│       │   ├── pages/
+│       │   │   ├── home.js          ← 首页交互
+│       │   │   ├── article.js       ← 文章页交互
+│       │   │   └── site-map.js      ← 全站地图交互
+│       │   ├── homepage-v2.js       ← 首页交互旧实现（遗留）
 │       │   ├── ai-assistant.js      ← 终端 AI 助手
 │       │   └── ...
 │       └── img/
@@ -87,7 +103,7 @@ wychmod.github.io/
 | 项目/重构/设计说明 | `docs/_meta/` | 根目录下的 `overview.md` |
 | 站点级样式 / 脚本 | `docs/assets/css/` / `docs/assets/js/` | 根目录或工具页外部 |
 | 运行时产物 | 已加入 `.gitignore`，不入库 | `node_modules/`、`output/`、`test-results/` |
-| 工具页专属逻辑 | 各 `docs/tools/*.html` 内联或 `tool-studio.css` | 回填到 `modern-theme.css` 末尾 |
+| 工具页专属逻辑 | 各 `docs/tools/*.html` 内联或 `tool-studio.css` | 回填到工具页自身或对应 `pages/`、`features/`、`shell.css`，不再新增到 `modern-theme.css` |
 | AI 临时脚本（一次性诊断/截图/验证） | 命名 `scripts/_tmp-*.js`，**用完即删**，不入库、不留本地 | 任务结束后仍残留的 `_tmp-*.js` |
 
 新增文件前先判断：它属于脚本、元文档、站点资产、工具页还是运行时产物，然后放到对应目录。
@@ -374,11 +390,21 @@ git diff --check
 
 - `docs/_coverpage.md`
 - `docs/README.md` 的首页视觉区
-- `docs/index.html` 的顶部导航、首页插件、搜索桥接、终端入口
-- `docs/assets/css/modern-theme.css` 的 Nav/Cover/Home/Terminal 部分
+- `docs/index.html` 的 Docsify 配置、壳层 bootstrap、搜索桥接、终端入口
+- `docs/assets/css/modern-theme.css` 与 `docs/assets/css/compat/modern-theme.css` 的遗留兼容层
 - `docs/assets/css/studio-tokens.css`
-- `docs/assets/css/homepage-v2.css`
-- `docs/assets/js/homepage-v2.js`
+- `docs/assets/css/tokens.css`
+- `docs/assets/css/shell.css`
+- `docs/assets/css/pages/home.css`
+- `docs/assets/css/pages/article.css`
+- `docs/assets/css/pages/site-map.css`
+- `docs/assets/js/bootstrap.js`
+- `docs/assets/js/features/terminal.js`
+- `docs/assets/js/features/terminal-a11y.js`
+- `docs/assets/js/pages/home.js`
+- `docs/assets/js/pages/article.js`
+- `docs/assets/js/pages/site-map.js`
+- `docs/assets/js/homepage-v2.js`（遗留兼容，优先避免继续加料）
 - 首页头像、图标、色彩、字体、布局、动效、响应式、文案和统计
 
 ### 10.3 编码前门禁
