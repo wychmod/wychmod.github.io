@@ -215,15 +215,54 @@ body.is-article .sidebar-nav > ul > li > a {
   background: transparent !important;
   border: 0 !important;
 }
-/* 二级小标题 (如 "编程语言"): 缩进 12px, 小号弱化, 与一级/三级形成阶梯 */
+/* 二级小标题 (如 "编程语言"): 从大标题右移一档, 作为分组标签 */
+body.is-article .sidebar-nav > ul > li > ul > li {
+  position: relative !important;
+  margin: 12px 0 14px !important;
+  padding-left: 24px !important;
+}
+body.is-article .sidebar-nav > ul > li > ul > li::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 7px !important;
+  bottom: 7px !important;
+  left: 8px !important;
+  width: 1px !important;
+  border-radius: 999px !important;
+  background: rgba(200, 169, 107, 0.38) !important;
+}
 body.is-article .sidebar-nav > ul > li > ul > li > p {
-  margin: 8px 0 2px !important;
-  padding: 2px 10px 2px 22px !important;
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 26px !important;
+  margin: 6px 0 8px 24px !important;
+  padding: 2px 0 2px 18px !important;
   color: var(--studio-text-muted) !important;
   font-size: 12px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.06em !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.2 !important;
+  cursor: pointer !important;
+  border-left: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
   text-transform: none !important;
+  transition: color var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .sidebar-nav > ul > li > ul > li > p::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 6px !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 999px !important;
+  background: rgba(200, 169, 107, 0.6) !important;
+  transform: translateY(-50%) !important;
+}
+body.is-article .sidebar-nav > ul > li > ul > li > p:hover {
+  color: var(--studio-text) !important;
 }
 
 /* 目录文章链接 */
@@ -249,18 +288,37 @@ body.is-article .sidebar-nav a:hover {
   transform: none !important;
 }
 
-/* 二级文章链接 (直接挂在一级分类下的文章, 如 过时技术>爬虫技术):
-   文章样式 (非小标题), 与二级小标题同列 22px */
+/* 二级文章链接 (直接挂在一级分类下的文章): 往右收一格, 但比中标题更轻 */
 body.is-article .sidebar-nav > ul > li > ul > li > a {
-  padding-left: 22px !important;
+  padding-left: 42px !important;
   color: var(--studio-text-muted) !important;
   font-size: 13px !important;
   font-weight: 400 !important;
   letter-spacing: 0 !important;
 }
-/* 三级文章链接 (如 "Java 与 JVM"): 最深一档 34px */
+/* 三级文章链接 (如 "Java 与 JVM"): 再右移一档, 用更小的圆点区分 */
 body.is-article .sidebar-nav > ul > li > ul > li > ul > li > a {
-  padding-left: 34px !important;
+  position: relative !important;
+  padding-left: 48px !important;
+  color: var(--studio-text-muted) !important;
+  font-size: 12.5px !important;
+  line-height: 1.45 !important;
+}
+body.is-article .sidebar-nav > ul > li > ul > li > ul > li > a::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 24px !important;
+  width: 4px !important;
+  height: 4px !important;
+  border-radius: 999px !important;
+  background: currentColor !important;
+  opacity: 0.26 !important;
+  transform: translateY(-50%) !important;
+  transition: opacity var(--studio-dur-fast) var(--studio-ease) !important;
+}
+body.is-article .sidebar-nav > ul > li > ul > li > ul > li > a:hover::before {
+  opacity: 0.5 !important;
 }
 /* 四级: subMaxLevel 在当前文章下注入的页内目录 (.app-sub-sidebar), 再进一档;
    去掉 Docsify 默认 "-" 前缀, 层级只靠缩进表达 */
@@ -268,7 +326,7 @@ body.is-article .sidebar-nav .app-sub-sidebar li::before {
   content: none !important;
 }
 body.is-article .sidebar-nav .app-sub-sidebar a {
-  padding-left: 46px !important;
+  padding-left: 34px !important;
   font-size: 12px !important;
 }
 
@@ -285,10 +343,10 @@ body.is-article .sidebar-nav li.active > a {
   padding-left: 16px !important;
 }
 body.is-article .sidebar-nav > ul > li > ul > li.active > a {
-  padding-left: 20px !important;
+  padding-left: 42px !important;
 }
 body.is-article .sidebar-nav > ul > li > ul > li > ul > li.active > a {
-  padding-left: 32px !important;
+  padding-left: 48px !important;
 }
 
 /* =========================================================
@@ -363,6 +421,14 @@ body.is-article .content > article[id="main"] {
 body.is-article .content > .toc-nav {
   grid-column: 2;
   grid-row: 1 / span 10;
+}
+
+body.is-article .content > #main {
+  grid-row: 1;
+}
+
+body.is-article .content > .toc-nav {
+  grid-row: 1;
 }
 
 /* =========================================================
