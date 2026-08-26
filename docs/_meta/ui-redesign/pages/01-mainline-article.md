@@ -78,7 +78,7 @@
 - 中栏 `.content` 自身再设 Grid，两轨 `[正文弹性 | 右栏 TOC auto]`；TOC 空态（`.nothing`）或 `md/Index.md` 时 `auto` 轨塌缩为 0，中栏右缘不留孤立竖线。
 - 左栏 `.sidebar` 与右栏 `.toc-nav` 均使用 `position: sticky` 钉在视口内（`top: 60px` / `top: 84px`），随正文滚动保持可见。
 - 中栏阅读面由 `.content` 整列承担 `--studio-paper-50 #F2EEE5` 背景，`.markdown-section` 透明无边框，消除卡片感。
-- 三栏外壳最大宽度与首页一致，使用 `--shell-max-width`（`1584px`），宽屏居中，两侧为连续纸色。
+- 三栏外壳全宽铺满视口（2026-08-25 需求变更：取代原 `--shell-max-width` 1584px 居中外壳），侧栏贴左缘、TOC 贴右缘，两侧不再露出 body 底色。
 - 栏间仅 1px 分隔线：左栏 `border-right` + 右栏 `border-left`，无阴影、无圆角、无浮层间隙。
 
 ```text
@@ -625,14 +625,16 @@ body.is-article
 
 - 复用 Docsify 原生 `.sidebar-toggle` 点击 → `body.close` 切换。
 - `main` 加 `transition: grid-template-columns`，`body.close` 时首轨从 `280px` 变为 `0`。
-- `.sidebar` 加 `transform` 过渡，关闭时 `translateX(calc(-100% - var(--shell-gutter)))` 滑出屏幕左侧。
+- `.sidebar` 加 `transform` 过渡，关闭时 `translateX(-100%)` 滑出屏幕左侧（外壳全宽后无 gutter 补偿）。
 - `.sidebar-toggle` 从侧栏右缘吸附，关闭时贴屏幕左缘，图标在 `‹` / `›` 之间切换。
 - 移动端（`≤1024px`）同一按钮由 P008 抽屉 JS 接管，与桌面收回语义不冲突。
 
 ### 17.5 外壳宽度与对齐
 
-- 使用 `--shell-max-width`（`304px + 1280px = 1584px`），与首页 `.app-nav` 的居中 gutter 对齐。
-- `body.is-article > main:not(.sm-main) { max-width: var(--shell-max-width); margin: 0 auto; }`。
+- 外壳全宽铺满视口（2026-08-25 需求变更：三栏贴齐屏幕左右缘，不再使用 `--shell-max-width` 居中外壳）。
+- `body.is-article > main:not(.sm-main) { max-width: 100% !important; margin: 0 auto !important; }`。
+- `.content` 网格显式行定位：`article[id="main"]` 钉第 1 行（修复自动放置游标列回退把正文推到第 2 行、形成顶部整屏空白的缺陷），`.toc-nav` `grid-row: 1 / span 10` 纵跨全部内容行使 sticky 全程有效。
+- 侧栏拉手 `.sidebar-toggle` 左缘恒为 `279px`，收回位移为 `translateX(-100%)`（均已去 `--shell-gutter` 依赖）。
 - `body.is-article main` 另有 `width: 100% !important; max-width: 100% !important; overflow-x: clip !important;` 作为兼治内嵌 `.sm-main` 的兜底。
 
 ### 17.6 回归验证证据
