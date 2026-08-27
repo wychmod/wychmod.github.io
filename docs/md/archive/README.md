@@ -26,7 +26,7 @@
 
 > 每个归档子目录都对应一个主线新文档或一次合并操作。
 >
-> **统计口径**：归档子目录 37 个（`docs/md/archive/` 下实际目录）；来源映射 40 条，覆盖全部 35 个 `old-*` 归档目录。`notes-个人写作/` 与 `youdaonote-images/` 为个人写作与共享图片资源，不对应单一主线文档，见「三、归档目录结构」。
+> **统计口径**：归档子目录 37 个（`docs/md/archive/` 下实际目录）；来源映射 42 条，覆盖全部 35 个 `old-*` 归档目录。`notes-个人写作/` 与 `youdaonote-images/` 为个人写作与共享图片资源，不对应单一主线文档，见「三、归档目录结构」。
 
 ### 2.1 第一阶段：结构化迁移
 
@@ -45,7 +45,9 @@
 | [`md/06-软件工程/00-系统设计与设计模式.md`](../06-软件工程/00-系统设计与设计模式.md) | <a id="old-system-design-notes"></a>[`old-system-design-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-system-design-notes) | 11 文件（1 md + 10 PDF） | 2026-07-14 | 设计模式 242KB + 10 系统设计 PDF |
 | [`md/06-软件工程/10-软件测试.md`](../06-软件工程/10-软件测试.md) | <a id="old-testing-notes"></a>[`old-testing-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-testing-notes) | 11 文件（8 md + 1 csv + 1 doc） | 2026-07-14 | 测试基础+jacoco+chrome 插件 |
 | [`md/06-软件工程/20-软实力.md`](../06-软件工程/20-软实力.md) | <a id="old-soft-skills-notes"></a>[`old-soft-skills-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-soft-skills-notes) | 1 md | 2026-07-14 | 软实力精进 957B |
-| [`md/05-AI与Agent/00-AI编程三件套方法论.md`](../05-AI与Agent/00-AI编程三件套方法论.md) | `old-agent-notes/agent开发知识/` | 3 md | 2026-07-15 | SDD + Harness + Loop |
+| [`md/05-AI与Agent/00-AI编程三件套方法论.md`](../05-AI与Agent/00-AI编程三件套方法论.md) | `old-agent-notes/agent开发知识/` | 3 md | 2026-07-15 | SDD + Harness + Loop 总览 |
+| [`md/05-AI与Agent/05-AI编程工具链与上下文工程.md`](../05-AI与Agent/05-AI编程工具链与上下文工程.md) | `old-agent-notes/agent开发知识/` | 3 md | 2026-07-15 | Claude / Codex 工具链与上下文工程 |
+| [`md/05-AI与Agent/06-AI应用从零开发实战.md`](../05-AI与Agent/06-AI应用从零开发实战.md) | `old-agent-notes/agent开发知识/` | 3 md | 2026-07-15 | Hify 从零开发实战与规范模板 |
 | [`md/05-AI与Agent/10-Agent设计模式与多Agent.md`](../05-AI与Agent/10-Agent设计模式与多Agent.md) | `old-agent-notes/agent系统知识/` | 2 md | 2026-07-15 | 5 种设计模式 + 多 Agent 协作 |
 | [`md/05-AI与Agent/20-协议与工程/MCP协议.md`](../05-AI与Agent/20-协议与工程/MCP协议.md) | `old-agent-notes/agent系统知识/` | 1 md + 2 pdf | 2026-07-15 | MCP 完整教程 |
 | [`md/05-AI与Agent/20-协议与工程/A2A协议.md`](../05-AI与Agent/20-协议与工程/A2A协议.md) | `old-agent-notes/agent系统知识/` | 1 md | 2026-07-15 | A2A 学习笔记 |
@@ -65,8 +67,8 @@
 | [`md/01-计算机基础/05-JVM运行机制.md`](../01-计算机基础/05-JVM运行机制.md) | <a id="old-jvm-notes"></a>[`old-jvm-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-jvm-notes) | 5 md | 2026-07-15 | JVM 运行机制与调优笔记 |
 | [`md/01-计算机基础/50-Spring生态.md`](../01-计算机基础/50-Spring生态.md) | <a id="old-spring-notes"></a>[`old-spring-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-spring-notes) | 4 md | 2026-07-15 | Spring 生态笔记 |
 | [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | <a id="old-python-notes"></a>[`old-python-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes) | 69 md | 2026-07-15 | Python 基础与生态笔记 |
-| [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | <a id="old-django-notes"></a>[`old-django-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-django-notes) | 14 md | 2026-07-15 | Django 笔记（并入 Python 生态） |
-| [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | <a id="old-flask-notes"></a>[`old-flask-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-flask-notes) | 8 md | 2026-07-15 | Flask 笔记（并入 Python 生态） |
+| [`md/01-计算机基础/12-Django框架教程.md`](../01-计算机基础/12-Django框架教程.md) | <a id="old-django-notes"></a>[`old-django-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-django-notes) | 14 md | 2026-07-15 | Django 系统教程与 DRF 笔记 |
+| [`md/01-计算机基础/14-Flask框架教程.md`](../01-计算机基础/14-Flask框架教程.md) | <a id="old-flask-notes"></a>[`old-flask-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-flask-notes) | 8 md | 2026-07-15 | Flask 轻量教程与部署笔记 |
 | [`md/01-计算机基础/20-算法与数据结构.md`](../01-计算机基础/20-算法与数据结构.md) | <a id="old-algorithm-notes"></a>[`old-algorithm-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-algorithm-notes) | 6 md | 2026-07-15 | 算法与数据结构笔记 |
 | [`md/01-计算机基础/30-计算机系统与并发.md`](../01-计算机基础/30-计算机系统与并发.md) | <a id="old-cs-notes"></a>[`old-cs-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-cs-notes) | 6 md | 2026-07-15 | 计算机系统与并发笔记 |
 | [`md/01-计算机基础/40-Go语言.md`](../01-计算机基础/40-Go语言.md) | <a id="old-go-notes"></a>[`old-go-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-go-notes) | 5 md | 2026-07-15 | Go 语言笔记 |
@@ -220,3 +222,4 @@ md/archive/
 |---|---|---|
 | 2026-07-28 | UI 一致性 | 重构为"归档来源地图"页面：新增面包屑、导语、只读边界、快速入口、阅读指引、过时信息提示；补录第二阶段 20 条主线深化映射（来源文件数由 `count-archive.js` 统计，归档时间取 Git 首提交日期），来源地图完整覆盖全部 35 个 `old-*` 归档目录；保留全部原有映射数据、目录结构与归档原则。除本索引外未修改任何归档原文件。 |
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
+| 2026-08-27 | 重构 | AI 编程三件套主线拆分为总览、工具链与上下文工程、应用从零开发实战三篇；新增两条来源映射，均指向已完整保留的 `old-agent-notes/agent开发知识/`，未修改归档原文件。 |

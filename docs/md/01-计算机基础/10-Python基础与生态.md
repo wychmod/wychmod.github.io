@@ -5,9 +5,9 @@
 
 ## 一、核心主题概述
 
-本归档覆盖 Python 从语言基础到工程落地的完整知识栈：语言核心、面向对象与高级特性、并发编程、源码与底层、Django/Flask Web 开发、工具生态、数据科学。核心资料集中在 [Python高级](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E9%AB%98%E7%BA%A7)、[Python源码剖析](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90)、[Python高效](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E9%AB%98%E6%95%88)、[Django 笔记](/md/archive/README?id=old-django-notes)、[Flask 笔记](/md/archive/README?id=old-flask-notes) 五个目录。
+本归档覆盖 Python 从语言基础到工程落地的完整知识栈：语言核心、面向对象与高级特性、并发编程、源码与底层、工具生态、数据科学。Django 与 Flask 已拆为独立主线教程，本文仅保留 Web 生态入口。核心资料集中在 [Python高级](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E9%AB%98%E7%BA%A7)、[Python源码剖析](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90)、[Python高效](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/Python%E9%AB%98%E6%95%88)、[Django 笔记](/md/archive/README?id=old-django-notes)、[Flask 笔记](/md/archive/README?id=old-flask-notes) 五个目录。
 
-> 💡 补充：源码剖析系列以 CPython 实现为线索；Web 框架系列以项目实战为主，适合快速复现完整业务流。
+> 💡 补充：源码剖析系列以 CPython 实现为线索；Web 框架系列以项目实战为主，已迁入 [Django 框架教程](./12-Django框架教程.md) 与 [Flask 框架教程](./14-Flask框架教程.md)。
 
 ## 二、Python 语言核心
 
@@ -266,190 +266,23 @@ CPython 通过 `pymalloc` 按尺寸分类管理小内存。排查内存泄露可
 
 声明 `__slots__` 后实例不再有 `__dict__`、禁止动态绑定属性：海量实例场景显著省内存（默认每实例携带一个属性字典，有数百字节开销），代价是失去动态新增属性能力，属标准性能优化手段。
 
-## 五、Web 框架：Django
+## 五、Web 框架生态入口
 
-### 5.1 项目结构与启动
+Python Web 主线已经从本文拆出独立教程：
 
-```bash
-django-admin startproject mysite
-cd mysite
-django-admin startapp app01
-python manage.py makemigrations
-python manage.py migrate
-python manage.py runserver 0.0.0.0:8000
-```
+| 框架 | 定位 | 主线教程 |
+|---|---|---|
+| Django | batteries-included，全栈约束强，内置 ORM/Admin/认证/Session/缓存/邮件等能力 | [Django 框架教程](./12-Django框架教程.md) |
+| Flask | 轻量 WSGI 框架，核心薄，数据库、表单、登录、迁移、邮件等能力通过扩展组合 | [Flask 框架教程](./14-Flask框架教程.md) |
+| FastAPI | 类型驱动的 API 框架，常用于异步接口、OpenAPI 文档和 Pydantic 数据校验 | 见下文工具生态概览 |
 
-```python
-INSTALLED_APPS = ['django.contrib.admin', 'rest_framework', 'app01']
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testdjango',
-        'USER': 'root', 'PASSWORD': '123456',
-        'HOST': '127.0.0.1', 'PORT': 3306,
-    }
-}
-```
+Django 适合管理后台、内容系统、企业业务系统和稳定 API 服务；Flask 适合小服务、内部工具、教学项目和需要自由组合扩展的应用；FastAPI 更适合以 JSON API、类型标注和自动文档为核心的后端服务。
 
-### 5.2 路由与视图
+> 💡 补充：原 Django/Flask 归档仍保留在文末「完整资料」中；新项目应按当前官方文档版本选择写法，旧笔记中的 Django 1.x/2.x URL API、xadmin、Flask-Script、Flask-Uploads 等内容仅作历史参考。
 
-```python
-# app01/urls.py
-from django.urls import path
-from . import views
-app_name = 'app01'
-urlpatterns = [
-    path('', views.index, name='index'),
-    path('user/<int:pk>/', views.user_detail, name='user_detail'),
-]
-# app01/views.py
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from .models import User
-def user_detail(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    return JsonResponse({"id": user.id, "name": user.name})
-```
+## 六、工具生态与工程化
 
-路由命名（`name`/`app_name`）后可用 `reverse('app:name')` 与模板 `{% url %}` 动态生成地址，避免硬编码；Flask 对应 `url_for`。
-
-### 5.3 中间件
-
-介入请求/响应的轻量底层插件类，钩子包括 `process_request`/`process_view`/`process_template_response`/`process_response`/`process_exception`；自定义中间件继承 `MiddlewareMixin` 注册到 `MIDDLEWARE`，典型场景：IP 限制、登录过滤、缓存。
-
-### 5.4 ORM 与模型关系
-
-```python
-from django.db import models
-class Grade(models.Model):
-    name = models.CharField(max_length=20)
-class Student(models.Model):
-    name = models.CharField(max_length=20)
-    grade = models.ForeignKey(Grade, on_delete=models.CASCADE, related_name='students')
-Student.objects.filter(grade__name='python').select_related('grade').values('name', 'grade__name')
-```
-
-常用查询：`filter`、`exclude`、`get`、比较查找（`__gt`/`__range`/`__contains`）、聚合（`Avg/Sum/Count`）、Q/F 对象、1对1/多对多关系。
-
-### 5.5 模板、表单与 CSRF
-
-Django 模板支持变量渲染、`{% if %}`/`{% for %}`、继承 `{% extends %}`、`{% include %}`、自定义过滤器与标签。表单提交需处理 `csrf_token`，文件上传配置 `MEDIA_URL`/`MEDIA_ROOT`。
-
-### 5.6 Django REST framework
-
-```python
-from rest_framework import serializers, viewsets
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'name', 'email']
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-from rest_framework.routers import DefaultRouter
-router = DefaultRouter()
-router.register(r'users', UserViewSet)
-urlpatterns = router.urls
-```
-
-视图层次演进：`APIView` -> `mixins` -> `generics` -> `ViewSet` + `Router`（上文即最终形态）；认证含 `TokenAuthentication`/`JWT`。
-
-### 5.7 认证、缓存、邮件、Celery 与部署
-
-Django 认证支持 Cookie/Session（可切 Redis/缓存）与 JWT（`djangorestframework-simplejwt`）；缓存使用 `django.core.cache`（内存/文件/Redis）；邮件通过 `send_mail`/`send_mass_mail` 配置 SMTP；生产部署采用 Nginx + uWSGI/Gunicorn。
-
-`django.contrib.auth` 认证体系：`authenticate`/`login`/`logout` 三函数配合 `User` 模型（`is_staff`/`is_active`/`is_authenticated`、`set_password`/`check_password`）；视图保护用 `@login_required`；自定义用户表继承 `AbstractUser` + `AUTH_USER_MODEL`，可重写 `ModelBackend`。
-
-Celery 异步任务与定时任务：四概念 task/queue/worker/broker；耗时任务封装 `@task` 函数，视图中 `.delay()` 非阻塞提交；`beat` 负责定时调度。
-
-> 💡 补充：Django 源码解析系列覆盖命令、ORM 翻译等，详见 [Django源码解析](../archive/old-django-notes/Django源码解析.md)；[Django(MRO)](../archive/old-django-notes/Django%28MRO%29.md) 实为 DRF 开发笔记的近似重复副本（文件名与内容不符），MRO 机制见上文 3.5。
-
-## 六、Web 框架：Flask
-
-### 6.1 最小应用与路由
-
-```python
-from flask import Flask, jsonify
-app = Flask(__name__)
-@app.route('/')
-def index():
-    return 'Hello Flask'
-@app.route('/users/<int:user_id>')
-def user_detail(user_id):
-    return jsonify({"id": user_id})
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
-```
-
-Flask 是微框架，两大核心：`werkzeug` 负责路由/调试/WSGI，`Jinja2` 负责模板，其余能力靠扩展库实现。
-
-### 6.2 请求与响应
-
-```python
-from flask import request, redirect, url_for
-@app.route('/search')
-def search():
-    return jsonify(q=request.args.get('q', ''))
-@app.route('/login', methods=['POST'])
-def login():
-    return redirect(url_for('index'))
-```
-
-错误处理：`abort(状态码)` 直接终止视图并返回 HTTP 错误；`@app.errorhandler(404/500)` 捕获并自定义错误页。
-
-### 6.3 上下文机制
-
-请求上下文：`request`/`session`；应用上下文：`current_app`/`g`。`current_app` 是 app 的代理对象，`g` 用于单次请求内传参。
-
-### 6.4 SQLAlchemy 模型
-
-```python
-from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost/test_flask'
-db = SQLAlchemy(app)
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), index=True)
-```
-
-会话事务与查询：`db.session.add`/`add_all`/`commit`，异常时 `rollback`；`filter` 支持比较运算，`filter_by` 仅等值匹配；`flask-migrate` 提供 `db init`/`migrate`/`upgrade` 迁移流程。
-
-### 6.5 模板、表单与蓝图
-
-Flask 使用 Jinja2 模板，支持继承、宏、过滤器；WTForms/`Flask-WTF` 处理表单校验与 CSRF。蓝图用于模块化：
-
-```python
-from flask import Blueprint
-user_bp = Blueprint('user', __name__, url_prefix='/user')
-@user_bp.route('/login')
-def login():
-    return 'login'
-# app.py
-from user import user_bp
-app.register_blueprint(user_bp)
-```
-
-### 6.6 文件上传、邮件与 gevent
-
-Flask 原生支持文件上传，通过 `request.files` 与 `secure_filename` 处理；`Flask-Mail` 发送邮件。`gevent` 可替换 WSGI 服务器实现协程调度，提升并发。
-
-### 6.7 部署
-
-生产环境使用 uWSGI / Gunicorn + Nginx。
-
-```ini
-[uwsgi]
-socket = 0.0.0.0:8000
-chdir = /home/xlg/test
-wsgi-file = manage.py
-callable = app
-processes = 4
-threads = 2
-```
-
-## 七、工具生态与工程化
-
-### 7.1 虚拟环境与包管理
+### 6.1 虚拟环境与包管理
 
 `venv`、`virtualenv`、`virtualenvwrapper`、`conda` 均可创建隔离环境。UV 由 Rust 编写，统一 Python 版本、虚拟环境与依赖管理。
 
@@ -477,7 +310,7 @@ dev = ["pytest>=7.4", "black>=23.0", "mypy>=1.5"]
 
 > 💡 补充：旧项目迁移时保留 `pyproject.toml` 或 `requirements.txt`，删除旧 lock 文件后执行 `uv lock`。
 
-### 7.2 Pydantic
+### 6.2 Pydantic
 
 Pydantic V2 基于 Rust 核心，是 FastAPI 底层依赖。
 
@@ -493,14 +326,14 @@ print(user.model_dump())
 
 能力：`Field` 约束、自定义验证器、序列化、JSON Schema、ORM 集成。
 
-### 7.3 pytest
+### 6.3 pytest
 
 ```bash
 pytest -v -s
 pytest test_user.py::TestUser::test_login
 ```
 
-### 7.4 FastAPI
+### 6.4 FastAPI
 
 ```python
 from fastapi import FastAPI, Depends
@@ -512,7 +345,7 @@ async def list_items(params: dict = Depends(common_params)):
     return params
 ```
 
-### 7.5 Redis、Makefile 与代码质量
+### 6.5 Redis、Makefile 与代码质量
 
 ```python
 import redis
@@ -525,15 +358,15 @@ Makefile 常用于任务编排：`test`、`lint`、`format`、`clean`；代码�
 
 > 💡 补充：Ruff 可替代 black、isort、flake8 组合，统一代码格式与 lint。
 
-### 7.6 logging 日志
+### 6.6 logging 日志
 
 5 个日志等级；四大组件 Logger/Handler/Filter/Formatter；`FileHandler`/`StreamHandler`/`RotatingFileHandler` 按目的地输出与滚动；Django 通过 `settings.LOGGING` 配置。
 
-## 八、数据分析与科学计算
+## 七、数据分析与科学计算
 
 归档 [python数据分析](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes/python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90) 包含 NumPy、Pandas、Matplotlib/Seaborn 及股票实战项目。
 
-### 8.1 NumPy
+### 7.1 NumPy
 
 ```python
 import numpy as np
@@ -543,7 +376,7 @@ print(arr + 10)
 print(arr @ arr.T)
 ```
 
-### 8.2 Pandas
+### 7.2 Pandas
 
 ```python
 import pandas as pd
@@ -558,7 +391,7 @@ print(df.groupby('age')['score'].mean())
 
 两大核心结构：`Series` 一维带索引数组，`DataFrame` 二维表格、可由多个 Series 构造（经典面试基础题）。层次化索引 `MultiIndex`：`unstack` 宽表化、`stack` 长表化，`groupby` 聚合结果常为 MultiIndex。
 
-### 8.3 数据清洗、转换与实战
+### 7.3 数据清洗、转换与实战
 
 覆盖去重、缺失值处理、数据分箱（Binning）、分组聚合（GroupBy/Aggregation）、apply 预处理、时间序列采样与重采样、数据合并（merge/concat）；股票项目覆盖数据获取、趋势、移动平均、收益率、波动率与风险分析。
 
@@ -566,12 +399,12 @@ print(df.groupby('age')['score'].mean())
 
 > 💡 补充：Pandas 处理超大规模数据可能遇到性能瓶颈，可考虑 Polars、DuckDB。
 
-## 九、2026 年 Python 生态
+## 八、2026 年 Python 生态
 
 | 维度 | 主流选择 |
 |---|---|
 | 版本 | 3.13+（3.13 引入实验性自由线程），新项目建议 3.13+ |
-| Web | FastAPI、Django 5.x、Flask 3.x |
+| Web | FastAPI、Django 6.1（stable）、Flask 3.1.x |
 | 数据科学 | Polars、Pandas、NumPy |
 | 异步 IO | `asyncio` + `uvloop` / AnyIO |
 | 包管理 | UV（推荐）、Poetry、pdm |
@@ -581,7 +414,7 @@ print(df.groupby('age')['score'].mean())
 | LLM / Agent | LangChain、LlamaIndex、Pydantic AI、MCP |
 | 部署 | Docker、Gunicorn、uWSGI、PyInstaller、Nuitka |
 
-## 十、常见坑与补充
+## 九、常见坑与补充
 
 **1. 默认参数是可变对象**
 
@@ -663,8 +496,10 @@ pickle 只应在彼此信任的程序间使用，其格式不设防；不可信�
 > 包含：90+ 文件（Python 高级/高效/源码 + Django + Flask + 数据分析 + 工具生态）
 
 - [archive/old-python-notes/](/md/archive/README?id=old-python-notes) — Python 完整笔记归档
-- [archive/old-django-notes/](/md/archive/README?id=old-django-notes) — Django 系统教程与 DRF 笔记
-- [archive/old-flask-notes/](/md/archive/README?id=old-flask-notes) — Flask 轻量教程与部署笔记
+- [Django 框架教程](./12-Django框架教程.md) — 从 old-django-notes 拆出的 Django 独立主线。
+- [Flask 框架教程](./14-Flask框架教程.md) — 从 old-flask-notes 拆出的 Flask 独立主线。
+- [archive/old-django-notes/](/md/archive/README?id=old-django-notes) — Django 系统教程与 DRF 原始笔记
+- [archive/old-flask-notes/](/md/archive/README?id=old-flask-notes) — Flask 轻量教程与部署原始笔记
 
 ---
 
@@ -681,3 +516,4 @@ pickle 只应在彼此信任的程序间使用，其格式不设防；不可信�
 | 2026-08-23 | 新增 | 按四份分区核对报告补全缺失知识点：方法重载辨析、多继承/MRO/Mixin、__new__/__init__、__slots__、LEGB、pyc 缓存、dict 哈希与扩容、生成器进阶、GIL 释放时机与进程/线程通信、Django 中间件/auth/Celery/DRF 层次/reverse、Flask 上下文/werkzeug/会话事务/abort、logging、cProfile/pdb、pandas 透视表/MultiIndex/Series、常见坑 7-12 |
 | 2026-08-23 | 订正 | 删除 2.6 命名规范指向空文件 python命名规范 的死链；删除 5.7 对 Django(MRO) 的 MRO 覆盖失实声明并注明该文件为 DRF 笔记重复副本；4.2 list 扩容表述由“翻倍扩容”改为“按约 1/8 裕量渐进扩容” |
 | 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
+| 2026-08-27 | 重构 | 将 Django 与 Flask Web 框架内容拆分为独立主线教程，本文改为保留 Python 语言、源码、工程化与数据生态总览，并更新 Web 生态版本口径 |

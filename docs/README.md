@@ -13,39 +13,39 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/01-计算机基础/50-Spring生态.md">
+    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">Spring 生态</h3>
-        <p class="home-recent-excerpt">新增 POJO 分层对象命名：梳理 PO、Entity、DO、BO、DTO、VO、Query、Command 在 MVC、Service、Domain、Repository 中的边界。</p>
+        <h3 class="home-recent-title">AI 编程三件套方法论</h3>
+        <p class="home-recent-excerpt">将原长文拆成方法论总览、工具链与上下文工程、从零开发实战三篇，入口页聚焦 SDD、Harness 和 Loop。</p>
       </div>
       <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
+        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
         <span class="home-recent-date">2026-08-27</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
-    <a class="home-recent-row" href="#/md/01-计算机基础/00-Java与JVM.md">
+    <a class="home-recent-row" href="#/md/05-AI与Agent/05-AI编程工具链与上下文工程.md">
       <span class="home-recent-num">02</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">Java 基础</h3>
-        <p class="home-recent-excerpt">从原 Java 与 JVM 中拆出语言主线，聚焦基础类型、面向对象、异常、集合、并发入门和 Java 项目入口。</p>
+        <h3 class="home-recent-title">AI 编程工具链与上下文工程</h3>
+        <p class="home-recent-excerpt">新增独立工具链主线，整理 Claude Code / Codex 配置分层、记忆、规则、Skill、Plugin、MCP 与 Headless。</p>
       </div>
       <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
-        <span class="home-recent-date">2026-08-26</span>
+        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
+        <span class="home-recent-date">2026-08-27</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
-    <a class="home-recent-row" href="#/md/01-计算机基础/05-JVM运行机制.md">
+    <a class="home-recent-row" href="#/md/05-AI与Agent/06-AI应用从零开发实战.md">
       <span class="home-recent-num">03</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">JVM 运行机制</h3>
-        <p class="home-recent-excerpt">新增独立 JVM 主线，参考 old-jvm-notes 按字节码、类加载、运行时数据区、GC 和调优排查由浅入深重组。</p>
+        <h3 class="home-recent-title">AI 应用从零开发实战</h3>
+        <p class="home-recent-excerpt">新增 Hify 实战主线，沉淀产品边界、模块化单体、LLM 调用、部署、数据库、接口和编码规范。</p>
       </div>
       <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
-        <span class="home-recent-date">2026-08-26</span>
+        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
+        <span class="home-recent-date">2026-08-27</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
@@ -174,7 +174,9 @@
       <ul class="sm-domain-links">
         <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 基础</a><span>语法 / 面向对象 / 集合 / 并发入门 / 项目入口</span></li>
         <li><a href="#/md/01-计算机基础/05-JVM运行机制.md">JVM 运行机制</a><span>字节码 / 类加载 / 内存 / GC / 调优</span></li>
-        <li><a href="#/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span>高级特性 + 源码 + Django + Flask</span></li>
+        <li><a href="#/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span>语言核心 / 高级特性 / 源码 / 工程化 / 数据生态</span></li>
+        <li><a href="#/md/01-计算机基础/12-Django框架教程.md">Django 框架教程</a><span>项目启动 / 视图 / 模板 / ORM / Admin / DRF / 部署</span></li>
+        <li><a href="#/md/01-计算机基础/14-Flask框架教程.md">Flask 框架教程</a><span>请求响应 / 上下文 / 蓝图 / SQLAlchemy / 上传邮件 / 部署</span></li>
         <li><a href="#/md/01-计算机基础/20-算法与数据结构.md">算法与数据结构</a><span>动态规划 + 排序 + 九章算法 + 左神</span></li>
         <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">计算机系统与并发</a><span>OS / 网络 / TCP / HTTP / 多线程</span></li>
         <li><a href="#/md/01-计算机基础/40-Go语言.md">Go 语言</a><span>基础 + 工程 + GORM + 高性能</span></li>
@@ -244,6 +246,8 @@
       </summary>
       <ul class="sm-domain-links">
         <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">AI 编程三件套方法论</a><span>SDD + Harness + Loop</span></li>
+        <li><a href="#/md/05-AI与Agent/05-AI编程工具链与上下文工程.md">AI 编程工具链与上下文工程</a><span>Claude / Codex / MCP / Skill</span></li>
+        <li><a href="#/md/05-AI与Agent/06-AI应用从零开发实战.md">AI 应用从零开发实战</a><span>Hify / 模块化单体 / LLM 调用</span></li>
         <li><a href="#/md/05-AI与Agent/60-AI前端设计工程化.md">AI 前端设计工程化</a><span>D2C + Design Skill + 视觉验收</span></li>
         <li><a href="#/md/05-AI与Agent/10-Agent设计模式与多Agent.md">Agent 设计模式与多 Agent</a><span>5 种设计 + 多 Agent</span></li>
         <li><a href="#/md/05-AI与Agent/20-协议与工程/MCP协议.md">MCP 协议</a><span>Model Context Protocol</span></li>

@@ -87,7 +87,9 @@
   <ul class="sm-domain-links">
     <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 基础</a><span>语法 / 面向对象 / 集合 / 并发入门 / 项目入口</span></li>
     <li><a href="#/md/01-计算机基础/05-JVM运行机制.md">JVM 运行机制</a><span>字节码 / 类加载 / 内存 / GC / 调优</span></li>
-    <li><a href="#/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span>高级特性 + 源码 + Django + Flask</span></li>
+    <li><a href="#/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span>语言核心 / 高级特性 / 源码 / 工程化 / 数据生态</span></li>
+    <li><a href="#/md/01-计算机基础/12-Django框架教程.md">Django 框架教程</a><span>项目启动 / 视图 / 模板 / ORM / Admin / DRF / 部署</span></li>
+    <li><a href="#/md/01-计算机基础/14-Flask框架教程.md">Flask 框架教程</a><span>请求响应 / 上下文 / 蓝图 / SQLAlchemy / 上传邮件 / 部署</span></li>
     <li><a href="#/md/01-计算机基础/20-算法与数据结构.md">算法与数据结构</a><span>动态规划 + 排序 + 九章算法 + 左神</span></li>
     <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">计算机系统与并发</a><span>OS / 网络 / TCP / HTTP / 多线程</span></li>
     <li><a href="#/md/01-计算机基础/40-Go语言.md">Go 语言</a><span>基础 + 工程 + GORM + 高性能</span></li>
@@ -161,6 +163,8 @@
   </summary>
   <ul class="sm-domain-links">
     <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">AI 编程三件套方法论</a><span>SDD + Harness + Loop</span></li>
+    <li><a href="#/md/05-AI与Agent/05-AI编程工具链与上下文工程.md">AI 编程工具链与上下文工程</a><span>Claude / Codex / MCP / Skill</span></li>
+    <li><a href="#/md/05-AI与Agent/06-AI应用从零开发实战.md">AI 应用从零开发实战</a><span>Hify / 模块化单体 / LLM 调用</span></li>
     <li><a href="#/md/05-AI与Agent/60-AI前端设计工程化.md">AI 前端设计工程化</a><span>D2C + Design Skill + 视觉验收</span></li>
     <li><a href="#/md/05-AI与Agent/10-Agent设计模式与多Agent.md">Agent 设计模式与多 Agent</a><span>5 种设计 + 多 Agent</span></li>
     <li><a href="#/md/05-AI与Agent/20-协议与工程/MCP协议.md">MCP 协议</a><span>Model Context Protocol</span></li>

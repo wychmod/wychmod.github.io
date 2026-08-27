@@ -4,6 +4,8 @@
     - [Java 基础](/md/01-计算机基础/00-Java与JVM.md)
     - [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)
     - [Python 基础与生态](/md/01-计算机基础/10-Python基础与生态.md)
+    - [Django 框架教程](/md/01-计算机基础/12-Django框架教程.md)
+    - [Flask 框架教程](/md/01-计算机基础/14-Flask框架教程.md)
     - [Go 语言](/md/01-计算机基础/40-Go语言.md)
     - [Spring 生态](/md/01-计算机基础/50-Spring生态.md)
   
@@ -61,6 +63,8 @@
   
   - **Agent 方法论**
     - [AI 编程三件套](/md/05-AI与Agent/00-AI编程三件套方法论.md)
+    - [AI 编程工具链与上下文工程](/md/05-AI与Agent/05-AI编程工具链与上下文工程.md)
+    - [AI 应用从零开发实战](/md/05-AI与Agent/06-AI应用从零开发实战.md)
     - [AI 前端设计工程化](/md/05-AI与Agent/60-AI前端设计工程化.md)
     - [Agent 设计模式与多 Agent](/md/05-AI与Agent/10-Agent设计模式与多Agent.md)
   
