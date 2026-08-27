@@ -1,7 +1,8 @@
 - 💻 **计算机基础**
   
   - **编程语言**
-    - [Java 与 JVM](/md/01-计算机基础/00-Java与JVM.md)
+    - [Java 基础](/md/01-计算机基础/00-Java与JVM.md)
+    - [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)
     - [Python 基础与生态](/md/01-计算机基础/10-Python基础与生态.md)
     - [Go 语言](/md/01-计算机基础/40-Go语言.md)
     - [Spring 生态](/md/01-计算机基础/50-Spring生态.md)

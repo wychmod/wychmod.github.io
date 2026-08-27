@@ -16,36 +16,36 @@
     <a class="home-recent-row" href="#/md/01-计算机基础/00-Java与JVM.md">
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">Java 与 JVM</h3>
-        <p class="home-recent-excerpt">归档核对补全：Java 基础 / JVM 调优 / 实战项目三个维度补入 70+ 核心考点（HashMap 原理、CMS 三色标记、双检锁单例、手写 RPC、抽奖系统 DDD 等）。</p>
+        <h3 class="home-recent-title">Java 基础</h3>
+        <p class="home-recent-excerpt">从原 Java 与 JVM 中拆出语言主线，聚焦基础类型、面向对象、异常、集合、并发入门和 Java 项目入口。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
-        <span class="home-recent-date">2026-08-23</span>
+        <span class="home-recent-date">2026-08-26</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/01-计算机基础/05-JVM运行机制.md">
+      <span class="home-recent-num">02</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">JVM 运行机制</h3>
+        <p class="home-recent-excerpt">新增独立 JVM 主线，参考 old-jvm-notes 按字节码、类加载、运行时数据区、GC 和调优排查由浅入深重组。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
+        <span class="home-recent-date">2026-08-26</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
     <a class="home-recent-row" href="#/md/01-计算机基础/50-Spring生态.md">
-      <span class="home-recent-num">02</span>
+      <span class="home-recent-num">03</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">Spring 生态</h3>
-        <p class="home-recent-excerpt">归档核对补全：新增 Spring MVC、Security + JWT 章节，Boot / Cloud 机制补全 40+ 处（三级缓存、启动流程、Gateway、OpenFeign、Nacos 模型等）。</p>
+        <p class="home-recent-excerpt">接收原 Java 篇中的 SSM、Servlet 容器、Spring Boot + Vue 部署内容，和 Core/Boot/Cloud 主线合并阅读。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
-        <span class="home-recent-date">2026-08-23</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/06-软件工程/00-系统设计与设计模式.md">
-      <span class="home-recent-num">03</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">系统设计与设计模式</h3>
-        <p class="home-recent-excerpt">按规范完整内联 242KB 设计模式原文（23 种模式全量资料），摘要区对齐原文结构，缺失示意图加注说明。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-5)">软件工程</span>
-        <span class="home-recent-date">2026-08-23</span>
+        <span class="home-recent-date">2026-08-26</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
@@ -81,7 +81,7 @@
   <div class="home-note-label"><strong>作者手记</strong><span>/ LETTER FROM THE AUTHOR</span></div>
   <span class="home-note-quote" aria-hidden="true">“</span>
   <p class="home-note-text">这里整理技术笔记、代码实验与持续订正记录。<br>内容会随着新的阅读与实践继续修订。</p>
-  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-08-16</span></p>
+  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-08-26</span></p>
   <span class="home-note-mark" aria-hidden="true">W</span>
 </div>
 
@@ -172,7 +172,8 @@
         <span class="sm-domain-arrow" aria-hidden="true">↓</span>
       </summary>
       <ul class="sm-domain-links">
-        <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 与 JVM</a><span>Java 基础 / Spring 全家桶 / JVM 调优</span></li>
+        <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 基础</a><span>语法 / 面向对象 / 集合 / 并发入门 / 项目入口</span></li>
+        <li><a href="#/md/01-计算机基础/05-JVM运行机制.md">JVM 运行机制</a><span>字节码 / 类加载 / 内存 / GC / 调优</span></li>
         <li><a href="#/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span>高级特性 + 源码 + Django + Flask</span></li>
         <li><a href="#/md/01-计算机基础/20-算法与数据结构.md">算法与数据结构</a><span>动态规划 + 排序 + 九章算法 + 左神</span></li>
         <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">计算机系统与并发</a><span>OS / 网络 / TCP / HTTP / 多线程</span></li>

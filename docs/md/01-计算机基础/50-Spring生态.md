@@ -1,8 +1,7 @@
 # Spring 生态
 
-> **原文归档**：[`archive/old-spring-notes/`](/md/archive/README?id=old-spring-notes)（手写 Spring / 源码解析 / 事务传播）+ [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes)（spring系列学习 / springboot / springcloud / AIcloud 项目）
->
-> 从「Java 与 JVM」的 Spring 概览小节扩展为独立主线，沉淀 Spring 全家桶知识并索引全部归档资料。
+> 预计阅读：约 28 分钟（正文约 8763 字）
+> 阅读建议：按 Core -> MVC -> Boot -> 事务 -> Cloud -> Security -> 手写源码 -> 项目落地的顺序阅读；SSM 与 Spring Boot + Vue 部署内容已从 Java 基础迁入本文。
 
 ---
 
@@ -411,7 +410,54 @@ http.csrf(csrf -> csrf.disable())
 
 > 💡 补充：手写一遍再读源码，比直接啃源码效率高一个量级--先建立"容器在做什么"的心智模型，再看真实实现如何处理边界。
 
-## 九、2026 年 Spring 生态现状
+## 九、从 SSM 到项目落地
+
+> 本节迁入自原 `Java 与 JVM` 文档中的 Spring/SSM/Boot 项目内容，避免 Java 基础篇继续混入框架主线。
+
+### 9.1 SSM 整合
+
+- SSM = Spring + Spring MVC + MyBatis。
+- 配置文件：`web.xml` / `applicationContext.xml` / `spring-mvc.xml` / `mybatis-config.xml`。
+- Maven 管理依赖，工程分层通常为 Controller / Service / DAO / Mapper。
+
+**Servlet 与 Servlet 容器**：
+
+- Servlet 是处理 HTTP 请求的 API 标准，需要 Tomcat / Jetty / JBoss / Glassfish 等 Servlet 容器承载运行。
+- 容器根据 `web.xml` 或注解映射请求到 Servlet。
+- 生命周期：init / service / destroy。
+- JSP 本质是运行期被编译成 Servlet 的视图技术，HttpServlet 是其高级封装。
+
+### 9.2 Spring Boot + Vue 前后端分离部署
+
+**Nginx 部署 Vue**：
+
+- 静态资源 alias 指向打包目录。
+- `try_files $uri $uri/ /index.html` 用于解决 history 路由刷新 404。
+
+**Nginx 反向代理与 WebSocket 代理**：
+
+- 后端接口走独立二级域名，`proxy_pass` 到本地端口。
+- WebSocket 需加 `proxy_http_version 1.1`、`Upgrade`、`Connection` 头，并调大 `proxy_read_timeout`，避免长连接被默认 60 秒超时切断。
+- Java 侧可用 `nohup java -jar -Dspring.profiles.active=prod app.jar` 后台部署。
+
+**单点登录 token + Redis**：
+
+- 登录后生成 token 存 Redis，便于主动失效登录态。
+- 前端携带 token，后端通过 HandlerInterceptor 统一校验。
+- 这与无状态 JWT 是两种不同选型：Redis token 强在可控失效，JWT 强在减少中心化状态依赖。
+
+**Long 精度丢失全局处理**：
+
+- 雪花 ID 等 Long 值超出 JS Number 安全整数范围会导致前端精度丢失。
+- 可通过 Jackson 全局注册 ToStringSerializer，将 Long 序列化为字符串。
+
+### 9.3 和 Java 基础篇的边界
+
+- Java 基础篇只保留语言、集合、异常、并发入门与 Java 项目入口。
+- SSM、Spring Boot、Spring Cloud、事务、Security、项目部署统一在本文维护。
+- JVM 的类加载、GC、调优与 javaagent 运行机制见 [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)。
+
+## 十、2026 年 Spring 生态现状
 
 | 维度 | 现状 |
 |---|---|
@@ -456,9 +502,18 @@ http.csrf(csrf -> csrf.disable())
 
 ---
 
+
+## 📚 完整资料
+
+> **原文归档**：[`archive/old-spring-notes/`](/md/archive/README?id=old-spring-notes)（手写 Spring / 源码解析 / 事务传播）+ [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes)（spring系列学习 / springboot / springcloud / AIcloud 项目）
+>
+> 从「Java 与 JVM」的 Spring 概览小节扩展为独立主线，沉淀 Spring 全家桶知识并索引全部归档资料。
+
 ## 修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-08-23 | 新增 | 新建文档：从 Java 与 JVM 的 Spring 概览扩展为独立主线；新增 Actuator 生产监控小节；建立全量 Spring 归档索引（old-spring-notes + old-java-notes 四个子目录） |
 | 2026-08-23 | 新增 | 依据归档核对补全缺失知识点：新增「三、Spring MVC」「七、Spring Security 与 JWT 认证」两章（后续章节号顺延）；Spring Core 补容器体系、作用域与线程安全、@Import/FactoryBean/BFPP/BPP、AOP 拦截器链、三级缓存原理；Spring Boot 新增起步依赖与 parent、配置文件优先级、Profile、配置绑定、内嵌容器、启动流程、自定义 starter、缓存与定时、日志、数据访问整合（MyBatis / MyBatis-Plus / 连接池）；Spring Cloud 补注册心跳、Nacos 分级模型/配置中心/集群、Gateway、OpenFeign；AIcloud 归档索引补 MyBatisPlus 与 JWT 两篇 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
+| 2026-08-26 | 重构 | 按 Java/JVM 拆分边界迁入 SSM 整合、Servlet 容器与 Spring Boot + Vue 部署内容，Spring 主线聚焦 Core、MVC、Boot、事务、Cloud、Security 与项目落地 |

@@ -1,6 +1,7 @@
 # Alembic 数据库迁移
 
-> **原文归档**：[archive/old-agent-notes/agent系统知识/Alembic数据库迁移完整教程.md](../../archive/old-agent-notes/agent系统知识/Alembic数据库迁移完整教程.md)
+> 预计阅读：约 61 分钟（正文约 19430 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -1329,7 +1330,11 @@ Alembic 是 Python 生态中强大的数据库迁移工具，掌握它可以：
 
 ---
 
+
 ## 📚 完整资料
+
+> **原文归档**：[archive/old-agent-notes/agent系统知识/Alembic数据库迁移完整教程.md](../../archive/old-agent-notes/agent系统知识/Alembic数据库迁移完整教程.md)
+
 - [Alembic数据库迁移完整教程.md](../../archive/old-agent-notes/agent系统知识/Alembic数据库迁移完整教程.md)
 
 ---
@@ -1340,3 +1345,4 @@ Alembic 是 Python 生态中强大的数据库迁移工具，掌握它可以：
 |---|---|---|
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（已适配 SQLAlchemy 2.0 新风格，2026 现状与常见坑表述准确，无需订正） |
 | 2026-08-23 | 新增 | 新增「五、多环境与高级配置」（环境变量注入 URL、多环境 `-n` 配置、自定义迁移脚本模板、autogenerate 精细控制）；补充 init 模板参数、stamp 指定版本/--purge、merge 指定分支、branches 命令及回滚失败坑；按规范完整内联归档原文《Alembic数据库迁移完整教程.md》 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

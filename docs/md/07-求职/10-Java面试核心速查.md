@@ -1,7 +1,7 @@
 # Java 面试核心速查
 
-> **原文归档**：[archive/old-interview-notes/Java面试汇总.md](../archive/old-interview-notes/Java面试汇总.md)
-> 包含：163KB 完整 Java 面试汇总
+> 预计阅读：约 216 分钟（正文约 69016 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -2528,7 +2528,12 @@ DDoS（分布式拒绝服务攻击）是一种恶意网络攻击，旨在通过�
 5. CDN（内容分发网络）：使用CDN可以分散和缓解DDoS攻击的影响，通过将流量分发到多个服务器上，减轻单个服务器的负担。
 6. 云服务提供商的协助：如果遭受大规模的DDoS攻击，可以寻求云服务提供商的帮助，他们通常有更强大的基础设施和专业的防御措施来应对此类攻击。
 
+
 ## 📚 完整资料
+
+> **原文归档**：[archive/old-interview-notes/Java面试汇总.md](../archive/old-interview-notes/Java面试汇总.md)
+> 包含：163KB 完整 Java 面试汇总
+
 - [archive/old-interview-notes/Java面试汇总.md](../archive/old-interview-notes/Java面试汇总.md) - 原始笔记归档，完整 163KB 原文已内联至本文档末尾「以下为原内容存档」
 
 ---
@@ -2540,3 +2545,4 @@ DDoS（分布式拒绝服务攻击）是一种恶意网络攻击，旨在通过�
 | 2026-07-22 | 订正 | ZGC 非 JDK 15+ 默认 GC（G1 仍是默认）；Spring Boot 自动装配补充 3.x 新机制；Spring AOP 代理默认策略补充 Spring Boot 2.x+ 默认 CGLIB |
 | 2026-07-22 | 审查 | 全面审查，其余 64 道题答案正确 |
 | 2026-08-23 | 新增 | 完整内联归档原文（Java面试汇总.md，163KB）至文末存档区，仅修正 2 处图片相对路径；速查补齐 10 道高频题（JMM、线程状态、CyclicBarrier 与 CountDownLatch、Bean 生命周期、MyBatis 3 题、Redis 数据类型与缓存更新策略、MQ 推拉模式），总题量 67 → 77 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

@@ -1,7 +1,7 @@
 # Redis 缓存
 
-> **原文归档**：[archive/old-redis-notes/](/md/archive/README?id=old-redis-notes)
-> 包含：10 个文件（入门 / 实战 / 原理 / Stream / 高级 / 安装部署）
+> 预计阅读：约 32 分钟（正文约 10224 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -591,7 +591,11 @@ maxmemory-policy allkeys-lru
 
 ---
 
+
 ## 📚 完整资料
+
+> **原文归档**：[archive/old-redis-notes/](/md/archive/README?id=old-redis-notes)
+> 包含：10 个文件（入门 / 实战 / 原理 / Stream / 高级 / 安装部署）
 
 - [1-Redis入门.md](../archive/old-redis-notes/1-Redis入门.md) — 安装、基础命令、Java 客户端
 - [2-Redis实战.md](../archive/old-redis-notes/2-Redis实战.md) — 短信登录、商户缓存、秒杀、分布式锁、消息队列、GEO、BitMap、HLL
@@ -618,3 +622,4 @@ maxmemory-policy allkeys-lru
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-23 | 新增 | 按分区核对报告补齐 14 个缺失点：Redis 为什么快、SDS、Dict 渐进式 rehash、ZipList 连锁更新、跳表选型、List/PubSub 队列缺陷、Stream XCLAIM 转移、JVM 锁失效动机、秒杀超卖与乐观锁、Feed 流推拉结合、分布式/本地缓存对比、Canal 工作原理、BigKey UNLINK 删除、集群代价与主从优先选型 |
 | 2026-08-23 | 订正 | 2.2 节 SETNX 示例改为 SET key value NX EX 10（SETNX 不接受 EX 参数） |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

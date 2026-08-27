@@ -1,7 +1,7 @@
 # Python 基础与生态
 
-> **原文归档**：[archive/old-python-notes/](/md/archive/README?id=old-python-notes) + [archive/old-django-notes/](/md/archive/README?id=old-django-notes) + [archive/old-flask-notes/](/md/archive/README?id=old-flask-notes)
-> 包含：90+ 文件（Python 高级/高效/源码 + Django + Flask + 数据分析 + 工具生态）
+> 预计阅读：约 40 分钟（正文约 12689 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -656,7 +656,11 @@ pickle 只应在彼此信任的程序间使用，其格式不设防；不可信�
 
 ---
 
+
 ## 📚 完整资料
+
+> **原文归档**：[archive/old-python-notes/](/md/archive/README?id=old-python-notes) + [archive/old-django-notes/](/md/archive/README?id=old-django-notes) + [archive/old-flask-notes/](/md/archive/README?id=old-flask-notes)
+> 包含：90+ 文件（Python 高级/高效/源码 + Django + Flask + 数据分析 + 工具生态）
 
 - [archive/old-python-notes/](/md/archive/README?id=old-python-notes) — Python 完整笔记归档
 - [archive/old-django-notes/](/md/archive/README?id=old-django-notes) — Django 系统教程与 DRF 笔记
@@ -676,3 +680,4 @@ pickle 只应在彼此信任的程序间使用，其格式不设防；不可信�
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-23 | 新增 | 按四份分区核对报告补全缺失知识点：方法重载辨析、多继承/MRO/Mixin、__new__/__init__、__slots__、LEGB、pyc 缓存、dict 哈希与扩容、生成器进阶、GIL 释放时机与进程/线程通信、Django 中间件/auth/Celery/DRF 层次/reverse、Flask 上下文/werkzeug/会话事务/abort、logging、cProfile/pdb、pandas 透视表/MultiIndex/Series、常见坑 7-12 |
 | 2026-08-23 | 订正 | 删除 2.6 命名规范指向空文件 python命名规范 的死链；删除 5.7 对 Django(MRO) 的 MRO 覆盖失实声明并注明该文件为 DRF 笔记重复副本；4.2 list 扩容表述由“翻倍扩容”改为“按约 1/8 裕量渐进扩容” |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

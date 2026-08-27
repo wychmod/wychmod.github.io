@@ -61,9 +61,9 @@
 
 | 主线新文档 | 归档目录 | 来源文件数 | 归档时间 | 备注 |
 |---|---|---|---|---|
-| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | <a id="old-java-notes"></a>[`old-java-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-java-notes) | 48 md | 2026-07-15 | Java 基础笔记 |
-| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | <a id="old-jvm-notes"></a>[`old-jvm-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-jvm-notes) | 5 md | 2026-07-15 | JVM 调优笔记 |
-| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | <a id="old-spring-notes"></a>[`old-spring-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-spring-notes) | 4 md | 2026-07-15 | Spring 生态笔记（并入 Java 与 JVM） |
+| [`md/01-计算机基础/00-Java与JVM.md`](../01-计算机基础/00-Java与JVM.md) | <a id="old-java-notes"></a>[`old-java-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-java-notes) | 48 md | 2026-07-15 | Java 基础与项目笔记（旧文件路径保留兼容） |
+| [`md/01-计算机基础/05-JVM运行机制.md`](../01-计算机基础/05-JVM运行机制.md) | <a id="old-jvm-notes"></a>[`old-jvm-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-jvm-notes) | 5 md | 2026-07-15 | JVM 运行机制与调优笔记 |
+| [`md/01-计算机基础/50-Spring生态.md`](../01-计算机基础/50-Spring生态.md) | <a id="old-spring-notes"></a>[`old-spring-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-spring-notes) | 4 md | 2026-07-15 | Spring 生态笔记 |
 | [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | <a id="old-python-notes"></a>[`old-python-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-python-notes) | 69 md | 2026-07-15 | Python 基础与生态笔记 |
 | [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | <a id="old-django-notes"></a>[`old-django-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-django-notes) | 14 md | 2026-07-15 | Django 笔记（并入 Python 生态） |
 | [`md/01-计算机基础/10-Python基础与生态.md`](../01-计算机基础/10-Python基础与生态.md) | <a id="old-flask-notes"></a>[`old-flask-notes/`](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-flask-notes) | 8 md | 2026-07-15 | Flask 笔记（并入 Python 生态） |

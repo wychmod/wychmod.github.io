@@ -1,7 +1,7 @@
 # Git 版本控制
 
-> **原文归档**：[archive/old-git-notes/](/md/archive/README?id=old-git-notes)
-> 包含：2 篇笔记 + 1 个 xmind 思维导图
+> 预计阅读：约 24 分钟（正文约 7470 字）
+> 阅读建议：建议先扫目录和二级标题，优先看概念、表格和代码示例，原文归档留到最后。
 
 ## 一、核心主题概述
 
@@ -468,6 +468,12 @@ git cherry-pick C2 C4
 
 ---
 
+
+## 📚 完整资料
+
+> **原文归档**：[archive/old-git-notes/](/md/archive/README?id=old-git-notes)
+> 包含：2 篇笔记 + 1 个 xmind 思维导图
+
 ## 修改记录
 
 | 日期 | 类型 | 说明 |
@@ -477,3 +483,4 @@ git cherry-pick C2 C4
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-20 | 新增 | 新增 3.6 Worktree 小节：机制、与复制目录对比、典型场景与并行验收判据 |
 | 2026-08-23 | 新增 | 标注 4 处已停服图床的历史截图；总结区核对无事实错误 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

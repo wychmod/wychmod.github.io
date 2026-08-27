@@ -1,7 +1,7 @@
 # MySQL 数据库
 
-> **原文归档**：[archive/old-mysql-notes/](/md/archive/README?id=old-mysql-notes)
-> 包含：7 个文件（MySQL性能优化 4 篇 + 使用/运行 + 手写数据库）
+> 预计阅读：约 29 分钟（正文约 9173 字）
+> 阅读建议：建议先扫目录和二级标题，优先看概念、表格和代码示例，原文归档留到最后。
 
 ## 一、核心主题概述
 
@@ -469,6 +469,12 @@ SELECT * FROM user_innodb WHERE id > 900000 LIMIT 10;
 > 💡 补充：调优是持续过程。建议遵循「先定位瓶颈（慢日志 + EXPLAIN + 状态指标），再小范围验证（基准测试/灰度），最后全量上线并监控」的闭环。
 
 ---
+
+
+## 📚 完整资料
+
+> **原文归档**：[archive/old-mysql-notes/](/md/archive/README?id=old-mysql-notes)
+> 包含：7 个文件（MySQL性能优化 4 篇 + 使用/运行 + 手写数据库）
 
 ## 修改记录
 
@@ -6275,3 +6281,4 @@ Query OK, 0 rows affected (0.00 sec)
 小贴士： event_scheduler其实是一个系统变量，它的值也可以在MySQL服务器启动的时候通过启动参数或者通过配置文件来设置event_scheduler的值。
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

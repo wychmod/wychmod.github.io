@@ -1,7 +1,7 @@
 # Kubernetes 编排
 
-> **原文归档**：[archive/old-k8s-notes/](/md/archive/README?id=old-k8s-notes)
-> 包含：7 个文件（K8s 介绍 / 集群搭建 / Pod / 控制器 / Service / 实战 / 存储与安全）
+> 预计阅读：约 49 分钟（正文约 15549 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -1026,7 +1026,11 @@ kubectl get pods -n dev -l version=2.0 --show-labels
 
 ---
 
+
 ## 📚 完整资料
+
+> **原文归档**：[archive/old-k8s-notes/](/md/archive/README?id=old-k8s-notes)
+> 包含：7 个文件（K8s 介绍 / 集群搭建 / Pod / 控制器 / Service / 实战 / 存储与安全）
 
 - [archive/old-k8s-notes/](/md/archive/README?id=old-k8s-notes)
   - [1-k8s的介绍.md](../archive/old-k8s-notes/1-k8s的介绍.md)
@@ -1048,3 +1052,4 @@ kubectl get pods -n dev -l version=2.0 --show-labels
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-23 | 新增 | 对照归档分区核对报告补入 10 处缺失知识点（标签选择器语法、四个默认命名空间、集群拓扑选型、禁用 swap、PV 生命周期状态、Deployment 回滚原理、Job restartPolicy 约束、Pod 终止流程、ConfigMap 挂载消费、RBAC 复用模式） |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
