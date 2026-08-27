@@ -13,8 +13,20 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/01-计算机基础/00-Java与JVM.md">
+    <a class="home-recent-row" href="#/md/01-计算机基础/50-Spring生态.md">
       <span class="home-recent-num">01</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">Spring 生态</h3>
+        <p class="home-recent-excerpt">新增 POJO 分层对象命名：梳理 PO、Entity、DO、BO、DTO、VO、Query、Command 在 MVC、Service、Domain、Repository 中的边界。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
+        <span class="home-recent-date">2026-08-27</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/01-计算机基础/00-Java与JVM.md">
+      <span class="home-recent-num">02</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">Java 基础</h3>
         <p class="home-recent-excerpt">从原 Java 与 JVM 中拆出语言主线，聚焦基础类型、面向对象、异常、集合、并发入门和 Java 项目入口。</p>
@@ -26,22 +38,10 @@
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
     <a class="home-recent-row" href="#/md/01-计算机基础/05-JVM运行机制.md">
-      <span class="home-recent-num">02</span>
+      <span class="home-recent-num">03</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">JVM 运行机制</h3>
         <p class="home-recent-excerpt">新增独立 JVM 主线，参考 old-jvm-notes 按字节码、类加载、运行时数据区、GC 和调优排查由浅入深重组。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
-        <span class="home-recent-date">2026-08-26</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/01-计算机基础/50-Spring生态.md">
-      <span class="home-recent-num">03</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">Spring 生态</h3>
-        <p class="home-recent-excerpt">接收原 Java 篇中的 SSM、Servlet 容器、Spring Boot + Vue 部署内容，和 Core/Boot/Cloud 主线合并阅读。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
@@ -81,7 +81,7 @@
   <div class="home-note-label"><strong>作者手记</strong><span>/ LETTER FROM THE AUTHOR</span></div>
   <span class="home-note-quote" aria-hidden="true">“</span>
   <p class="home-note-text">这里整理技术笔记、代码实验与持续订正记录。<br>内容会随着新的阅读与实践继续修订。</p>
-  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-08-26</span></p>
+  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-08-27</span></p>
   <span class="home-note-mark" aria-hidden="true">W</span>
 </div>
 
