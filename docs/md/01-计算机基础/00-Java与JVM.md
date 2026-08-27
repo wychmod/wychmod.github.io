@@ -1,6 +1,6 @@
 # Java 基础
 
-> 预计阅读：约 24 分钟（正文约 7666 字）
+> 预计阅读：约 8 分钟（正文约 2600 字）
 > 阅读建议：先读 Java 语言基础，再把工程项目入口当作索引浏览；需要运行时原理转到 JVM，企业开发转到 Spring 生态。
 
 ---
@@ -212,196 +212,12 @@ public static Singleton getInstance() {
 
 ## 二、Java 工程与项目实践
 
-> 📚 完整 Java 项目笔记见 [`archive/old-java-notes`](/md/archive/README?id=old-java-notes)；Spring/SSM 与 Spring Boot + Vue 项目部署已迁入 [Spring 生态](/md/01-计算机基础/50-Spring生态.md)。
+> 📚 完整 Java 项目笔记见 [`archive/old-java-notes`](/md/archive/README?id=old-java-notes)；Spring/SSM 与 Spring Boot + Vue 项目部署已迁入 [Spring 生态](/md/01-计算机基础/50-Spring生态.md)。具体项目教程统一放在 [项目实战](/md/10-项目实战/)。
 
-- **手写 RPC**：Netty + 动态代理
-- **Netty**：高性能网络通信框架（RPC 底层）
-- **统一消息系统**：MQ 削峰 + 多渠道下发
-- **抽奖系统**：DDD 架构 + 高并发设计
-- **短链系统**：Hash + Base62 + 分库分表
 - **JVM 插桩监控**：见 [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)
-- **自动化测试平台**：JMeter 集成 + 性能压测
+- **自动化测试平台**：已拆到 [项目实战 / 自动化测试平台](/md/10-项目实战/01-自动化测试平台/00-架构总览.md)，本篇不再展开项目实现
 
-### 2.1 手写 RPC
-
-**四大角色与调用流程**：
-
-- 角色 = 服务提供者 + 注册中心 + 服务消费者 + 监控中心（监控中心可增减，前三者必需）
-- 链路：提供者注册服务列表 -> 消费者订阅 -> 注册中心推送变更 -> 负载均衡选址 -> 消费者动态代理将接口名 / 方法名 / 参数类型列表 / 参数列表序列化成字节流发送 -> 提供者解码反序列化 -> 执行并编码返回 -> 消费者解码处理
-
-**关键机制**：
-
-- **注册发现**：必须"主动通知 + 心跳检测"，防止断网 / 宕机 / 崩溃后注册中心残留无效服务列表
-- **协议与序列化**：分布式下 RPC 性能要求极高，协议实现越简单越好（可基于 HTTP / TCP / UDP 或自定义协议）；序列化选高效框架：FastJson / Kryo / Hessian / Protobuf
-- **线程模型**：IO 线程负责事件轮询、编解码、传输（Dubbo 用 Netty 的 Boss/Worker 线程池即 IO 线程，Reactor 模型）；涉及复杂计算或数据库访问必须切到业务线程，以免阻塞 IO 线程；Dubbo 提供 5 种可配置线程分发策略
-
-**四种调用方式**：
-
-| 方式 | 机制 |
-|---|---|
-| Sync 同步 | 框架内部本质是异步转同步（如 Dubbo），须设超时时间 |
-| Future 异步 | 结果被缓存，主动 get 时才阻塞 |
-| Callback 回调 | 实现 success / fail 两方法，结果到达时回调 |
-| Oneway 单向 | 不关心返回 |
-
-**动态代理技术选型**：
-
-| 技术 | 特点 |
-|---|---|
-| JDK 代理 | 必须实现接口（生成类继承 Proxy），反射调用性能低 |
-| Cglib | 基于 ASM 生成子类（被代理类不能 final），FastClass 索引直调性能更高 |
-| Javassist / ASM | 直接操作字节码、性能高于反射 |
-| Byte Buddy | API 最友好 |
-
-- 代理类生成速度与字节码大小直接影响 RPC 整体性能
-
-**负载均衡四算法**：
-
-- 轮询（不考虑节点实际负载）；加权轮询（按权重分流量，可按实时负载调整）；最少连接数；一致性 Hash（Hash 环上顺时针找最近节点，节点上下线不会引起对象大规模迁移）
-
-**服务元数据三要素**：
-
-- 服务名称（接口完整类名）+ 版本号 + 服务分组，三者唯一确定一个服务提供者
-- 地址 / 端口 / 注册中心地址在工程级统一配置、不进注解
-- 消费者注解需配置注册中心地址与类型、负载均衡、序列化类型、超时、同步 / 异步 / 单向、代理方式；服务名称从注册中心获取、无需配置
-
-### 2.2 Netty
-
-**为什么需要 Netty（JDK NIO 痛点）**：
-
-- 原生 NIO 类库繁杂；断连重连、网络闪断、半包读写等可靠性补齐工作量大
-- JDK NIO 臭名昭著的 epoll 空轮询 bug 可致 CPU 100% 且未根治
-- Netty 修复所有已知 NIO bug、综合性能最优；Dubbo、Hadoop Avro 等主流 RPC 均以其作底层通信
-
-> 📚 五种 IO 模型与 epoll 详解见 [计算机系统与并发](/md/01-计算机基础/30-计算机系统与并发.md)
-
-**Reactor 三种线程模型**：
-
-| 模型 | 结构 | 评价 |
-|---|---|---|
-| 单线程模型 | 所有 IO 一个线程 | 无法利用多核、可靠性差，基本不用 |
-| 多线程模型 | 1 个 acceptor 线程接连接 + IO 线程池读写编解码 | - |
-| 主从 Reactor | mainReactor 只负责接连接，subReactor 负责读写（1+M+N 线程模式） | Nginx / Memcached / Netty 均采用；subReactor 数通常等于 CPU 核数 |
-
-**核心组件模型**：
-
-- **BossGroup / WorkerGroup**：对应主从 Reactor 的 mainReactor / subReactor
-- **NioEventLoop**：内含 Selector，循环执行 select -> processSelectedKeys -> runAllTasks 三步；一个 EventLoop 可服务多个 Channel
-- **ChannelHandler** 为业务处理器；**ChannelPipeline** 为保存 Handler 与 Context 的双向链表，且与 Channel 互相引用
-- **ByteBuf**：性能优于 NIO ByteBuffer
-
-**异步模型与启动配置要点**：
-
-- 所有 IO 操作异步：通过 ChannelFuture 注册监听器，在操作成功 / 失败时回调
-- ServerBootstrap 配置区分：`option()` 给 ServerSocketChannel（如 SO_BACKLOG）、`childOption()` 给 SocketChannel（如 SO_KEEPALIVE）；`handler()` / `childHandler()` 分别对应 Boss 与 Worker
-
-### 2.3 统一消息系统（Austin）
-
-**架构与数据流**：
-
-- 实时消息：业务方直调 austin-api 接入
-- 定时 / 非实时消息：austin-admin -> austin-web -> austin-cron 到点调 austin-api
-- api 只做参数校验即写 MQ；austin-handler 消费并完成拼装、去重、限流、渠道模板格式化后分发下发
-
-**关键机制**：
-
-- **MQ 削峰解耦**：接入层与处理层之间用 MQ 异步化，扛瞬时高并发，避免外部通道（如短信 API 慢）拖垮业务方甚至雪崩
-- **多渠道适配**：handler 多通道下发（短信 / 邮件 / 钉钉 / 企业微信 / 飞书 / 微信服务号 / 微信小程序），屏蔽第三方接口差异，对业务方提供统一 API
-- **消息数据旁路闭环**：发送日志与状态另写一条 MQ，旁路分流至 austin-stream（实时计算送达率、耗时等监控指标）与 austin-data-house（离线归档供报表分析），形成"发-看-查"的完整消息生命周期管理
-
-### 2.4 抽奖系统
-
-**DDD 四层架构与模块分离**：
-
-- application（组合编排）/ domain（领域服务 + 充血模型）/ infrastructure（仓储 + 依赖反转）/ interfaces 四层职责划分
-- 引入 RPC 后为避免循环依赖：应用层不再向领域层定义接口、仓储定义从领域层剥离、RPC 接口独立成 Jar 供外部调用
-
-**两种概率算法与斐波那契散列**：
-
-- **总体概率算法**：奖品抽空后剩余概率按比例均分（随机数与阶梯区间循环比对 O(n)）
-- **单项概率算法**：概率固定、散列数组直接索引 O(1)、抽中已空奖品记未中奖（运营控成本常用）
-- 策略模式统一封装；斐波那契散列（黄金分割 0x61c88647，ThreadLocal 同款）保证散列均匀减少碰撞
-
-**设计模式综合落地**：
-
-- 模板模式编排抽奖流程；简单工厂分发发奖领域；状态模式管理活动状态流转（提审 / 上线等）
-- 组合模式 + rule_tree / rule_tree_node / rule_tree_node_line 三表实现量化人群的规则引擎（按性别 / 年龄 / 消费筛选参与资格）
-
-**自研 DBRouter 分库分表组件**：
-
-- `@DBRouter` 注解 + AOP 切面拦截 + ThreadLocal 记录路由结果 + AbstractRoutingDataSource 动态切换数据源 + 仿 HashMap 扰动函数哈希寻址 + Mybatis 拦截器改写表名
-- 并扩展编程式事务（水平拆分 user_001 / user_002 场景）
-
-**MQ 解耦发货与补偿**：
-
-- 抽奖后发 Kafka 发货单解耦发货流程；user_strategy_export.mq_state 记录发送状态，失败由 xxl-job 定时任务扫描补偿重发
-- 消费端必须幂等，否则重试会导致重复发奖资损
-
-**滑动库存分布式锁防超卖**：
-
-- Redis setNx 加锁但细化粒度：锁 key = 活动ID + 库存占用编号（如 100001_1），避免粗锁导致"有库存却秒杀失败"
-- 缓存扣减后发 MQ 异步更新 DB（`UPDATE ... WHERE stock_surplus_count >`）保最终一致；TPS 更高时对库存分片横向扩展
-
-### 2.5 短链系统
-
-**MurmurHash + Base62 + 302 重定向**：
-
-- MurmurHash 非加密、高性能低碰撞（32 位约 43 亿容量），转 62 进制缩短码长，可拼接库表位
-- 重定向选 **302 临时重定向**而非 301，才能统计点击数据和支持拉黑
-
-**分库分表：中间件选型与 Sharding-JDBC 核心概念**：
-
-- 选型对比：ShardingSphere / MyCat / TDDL / Vitess / DRDS；代理层 vs 客户端直连差异
-- 核心术语：逻辑表 / 真实表 / 数据节点 / 分片键 / 绑定表 / 广播表 / Hint 强制路由、SQL 改写与归并引擎
-
-**C 端解析与 B 端查询路由冲突的多方案**：
-
-- 短链码与账号两个维度查询在分库分表后路由冲突，演进方案：冗余双写 + 分布式事务、单一 Partition Key、免迁移扩容库表设计
-- 另含海量数据冷热数据归档处理
-
-**微服务拆分与双 MQ 选型**：
-
-- cloud-account（账号 + 流量包）/ cloud-link（短链）/ cloud-gateway / cloud-shop（商品 + 支付）/ cloud-data / cloud-app（Flink + Kafka 实时计算）
-- 业务用 RabbitMQ、大数据流式用 Kafka 的双 MQ 选型理由
-
-**流量包高并发扣减与幂等**：
-
-- traffic_task 任务表用 lock_state（LOCK / FINISH / CANCEL）+ message_id 唯一键实现扣减幂等与锁定回滚
-- 配合海量数据下流量包过期 / 每日更新的定时处理方案
-
-**@Async 异步与线程池实践**：
-
-- @EnableAsync + 自定义 ThreadPoolTaskExecutor 处理日志 / 短信等 IO 异步
-- 坑点：@Async 方法上标 @Transactional 无效、同类内直接调用不走代理
-- IO 密集型核心线程数设为 2 倍 CPU 核数
-
-### 2.6 自动化测试平台
-
-**三大引擎与监控栈架构**：
-
-- 接口自动化引擎、UI 自动化引擎（Selenium4 封装）、压测引擎三大核心模块，SaaS 化免部署
-- 可视化监控告警用 InfluxDB + Grafana + Prometheus 时序栈
-- 模块划分为 cloud-account / common / data / engine / gateway
-
-**JMeter 核心概念与命令行压测**：
-
-- 线程组三要素：线程数（= 虚拟用户）/ Ramp-Up 启动时长 / 循环次数，另加调度器
-- Sampler 采样器、监听器（结果树 / 聚合报告）
-- Linux 非 GUI 压测：`jmeter -n -t jmx -l jtl -e -o report`；存在多接口批量压测痛点
-
-**内嵌 StandardJMeterEngine 二次开发**：
-
-- 方案对比：Runtime.exec 调外部进程可维护性差、难平台化 -> 改为 Java 服务内嵌 JMeter 源码
-- JMeterUtils.loadJMeterProperties / setJMeterHome 初始化环境；SaveService.loadTree 加载 HashTree
-- 支持本地上传 JMX 与在线创建测试计划两种录入
-
-**自定义压测结果收集**：
-
-- 继承 ResultCollector 重写 sampleOccurred 逐样本收集压测数据
-- SamplingStatCalculator 按采样器维度统计样本数 / 平均 / 最大最小耗时
-- 可整合 Kafka 实时上报与持久化，云端生成可视化报告
-
-### 2.7 雪花算法（分布式唯一 ID）
+### 2.2 雪花算法（分布式唯一 ID）
 
 - Twitter 开源的分布式唯一 ID 算法，生成 64 位 long：
 
@@ -434,7 +250,8 @@ public static Singleton getInstance() {
 > **原文归档**：[`archive/old-java-notes`](/md/archive/README?id=old-java-notes)
 > 本篇只归纳 Java 基础、语言特性、集合、并发入门与 Java 项目入口；JVM 与 Spring 已拆分到独立主线。
 
-- [`archive/old-java-notes`](/md/archive/README?id=old-java-notes) — Java 基础、Java 学习路线、Servlet、RPC、Netty、短链、抽奖、监控、自动化测试平台等原始笔记
+- [`archive/old-java-notes`](/md/archive/README?id=old-java-notes) — Java 基础、Java 学习路线、Servlet、监控、自动化测试平台等原始笔记
+- [`自动化测试平台`](/md/10-项目实战/01-自动化测试平台/00-架构总览.md) — cloud-meter 当前实现的分篇教程
 - [`JVM 运行机制`](/md/01-计算机基础/05-JVM运行机制.md) — 类加载、运行时数据区、GC 与调优
 - [`Spring 生态`](/md/01-计算机基础/50-Spring生态.md) — Spring Core / MVC / Boot / 事务 / Cloud / Security / SSM 项目落地
 
@@ -452,6 +269,9 @@ public static Singleton getInstance() {
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-23 | 重构 | Spring 生态独立成篇（50-Spring生态.md），本文件第三节改为概览并指向新文档 |
-| 2026-08-23 | 新增 | 按分区核对报告（J1/J2/J3）补全：Java 基础 / 集合 / 并发 / JVM 知识点归位扩充（含类加载、双亲委派、混合执行、HashMap、volatile DCL、GC Roots、晋升、CMS、三色标记、调优排查），实战项目扩为 9 个小节（RPC / Netty / 统一消息 / 抽奖 / 短链 / 监控 / 测试平台 / 前后端分离 / 雪花算法），SSM 补 Servlet，字节码表述修正为混合模式 |
+| 2026-08-23 | 新增 | 按分区核对报告（J1/J2/J3）补全：Java 基础 / 集合 / 并发 / JVM 知识点归位扩充（含类加载、双亲委派、混合执行、HashMap、volatile DCL、GC Roots、晋升、CMS、三色标记、调优排查），并补充 Java 工程实践入口、SSM Servlet 与字节码混合模式说明 |
 | 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
 | 2026-08-26 | 重构 | 按用户反馈拆分 Java / JVM / Spring：本篇聚焦 Java 基础与 Java 项目入口，JVM 调优移入 05-JVM运行机制.md，Spring/SSM/Boot 项目内容迁入 50-Spring生态.md |
+| 2026-08-27 | 订正 | 隐藏 3 个未完整实现且不再维护的项目内容，保留归档来源 |
+| 2026-08-27 | 订正 | 继续隐藏 2 个不再展示的项目内容，Java 工程实践入口收敛为监控、测试平台与通用算法 |
+| 2026-08-28 | 重构 | 自动化测试平台从 Java 工程概览中拆出，迁移到项目实战并按 cloud-meter 当前进度分篇 |

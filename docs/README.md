@@ -13,39 +13,39 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/10-项目实战/00-手写Spring/09-从0复刻清单.md">
+    <a class="home-recent-row" href="#/md/10-项目实战/01-自动化测试平台/05-当前进度与未完待续.md">
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">手写 Spring：从 0 复刻清单</h3>
-        <p class="home-recent-excerpt">按包结构、阶段类清单、最小验收和常见坑，把整条复刻路线落到可执行步骤。</p>
+        <h3 class="home-recent-title">自动化测试平台：当前进度与未完待续</h3>
+        <p class="home-recent-excerpt">按 cloud-meter 当前实现复盘已完成、骨架和未完待续边界。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-8)">项目实战</span>
-        <span class="home-recent-date">2026-08-27</span>
+        <span class="home-recent-date">2026-08-28</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
-    <a class="home-recent-row" href="#/md/10-项目实战/00-手写Spring/08-MVC请求分发.md">
+    <a class="home-recent-row" href="#/md/10-项目实战/01-自动化测试平台/04-压测引擎与结果采集.md">
       <span class="home-recent-num">02</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">手写 Spring：MVC 请求分发</h3>
-        <p class="home-recent-excerpt">从 DispatchServlet 进门，串起 HandlerMapping、HandlerAdapter、ModelAndView 和视图渲染。</p>
+        <h3 class="home-recent-title">自动化测试平台：压测引擎与结果采集</h3>
+        <p class="home-recent-excerpt">读懂模板方法、采样器统计和结果发送接口的现状。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-8)">项目实战</span>
-        <span class="home-recent-date">2026-08-27</span>
+        <span class="home-recent-date">2026-08-28</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
-    <a class="home-recent-row" href="#/md/10-项目实战/00-手写Spring/07-AOP与代理.md">
+    <a class="home-recent-row" href="#/md/10-项目实战/01-自动化测试平台/03-JMeter与嵌入式引擎.md">
       <span class="home-recent-num">03</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">手写 Spring：AOP 与代理</h3>
-        <p class="home-recent-excerpt">按 ProxyFactory 主线讲清 JDK 动态代理、CGLIB 和自动代理创建器。</p>
+        <h3 class="home-recent-title">自动化测试平台：JMeter 与嵌入式引擎</h3>
+        <p class="home-recent-excerpt">把 JMeter 的测试计划、属性初始化和 HashTree 执行串起来。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-8)">项目实战</span>
-        <span class="home-recent-date">2026-08-27</span>
+        <span class="home-recent-date">2026-08-28</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
@@ -81,7 +81,7 @@
   <div class="home-note-label"><strong>作者手记</strong><span>/ LETTER FROM THE AUTHOR</span></div>
   <span class="home-note-quote" aria-hidden="true">“</span>
   <p class="home-note-text">这里整理技术笔记、代码实验与持续订正记录。<br>内容会随着新的阅读与实践继续修订。</p>
-  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-08-27</span></p>
+  <p class="home-note-sig"><strong>wychmod</strong><span>最近更新 · 2026-08-28</span></p>
   <span class="home-note-mark" aria-hidden="true">W</span>
 </div>
 
@@ -336,7 +336,7 @@
         <span class="sm-domain-num">10</span>
         <span class="sm-domain-body">
           <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i>项目实战</span>
-          <span class="sm-domain-desc">手写 Spring 等从 0 复刻系列，先架构后实现。</span>
+          <span class="sm-domain-desc">手写 Spring、自动化测试平台等从 0 复刻系列，先架构后实现。</span>
         </span>
         <span class="sm-domain-arrow" aria-hidden="true">↓</span>
       </summary>
@@ -351,6 +351,12 @@
         <li><a href="#/md/10-项目实战/00-手写Spring/07-AOP与代理.md">AOP 与代理</a><span>ProxyFactory / JDK / CGLIB</span></li>
         <li><a href="#/md/10-项目实战/00-手写Spring/08-MVC请求分发.md">MVC 请求分发</a><span>DispatchServlet / HandlerMapping / ViewResolver</span></li>
         <li><a href="#/md/10-项目实战/00-手写Spring/09-从0复刻清单.md">从 0 复刻清单</a><span>包结构 / 阶段验收 / 常见坑</span></li>
+        <li><a href="#/md/10-项目实战/01-自动化测试平台/00-架构总览.md">自动化测试平台：架构总览</a><span>cloud-meter / 项目 / 环境 / JMeter / 报告</span></li>
+        <li><a href="#/md/10-项目实战/01-自动化测试平台/01-项目基础与数据模型.md">项目基础与数据模型</a><span>多模块 / 表模型 / 报告骨架</span></li>
+        <li><a href="#/md/10-项目实战/01-自动化测试平台/02-项目与用例管理.md">项目与用例管理</a><span>Project / Environment / StressCase</span></li>
+        <li><a href="#/md/10-项目实战/01-自动化测试平台/03-JMeter与嵌入式引擎.md">JMeter 与嵌入式引擎</a><span>测试计划 / StressTestUtil / HashTree</span></li>
+        <li><a href="#/md/10-项目实战/01-自动化测试平台/04-压测引擎与结果采集.md">压测引擎与结果采集</a><span>模板方法 / SampleEvent / 结果发送</span></li>
+        <li><a href="#/md/10-项目实战/01-自动化测试平台/05-当前进度与未完待续.md">当前进度与未完待续</a><span>已完成 / 骨架 / 下一步</span></li>
       </ul>
     </details>
     <!-- 11 在线工具箱 -->
@@ -375,13 +381,14 @@
         <div class="sm-helper-block">
           <h2 class="sm-helper-title">从哪里开始</h2>
           <div class="sm-helper-line" aria-hidden="true"></div>
-          <ul class="sm-helper-list">
-            <li><a href="#/">第一次来：从首页概览开始</a></li>
-            <li><a href="#/md/10-项目实战/00-手写Spring/00-架构总览.md">实战主线：手写 Spring 从 0 复刻</a></li>
-            <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">补基础：计算机基础 → 后端开发</a></li>
-            <li><a href="#/md/06-软件工程/00-系统设计与设计模式.md">做工程：软件工程 → 云原生与运维 → 开发工具</a></li>
-            <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">看 AI：AI 与 Agent → 软件工程 → 工具箱</a></li>
-          </ul>
+      <ul class="sm-helper-list">
+        <li><a href="#/">第一次来：从首页概览开始</a></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/00-架构总览.md">实战主线：手写 Spring 从 0 复刻</a></li>
+        <li><a href="#/md/10-项目实战/01-自动化测试平台/00-架构总览.md">压测主线：自动化测试平台从 0 复刻</a></li>
+        <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">补基础：计算机基础 → 后端开发</a></li>
+        <li><a href="#/md/06-软件工程/00-系统设计与设计模式.md">做工程：软件工程 → 云原生与运维 → 开发工具</a></li>
+        <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">看 AI：AI 与 Agent → 软件工程 → 工具箱</a></li>
+      </ul>
         </div>
         <div class="sm-helper-block">
           <h2 class="sm-helper-title">跨领域路径</h2>

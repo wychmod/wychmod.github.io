@@ -258,7 +258,7 @@
     <span class="sm-domain-num">10</span>
     <span class="sm-domain-body">
       <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i>项目实战</span>
-      <span class="sm-domain-desc">手写 Spring 等从 0 复刻系列，先架构后实现。</span>
+      <span class="sm-domain-desc">手写 Spring、自动化测试平台等从 0 复刻系列，先架构后实现。</span>
     </span>
     <span class="sm-domain-arrow" aria-hidden="true">↓</span>
   </summary>
@@ -273,6 +273,12 @@
     <li><a href="#/md/10-项目实战/00-手写Spring/07-AOP与代理.md">AOP 与代理</a><span>ProxyFactory / JDK / CGLIB</span></li>
     <li><a href="#/md/10-项目实战/00-手写Spring/08-MVC请求分发.md">MVC 请求分发</a><span>DispatchServlet / HandlerMapping / ViewResolver</span></li>
     <li><a href="#/md/10-项目实战/00-手写Spring/09-从0复刻清单.md">从 0 复刻清单</a><span>包结构 / 阶段验收 / 常见坑</span></li>
+    <li><a href="#/md/10-项目实战/01-自动化测试平台/00-架构总览.md">自动化测试平台：架构总览</a><span>cloud-meter / 项目 / 环境 / JMeter / 报告</span></li>
+    <li><a href="#/md/10-项目实战/01-自动化测试平台/01-项目基础与数据模型.md">项目基础与数据模型</a><span>多模块 / 表模型 / 报告骨架</span></li>
+    <li><a href="#/md/10-项目实战/01-自动化测试平台/02-项目与用例管理.md">项目与用例管理</a><span>Project / Environment / StressCase</span></li>
+    <li><a href="#/md/10-项目实战/01-自动化测试平台/03-JMeter与嵌入式引擎.md">JMeter 与嵌入式引擎</a><span>测试计划 / StressTestUtil / HashTree</span></li>
+    <li><a href="#/md/10-项目实战/01-自动化测试平台/04-压测引擎与结果采集.md">压测引擎与结果采集</a><span>模板方法 / SampleEvent / 结果发送</span></li>
+    <li><a href="#/md/10-项目实战/01-自动化测试平台/05-当前进度与未完待续.md">当前进度与未完待续</a><span>已完成 / 骨架 / 下一步</span></li>
   </ul>
 </details>
 <!-- 11 在线工具箱 -->
@@ -302,6 +308,7 @@
       <ul class="sm-helper-list">
         <li><a href="#/">第一次来：从首页概览开始</a></li>
         <li><a href="#/md/10-项目实战/00-手写Spring/00-架构总览.md">实战主线：手写 Spring 从 0 复刻</a></li>
+        <li><a href="#/md/10-项目实战/01-自动化测试平台/00-架构总览.md">压测主线：自动化测试平台从 0 复刻</a></li>
         <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">补基础：计算机基础 → 后端开发</a></li>
         <li><a href="#/md/06-软件工程/00-系统设计与设计模式.md">做工程：软件工程 → 云原生与运维 → 开发工具</a></li>
         <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">看 AI：AI 与 Agent → 软件工程 → 工具箱</a></li>
