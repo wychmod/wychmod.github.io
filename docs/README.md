@@ -13,38 +13,38 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">
+    <a class="home-recent-row" href="#/md/10-项目实战/00-手写Spring/09-从0复刻清单.md">
       <span class="home-recent-num">01</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">AI 编程三件套方法论</h3>
-        <p class="home-recent-excerpt">将原长文拆成方法论总览、工具链与上下文工程、从零开发实战三篇，入口页聚焦 SDD、Harness 和 Loop。</p>
+        <h3 class="home-recent-title">手写 Spring：从 0 复刻清单</h3>
+        <p class="home-recent-excerpt">按包结构、阶段类清单、最小验收和常见坑，把整条复刻路线落到可执行步骤。</p>
       </div>
       <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
+        <span class="home-recent-cat" style="--cat-color:var(--kg-8)">项目实战</span>
         <span class="home-recent-date">2026-08-27</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
-    <a class="home-recent-row" href="#/md/05-AI与Agent/05-AI编程工具链与上下文工程.md">
+    <a class="home-recent-row" href="#/md/10-项目实战/00-手写Spring/08-MVC请求分发.md">
       <span class="home-recent-num">02</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">AI 编程工具链与上下文工程</h3>
-        <p class="home-recent-excerpt">新增独立工具链主线，整理 Claude Code / Codex 配置分层、记忆、规则、Skill、Plugin、MCP 与 Headless。</p>
+        <h3 class="home-recent-title">手写 Spring：MVC 请求分发</h3>
+        <p class="home-recent-excerpt">从 DispatchServlet 进门，串起 HandlerMapping、HandlerAdapter、ModelAndView 和视图渲染。</p>
       </div>
       <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
+        <span class="home-recent-cat" style="--cat-color:var(--kg-8)">项目实战</span>
         <span class="home-recent-date">2026-08-27</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
-    <a class="home-recent-row" href="#/md/05-AI与Agent/06-AI应用从零开发实战.md">
+    <a class="home-recent-row" href="#/md/10-项目实战/00-手写Spring/07-AOP与代理.md">
       <span class="home-recent-num">03</span>
       <div class="home-recent-main">
-        <h3 class="home-recent-title">AI 应用从零开发实战</h3>
-        <p class="home-recent-excerpt">新增 Hify 实战主线，沉淀产品边界、模块化单体、LLM 调用、部署、数据库、接口和编码规范。</p>
+        <h3 class="home-recent-title">手写 Spring：AOP 与代理</h3>
+        <p class="home-recent-excerpt">按 ProxyFactory 主线讲清 JDK 动态代理、CGLIB 和自动代理创建器。</p>
       </div>
       <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-4)">AI 与 Agent</span>
+        <span class="home-recent-cat" style="--cat-color:var(--kg-8)">项目实战</span>
         <span class="home-recent-date">2026-08-27</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
@@ -134,13 +134,14 @@
             <a class="sm-quick-item" href="#sm-d07"><i class="sm-dot" style="background:var(--kg-6)" aria-hidden="true"></i><span class="sm-quick-num">07</span><span class="sm-quick-name">面试求职</span><span class="sm-quick-arrow" aria-hidden="true">→</span></a>
             <a class="sm-quick-item" href="#sm-d08"><i class="sm-dot" style="background:var(--kg-7)" aria-hidden="true"></i><span class="sm-quick-num">08</span><span class="sm-quick-name">过时技术</span><span class="sm-quick-arrow" aria-hidden="true">→</span></a>
             <a class="sm-quick-item" href="#sm-d09"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i><span class="sm-quick-num">09</span><span class="sm-quick-name">开发工具</span><span class="sm-quick-arrow" aria-hidden="true">→</span></a>
-            <a class="sm-quick-item" href="#sm-d10"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i><span class="sm-quick-num">10</span><span class="sm-quick-name">在线工具箱</span><span class="sm-quick-arrow" aria-hidden="true">→</span></a>
+            <a class="sm-quick-item" href="#sm-d10"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i><span class="sm-quick-num">10</span><span class="sm-quick-name">项目实战</span><span class="sm-quick-arrow" aria-hidden="true">→</span></a>
+            <a class="sm-quick-item" href="#sm-d11"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i><span class="sm-quick-num">11</span><span class="sm-quick-name">在线工具箱</span><span class="sm-quick-arrow" aria-hidden="true">→</span></a>
           </nav>
         </details>
         <div class="sm-aside-notes">
           <div class="sm-aside-note">
             <strong>主线如何编排</strong>
-            <p>按 9 大知识领域编排主线文档，归档原始笔记只作为历史来源保留。</p>
+            <p>按主线模块编排主线文档，归档原始笔记只作为历史来源保留。</p>
           </div>
           <div class="sm-aside-note">
             <strong>作者如何组织知识</strong>
@@ -153,7 +154,7 @@
         </div>
       </div>
     </aside>
-    <!-- 中栏：9 大领域 -->
+    <!-- 中栏：主线模块 -->
     <main class="sm-main">
     <!-- 移动端目录总控 -->
     <button class="sm-toc-toggle" type="button" aria-expanded="false" aria-controls="sm-domains">
@@ -329,10 +330,33 @@
         <li><a href="#/AI-UPDATE-SUMMARY.md">更新摘要</a><span>AI 功能更新记录</span></li>
       </ul>
     </details>
-    <!-- 10 在线工具箱 -->
+    <!-- 10 项目实战 -->
     <details class="sm-domain" id="sm-d10">
       <summary class="sm-domain-summary">
         <span class="sm-domain-num">10</span>
+        <span class="sm-domain-body">
+          <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i>项目实战</span>
+          <span class="sm-domain-desc">手写 Spring 等从 0 复刻系列，先架构后实现。</span>
+        </span>
+        <span class="sm-domain-arrow" aria-hidden="true">↓</span>
+      </summary>
+      <ul class="sm-domain-links">
+        <li><a href="#/md/10-项目实战/00-手写Spring/00-架构总览.md">手写 Spring：架构总览</a><span>容器、BeanDefinition、单例池、AOP、MVC</span></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/01-BeanDefinition与容器启动.md">BeanDefinition 与容器启动</a><span>配置读取 / 注册表 / 预实例化</span></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/02-单例池与循环依赖.md">单例池与循环依赖</a><span>三层缓存 / 早期暴露 / AOP 入口</span></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/03-依赖注入与类型转换.md">依赖注入与类型转换</a><span>PropertyValues / BeanReference / ConversionService</span></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/04-注解扫描与自动装配.md">注解扫描与自动装配</a><span>@Component / @Autowired / @Value</span></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/05-生命周期与扩展点.md">生命周期与扩展点</a><span>Aware / 初始化 / 销毁</span></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/06-后置处理器与FactoryBean.md">后置处理器与 FactoryBean</a><span>扩展点 / 工厂对象 / 事件</span></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/07-AOP与代理.md">AOP 与代理</a><span>ProxyFactory / JDK / CGLIB</span></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/08-MVC请求分发.md">MVC 请求分发</a><span>DispatchServlet / HandlerMapping / ViewResolver</span></li>
+        <li><a href="#/md/10-项目实战/00-手写Spring/09-从0复刻清单.md">从 0 复刻清单</a><span>包结构 / 阶段验收 / 常见坑</span></li>
+      </ul>
+    </details>
+    <!-- 11 在线工具箱 -->
+    <details class="sm-domain" id="sm-d11">
+      <summary class="sm-domain-summary">
+        <span class="sm-domain-num">11</span>
         <span class="sm-domain-body">
           <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i>在线工具箱</span>
           <span class="sm-domain-desc">12 个浏览器端实用工具，本地运行、数据不上传。</span>
@@ -353,6 +377,7 @@
           <div class="sm-helper-line" aria-hidden="true"></div>
           <ul class="sm-helper-list">
             <li><a href="#/">第一次来：从首页概览开始</a></li>
+            <li><a href="#/md/10-项目实战/00-手写Spring/00-架构总览.md">实战主线：手写 Spring 从 0 复刻</a></li>
             <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">补基础：计算机基础 → 后端开发</a></li>
             <li><a href="#/md/06-软件工程/00-系统设计与设计模式.md">做工程：软件工程 → 云原生与运维 → 开发工具</a></li>
             <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">看 AI：AI 与 Agent → 软件工程 → 工具箱</a></li>
@@ -413,8 +438,8 @@
       </blockquote>
       <div class="home-footer-stats" aria-label="站点规模">
         <div class="home-footer-stat">
-          <span class="home-footer-stat-num" data-stat="domains">10</span>
-          <span class="home-footer-stat-label">知识领域</span>
+          <span class="home-footer-stat-num" data-stat="domains">11</span>
+          <span class="home-footer-stat-label">模块入口</span>
         </div>
         <div class="home-footer-stat">
           <span class="home-footer-stat-num" data-stat="docs">—</span>

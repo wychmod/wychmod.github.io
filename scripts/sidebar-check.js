@@ -36,7 +36,7 @@ function main() {
   for (const full of allMd) {
     const rel = path.relative(MD_ROOT, full).replace(/\\/g, '/');
     const fileName = path.basename(rel);
-    if (EXCLUDE_FILES.includes(fileName)) continue;
+    if (EXCLUDE_FILES.includes(fileName) || fileName.startsWith('_')) continue;
 
     // 检查 sidebar 中是否引用了该文件（按相对路径或文件名匹配）
     const patterns = [

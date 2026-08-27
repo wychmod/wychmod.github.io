@@ -134,3 +134,17 @@
     - [AI 助手使用指南](/AI-ASSISTANT-GUIDE.md)
     - [AI 故障排查](/AI-TROUBLESHOOTING)
     - [更新摘要](/AI-UPDATE-SUMMARY)
+---
+
+- 🧩 **项目实战**
+  - **手写 Spring**
+    - [架构总览](/md/10-项目实战/00-手写Spring/00-架构总览.md)
+    - [BeanDefinition 与容器启动](/md/10-项目实战/00-手写Spring/01-BeanDefinition与容器启动.md)
+    - [单例池与循环依赖](/md/10-项目实战/00-手写Spring/02-单例池与循环依赖.md)
+    - [依赖注入与类型转换](/md/10-项目实战/00-手写Spring/03-依赖注入与类型转换.md)
+    - [注解扫描与自动装配](/md/10-项目实战/00-手写Spring/04-注解扫描与自动装配.md)
+    - [生命周期与扩展点](/md/10-项目实战/00-手写Spring/05-生命周期与扩展点.md)
+    - [后置处理器与 FactoryBean](/md/10-项目实战/00-手写Spring/06-后置处理器与FactoryBean.md)
+    - [AOP 与代理](/md/10-项目实战/00-手写Spring/07-AOP与代理.md)
+    - [MVC 请求分发](/md/10-项目实战/00-手写Spring/08-MVC请求分发.md)
+    - [从 0 复刻清单](/md/10-项目实战/00-手写Spring/09-从0复刻清单.md)

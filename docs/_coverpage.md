@@ -3,7 +3,7 @@
 <div class="home-hero">
   <p class="home-eyebrow"><span class="home-eyebrow-dot" aria-hidden="true"></span><span class="home-eyebrow-lead">WYCHMOD / KNOWLEDGE SYSTEM</span><span class="home-eyebrow-tail"> · SINCE 2024</span></p>
   <h1><span class="home-h1-line">在复杂系统里，</span><span class="home-h1-line">留下清晰路径。</span></h1>
-  <p class="home-hero-desc">关于 Java、Python、云原生与 AI Agent 的长期技术笔记。写代码，也记录方法、判断与成长。</p>
+  <p class="home-hero-desc">关于 Java、Python、云原生、AI Agent 与项目实战的长期技术笔记。写代码，也记录方法、判断与成长。</p>
   <div class="home-author">
     <span class="home-avatar">
       <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="64" height="64" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('is-failed')">
@@ -23,7 +23,7 @@
   </form>
   <div class="home-cta-row">
     <a class="home-cta home-cta--primary" href="#/README" data-scroll-to="#knowledge-index">进入知识库 <span class="home-cta-arrow" aria-hidden="true">-></span></a>
-    <a class="home-cta home-cta--ghost" href="#/README" data-scroll-to="#field-notes">查看最新笔记 <span class="home-cta-arrow" aria-hidden="true">-></span></a>
+    <a class="home-cta home-cta--ghost" href="#/md/10-项目实战/00-手写Spring/00-架构总览.md">进入项目实战 <span class="home-cta-arrow" aria-hidden="true">-></span></a>
   </div>
   <div class="home-method" aria-label="研究方法">
     <span class="home-method-step"><span class="home-method-num">01</span><span class="home-method-text">提出问题</span></span>
@@ -82,7 +82,7 @@
     <span class="home-terminal-body">
       <span class="home-terminal-line"><span class="home-terminal-prompt">$</span> wychmod --status</span>
       <span class="home-terminal-line"><span class="home-terminal-ok">✓</span> knowledge system ready</span>
-      <span class="home-terminal-line"><span class="home-terminal-ok">✓</span> 9 domains available</span>
+      <span class="home-terminal-line"><span class="home-terminal-ok">✓</span> project practice ready</span>
       <span class="home-terminal-line"><span class="home-terminal-muted">&gt;</span> open terminal<span class="home-terminal-cursor" aria-hidden="true"></span></span>
       <span class="home-terminal-hint">点击或按 Ctrl / Cmd + K 打开命令行</span>
     </span>
