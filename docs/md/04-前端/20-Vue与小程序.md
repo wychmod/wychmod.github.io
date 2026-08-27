@@ -1,7 +1,7 @@
 # Vue 与小程序
 
-> **原文归档**：[archive/old-vue-miniapp-notes/](/md/archive/README?id=old-vue-miniapp-notes)
-> 包含：2 个文件（Vue3+Vue-CLI项目搭建 / 微信小程序开发（七月））
+> 预计阅读：约 59 分钟（正文约 18807 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -1246,6 +1246,12 @@ onItemTap(event){
 
 ---
 
+
+## 📚 完整资料
+
+> **原文归档**：[archive/old-vue-miniapp-notes/](/md/archive/README?id=old-vue-miniapp-notes)
+> 包含：2 个文件（Vue3+Vue-CLI项目搭建 / 微信小程序开发（七月））
+
 ## 修改记录
 
 | 日期 | 类型 | 说明 |
@@ -1253,3 +1259,4 @@ onItemTap(event){
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（Vue3 + Composition API/`<script setup>`、Vue CLI→Vite、Vuex→Pinia、TypeScript 标配等时效性良好，无需订正） |
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

@@ -1,8 +1,7 @@
 # Spring 生态
 
-> **原文归档**：[`archive/old-spring-notes/`](/md/archive/README?id=old-spring-notes)（手写 Spring / 源码解析 / 事务传播）+ [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes)（spring系列学习 / springboot / springcloud / AIcloud 项目）
->
-> 从「Java 与 JVM」的 Spring 概览小节扩展为独立主线，沉淀 Spring 全家桶知识并索引全部归档资料。
+> 预计阅读：约 36 分钟（正文约 11200 字）
+> 阅读建议：按 Core -> MVC -> Boot -> 事务 -> Cloud -> Security -> 手写源码 -> 项目落地的顺序阅读；SSM 与 Spring Boot + Vue 部署内容已从 Java 基础迁入本文。
 
 ---
 
@@ -311,6 +310,113 @@ management:
 | 定位 | 以快著称 | 为监控而生 |
 | 要点 | Boot 2.x 起默认；字节码优化、无锁 ConcurrentBag | 监控页、wall 防 SQL 注入、密码加密 |
 
+### 4.11 Spring 分层对象与 POJO 命名
+
+POJO（Plain Old Java Object）不是某个框架类型，而是普通 Java 对象：不强制继承框架父类、不强制实现框架接口，通常只包含字段、构造器、getter/setter、业务方法或少量校验逻辑。Spring 的核心价值之一，就是让这些普通对象通过 IoC、DI、AOP、MVC 参数绑定、数据访问映射等能力进入企业应用运行时。
+
+> 💡 补充：PO / DO / BO / DTO / VO 不是 Java 或 Spring 官方强制规范，而是国内 Java Web / Spring Boot 项目里常见的工程分层命名。团队可以简化，但必须保证边界清楚，避免一个对象从数据库、业务、接口到前端一路复用。
+
+#### 4.11.1 常见对象命名总表
+
+| 简称 | 全称 | 核心职责 | 典型字段特征 | 出现层 |
+|---|---|---|---|---|
+| PO | Persistent Object | 持久化对象，与数据库表或持久化模型强绑定，通常对应一行记录 | 字段接近表字段；常含 `id`、`createTime`、`updateTime`、`deleted`、`version`、租户字段 | DAO / Mapper / Repository 层 |
+| Entity | JPA Entity / Persistence Entity | JPA 场景下的持久化实体，由 `@Entity` 标记，受持久化上下文管理 | 字段映射表列；可带关系注解 `@OneToMany`、`@ManyToOne`；生命周期由 JPA 管理 | Repository / Infrastructure 层 |
+| DO | Domain Object | 表达领域中的业务实体或聚合根，优先反映业务概念而非表结构 | 业务语义字段、值对象、状态流转字段、领域关系；不一定和单表 1:1 | Domain / Service 层，DDD 项目更常见 |
+| BO | Business Object | 封装业务过程、计算结果或跨对象协作的中间业务对象 | 可组合 PO/DO/DTO；含计算属性、策略选择、流程状态、业务方法 | Service / Domain Service 层 |
+| DTO | Data Transfer Object | 跨层、跨进程、跨服务传输数据，只关心“传什么” | 接口入参/出参快照；字段按调用方需要拼装；可使用 `record`、普通类或接口投影 | Controller ↔ Service、RPC、消息、外部接口 |
+| VO | View Object | 给前端页面或客户端展示的最终数据形态 | 字段贴近 UI；可含格式化时间、展示文案、状态码翻译、按钮权限、脱敏字段 | Controller → 前端 |
+| Query | Query Object | 查询条件对象，承载列表检索、筛选、排序、分页参数 | `keyword`、`status`、`startTime`、`endTime`、`pageNo`、`pageSize`、`sort` | Controller / Application Service |
+| Command | Command Object | 表达一次写操作意图，如创建、更新、审核、发布 | 字段与操作动作绑定；常含操作者、幂等键、业务参数 | Controller / Application Service / CQRS |
+| Form | Form Object | 表单提交对象，偏传统 MVC 或后台管理页面 | 字段与页面表单控件一致；常带校验注解 | Spring MVC Controller |
+| Request | Request DTO | HTTP / RPC 请求体对象 | 字段来自客户端输入；带 `@NotNull`、`@Size` 等校验；不放数据库审计字段 | Controller 入参 |
+| Response | Response DTO | HTTP / RPC 响应对象 | 字段面向调用方；可能包一层统一响应 `Result<T>` | Controller 出参 / OpenAPI |
+| AO | Application Object | 应用服务对象，承载用例级编排参数或结果 | 介于 DTO 与领域对象之间；字段围绕一个用例组织 | Application Service 层 |
+
+#### 4.11.2 放到 Spring 分层里怎么理解
+
+| Spring 分层 | 常见包名 | 主要对象 | Spring 组件 | 边界规则 |
+|---|---|---|---|---|
+| Web / API 层 | `controller`、`web`、`api` | `Request`、`Form`、`Query`、`VO`、`Response` | `@RestController`、`@ControllerAdvice` | 只处理 HTTP 协议、参数校验、鉴权上下文、响应包装，不写核心业务 |
+| Application / Service 编排层 | `service`、`application` | `DTO`、`Command`、`Query`、`BO` | `@Service`、`@Transactional` | 编排事务、调用领域逻辑和仓储；可做对象转换，但避免堆满 if/else 业务细节 |
+| Domain 领域层 | `domain`、`model` | `DO`、聚合根、值对象、领域服务 | 普通类为主，必要时少量 `@Component` | 关注业务规则、状态变化和不变量；尽量不依赖 Spring MVC、MyBatis、Servlet |
+| Infrastructure 持久化层 | `repository`、`dao`、`mapper`、`infra` | `PO`、`Entity`、Mapper 参数对象 | `@Repository`、MyBatis `@Mapper`、Spring Data Repository | 只负责数据存取和持久化模型映射，不把 SQL/表结构泄漏到 Web 层 |
+| Integration 集成层 | `client`、`adapter`、`integration` | 外部 `DTO`、网关响应对象 | `@Component`、Feign Client、消息监听器 | 隔离第三方接口模型；外部字段变化不直接污染内部领域对象 |
+
+典型调用链：
+
+```text
+HTTP JSON
+  -> UserCreateRequest（校验客户端输入）
+  -> UserCreateCommand / UserDTO（进入应用服务）
+  -> User DO / User BO（执行业务规则）
+  -> UserPO / UserEntity（落库）
+  -> UserVO / UserResponse（返回前端）
+```
+
+#### 4.11.3 Spring MVC / Validation / Jackson 中的对象职责
+
+| 场景 | 推荐对象 | 常用 Spring 能力 | 注意点 |
+|---|---|---|---|
+| 新增接口入参 | `CreateXxxRequest` / `XxxForm` | `@RequestBody`、`@Validated`、JSR 303 注解 | 不直接接收 PO，避免客户端传入 `id`、`deleted`、`createTime` 等敏感字段 |
+| 修改接口入参 | `UpdateXxxRequest` / `XxxCommand` | `@PathVariable` + `@RequestBody` | 路径 ID 与请求体 ID 要校验一致，或只信路径 ID |
+| 列表查询 | `XxxQuery` | `@ModelAttribute` 默认绑定 query 参数 | 分页字段要有上限，排序字段必须白名单 |
+| 详情响应 | `XxxVO` / `XxxResponse` | Jackson 序列化、统一 `Result<T>` | Long ID 可转字符串，时间格式、枚举文案在 VO 层处理 |
+| 后台管理表格 | `XxxListVO` | 分页封装 `PageResult<T>` | 不要把大字段、内部配置、密码摘要等直接返回 |
+| 异常响应 | `ErrorResponse` | `@RestControllerAdvice` + `@ExceptionHandler` | 错误码、用户提示、traceId 分开；不要暴露堆栈 |
+
+#### 4.11.4 Spring Data / MyBatis 中的 PO 与 DTO
+
+| 技术栈 | 持久化对象 | 查询返回 | 推荐做法 | 常见坑 |
+|---|---|---|---|---|
+| MyBatis | `XxxPO` + XML / 注解 SQL | PO、DTO、Map、自定义投影对象 | 单表 CRUD 返回 PO；复杂列表可直接查 DTO / VO，但 SQL 别散到 Controller | PO 被接口直接返回，导致表字段和 API 强耦合 |
+| MyBatis-Plus | `XxxPO` / `XxxEntity` 继承无要求 | `BaseMapper<T>`、`IService<T>` | PO 上放 `@TableName`、`@TableId`、`@TableLogic`；Service 再转 DTO/VO | ActiveRecord 式模型容易让持久化对象承担过多业务 |
+| Spring Data JPA | `@Entity` 实体 | Entity、接口投影、Class DTO、record DTO | 写操作用 Entity；只读列表可用 Projection / DTO 减少字段加载 | 把 Entity 暴露给 Web 层，触发懒加载、循环引用或脏数据更新 |
+| Spring Data JDBC | 聚合根实体 | 聚合对象 / DTO | 按聚合建模，关系比 JPA 更显式 | 误按 JPA 懒加载思路设计复杂对象图 |
+| Redis 缓存 | Cache DTO / Snapshot | JSON / Hash | 缓存对象独立命名，如 `UserCacheDTO`，便于版本演进 | 直接缓存 Entity，字段变化导致兼容问题 |
+
+#### 4.11.5 转换器、装配器与命名约定
+
+| 类型 | 典型命名 | 职责 | 适用位置 |
+|---|---|---|---|
+| Converter | `UserConverter`、`UserMapper` | 纯字段转换：PO ↔ DO、DO ↔ DTO、DTO ↔ VO | `convert` 包；可手写或用 MapStruct |
+| Assembler | `UserAssembler` | 聚合多个来源的数据，组装复杂 VO / Response | Application / Web 层 |
+| Factory | `UserFactory` | 创建领域对象，隐藏构造细节和默认值 | Domain 层 |
+| Translator | `UserTranslator` | 外部系统模型与内部模型互转 | Integration 层 |
+| Wrapper | `PageResult<T>`、`Result<T>` | 统一响应、分页响应、错误响应 | API 边界 |
+
+命名建议：
+
+| 操作 | 推荐命名 | 示例 |
+|---|---|---|
+| 新增入参 | `CreateXxxRequest` / `CreateXxxCommand` | `CreateUserRequest`、`CreateOrderCommand` |
+| 修改入参 | `UpdateXxxRequest` / `UpdateXxxCommand` | `UpdateUserRequest` |
+| 查询条件 | `XxxQuery` | `UserPageQuery` |
+| 内部传输 | `XxxDTO` | `UserDTO` |
+| 前端展示 | `XxxVO` / `XxxView` | `UserProfileVO` |
+| 持久化 | `XxxPO` / `XxxEntity` | `UserPO`、`UserEntity` |
+| 领域对象 | 直接业务名，或 `XxxDO` | `User`、`Order`、`UserDO` |
+
+#### 4.11.6 分层对象取舍
+
+| 项目规模 | 可接受简化 | 不建议省略 |
+|---|---|---|
+| Demo / CRUD 小项目 | Entity / PO 可直接在 Service 内使用；简单响应可少量复用 DTO | 入参对象与持久化对象最好分开，避免越权字段写入 |
+| 常规 Spring Boot 单体 | Controller 用 Request/VO，Service 用 DTO/BO，DAO 用 PO/Entity | PO/Entity 不直接暴露到前端；复杂业务不要只靠 DTO 传来传去 |
+| 中大型业务系统 | 引入 Command / Query / Domain / Converter / Assembler | 领域对象和持久化对象解耦；外部接口 DTO 与内部模型隔离 |
+| DDD 项目 | 聚合根、实体、值对象、领域服务优先，PO 放基础设施层 | 不让 `@Entity`、MyBatis 注解侵入纯领域模型，除非团队明确采用贫血模型 |
+
+#### 4.11.7 高频面试回答模板
+
+| 问题 | 简洁回答 |
+|---|---|
+| POJO 和 Bean 是什么关系？ | POJO 是普通 Java 对象；被 Spring IoC 容器创建、装配和管理后，在 Spring 语境里就是 Bean。Bean 不要求是复杂框架类，普通 POJO 也可以成为 Bean。 |
+| PO 和 Entity 有什么区别？ | PO 是通用持久化对象说法，MyBatis 项目常用；Entity 更常指 JPA `@Entity`，受持久化上下文、脏检查、关系映射等机制管理。 |
+| DTO 和 VO 有什么区别？ | DTO 面向传输边界，重点是跨层或跨服务传什么；VO 面向展示边界，重点是前端最终怎么展示。很多小项目会合并，但复杂系统建议分开。 |
+| DO 和 BO 有什么区别？ | DO 表达领域实体或聚合状态；BO 更偏业务过程、计算结果或服务编排中的中间对象。DDD 中通常更强调 Domain Model，而不是泛化 BO。 |
+| 为什么不能直接返回 Entity / PO？ | 容易泄漏表结构和内部字段，可能触发懒加载、循环序列化、越权修改、时间/枚举展示不友好，也会让 API 随数据库变化而频繁破坏兼容性。 |
+| 对象转换写在哪里？ | 简单转换可放 Converter；复杂页面聚合用 Assembler；不要在 Controller 里堆大量 set，也不要让 Entity 自己知道所有 VO 形态。 |
+
 ## 五、Spring 事务
 
 - **声明式事务**：`@Transactional` 基于 AOP 代理，同类内部方法调用不经过代理会导致事务失效（经典坑）；
@@ -411,7 +517,54 @@ http.csrf(csrf -> csrf.disable())
 
 > 💡 补充：手写一遍再读源码，比直接啃源码效率高一个量级--先建立"容器在做什么"的心智模型，再看真实实现如何处理边界。
 
-## 九、2026 年 Spring 生态现状
+## 九、从 SSM 到项目落地
+
+> 本节迁入自原 `Java 与 JVM` 文档中的 Spring/SSM/Boot 项目内容，避免 Java 基础篇继续混入框架主线。
+
+### 9.1 SSM 整合
+
+- SSM = Spring + Spring MVC + MyBatis。
+- 配置文件：`web.xml` / `applicationContext.xml` / `spring-mvc.xml` / `mybatis-config.xml`。
+- Maven 管理依赖，工程分层通常为 Controller / Service / DAO / Mapper。
+
+**Servlet 与 Servlet 容器**：
+
+- Servlet 是处理 HTTP 请求的 API 标准，需要 Tomcat / Jetty / JBoss / Glassfish 等 Servlet 容器承载运行。
+- 容器根据 `web.xml` 或注解映射请求到 Servlet。
+- 生命周期：init / service / destroy。
+- JSP 本质是运行期被编译成 Servlet 的视图技术，HttpServlet 是其高级封装。
+
+### 9.2 Spring Boot + Vue 前后端分离部署
+
+**Nginx 部署 Vue**：
+
+- 静态资源 alias 指向打包目录。
+- `try_files $uri $uri/ /index.html` 用于解决 history 路由刷新 404。
+
+**Nginx 反向代理与 WebSocket 代理**：
+
+- 后端接口走独立二级域名，`proxy_pass` 到本地端口。
+- WebSocket 需加 `proxy_http_version 1.1`、`Upgrade`、`Connection` 头，并调大 `proxy_read_timeout`，避免长连接被默认 60 秒超时切断。
+- Java 侧可用 `nohup java -jar -Dspring.profiles.active=prod app.jar` 后台部署。
+
+**单点登录 token + Redis**：
+
+- 登录后生成 token 存 Redis，便于主动失效登录态。
+- 前端携带 token，后端通过 HandlerInterceptor 统一校验。
+- 这与无状态 JWT 是两种不同选型：Redis token 强在可控失效，JWT 强在减少中心化状态依赖。
+
+**Long 精度丢失全局处理**：
+
+- 雪花 ID 等 Long 值超出 JS Number 安全整数范围会导致前端精度丢失。
+- 可通过 Jackson 全局注册 ToStringSerializer，将 Long 序列化为字符串。
+
+### 9.3 和 Java 基础篇的边界
+
+- Java 基础篇只保留语言、集合、异常、并发入门与 Java 项目入口。
+- SSM、Spring Boot、Spring Cloud、事务、Security、项目部署统一在本文维护。
+- JVM 的类加载、GC、调优与 javaagent 运行机制见 [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)。
+
+## 十、2026 年 Spring 生态现状
 
 | 维度 | 现状 |
 |---|---|
@@ -456,9 +609,19 @@ http.csrf(csrf -> csrf.disable())
 
 ---
 
+
+## 📚 完整资料
+
+> **原文归档**：[`archive/old-spring-notes/`](/md/archive/README?id=old-spring-notes)（手写 Spring / 源码解析 / 事务传播）+ [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes)（spring系列学习 / springboot / springcloud / AIcloud 项目）
+>
+> 从「Java 与 JVM」的 Spring 概览小节扩展为独立主线，沉淀 Spring 全家桶知识并索引全部归档资料。
+
 ## 修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-08-23 | 新增 | 新建文档：从 Java 与 JVM 的 Spring 概览扩展为独立主线；新增 Actuator 生产监控小节；建立全量 Spring 归档索引（old-spring-notes + old-java-notes 四个子目录） |
 | 2026-08-23 | 新增 | 依据归档核对补全缺失知识点：新增「三、Spring MVC」「七、Spring Security 与 JWT 认证」两章（后续章节号顺延）；Spring Core 补容器体系、作用域与线程安全、@Import/FactoryBean/BFPP/BPP、AOP 拦截器链、三级缓存原理；Spring Boot 新增起步依赖与 parent、配置文件优先级、Profile、配置绑定、内嵌容器、启动流程、自定义 starter、缓存与定时、日志、数据访问整合（MyBatis / MyBatis-Plus / 连接池）；Spring Cloud 补注册心跳、Nacos 分级模型/配置中心/集群、Gateway、OpenFeign；AIcloud 归档索引补 MyBatisPlus 与 JWT 两篇 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
+| 2026-08-26 | 重构 | 按 Java/JVM 拆分边界迁入 SSM 整合、Servlet 容器与 Spring Boot + Vue 部署内容，Spring 主线聚焦 Core、MVC、Boot、事务、Cloud、Security 与项目落地 |
+| 2026-08-27 | 新增 | 新增「Spring 分层对象与 POJO 命名」：补充 POJO、PO、Entity、DO、BO、DTO、VO、Query、Command、Request/Response 等对象在 Spring MVC、Service、Domain、Repository、MyBatis/JPA 中的职责边界、转换器约定与面试回答 |

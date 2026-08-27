@@ -1,7 +1,7 @@
 # Agent 设计模式与多 Agent 协作
 
-> **原文归档**：[archive/old-agent-notes/agent系统知识/](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-agent-notes/agent%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86)
-> 包含：2 个文件（agent五种设计模式 / 多Agent协作系统优劣势与性能）
+> 预计阅读：约 27 分钟（正文约 8497 字）
+> 阅读建议：建议先扫目录和二级标题，优先看概念、表格和代码示例，原文归档留到最后。
 
 ## 一、核心主题概述
 
@@ -649,7 +649,12 @@ flowchart TD
 
 ---
 
+
 ## 📚 完整资料
+
+> **原文归档**：[archive/old-agent-notes/agent系统知识/](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-agent-notes/agent%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86)
+> 包含：2 个文件（agent五种设计模式 / 多Agent协作系统优劣势与性能）
+
 - [archive/old-agent-notes/agent系统知识/](https://github.com/wychmod/wychmod.github.io/tree/main/docs/md/archive/old-agent-notes/agent%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86)
 
 ---
@@ -661,3 +666,4 @@ flowchart TD
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（反思/工具使用/规划/多 Agent/评估器-优化器五种设计模式描述正确，MCP/A2A 趋势表述准确，无需订正） |
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-23 | 新增 | 按规范补齐「以下为原内容存档」：完整内联 agent五种设计模式 / 多Agent协作系统优劣势与性能 两个归档原文；正文新增 2.1 反应模式（Reaction）小节并重排编号、对比表补反应模式行；顺订正“至少 doubling token 消耗”中英混杂表述 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

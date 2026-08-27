@@ -1,7 +1,7 @@
 # React 基础与状态管理
 
-> **原文归档**：[archive/old-react-notes/](/md/archive/README?id=old-react-notes)
-> 包含：React16 基础 / Redux 入门与进阶 / Hooks / Router / Next.js + js 函数式工具
+> 预计阅读：约 197 分钟（正文约 62928 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -2604,6 +2604,12 @@ console.log(array)  // [ 0, 1, 3, 4, 5, 6 ]
 
 ---
 
+
+## 📚 完整资料
+
+> **原文归档**：[archive/old-react-notes/](/md/archive/README?id=old-react-notes)
+> 包含：React16 基础 / Redux 入门与进阶 / Hooks / Router / Next.js + js 函数式工具
+
 ## 修改记录
 
 | 日期 | 类型 | 说明 |
@@ -2613,3 +2619,4 @@ console.log(array)  // [ 0, 1, 3, 4, 5, 6 ]
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-24 | 订正 | 内联段开头新增总注：标注 2 张 jspang.com 死图（源站 404、无法恢复，对应内容以文字为准） |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

@@ -1,7 +1,7 @@
 # Python 面试核心速查
 
-> **原文归档**：[archive/old-interview-notes/](/md/archive/README?id=old-interview-notes)
-> 包含：python面试.md + python服务器端面试.md
+> 预计阅读：约 73 分钟（正文约 23307 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -1071,6 +1071,12 @@ assert c1 is c2
 
 ---
 
+
+## 📚 完整资料
+
+> **原文归档**：[archive/old-interview-notes/](/md/archive/README?id=old-interview-notes)
+> 包含：python面试.md + python服务器端面试.md
+
 ## 修改记录
 
 | 日期 | 类型 | 说明 |
@@ -1080,3 +1086,4 @@ assert c1 is c2
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-23 | 订正 | 修复 12 处有道云死链图片为本地路径（主控统一处理） |
 | 2026-08-23 | 新增 | 核对确认两份归档源已完整内联无截断；总结区新增「网络基础」「MySQL 与数据库」「Linux 与 Docker」三章速查（31 题），并在 Python 基础/算法/设计模式/并发/Web 框架各表补 22 道归档面试题；存档区按归档原文恢复 _append_ 强调、NBSP、全角空格与缩进共 5 处字面差异 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

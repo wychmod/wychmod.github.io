@@ -1,27 +1,25 @@
-# Java 与 JVM
+# Java 基础
 
-> **原文归档**：[`archive/old-java-notes/`](/md/archive/README?id=old-java-notes) + [`archive/old-jvm-notes/`](/md/archive/README?id=old-jvm-notes) + [`archive/old-spring-notes/`](/md/archive/README?id=old-spring-notes)
-> 包含：60+ 文件（Java 基础 / Spring 全家桶 / JVM / 手写 RPC / Netty / 统一消息系统 / 短链 / 抽奖 / 监控 / 自动化测试 / 前后端分离部署）
+> 预计阅读：约 24 分钟（正文约 7666 字）
+> 阅读建议：先读 Java 语言基础，再把工程项目入口当作索引浏览；需要运行时原理转到 JVM，企业开发转到 Spring 生态。
 
 ---
 
+> 拆分说明：原“Java 与 JVM”已经拆为三条主线，本文件保留旧路径以兼容历史链接，正文只聚焦 Java 基础。
+
 ## 一、Java 基础
 
-> 📚 完整 Java 笔记见 [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes)
+> 📚 完整 Java 原始笔记见 [`archive/old-java-notes`](/md/archive/README?id=old-java-notes)；JVM 与 Spring 已拆到独立主线。
 
 ### 1.1 核心概念
 
-- **JVM**：Java 虚拟机，跨平台基础
-- **JDK / JRE**：开发工具包 / 运行环境
-- **字节码**：`.class` 文件；JVM 默认以**解释器 + JIT 混合模式**执行（详见下）
-- **类加载器**：Bootstrap / Platform（Java 9+ 原 Extension）/ AppClassLoader
-- **双亲委派**：类加载的安全机制
+这一篇只承载 Java 语言基础和 Java 工程入口。JVM 运行机制、GC、调优已经拆到 [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)，Spring / SSM / Spring Boot 内容统一放到 [Spring 生态](/md/01-计算机基础/50-Spring生态.md)。
 
-**解释器 + JIT 混合执行模式**：
-
-- JVM 默认混合模式（`-Xmixed`）：启动阶段解释执行，热点代码触发 JIT 编译为机器码
-- 热点探测：方法调用计数 / 循环回边计数，超过阈值（`-XX:CompileThreshold` 默认 10000）触发编译
-- `-Xint` 纯解释：启动快、执行慢；`-Xcomp` 纯编译：相反
+- **JDK / JRE**：JDK 是开发工具包，包含编译器、运行环境和诊断工具；JRE 是运行 Java 程序的环境。
+- **源码与字节码**：`.java` 源码经 `javac` 编译为 `.class` 字节码，再交给 JVM 执行。
+- **跨平台**：Java 的跨平台来自“编译成统一字节码 + 不同平台 JVM 负责执行”。
+- **面向对象**：Java 以类和对象组织代码，封装状态、暴露行为，再通过继承和多态扩展。
+- **标准库**：常用能力集中在 `java.lang`、`java.util`、`java.io`、`java.nio`、`java.time`、`java.util.concurrent`。
 
 **8 种基本数据类型与包装类**：
 
@@ -32,41 +30,31 @@
 | char | 16 | Character |
 | boolean | - | Boolean |
 
-- 基本类型存栈上、高效；对象存堆
-- 集合只能存引用类型，故需装箱：自动装箱 = `包装类.valueOf()`，拆箱 = `xxxValue()`
+- 基本类型存储成本低、访问直接；对象通过引用访问。
+- 集合只能存引用类型，故需装箱：自动装箱 = `包装类.valueOf()`，拆箱 = `xxxValue()`。
 
 **值传递 vs 引用传递**：
 
-- Java **只有值传递**：基本类型复制值本身；对象传递的是"引用的拷贝"（传共享对象）
-- 修改对象内容对调用方可见；替换引用（指向新对象）对调用方不可见
+- Java **只有值传递**：基本类型复制值本身；对象传递的是“引用的拷贝”。
+- 修改对象内容对调用方可见；替换引用指向新对象对调用方不可见。
 
 **String 不可变与字符串常量池**：
 
-- String 一经创建不可修改，"改变"只是改引用指向
-- 字面量走常量池复用；`new String` 在堆中新建对象 -> `==` 与 `equals` 差异的根源
-- StringBuilder 可变字符序列；StringBuffer 是其线程安全前身（效率低）；编译器会把 `+` 拼接优化为 StringBuilder
+- String 一经创建不可修改，“改变”只是改引用指向。
+- 字面量走常量池复用；`new String` 在堆中新建对象，`==` 与 `equals` 的差异由此产生。
+- StringBuilder 是可变字符序列；StringBuffer 是线程安全前身，效率更低；编译器会把 `+` 拼接优化为 StringBuilder。
 
 **泛型与通配符**：
 
-- 泛型把类型参数化，编译期检查以消除 ClassCastException
-- `? extends Number` 设上限（只读）；Java 7 起可省略钻石操作符
+- 泛型把类型参数化，编译期检查以减少 ClassCastException。
+- `? extends Number` 设上限偏读，`? super Integer` 设下限偏写。
+- Java 7 起可省略钻石操作符中的重复类型。
 
 **反射与注解（框架两大基石）**：
 
-- 反射：运行时构造对象 / 读写属性 / 调用方法；获取 Class 三种方式：`类名.class` / `对象.getClass()` / `Class.forName`
-- `setAccessible(true)` 可突破私有
-- 注解：可嵌入字节码的元数据；核心元注解 `@Retention`（SOURCE / CLASS / RUNTIME）与 `@Target`，通过反射读取 -> Spring 等框架的实现基础
-
-**类加载全过程**：加载 -> 验证 -> 准备 -> 解析 -> 初始化 -> 使用 -> 卸载
-
-- 准备阶段静态变量赋零值（`static final` 常量经 ConstantValue 在此阶段即赋指定值）；初始化才执行 `<clinit>` 赋真实值
-- 触发初始化（主动引用）：`new` / 读写静态成员 / 反射 / 初始化子类先初始化父类 / 主类
-- 被动引用不触发：引用父类静态字段、定义对象数组、引用 `static final` 常量
-
-**双亲委派的目的与打破**：
-
-- 目的 = 安全（自定义类加载器无法篡改 `java.lang.String` 等核心类）+ 避免重复加载
-- 打破方式 = 重写 `loadClass()`；历史场景：JDK1.2 前的自定义加载器、ThreadContextClassLoader（SPI 基础类调实现类）、OSGi / Tomcat 热部署（同一类库多版本隔离）
+- 反射：运行时构造对象、读写属性、调用方法；获取 Class 三种方式：`类名.class` / `对象.getClass()` / `Class.forName`。
+- `setAccessible(true)` 可突破私有访问限制。
+- 注解：嵌入字节码的元数据；核心元注解 `@Retention`（SOURCE / CLASS / RUNTIME）与 `@Target`，运行期注解可通过反射读取。
 
 ### 1.2 三大特性
 
@@ -181,17 +169,18 @@ Throwable
 | 场景 | 类自身定义排序 | 同一对象多种排序规则 |
 | 用法 | 实现接口 | `Collections.sort(list, comparator)` 或 TreeMap 构造器 |
 
-### 1.6 多线程
+### 1.6 多线程基础
 
 - **Thread / Runnable / Callable**
 - **synchronized / Lock / ReentrantLock**
 - **volatile / ThreadLocal**
 - **线程池**：core / max / queue / keepAlive
 
-**JMM 可见性与有序性**：
+**JMM 可见性与有序性（入门）**：
 
 - 根源是 CPU 多级缓存与指令重排（as-if-serial 只保证单线程结果不变）
 - volatile 两大作用 = 线程可见性 + 禁止指令重排（JVM 层读写两侧加内存屏障）
+- 深入内存屏障、运行时数据区与对象布局见 [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)
 - synchronized 底层则是 monitorenter / monitorexit + lock cmpxchg
 
 **双检锁（DCL）单例必须加 volatile**：
@@ -221,173 +210,19 @@ public static Singleton getInstance() {
   - 终端操作：forEach / count / collect
   - 流只能消费一次
 
-## 二、JVM 调优
+## 二、Java 工程与项目实践
 
-> 📚 [JVM实战 1-4](/md/archive/README?id=old-jvm-notes)（4 篇，30KB+）
-
-### 2.1 内存模型
-
-```
-┌─────────────────────────┐
-│  堆（Heap）             │ ← new 出来的对象
-│  ├─ Young（新生代）      │
-│  │  ├─ Eden（80%）      │
-│  │  └─ Survivor（20%）  │
-│  └─ Old（老年代）        │
-├─────────────────────────┤
-│  方法区（Metaspace）    │ ← 类元数据
-│  虚拟机栈              │ ← 方法调用
-│  本地方法栈            │
-│  程序计数器             │
-└─────────────────────────┘
-```
-
-**线程私有 vs 共享**：
-
-- 线程私有（随线程创建销毁）：程序计数器 / 虚拟机栈 / 本地方法栈
-- 线程共享：堆 / 方法区（含运行时常量池）
-- 每个方法对应一个**栈帧** = 局部变量表 + 操作数栈 + 动态链接 + 返回地址
-
-**对象创建过程与内存布局**：
-
-- 创建 = 类加载链接初始化 -> 申请内存 -> 成员变量赋默认值 -> `<init>` 赋初始值
-- 普通对象布局 = markword(8B) + ClassPointer（压缩后 4B）+ 实例数据 + 对齐填充（8 的倍数）；`new Object()` 共 16 字节
-- markword 末 2 位是锁标志位、4 位存 GC 年龄 -> 这正是晋升年龄上限 15 的原因
-
-**方法区演进：永久代 -> 元空间**：
-
-- JDK8 起永久代（固定大小、FGC 不清理）被元空间取代
-- 类元数据移至本地内存（不设上限则可达物理内存、可被 FGC 清理）
-- 字符串常量池自 JDK7 起位于堆中
-
-### 2.2 GC 算法
-
-| 算法 | 思路 | 适用 |
-|---|---|---|
-| **标记-清除** | 标记存活对象，清除其余 | 老年代（CMS） |
-| **复制** | 内存分两块，存活复制到另一块 | 年轻代（Serial / ParNew） |
-| **标记-整理** | 标记存活，移到一端 | 老年代（Parallel Old） |
-| **分代收集** | 不同代用不同算法 | HotSpot 默认 |
-
-**垃圾判定：引用计数 vs GC Roots 可达性分析**：
-
-- 引用计数实现简单但无法解决循环引用
-- HotSpot 用**根可达算法**：从 GC Roots 出发搜索，不可达对象即垃圾 -> 这是所有标记类算法的前提
-
-**对象何时进入老年代（晋升机制）**：
-
-- ① 年龄达 MaxTenuringThreshold（默认 15，CMS 为 6）
-- ② 动态年龄判断：Survivor 中同龄对象总大小超一半，该年龄及以上直接晋升
-- ③ 大对象超 PretenureSizeThreshold 直接进老年代
-- ④ 空间担保：YGC 时 Survivor 装不下直接进老年代
-- 另：对象优先**栈上分配**（无逃逸 + 标量替换）或 **TLAB**（Eden 内线程私有缓冲，约 1%）
-
-### 2.3 垃圾收集器
-
-- **Serial / ParNew**：年轻代
-- **CMS**：老年代（已淘汰）
-- **G1**（默认）：分 Region，可预测停顿
-- **ZGC / Shenandoah**：超低延迟（毫秒级）
-
-**CMS 工作流程（四阶段）**：初始标记(STW) -> 并发标记 -> 重新标记(STW) -> 并发清除
-
-**CMS 三大缺陷**：
-
-- **内存碎片**：标记-清除产生；碎满退化为 Serial Old 单线程压缩，STW 可达数小时
-- **浮动垃圾**：并发期间新垃圾留待下次
-- **并发失败**：预留空间不足，可用 `-XX:CMSInitiatingOccupancyFraction` 调低触发阈值
-
-**三色标记与漏标解决**：
-
-- 并发标记中引用关系变化可致漏标（存活对象被当垃圾回收）
-- 漏标需同时满足"黑->白新增引用"与"灰->白引用删除"两条件
-
-| 收集器 | 漏标方案 | 思路 |
-|---|---|---|
-| CMS | 增量更新 | 关注新增引用，黑退灰重扫 |
-| G1 | SATB 快照 | 关注引用删除；借 RSet 避免全堆扫描 |
-
-### 2.4 调优参数
-
-```bash
--Xms512m          # 初始堆
--Xmx2g             # 最大堆
--Xmn1g             # 年轻代
--XX:MetaspaceSize=256m
--XX:+UseG1GC       # 使用 G1
--XX:MaxGCPauseMillis=200
-```
-
-**调优目标与步骤**：
-
-- 吞吐量 = 用户时间 /（用户时间 + GC 时间）：吞吐量优先选 PS + PO（科学计算 / 批处理）；响应时间优先选 CMS / G1（网站 / API）
-- 步骤 = 熟悉业务 -> 选回收器组合 -> 压测预估内存 -> 设 GC 日志 -> 观察调整
-- 常见手法：调大 Survivor 让 YGC 存活对象不进老年代，以减少 FGC
-
-**线上排查工具链**：
-
-- **CPU 100%**：top -> `top -Hp` 定位线程 -> jstack 导出栈定位方法（区分业务线程与 GC 线程）
-- **内存飙高 / OOM**：`jmap -dump`（生产优先 `-XX:+HeapDumpOnOutOfMemoryError`）-> MAT 分析
-- **日常观察**：jps / jinfo / `jstat -gc` / arthas（jad 反编译、watch 观测方法）
-- **频繁 FGC 常见原因**：大对象 / 一次性加载过多数据、Survivor 过小、Metaspace 满、System.gc()、内存泄漏
-
-## 三、Spring 生态
-
-> 📚 本节为概览，详细内容已独立成篇：[Spring 生态](/md/01-计算机基础/50-Spring生态.md)（Core/Boot/事务/Cloud/源码学习线 + 全量归档索引）
-
-### 3.1 Spring Core
-
-- **IoC（控制反转）**：对象由容器管理
-- **DI（依赖注入）**：构造器 / Setter / 字段注入
-- **AOP（面向切面）**：JDK 动态代理 / CGLIB
-
-### 3.2 Spring 全家桶
-
-| 组件 | 用途 |
-|---|---|
-| **Spring Boot** | 快速启动，约定大于配置 |
-| **Spring MVC** | Web 框架 |
-| **Spring Data** | 数据访问（JPA / Redis / Mongo） |
-| **Spring Security** | 认证授权 |
-| **Spring Cloud** | 微服务套件（Eureka / Gateway / Config） |
-
-### 3.3 Spring Boot 自动装配
-
-```java
-@SpringBootApplication
-public class App {
-    public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
-    }
-}
-```
-
-- `@EnableAutoConfiguration` 读取 `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`（Spring Boot 3.x；2.x 用 `spring.factories`）
-- `@SpringBootApplication` = `@Configuration` + `@EnableAutoConfiguration` + `@ComponentScan`
-
-### 3.4 Spring Cloud 核心
-
-- **服务注册发现**：Eureka / Nacos / Consul
-- **配置中心**：Spring Cloud Config / Nacos
-- **API 网关**：Spring Cloud Gateway（Zuul 已停维）
-- **熔断降级**：Sentinel / Resilience4j（Hystrix 已停维）
-- **负载均衡**：Spring Cloud LoadBalancer（Ribbon 已停维）
-
-## 四、实战项目
-
-> 📚 完整实战笔记见 [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes)
+> 📚 完整 Java 项目笔记见 [`archive/old-java-notes`](/md/archive/README?id=old-java-notes)；Spring/SSM 与 Spring Boot + Vue 项目部署已迁入 [Spring 生态](/md/01-计算机基础/50-Spring生态.md)。
 
 - **手写 RPC**：Netty + 动态代理
-- **手写 Spring**：IoC + AOP 实现
 - **Netty**：高性能网络通信框架（RPC 底层）
 - **统一消息系统**：MQ 削峰 + 多渠道下发
 - **抽奖系统**：DDD 架构 + 高并发设计
 - **短链系统**：Hash + Base62 + 分库分表
-- **监控**：javaagent 字节码插桩
+- **JVM 插桩监控**：见 [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)
 - **自动化测试平台**：JMeter 集成 + 性能压测
-- **前后端分离部署**：Spring Boot + Vue + Nginx
 
-### 4.1 手写 RPC
+### 2.1 手写 RPC
 
 **四大角色与调用流程**：
 
@@ -430,7 +265,7 @@ public class App {
 - 地址 / 端口 / 注册中心地址在工程级统一配置、不进注解
 - 消费者注解需配置注册中心地址与类型、负载均衡、序列化类型、超时、同步 / 异步 / 单向、代理方式；服务名称从注册中心获取、无需配置
 
-### 4.2 Netty
+### 2.2 Netty
 
 **为什么需要 Netty（JDK NIO 痛点）**：
 
@@ -460,7 +295,7 @@ public class App {
 - 所有 IO 操作异步：通过 ChannelFuture 注册监听器，在操作成功 / 失败时回调
 - ServerBootstrap 配置区分：`option()` 给 ServerSocketChannel（如 SO_BACKLOG）、`childOption()` 给 SocketChannel（如 SO_KEEPALIVE）；`handler()` / `childHandler()` 分别对应 Boss 与 Worker
 
-### 4.3 统一消息系统（Austin）
+### 2.3 统一消息系统（Austin）
 
 **架构与数据流**：
 
@@ -474,7 +309,7 @@ public class App {
 - **多渠道适配**：handler 多通道下发（短信 / 邮件 / 钉钉 / 企业微信 / 飞书 / 微信服务号 / 微信小程序），屏蔽第三方接口差异，对业务方提供统一 API
 - **消息数据旁路闭环**：发送日志与状态另写一条 MQ，旁路分流至 austin-stream（实时计算送达率、耗时等监控指标）与 austin-data-house（离线归档供报表分析），形成"发-看-查"的完整消息生命周期管理
 
-### 4.4 抽奖系统
+### 2.4 抽奖系统
 
 **DDD 四层架构与模块分离**：
 
@@ -507,7 +342,7 @@ public class App {
 - Redis setNx 加锁但细化粒度：锁 key = 活动ID + 库存占用编号（如 100001_1），避免粗锁导致"有库存却秒杀失败"
 - 缓存扣减后发 MQ 异步更新 DB（`UPDATE ... WHERE stock_surplus_count >`）保最终一致；TPS 更高时对库存分片横向扩展
 
-### 4.5 短链系统
+### 2.5 短链系统
 
 **MurmurHash + Base62 + 302 重定向**：
 
@@ -540,49 +375,7 @@ public class App {
 - 坑点：@Async 方法上标 @Transactional 无效、同类内直接调用不走代理
 - IO 密集型核心线程数设为 2 倍 CPU 核数
 
-### 4.6 监控系统（javaagent 字节码插桩）
-
-**JVMTI 与 javaagent 原理**：
-
-- JVMTI 是开发 / 监控 JVM 的双通道接口，代理与目标 JVM 同进程通信
-- JPDA 架构 = JVMTI + JDWP 传输协议 + JDI 高层 API
-- javaagent 是 Java 1.5+ 基于 JVMTI 的特性，核心场景为类加载拦截修改与已加载类重定义
-
-**premain 与 agentmain 两种启动方式**：
-
-| 方式 | 启动 | 能力 |
-|---|---|---|
-| premain | `-javaagent:` 参数随目标应用启动 | 类加载前介入，可完整修改类 |
-| agentmain | 借助 tools.jar 的 VirtualMachine.attach 向运行中进程注入 | 免重启，但只能修改部分逻辑、监控有限制 |
-
-- agent jar 不能独立启动，只能附着于其他 JVM
-
-**Instrumentation 核心 API**：
-
-- `addTransformer` 注册 ClassFileTransformer 拦截类加载（配合 javassist 改字节码）
-- `retransformClasses` 重新触发已加载类的转换（仅可改方法体指令，不可改继承 / 接口 / 方法签名等结构，需 Can-Retransform-Classes:true）
-- `redefineClasses` 整体重定义；`getAllLoadedClasses` / `getObjectSize` 获取已加载类与对象大小
-- 实践：方法性能统计、仿 arthas（attach 后经 RMI 暴露查找类 / 反编译能力）
-
-**插桩点选择与 javassist 插桩技巧**：
-
-- 通过 javaagent 参数 + 通配符圈定采集范围（public 方法）
-- javassist 核心技巧 = 拷贝原方法改名为 $agent、原方法体内包装计时与前后置逻辑
-- MyBatis SQL 监控的插桩点选 org.apache.ibatis.executor.BaseExecutor 的 query 方法，从 BoundSql 反射取 SQL
-
-**插桩的 ClassLoader 隔离问题与解法**：
-
-- 插桩代码运行在目标应用 ClassLoader 中：IDEA 内启动正常、脱离 IDEA 用 Spring Boot fat jar 启动即报找不到类
-- Tomcat 的 WebappClassLoader 打破双亲委派（先查自己再委派父加载器），可直接 URLClassLoader.addURL 注入 agent jar
-- Spring Boot 的 LaunchedURLClassLoader 需反射调用 addURL 解决
-
-**HTTP 入站 / 出站监控采集点设计**：
-
-- 入站选 javax.servlet.http.HttpServlet.service 插桩最通用（MVC 框架层与容器层实现多样、Servlet 层最稳定），采集 URL / 客户端 IP / 耗时 / 参数 / 异常
-- 真实 IP 依次取 x-forwarded-for -> Proxy-Client-IP -> WL-Proxy-Client-IP -> remoteAddr
-- 出站 URL 调用无集中点：通过设置 java.protocol.handler.pkgs 包前缀替换 UrlStreamHandler、静态代理包装 HttpURLConnection 实现计时（URLStreamHandlerFactory 全进程只能设置一次、有兼容风险故不采用）
-
-### 4.7 自动化测试平台
+### 2.6 自动化测试平台
 
 **三大引擎与监控栈架构**：
 
@@ -598,7 +391,7 @@ public class App {
 
 **内嵌 StandardJMeterEngine 二次开发**：
 
-- 方案对比：Runtime.exec 调外部进程可维护性差、难平台化 -> 改为 SpringBoot 内嵌 JMeter 源码
+- 方案对比：Runtime.exec 调外部进程可维护性差、难平台化 -> 改为 Java 服务内嵌 JMeter 源码
 - JMeterUtils.loadJMeterProperties / setJMeterHome 初始化环境；SaveService.loadTree 加载 HashTree
 - 支持本地上传 JMX 与在线创建测试计划两种录入
 
@@ -608,29 +401,7 @@ public class App {
 - SamplingStatCalculator 按采样器维度统计样本数 / 平均 / 最大最小耗时
 - 可整合 Kafka 实时上报与持久化，云端生成可视化报告
 
-### 4.8 前后端分离部署（Spring Boot + Vue）
-
-**Nginx 部署 Vue**：
-
-- 静态资源 alias 指向打包目录 + `try_files $uri $uri/ /index.html` 解决 history 路由刷新 404 -> Vue 前端上线的通用关键配置
-
-**Nginx 反向代理与 WebSocket 代理**：
-
-- 后端接口走独立二级域名 proxy_pass 到本地端口
-- WebSocket 需加 proxy_http_version 1.1 + Upgrade / Connection 头，且 proxy_read_timeout 调大（默认 60s 会自动断开长连接）
-- Java 侧用 `nohup java -jar -Dspring.profiles.active=prod` 后台部署
-
-**单点登录 token + Redis**：
-
-- 登录后雪花算法生成 token 存 Redis（登录态可主动失效），前端携带 token，HandlerInterceptor 拦截器统一校验
-- 区别于无状态 JWT 的选型思路
-
-**Long 精度丢失全局处理**：
-
-- 雪花 ID 等 Long 值超出 JS Number 安全整数范围导致前端精度丢失
-- 通过 Jackson 全局注册 ToStringSerializer 将 Long 序列化为字符串解决
-
-### 4.9 雪花算法（分布式唯一 ID）
+### 2.7 雪花算法（分布式唯一 ID）
 
 - Twitter 开源的分布式唯一 ID 算法，生成 64 位 long：
 
@@ -643,38 +414,29 @@ public class App {
 
 - 趋势递增、不依赖第三方组件；检测到时钟回拨则拒绝生成
 
-## 五、SSM 整合
-
-- Spring + Spring MVC + MyBatis
-- 配置文件：`web.xml` / `applicationContext.xml` / `spring-mvc.xml` / `mybatis-config.xml`
-- Maven 依赖管理
-- 分层：Controller / Service / DAO / Mapper
-
-**Servlet 与 Servlet 容器**：
-
-- Servlet 是处理 HTTP 请求的 API 标准，需 Servlet 容器（Tomcat / Jetty / JBoss / Glassfish）承载运行，容器经 web.xml 的 servlet-mapping 路由请求
-- 生命周期：init / service / destroy
-- JSP 本质是运行期被编译成 Servlet 的视图技术，HttpServlet 是其高级封装
-
-## 六、2026 年 Java 生态
+## 三、2026 年 Java 生态
 
 | 维度 | 主流 |
 |---|---|
-| Java 版本 | 21 LTS（25 于 2025.09 发布，逐步采用） |
-| 框架 | Spring Boot 3.x + Spring Cloud 2024 |
+| Java 版本 | Java 21 LTS 是稳态主线；Java 25 已在 2025-09 发布，生产采纳通常随团队节奏推进 |
 | 构建 | Maven / Gradle |
 | 测试 | JUnit 5 + Mockito + Testcontainers |
-| 云原生 | Spring Boot 3 + GraalVM Native Image |
-| 微服务 | Spring Cloud / Spring Cloud Alibaba |
-| 性能 | GraalVM / OpenJDK Loom（虚拟线程） |
+| 并发 | JUC、CompletableFuture、虚拟线程（Project Loom） |
+| 性能 | OpenJDK / GraalVM / JVM 参数与 GC 日志分析 |
+| 企业开发 | Spring 相关内容独立见 [Spring 生态](/md/01-计算机基础/50-Spring生态.md) |
+
+学习顺序建议：先补 Java 语法、集合和异常，再读并发入门；需要理解运行时行为时转到 JVM；进入企业开发和微服务时转到 Spring 生态。
 
 ---
 
 ## 📚 完整资料
 
-- [`archive/old-java-notes/`](/md/archive/README?id=old-java-notes) — Java 完整笔记归档
-- [`archive/old-jvm-notes/`](/md/archive/README?id=old-jvm-notes) — JVM 笔记归档
-- [`archive/old-spring-notes/`](/md/archive/README?id=old-spring-notes) — Spring 笔记归档
+> **原文归档**：[`archive/old-java-notes`](/md/archive/README?id=old-java-notes)
+> 本篇只归纳 Java 基础、语言特性、集合、并发入门与 Java 项目入口；JVM 与 Spring 已拆分到独立主线。
+
+- [`archive/old-java-notes`](/md/archive/README?id=old-java-notes) — Java 基础、Java 学习路线、Servlet、RPC、Netty、短链、抽奖、监控、自动化测试平台等原始笔记
+- [`JVM 运行机制`](/md/01-计算机基础/05-JVM运行机制.md) — 类加载、运行时数据区、GC 与调优
+- [`Spring 生态`](/md/01-计算机基础/50-Spring生态.md) — Spring Core / MVC / Boot / 事务 / Cloud / Security / SSM 项目落地
 
 ---
 
@@ -691,3 +453,5 @@ public class App {
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-23 | 重构 | Spring 生态独立成篇（50-Spring生态.md），本文件第三节改为概览并指向新文档 |
 | 2026-08-23 | 新增 | 按分区核对报告（J1/J2/J3）补全：Java 基础 / 集合 / 并发 / JVM 知识点归位扩充（含类加载、双亲委派、混合执行、HashMap、volatile DCL、GC Roots、晋升、CMS、三色标记、调优排查），实战项目扩为 9 个小节（RPC / Netty / 统一消息 / 抽奖 / 短链 / 监控 / 测试平台 / 前后端分离 / 雪花算法），SSM 补 Servlet，字节码表述修正为混合模式 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
+| 2026-08-26 | 重构 | 按用户反馈拆分 Java / JVM / Spring：本篇聚焦 Java 基础与 Java 项目入口，JVM 调优移入 05-JVM运行机制.md，Spring/SSM/Boot 项目内容迁入 50-Spring生态.md |

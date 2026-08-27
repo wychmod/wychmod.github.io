@@ -1,7 +1,7 @@
 # MCP 协议
 
-> **原文归档**：[archive/old-agent-notes/agent系统知识/](../../archive/old-agent-notes/agent系统知识/)
-> 包含：1 篇完整教程（原文提到的 2 个参考 PDF 在归档中未找到，仅保留文字教程）
+> 预计阅读：约 84 分钟（正文约 26769 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -1782,7 +1782,12 @@ MCP 协议为 AI 应用的开发带来了标准化和统一化的解决方案：
 
 ---
 
+
 ## 📚 完整资料
+
+> **原文归档**：[archive/old-agent-notes/agent系统知识/](../../archive/old-agent-notes/agent系统知识/)
+> 包含：1 篇完整教程（原文提到的 2 个参考 PDF 在归档中未找到，仅保留文字教程）
+
 - [MCP协议完整教程：从入门到实践.md](../../archive/old-agent-notes/agent系统知识/MCP协议完整教程：从入门到实践.md)
 - [MCP 官方文档](https://modelcontextprotocol.io/) / [MCP 规范](https://modelcontextprotocol.io/specification)
 - [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk) / [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
@@ -1799,3 +1804,4 @@ MCP 协议为 AI 应用的开发带来了标准化和统一化的解决方案：
 |---|---|---|
 | 2026-07-22 | 审查 | 全面审查，核心内容完备（协议版本 2024-11-05、JSON-RPC 2.0、stdio/Streamable HTTP 传输、2026 现状等时效性良好，无需订正） |
 | 2026-08-23 | 新增 | 总结补齐：MCP 与 Tool Calls 分层模型、Streamable HTTP curl 示例、6.4 Prompt 解析驱动、6.5 高德 MCP 实战示例（tools/list、tools/call、通用 HTTP 客户端类）、鉴权与调试要点、官方参考链接；并按规范完整内联归档原文（原文引用的 2 个 PDF 未随归档保存，内联处按原貌保留引用文字并加注） |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |

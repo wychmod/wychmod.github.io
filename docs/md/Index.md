@@ -85,7 +85,8 @@
     <span class="sm-domain-arrow" aria-hidden="true">↓</span>
   </summary>
   <ul class="sm-domain-links">
-    <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 与 JVM</a><span>Java 基础 / Spring 全家桶 / JVM 调优</span></li>
+    <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 基础</a><span>语法 / 面向对象 / 集合 / 并发入门 / 项目入口</span></li>
+    <li><a href="#/md/01-计算机基础/05-JVM运行机制.md">JVM 运行机制</a><span>字节码 / 类加载 / 内存 / GC / 调优</span></li>
     <li><a href="#/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span>高级特性 + 源码 + Django + Flask</span></li>
     <li><a href="#/md/01-计算机基础/20-算法与数据结构.md">算法与数据结构</a><span>动态规划 + 排序 + 九章算法 + 左神</span></li>
     <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">计算机系统与并发</a><span>OS / 网络 / TCP / HTTP / 多线程</span></li>

@@ -1,7 +1,7 @@
 # Docker 容器化
 
-> **原文归档**：[archive/old-docker-notes/](/md/archive/README?id=old-docker-notes)
-> 包含：2 个文件（Docker 入门 + CentOS7 安装 Docker）
+> 预计阅读：约 61 分钟（正文约 19450 字）
+> 阅读建议：建议分两次阅读：先看概览、结论和关键表格，再按需翻文末原文归档。
 
 ## 一、核心主题概述
 
@@ -1550,6 +1550,12 @@ systemctl restart docker
 
 ---
 
+
+## 📚 完整资料
+
+> **原文归档**：[archive/old-docker-notes/](/md/archive/README?id=old-docker-notes)
+> 包含：2 个文件（Docker 入门 + CentOS7 安装 Docker）
+
 ## 修改记录
 
 | 日期 | 类型 | 说明 |
@@ -1559,3 +1565,4 @@ systemctl restart docker
 | 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
 | 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
 | 2026-08-23 | 订正 | ADD 指令语义修正：自动解压仅针对本地 tar 文件，远程 URL 下载的 tar 不会自动解压 |
+| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
