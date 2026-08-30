@@ -503,17 +503,10 @@ pickle 只应在彼此信任的程序间使用，其格式不设防；不可信�
 
 ---
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
-| 2026-07-22 | 订正 | Python 版本建议从 3.12+ 更新为 3.13+；补充 PEP 703 自由线程模式说明 |
-| 2026-07-22 | 订正 | 生态表 Web 框架补充 Django 5.x、Flask 3.x 版本标注 |
-| 2026-07-22 | 订正 | uv python pin 示例从 3.12 更新为 3.13；requires-python 从 >=3.11 更新为 >=3.12 |
-| 2026-07-22 | 审查 | 全面审查，核心内容完备，asyncio/Pydantic V2/Ruff/UV 等工具生态描述准确 |
-| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
-| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
-| 2026-08-23 | 新增 | 按四份分区核对报告补全缺失知识点：方法重载辨析、多继承/MRO/Mixin、__new__/__init__、__slots__、LEGB、pyc 缓存、dict 哈希与扩容、生成器进阶、GIL 释放时机与进程/线程通信、Django 中间件/auth/Celery/DRF 层次/reverse、Flask 上下文/werkzeug/会话事务/abort、logging、cProfile/pdb、pandas 透视表/MultiIndex/Series、常见坑 7-12 |
-| 2026-08-23 | 订正 | 删除 2.6 命名规范指向空文件 python命名规范 的死链；删除 5.7 对 Django(MRO) 的 MRO 覆盖失实声明并注明该文件为 DRF 笔记重复副本；4.2 list 扩容表述由“翻倍扩容”改为“按约 1/8 裕量渐进扩容” |
-| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
 | 2026-08-27 | 重构 | 将 Django 与 Flask Web 框架内容拆分为独立主线教程，本文改为保留 Python 语言、源码、工程化与数据生态总览，并更新 Web 生态版本口径 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

@@ -476,17 +476,14 @@ SELECT * FROM user_innodb WHERE id > 900000 LIMIT 10;
 > **原文归档**：[archive/old-mysql-notes/](/md/archive/README?id=old-mysql-notes)
 > 包含：7 个文件（MySQL性能优化 4 篇 + 使用/运行 + 手写数据库）
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
-| 2026-07-22 | 订正 | MGR 协议描述由"基于 Paxos"修正为"基于类 Paxos（Mencius）协议" |
-| 2026-07-22 | 订正 | 锁监控视图更新为 performance_schema.data_locks/data_lock_waits（8.0+ 已移除 information_schema.INNODB_LOCKS） |
-| 2026-07-22 | 订正 | 主从状态查看补充 8.0.22+ 新语法 SHOW BINARY LOG STATUS / SHOW REPLICA STATUS |
-| 2026-07-22 | 订正 | innodb_autoinc_lock_mode 默认值修正：8.0+ 默认为 2（交错） |
-| 2026-07-22 | 审查 | 全面审查，核心内容完备 |
 | 2026-08-24 | 订正 | SHOW BINARY LOG STATUS 引入版本修正为 8.2+（8.0.22+ 引入的是 SHOW REPLICA STATUS，此前误并列表述） |
 | 2026-08-24 | 订正 | 内联段开头新增总注：标注 2 张 note.youdao.com 死图（图床已失效、无法恢复，对应内容以文字为准） |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。
 
 # 以下为原内容存档
 > 以下内容为原始归档文件的完整保留，仅修正图片相对路径，文字原貌不变。

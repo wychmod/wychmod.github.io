@@ -616,12 +616,10 @@ http.csrf(csrf -> csrf.disable())
 >
 > 从「Java 与 JVM」的 Spring 概览小节扩展为独立主线，沉淀 Spring 全家桶知识并索引全部归档资料。
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
-| 2026-08-23 | 新增 | 新建文档：从 Java 与 JVM 的 Spring 概览扩展为独立主线；新增 Actuator 生产监控小节；建立全量 Spring 归档索引（old-spring-notes + old-java-notes 四个子目录） |
-| 2026-08-23 | 新增 | 依据归档核对补全缺失知识点：新增「三、Spring MVC」「七、Spring Security 与 JWT 认证」两章（后续章节号顺延）；Spring Core 补容器体系、作用域与线程安全、@Import/FactoryBean/BFPP/BPP、AOP 拦截器链、三级缓存原理；Spring Boot 新增起步依赖与 parent、配置文件优先级、Profile、配置绑定、内嵌容器、启动流程、自定义 starter、缓存与定时、日志、数据访问整合（MyBatis / MyBatis-Plus / 连接池）；Spring Cloud 补注册心跳、Nacos 分级模型/配置中心/集群、Gateway、OpenFeign；AIcloud 归档索引补 MyBatisPlus 与 JWT 两篇 |
-| 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
-| 2026-08-26 | 重构 | 按 Java/JVM 拆分边界迁入 SSM 整合、Servlet 容器与 Spring Boot + Vue 部署内容，Spring 主线聚焦 Core、MVC、Boot、事务、Cloud、Security 与项目落地 |
 | 2026-08-27 | 新增 | 新增「Spring 分层对象与 POJO 命名」：补充 POJO、PO、Entity、DO、BO、DTO、VO、Query、Command、Request/Response 等对象在 Spring MVC、Service、Domain、Repository、MyBatis/JPA 中的职责边界、转换器约定与面试回答 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

@@ -2480,13 +2480,10 @@ vagrant destroy 删除虚拟机
 > **原文归档**：[archive/old-linux-notes/](/md/archive/README?id=old-linux-notes)
 > 包含：12+ 文件（常用命令 / 核心技能 / Shell / Vim / 服务器管理）
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
-| 2026-07-22 | 订正 | 路由追踪命令 tracert→traceroute（tracert 为 Windows 命令） |
-| 2026-07-22 | 审查 | 全面审查，命令正确性已验证，内容稳定无需大幅更新 |
-| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
-| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
-| 2026-08-23 | 订正 | 修复 50 处有道云笔记图片路径错误（../../youdaonote-images/ -> ../youdaonote-images/），图片恢复显示 |
 | 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

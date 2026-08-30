@@ -610,16 +610,10 @@ maxmemory-policy allkeys-lru
 
 ---
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
-| 2026-07-22 | 订正 | Hash 底层编码补充说明：Redis 7.0 起以 ListPack 替代 ZipList |
-| 2026-07-22 | 订正 | Spring Boot 配置前缀更新为 spring.data.redis（Spring Boot 3.x） |
-| 2026-07-22 | 订正 | Codis 标注“已停维” |
-| 2026-07-22 | 审查 | 全面审查，核心内容完备 |
-| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
-| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
-| 2026-08-23 | 新增 | 按分区核对报告补齐 14 个缺失点：Redis 为什么快、SDS、Dict 渐进式 rehash、ZipList 连锁更新、跳表选型、List/PubSub 队列缺陷、Stream XCLAIM 转移、JVM 锁失效动机、秒杀超卖与乐观锁、Feed 流推拉结合、分布式/本地缓存对比、Canal 工作原理、BigKey UNLINK 删除、集群代价与主从优先选型 |
-| 2026-08-23 | 订正 | 2.2 节 SETNX 示例改为 SET key value NX EX 10（SETNX 不接受 EX 参数） |
 | 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

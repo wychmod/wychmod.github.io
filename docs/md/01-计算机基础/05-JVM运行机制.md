@@ -372,9 +372,11 @@ JDK 9+ 统一日志改为 `-Xlog`，生产排查时应按实际 JDK 版本选择
 
 ---
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-08-26 | 新增 | 从 Java 与 JVM 拆出独立 JVM 主线，参考 old-jvm-notes 老目录按运行原理、类加载、运行时数据区、GC、调优排查由浅入深重组 |
 | 2026-08-26 | 重构 | 从 Java 基础迁入 javaagent / JVMTI / Instrumentation 监控实践，放入 JVM 运行机制主线 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

@@ -165,9 +165,11 @@ public class DefaultListableBeanFactory {
 
 ---
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-08-27 | 新增 | 补写“BeanDefinition 与容器启动”，把配置读取、定义注册、预实例化单例这条最小链路讲清楚 |
 | 2026-08-27 | 订正 | 补充 `preInstantiateSingletons()` 当前遍历全部定义的实现边界，并建议复刻时按 singleton 过滤 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

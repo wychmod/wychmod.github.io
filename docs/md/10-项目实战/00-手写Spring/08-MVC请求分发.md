@@ -114,9 +114,11 @@ public ModelAndView query(@RequestParam("name") String name, HttpServletRequest 
 
 ---
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-08-27 | 新增 | 补写“MVC 请求分发”，把 HandlerMapping、HandlerAdapter、ViewResolver 和 DispatchServlet 讲清楚 |
 | 2026-08-27 | 订正 | 补充 MVC 章节基于 original 最小闭环，说明它暂未完全合并进 iteration 主线 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

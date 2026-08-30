@@ -205,8 +205,10 @@ engine.run();
 - `cloud-meter/cloud-engine/src/test/java/com/wychmod/stress/TestStress.java`
 - [下一章：压测引擎与结果采集](04-压测引擎与结果采集.md)
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-08-28 | 新增 | 依据归档 JMeter 知识和当前 StressTestUtil、JMX 实验代码，补写嵌入式引擎教程 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

@@ -1043,13 +1043,10 @@ kubectl get pods -n dev -l version=2.0 --show-labels
 
 ---
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
-| 2026-07-22 | 订正 | 移除已废弃的 `--record` 参数；标注 Recycle 回收策略已移除；PodSecurityPolicy 已移除说明；Dashboard 版本更新为 v3.0.0；K8s 版本参考更新为 1.33+ |
-| 2026-07-22 | 审查 | 全面审查，核心概念与 API 版本正确，2026 生态描述完备 |
-| 2026-08-18 | 订正 | 修复归档目录链接：Docsify 无法渲染目录路由，统一指向归档来源地图或直接 GitHub 目录 |
-| 2026-08-18 | 订正 | 将归档来源地图链接从相对路径改为绝对 Docsify 路由 /md/archive/README?id=xxx，避免生成 #/../archive/README 导致 404 |
-| 2026-08-23 | 新增 | 对照归档分区核对报告补入 10 处缺失知识点（标签选择器语法、四个默认命名空间、集群拓扑选型、禁用 swap、PV 生命周期状态、Deployment 回滚原理、Job restartPolicy 约束、Pod 终止流程、ConfigMap 挂载消费、RBAC 复用模式） |
 | 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

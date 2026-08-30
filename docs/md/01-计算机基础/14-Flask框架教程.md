@@ -599,8 +599,10 @@ gunicorn "app:create_app()" --bind 0.0.0.0:8000 --workers 4
 
 ---
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
 | 2026-08-27 | 新增 | 从 Python 基础与生态中拆出 Flask 独立主线，参考 old-flask-notes 重组最小应用、请求响应、上下文、模板、表单、蓝图、SQLAlchemy、上传邮件、gevent/async 与部署，并补充 Flask 3.1.x 口径下的过时写法提示 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。

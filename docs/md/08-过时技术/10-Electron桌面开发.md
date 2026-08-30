@@ -689,10 +689,10 @@ $('tracksList').addEventListener('click', (event) =>{
 
 > **原文归档**：[old-electron-notes/](../archive/old-electron-notes/) - 完整原文已内联至文末「原内容存档」
 
-## 修改记录
+## 最新修改记录
 
 | 日期 | 类型 | 说明 |
 |---|---|---|
-| 2026-07-22 | 审查 | 全面审查，替代方案（Tauri/Flutter Desktop/PWA）均为 2026 年最新主流；安全建议正确；存档区保留原貌 |
-| 2026-08-23 | 新增 | 补全「原内容存档」完整内联：原约 54% 覆盖率的改写稿调整为知识点摘要，文末新增归档原文逐字内联（补回 bootstrap 安装、渲染进程 index.html/index.js、electron-store 官方链接、DOM data-*/dataset 说明、事件冒泡代理原文及此前缺失的第 8 张图片）；摘要区 5.1 补「渲染进程触发新窗口」小节并加 ⚠️ 过时标注；文首补原文归档链接 |
 | 2026-08-26 | 重构 | 统一前置阅读时间/建议，原文归档移至文末 |
+
+> 📚 完整历史修改记录见 [修改记录归档](/_meta/CHANGELOG_HISTORY.md)。
