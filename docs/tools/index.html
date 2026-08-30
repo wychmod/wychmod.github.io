@@ -142,6 +142,8 @@
     .ti-tool-row + .ti-tool-row {
       border-top: 1px solid rgba(201, 195, 183, 0.65);
     }
+    /* hidden 属性需要显式规则: 上面 display: grid 会覆盖 UA 的 [hidden] 样式 */
+    .ti-tool-row[hidden] { display: none; }
     .ti-tool-row:hover { background: var(--studio-paper-50); }
 
     .ti-tool-row__num {
@@ -573,6 +575,7 @@
         var anyVisible = false;
         groups.forEach(function (g) {
           var gRows = g.querySelectorAll('.ti-tool-row');
+          var countEl = g.querySelector('.ti-group__count');
           var visibleInGroup = 0;
           for (var i = 0; i < gRows.length; i++) {
             var r = gRows[i];
@@ -583,6 +586,7 @@
           }
           if (q) { g.setAttribute('open', ''); }
           g.style.display = visibleInGroup ? '' : 'none';
+          if (countEl) countEl.textContent = q ? String(visibleInGroup) : String(gRows.length);
         });
         if (!q) { syncMobileDefault(); }
         if (noMatch) noMatch.hidden = anyVisible;
