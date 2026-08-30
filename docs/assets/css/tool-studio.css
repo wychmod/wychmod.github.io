@@ -21,6 +21,10 @@
 }
 
 .tool-studio {
+  /* mono 栈的 CJK 回退(作用域内派生变量): 令牌 --studio-font-mono 无中文字形,
+     中文会落到通用 monospace 的系统回退(Windows 宋体), 小字号下笔画发虚难读。
+     Latin/数字仍走等宽, 中文回退到各平台黑体; 仅作用域内生效, 不覆盖令牌。 */
+  --studio-font-mono-cjk: "IBM Plex Mono", "JetBrains Mono", Consolas, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", monospace;
   margin: 0;
   min-height: 100dvh;
   font-family: var(--studio-font-body);
@@ -153,7 +157,7 @@
   padding: 4px 10px;
   border: 1px solid var(--studio-line-dark);
   border-radius: var(--studio-radius-sm);
-  font-family: var(--studio-font-mono);
+  font-family: var(--studio-font-mono-cjk);
   font-size: 11px;
   color: var(--studio-on-dark-muted);
   letter-spacing: 0.04em;
@@ -223,7 +227,7 @@
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  font-family: var(--studio-font-mono);
+  font-family: var(--studio-font-mono-cjk);
   font-size: 12px;
   letter-spacing: 0.06em;
   color: var(--studio-text-muted);
@@ -276,8 +280,8 @@
   color: var(--studio-text);
 }
 .ts-status__label {
-  font-family: var(--studio-font-mono);
-  font-size: 11px;
+  font-family: var(--studio-font-mono-cjk);
+  font-size: 12px;
   letter-spacing: 0.06em;
   color: var(--studio-text-muted);
 }
@@ -315,7 +319,7 @@
 }
 .ts-panel__sub {
   margin: 0 0 var(--studio-space-4);
-  font-family: var(--studio-font-mono);
+  font-family: var(--studio-font-mono-cjk);
   font-size: 11px;
   letter-spacing: 0.06em;
   color: var(--studio-text-muted);
