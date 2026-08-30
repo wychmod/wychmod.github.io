@@ -13,8 +13,32 @@
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
-    <a class="home-recent-row" href="#/md/10-项目实战/01-自动化测试平台/05-当前进度与未完待续.md">
+    <a class="home-recent-row" href="#/md/02-后端开发/40-分布式ID与雪花算法.md">
       <span class="home-recent-num">01</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">分布式 ID 与雪花算法</h3>
+        <p class="home-recent-excerpt">唯一 ID 选型对比、雪花原理、时钟回拨与 workerId 落地实战。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-1)">后端开发</span>
+        <span class="home-recent-date">2026-08-30</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/01-计算机基础/00-Java与JVM.md">
+      <span class="home-recent-num">02</span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">Java 基础：模块收敛与生态章节更名</h3>
+        <p class="home-recent-excerpt">工程实践模块移出，正文聚焦语言基础，生态章节更名最新 Java 生态。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
+        <span class="home-recent-date">2026-08-30</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/10-项目实战/01-自动化测试平台/05-当前进度与未完待续.md">
+      <span class="home-recent-num">02</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">自动化测试平台：当前进度与未完待续</h3>
         <p class="home-recent-excerpt">按 cloud-meter 当前实现复盘已完成、骨架和未完待续边界。</p>
@@ -26,22 +50,10 @@
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
     <a class="home-recent-row" href="#/md/10-项目实战/01-自动化测试平台/04-压测引擎与结果采集.md">
-      <span class="home-recent-num">02</span>
+      <span class="home-recent-num">03</span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">自动化测试平台：压测引擎与结果采集</h3>
         <p class="home-recent-excerpt">读懂模板方法、采样器统计和结果发送接口的现状。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-8)">项目实战</span>
-        <span class="home-recent-date">2026-08-28</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/10-项目实战/01-自动化测试平台/03-JMeter与嵌入式引擎.md">
-      <span class="home-recent-num">03</span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">自动化测试平台：JMeter 与嵌入式引擎</h3>
-        <p class="home-recent-excerpt">把 JMeter 的测试计划、属性初始化和 HashTree 执行串起来。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-8)">项目实战</span>
@@ -173,7 +185,7 @@
         <span class="sm-domain-arrow" aria-hidden="true">↓</span>
       </summary>
       <ul class="sm-domain-links">
-        <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 基础</a><span>语法 / 面向对象 / 集合 / 并发入门 / 项目入口</span></li>
+        <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 基础</a><span>语法 / 面向对象 / 集合 / 并发入门</span></li>
         <li><a href="#/md/01-计算机基础/05-JVM运行机制.md">JVM 运行机制</a><span>字节码 / 类加载 / 内存 / GC / 调优</span></li>
         <li><a href="#/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span>语言核心 / 高级特性 / 源码 / 工程化 / 数据生态</span></li>
         <li><a href="#/md/01-计算机基础/12-Django框架教程.md">Django 框架教程</a><span>项目启动 / 视图 / 模板 / ORM / Admin / DRF / 部署</span></li>
@@ -199,6 +211,7 @@
         <li><a href="#/md/02-后端开发/10-Redis缓存.md">Redis 缓存</a><span>数据结构 / 高级 / 雪崩穿透击穿</span></li>
         <li><a href="#/md/02-后端开发/20-消息队列.md">消息队列</a><span>RabbitMQ / RocketMQ / Kafka 对比选型</span></li>
         <li><a href="#/md/02-后端开发/30-分布式协调与搜索.md">分布式协调与搜索</a><span>Zookeeper + Elasticsearch</span></li>
+        <li><a href="#/md/02-后端开发/40-分布式ID与雪花算法.md">分布式 ID 与雪花算法</a><span>唯一 ID 选型 / 雪花原理 / 时钟回拨 / Java 落地</span></li>
       </ul>
     </details>
     <!-- 03 云原生与运维 -->

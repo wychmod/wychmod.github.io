@@ -86,7 +86,7 @@
     <span class="sm-domain-arrow" aria-hidden="true">↓</span>
   </summary>
   <ul class="sm-domain-links">
-    <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 基础</a><span>语法 / 面向对象 / 集合 / 并发入门 / 项目入口</span></li>
+    <li><a href="#/md/01-计算机基础/00-Java与JVM.md">Java 基础</a><span>语法 / 面向对象 / 集合 / 并发入门</span></li>
     <li><a href="#/md/01-计算机基础/05-JVM运行机制.md">JVM 运行机制</a><span>字节码 / 类加载 / 内存 / GC / 调优</span></li>
     <li><a href="#/md/01-计算机基础/10-Python基础与生态.md">Python 基础与生态</a><span>语言核心 / 高级特性 / 源码 / 工程化 / 数据生态</span></li>
     <li><a href="#/md/01-计算机基础/12-Django框架教程.md">Django 框架教程</a><span>项目启动 / 视图 / 模板 / ORM / Admin / DRF / 部署</span></li>
@@ -113,6 +113,7 @@
     <li><a href="#/md/02-后端开发/10-Redis缓存.md">Redis 缓存</a><span>数据结构 / 高级 / 雪崩穿透击穿</span></li>
     <li><a href="#/md/02-后端开发/20-消息队列.md">消息队列</a><span>RabbitMQ / RocketMQ / Kafka 对比选型</span></li>
     <li><a href="#/md/02-后端开发/30-分布式协调与搜索.md">分布式协调与搜索</a><span>Zookeeper + Elasticsearch</span></li>
+    <li><a href="#/md/02-后端开发/40-分布式ID与雪花算法.md">分布式 ID 与雪花算法</a><span>唯一 ID 选型 / 雪花原理 / 时钟回拨 / Java 落地</span></li>
   </ul>
 </details>
 

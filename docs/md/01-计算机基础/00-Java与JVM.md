@@ -1,11 +1,11 @@
 # Java 基础
 
-> 预计阅读：约 8 分钟（正文约 2600 字）
-> 阅读建议：先读 Java 语言基础，再把工程项目入口当作索引浏览；需要运行时原理转到 JVM，企业开发转到 Spring 生态。
+> 预计阅读：约 8 分钟（正文约 2500 字）
+> 阅读建议：先读 Java 语言基础；需要运行时原理转到 JVM，企业开发转到 Spring 生态，分布式唯一 ID 见独立篇章。
 
 ---
 
-> 拆分说明：原“Java 与 JVM”已经拆为三条主线，本文件保留旧路径以兼容历史链接，正文只聚焦 Java 基础。
+> 拆分说明：原“Java 与 JVM”已经拆为多条主线，本文件保留旧路径以兼容历史链接，正文只聚焦 Java 基础。
 
 ## 一、Java 基础
 
@@ -13,7 +13,7 @@
 
 ### 1.1 核心概念
 
-这一篇只承载 Java 语言基础和 Java 工程入口。JVM 运行机制、GC、调优已经拆到 [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)，Spring / SSM / Spring Boot 内容统一放到 [Spring 生态](/md/01-计算机基础/50-Spring生态.md)。
+这一篇只承载 Java 语言基础。JVM 运行机制、GC、调优已经拆到 [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)，Spring / SSM / Spring Boot 内容统一放到 [Spring 生态](/md/01-计算机基础/50-Spring生态.md)。
 
 - **JDK / JRE**：JDK 是开发工具包，包含编译器、运行环境和诊断工具；JRE 是运行 Java 程序的环境。
 - **源码与字节码**：`.java` 源码经 `javac` 编译为 `.class` 字节码，再交给 JVM 执行。
@@ -210,27 +210,7 @@ public static Singleton getInstance() {
   - 终端操作：forEach / count / collect
   - 流只能消费一次
 
-## 二、Java 工程与项目实践
-
-> 📚 完整 Java 项目笔记见 [`archive/old-java-notes`](/md/archive/README?id=old-java-notes)；Spring/SSM 与 Spring Boot + Vue 项目部署已迁入 [Spring 生态](/md/01-计算机基础/50-Spring生态.md)。具体项目教程统一放在 [项目实战](/md/10-项目实战/)。
-
-- **JVM 插桩监控**：见 [JVM 运行机制](/md/01-计算机基础/05-JVM运行机制.md)
-- **自动化测试平台**：已拆到 [项目实战 / 自动化测试平台](/md/10-项目实战/01-自动化测试平台/00-架构总览.md)，本篇不再展开项目实现
-
-### 2.2 雪花算法（分布式唯一 ID）
-
-- Twitter 开源的分布式唯一 ID 算法，生成 64 位 long：
-
-| 分段 | 位数 | 说明 |
-|---|---|---|
-| 符号位 | 1 | - |
-| 毫秒时间戳 | 41 | 约 69 年不重复 |
-| 机器标识 | 10 | 1024 节点 |
-| 序列号 | 12 | 单节点每毫秒 4096 个 |
-
-- 趋势递增、不依赖第三方组件；检测到时钟回拨则拒绝生成
-
-## 三、2026 年 Java 生态
+## 二、最新 Java 生态
 
 | 维度 | 主流 |
 |---|---|
@@ -248,9 +228,10 @@ public static Singleton getInstance() {
 ## 📚 完整资料
 
 > **原文归档**：[`archive/old-java-notes`](/md/archive/README?id=old-java-notes)
-> 本篇只归纳 Java 基础、语言特性、集合、并发入门与 Java 项目入口；JVM 与 Spring 已拆分到独立主线。
+> 本篇只归纳 Java 基础、语言特性、集合与并发入门；JVM、Spring 与分布式 ID 已拆分到独立主线。
 
 - [`archive/old-java-notes`](/md/archive/README?id=old-java-notes) — Java 基础、Java 学习路线、Servlet、监控、自动化测试平台等原始笔记
+- [`分布式 ID 与雪花算法`](/md/02-后端开发/40-分布式ID与雪花算法.md) — 分布式唯一 ID 原理与 Java 项目落地实战
 - [`自动化测试平台`](/md/10-项目实战/01-自动化测试平台/00-架构总览.md) — cloud-meter 当前实现的分篇教程
 - [`JVM 运行机制`](/md/01-计算机基础/05-JVM运行机制.md) — 类加载、运行时数据区、GC 与调优
 - [`Spring 生态`](/md/01-计算机基础/50-Spring生态.md) — Spring Core / MVC / Boot / 事务 / Cloud / Security / SSM 项目落地
@@ -275,3 +256,5 @@ public static Singleton getInstance() {
 | 2026-08-27 | 订正 | 隐藏 3 个未完整实现且不再维护的项目内容，保留归档来源 |
 | 2026-08-27 | 订正 | 继续隐藏 2 个不再展示的项目内容，Java 工程实践入口收敛为监控、测试平台与通用算法 |
 | 2026-08-28 | 重构 | 自动化测试平台从 Java 工程概览中拆出，迁移到项目实战并按 cloud-meter 当前进度分篇 |
+| 2026-08-30 | 重构 | 删除「Java 工程与项目实践」模块；雪花算法移出并独立成篇 [分布式 ID 与雪花算法](/md/02-后端开发/40-分布式ID与雪花算法.md) |
+| 2026-08-30 | 订正 | 「2026 年 Java 生态」更名为「最新 Java 生态」，避免年份标题过时 |
