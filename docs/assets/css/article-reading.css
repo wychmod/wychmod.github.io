@@ -1318,7 +1318,7 @@ body.is-article
   outline-offset: -2px !important;
 }
 
-/* 领域编号 01-09 (放在 strong::before 上, 不污染 textContent/终端树解析) */
+/* 领域编号 01-10 (放在 strong::before 上, 不污染 textContent/终端树解析) */
 body.is-article
   .sidebar-nav
   > ul
@@ -1381,6 +1381,11 @@ body.is-article
   .sidebar-nav
   > ul
   > li.an-domain[data-domain="8"]
+  > p.an-domain-toggle::before,
+body.is-article
+  .sidebar-nav
+  > ul
+  > li.an-domain[data-domain="9"]
   > p.an-domain-toggle::before {
   content: "";
   width: 7px;
@@ -1450,6 +1455,13 @@ body.is-article
   > li.an-domain[data-domain="8"]
   > p.an-domain-toggle::before {
   background: var(--kg-8);
+}
+body.is-article
+  .sidebar-nav
+  > ul
+  > li.an-domain[data-domain="9"]
+  > p.an-domain-toggle::before {
+  background: var(--kg-9);
 }
 
 /* Chevron: 收起 › / 展开 ˅ */
