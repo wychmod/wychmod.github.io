@@ -9,7 +9,7 @@
   <!-- 视觉母体令牌(只读复用, 不改其值) -->
   <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
   <!-- 工具页共享外壳(scoped, READ-ONLY) -->
-  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260830a">
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260830b">
   <style>
     /* ===========================================================
        P023 时间戳工具专属样式 (page-specific, scoped via .ti-* prefix)
@@ -666,7 +666,7 @@
 
             <!-- 示例时间戳与日期统一: 1736553600 秒 / 1736553600000 毫秒 = 2025-01-11 08:00:00 (UTC+8) -->
             <div class="ti-code__panel">
-              <pre class="ti-code__pre" id="js-code">// 获取当前时间戳（毫秒）
+              <pre class="ti-code__pre" id="js-code" data-ts-code data-ts-lang="js">// 获取当前时间戳（毫秒）
 const timestampMs = Date.now();
 
 // 获取当前时间戳（秒）
@@ -679,7 +679,7 @@ console.log(date.toLocaleString('zh-CN')); // 2025/1/11 08:00:00 (UTC+8)
 // 日期转时间戳（按本地时区解析 ISO 本地时间）
 const newDate = new Date('2025-01-11T08:00:00');
 console.log(newDate.getTime()); // 1736553600000（在 UTC+8 下）</pre>
-              <pre class="ti-code__pre" id="py-code" hidden>import time
+              <pre class="ti-code__pre" id="py-code" hidden data-ts-code data-ts-lang="python">import time
 from datetime import datetime
 
 # 获取当前时间戳（秒）
@@ -695,7 +695,7 @@ print(dt.strftime('%Y-%m-%d %H:%M:%S'))  # 2025-01-11 08:00:00
 # 日期时间转时间戳（按本地时区）
 dt = datetime.strptime('2025-01-11 08:00:00', '%Y-%m-%d %H:%M:%S')
 print(int(dt.timestamp()))  # 1736553600（在 UTC+8 下）</pre>
-              <pre class="ti-code__pre" id="java-code" hidden>import java.time.*;
+              <pre class="ti-code__pre" id="java-code" hidden data-ts-code data-ts-lang="java">import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 // 获取当前时间戳（秒）
@@ -715,7 +715,7 @@ System.out.println(dateTime.format(formatter)); // 2025-01-11 08:00:00
 LocalDateTime dt = LocalDateTime.parse("2025-01-11 08:00:00", formatter);
 long ts = dt.toEpochSecond(ZoneOffset.ofHours(8));
 System.out.println(ts); // 1736553600</pre>
-              <pre class="ti-code__pre" id="go-code" hidden>package main
+              <pre class="ti-code__pre" id="go-code" hidden data-ts-code data-ts-lang="go">package main
 
 import (
     "fmt"
@@ -739,7 +739,7 @@ func main() {
     dt, _ := time.ParseInLocation(layout, "2025-01-11 08:00:00", loc)
     fmt.Println(dt.Unix()) // 1736553600
 }</pre>
-              <pre class="ti-code__pre" id="php-code" hidden>&lt;?php
+              <pre class="ti-code__pre" id="php-code" hidden data-ts-code data-ts-lang="php">&lt;?php
 // 获取当前时间戳（秒）
 $timestamp = time();
 
@@ -1137,5 +1137,8 @@ echo $ts; // 1736553600（在 Asia/Shanghai 下）
       setCodeTab('js');
     })();
   </script>
+  <!-- 共享代码着色(本地, 无外部依赖) -->
+  <script src="/assets/js/tool-code-highlight.js?v=20260830a"></script>
+  <script>tsCode.scan(document);</script>
 </body>
 </html>

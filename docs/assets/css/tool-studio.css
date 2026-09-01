@@ -436,6 +436,20 @@
 .ts-input::placeholder,
 .ts-textarea::placeholder { color: var(--studio-text-muted); }
 
+/* ---------- 代码语法着色(IDEA Light 风格令牌) ----------
+   由 docs/assets/js/tool-code-highlight.js 生成 .ts-tok-* 类;
+   暖纸底配色; 深色上下文由各工具页用自己的变量覆盖。 ---------- */
+.tool-studio .ts-tok-kw   { color: #0033b3; }                /* 关键字 */
+.tool-studio .ts-tok-str  { color: #067d17; }                /* 字符串 */
+.tool-studio .ts-tok-num  { color: #1750eb; }                /* 数字 */
+.tool-studio .ts-tok-com  { color: #75766f; font-style: italic; } /* 注释 */
+.tool-studio .ts-tok-fn   { color: #00627a; }                /* 函数/方法名 */
+.tool-studio .ts-tok-type { color: #7d5410; }                /* 类型/类名 */
+.tool-studio .ts-tok-ann  { color: #8a7500; }                /* 注解/装饰器 */
+.tool-studio .ts-tok-key  { color: #871094; }                /* JSON键/属性名/HTML属性 */
+.tool-studio .ts-tok-tag  { color: #0033b3; }                /* HTML标签名 */
+.tool-studio .ts-tok-punc { color: #5f605a; }                /* 结构标点 */
+
 /* ---------- 页脚 ---------- */
 .ts-foot {
   border-top: 1px solid var(--studio-paper-line);

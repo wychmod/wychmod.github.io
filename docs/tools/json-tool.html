@@ -8,7 +8,7 @@
   <!-- 视觉母体令牌(只读复用) -->
   <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
   <!-- 工具页共享外壳(scoped) -->
-  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260830a">
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260830b">
   <style>
     /* ===========================================================
        P017 JSON 工具专属样式 (page-scoped, 限定在 .jd-page 下)
@@ -172,6 +172,37 @@
       display: flex;
       min-height: 0;
     }
+    /* ---------- 高亮底层(IDE 式): 与 textarea 同度量, 文字着色, 置于其下 ---------- */
+    .jd-hl {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      margin: 0;
+      padding: 14px 16px 14px 56px;
+      font-family: var(--studio-font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      white-space: pre;
+      overflow: hidden;
+      color: var(--jd-editor-text);
+      pointer-events: none;
+      tab-size: 2;
+    }
+    .jd-hl[hidden] { display: none; }
+    .jd-textarea { position: relative; z-index: 1; }
+    .jd-textarea::selection { background: rgba(139, 207, 165, 0.28); }
+    .jd-textarea::placeholder { color: var(--jd-editor-placeholder); }
+    /* 深色令牌: 复用本页树视图色板, 覆盖 tool-studio 的浅色令牌 */
+    .tool-studio .jd-hl .ts-tok-kw   { color: var(--jd-bool); }
+    .tool-studio .jd-hl .ts-tok-str  { color: var(--jd-string); }
+    .tool-studio .jd-hl .ts-tok-num  { color: var(--jd-number); }
+    .tool-studio .jd-hl .ts-tok-key  { color: var(--jd-key); }
+    .tool-studio .jd-hl .ts-tok-punc { color: var(--jd-editor-gutter); }
+    .tool-studio .jd-diagnosis__snippet .ts-tok-kw   { color: var(--jd-bool); }
+    .tool-studio .jd-diagnosis__snippet .ts-tok-str  { color: var(--jd-string); }
+    .tool-studio .jd-diagnosis__snippet .ts-tok-num  { color: var(--jd-number); }
+    .tool-studio .jd-diagnosis__snippet .ts-tok-key  { color: var(--jd-key); }
+
     .jd-line-gutter {
       position: absolute;
       top: 0;
@@ -199,7 +230,8 @@
       padding: 14px 16px 14px 56px;
       background: transparent;
       border: 0;
-      color: var(--jd-editor-text);
+      color: transparent;              /* 文字由 .jd-hl 高亮层着色 */
+      caret-color: var(--jd-editor-text);
       font-family: var(--studio-font-mono);
       font-size: 13px;
       line-height: 1.65;
@@ -612,7 +644,8 @@
           </header>
           <div class="jd-editor__frame">
             <pre class="jd-line-gutter" id="lineGutter" aria-hidden="true">1</pre>
-            <textarea id="input" class="jd-textarea" placeholder="将原始 JSON 粘贴到这里，或直接使用已预置的示例数据。" aria-label="原始 JSON 输入框" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
+            <pre class="jd-hl" id="inputHl" aria-hidden="true"></pre>
+            <textarea id="input" class="jd-textarea" wrap="off" placeholder="将原始 JSON 粘贴到这里，或直接使用已预置的示例数据。" aria-label="原始 JSON 输入框" spellcheck="false" autocapitalize="off" autocorrect="off"></textarea>
           </div>
         </section>
 
@@ -628,7 +661,8 @@
             </div>
           </header>
           <div class="jd-editor__frame">
-            <textarea id="output" class="jd-textarea" placeholder="处理结果将显示在这里..." readonly aria-label="处理结果输出框" spellcheck="false"></textarea>
+            <pre class="jd-hl" id="outputHl" aria-hidden="true"></pre>
+            <textarea id="output" class="jd-textarea" wrap="off" placeholder="处理结果将显示在这里..." readonly aria-label="处理结果输出框" spellcheck="false"></textarea>
             <div id="treeOutput" class="jd-tree" hidden aria-label="结果树视图"></div>
           </div>
         </section>
@@ -785,10 +819,12 @@
       validateJSON();
       updateInputMeta();
       syncLineGutter();
+      renderInputHl();
     });
     input.addEventListener('click', updateInputMeta);
     input.addEventListener('keyup', updateInputMeta);
     input.addEventListener('scroll', syncGutterScroll);
+    output.addEventListener('scroll', syncHlScroll);
 
     // 视图切换 (文本 / 树)
     document.querySelectorAll('.jd-view-toggle button').forEach(function (btn) {
@@ -1005,6 +1041,8 @@
     function clearInput() {
       input.value = '';
       output.value = '';
+      renderInputHl();
+      renderOutputHl();
       stats.classList.remove('show');
       setStatus('wait', '等待输入');
       renderDiagnosis(null, '');
@@ -1104,7 +1142,32 @@
     function syncGutterScroll() {
       if (!lineGutter) return;
       lineGutter.scrollTop = input.scrollTop;
+      syncHlScroll();
     }
+
+    // ---------- 高亮底层 (共享 tsCode 着色器; textarea 文字透明, 由此层着色) ----------
+    var inputHl = document.getElementById('inputHl');
+    var outputHl = document.getElementById('outputHl');
+
+    function renderInputHl() {
+      if (inputHl && window.tsCode) inputHl.innerHTML = tsCode.highlight(input.value, 'json');
+    }
+    function renderOutputHl() {
+      if (outputHl && window.tsCode) outputHl.innerHTML = tsCode.highlight(output.value, 'json');
+    }
+    function syncHlScroll() {
+      if (inputHl) { inputHl.scrollTop = input.scrollTop; inputHl.scrollLeft = input.scrollLeft; }
+      if (outputHl) { outputHl.scrollTop = output.scrollTop; outputHl.scrollLeft = output.scrollLeft; }
+    }
+    function initHl() {
+      renderInputHl();
+      renderOutputHl();
+      const snippet = document.getElementById('errorSnippet');
+      if (snippet && snippet.textContent && window.tsCode) {
+        snippet.innerHTML = tsCode.highlight(snippet.textContent, 'json');
+      }
+    }
+    window.__jdInitHl = initHl;
 
     // ---------- 输出视图切换 / 移动 tab ----------
 
@@ -1117,12 +1180,14 @@
         if (textBtn) textBtn.classList.remove('is-active');
         if (treeBtn) treeBtn.classList.add('is-active');
         if (ta) ta.hidden = true;
+        if (outputHl) outputHl.hidden = true;
         if (tree) tree.hidden = false;
         renderTreeFromOutput();
       } else {
         if (textBtn) textBtn.classList.add('is-active');
         if (treeBtn) treeBtn.classList.remove('is-active');
         if (ta) ta.hidden = false;
+        if (outputHl) outputHl.hidden = false;
         if (tree) tree.hidden = true;
       }
     }
@@ -1154,6 +1219,7 @@
     }
 
     function afterOutputChange(preferView) {
+      renderOutputHl();
       afterOutputView();
       // 移动端: 操作后自动切到结果面板, 方便查看
       if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
@@ -1305,6 +1371,11 @@
         if (suggest) suggest.textContent = '';
         return;
       }
+      const hlSnippet = () => {
+        if (snippet && window.tsCode && snippet.textContent) {
+          snippet.innerHTML = tsCode.highlight(snippet.textContent, 'json');
+        }
+      };
       const msg = error.message || String(error);
       const pos = extractParsePosition(msg);
       const lc = positionToLineColumn(source, pos);
@@ -1317,6 +1388,7 @@
       summary.textContent = head;
       summary.dataset.state = 'err';
       if (snippet) snippet.textContent = getSourceSnippet(source, lc.line, 2);
+      hlSnippet();
       if (suggest) {
         const s = suggestJsonFix(msg);
         suggest.textContent = '';
@@ -1385,5 +1457,8 @@
       return '请检查 JSON 结构: 引号、逗号、冒号、括号是否匹配。';
     }
   </script>
+  <!-- 共享代码着色(本地, 无外部依赖): 编辑器高亮底层 / 错误片段 -->
+  <script src="/assets/js/tool-code-highlight.js?v=20260830a"></script>
+  <script>if (window.__jdInitHl) window.__jdInitHl();</script>
 </body>
 </html>

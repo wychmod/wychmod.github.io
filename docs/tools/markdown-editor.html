@@ -9,7 +9,7 @@
   <!-- 视觉母体令牌(只读复用) -->
   <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
   <!-- 工具页共享外壳(scoped) -->
-  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260830a">
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260830b">
   <style>
     /* ===========================================================
        P018 Markdown 编辑器专属样式 (page-scoped, 限定在 .mdw-page 下)
@@ -1101,6 +1101,7 @@ Inline code: \`const x = 42;\`
       const markdown = markdownInput.value;
       const html = parseMarkdown(markdown);
       previewContent.innerHTML = sanitizeRenderedHtml(html);
+      if (window.__mdwMarkCode) window.__mdwMarkCode();
       renderOutline(markdown);
     }
 
@@ -1729,6 +1730,23 @@ Inline code: \`const x = 42;\`
       updateCounts();
       updateLineNumbers();
     });
+  </script>
+  <!-- 共享代码着色(本地, 无外部依赖): 预览区围栏代码块 -->
+  <script src="/assets/js/tool-code-highlight.js?v=20260830a"></script>
+  <script>
+    (function () {
+      var body = document.getElementById('previewContent');
+      if (!body || !window.tsCode) return;
+      function markCode() {
+        body.querySelectorAll('pre > code[class*="language-"]').forEach(function (el) {
+          var m = /(?:^|\s)language-([\w-]+)/.exec(el.className);
+          if (m) { el.setAttribute('data-ts-lang', m[1]); el.setAttribute('data-ts-code', ''); }
+        });
+        tsCode.scan(body);
+      }
+      window.__mdwMarkCode = markCode;
+      markCode();
+    })();
   </script>
 </body>
 </html>

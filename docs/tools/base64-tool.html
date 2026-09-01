@@ -9,7 +9,7 @@
   <!-- 视觉母体令牌(只读复用, 不改其值) -->
   <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
   <!-- 工具页共享外壳(scoped) -->
-  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260830a">
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260830b">
   <style>
     /* ===========================================================
        P014 Base64 工具专属样式 (page-specific, scoped under .tool-studio)
@@ -731,7 +731,7 @@
             <span class="b64-code__lang">JavaScript / Node.js</span>
             <button class="b64-code__copy" onclick="copyCode(this, 'js-code')" aria-label="复制 JavaScript 示例代码">复制</button>
           </div>
-          <pre id="js-code" class="b64-code__pre">// 文本编码（浏览器环境，推荐 TextEncoder）
+          <pre id="js-code" class="b64-code__pre" data-ts-code data-ts-lang="js">// 文本编码（浏览器环境，推荐 TextEncoder）
 const text = "Hello, Base64!";
 const bytes = new TextEncoder().encode(text);
 const encoded = btoa(String.fromCharCode(...bytes));
@@ -768,7 +768,7 @@ console.log(decodedNode); // Hello, Base64!</pre>
             <span class="b64-code__lang">Python</span>
             <button class="b64-code__copy" onclick="copyCode(this, 'py-code')" aria-label="复制 Python 示例代码">复制</button>
           </div>
-          <pre id="py-code" class="b64-code__pre">import base64
+          <pre id="py-code" class="b64-code__pre" data-ts-code data-ts-lang="python">import base64
 
 # 文本编码
 text = "Hello, Base64!"
@@ -800,7 +800,7 @@ print(url_safe_encoded)  # b'SGVsbG8sIEJhc2U2NCE='</pre>
             <span class="b64-code__lang">Java</span>
             <button class="b64-code__copy" onclick="copyCode(this, 'java-code')" aria-label="复制 Java 示例代码">复制</button>
           </div>
-          <pre id="java-code" class="b64-code__pre">import java.util.Base64;
+          <pre id="java-code" class="b64-code__pre" data-ts-code data-ts-lang="java">import java.util.Base64;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -840,7 +840,7 @@ public class Base64Example {
             <span class="b64-code__lang">Go</span>
             <button class="b64-code__copy" onclick="copyCode(this, 'go-code')" aria-label="复制 Go 示例代码">复制</button>
           </div>
-          <pre id="go-code" class="b64-code__pre">package main
+          <pre id="go-code" class="b64-code__pre" data-ts-code data-ts-lang="go">package main
 
 import (
     "encoding/base64"
@@ -881,7 +881,7 @@ func main() {
             <span class="b64-code__lang">PHP</span>
             <button class="b64-code__copy" onclick="copyCode(this, 'php-code')" aria-label="复制 PHP 示例代码">复制</button>
           </div>
-          <pre id="php-code" class="b64-code__pre">&lt;?php
+          <pre id="php-code" class="b64-code__pre" data-ts-code data-ts-lang="php">&lt;?php
 // 文本编码
 $text = "Hello, Base64!";
 $encoded = base64_encode($text);
@@ -1528,5 +1528,8 @@ function isBase64($string) {
       }, 2000);
     }
   </script>
+  <!-- 共享代码着色(本地, 无外部依赖) -->
+  <script src="/assets/js/tool-code-highlight.js?v=20260830a"></script>
+  <script>tsCode.scan(document);</script>
 </body>
 </html>
