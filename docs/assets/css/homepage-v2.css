@@ -1074,8 +1074,10 @@ body.is-home .markdown-section .home-section-title {
   letter-spacing: 0 !important;
   line-height: 1.25 !important;
 }
-.home-recent-list { display: flex; flex-direction: column; }
+/* 序号自增: 由 CSS counter 按 DOM 顺序生成, 增删条目无需手写编号 (防止手写序号重复) */
+.home-recent-list { display: flex; flex-direction: column; counter-reset: home-recent; }
 .home-recent-row {
+  counter-increment: home-recent;
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr) auto 24px;
   align-items: center;
@@ -1097,6 +1099,7 @@ body.is-home .markdown-section .home-section-title {
   line-height: 1;
   color: var(--studio-text);
 }
+.home-recent-num::before { content: counter(home-recent, decimal-leading-zero); }
 .home-recent-main { min-width: 0; }
 body.is-home .markdown-section .home-recent-title {
   font-family: var(--studio-font-display);
