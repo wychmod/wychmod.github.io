@@ -20,9 +20,9 @@
 
   <!-- 壳层入口样式：tokens / shell / pages -->
   <link rel="stylesheet" href="/assets/css/tokens.css?v=20260826a">
-  <link rel="stylesheet" href="/assets/css/shell.css?v=20260826a">
+  <link rel="stylesheet" href="/assets/css/shell.css?v=20260901a">
   <link rel="stylesheet" href="/assets/css/pages/home.css?v=20260826a">
-  <link rel="stylesheet" href="/assets/css/pages/article.css?v=20260826a">
+  <link rel="stylesheet" href="/assets/css/pages/article.css?v=20260901a">
   <link rel="stylesheet" href="/assets/css/pages/site-map.css?v=20260826a">
 
   <!-- 百度统计 -->
@@ -78,8 +78,6 @@
   <div id="terminal-header">
     <div id="terminal-controls">
       <div class="terminal-control-btn close" role="button" tabindex="0" aria-label="关闭终端" title="关闭终端"></div>
-      <div class="terminal-control-btn minimize"></div>
-      <div class="terminal-control-btn maximize"></div>
     </div>
     <div id="terminal-title">wychmod@knowledge-base:~</div>
     <div></div>
@@ -88,8 +86,10 @@
     <div id="terminal-output" aria-live="polite" aria-label="终端输出"></div>
     <div id="terminal-input-line">
       <span class="terminal-prompt" id="terminal-prompt">$ </span>
-      <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" aria-label="输入终端命令">
-      <span id="terminal-cursor"></span>
+      <div id="terminal-input-wrap">
+        <div id="terminal-mirror" aria-hidden="true"><span id="terminal-mirror-before"></span><span id="terminal-cursor"></span><span id="terminal-mirror-after"></span></div>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" aria-label="输入终端命令">
+      </div>
     </div>
   </div>
 </div>
@@ -187,7 +187,7 @@
 <script src="https://registry.npmmirror.com/lucide/0.468.0/files/dist/umd/lucide.min.js"></script>
 <!-- 壳层 bootstrap / feature / page modules (必须在 docsify.min.js 之前) -->
 <script src="/assets/js/bootstrap.js?v=20260826a"></script>
-<script src="/assets/js/features/terminal.js?v=20260826a"></script>
+<script src="/assets/js/features/terminal.js?v=20260901a"></script>
 <script src="/assets/js/features/terminal-a11y.js?v=20260826a"></script>
 <script src="/assets/js/pages/home.js?v=20260826a"></script>
 <script src="/assets/js/pages/article.js?v=20260826a"></script>

@@ -2047,11 +2047,8 @@ body.is-article #terminal-title {
   letter-spacing: 0.04em !important;
 }
 
-/* 控件: 隐藏无功能 minimize/maximize (规范 §4.2: 不暴露无功能按钮给读屏) */
-body.is-article #terminal-controls .terminal-control-btn.minimize,
-body.is-article #terminal-controls .terminal-control-btn.maximize {
-  display: none !important;
-}
+/* 控件: 无功能 minimize/maximize 已从 index.html DOM 移除 (规范 §4.2: 不暴露无功能按钮),
+   仅剩红色关闭按钮 */
 
 /* 关闭按钮: 朱砂圆点 + 金边聚焦 (规范 §4.2/§5.3; 可读屏可键盘由 P009 JS hook 补) */
 body.is-article #terminal-controls .terminal-control-btn.close {
@@ -2163,31 +2160,41 @@ body.is-article #terminal-prompt {
   font-size: 14px !important;
   font-weight: 600 !important;
 }
+/* 输入框: 透明覆盖在镜像文本上捕获输入 (布局由 modern-theme 基底层承担),
+   文字与原生 caret 均透明, 可见文本与块光标由 #terminal-mirror 渲染 */
 body.is-article #terminal-input {
-  flex: 1 !important;
-  padding: 0 !important;
-  color: var(--studio-on-dark) !important;
+  color: transparent !important;
+  caret-color: transparent !important;
   background: transparent !important;
   border: 0 !important;
   outline: 0 !important;
   font-family: var(--studio-font-mono) !important;
   font-size: 14px !important;
-  caret-color: var(--studio-green) !important;
 }
 body.is-article #terminal-input:focus-visible {
   outline: 0 !important;
 }
 body.is-article #terminal-input::placeholder {
-  color: var(--studio-on-dark-muted) !important;
+  color: transparent !important;
 }
 
-/* 自定义光标: 信号绿闪烁块 (规范 §5.5; 仅装饰, 与原生 caret 共存) */
+/* 镜像文本: 与输入框同字体同字号, 块光标即真实输入位置 */
+body.is-article #terminal-mirror {
+  color: var(--studio-on-dark) !important;
+  font-family: var(--studio-font-mono) !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* 块光标: 信号绿闪烁块, 紧跟镜像文本 caret 位置; 仅输入框聚焦时闪烁 */
 body.is-article #terminal-cursor {
   display: inline-block !important;
   width: 8px !important;
   height: 16px !important;
   border-radius: 1px !important;
   background: var(--studio-green) !important;
+}
+body.is-article #terminal-input-wrap:focus-within #terminal-cursor {
   animation: p009CursorBlink 1s infinite !important;
 }
 @keyframes p009CursorBlink {
@@ -2260,6 +2267,7 @@ body.is-article #terminal-trigger[aria-expanded="true"] {
     padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
   }
   body.is-article #terminal-input,
+  body.is-article #terminal-mirror,
   body.is-article #terminal-prompt {
     font-size: 13px !important;
   }
@@ -2267,7 +2275,8 @@ body.is-article #terminal-trigger[aria-expanded="true"] {
 
 /* --- reduced-motion: 光标不闪, 弹窗无入场动画 (规范 §9; studio-tokens 全局已处理, 此处兜底) --- */
 @media (prefers-reduced-motion: reduce) {
-  body.is-article #terminal-cursor {
+  body.is-article #terminal-cursor,
+  body.is-article #terminal-input-wrap:focus-within #terminal-cursor {
     animation: none !important;
     opacity: 1 !important;
   }

@@ -18,7 +18,11 @@
     window: null,
     output: null,
     input: null,
-    prompt: null
+    prompt: null,
+    inputLine: null,
+    mirror: null,
+    mirrorBefore: null,
+    mirrorAfter: null
   };
 
   // 初始化
@@ -30,6 +34,10 @@
     Elements.output = document.getElementById('terminal-output');
     Elements.input = document.getElementById('terminal-input');
     Elements.prompt = document.getElementById('terminal-prompt');
+    Elements.inputLine = document.getElementById('terminal-input-line');
+    Elements.mirror = document.getElementById('terminal-mirror');
+    Elements.mirrorBefore = document.getElementById('terminal-mirror-before');
+    Elements.mirrorAfter = document.getElementById('terminal-mirror-after');
 
     // 绑定事件
     bindEvents();
@@ -58,8 +66,35 @@
     // 输入框回车
     Elements.input.addEventListener('keydown', handleKeyDown);
 
+    // 镜像光标同步: 输入/光标移动/点击/选区/滚动都实时对齐块光标与真实 caret
+    ['input', 'keyup', 'click', 'select', 'scroll'].forEach(function(evt) {
+      Elements.input.addEventListener(evt, syncCursor);
+    });
+
+    // 点击输入行任意位置 (含 prompt 区域) 聚焦输入框
+    if (Elements.inputLine) {
+      Elements.inputLine.addEventListener('click', function() {
+        Elements.input.focus();
+      });
+    }
+
     // 全局快捷键
     document.addEventListener('keydown', handleGlobalKeyDown);
+  }
+
+  // 同步镜像文本与块光标位置 (块光标直接落在真实输入位置)
+  function syncCursor() {
+    if (!Elements.mirrorBefore || !Elements.mirrorAfter) return;
+    const value = Elements.input.value;
+    const pos = typeof Elements.input.selectionStart === 'number'
+      ? Elements.input.selectionStart
+      : value.length;
+    Elements.mirrorBefore.textContent = value.slice(0, pos);
+    Elements.mirrorAfter.textContent = value.slice(pos);
+    // 长输入横向滚动时镜像跟随输入框滚动偏移
+    if (Elements.mirror) {
+      Elements.mirror.scrollLeft = Elements.input.scrollLeft;
+    }
   }
 
   // 切换终端显示
@@ -77,6 +112,7 @@
     Elements.overlay.classList.add('active');
     Elements.window.classList.add('active');
     Elements.input.focus();
+    syncCursor();
 
     // 如果是首次打开，显示欢迎信息
     if (Elements.output.children.length === 0) {
@@ -166,6 +202,7 @@
 
     // 清空输入
     Elements.input.value = '';
+    syncCursor();
 
     // 解析并执行命令
     const parts = parseCommand(input);
@@ -850,10 +887,12 @@
     } else if (TerminalState.historyIndex >= TerminalState.commandHistory.length) {
       TerminalState.historyIndex = TerminalState.commandHistory.length;
       Elements.input.value = '';
+      syncCursor();
       return;
     }
 
     Elements.input.value = TerminalState.commandHistory[TerminalState.historyIndex] || '';
+    syncCursor();
   }
 
   // 自动补全
@@ -866,6 +905,7 @@
       const matches = Object.keys(Commands).filter(cmd => cmd.startsWith(parts[0].toLowerCase()));
       if (matches.length === 1) {
         Elements.input.value = matches[0] + ' ';
+        syncCursor();
       } else if (matches.length > 1) {
         addOutput(`<span class="terminal-info">${matches.join('  ')}</span>`);
         scrollToBottom();

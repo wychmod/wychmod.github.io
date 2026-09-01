@@ -1225,9 +1225,11 @@ details[open] summary {
   border-radius: 50% !important;
 }
 
-.terminal-control-btn.close { background: #ff6b6b !important; }
-.terminal-control-btn.minimize { background: #ffd166 !important; }
-.terminal-control-btn.maximize { background: #52d273 !important; }
+/* 仅保留红色关闭按钮 (无功能的 minimize/maximize 已从 DOM 移除) */
+.terminal-control-btn.close {
+  background: #ff6b6b !important;
+  cursor: pointer !important;
+}
 
 #terminal-title {
   color: var(--on-dark-muted) !important;
@@ -1265,10 +1267,45 @@ details[open] summary {
   margin-top: 10px !important;
 }
 
-#terminal-input {
+/* 输入区: 镜像文本 + 块光标渲染真实 caret 位置;
+   原生 input 透明覆盖其上捕获键盘/点击, 块光标即输入位置 */
+#terminal-input-wrap {
+  position: relative !important;
   flex: 1 !important;
-  padding: 0 8px !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+#terminal-mirror {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  white-space: pre !important;
+  pointer-events: none !important;
   color: var(--on-dark) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 13.5px !important;
+  line-height: 1.7 !important;
+}
+
+#terminal-mirror-before,
+#terminal-mirror-after {
+  flex: 0 0 auto !important;
+  white-space: pre !important;
+}
+
+#terminal-input {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: transparent !important;
+  caret-color: transparent !important;
   background: transparent !important;
   border: 0 !important;
   outline: 0 !important;
@@ -1277,11 +1314,16 @@ details[open] summary {
 }
 
 #terminal-cursor {
+  flex: 0 0 auto !important;
   display: inline-block !important;
   width: 8px !important;
   height: 16px !important;
   border-radius: 1px !important;
   background: #a58bff !important;
+}
+
+/* 仅输入框聚焦时闪烁, 未聚焦保持静止 */
+#terminal-input-wrap:focus-within #terminal-cursor {
   animation: cursorBlink 1s infinite !important;
 }
 
