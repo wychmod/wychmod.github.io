@@ -640,6 +640,63 @@ body.is-article .markdown-section pre code {
   line-height: 1.65 !important;
 }
 
+/* Prism 语法高亮: 深墨底上的书房信号色 (规范 §4.4 色板, 只读取令牌) */
+body.is-article .markdown-section pre .token.comment,
+body.is-article .markdown-section pre .token.prolog,
+body.is-article .markdown-section pre .token.cdata {
+  color: var(--studio-on-dark-muted) !important;
+  font-style: italic;
+}
+body.is-article .markdown-section pre .token.keyword,
+body.is-article .markdown-section pre .token.tag,
+body.is-article .markdown-section pre .token.important,
+body.is-article .markdown-section pre .token.atrule,
+body.is-article .markdown-section pre .token.rule,
+body.is-article .markdown-section pre .token.selector {
+  color: var(--studio-green) !important;
+}
+body.is-article .markdown-section pre .token.string,
+body.is-article .markdown-section pre .token.char,
+body.is-article .markdown-section pre .token.attr-value,
+body.is-article .markdown-section pre .token.regex {
+  color: var(--studio-gold) !important;
+}
+body.is-article .markdown-section pre .token.number,
+body.is-article .markdown-section pre .token.boolean,
+body.is-article .markdown-section pre .token.constant,
+body.is-article .markdown-section pre .token.symbol,
+body.is-article .markdown-section pre .token.unit {
+  color: var(--studio-cyan) !important;
+}
+body.is-article .markdown-section pre .token.function,
+body.is-article .markdown-section pre .token.class-name,
+body.is-article .markdown-section pre .token.namespace,
+body.is-article .markdown-section pre .token.builtin {
+  color: var(--studio-focus) !important;
+}
+body.is-article .markdown-section pre .token.attr-name,
+body.is-article .markdown-section pre .token.property,
+body.is-article .markdown-section pre .token.annotation,
+body.is-article .markdown-section pre .token.decorator {
+  color: var(--studio-rust) !important;
+}
+body.is-article .markdown-section pre .token.operator,
+body.is-article .markdown-section pre .token.punctuation,
+body.is-article .markdown-section pre .token.entity,
+body.is-article .markdown-section pre .token.url {
+  color: var(--studio-on-dark-muted) !important;
+  background: transparent !important;
+}
+body.is-article .markdown-section pre .token.variable {
+  color: var(--studio-on-dark) !important;
+}
+body.is-article .markdown-section pre .token.inserted {
+  color: var(--studio-green) !important;
+}
+body.is-article .markdown-section pre .token.deleted {
+  color: var(--studio-vermilion) !important;
+}
+
 /* docsify-copy-code 插件按钮: 右上角可见 (规范 §5.4) */
 body.is-article .markdown-section .docsify-copy-code-button,
 body.is-article .markdown-section pre[data-lang] + .docsify-copy-code-button,

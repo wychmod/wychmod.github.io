@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="/assets/css/tokens.css?v=20260902a">
   <link rel="stylesheet" href="/assets/css/shell.css?v=20260901a">
   <link rel="stylesheet" href="/assets/css/pages/home.css?v=20260902a">
-  <link rel="stylesheet" href="/assets/css/pages/article.css?v=20260902a">
+  <link rel="stylesheet" href="/assets/css/pages/article.css?v=20260902b">
   <link rel="stylesheet" href="/assets/css/pages/site-map.css?v=20260826a">
 
   <!-- 百度统计 -->
@@ -193,9 +193,27 @@
 <script src="/assets/js/pages/article.js?v=20260826a"></script>
 <script src="/assets/js/pages/site-map.js?v=20260826a"></script>
 <script src="/assets/js/docsify.min.js"></script>
-<script src="/assets/js/prism.js"></script>
+<!-- 注意: docsify.min.js 内嵌 Prism 核心并挂到 window.Prism, 代码高亮走内嵌实例;
+     禁止再加载独立 prism.js 核心(会覆盖 window.Prism, 语法组件注册到错误实例上失效)。
+     语法组件直接注册到 docsify 内嵌的 window.Prism 即可。 -->
 <script src="/assets/js/prism-bash.js"></script>
 <script src="/assets/js/prism-java.min.js"></script>
+<!-- Prism 语法组件: 覆盖全站 markdown 实际使用的语言 (python/sql/yaml/json/c/go/jsx/properties/lua/powershell/ini/docker/nginx) -->
+<script src="/assets/js/prism-python.min.js"></script>
+<script src="/assets/js/prism-sql.min.js"></script>
+<script src="/assets/js/prism-yaml.min.js"></script>
+<script src="/assets/js/prism-json.min.js"></script>
+<script src="/assets/js/prism-c.min.js"></script>
+<script src="/assets/js/prism-go.min.js"></script>
+<script src="/assets/js/prism-jsx.min.js"></script>
+<script src="/assets/js/prism-properties.min.js"></script>
+<script src="/assets/js/prism-lua.min.js"></script>
+<script src="/assets/js/prism-powershell.min.js"></script>
+<script src="/assets/js/prism-ini.min.js"></script>
+<script src="/assets/js/prism-docker.min.js"></script>
+<script src="/assets/js/prism-nginx.min.js"></script>
+<!-- 语言别名: sh→bash, react→jsx (必须在语法组件之后) -->
+<script src="/assets/js/prism-aliases.js"></script>
 <script src="/assets/js/gitalk.min.js"></script>
 <script src="https://registry.npmmirror.com/docsify/4.13.1/files/lib/plugins/search.js"></script>
 <script src="/assets/js/docsify-pagination.min.js"></script>
