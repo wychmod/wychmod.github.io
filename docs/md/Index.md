@@ -249,7 +249,6 @@
     <li><a href="#/README-Terminal.md">终端使用指南</a><span>命令行终端的命令与快捷键</span></li>
     <li><a href="#/AI-ASSISTANT-GUIDE.md">AI 助手使用指南</a><span>终端式技术助手</span></li>
     <li><a href="#/AI-TROUBLESHOOTING.md">AI 故障排查</a><span>常见问题排查</span></li>
-    <li><a href="#/AI-UPDATE-SUMMARY.md">更新摘要</a><span>AI 功能更新记录</span></li>
   </ul>
 </details>
 

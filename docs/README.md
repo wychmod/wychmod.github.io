@@ -14,6 +14,30 @@
   </div>
   <div class="home-recent-list">
     <!-- 序号由 CSS counter 按 DOM 顺序自动生成, 维护时只增删行, 不要手写编号 -->
+    <a class="home-recent-row" href="#/md/09-开发工具/10-工具箱与资源.md">
+      <span class="home-recent-num"></span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">工具箱与资源：正文重构瘦身</h3>
+        <p class="home-recent-excerpt">移除文末内联旧存档，12 个工具改表格导航，原文以归档链接承载。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-8)">开发工具</span>
+        <span class="home-recent-date">2026-09-02</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="home-recent-row" href="#/md/01-计算机基础/00-Java与JVM.md">
+      <span class="home-recent-num"></span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">Java 基础：补全 JUC 并发编程</h3>
+        <p class="home-recent-excerpt">基于归档笔记新增线程、锁、CAS、线程池、AQS 与并发容器全链路章节。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
+        <span class="home-recent-date">2026-09-02</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
     <a class="home-recent-row" href="#/md/02-后端开发/40-分布式ID与雪花算法.md">
       <span class="home-recent-num"></span>
       <div class="home-recent-main">
@@ -23,30 +47,6 @@
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-1)">后端开发</span>
         <span class="home-recent-date">2026-08-30</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/01-计算机基础/00-Java与JVM.md">
-      <span class="home-recent-num"></span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">Java 基础：模块收敛与生态章节更名</h3>
-        <p class="home-recent-excerpt">工程实践模块移出，正文聚焦语言基础，生态章节更名最新 Java 生态。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-0)">计算机基础</span>
-        <span class="home-recent-date">2026-08-30</span>
-      </div>
-      <span class="home-recent-arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="home-recent-row" href="#/md/10-项目实战/01-自动化测试平台/05-当前进度与未完待续.md">
-      <span class="home-recent-num"></span>
-      <div class="home-recent-main">
-        <h3 class="home-recent-title">自动化测试平台：当前进度与未完待续</h3>
-        <p class="home-recent-excerpt">按 cloud-meter 当前实现复盘已完成、骨架和未完待续边界。</p>
-      </div>
-      <div class="home-recent-meta">
-        <span class="home-recent-cat" style="--cat-color:var(--kg-8)">项目实战</span>
-        <span class="home-recent-date">2026-08-28</span>
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
@@ -329,7 +329,6 @@
         <li><a href="#/README-Terminal.md">终端使用指南</a><span>命令行终端的命令与快捷键</span></li>
         <li><a href="#/AI-ASSISTANT-GUIDE.md">AI 助手使用指南</a><span>终端式技术助手</span></li>
         <li><a href="#/AI-TROUBLESHOOTING.md">AI 故障排查</a><span>常见问题排查</span></li>
-        <li><a href="#/AI-UPDATE-SUMMARY.md">更新摘要</a><span>AI 功能更新记录</span></li>
       </ul>
     </details>
     <!-- 10 项目实战 -->

@@ -136,7 +136,6 @@
     - [工具箱与资源](/md/09-开发工具/10-工具箱与资源.md)
     - [AI 助手使用指南](/AI-ASSISTANT-GUIDE.md)
     - [AI 故障排查](/AI-TROUBLESHOOTING)
-    - [更新摘要](/AI-UPDATE-SUMMARY)
 ---
 
 - 🧩 **项目实战**
