@@ -1,0 +1,180 @@
+/* =========================================================
+   首页动效层(规范 §10 白名单 V1.27 新增 · 方案 B 编辑部氛围层)
+   ---------------------------------------------------------
+   机制:
+   - body.home-motion-armed  JS 在首次进入首页时添加, 隐藏待入场元素;
+     无 JS / 路由往返(重播禁止)时不添加, 内容直接可见
+   - body.home-motion-in     armed 后两帧添加, 触发封面入场(一次性动画)
+   - [data-motion~="fade-up"].is-visible  IntersectionObserver 滚动浮现(一次性)
+   - 图谱连线以 transform:scale 从中心径向生长(non-scaling-stroke 下
+     stroke-dasharray 与 pathLength 归一化冲突, 禁用 dash 方案)
+   作用域: 全部限定 body.is-home / .cover / .home-* 下, 禁止影响文章页。
+   动画一律使用 --studio-* 动效令牌; hover 微交互(transition)不被覆盖,
+   入场用 animation 而非 transition, 避免抢占元素自身的 hover 过渡。
+   全局 prefers-reduced-motion 降级由 studio-tokens.css 通配规则兜底。
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. 滚动浮现 fade-up(README: 装订带/最近更新/页边批注/手记/索引/页脚)
+   --------------------------------------------------------- */
+@keyframes home-motion-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+body.is-home.home-motion-armed [data-motion~="fade-up"] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+body.is-home.home-motion-armed [data-motion~="fade-up"].is-visible {
+  animation: home-motion-fade-up 280ms var(--studio-ease) both;
+  animation-delay: var(--motion-delay, 0ms);
+}
+
+/* ---------------------------------------------------------
+   2. 封面首次入场 stagger(hero 左栏 7 项 + 右栏 3 项, 首次进入播一次)
+   --------------------------------------------------------- */
+body.is-home.home-motion-armed .cover .home-hero > *,
+body.is-home.home-motion-armed .cover .home-aside > * {
+  opacity: 0;
+  transform: translateY(12px);
+}
+body.is-home.home-motion-in .cover .home-hero > *,
+body.is-home.home-motion-in .cover .home-aside > * {
+  animation: home-motion-fade-up 280ms var(--studio-ease) both;
+  animation-delay: var(--motion-delay, 0ms);
+}
+/* 左栏顺序: 眉标 → 标题 → 简介 → 作者 → 搜索 → CTA → 方法 */
+body.is-home .cover .home-hero > :nth-child(1) { --motion-delay: 0ms; }
+body.is-home .cover .home-hero > :nth-child(2) { --motion-delay: 60ms; }
+body.is-home .cover .home-hero > :nth-child(3) { --motion-delay: 120ms; }
+body.is-home .cover .home-hero > :nth-child(4) { --motion-delay: 180ms; }
+body.is-home .cover .home-hero > :nth-child(5) { --motion-delay: 240ms; }
+body.is-home .cover .home-hero > :nth-child(6) { --motion-delay: 300ms; }
+body.is-home .cover .home-hero > :nth-child(7) { --motion-delay: 360ms; }
+/* 右栏稍后跟进: 图谱元信息 → 知识图谱 → 终端卡片 */
+body.is-home .cover .home-aside > :nth-child(1) { --motion-delay: 240ms; }
+body.is-home .cover .home-aside > :nth-child(2) { --motion-delay: 330ms; }
+body.is-home .cover .home-aside > :nth-child(3) { --motion-delay: 420ms; }
+
+/* ---------------------------------------------------------
+   3. 知识图谱连线径向生长(从中心向外延伸)
+   不用 stroke-dashoffset: 连线带 vector-effect:non-scaling-stroke(V1.3),
+   Chrome 在该模式下按屏幕坐标计算虚线, 与 pathLength 归一化冲突会导致
+   动画结束后线段中段缺口; 改用 scale 径向生长, 端点沿射线延伸, 零依赖。
+   --------------------------------------------------------- */
+@keyframes home-motion-line-grow {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+body.is-home.home-motion-armed .home-graph-svg line {
+  transform-box: view-box;
+  transform-origin: 120px 90px;  /* 中心圆位置(viewBox 用户单位) */
+  transform: scale(0);
+}
+body.is-home.home-motion-in .home-graph-svg line {
+  transform-box: view-box;
+  transform-origin: 120px 90px;
+  animation: home-motion-line-grow 800ms var(--studio-ease) both;
+}
+body.is-home .home-graph-svg .kg-line-0 { animation-delay: 480ms; }
+body.is-home .home-graph-svg .kg-line-1 { animation-delay: 540ms; }
+body.is-home .home-graph-svg .kg-line-2 { animation-delay: 600ms; }
+body.is-home .home-graph-svg .kg-line-3 { animation-delay: 660ms; }
+body.is-home .home-graph-svg .kg-line-4 { animation-delay: 720ms; }
+body.is-home .home-graph-svg .kg-line-5 { animation-delay: 780ms; }
+body.is-home .home-graph-svg .kg-line-6 { animation-delay: 840ms; }
+body.is-home .home-graph-svg .kg-line-7 { animation-delay: 900ms; }
+body.is-home .home-graph-svg .kg-line-8 { animation-delay: 960ms; }
+/* 领域端点: 连线生长完成后淡入(hover 降亮度规则特异性更高, 不受影响) */
+body.is-home.home-motion-armed .home-graph-svg .kg-dot { opacity: 0; }
+body.is-home.home-motion-in .home-graph-svg .kg-dot {
+  opacity: 1;
+  transition: opacity 400ms var(--studio-ease) 1050ms;
+}
+
+/* ---------------------------------------------------------
+   4. 装订带墨线横向展开(滚动浮现时 scaleX 0→1)
+   --------------------------------------------------------- */
+body.is-home.home-motion-armed .home-binding .home-binding-rule {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 700ms var(--studio-ease) 150ms;
+}
+body.is-home.home-motion-armed .home-binding.is-visible .home-binding-rule {
+  transform: scaleX(1);
+}
+/* 页脚"本卷终"双墨线: 居中展开 */
+body.is-home.home-motion-armed .home-footer-boundary .home-footer-boundary-rule {
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 700ms var(--studio-ease) 100ms;
+}
+body.is-home.home-motion-armed .home-footer-boundary.is-visible .home-footer-boundary-rule {
+  transform: scaleX(1);
+}
+
+/* ---------------------------------------------------------
+   5. 终端预览打字循环(低频 steps, 仅宽度裁切, 文案不变)
+   --------------------------------------------------------- */
+body.is-home .home-terminal-type {
+  display: inline-block;
+  overflow: hidden;
+  white-space: pre;
+  vertical-align: bottom;
+}
+body.is-home.home-motion-armed .home-terminal-type { width: 0; }
+@keyframes home-motion-type {
+  0%, 8%     { width: 0; }
+  46%, 88%   { width: 13ch; }
+  92%, 100%  { width: 0; }
+}
+body.is-home.home-motion-in .home-terminal-type {
+  animation: home-motion-type 9.5s steps(13, end) 1.2s infinite both;
+}
+
+/* ---------------------------------------------------------
+   6. 封面墨点呼吸背景(纯 CSS 静态色斑透明度呼吸, 非粒子/非光晕;
+      承载于 .cover-main 伪元素, 不新增 DOM, z-index:-1 不压内容)
+   --------------------------------------------------------- */
+body.is-home .cover-main::before,
+body.is-home .cover-main::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+/* 色斑探出部分裁剪于封面内容盒内(渐变在 70% 半径处已透明, 裁边不可见),
+   防止桌面视口出现横向滚动 */
+body.is-home .cover-main { overflow: clip; }
+body.is-home .cover-main::before {
+  width: 520px;
+  height: 520px;
+  top: -140px;
+  right: -120px;
+  background: radial-gradient(closest-side,
+    color-mix(in srgb, var(--studio-gold) 13%, transparent), transparent 70%);
+}
+body.is-home .cover-main::after {
+  width: 420px;
+  height: 420px;
+  bottom: -160px;
+  left: -140px;
+  background: radial-gradient(closest-side,
+    color-mix(in srgb, var(--studio-green) 10%, transparent), transparent 70%);
+}
+@keyframes home-motion-breathe {
+  from { opacity: 0.45; }
+  to   { opacity: 1; }
+}
+body.is-home.home-motion-in .cover-main::before {
+  animation: home-motion-breathe 7s ease-in-out 1.5s infinite alternate;
+}
+body.is-home.home-motion-in .cover-main::after {
+  animation: home-motion-breathe 9s ease-in-out 2.5s infinite alternate-reverse;
+}
+/* 窄屏封面宽度不足, 色斑探出会引发横向滚动, 直接隐藏 */
+@media screen and (max-width: 767px) {
+  body.is-home .cover-main::before,
+  body.is-home .cover-main::after { display: none; }
+}

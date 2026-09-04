@@ -1,4 +1,4 @@
-<div class="home-binding" id="field-notes">
+<div class="home-binding" id="field-notes" data-motion="fade-up">
   <button type="button" class="home-scroll-cue" data-scroll-to="#field-notes" aria-label="向下滚动到近期写作与研究"></button>
   <span class="home-binding-tag"><strong>卷一</strong><span>VOL.01</span></span>
   <span class="home-binding-title"><span class="home-binding-title-en">FIELD NOTES</span> / 近期写作与研究</span>
@@ -7,14 +7,14 @@
 </div>
 
 <section class="home-section" id="recently-updated">
-  <div class="home-section-head">
+  <div class="home-section-head" data-motion="fade-up">
     <span class="home-section-eyebrow">FIELD NOTES · 01</span>
     <h2 class="home-section-title">最近更新</h2>
     <a class="home-section-more" href="#/README" data-scroll-to="#knowledge-index">查看全部 <span class="home-section-more-arrow" aria-hidden="true">→</span></a>
   </div>
   <div class="home-recent-list">
     <!-- 序号由 CSS counter 按 DOM 顺序自动生成, 维护时只增删行, 不要手写编号 -->
-    <a class="home-recent-row" href="#/md/09-开发工具/10-工具箱与资源.md">
+    <a class="home-recent-row" data-motion="fade-up" href="#/md/09-开发工具/10-工具箱与资源.md">
       <span class="home-recent-num"></span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">工具箱与资源：正文重构瘦身</h3>
@@ -26,7 +26,7 @@
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
-    <a class="home-recent-row" href="#/md/01-计算机基础/00-Java与JVM.md">
+    <a class="home-recent-row" data-motion="fade-up" href="#/md/01-计算机基础/00-Java与JVM.md">
       <span class="home-recent-num"></span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">Java 基础：补全 JUC 并发编程</h3>
@@ -38,7 +38,7 @@
       </div>
       <span class="home-recent-arrow" aria-hidden="true">→</span>
     </a>
-    <a class="home-recent-row" href="#/md/02-后端开发/40-分布式ID与雪花算法.md">
+    <a class="home-recent-row" data-motion="fade-up" href="#/md/02-后端开发/40-分布式ID与雪花算法.md">
       <span class="home-recent-num"></span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">分布式 ID 与雪花算法</h3>
@@ -54,22 +54,22 @@
 </section>
 
 <section class="home-section" id="desk-side">
-  <div class="home-section-head">
+  <div class="home-section-head" data-motion="fade-up">
     <span class="home-section-eyebrow">MARGINALIA</span>
     <h2 class="home-section-title">书桌边 · 页边批注</h2>
   </div>
   <div class="home-desk">
     <div class="home-marginalia">
       <div class="home-marginalia-list">
-        <div class="home-marginalia-item">
+        <div class="home-marginalia-item" data-motion="fade-up">
           <p class="home-marginalia-quote">过去，前端拿设计稿写页面，设计师在交付和 Review 中兜底。AI 时代以后，产品、前端或 Agent 可能直接在代码仓库里生成页面。这时如果组件用法、设计规则、验收标准仍只存在于人的脑子里，AI 就只能凭记忆猜。</p>
           <p class="home-marginalia-source">摘自 <a href="#/md/05-AI与Agent/60-AI前端设计工程化">AI 前端设计工程化 · 核心概述</a> · 2026-08-16</p>
         </div>
-        <div class="home-marginalia-item">
+        <div class="home-marginalia-item" data-motion="fade-up">
           <p class="home-marginalia-quote">客户端与服务端通信默认采用同步长连接，支持 TCP/IP、Unix Socket 等方式。服务端每收到一个连接都会创建一个线程处理，断开后线程会被缓存到线程池供新连接复用，以降低频繁创建线程的开销。</p>
           <p class="home-marginalia-source">摘自 <a href="#/md/02-后端开发/00-MySQL数据库">MySQL 数据库 · 架构与执行流程</a> · 2026-07-22</p>
         </div>
-        <div class="home-marginalia-item">
+        <div class="home-marginalia-item" data-motion="fade-up">
           <p class="home-marginalia-quote">容器化带来了便利，但也产生了编排问题：容器故障如何自动替补、访问量变大如何横向扩展等。Kubernetes 提供的核心能力包括自我修复、弹性伸缩、服务发现与负载均衡，让容器化应用更具韧性。</p>
           <p class="home-marginalia-source">摘自 <a href="#/md/03-云原生与运维/10-Kubernetes编排">Kubernetes 编排 · 核心能力</a> · 2026-07-22</p>
         </div>
@@ -78,7 +78,7 @@
   </div>
 </section>
 
-<div class="home-note">
+<div class="home-note" data-motion="fade-up">
   <div class="home-note-label"><strong>作者手记</strong><span>/ LETTER FROM THE AUTHOR</span></div>
   <span class="home-note-quote" aria-hidden="true">“</span>
   <p class="home-note-text">这里整理技术笔记、代码实验与持续订正记录。<br>内容会随着新的阅读与实践继续修订。</p>
@@ -86,14 +86,14 @@
   <span class="home-note-mark" aria-hidden="true">W</span>
 </div>
 
-<div class="home-binding" id="knowledge-index">
+<div class="home-binding" id="knowledge-index" data-motion="fade-up">
   <span class="home-binding-tag"><strong>卷二</strong><span>VOL.02</span></span>
   <span class="home-binding-title"><span class="home-binding-title-en">KNOWLEDGE INDEX</span> / 知识索引</span>
   <span class="home-binding-rule" aria-hidden="true"></span>
   <span class="home-binding-chapter"><span class="home-binding-chapter-num">02</span> CHAPTER</span>
 </div>
 
-<div class="home-index home-index--sitemap">
+<div class="home-index home-index--sitemap" data-motion="fade-up">
   <div class="sm-page">
     <!-- 系统路径条 -->
     <div class="sm-pathbar" role="navigation" aria-label="系统路径">
@@ -418,13 +418,13 @@
 </div>
 
 <section class="home-footer" id="home-footer">
-  <div class="home-footer-boundary" aria-hidden="true">
+  <div class="home-footer-boundary" data-motion="fade-up" aria-hidden="true">
     <span class="home-footer-boundary-rule"></span>
     <span class="home-footer-boundary-label">END / 本卷终</span>
     <span class="home-footer-boundary-rule"></span>
   </div>
   <div class="home-footer-main">
-    <div class="home-footer-brand">
+    <div class="home-footer-brand" data-motion="fade-up">
       <div class="home-footer-brand-row">
         <span class="home-footer-avatar">
           <img src="https://github.com/wychmod.png?size=160" alt="wychmod 的 GitHub 头像" width="48" height="48" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.classList.add('is-failed')">
@@ -459,7 +459,7 @@
         </div>
       </div>
     </div>
-    <div class="home-footer-col home-footer-col--maintenance">
+    <div class="home-footer-col home-footer-col--maintenance" data-motion="fade-up">
       <span class="home-footer-eyebrow">Project Maintenance</span>
       <h2 class="home-footer-title">项目维护</h2>
       <nav class="home-footer-links" aria-label="项目维护链接">
@@ -515,7 +515,7 @@
         </a>
       </nav>
     </div>
-    <div class="home-footer-col">
+    <div class="home-footer-col" data-motion="fade-up">
       <span class="home-footer-eyebrow">Connect</span>
       <h2 class="home-footer-title">联系方式</h2>
       <div class="home-footer-actions">

@@ -83,7 +83,7 @@
       <span class="home-terminal-line"><span class="home-terminal-prompt">$</span> wychmod --status</span>
       <span class="home-terminal-line"><span class="home-terminal-ok">✓</span> knowledge system ready</span>
       <span class="home-terminal-line"><span class="home-terminal-ok">✓</span> project practice ready</span>
-      <span class="home-terminal-line"><span class="home-terminal-muted">&gt;</span> open terminal<span class="home-terminal-cursor" aria-hidden="true"></span></span>
+      <span class="home-terminal-line"><span class="home-terminal-muted">&gt;</span> <span class="home-terminal-type">open terminal</span><span class="home-terminal-cursor" aria-hidden="true"></span></span>
       <span class="home-terminal-hint">点击或按 Ctrl / Cmd + K 打开命令行</span>
     </span>
     <i data-lucide="chevron-right" class="home-terminal-chevron" aria-hidden="true"></i>

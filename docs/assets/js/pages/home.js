@@ -142,6 +142,7 @@
       var domainBlocks = document.querySelectorAll('.home-index--sitemap .sm-domain');
       domainsEl.textContent = String(domainBlocks.length);
       domainsEl.dataset.computed = 'true';
+      domainsEl.dataset.statValue = String(domainBlocks.length);
     }
 
     var docsEl = footer.querySelector('[data-stat="docs"]');
@@ -149,6 +150,7 @@
       var indexLinks = document.querySelectorAll('.home-index--sitemap .sm-domain-links li a[href^="#/md/"]');
       docsEl.textContent = String(indexLinks.length);
       docsEl.dataset.computed = 'true';
+      docsEl.dataset.statValue = String(indexLinks.length);
     }
   }
 
@@ -186,6 +188,9 @@
     bindGraphResize();
     updateHomeFooterStats();
     ensureLucideIcons();
+    if (shell.homeMotion && typeof shell.homeMotion.init === 'function') {
+      shell.homeMotion.init();
+    }
   }
 
   state.init = init;

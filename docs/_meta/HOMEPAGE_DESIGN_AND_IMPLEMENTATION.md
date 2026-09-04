@@ -99,6 +99,8 @@
 | `docs/README.md` | 首页卡片、终端介绍、快速导航、维护入口 | 重写首页视觉区为纸白内页；保留并重新组织完整快速导航和维护入口 |
 | `docs/assets/css/modern-theme.css` | 全站主题，2445 行，包含多层重复覆盖 | 作为遗留主题保留；首页 V2 稳定后再清理已失效的首页规则 |
 | `docs/assets/js/ai-assistant.js` | 终端 AI 助手 | 不在本任务中改动 |
+| `docs/assets/css/pages/home-motion.css` | 首页动效层（V1.27 新增）：入场 stagger、滚动浮现、连线生长、装订带墨线展开、终端打字循环、墨点呼吸 | 由 `pages/home.css` `@import` 挂载，全部 `--studio-*` 令牌 + `body.is-home` 作用域 |
+| `docs/assets/js/pages/home-motion.js` | 首页动效初始化（V1.27 新增）：IntersectionObserver 幂等 reveal、页脚计数、`__homeMotionPlayed` 一次性入场标志 | 由 `home.js init()` 末尾调用，随 `doneEach` 幂等执行 |
 | `docs/_sidebar.md` | 9 大分类的文章导航 | 不改变结构；仅检查链接一致性 |
 | `scripts/check-links.js` | 扫描链接 | 验证首页没有新增死链 |
 | `scripts/sidebar-check.js` | 检查主线文档入口 | 验证分类导航不回归 |
@@ -369,6 +371,8 @@ wychmod / workspace ·
 
 标题最多两行；禁止加入渐变文字、描边字和发光效果。
 
+动效（V1.27）：首次进入时左栏 7 项与右栏 3 项按 `--motion-delay` 依次 fade-up（280ms，60–90ms 步进）；封面底衬两处极淡墨点以 7–9s 周期做透明度呼吸（纯 CSS `.cover-main` 伪元素静态色斑，非粒子/非光晕/非 JS，≤767px 隐藏）。路由往返不重播。
+
 ### 6.3 GitHub 头像
 
 头像直接使用用户 GitHub 头像：
@@ -467,6 +471,7 @@ Knowledge System
 - 不使用 Canvas，避免不可访问、不可打印和难以响应式重排。
 - Hover/Focus 时突出当前领域和对应连线；其他节点只轻微降至 `0.65`，不得完全消失。
 - 移动端隐藏径向 SVG，将 9 个领域转换为两列或单列索引，不能按比例缩小整个图谱。
+- 入场动效（V1.27）：连线按 `480ms + 60ms × 序号` 延迟做 `transform: scale(0→1)` 径向生长（800ms，origin 为 viewBox 中心；禁用 stroke-dashoffset 方案，避免 `non-scaling-stroke` 下虚线计算错位产生断线），领域端点在 `1050ms` 后 400ms 淡入；仅首次进入播放，Hover 亮度规则（transition，非 animation）不受影响。
 
 #### 图标
 
@@ -497,6 +502,7 @@ $ wychmod --status
 - 不复制命令解释器、历史记录或 AI 助手逻辑。
 - 不显示虚构提交哈希、虚构主题数或虚构更新时间。
 - 若展示文档数，必须来自实时 DOM 统计或实现当日生成的数据文件。
+- 预览命令行动效（V1.27）：`open terminal` 行包裹 `.home-terminal-type`，以 9.5s 周期 steps(13) 做低频打字循环（仅宽度裁切，文案不变）；光标闪烁规则不变。
 
 ### 6.9 章节装订带
 
@@ -517,6 +523,7 @@ FIELD NOTES / 近期写作与研究
 - 装订带必须与上下区域使用相同内容宽度和 12 栏网格。
 - 首条装订带（`#field-notes`）顶缘中央垂一个黑色下滑提示按钮（平边贴接缝、扁椭圆弧垂入带面，`72×22`，V1.10 由正半圆改扁），点击平滑滚动到 `#field-notes`，hover/点击无位移动画（V1.9）；`≤767px` 隐藏。该控件不属于 §7.3 禁止的圆弧分割（V1.8）。
 - 装订带设置 `scroll-margin-top`，滚动落点不被 60px 固定导航遮挡（V1.8）。
+- 动效（V1.27）：装订带进入视口时带面整体 fade-up（280ms），中间分隔墨线同步 `scaleX 0→1` 横向展开（700ms，origin left）；`.home-scroll-cue` 保持无动画（V1.9 约定不变）。
 
 ### 6.10 最近更新
 
@@ -527,6 +534,7 @@ FIELD NOTES / 近期写作与研究
 - 初始实现选择 3 篇真实主线文档，标题必须与文件一致，摘要来自文档正文，日期来自文末「最新修改记录」。
 - “参考 12、实验 4、修订 2”等字段只有存在可靠数据源时才显示；默认不实现。
 - 不把文件系统修改时间当作文章内容更新时间，除非明确声明口径。
+- 动效（V1.27）：区块标题与 3 条文章行各自携带 `data-motion="fade-up"`，进入视口时 fade-up（同批进入按 70ms 步进错开）；行内 hover 过渡（背景/箭头）不受影响。
 
 ### 6.11 书桌边
 
@@ -539,6 +547,8 @@ FIELD NOTES / 近期写作与研究
 | 页边批注 / Marginalia | 来自主线文档的真实原文，附来源链接 | 选择真实文档摘录；找不到则隐藏 |
 
 严禁默认写入设计稿中的 `Designing Data-Intensive Applications`、`63%`、`p.127`、虚构研究结论或虚构批注。它们仅用于展示版式，不代表作者事实。
+
+动效（V1.27）：3 条页边批注卡各自携带 `data-motion="fade-up"`，进入视口时浮现；作者手记（§6.12）与完整知识索引（§6.13）、页脚三栏及「本卷终」边界（`home-footer-boundary`，双墨线同步 scaleX 展开）同用该机制。页脚「模块入口 / 主线文档」统计数字在进入视口时以 800ms ease-out 计数到 `updateHomeFooterStats` 计算出的真实值（`data-stat-value`），路由往返或无 IO 环境直接显示最终值。
 
 ### 6.12 作者手记
 
@@ -683,13 +693,26 @@ Phase 1 可使用的中性文案：
 
 ## 10. 动效与交互反馈
 
+动效统一实现于 `pages/home-motion.css` + `pages/home-motion.js`（V1.27 新增），全部使用 `--studio-*` 动效令牌；入场用 `animation`（不占用元素自身的 hover `transition`），首次进入播放一次，路由往返不重播。
+
 允许的动效：
 
-- 首次进入时，Hero 左栏和图谱以 `160–320ms` 的轻微透明度和位移进入。
+- 首次进入时，Hero 左栏（7 项）与右栏（3 项）按 `--motion-delay` 依次以 `280ms` 轻微透明度和 `12px` 位移进入（stagger 步进 60–90ms）。
 - 图谱节点 Hover/Focus 时，相关连线和节点提升亮度。
+- 首次进入时，图谱连线从中心做 `transform: scale(0→1)` 径向生长（origin 固定在 viewBox 中心 120×90；**禁用 stroke-dashoffset 方案**：连线带 `vector-effect: non-scaling-stroke`，Chrome 在该模式下按屏幕坐标计算虚线，与 `pathLength` 归一化冲突会产生线段中段缺口），领域端点随后淡入。
+- 滚动浮现：装订带、最近更新行、页边批注卡、作者手记、知识索引、页脚各块携带 `data-motion="fade-up"`，经 IntersectionObserver（`threshold: 0`，`rootMargin: 0 0 -10%`）进入视口时 fade-up（280ms，同批 70ms 步进），reveal 后立即 unobserve。
+- 装订带/页脚边界的分隔墨线在进入视口时 `scaleX 0→1` 展开。
+- 页脚「模块入口 / 主线文档」统计数字进入视口时 800ms ease-out 计数到真实计算值。
+- 终端预览 `open terminal` 行以 9.5s 周期 steps(13) 低频打字循环（仅宽度裁切，文案不变）。
+- 封面墨点呼吸：`.cover-main` 两个伪元素静态径向渐变色斑以 7–9s 周期做透明度呼吸。**边界：这是纯 CSS 静态色斑的透明度变化，无粒子系统、无 JS、无 Canvas、不随鼠标移动**，与下方禁止的「粒子背景」「鼠标追踪光晕」有本质区别。
 - CTA 箭头平移 `2–3px`。
 - 终端预览光标以低频率闪烁。
-- 章节装订带进入视口时不需要动画，避免过度设计。
+
+实现约束：
+
+- 隐藏态必须以 `body.home-motion-armed` 类为门禁（由 JS 添加）：无 JS、无 IntersectionObserver 或路由往返时不添加，内容始终可见，禁止出现"永远隐藏"。
+- 同一批进入视口的元素以 `--motion-delay` 内联变量错开，禁止修改元素自身 `transition` 造成 hover 微交互延迟。
+- 章节装订带带面本身除 fade-up 外不做位移动画；`.home-scroll-cue` 保持无动画（V1.9 约定）。
 
 禁止的动效：
 
@@ -697,8 +720,9 @@ Phase 1 可使用的中性文案：
 - 鼠标追踪光晕。
 - 无限旋转的图谱。
 - 大范围视差。
-- 文字逐字打字作为 Hero 主动画。
+- 文字逐字打字作为 Hero 主动画（终端预览行的低频打字循环属白名单例外，仅限该行）。
 - Hover 导致布局尺寸变化。
+- 引入任何动画库（预算保持 0，见 §13）。
 
 ---
 
@@ -720,7 +744,9 @@ Docsify 官方行为允许 `_coverpage.md` 与首页 `README.md` 同时加载；
 |---|---|
 | `docs/assets/css/studio-tokens.css` | 新视觉系统的颜色、字体、间距、焦点、动效令牌 |
 | `docs/assets/css/homepage-v2.css` | 只包含首页、首页导航状态和响应式规则 |
+| `docs/assets/css/pages/home-motion.css` | 首页动效层（V1.27）：入场 stagger、滚动浮现、连线生长、墨线展开、打字循环、墨点呼吸；由 `pages/home.css` `@import` 挂载 |
 | `docs/assets/js/homepage-v2.js` | 首页搜索、终端预览桥接、路由类、Lucide 重渲染、轻量交互 |
+| `docs/assets/js/pages/home-motion.js` | 首页动效初始化（V1.27）：IntersectionObserver 幂等 reveal、页脚计数、`__homeMotionPlayed` 一次性标志；脚本在 `home.js` 之后加载，由 `home.js init()` 末尾调用 |
 
 加载顺序：
 
@@ -759,6 +785,7 @@ function routeStatePlugin(hook, vm) {
 - `doneEach` 在每次页面 HTML 写入 DOM 后执行，适合重新初始化首页节点和 Lucide 图标。
 - 每个可重复执行的初始化函数必须幂等。
 - 使用 `data-bound="true"` 或可移除的事件处理器防止重复绑定。
+- 动效初始化契约（V1.27）：`home-motion.js` 以 `window.__homeMotionPlayed` 模块级标志保证入场动画只在首次进入首页时播放；`doneEach` 再次进入首页时移除 `home-motion-armed` 并直接点亮全部 `[data-motion]` 元素，不重复创建监听。IntersectionObserver 回调中 reveal 后立即 `unobserve`。
 - 不再用全局 `MutationObserver` 作为主要生命周期；保留它只能作为兼容兜底，并在 V2 稳定后删除。
 
 建议结构：
@@ -878,6 +905,8 @@ function bindHomeTerminalPreview() {
 | 动画库 | 0 |
 | Canvas/WebGL | 0 |
 | 阻塞字体请求 | Phase 1 为 0 |
+
+V1.27 动效层核销：`home-motion.css` 约 4KB（gzip 前）、`home-motion.js` 约 2.5KB（gzip 前），均在上述预算内；未引入动画库 / Canvas / WebGL。
 
 ### 13.2 资源规则
 
@@ -1156,6 +1185,7 @@ GitHub 头像使用 https://github.com/wychmod.png?size=160，并提供固定尺
 
 | 版本 | 日期 | 类型 | 说明 |
 |---|---|---|---|
+| V1.27 | 2026-09-04 | 新增 | 首页动效层（方案 B 编辑部氛围层）：新增 `pages/home-motion.css` / `pages/home-motion.js`，§10 白名单扩充为 10 类允许动效——封面 Hero stagger 入场、图谱连线径向生长（`transform: scale(0→1)`，origin 固定 viewBox 中心；**禁用 stroke-dashoffset 方案**：`non-scaling-stroke` 下 Chrome 按屏幕坐标计算虚线与 `pathLength` 归一化冲突，动画结束会在连线中段残留缺口）、滚动浮现 fade-up（IntersectionObserver + `data-motion`，装订带/最近更新/页边批注/手记/知识索引/页脚）、装订带与页脚墨线 scaleX 展开、页脚统计数字计数（复用 `updateHomeFooterStats` 真实值，`data-stat-value`）、终端预览低频打字循环（`.home-terminal-type` 仅宽度裁切）、封面墨点呼吸（纯 CSS 静态色斑，明确与粒子/光晕边界）。幂等契约：`__homeMotionPlayed` 一次性标志，路由往返不重播；隐藏态以 `home-motion-armed` 门禁，无 JS/无 IO 环境内容始终可见。缓存号 `home.css?v=20260904b`、`home-motion.js?v=20260904b`；`_coverpage.md` 仅包裹打字 span、`README.md` 仅添加 `data-motion` 属性，文案零改动；不改变路由、搜索、终端桥接与 9 域图谱契约 |
 | V1.26 | 2026-08-27 | 修复 | 封面终端预览去除无来源的数量状态文案，改为 `project practice ready`，与“进入项目实战”CTA 保持一致；不改变 9 域知识图谱结构、终端桥接和快捷键契约 |
 | V1.25 | 2026-08-16 | 修复 | 页脚三栏改两侧等宽 `1.1fr / 1fr / 1.1fr`（原 `1.3fr/1.05fr/0.95fr` 不对称导致中栏中心偏右）：栏距相同（72px）时左右栏等宽是中栏中心与整宽居中的「END / 本卷终」边界标签同轴的充要条件；品牌栏内容有 max-width 约束不受影响，联系栏按钮为栏内全宽仅略变宽；缓存号 `?v=20260816h` |
 | V1.24 | 2026-08-16 | 修复 | 修复 V1.23 选择器失效：`.home-footer-col:first-of-type` 按元素类型匹配兄弟节点，而 `.home-footer-main` 的第一个 div 是 `.home-footer-brand`，居中规则从未命中；改为给维护栏加修饰类 `home-footer-col--maintenance`（`docs/README.md`），CSS 选择器同步替换。效果不变：维护栏标题居中、两列链接整体居中与标题同轴、每列内部靠左；缓存号 `?v=20260816g` |

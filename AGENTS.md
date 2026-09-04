@@ -399,12 +399,14 @@ git diff --check
 - `docs/assets/css/tokens.css`
 - `docs/assets/css/shell.css`
 - `docs/assets/css/pages/home.css`
+- `docs/assets/css/pages/home-motion.css`
 - `docs/assets/css/pages/article.css`
 - `docs/assets/css/pages/site-map.css`
 - `docs/assets/js/bootstrap.js`
 - `docs/assets/js/features/terminal.js`
 - `docs/assets/js/features/terminal-a11y.js`
 - `docs/assets/js/pages/home.js`
+- `docs/assets/js/pages/home-motion.js`
 - `docs/assets/js/pages/article.js`
 - `docs/assets/js/pages/site-map.js`
 - `docs/assets/js/homepage-v2.js`（遗留兼容，优先避免继续加料）
