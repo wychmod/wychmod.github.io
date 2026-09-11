@@ -14,6 +14,18 @@
   </div>
   <div class="home-recent-list">
     <!-- 序号由 CSS counter 按 DOM 顺序自动生成, 维护时只增删行, 不要手写编号 -->
+    <a class="home-recent-row" data-motion="fade-up" href="#/md/10-项目实战/02-FlowHub/00-架构总览.md">
+      <span class="home-recent-num"></span>
+      <div class="home-recent-main">
+        <h3 class="home-recent-title">FlowHub：异步导出中心从 0 复刻</h3>
+        <p class="home-recent-excerpt">13 章拆解幂等受理、Outbox 可靠投递、SSE 实时进度、导入 PARTIAL 与从 0 复刻清单。</p>
+      </div>
+      <div class="home-recent-meta">
+        <span class="home-recent-cat" style="--cat-color:var(--kg-9)">项目实战</span>
+        <span class="home-recent-date">2026-09-11</span>
+      </div>
+      <span class="home-recent-arrow" aria-hidden="true">→</span>
+    </a>
     <a class="home-recent-row" data-motion="fade-up" href="#/md/09-开发工具/10-工具箱与资源.md">
       <span class="home-recent-num"></span>
       <div class="home-recent-main">
@@ -337,7 +349,7 @@
         <span class="sm-domain-num">10</span>
         <span class="sm-domain-body">
           <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i>项目实战</span>
-          <span class="sm-domain-desc">手写 Spring、自动化测试平台等从 0 复刻系列，先架构后实现。</span>
+          <span class="sm-domain-desc">手写 Spring、自动化测试平台、FlowHub 导出中心等从 0 复刻系列，先架构后实现。</span>
         </span>
         <span class="sm-domain-arrow" aria-hidden="true">↓</span>
       </summary>
@@ -358,6 +370,19 @@
         <li><a href="#/md/10-项目实战/01-自动化测试平台/03-JMeter与嵌入式引擎.md">JMeter 与嵌入式引擎</a><span>测试计划 / StressTestUtil / HashTree</span></li>
         <li><a href="#/md/10-项目实战/01-自动化测试平台/04-压测引擎与结果采集.md">压测引擎与结果采集</a><span>模板方法 / SampleEvent / 结果发送</span></li>
         <li><a href="#/md/10-项目实战/01-自动化测试平台/05-当前进度与未完待续.md">当前进度与未完待续</a><span>已完成 / 骨架 / 下一步</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/00-架构总览.md">FlowHub：架构总览</a><span>异步导出中心 / 幂等 / Outbox / SSE / 恢复</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/01-公共底座.md">公共底座</a><span>统一 Envelope / 全局异常 / trace_id</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/02-订单查询模块.md">订单查询模块</a><span>筛选排序分页 / LIKE 防注入 / 动态 SQL</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/03-导出任务创建与幂等.md">导出任务创建与幂等</a><span>Command 规范化 / request hash / 同事务双写</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/04-可靠投递-Outbox与消费.md">可靠投递-Outbox与消费</a><span>Outbox / Publisher Confirm / CAS 抢占</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/05-导出执行与Excel生成.md">导出执行与Excel生成</a><span>Keyset 高水位 / SXSSF / 原子发布</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/06-进度状态与SSE实时通知.md">进度状态与SSE实时通知</a><span>三层分工 / 版本栅栏 / AFTER_COMMIT</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/07-文件安全与下载.md">文件安全与下载</a><span>受控根目录 / 路径双层防腐</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/08-恢复与清理.md">恢复与清理</a><span>租约 / 启动恢复 / 孤儿三维对账</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/09-订单Excel导入.md">订单Excel导入</a><span>三层校验 / SAX 流读 / PARTIAL</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/10-前端交互层.md">前端交互层</a><span>API 防腐层 / 幂等键 / useExportEvents</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/11-测试与质量守门.md">测试与质量守门</a><span>H2 集成矩阵 / 前端单测 / Playwright E2E</span></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/12-从0复刻清单.md">从 0 复刻清单</a><span>阶段划分 / Flyway 演进 / 验收 / 常见坑</span></li>
       </ul>
     </details>
     <!-- 11 在线工具箱 -->
@@ -386,6 +411,7 @@
         <li><a href="#/">第一次来：从首页概览开始</a></li>
         <li><a href="#/md/10-项目实战/00-手写Spring/00-架构总览.md">实战主线：手写 Spring 从 0 复刻</a></li>
         <li><a href="#/md/10-项目实战/01-自动化测试平台/00-架构总览.md">压测主线：自动化测试平台从 0 复刻</a></li>
+        <li><a href="#/md/10-项目实战/02-FlowHub/00-架构总览.md">可靠主线：FlowHub 异步导出中心从 0 复刻</a></li>
         <li><a href="#/md/01-计算机基础/30-计算机系统与并发.md">补基础：计算机基础 → 后端开发</a></li>
         <li><a href="#/md/06-软件工程/00-系统设计与设计模式.md">做工程：软件工程 → 云原生与运维 → 开发工具</a></li>
         <li><a href="#/md/05-AI与Agent/00-AI编程三件套方法论.md">看 AI：AI 与 Agent → 软件工程 → 工具箱</a></li>
