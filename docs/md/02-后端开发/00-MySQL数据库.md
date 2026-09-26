@@ -1813,7 +1813,7 @@ mysqld --default-storage-engine=MyISAM
 
 配置文件中的启动选项被划分为若干个组，每个组有一个组名，用中括号\[]扩起来。
 
-```scss
+```ini
 [server]
 (具体的启动选项...)
 

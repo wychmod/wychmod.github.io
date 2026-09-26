@@ -1392,7 +1392,7 @@ Component({
 
 而在 Taro 里，它们都是一个组件类：
 
-```react、
+```react
 class CustomComponent extends Component {
   state = { }
   handleClick () { }

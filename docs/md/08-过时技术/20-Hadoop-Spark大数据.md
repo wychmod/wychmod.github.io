@@ -453,7 +453,9 @@ MapReduce基于yarn的并行处理框架
 
 #### Hadoop核心组件之分布式文件系统HDFS
 
-```源自Google的GFS论文，论文发表于2003年10月。
+源自Google的GFS论文，论文发表于2003年10月。
+
+```
 HDFS是GFS的克隆版
 HDFS特点：扩展性&容错性&海量数量存储
 将文件切分成制定大小的数据块并以多副本的存储在多个机器上
@@ -519,7 +521,7 @@ MapReduce是Google MapReduce的克隆版
 
 ## 漫画解释hdfs文件读取.md
 
-![img](https:////upload-images.jianshu.io/upload_images/4162886-14fd80dfa12be83f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+![img](https://upload-images.jianshu.io/upload_images/4162886-14fd80dfa12be83f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 
 
 
@@ -529,7 +531,7 @@ MapReduce是Google MapReduce的克隆版
 
 
 
-![img](https:////upload-images.jianshu.io/upload_images/4162886-c56b35addbbcc941?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+![img](https://upload-images.jianshu.io/upload_images/4162886-c56b35addbbcc941?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 
 
 
@@ -555,7 +557,7 @@ MapReduce是Google MapReduce的克隆版
 
 
 
-![img](https:////upload-images.jianshu.io/upload_images/4162886-a0cb23726a3527a0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+![img](https://upload-images.jianshu.io/upload_images/4162886-a0cb23726a3527a0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 
 
 
@@ -575,7 +577,7 @@ MapReduce是Google MapReduce的克隆版
 
 
 
-![img](https:////upload-images.jianshu.io/upload_images/4162886-30f262c9837bbf00?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+![img](https://upload-images.jianshu.io/upload_images/4162886-30f262c9837bbf00?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 
 
 
@@ -599,19 +601,19 @@ HDFS对于这些问题都是能够完美解决的。
 
 
 
-![img](https:////upload-images.jianshu.io/upload_images/4162886-2b4b237c7522475f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+![img](https://upload-images.jianshu.io/upload_images/4162886-2b4b237c7522475f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 
 
 
 
 
-![img](https:////upload-images.jianshu.io/upload_images/4162886-b22cdffaf931c00c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+![img](https://upload-images.jianshu.io/upload_images/4162886-b22cdffaf931c00c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 
 
 
 
 
-![img](https:////upload-images.jianshu.io/upload_images/4162886-5a9635c54195cb57?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
+![img](https://upload-images.jianshu.io/upload_images/4162886-5a9635c54195cb57?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp)
 
 
 

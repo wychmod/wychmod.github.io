@@ -99,7 +99,7 @@
 | `docs/README.md` | 首页卡片、终端介绍、快速导航、维护入口 | 重写首页视觉区为纸白内页；保留并重新组织完整快速导航和维护入口 |
 | `docs/assets/css/modern-theme.css` | 全站主题，2445 行，包含多层重复覆盖 | 作为遗留主题保留；首页 V2 稳定后再清理已失效的首页规则 |
 | `docs/assets/js/ai-assistant.js` | 终端 AI 助手 | 不在本任务中改动 |
-| `docs/assets/css/pages/home-motion.css` | 首页动效层（V1.27 新增）：入场 stagger、滚动浮现、连线生长、装订带墨线展开、终端打字循环、墨点呼吸 | 由 `pages/home.css` `@import` 挂载，全部 `--studio-*` 令牌 + `body.is-home` 作用域 |
+| `docs/assets/css/pages/home-motion.css` | 首页动效层（V1.27 新增）：入场 stagger、滚动浮现、连线生长、装订带墨线展开、终端打字循环、墨点呼吸 | 由 `docs/index.html` 直接 `<link>` 引入（2026-09 起移除 `pages/home.css` 之类的 `@import` 转发层），全部 `--studio-*` 令牌 + `body.is-home` 作用域 |
 | `docs/assets/js/pages/home-motion.js` | 首页动效初始化（V1.27 新增）：IntersectionObserver 幂等 reveal、页脚计数、`__homeMotionPlayed` 一次性入场标志 | 由 `home.js init()` 末尾调用，随 `doneEach` 幂等执行 |
 | `docs/_sidebar.md` | 9 大分类的文章导航 | 不改变结构；仅检查链接一致性 |
 | `scripts/check-links.js` | 扫描链接 | 验证首页没有新增死链 |
@@ -744,7 +744,7 @@ Docsify 官方行为允许 `_coverpage.md` 与首页 `README.md` 同时加载；
 |---|---|
 | `docs/assets/css/studio-tokens.css` | 新视觉系统的颜色、字体、间距、焦点、动效令牌 |
 | `docs/assets/css/homepage-v2.css` | 只包含首页、首页导航状态和响应式规则 |
-| `docs/assets/css/pages/home-motion.css` | 首页动效层（V1.27）：入场 stagger、滚动浮现、连线生长、墨线展开、打字循环、墨点呼吸；由 `pages/home.css` `@import` 挂载 |
+| `docs/assets/css/pages/home-motion.css` | 首页动效层（V1.27）：入场 stagger、滚动浮现、连线生长、墨线展开、打字循环、墨点呼吸；由 `docs/index.html` 直接 `<link>` 引入（原 `pages/home.css` `@import` 转发层已移除） |
 | `docs/assets/js/homepage-v2.js` | 首页搜索、终端预览桥接、路由类、Lucide 重渲染、轻量交互 |
 | `docs/assets/js/pages/home-motion.js` | 首页动效初始化（V1.27）：IntersectionObserver 幂等 reveal、页脚计数、`__homeMotionPlayed` 一次性标志；脚本在 `home.js` 之后加载，由 `home.js init()` 末尾调用 |
 
