@@ -54,22 +54,24 @@ wychmod.github.io/
 │   ├── tools/                   ← 在线工具箱（独立 HTML）
 │   └── assets/                  ← CSS/JS/图片资源
 │       ├── css/
-│       │   ├── compat/
-│       │   │   └── modern-theme.css ← 全站遗留主题兼容层
 │       │   ├── pages/
-│       │   │   ├── home.css         ← 首页页面层
-│       │   │   ├── article.css      ← 文章页页面层
-│       │   │   └── site-map.css     ← 全站地图页面层
+│       │   │   └── home-motion.css  ← 首页动效层（入口别名层已移除，见下）
 │       │   ├── modern-theme.css     ← 全站遗留主题
-│       │   ├── studio-tokens.css    ← 新视觉系统令牌
-│       │   ├── shell.css            ← 壳层入口装配
-│       │   ├── tokens.css           ← 令牌入口装配
+│       │   ├── studio-tokens.css    ← 新视觉系统令牌（全站唯一令牌入口）
 │       │   ├── homepage-v2.css      ← 首页 V2 旧样式（遗留）
 │       │   ├── article-reading.css  ← 文章页阅读系统
+│       │   ├── site-map.css         ← 全站地图页面层
+│       │   ├── me-page.css          ← 关于/简历页
 │       │   ├── tool-studio.css      ← 工具页共享外壳
 │       │   └── ...
+│       │   ▶ 样式一律由 index.html 直接 <link> 引入，顺序即层叠优先级；
+│       │     不再使用 tokens.css / shell.css / compat/ 这类纯 @import 转发层
+│       │     （每条 @import 都是一次串行往返且阻塞渲染）
 │       ├── js/
 │       │   ├── bootstrap.js         ← 壳层 bootstrap / Docsify hooks
+│       │   ├── prism-langs.bundle.js ← Prism 语法组件合并包（**生成物**，
+│       │   │                           源文件为同目录 prism-*.js，
+│       │   │                           改源后跑 scripts/build-prism-bundle.js 重建）
 │       │   ├── features/
 │       │   │   ├── terminal.js      ← 终端功能层
 │       │   │   └── terminal-a11y.js ← 终端可访问性层
@@ -77,7 +79,6 @@ wychmod.github.io/
 │       │   │   ├── home.js          ← 首页交互
 │       │   │   ├── article.js       ← 文章页交互
 │       │   │   └── site-map.js      ← 全站地图交互
-│       │   ├── homepage-v2.js       ← 首页交互旧实现（遗留）
 │       │   ├── ai-assistant.js      ← 终端 AI 助手
 │       │   └── ...
 │       └── img/
@@ -86,8 +87,10 @@ wychmod.github.io/
     ├── sidebar-check.js         ← 侧边栏入口检查
     ├── count-archive.js         ← 归档规模统计
     ├── inline-archive.js        ← 小归档内联
+    ├── build-prism-bundle.js    ← 重建 Prism 语法组件合并包
     ├── screenshot-mobile.js     ← 多视口移动端截图（Playwright）
     ├── typography-check.js      ← 文章页排版精修验收（Playwright）
+    ├── site-regression.js       ← 全站回归验收（Playwright）
     └── archive/                 ← 已完成使命的一次性迁移脚本存档
 ```
 
@@ -103,7 +106,8 @@ wychmod.github.io/
 | 项目/重构/设计说明 | `docs/_meta/` | 根目录下的 `overview.md` |
 | 站点级样式 / 脚本 | `docs/assets/css/` / `docs/assets/js/` | 根目录或工具页外部 |
 | 运行时产物 | 已加入 `.gitignore`，不入库 | `node_modules/`、`output/`、`test-results/` |
-| 工具页专属逻辑 | 各 `docs/tools/*.html` 内联或 `tool-studio.css` | 回填到工具页自身或对应 `pages/`、`features/`、`shell.css`，不再新增到 `modern-theme.css` |
+| 工具页专属逻辑 | 各 `docs/tools/*.html` 内联或 `tool-studio.css` | 回填到工具页自身或对应 `pages/`、`features/` 层，不再新增到 `modern-theme.css` |
+| 样式入口 | 直接在 `docs/index.html` 用 `<link>` 引入真实 css 文件 | 新增 `tokens.css` / `shell.css` / `compat/*.css` 这类只写一行 `@import` 的转发层 |
 | AI 临时脚本（一次性诊断/截图/验证） | 命名 `scripts/_tmp-*.js`，**用完即删**，不入库、不留本地 | 任务结束后仍残留的 `_tmp-*.js` |
 
 新增文件前先判断：它属于脚本、元文档、站点资产、工具页还是运行时产物，然后放到对应目录。
@@ -328,7 +332,17 @@ node scripts/screenshot-mobile.js
 # 文章页排版精修验收：样式断言 + 截图（需先启动本地预览 + Playwright）
 node scripts/typography-check.js
 
-# 本地预览
+# 全站回归验收（需先启动本地预览 + Playwright；退出码 0=全通过，1=有 FAIL，可做 CI 门禁）
+#   覆盖：多视口横向溢出 / 运行时异常与资源失败 / 文章页功能 / 栅栏语言覆盖 /
+#         图片引用健康度 / 首页版心与搜索 / 无障碍 / 对比度（含悬停态）
+#   改 CSS 颜色、加代码栅栏语言、动图片引用后都务必跑一次
+node scripts/site-regression.js
+
+# 重建 Prism 语法组件合并包（改了 docs/assets/js/prism-*.js 之后必须执行）
+node scripts/build-prism-bundle.js
+
+# 本地预览（注意：必须用目录形式访问 http://127.0.0.1:3000/ ，
+#   写成 /index.html 会让 docsify 把文档路径解析成 /index.html/md/... 而整站 404）
 npx docsify-cli serve docs --port 3000
 ```
 
@@ -394,14 +408,12 @@ git diff --check
 - `docs/_coverpage.md`
 - `docs/README.md` 的首页视觉区
 - `docs/index.html` 的 Docsify 配置、壳层 bootstrap、搜索桥接、终端入口
-- `docs/assets/css/modern-theme.css` 与 `docs/assets/css/compat/modern-theme.css` 的遗留兼容层
-- `docs/assets/css/studio-tokens.css`
-- `docs/assets/css/tokens.css`
-- `docs/assets/css/shell.css`
-- `docs/assets/css/pages/home.css`
+- `docs/assets/css/modern-theme.css`（全站遗留主题层）
+- `docs/assets/css/studio-tokens.css`（全站唯一令牌入口）
 - `docs/assets/css/pages/home-motion.css`
-- `docs/assets/css/pages/article.css`
-- `docs/assets/css/pages/site-map.css`
+- `docs/assets/css/homepage-v2.css`
+- `docs/assets/css/article-reading.css`
+- `docs/assets/css/site-map.css`
 - `docs/assets/js/bootstrap.js`
 - `docs/assets/js/features/terminal.js`
 - `docs/assets/js/features/terminal-a11y.js`
@@ -409,7 +421,7 @@ git diff --check
 - `docs/assets/js/pages/home-motion.js`
 - `docs/assets/js/pages/article.js`
 - `docs/assets/js/pages/site-map.js`
-- `docs/assets/js/homepage-v2.js`（遗留兼容，优先避免继续加料）
+- `docs/assets/js/prism-aliases.js`（代码高亮语言别名层）
 - 首页头像、图标、色彩、字体、布局、动效、响应式、文案和统计
 
 ### 10.3 编码前门禁

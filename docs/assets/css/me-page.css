@@ -122,7 +122,7 @@ body.me-page :focus-visible {
   border-radius: var(--studio-radius-md);
   font-size: 14px;
   font-weight: 500;
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
   position: relative;
 }
 
@@ -165,7 +165,7 @@ body.me-page :focus-visible {
   background: rgba(36, 209, 143, 0.12);
   color: var(--studio-green);
   border: 1px solid rgba(36, 209, 143, 0.35);
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
 }
 
 .me-nav-cta:hover {
@@ -197,7 +197,7 @@ body.me-page :focus-visible {
   font-size: 14px;
   font-weight: 500;
   border: 1px solid transparent;
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
   white-space: nowrap;
   cursor: pointer;
   text-decoration: none;
@@ -205,12 +205,13 @@ body.me-page :focus-visible {
 
 .me-btn-primary {
   background: var(--studio-green-dark);
-  color: var(--studio-on-dark);
+  /* --studio-on-dark(#f2efe7) 在绿底仅 3.20:1; 深墨字为 5.21:1 */
+  color: var(--studio-ink-950);
 }
 
 .me-btn-primary:hover {
   background: #1ab87a;
-  color: var(--studio-on-dark);
+  color: var(--studio-ink-950);
 }
 
 .me-btn-secondary {
@@ -338,7 +339,7 @@ body.personal-notes-page {
   color: var(--studio-on-dark);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   .personal-cover h1 {
     white-space: nowrap;
   }
@@ -441,7 +442,7 @@ body.personal-notes-page {
   padding: 14px 0;
   border-bottom: 1px solid rgba(242, 239, 231, 0.12);
   color: inherit;
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
 }
 
 .personal-focus-item:last-child {
@@ -557,7 +558,7 @@ body.personal-notes-page {
   border-radius: var(--studio-radius-sm);
   font-size: 13px;
   color: var(--studio-text-muted);
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
 }
 
 .personal-note-index a:hover {
@@ -582,7 +583,8 @@ body.personal-notes-page {
 
 .personal-note-index-num {
   font-family: var(--studio-font-mono);
-  color: var(--studio-gold);
+  /* 纸白底小字序号, 需 4.5:1; 原 --studio-gold 仅 1.60–1.79:1 */
+  color: var(--studio-gold-ink);
   min-width: 22px;
 }
 
@@ -596,7 +598,8 @@ body.personal-notes-page {
 
 .personal-note-main h2 .section-no {
   font-family: var(--studio-font-mono);
-  color: var(--studio-gold);
+  /* 26px 大字号阈值 3:1, 但原金色 1.79 连 3 都不到; 与同页小序号统一用深金 */
+  color: var(--studio-gold-ink);
   margin-right: 10px;
 }
 
@@ -637,7 +640,9 @@ body.personal-notes-page {
 .personal-timeline-year {
   font-family: var(--studio-font-mono);
   font-size: 13px;
-  color: var(--studio-gold);
+  /* 时间轴年份是**真实内容**("2019–2020"/"2024–至今"), 13px 小字需 4.5:1;
+     原 --studio-gold 在纸白底仅 1.79:1, 属实质可读性缺陷而非装饰取舍 */
+  color: var(--studio-gold-ink);
   margin-bottom: 4px;
 }
 
@@ -685,7 +690,7 @@ body.personal-notes-page {
 }
 
 .personal-recent-item:hover .personal-recent-title {
-  color: var(--studio-green-dark);
+  color: var(--studio-green-ink);
 }
 
 .personal-recent-title {
@@ -711,7 +716,7 @@ body.personal-notes-page {
 }
 
 .personal-recent-more:hover {
-  color: var(--studio-green-dark);
+  color: var(--studio-green-ink);
 }
 
 /* 后续 section（stack/projects/github/contact） */
@@ -763,7 +768,7 @@ body.personal-notes-page {
   background: rgba(242, 239, 231, 0.04);
   border: 1px solid rgba(242, 239, 231, 0.12);
   border-radius: var(--studio-radius-md);
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
 }
 
 .personal-stack-card:hover {
@@ -848,7 +853,7 @@ body.personal-notes-page {
   background: rgba(242, 239, 231, 0.04);
   border: 1px solid rgba(242, 239, 231, 0.12);
   border-radius: var(--studio-radius-md);
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
 }
 
 .personal-project:hover {
@@ -1026,7 +1031,7 @@ body.personal-notes-page {
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
 }
 
 .personal-heatmap-reload:hover {
@@ -1104,7 +1109,7 @@ body.personal-notes-page {
   border: 1px solid rgba(242, 239, 231, 0.12);
   border-radius: var(--studio-radius-md);
   color: inherit;
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
 }
 
 .personal-contact-card:hover {
@@ -1194,7 +1199,7 @@ body.personal-notes-page {
   font-family: inherit;
   font-size: 14px;
   resize: vertical;
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
 }
 
 .personal-form input:focus,
@@ -1317,9 +1322,10 @@ body.resume-page {
   margin-top: 26px;
 }
 
-.resume-actions .me-btn-primary {
-  color: var(--studio-on-dark);
-}
+/* 此处原有 `.resume-actions .me-btn-primary { color: var(--studio-on-dark) }` 覆写:
+   它在 (0,2,0) 上压过基类 .me-btn-primary(0,1,0), 使简历页主按钮字色留在浅色
+   --studio-on-dark 上, 与绿底只有 3.20:1。基类早已改为 --studio-ink-950(5.21:1),
+   本覆写属漏改遗留 —— 删除, 交由基类统一决定, 避免同类漂移再次发生。 */
 
 .resume-contact-list {
   margin: 0;
@@ -1353,7 +1359,7 @@ body.resume-page {
 }
 
 .resume-contact-list a:hover {
-  color: var(--studio-green-dark);
+  color: var(--studio-green-ink);
 }
 
 .resume-document {
@@ -1382,7 +1388,7 @@ body.resume-page {
   border-radius: var(--studio-radius-sm);
   font-size: 13px;
   color: var(--studio-text-muted);
-  transition: all 150ms var(--studio-ease);
+  transition: color 150ms var(--studio-ease), background-color 150ms var(--studio-ease), border-color 150ms var(--studio-ease), transform 150ms var(--studio-ease), box-shadow 150ms var(--studio-ease), opacity 150ms var(--studio-ease);
 }
 
 .resume-toc a:hover {
@@ -1397,7 +1403,8 @@ body.resume-page {
 
 .resume-toc-num {
   font-family: var(--studio-font-mono);
-  color: var(--studio-gold);
+  /* 纸白底小字序号, 需 4.5:1; 原 --studio-gold 仅 1.94:1 */
+  color: var(--studio-gold-ink);
   min-width: 22px;
 }
 
@@ -1424,7 +1431,8 @@ body.resume-page {
 
 .resume-section-no {
   font-family: var(--studio-font-mono);
-  color: var(--studio-gold);
+  /* 22px 阈值 3:1, 原金色 1.94 不达; 统一用纸白底专用深金 */
+  color: var(--studio-gold-ink);
   font-size: 22px;
 }
 
@@ -1585,9 +1593,18 @@ body.resume-page {
    响应式
    ========================================================= */
 
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   .me-nav-inner {
     padding: 0 28px;
+    /* 收窄栅格间距: 桌面端 32px 在窄屏会把「品牌 + 导航 + CTA + 汉堡」挤出行外 */
+    gap: 16px;
+  }
+
+  /* 允许右侧动作组收缩, 否则 flex-shrink:0 会强行撑破容器宽度 */
+  .me-nav-right {
+    flex-shrink: 1;
+    min-width: 0;
+    gap: 8px;
   }
 
   .personal-cover-inner {
@@ -1650,9 +1667,19 @@ body.resume-page {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .me-nav {
     height: 58px;
+  }
+
+  .me-nav-inner {
+    padding: 0 16px;
+    gap: 10px;
+  }
+
+  /* 窄屏空间紧张: 隐藏文字型 CTA, 保留汉堡菜单承载导航 */
+  .me-nav-cta {
+    display: none;
   }
 
   .me-nav-links {
@@ -1855,7 +1882,8 @@ body.resume-page {
 
   .resume-chapter-num {
     font-family: var(--studio-font-mono);
-    color: var(--studio-gold);
+    /* 纸白底小字序号(移动端章节列表), 需 4.5:1 */
+    color: var(--studio-gold-ink);
     margin-right: 10px;
   }
 
@@ -2019,5 +2047,47 @@ body.resume-page {
   * {
     box-shadow: none !important;
     text-shadow: none !important;
+  }
+}
+
+/* =========================================================
+   极窄屏兜底 (≤360px: iPhone SE 1代 / 5s 等)
+   ---------------------------------------------------------
+   此档位导航与联系卡片会overflow, 统一收紧内边距与卡片尺寸。
+   置于文件末尾, 确保优先级高于上方各断点。
+   ========================================================= */
+@media (max-width: 360px) {
+  .me-nav-inner {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  /* 品牌文本省略, 只留 W 标记, 为汉堡按钮腾出空间。
+     品牌结构为 <span class="me-brand-mark">W</span><span>文字…</span>,
+     文字 span 无类名, 故用 .me-brand > span:not(.me-brand-mark) 精确命中 */
+  .me-brand {
+    font-size: 13px;
+    gap: 8px;
+  }
+
+  .me-brand > span:not(.me-brand-mark),
+  .me-brand-sub {
+    display: none;
+  }
+
+  .personal-contact-card {
+    padding: 14px 14px;
+    gap: 10px;
+  }
+
+  .personal-contact-meta {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* GitHub 语言统计: 语言种类多时单列过窄, 长名(如 AutoHotkey)撑破容器。
+     极窄屏改为 2 列自适应换行 */
+  .lang-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }

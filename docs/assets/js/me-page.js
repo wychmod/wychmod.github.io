@@ -300,16 +300,16 @@
           '#20211D',
         ];
         langChart.innerHTML = `
-          <div style="display:grid; grid-template-columns:repeat(${top.length}, 1fr); gap:8px; margin-top:8px;">
+          <div class="lang-stats-grid" style="display:grid; grid-template-columns:repeat(${top.length}, minmax(0, 1fr)); gap:8px; margin-top:8px;">
             ${top
               .map(([lang, count], i) => {
                 const pct = total ? Math.round((count / total) * 100) : 0;
                 return `
-                  <div style="text-align:center;">
+                  <div style="text-align:center; min-width:0;">
                     <div style="font-family: var(--studio-font-mono); font-size: 18px; color: ${
                       colors[i] || '#24D18F'
                     }; font-weight: 700;">${pct}%</div>
-                    <div style="font-family: var(--studio-font-mono); font-size: 11px; color: var(--studio-on-dark-muted); margin-top: 2px;">${lang}</div>
+                    <div style="font-family: var(--studio-font-mono); font-size: 11px; color: var(--studio-on-dark-muted); margin-top: 2px; overflow-wrap:anywhere;">${lang}</div>
                   </div>
                 `;
               })

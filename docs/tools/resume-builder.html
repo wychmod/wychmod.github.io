@@ -6,9 +6,9 @@
   <title>简历生成工具 - wychmod Developer Workspace</title>
   <meta name="description" content="本地简历编辑与 A4 打印预览工具：结构化填写、实时预览、本地草稿、导出 PDF。所有内容仅在当前浏览器处理，不上传服务器。">
   <!-- 视觉母体令牌(只读复用) -->
-  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260730a">
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260927a">
   <!-- 工具页共享外壳(scoped) -->
-  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260830b">
+  <link rel="stylesheet" href="/assets/css/tool-studio.css?v=20260926b">
   <style>
     /* ===========================================================
        P021 简历生成工具 页面专属样式 (scoped via .rb-* under .tool-studio)
@@ -106,6 +106,7 @@
       border-radius: var(--studio-radius-md);
       padding: var(--studio-space-5);
       max-height: calc(100vh - 220px);
+      max-height: calc(100dvh - 220px);
       overflow-y: auto;
     }
 
@@ -125,7 +126,8 @@
       font-family: var(--studio-font-mono);
       font-size: 12px;
       font-weight: 600;
-      color: var(--studio-gold);
+      /* 纸白底小字序号, 需 4.5:1; 原 --studio-gold 仅 1.94:1 */
+      color: var(--studio-gold-ink);
       letter-spacing: 0.04em;
     }
     .rb-section__title {
@@ -144,7 +146,8 @@
       margin-bottom: 6px;
       font-weight: 500;
     }
-    .rb-req { color: #b64b45; }
+    /* 原为硬编码 #b64b45, 纸白底仅 4.44:1; 改用纸白底专用深色变体(5.17:1) */
+    .rb-req { color: var(--studio-vermilion-ink); }
 
     .rb-field-row {
       display: grid;
@@ -265,6 +268,7 @@
       display: flex;
       flex-direction: column;
       max-height: calc(100vh - 220px);
+      max-height: calc(100dvh - 220px);
     }
     .rb-preview-panel__head {
       display: flex;
@@ -632,7 +636,9 @@
       text-align: center;
     }
     .resume-template .is-placeholder {
-      color: #bbb;
+      /* #bbb 在白底仅 1.92:1, 占位提示几乎不可读; #767676 为 4.54:1,
+         也是浏览器默认占位符用色, 保留斜体以区别于真实内容 */
+      color: #767676;
       font-style: italic;
     }
 

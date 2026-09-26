@@ -1052,6 +1052,7 @@ details[open] summary {
   top: 92px !important;
   width: 240px !important;
   max-height: calc(100vh - 136px) !important;
+  max-height: calc(100dvh - 136px) !important;
   padding: 16px !important;
   overflow-y: auto !important;
   background: rgba(255,255,255,0.9) !important;
@@ -1185,6 +1186,7 @@ details[open] summary {
   left: 50% !important;
   width: min(900px, calc(100vw - 40px)) !important;
   height: min(640px, calc(100vh - 80px)) !important;
+  height: min(640px, calc(100dvh - 80px)) !important;
   overflow: hidden !important;
   transform: translate(-50%, -50%) !important;
   background: var(--notion-brand-navy) !important;
@@ -1493,6 +1495,7 @@ footer a { color: var(--notion-link-blue) !important; }
   #terminal-window {
     width: calc(100vw - 22px) !important;
     height: calc(100vh - 44px) !important;
+    height: calc(100dvh - 44px) !important;
     border-radius: var(--rounded-lg) !important;
   }
 
@@ -2176,7 +2179,7 @@ body {
   }
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .cover {
     min-height: 820px !important;
   }
@@ -2203,7 +2206,7 @@ body {
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .app-nav {
     height: 58px !important;
     padding-right: 14px !important;
@@ -2266,7 +2269,7 @@ body {
   }
 }
 
-@media screen and (min-width: 480px) and (max-width: 767px) {
+@media screen and (min-width: 480px) and (max-width: 768px) {
   .cover h1,
   .cover .cover-title {
     font-size: 40px !important;
@@ -2394,7 +2397,7 @@ body[data-page="README.md"] .markdown-section {
   top: 1px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .app-nav {
     justify-content: flex-start !important;
     overflow: hidden !important;

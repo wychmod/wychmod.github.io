@@ -378,8 +378,9 @@
 /* 危险按钮 */
 .ts-btn--danger {
   background: transparent;
-  color: #b64b45;
-  border-color: rgba(182, 75, 69, 0.4);
+  /* 原为硬编码 #b64b45: 既绕过了令牌体系, 又只有 4.44:1(差 0.06 不达 AA) */
+  color: var(--studio-vermilion-ink);
+  border-color: rgba(168, 66, 61, 0.4);
 }
 .ts-btn--danger:hover { background: rgba(182, 75, 69, 0.08); }
 .ts-btn[disabled] { opacity: 0.5; cursor: not-allowed; }
@@ -468,7 +469,7 @@
 }
 .ts-foot__sep { color: var(--studio-paper-line); }
 .ts-foot__link { color: var(--studio-text); }
-.ts-foot__link:hover { color: var(--studio-green-dark); }
+.ts-foot__link:hover { color: var(--studio-green-ink); }
 
 /* ---------- 焦点(高对比轮廓) ---------- */
 .tool-studio :focus-visible {

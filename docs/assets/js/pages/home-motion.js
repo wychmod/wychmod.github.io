@@ -28,8 +28,14 @@
     requestAnimationFrame(frame);
   }
 
-  /* armed 时先把统计归零, 计数动画在页脚进入视口后启动 */
+  /* armed 时把统计归零, 计数动画在页脚进入视口后启动。
+     仅在「页脚尚在视口之外」时归零:
+     - 页脚已可见(宽视口首屏)时归零会造成"用户看着数字变 0", 直接保留真实值;
+     - 无 IntersectionObserver 的降级路径不会调用本函数, 否则数字将永久停在 0。 */
   function armFooterStats() {
+    var stats = document.querySelector('.home-footer-stats');
+    if (!stats) return;
+    if (stats.getBoundingClientRect().top < window.innerHeight) return;
     ['domains', 'docs'].forEach(function (key) {
       var el = document.querySelector('#home-footer [data-stat="' + key + '"]');
       if (el && el.dataset.statValue) el.textContent = '0';
@@ -64,6 +70,13 @@
     }
     window.__homeMotionPlayed = true;
 
+    /* 无 IntersectionObserver 环境: 全部直接点亮, 隐藏内容与归零统计都不做,
+       否则归零后没有任何回调能恢复, 统计将永久显示 0。 */
+    if (!('IntersectionObserver' in window)) {
+      revealAll();
+      return;
+    }
+
     body.classList.add('home-motion-armed');
     armFooterStats();
 
@@ -73,9 +86,6 @@
         body.classList.add('home-motion-in');
       });
     });
-
-    /* 无 IntersectionObserver 环境: 全部直接点亮, 不隐藏内容 */
-    if (!('IntersectionObserver' in window)) { revealAll(); return; }
 
     observeFooterStats();
 

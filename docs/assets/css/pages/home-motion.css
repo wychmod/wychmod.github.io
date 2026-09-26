@@ -174,7 +174,7 @@ body.is-home.home-motion-in .cover-main::after {
   animation: home-motion-breathe 9s ease-in-out 2.5s infinite alternate-reverse;
 }
 /* 窄屏封面宽度不足, 色斑探出会引发横向滚动, 直接隐藏 */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   body.is-home .cover-main::before,
   body.is-home .cover-main::after { display: none; }
 }

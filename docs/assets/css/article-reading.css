@@ -2,7 +2,7 @@
    Article Reading - Docsify 文章/内容页统一阅读系统 (P001)
    依据: docs/_meta/ui-redesign/pages/01-mainline-article.md (权威)
    继承: docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md (视觉母体, 不修改)
-   作用域: body.is-article (由 homepage-v2.js 路由状态插件在 doneEach 切换)
+   作用域: body.is-article (由 bootstrap.js 的路由状态插件在 doneEach 切换)
    隔离: body.is-home (首页) 不命中本文件任何规则; 首页 V2 冻结不受影响
    依赖: studio-tokens.css (只读取令牌, 不重新定义值)
    原则: 只补齐文章页阅读外壳/排版/插件样式/响应式; 不改 Docsify 路由/插件/终端/搜索
@@ -355,7 +355,8 @@ body.is-article .sidebar-nav > ul > li > ul > li > ul > li.active > a {
    栏间 1px 分隔线, 无卡片/阴影/圆角浮层 (参考 image-01.png, 规范 §2.5/§5)
    实测 DOM (无 #app 挂载点):
      body > main > (.sidebar-toggle[fixed] + aside.sidebar + section.content)
-     .content > (aside.toc-nav + article#main + .gitalk-container)  ← TOC 插件插在 .content 内
+     .content > (aside.toc-nav + article#main)  ← TOC 插件插在 .content 内
+   Gitalk 容器由 bootstrap.js 注入 article#main 尾部(见 §12), 不参与本网格
    故采用嵌套 grid: main 两轨 [侧栏|中栏], .content 内两轨 [正文|TOC]
    main 选择器用 body > main: md/Index.md 内嵌 <main class="sm-main"> 自带 grid, 不能误伤
    外壳全宽铺满 (2026-08-25 需求变更): 三栏撑满视口, 左右不再露出 body 底色,
@@ -383,6 +384,8 @@ body.is-article .sidebar {
   left: auto !important;
   bottom: auto !important;
   height: calc(100vh - 60px) !important;
+  /* 移动端地址栏收放会改变 vh 导致侧栏跳动; dvh 为动态视口高度, 不支持的浏览器忽略本行 */
+  height: calc(100dvh - 60px) !important;
   overflow-y: auto !important;
   border-left: 0 !important; /* 抵消 modern-theme shell 块 border-left */
   z-index: 2; /* close 过渡期间压在中栏之上 */
@@ -404,6 +407,7 @@ body.is-article .content {
   padding-top: 0 !important; /* 60px 已上移 main */
   background: var(--studio-paper-50) !important;
   min-height: calc(100vh - 60px);
+  min-height: calc(100dvh - 60px);
 }
 /* 正文列: article / Gitalk / 分页等 .content 直接子元素全部进第 1 轨 */
 body.is-article .content > * {
@@ -593,8 +597,8 @@ body.is-article .markdown-section a {
     border-color var(--studio-dur-fast) var(--studio-ease) !important;
 }
 body.is-article .markdown-section a:hover {
-  color: var(--studio-green-dark) !important;
-  border-bottom-color: var(--studio-green-dark) !important;
+  color: var(--studio-green-ink) !important;
+  border-bottom-color: var(--studio-green-ink) !important;
   text-decoration: none !important;
 }
 
@@ -622,6 +626,11 @@ body.is-article .markdown-section :not(pre) > code {
 body.is-article .markdown-section pre {
   background: var(--studio-ink-900) !important;
   color: var(--studio-on-dark) !important;
+  /* pre 自身也要指定等宽栈: vue.css 给 pre 设的是 "Roboto Mono", Monaco, courier ——
+     Roboto Mono 由 fonts.gstatic.com 提供(国内不可靠), 失败后会退到 Windows 的
+     courier。复制按钮与 pre 内的非 code 文本都继承此字体, 故在这里统一,
+     使整块代码区与行内代码使用同一套系统等宽字体。 */
+  font-family: var(--studio-font-mono) !important;
   border-radius: var(--studio-radius-md) !important;
   border: 1px solid var(--studio-line-dark) !important;
   padding: 42px 22px 18px !important; /* 顶部 42px 给复制按钮 (规范 §5.4: 36-42px), 防压首行代码 */
@@ -725,6 +734,15 @@ body.is-article .markdown-section .docsify-copy-code-button:hover {
 body.is-article .markdown-section .docsify-copy-code-button:focus-visible {
   outline: 2px solid var(--studio-focus) !important;
   outline-offset: 1px !important;
+}
+/* 触屏设备无 hover 能力: 插件靠 `pre:hover .docsify-copy-code-button { opacity:1 }`
+   才显形, 触屏下按钮将永远 opacity:0 —— 不可见却仍可点中的"隐形按钮"。
+   此处让粗指针设备常驻显示复制按钮(保留桌面端 hover 显形的克制观感)。 */
+@media (hover: none), (pointer: coarse) {
+  body.is-article .markdown-section .docsify-copy-code-button,
+  body.is-article .markdown-section pre:hover .docsify-copy-code-button {
+    opacity: 1 !important;
+  }
 }
 
 /* Mermaid 图: 纸白底, 不被深色代码样式误伤 (规范 §5.4) */
@@ -937,6 +955,7 @@ body.is-article .toc-nav {
   top: 84px !important;
   width: 240px !important;
   height: calc(100vh - 84px) !important;
+  height: calc(100dvh - 84px) !important;
   padding: 16px 16px 12px !important;
   overflow-y: auto !important;
   background: transparent !important;
@@ -1028,6 +1047,16 @@ body.is-article .toc-nav .page_toc > div.active > a {
   color: var(--studio-text) !important;
   font-weight: 600 !important;
 }
+/* TOC 条目的内层 <span> 必须显式继承父级 <a> 的颜色。
+   插件把条目文本渲染为 `a.anchor > span`, 而 modern-theme.css 有
+   `.anchor span { color: var(--notion-primary) !important }` —— 它作用在 <span> 上,
+   是「直接声明」, 永远压过从 <a> 继承来的颜色(继承值不参与特异性比较)。
+   正文标题已在 §标题锚点 用 `h1..h6 .anchor span` 覆盖, 但 TOC 不在 .markdown-section 内,
+   不受那条保护, 于是 94 处条目文字泄漏成紫色(#6d4aff, 纸白底 4.45:1)。
+   用 inherit 一条即可覆盖常态/hover/active 三种状态, 无需逐态复写。 */
+body.is-article .toc-nav .page_toc > div > a.anchor > span {
+  color: inherit !important;
+}
 
 /* 三级/四级缩进, 字号递减 */
 body.is-article .toc-nav .page_toc > div.lv3 > a {
@@ -1065,10 +1094,15 @@ body.is-article .pagination-item a {
   border: 0 !important;
 }
 
-/* Gitalk 评论: 纸白风格, 不遮挡正文 (规范 §5.6) */
+/* Gitalk 评论: 纸白风格, 不遮挡正文 (规范 §5.6)
+   容器由 bootstrap.js 注入 #main 内部(尾部), 宽度即正文列内容宽 ——
+   不再由 JS 读 #main.clientWidth 计算(旧做法每次 doneEach/resize 强制重排),
+   也不再是 .content 的 grid item, 故此处无需再声明宽度 */
 body.is-article .gitalk-container {
-  margin-top: 32px !important;
+  width: auto !important;
+  margin: 32px 0 0 !important;
   padding: 20px 0 !important;
+  box-sizing: border-box;
 }
 body.is-article .markdown-section .gitalk-container .gt-btn {
   border-radius: var(--studio-radius-sm) !important;
@@ -1580,6 +1614,7 @@ body.is-article .sidebar .search .results-panel {
   margin: 6px 0 0 !important;
   padding: 0 2px !important;
   max-height: calc(100vh - 180px) !important;
+  max-height: calc(100dvh - 180px) !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   border-top: 1px solid var(--studio-line-paper) !important;
@@ -2089,6 +2124,7 @@ body.is-article #terminal-overlay {
 body.is-article #terminal-window {
   width: min(940px, calc(100vw - 64px)) !important;
   height: min(720px, 80vh) !important;
+  height: min(720px, 80dvh) !important;
   background: var(--studio-ink-950) !important;
   border: 1px solid var(--studio-line-dark) !important;
   border-radius: var(--studio-radius-md) !important;
@@ -2442,7 +2478,7 @@ body.is-article .not-found-page pre code {
 
 /* --- 缺陷 #1: Gitalk 登录按钮与未初始化提示 (纸白主题化) ---
    gitalk.css 先于本文件加载, 此段局部使用 !important 覆盖;
-   容器由 index.html doneEach 注入到 .content (非 .markdown-section 内) */
+   容器由 bootstrap.js 的 doneEach 注入到 #main 尾部 (§12) */
 body.is-article .gitalk-container .gitalk {
   color: var(--studio-text) !important;
   font-family: var(--studio-font-body) !important;
@@ -2505,8 +2541,8 @@ body.is-article .gitalk-container .gitalk .gt-link {
 }
 body.is-article .gitalk-container .gitalk .gt-no-init a:hover,
 body.is-article .gitalk-container .gitalk .gt-link:hover {
-  color: var(--studio-green-dark) !important;
-  border-bottom-color: var(--studio-green-dark) !important;
+  color: var(--studio-green-ink) !important;
+  border-bottom-color: var(--studio-green-ink) !important;
 }
 
 /* --- 缺陷 #2: 空分页容器隐藏 ---

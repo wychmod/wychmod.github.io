@@ -11,11 +11,19 @@
    ========================================================= */
 /* 让滚动视口下方的 canvas 也保持纸白(否则 .content 背景只覆盖自身 100vh 盒, 长内容下方露白) */
 html:has(body.is-home) { background-color: var(--studio-paper-100); }
+/* 首页版心令牌: 独立语义变量, 不再重定义 --studio-content-max。
+   原先写法是 `body.is-home { --studio-content-max: 1680px }` —— 在 body 作用域
+   劫持全局令牌(studio-tokens.css 声明为 1920px), 导致「凡在 body.is-home 树内
+   引用该令牌者行为悄悄改变」的隐式耦合, 且与全站其它页面语义不一致。
+   现在的取值约定:
+     --studio-content-max  全站默认版心(1920px), 工具页/关于页等继续使用
+     --home-content-max    首页版心(1680px), 仅供首页区块与首页内嵌站点地图使用 */
+:root { --home-content-max: 1680px; }
+
 body.is-home {
   background: var(--studio-paper-100) !important;
   min-height: 100vh;
-  /* 首页内容比全站默认 1920px 略窄, 在留白与内容宽度之间取平衡 */
-  --studio-content-max: 1680px;
+  min-height: 100dvh;
 }
 body.is-home main,
 body.is-home .content,
@@ -64,7 +72,7 @@ body.is-home.home-search-active .search .matching-post {
   box-shadow: none !important;
 }
 body.is-home.home-search-active .search .search-keyword {
-  color: var(--studio-green-dark) !important;
+  color: var(--studio-green-ink) !important;
 }
 body.is-home .content {
   left: 0 !important;
@@ -81,6 +89,7 @@ body.is-home .markdown-section {
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 60px);
+  min-height: calc(100dvh - 60px);
 }
 body.is-home .markdown-section > *:first-child {
   margin-top: 0;
@@ -118,8 +127,8 @@ body.is-home #reading-progress {
 /* 首页导航栏：用更高特异性选择器覆盖 modern-theme.css 中基于 shell-gutter 的媒体查询；
    左右内边距跟踪内容盒外缘(<=content-max 视口为 gutter, 更宽时同步居中), 与封面/纸白区同一条纵轴 */
 body.is-home .app-nav {
-  padding-left: max(var(--studio-gutter), calc((100vw - var(--studio-content-max)) / 2 + var(--studio-gutter))) !important;
-  padding-right: max(var(--studio-gutter), calc((100vw - var(--studio-content-max)) / 2 + var(--studio-gutter))) !important;
+  padding-left: max(var(--studio-gutter), calc((100vw - var(--home-content-max)) / 2 + var(--studio-gutter))) !important;
+  padding-right: max(var(--studio-gutter), calc((100vw - var(--home-content-max)) / 2 + var(--studio-gutter))) !important;
   background: var(--studio-ink-900) !important;
   border-bottom-color: var(--studio-line-dark) !important;
 }
@@ -255,8 +264,12 @@ body.is-home .nav-terminal-btn:hover {
 .nav-terminal-btn svg, .nav-terminal-btn i { width: 16px; height: 16px; }
 .nav-kbd { letter-spacing: 0.04em; }
 
-/* 主 CTA 进入知识库 */
-.nav-cta {
+/* 主 CTA 进入知识库
+   注意: 必须先 .app-nav 限定作用域。modern-theme.css 的 `.app-nav a { color:
+   var(--slate) !important }` 特异性 (0,1,1) 高于裸 `.nav-cta` (0,1,0), 双方均
+   带 !important 时按特异性取胜, 会导致按钮文字变灰(对比度仅 3.32:1)。
+   提升为 `.app-nav .nav-cta` (0,2,0) 后稳定胜出。 */
+.app-nav .nav-cta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -271,12 +284,16 @@ body.is-home .nav-terminal-btn:hover {
   text-decoration: none !important;
   transition: background var(--studio-dur-fast), transform var(--studio-dur-fast) !important;
 }
-.nav-cta:hover {
-  background: var(--studio-green-dark) !important;
-  color: var(--studio-on-dark) !important;
+/* hover 反色: 绿底深字 → 深墨底绿字。
+   原方案(--studio-green-dark 底 + --studio-on-dark 字)仅 3.20:1, 不达 AA;
+   反色后为 9.13:1, 且仅复用现有令牌, 同时给出更明确的悬停反馈。 */
+.app-nav .nav-cta:hover {
+  background: var(--studio-ink-900) !important;
+  color: var(--studio-green) !important;
+  border-color: var(--studio-green) !important;
   transform: translateX(2px);
 }
-.nav-cta:focus-visible {
+.app-nav .nav-cta:focus-visible {
   outline: 2px solid var(--studio-focus);
   outline-offset: 2px;
 }
@@ -300,7 +317,7 @@ body.is-home .cover::after {
 body.is-home .cover-main {
   position: relative;
   z-index: 1;
-  max-width: var(--studio-content-max) !important;
+  max-width: var(--home-content-max) !important;
   width: 100% !important;
   margin: 0 auto !important;
   padding: 72px var(--studio-gutter) 54px !important;
@@ -697,7 +714,7 @@ body.is-home #cover-search-input::placeholder {
 .home-graph-node[data-kg-i="7"] { --kg-color: var(--kg-7); }
 .home-graph-node[data-kg-i="8"] { --kg-color: var(--kg-8); }
 /* 径向定位只在桌面图谱模式生效(>=1024), 避免 transform/top/left 泄漏到移动端索引 */
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
   .home-graph-node[data-kg-i="0"] { top: 0; left: 50%; transform: translateX(-50%); }
   .home-graph-node[data-kg-i="1"] { top: 4%; right: 0; }
   .home-graph-node[data-kg-i="2"] { top: 33%; right: 0; }
@@ -878,7 +895,7 @@ body.is-home .markdown-section > * { position: relative; z-index: 1; }
   /* flex 列容器内 auto 横边距会禁用 stretch, 必须显式 width:100%(V1.5) */
   width: 100%;
   margin: 0 auto !important;
-  max-width: var(--studio-content-max);
+  max-width: var(--home-content-max);
   min-height: 64px;
   /* V1.8: 上下留白 12->24px, 标题与上下边框拉开距离 */
   padding: var(--studio-space-5) var(--studio-gutter);
@@ -899,14 +916,14 @@ body.is-home .markdown-section > .home-binding { z-index: 2; }
    在带面上探区(28px)拦截半圆提示点击; 封面底部为透明 padding, 抬高后视觉不变 */
 body.is-home main { z-index: 1; }
 /* 首条装订带向上覆盖深色封面 28px(规范 §6.9: 24-32px; 仅平板及以上, 移动端不重叠) */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   body.is-home .markdown-section > .home-binding:first-child {
     margin-top: -28px !important;
     /* 带面全出血, 内容仍按 content-max 居中: >1920px 视口下白底带面横贯全宽,
        不再在接缝两侧露出深色封面"暗翅"(白条撞进黑封面的冲突感) */
     max-width: none;
-    padding-left: max(var(--studio-gutter), calc((100vw - var(--studio-content-max)) / 2 + var(--studio-gutter)));
-    padding-right: max(var(--studio-gutter), calc((100vw - var(--studio-content-max)) / 2 + var(--studio-gutter)));
+    padding-left: max(var(--studio-gutter), calc((100vw - var(--home-content-max)) / 2 + var(--studio-gutter)));
+    padding-right: max(var(--studio-gutter), calc((100vw - var(--home-content-max)) / 2 + var(--studio-gutter)));
   }
 }
 /* 深色小标签(规范 §6.9 / 参考图): 深石墨方块从带面顶缘垂下, 卷名两行居中, 底部圆角(V1.8),
@@ -1023,7 +1040,7 @@ body.is-home .markdown-section .home-binding-tag strong {
 /* 最近更新(规范 §6.10) */
 .home-section {
   width: 100%;  /* V1.5: 对抗 flex 列内 auto 边距收缩 */
-  max-width: var(--studio-content-max);
+  max-width: var(--home-content-max);
   margin: 0 auto;
   padding: var(--studio-space-6) var(--studio-gutter);
 }
@@ -1046,7 +1063,13 @@ body.is-home .markdown-section .home-binding-tag strong {
   color: var(--studio-text-muted);
 }
 /* 参考图: 头部右侧"查看全部 →" */
-.home-section-more {
+/* 选择器必须带 `body.is-home` 前缀 —— 本元素就是 <a> 本身, 与 modern-theme.css 的
+   `.markdown-section a{color:var(--notion-link-blue)!important}` 正面冲突。
+   双方都带 !important 时只由特异性裁决: 裸类 (0,1,0) 输给 (0,1,1),
+   于是颜色泄漏为链接蓝并只剩 4.20:1。加前缀后 (0,2,1) 稳定取胜;
+   hover 用 (0,3,1) 同理压过 `.markdown-section a:hover`(0,2,1)。
+   取色 --studio-text-muted 在纸白底为 5.24:1, 悬停 --studio-green-ink 为 5.18:1。 */
+body.is-home .home-section-more {
   margin-left: auto;
   font-family: var(--studio-font-mono);
   font-size: 12px;
@@ -1057,7 +1080,7 @@ body.is-home .markdown-section .home-binding-tag strong {
   white-space: nowrap;
   transition: color var(--studio-dur-fast);
 }
-.home-section-more:hover { color: var(--studio-green-dark) !important; }
+body.is-home .home-section-more:hover { color: var(--studio-green-ink) !important; }
 .home-section-more .home-section-more-arrow {
   display: inline-block;
   transition: transform var(--studio-dur-fast);
@@ -1112,7 +1135,7 @@ body.is-home .markdown-section .home-recent-title {
   letter-spacing: 0 !important;
   line-height: 1.3 !important;
 }
-.home-recent-row:hover .home-recent-title { color: var(--studio-green-dark); }
+.home-recent-row:hover .home-recent-title { color: var(--studio-green-ink); }
 body.is-home .markdown-section .home-recent-excerpt {
   margin: 0 !important;
   font-family: var(--studio-font-body);
@@ -1159,7 +1182,7 @@ body.is-home .markdown-section .home-recent-excerpt {
 }
 .home-recent-row:hover .home-recent-arrow {
   transform: translateX(3px);
-  color: var(--studio-green-dark);
+  color: var(--studio-green-ink);
 }
 
 /* 书桌边 - 页边批注(规范 §6.11) */
@@ -1196,7 +1219,10 @@ body.is-home .markdown-section .home-marginalia-source {
 body.is-home .markdown-section .home-marginalia-source a {
   font-family: var(--studio-font-mono);
   font-size: 12px;
-  color: var(--studio-green-dark);
+  /* !important 必要性: 本条与 `.markdown-section a{color:var(--notion-link-blue)!important}`
+     竞争, 缺 !important 时无论特异性多高都会输, 颜色泄漏为链接蓝(4.20:1)。
+     补上后 (0,3,2) 稳定取胜, 取到 --studio-green-ink 的 5.18:1。 */
+  color: var(--studio-green-ink) !important;
   text-decoration: none;
 }
 .home-marginalia-source a:hover { text-decoration: underline; }
@@ -1210,7 +1236,7 @@ body.is-home .markdown-section .home-marginalia-source a {
   gap: var(--studio-space-5);
   width: 100%;  /* V1.5: 对抗 flex 列内 auto 边距收缩 */
   /* 与兄弟 section 的内容缘对齐: 视口未达上限时按 100vw 收缩(V1.4) */
-  max-width: min(calc(100vw - (2 * var(--studio-gutter))), calc(var(--studio-content-max) - (2 * var(--studio-gutter))));
+  max-width: min(calc(100vw - (2 * var(--studio-gutter))), calc(var(--home-content-max) - (2 * var(--studio-gutter))));
   min-height: 160px;
   margin: 0 auto var(--studio-space-8);
   padding: var(--studio-space-7) 0;
@@ -1240,7 +1266,8 @@ body.is-home .markdown-section .home-note-label strong { color: var(--studio-on-
   font-size: 52px;
   font-weight: 700;
   line-height: 1;
-  color: var(--studio-gold);
+  /* 52px 阈值 3:1, 原 --studio-gold 仅 1.79:1 */
+  color: var(--studio-gold-ink);
   align-self: start;
   margin-top: 18px;
 }
@@ -1282,7 +1309,7 @@ body.is-home .markdown-section .home-note-sig {
 /* 知识索引(规范 §6.13) */
 .home-index {
   width: 100%;  /* V1.5: 对抗 flex 列内 auto 边距收缩 */
-  max-width: var(--studio-content-max);
+  max-width: var(--home-content-max);
   margin: 0 auto;
   padding: var(--studio-space-6) var(--studio-gutter);
 }
@@ -1332,7 +1359,7 @@ body.is-home .markdown-section .home-index-col a {
   border-bottom: 0 !important;
   transition: color var(--studio-dur-fast) !important;
 }
-body.is-home .markdown-section .home-index-col a:hover { color: var(--studio-green-dark) !important; }
+body.is-home .markdown-section .home-index-col a:hover { color: var(--studio-green-ink) !important; }
 .home-index-desc {
   display: block;
   margin-top: 2px;
@@ -1342,10 +1369,10 @@ body.is-home .markdown-section .home-index-col a:hover { color: var(--studio-gre
   color: var(--studio-text-muted);
 }
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   .home-index-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .home-index-grid { grid-template-columns: 1fr; }
   .home-index { padding-left: 16px !important; padding-right: 16px !important; }
 }
@@ -1390,7 +1417,7 @@ body.is-home .notion-chips {
 }
 
 /* 平板竖屏 768–1023: Hero 上下 + 9 域径向图谱改为文本索引(规范 §8.3/§8.4) */
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1024px) {
   body.is-home .cover-main { padding: 72px var(--studio-gutter) 64px !important; }
   body.is-home .cover-main > .home-v2 { grid-template-columns: 1fr; }
   body.is-home .cover h1, .home-hero h1 { font-size: 44px !important; }
@@ -1438,7 +1465,7 @@ body.is-home .home-footer-boundary {
   display: flex;
   align-items: center;
   gap: var(--studio-space-4);
-  max-width: var(--studio-content-max);
+  max-width: var(--home-content-max);
   margin: 0 auto;
   padding: 28px var(--studio-gutter) 0;
 }
@@ -1470,7 +1497,7 @@ body.is-home .home-footer-main {
   column-gap: 72px;
   row-gap: var(--studio-space-6);
   align-items: start;
-  max-width: var(--studio-content-max);
+  max-width: var(--home-content-max);
   margin: 0 auto;
   padding: 72px var(--studio-gutter) 80px;
 }
@@ -1835,8 +1862,14 @@ body.is-home .home-footer-contact-item {
   color: var(--studio-on-dark);
 }
 body.is-home .home-footer-contact-item:first-child { border-top: 1px solid var(--studio-line-dark); }
-body.is-home a.home-footer-contact-item { text-decoration: none !important; transition: color var(--studio-dur-fast), border-color var(--studio-dur-fast); }
+/* color 需 !important: modern-theme.css 的 `.markdown-section a{color:var(--notion-link-blue)
+   !important}` 会命中页脚内链接(内容渲染于 .markdown-section), 且带 !important 取胜,
+   导致深底上的链接变成低对比度蓝(3.63:1)。此处按项目既有覆盖策略显式加 !important。 */
+body.is-home a.home-footer-contact-item { text-decoration: none !important; color: var(--studio-on-dark) !important; transition: color var(--studio-dur-fast), border-color var(--studio-dur-fast); }
 body.is-home a.home-footer-contact-item:hover { color: var(--studio-gold) !important; border-color: var(--studio-gold) !important; }
+/* 联系项内文本同样需压过泄漏规则, 统一为深底可读的次要色 */
+body.is-home .home-footer-contact-text,
+body.is-home .home-footer-contact-item span { color: var(--studio-on-dark-muted) !important; }
 body.is-home .home-footer-contact-icon {
   display: inline-flex;
   align-items: center;
@@ -1857,7 +1890,7 @@ body.is-home .home-footer-bottom {
   align-items: center;
   justify-content: space-between;
   gap: var(--studio-space-4);
-  max-width: var(--studio-content-max);
+  max-width: var(--home-content-max);
   margin: 0 auto;
   padding: var(--studio-space-4) var(--studio-gutter);
   border-top: 1px solid var(--studio-line-dark);
@@ -1866,19 +1899,23 @@ body.is-home .home-footer-copy {
   margin: 0 !important;
   font-family: var(--studio-font-mono);
   font-size: 12px;
-  color: var(--studio-on-dark-muted);
+  /* --studio-on-dark-muted(#a9aea7) 在深墨底为 8.47:1 */
+  color: var(--studio-on-dark-muted) !important;
 }
 body.is-home .home-footer-star {
   margin: 0 !important;
   font-family: var(--studio-font-body);
   font-size: 14px;
-  color: var(--studio-on-dark);
+  /* !important 必要性: `.markdown-section p`(0,1,1) 带 !important 的 --slate(#5f5d57)
+     会压过本规则(0,2,1 但无 !important), 实测只剩 2.91:1。补上 !important 后
+     由特异性取胜, 取到 --studio-on-dark 在深墨底的 8.47:1。 */
+  color: var(--studio-on-dark) !important;
 }
 
 /* 背景 W 印章水印 */
 body.is-home .home-footer-mark {
   position: absolute;
-  right: max(var(--studio-gutter), calc((100vw - var(--studio-content-max)) / 2 + var(--studio-gutter)));
+  right: max(var(--studio-gutter), calc((100vw - var(--home-content-max)) / 2 + var(--studio-gutter)));
   bottom: 80px;
   z-index: 0;
   font-family: var(--studio-font-display);
@@ -1893,7 +1930,7 @@ body.is-home .home-footer-mark {
 
 /* 小桌面/平板竖屏 768-1100: 三栏过挤, 品牌栏独占整行, 维护/联系两栏并排
    (对齐知识索引 ≤1200 收为双栏的思路) */
-@media screen and (max-width: 1100px) and (min-width: 768px) {
+@media screen and (max-width: 1100px) and (min-width: 769px) {
   body.is-home .home-footer-main {
     grid-template-columns: 1fr 1fr;
     column-gap: 56px;
@@ -1906,7 +1943,7 @@ body.is-home .home-footer-mark {
 }
 
 /* 手机 <=767 */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .app-nav { height: 58px !important; padding: 0 14px !important; }
   .nav-brand-sub, .nav-links { display: none !important; }
   .nav-kbd { display: none; }
@@ -1965,7 +2002,9 @@ body.is-home .home-footer-mark {
   .home-note {
     grid-template-columns: 1fr;
     gap: var(--studio-space-3);
-    max-width: none;  /* 移动端由 margin 决定宽度, 不受桌面 min() 公式约束 */
+    /* 桌面端 max-width 是 min(100vw - 80px, 1600px) —— 390px 视口下只有 310px,
+       移动端改用 margin 控边, 解除该上限让手记撑到 358px, 避免长句过窄 */
+    max-width: none;
     min-height: auto;
     margin: 0 16px var(--studio-space-6);
     padding: var(--studio-space-5) var(--studio-space-4);
@@ -1974,9 +2013,9 @@ body.is-home .home-footer-mark {
   }
   .home-note-label { grid-column: 1 / -1; min-height: 64px; padding: var(--studio-space-3); }
   .home-note-quote { display: none; }
-  .home-note-text { grid-column: 1 / -1; }
+  /* 单列布局下正文跨满整行, 并统一字体尺寸(合并在一条规则内, 原先拆成两条同选择器声明) */
+  .home-note-text { grid-column: 1 / -1; font-size: 16px; }
   .home-note-sig { grid-column: 1; }
-  .home-note-text { font-size: 16px; }
   .home-note-mark { display: none; }
 
   body.is-home .home-footer-boundary { padding: 24px 16px 0; }

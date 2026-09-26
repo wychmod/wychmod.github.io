@@ -2,7 +2,7 @@
    Site Map - 全站地图 / Knowledge Index 页面专用样式 (P003)
    依据: docs/_meta/ui-redesign/pages/03-site-map.md (权威)
    继承: docs/_meta/HOMEPAGE_DESIGN_AND_IMPLEMENTATION.md (视觉母体)
-   作用域: body[data-page="md/Index.md"] (由 homepage-v2.js 路由状态设置)
+   作用域: body[data-page="md/Index.md"] (由 bootstrap.js 的路由状态设置)
    隔离: 不影响 body.is-home (首页) 和其他文章页
    依赖: studio-tokens.css (只读取令牌)
    ========================================================= */
@@ -87,7 +87,9 @@ body[data-page="md/Index.md"] .markdown-section > .edit-page-link {
 }
 
 .sm-path-current {
-  color: var(--studio-green);
+  /* --studio-green(#24d18f) 在纸白底仅 1.58:1, 作为「当前页」文字几乎不可读;
+     换用纸白底专用深色变体(5.18:1)。 */
+  color: var(--studio-green-ink);
   font-weight: 600;
 }
 
@@ -284,7 +286,10 @@ body.is-home .home-index--sitemap .sm-quick-nav-details > summary:hover {
 }
 
 .sm-quick-item.is-current .sm-quick-name {
-  color: var(--studio-gold);
+  /* 这是「当前所在分类」的导航指示, 属真实信息而非装饰: 14px 需 4.5:1,
+     原 --studio-gold 只有 1.71–1.79:1, 用户几乎看不出哪项是当前项。
+     改用纸白底专用深金(5.40:1); 父项已有的淡金底纹继续承担视觉强调。 */
+  color: var(--studio-gold-ink) !important;
 }
 
 .sm-quick-item:focus-visible {
@@ -302,6 +307,10 @@ body.is-home .home-index--sitemap .sm-quick-nav-details > summary:hover {
 .sm-quick-name {
   font-size: 14px;
   flex: 1;
+  /* !important 必要性: 快捷项位于 .markdown-section 内, 会被 modern-theme.css 的
+     `.markdown-section a{color:var(--notion-link-blue)!important}` 命中并取胜
+     (泄漏为 4.20:1)。--studio-text(#20211d) 在纸白底为 12.4:1 */
+  color: var(--studio-text) !important;
 }
 
 .sm-quick-arrow {
@@ -418,7 +427,10 @@ body.is-home .home-index--sitemap .sm-domain-summary:hover {
   font-family: var(--studio-font-display);
   font-size: 44px;
   font-weight: 700;
-  color: var(--studio-gold);
+  /* 大字号阈值 3:1, 原 --studio-gold 仅 1.79:1; 改用纸白底专用深金(5.40:1)。
+     注: 下一段原写 `var(--studio-gold-dark, #a98b52)` —— 该令牌**从未定义**,
+     一直靠兜底值生效, 属隐性令牌缺口, 一并收口到 --studio-gold-ink。 */
+  color: var(--studio-gold-ink);
   line-height: 1;
   width: 88px;
   flex-shrink: 0;
@@ -427,7 +439,7 @@ body.is-home .home-index--sitemap .sm-domain-summary:hover {
 
 .sm-domain-summary:hover .sm-domain-num,
 .sm-domain[open] .sm-domain-num {
-  color: var(--studio-gold-dark, #a98b52);
+  color: var(--studio-gold-ink);
 }
 
 .sm-domain-body {
@@ -522,7 +534,7 @@ body.is-home .home-index--sitemap .sm-domain-links a {
 
 body[data-page="md/Index.md"] .markdown-section .sm-domain-links a:hover,
 body.is-home .home-index--sitemap .sm-domain-links a:hover {
-  color: var(--studio-green-dark) !important;
+  color: var(--studio-green-ink) !important;
   text-decoration: underline !important;
 }
 
@@ -608,7 +620,7 @@ body.is-home .home-index--sitemap .sm-helper-title {
 }
 
 .sm-helper-list a:hover {
-  color: var(--studio-green-dark) !important;
+  color: var(--studio-green-ink) !important;
 }
 
 .sm-helper-list a:focus-visible {
@@ -910,8 +922,14 @@ body.is-home .home-index--sitemap .sm-page a:hover {
 /* =========================================================
    §17. 首页嵌入版适配（README.md 知识索引区）
    ========================================================= */
+/* 注意: 这里**不能**再写 max-width: none。
+   放开上限会让本区块的内容左缘落到视口 padding 处(1920px 下为 40px),
+   而首页其余区块(.home-note / .home-binding / .cover-main)都在 1680 版心内
+   (左缘 160px) —— 同页出现两条纵轴, 版心失序。
+   故保持 homepage-v2.css 的 `.home-index { max-width: var(--home-content-max);
+   margin: 0 auto; padding: 0 40px }`, 由内层 `.sm-page` 取消自己的 1440 上限
+   来吃掉整条 1600 内容盒。 */
 body.is-home .home-index--sitemap {
-  max-width: none;
   padding: var(--studio-space-6) var(--studio-gutter);
 }
 
@@ -934,7 +952,7 @@ body.is-home .home-index--sitemap .sm-header {
 /* 首页容器内三栏与卷二装订带同轴: 宽度对齐 content-max, 左栏贴齐装订带左侧,
    右栏贴齐装订带右侧(02 CHAPTER), 中栏自适应填充, 避免 1440 居中盒造成的拥挤感 */
 body.is-home .home-index--sitemap .sm-layout {
-  max-width: var(--studio-content-max);
+  max-width: var(--home-content-max, var(--studio-content-max));
   margin: 0 auto;
   justify-content: start;
   grid-template-columns: 260px 1fr 220px;

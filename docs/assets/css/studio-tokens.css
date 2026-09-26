@@ -18,7 +18,12 @@
 
   /* —— 文字 —— */
   --studio-text: #20211d;
-  --studio-text-muted: #66685f;
+  /* #5c5e56: 原值 #66685f 在 --studio-paper-100 上实测 4.503:1 —— 虽踩线通过 AA,
+     但零余量(全站 732 处元素落在这个组合上, 任何取整/叠加都会翻到 4.5 以下)。
+     加深后在三个实测底上分别为: paper-100 → 5.24, paper-50 → 5.68,
+     5% 墨色叠加态 → 4.77, 均有余量。
+     该令牌**只在浅底使用**(深底一律走 --studio-on-dark-muted), 故加深只提升对比度。 */
+  --studio-text-muted: #5c5e56;
   --studio-on-dark: #f2efe7;
   --studio-on-dark-muted: #a9aea7;
 
@@ -30,6 +35,22 @@
   --studio-cyan: #58b7c7;
   --studio-rust: #a66b45;
   --studio-focus: #7ee8bc;
+
+  /* —— 纸白底专用深色变体 ——
+     原信号色(green-dark 2.92:1 / rust 3.47:1 / notion-link-blue 4.20:1)在纸白
+     --studio-paper-100 上不满足 WCAG AA 4.5:1。以下变体专供纸白底小字使用,
+     深色底请继续使用上方原色。 */
+  --studio-green-ink: #0f6b4a;   /* 纸白底 5.18:1 */
+  --studio-rust-ink: #8f5738;    /* 纸白底 4.66:1 */
+  --studio-link-ink: #0a5aa8;    /* 纸白底 5.49:1, 替代 --notion-link-blue 的正文链接 */
+  --studio-link-on-dark: #4a9eff; /* 深墨底 6.95:1, 深色区域链接用 */
+  --studio-vermilion-ink: #a8423d; /* 纸白底 5.17:1, 原 #b64b45 只有 4.44:1 */
+  /* 纸白底专用深金。原 --studio-gold(#c8a96b) 在纸白底只有 1.60–1.94:1,
+     远低于小字所需的 4.5:1 —— 而它承载的不只是装饰水印, 还包括时间轴年份
+     ("2019–2020")、笔记序号、目录编号等**真实信息**, 属实质可读性缺陷。
+     本变体保持原金色相(h≈41°)压暗, 三种实测底上为 5.40 / 5.86 / 4.82, 均达标。
+     深墨底请继续使用 --studio-gold(在深底上与墨水色对比充足)。 */
+  --studio-gold-ink: #6f5820;
 
   /* —— 领域编码色(仅小面积: 图谱图标/主题列表点/连线端点/hover 描边, 依据参考图 V1.2) —— */
   --kg-0: #22c55e;  /* 计算机基础 绿 */
@@ -46,10 +67,24 @@
   /* —— 终端预览底色(带绿调的石墨) —— */
   --studio-terminal-bg: #0f1713;
 
-  /* —— 字体 —— */
-  --studio-font-display: "Source Han Serif SC", "Noto Serif SC", "Songti SC", SimSun, serif;
-  --studio-font-body: "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-  --studio-font-mono: "IBM Plex Mono", "JetBrains Mono", Consolas, monospace;
+  /* —— 字体 ——
+     本站**不加载任何 webfont**（有意决策）：中文字体即使子集化也有数百 KB，
+     而唯一能被 CDN 提供的 Roboto Mono 来自 fonts.gstatic.com —— 该域名在中国大陆
+     访问不稳定，一旦失败，`pre` 会退到 `Monaco, courier` 甚至 Windows 上的 courier。
+     因此字体栈统一采用「本机存在的字体优先」写法，各栈首项在三大平台的实际落点：
+
+       --studio-font-display  Windows→SimSun  macOS→Songti SC  Linux→Source Han Serif SC
+       --studio-font-body     Windows→Microsoft YaHei  macOS→PingFang(经 Noto/Songti 回退链)  Linux→Source Han Sans
+       --studio-font-mono     三平台→Cascadia Mono / SF Mono / DejaVu Sans Mono
+
+     即「衬线标题 + 无衬线正文 + 系统等宽代码」的意图在各平台都能达成；
+     栈里的 Source Han / Noto 项是给已装 Adobe/Google 字体的机器提升观感用的，
+     不是「声明了却没用上」的失效声明 —— 改动前请先读本节说明。 */
+  --studio-font-display: "Source Han Serif SC", "Noto Serif SC", "Songti SC", "SimSun", "Source Han Serif CN", serif;
+  --studio-font-body: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  /* 不含 Roboto Mono: 它只由 docsify 主题经 fonts.gstatic.com 引入, 国内不可靠,
+     不该成为代码字体的实际依赖; 用系统等宽字体可保证三平台一致且零网络成本 */
+  --studio-font-mono: ui-monospace, "Cascadia Mono", "SF Mono", "JetBrains Mono", Menlo, Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
 
   /* —— 空间 —— */
   --studio-space-1: 4px;
@@ -64,7 +99,6 @@
   /* —— 圆角(最大 6px, 首页禁胶囊) —— */
   --studio-radius-sm: 3px;
   --studio-radius-md: 6px;
-  --studio-hairline: 1px;
 
   /* —— 线条 —— */
   --studio-line-dark: rgba(242, 239, 231, 0.14);
@@ -83,6 +117,33 @@
   --studio-content-max: 1920px;
   --studio-gutter: 40px;
 }
+
+/* =========================================================
+   断点约定 (2026-09 归一)
+
+   CSS 媒体条件里**不能写 var()**，所以断点无法做成令牌；这里以文档形式
+   固定约定，新增响应式规则一律照此取值：
+
+     分界        ≤ 值(移动/窄屏侧)      ≥ 值(桌面侧)
+     768px      max-width: 768px       min-width: 769px
+     1024px     max-width: 1024px      min-width: 1025px
+     1279/1280  max-width: 1279px      min-width: 1280px   (已一致，无需改动)
+     480 / 1600 直接按 max-width / min-width 写在两侧，同样保持互补。
+
+   为什么是 768 与 1024：768 对应平板竖屏、1024 对应侧栏抽屉化的临界宽度，
+   均与 `--studio-content-max` / 侧栏 280px / TOC 240px 的几何推导一致。
+
+   历史坑（已修）：
+   · 曾同时存在 `max-width: 1023px` 与 `min-width: 1025px` —— 恰好 1024px 的
+     视口两边都不命中，形成规则死区；768px 处也曾有 `max-width: 767px` 与
+     `min-width: 768px` 同时命中导致的桌面/移动规则打架。
+   · `me-page.css` 曾把 1024/768 当作桌面侧，与文章页的抽屉边界相反，
+     导致同一视口下「导航是桌面态、正文却是移动态」。
+
+   其余断点值(360/390/420/460/540/580/620/720/760/820/860/900/960/980/
+   1010/1100/1120/1200/1400/1440)是各组件按自身几何推导的历史取值，
+   未经重设计不要随意归并 —— 收敛为 5 档需要逐个组件重做响应式。
+   ========================================================= */
 
 /* 动效偏好: 尊重 reduced-motion(规范 §9.4) */
 @media (prefers-reduced-motion: reduce) {

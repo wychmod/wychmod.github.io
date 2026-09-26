@@ -18,21 +18,34 @@
   <!-- Gitalk 样式 -->
   <link rel="stylesheet" href="/assets/css/gitalk.css">
 
-  <!-- 壳层入口样式：tokens / shell / pages -->
-  <link rel="stylesheet" href="/assets/css/tokens.css?v=20260902a">
-  <link rel="stylesheet" href="/assets/css/shell.css?v=20260901a">
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20260904b">
-  <link rel="stylesheet" href="/assets/css/pages/article.css?v=20260902b">
-  <link rel="stylesheet" href="/assets/css/pages/site-map.css?v=20260826a">
+  <!-- 壳层样式: 直接引入真实文件, 顺序即层叠优先级
+       (tokens → 遗留主题 → 首页 → 首页动效 → 文章 → 全站地图)。
+       原先经 tokens/shell/pages-* 一层 @import 转发, 每条 @import 都是一次
+       串行往返且阻塞渲染; 扁平化后样式请求 14 → 8。 -->
+  <link rel="stylesheet" href="/assets/css/studio-tokens.css?v=20260927a">
+  <link rel="stylesheet" href="/assets/css/modern-theme.css?v=20260901a">
+  <link rel="stylesheet" href="/assets/css/homepage-v2.css?v=20260927a">
+  <link rel="stylesheet" href="/assets/css/pages/home-motion.css?v=20260904b">
+  <link rel="stylesheet" href="/assets/css/article-reading.css?v=20260926b">
+  <link rel="stylesheet" href="/assets/css/site-map.css?v=20260927a">
 
-  <!-- 百度统计 -->
+  <!-- 提前建立 CDN 连接 (vue.css / lucide / search.js / mermaid ESM 均来自该源) -->
+  <link rel="preconnect" href="https://registry.npmmirror.com">
+  <link rel="dns-prefetch" href="https://registry.npmmirror.com">
+
+  <!-- 百度统计: 推迟到 window load 之后注入, 避免与首屏关键资源争抢连接与带宽。
+       _hmt 队列先建好, 站点侧任何 _hmt.push 调用不受影响。 -->
   <script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b3354307876925c625a24bb138d2177c";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
+      (function () {
+        var _hmt = window._hmt = window._hmt || [];
+        function inject() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?b3354307876925c625a24bb138d2177c";
+          hm.async = true;
+          document.head.appendChild(hm);
+        }
+        if (document.readyState === "complete") inject();
+        else window.addEventListener("load", function () { setTimeout(inject, 1200); }, { once: true });
       })();
   </script>
 </head>
@@ -95,14 +108,26 @@
 </div>
 
 <script>
-    var gitalkConfig = {
+    /* ===== Gitalk 评论代理配置 =====
+       安全约束: 前端**禁止**持有 clientSecret(公开仓库会泄露)。
+       换 token 与 REST 调用均须经代理中转, secret 只存于代理的环境变量。
+       部署步骤见 docs/_meta/GITALK_PROXY_SETUP.md, 填好下面两项即可启用评论区;
+       留空则评论区静默跳过(不产生控制台报错), 知识库主体功能不受影响。 */
+    var GITALK_PROXY = {
+      apiBase:  '',   // 例: 'https://<worker>.<sub>.workers.dev/github'
+      tokenUrl: ''    // 例: 'https://<worker>.<sub>.workers.dev/github/login/oauth/access_token'
+    };
+    /* 供 gitalk.min.js 内部 axiosGithub 实例读取(已 patch 为可配置) */
+    window.GITALK_API_BASE = GITALK_PROXY.apiBase;
+
+    var gitalkConfig = GITALK_PROXY.apiBase && GITALK_PROXY.tokenUrl ? {
       clientID: '4a657aa4ae6c0f1862a1',
-      clientSecret: '94793d5bac0c884a8798ea941f7c5bc9fb004720',
+      proxy: GITALK_PROXY.tokenUrl,
       repo: 'wychmod.github.io',
       owner: 'wychmod',
       admin: ["wychmod"],
       distractionFreeMode: false
-    };
+    } : null;
     window.$docsify = {
       name: 'wychmod Developer Workspace',
       repo: 'https://github.com/wychmod/wychmod.github.io',
@@ -111,9 +136,9 @@
       loadSidebar: true,
       loadNavbar: false,
       notFoundPage: true,
-      requestHeaders: {
-        'cache-control': 'no-cache'
-      },
+      /* 注: 原先此处设 requestHeaders['cache-control']='no-cache', 会强制所有文档
+         请求绕过缓存、每次导航重新验证, 弱网下体感明显。Markdown 由 ETag 校验即可,
+         故移除, 交由浏览器正常缓存策略处理。 */
       maxLevel: 4,
       /* 左侧栏只保留领域模块, 页内标题改由右侧「本页目录」承担 */
       subMaxLevel: 0,
@@ -181,57 +206,84 @@
     }
   </script>
 
-<script src="/assets/js/md5.js"></script>
-<script src="/assets/js/ai-assistant.js"></script>
-<!-- Lucide 图标(固定版本 0.468.0, 含 Github 品牌图标; 规范 §11.5) -->
-<script src="https://registry.npmmirror.com/lucide/0.468.0/files/dist/umd/lucide.min.js"></script>
-<!-- 壳层 bootstrap / feature / page modules (必须在 docsify.min.js 之前) -->
-<script src="/assets/js/bootstrap.js?v=20260826a"></script>
-<script src="/assets/js/features/terminal.js?v=20260901a"></script>
-<script src="/assets/js/features/terminal-a11y.js?v=20260826a"></script>
-<script src="/assets/js/pages/home.js?v=20260826a"></script>
-<script src="/assets/js/pages/home-motion.js?v=20260904b"></script>
-<script src="/assets/js/pages/article.js?v=20260826a"></script>
-<script src="/assets/js/pages/site-map.js?v=20260826a"></script>
-<script src="/assets/js/docsify.min.js"></script>
-<!-- 注意: docsify.min.js 内嵌 Prism 核心并挂到 window.Prism, 代码高亮走内嵌实例;
-     禁止再加载独立 prism.js 核心(会覆盖 window.Prism, 语法组件注册到错误实例上失效)。
-     语法组件直接注册到 docsify 内嵌的 window.Prism 即可。 -->
-<script src="/assets/js/prism-bash.js"></script>
-<script src="/assets/js/prism-java.min.js"></script>
-<!-- Prism 语法组件: 覆盖全站 markdown 实际使用的语言 (python/sql/yaml/json/c/go/jsx/properties/lua/powershell/ini/docker/nginx) -->
-<script src="/assets/js/prism-python.min.js"></script>
-<script src="/assets/js/prism-sql.min.js"></script>
-<script src="/assets/js/prism-yaml.min.js"></script>
-<script src="/assets/js/prism-json.min.js"></script>
-<script src="/assets/js/prism-c.min.js"></script>
-<script src="/assets/js/prism-go.min.js"></script>
-<script src="/assets/js/prism-jsx.min.js"></script>
-<script src="/assets/js/prism-properties.min.js"></script>
-<script src="/assets/js/prism-lua.min.js"></script>
-<script src="/assets/js/prism-powershell.min.js"></script>
-<script src="/assets/js/prism-ini.min.js"></script>
-<script src="/assets/js/prism-docker.min.js"></script>
-<script src="/assets/js/prism-nginx.min.js"></script>
-<!-- 语言别名: sh→bash, react→jsx (必须在语法组件之后) -->
-<script src="/assets/js/prism-aliases.js"></script>
-<script src="/assets/js/gitalk.min.js"></script>
-<script src="https://registry.npmmirror.com/docsify/4.13.1/files/lib/plugins/search.js"></script>
-<script src="/assets/js/docsify-pagination.min.js"></script>
-<script src="/assets/js/zoom-image.js"></script>
-<!-- Mermaid 流程图插件 -->
-<script type="module">
-  import mermaid from "https://registry.npmmirror.com/mermaid/10.9.3/files/dist/mermaid.esm.min.mjs";
-  mermaid.initialize({ startOnLoad: true });
-  window.mermaid = mermaid;
+  <!-- 全部改用 defer: 并行下载、按文档顺序执行(不改变依赖关系), 且都在
+       DOMContentLoaded 之前跑完 —— docsify 在 DOMContentLoaded 初始化, 因此
+       bootstrap.js 的插件注册(须早于 docsify.min.js 读取 $docsify)依然成立。
+       此前 34 个同步脚本只能串行下载执行, 是本页最长的一条关键路径。 -->
+  <script defer src="/assets/js/md5.js"></script>
+  <script defer src="/assets/js/ai-assistant.js"></script>
+  <!-- Lucide 图标(固定版本 0.468.0, 含 Github 品牌图标; 规范 §11.5) -->
+  <script defer src="https://registry.npmmirror.com/lucide/0.468.0/files/dist/umd/lucide.min.js"></script>
+  <!-- 壳层 bootstrap / feature / page modules (必须在 docsify.min.js 之前) -->
+  <script defer src="/assets/js/bootstrap.js?v=20260826a"></script>
+  <script defer src="/assets/js/features/terminal.js?v=20260901a"></script>
+  <script defer src="/assets/js/features/terminal-a11y.js?v=20260826a"></script>
+  <script defer src="/assets/js/pages/home.js?v=20260826a"></script>
+  <script defer src="/assets/js/pages/home-motion.js?v=20260904b"></script>
+  <script defer src="/assets/js/pages/article.js?v=20260826a"></script>
+  <script defer src="/assets/js/pages/site-map.js?v=20260826a"></script>
+  <script defer src="/assets/js/docsify.min.js"></script>
+  <!-- 注意: docsify.min.js 内嵌 Prism 核心并挂到 window.Prism, 代码高亮走内嵌实例;
+       禁止再加载独立 prism.js 核心(会覆盖 window.Prism, 语法组件注册到错误实例上失效)。
+       语法组件直接注册到 docsify 内嵌的 window.Prism 即可。
+       下面这个合并包覆盖全站 markdown 实际使用的语言
+       (bash/java/python/sql/yaml/json/c/go/jsx/properties/lua/powershell/ini/docker/nginx
+        以及 sh→bash、react→jsx 别名), 合并顺序 = 原逐文件加载顺序, 语义完全一致。
+       合并收益: 16 个脚本请求 → 1 个。改动各组件后需同步重建该包(见文件头注释)。 -->
+  <script defer src="/assets/js/prism-langs.bundle.js?v=20260927a"></script>
+  <script defer src="/assets/js/gitalk.min.js"></script>
+  <script defer src="https://registry.npmmirror.com/docsify/4.13.1/files/lib/plugins/search.js"></script>
+  <script defer src="/assets/js/docsify-pagination.min.js"></script>
+  <script defer src="/assets/js/zoom-image.js"></script>
+<!-- Mermaid 本体: 以动态 import 加载 ESM, 就绪后写入 window.__mermaidReady;
+     插件(docsify-mermaid)在 doneEach 等待该 Promise, 消除 module(异步) 与
+     普通 script(同步执行) 之间的加载竞态 —— 否则 mermaid.run 可能尚未定义。
+     主题沿用原 Notion editorial 配色(原先写在 $docsify.mermaid, 该键实际无人读取)。 -->
+<script>
+  /* Mermaid 本体按需加载: 只有页面真的含 .mermaid 容器时才会 import 这个 ESM 包
+     (约 1MB), 首页 / 工具页 / 无图文档因此完全省掉这一笔下载。
+     window.__loadMermaid() 幂等 —— 同一会话只 import 一次并缓存 Promise;
+     docsify-mermaid 的 doneEach 调用它并 await, 消除 module(异步) 与
+     普通 script 之间的加载竞态(否则 mermaid.run 可能尚未定义)。
+     主题沿用原 Notion editorial 配色(原先写在 $docsify.mermaid, 该键实际无人读取)。 */
+  (function () {
+    var ready = null;
+    window.__loadMermaid = function () {
+      if (ready) return ready;
+      ready = import("https://registry.npmmirror.com/mermaid/10.9.3/files/dist/mermaid.esm.min.mjs")
+        .then(function (m) {
+          window.mermaid = m.default;
+          window.mermaid.initialize({
+            startOnLoad: false,  /* 交给 docsify-mermaid 在 doneEach 显式 run, 避免重复渲染 */
+            theme: 'base',
+            themeVariables: {
+              primaryColor: '#f1ecff',
+              primaryTextColor: '#37352f',
+              primaryBorderColor: '#6d4aff',
+              lineColor: '#6d4aff',
+              secondaryColor: '#fff7cf',
+              tertiaryColor: '#eaf8ef'
+            },
+            flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+          });
+          return window.mermaid;
+        })
+        .catch(function (err) {
+          console.error('[mermaid] 本体加载失败', err);
+          ready = null;   /* 失败不缓存, 允许下次路由重试 */
+        });
+      return ready;
+    };
+  })();
 </script>
-<script src="https://registry.npmmirror.com/docsify-mermaid/2.0.1/files/dist/docsify-mermaid.js"></script>
+<!-- 本地 vendored: docsify-mermaid v2.0.1 (npmmirror 该文件返回 403, 与 TOC 插件同因) -->
+<script defer src="/assets/js/docsify-mermaid.min.js?v=20260926b"></script>
 
 <!-- TOC 目录插件 (本地 vendored, 因 npmmirror 该文件返回 403) -->
-<script src="/assets/js/docsify-plugin-toc.min.js?v=20260817a"></script>
+<script defer src="/assets/js/docsify-plugin-toc.min.js?v=20260817a"></script>
 
-<!--在所有的代码块上添加一个简单的Click to copy按钮来允许用户从你的文档中轻易地复制代码-->
-<script src="https://registry.npmmirror.com/docsify-copy-code/3.0.0/files/dist/docsify-copy-code.min.js"></script>
+<!-- 代码复制按钮: 本地 vendored docsify-copy-code v3.0.0 (npmmirror 返回 403) -->
+<script defer src="/assets/js/docsify-copy-code.min.js?v=20260926a"></script>
 
 </body>
 </html>
