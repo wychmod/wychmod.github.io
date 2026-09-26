@@ -206,15 +206,33 @@
     }
   </script>
 
-  <!-- 全部改用 defer: 并行下载、按文档顺序执行(不改变依赖关系), 且都在
-       DOMContentLoaded 之前跑完 —— docsify 在 DOMContentLoaded 初始化, 因此
-       bootstrap.js 的插件注册(须早于 docsify.min.js 读取 $docsify)依然成立。
-       此前 34 个同步脚本只能串行下载执行, 是本页最长的一条关键路径。 -->
+  <!-- 脚本加载策略（含一处必须遵守的硬顺序约束）
+
+       全部改用 defer: 并行下载、按文档顺序执行、都在 DOMContentLoaded 之前跑完。
+       此前 34 个同步脚本只能串行下载执行, 是本页最长的一条关键路径。
+
+       ⚠️ 但 defer 引入了一个竞态, 顺序因此**不是可选的**:
+       docsify.min.js 在 readyState 已是 interactive(= defer 脚本执行期间) 时会走
+       `setTimeout(init, 0)` —— 它**不会等所有 defer 脚本**, 只要事件循环出现空档,
+       就会用当时读到的 $docsify 完成初始化。
+
+       而本站多数插件的注册是**覆盖式**:
+         window.$docsify.plugins = [fn]                  (copy-code / pagination)
+         window.$docsify.plugins = (…||[]).concat(fn)     (toc)
+       于是只要某个 defer 脚本仍在下载(跨域 CDN 尤其慢), 空档就会出现,
+       docsify 便带着不完整的插件表启动 —— 资源全部 200、插件却集体失效。
+       本地硬盘读取毫秒级完成、不给空档机会, 所以该故障**只在线上复现**。
+
+       故顺序约束:
+         ① 所有注册 $docsify / $docsify.plugins 的脚本, 必须排在 docsify.min.js 之前;
+         ② prism 语法包注册到 window.Prism(由 docsify.min.js 内嵌提供),
+            必须排在 docsify.min.js 之后。
+       见文件末尾「docsify 本体」一节。 -->
   <script defer src="/assets/js/md5.js"></script>
   <script defer src="/assets/js/ai-assistant.js"></script>
   <!-- Lucide 图标(固定版本 0.468.0, 含 Github 品牌图标; 规范 §11.5) -->
   <script defer src="https://registry.npmmirror.com/lucide/0.468.0/files/dist/umd/lucide.min.js"></script>
-  <!-- 壳层 bootstrap / feature / page modules (必须在 docsify.min.js 之前) -->
+  <!-- 壳层 bootstrap / feature / page modules (注册 $docsify.plugins, 须早于 docsify.min.js) -->
   <script defer src="/assets/js/bootstrap.js?v=20260826a"></script>
   <script defer src="/assets/js/features/terminal.js?v=20260901a"></script>
   <script defer src="/assets/js/features/terminal-a11y.js?v=20260826a"></script>
@@ -222,6 +240,22 @@
   <script defer src="/assets/js/pages/home-motion.js?v=20260904b"></script>
   <script defer src="/assets/js/pages/article.js?v=20260826a"></script>
   <script defer src="/assets/js/pages/site-map.js?v=20260826a"></script>
+  <script defer src="/assets/js/gitalk.min.js"></script>
+  <script defer src="https://registry.npmmirror.com/docsify/4.13.1/files/lib/plugins/search.js"></script>
+  <script defer src="/assets/js/docsify-pagination.min.js"></script>
+  <script defer src="/assets/js/zoom-image.js"></script>
+  <!-- 本地 vendored: docsify-mermaid (npmmirror 该文件返回 403, 与 TOC 插件同因) -->
+  <script defer src="/assets/js/docsify-mermaid.min.js?v=20260926b"></script>
+  <!-- TOC 目录插件 (本地 vendored, 因 npmmirror 该文件返回 403) -->
+  <script defer src="/assets/js/docsify-plugin-toc.min.js?v=20260817a"></script>
+  <!-- 代码复制按钮: 本地 vendored docsify-copy-code v3.0.0 (npmmirror 返回 403) -->
+  <script defer src="/assets/js/docsify-copy-code.min.js?v=20260926a"></script>
+
+  <!-- ============================================================
+       docsify 本体: 必须排在**所有** $docsify / $docsify.plugins 注册者之后。
+       原因见文件上方「脚本加载策略」—— 它在事件循环出现空档时就会用当时的
+       $docsify 初始化, 而多数插件是覆盖式注册; 提前加载会导致线上插件集体失效。
+       ============================================================ -->
   <script defer src="/assets/js/docsify.min.js"></script>
   <!-- 注意: docsify.min.js 内嵌 Prism 核心并挂到 window.Prism, 代码高亮走内嵌实例;
        禁止再加载独立 prism.js 核心(会覆盖 window.Prism, 语法组件注册到错误实例上失效)。
@@ -231,10 +265,6 @@
         以及 sh→bash、react→jsx 别名), 合并顺序 = 原逐文件加载顺序, 语义完全一致。
        合并收益: 16 个脚本请求 → 1 个。改动各组件后需同步重建该包(见文件头注释)。 -->
   <script defer src="/assets/js/prism-langs.bundle.js?v=20260927a"></script>
-  <script defer src="/assets/js/gitalk.min.js"></script>
-  <script defer src="https://registry.npmmirror.com/docsify/4.13.1/files/lib/plugins/search.js"></script>
-  <script defer src="/assets/js/docsify-pagination.min.js"></script>
-  <script defer src="/assets/js/zoom-image.js"></script>
 <!-- Mermaid 本体: 以动态 import 加载 ESM, 就绪后写入 window.__mermaidReady;
      插件(docsify-mermaid)在 doneEach 等待该 Promise, 消除 module(异步) 与
      普通 script(同步执行) 之间的加载竞态 —— 否则 mermaid.run 可能尚未定义。
@@ -276,14 +306,6 @@
     };
   })();
 </script>
-<!-- 本地 vendored: docsify-mermaid v2.0.1 (npmmirror 该文件返回 403, 与 TOC 插件同因) -->
-<script defer src="/assets/js/docsify-mermaid.min.js?v=20260926b"></script>
-
-<!-- TOC 目录插件 (本地 vendored, 因 npmmirror 该文件返回 403) -->
-<script defer src="/assets/js/docsify-plugin-toc.min.js?v=20260817a"></script>
-
-<!-- 代码复制按钮: 本地 vendored docsify-copy-code v3.0.0 (npmmirror 返回 403) -->
-<script defer src="/assets/js/docsify-copy-code.min.js?v=20260926a"></script>
 
 </body>
 </html>

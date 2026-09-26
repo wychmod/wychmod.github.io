@@ -429,6 +429,43 @@ const CONTRAST_PROBE = (sel) => {
       missing.length ? missing.slice(0, 3).join(' | ') : '全部命中');
   }
 
+  /* ============ 3d. 关键脚本顺序契约（静态） ============
+     docsify.min.js 在 readyState=interactive(= defer 脚本执行期间) 会走
+     `setTimeout(init, 0)` —— 它不等所有 defer 脚本, 只要事件循环出现空档就用
+     当时的 $docsify 初始化。而站内多数插件是**覆盖式**注册:
+        window.$docsify.plugins = [fn]                (copy-code / pagination)
+        window.$docsify.plugins = (…||[]).concat(fn)   (toc)
+     若 docsify.min.js 排在插件之前, 跨域 CDN 稍慢就会造成「资源全部 200、
+     插件集体失效」。该故障本地不可复现(硬盘读取毫秒级完成、不留空档),
+     只在线上出现 —— 纯靠本地回归无法发现, 故用静态契约守住顺序。 */
+  console.log('\n— 关键脚本顺序 —');
+  {
+    const html = fs.readFileSync(path.join(DOCS_DIR, 'index.html'), 'utf8');
+    const srcs = [];
+    const RE = /<script[^>]*\sdefer\s+src="([^"]+)"/g;
+    let m;
+    while ((m = RE.exec(html))) srcs.push(m[1]);
+
+    const idxOf = (frag) => srcs.findIndex((s) => s.includes(frag));
+    const iDocsify = idxOf('docsify.min.js');
+    const iPrism = idxOf('prism-langs.bundle.js');
+
+    /* 所有会写 $docsify / $docsify.plugins 的脚本 */
+    const REGISTRARS = [
+      'bootstrap.js', 'terminal.js', 'terminal-a11y.js', 'home.js', 'home-motion.js',
+      'article.js', 'site-map.js', 'gitalk.min.js', 'plugins/search.js',
+      'docsify-pagination.min.js', 'zoom-image.js', 'docsify-mermaid.min.js',
+      'docsify-plugin-toc.min.js', 'docsify-copy-code.min.js'
+    ];
+    const after = REGISTRARS.filter((f) => { const i = idxOf(f); return i >= 0 && i > iDocsify; });
+
+    check('docsify.min.js 排在全部插件注册者之后', after.length === 0,
+      after.length ? '位置错误: ' + after.join(', ') + '（会造成线上插件静默失效）'
+        : '共有 ' + (REGISTRARS.length - after.length) + ' 个注册者在其之前');
+    check('prism 语法包排在 docsify.min.js 之后（注册到内嵌 Prism）',
+      iPrism > iDocsify, 'docsify@' + iDocsify + ', prism@' + iPrism);
+  }
+
   /* ============ 4. 首页功能与版心 ============ */
   console.log('\n— 首页功能与版心 —');
   {
@@ -522,6 +559,34 @@ const CONTRAST_PROBE = (sel) => {
     });
     check('桌面端侧栏未被误加 inert', desktop.inert === false, '侧栏链接 ' + desktop.links + ' 条');
     await ctx.close(); await ctx2.close();
+  }
+
+  /* ============ 5b. 慢网络下的插件初始化（竞态复现） ============
+     这是本站唯一「本地必过、线上必挂」的缺陷类别, 必须用限速才能暴露:
+     延迟跨域 CDN 脚本, 人为制造事件循环空档, 检验插件是否仍全部生效。
+     判据用「插件产物是否存在」(复制按钮 / TOC / 搜索框), 而非 plugins 数组长度
+     —— 故障时数组长度同样是满的, 靠长度根本发现不了。 */
+  console.log('\n— 慢网络下的插件初始化 —');
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await ctx.newPage();
+    /* 让跨域 CDN 脚本变成瓶颈: 制造出「部分 defer 脚本尚未执行完」的窗口 */
+    await page.route('**/plugins/search.js', async (r) => { await new Promise((x) => setTimeout(x, 4000)); r.continue(); });
+    await page.route('**/registry.npmmirror.com/**', async (r) => { await new Promise((x) => setTimeout(x, 3000)); r.continue(); });
+
+    await page.goto(BASE + PAGES[1].path, { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(9000);
+    const r = await page.evaluate(() => ({
+      copyBtns: document.querySelectorAll('.docsify-copy-code-button').length,
+      tocLinks: document.querySelectorAll('.toc-nav a').length,
+      searchInput: !!document.querySelector('.search input'),
+      codeBlocks: document.querySelectorAll('pre > code').length
+    }));
+    check('限速下插件仍全部生效（复制 / TOC / 搜索）',
+      r.copyBtns > 0 && r.tocLinks > 0 && r.searchInput,
+      '复制=' + r.copyBtns + '/' + r.codeBlocks + ' TOC=' + r.tocLinks + ' 搜索=' + r.searchInput +
+      (r.copyBtns === 0 ? '  ← docsify.min.js 顺序疑似被改动' : ''));
+    await ctx.close();
   }
 
   /* ============ 6. 对比度 ============ */

@@ -334,9 +334,16 @@ node scripts/typography-check.js
 
 # 全站回归验收（需先启动本地预览 + Playwright；退出码 0=全通过，1=有 FAIL，可做 CI 门禁）
 #   覆盖：多视口横向溢出 / 运行时异常与资源失败 / 文章页功能 / 栅栏语言覆盖 /
-#         图片引用健康度 / 首页版心与搜索 / 无障碍 / 对比度（含悬停态）
-#   改 CSS 颜色、加代码栅栏语言、动图片引用后都务必跑一次
+#         图片引用健康度 / 关键脚本顺序 / 慢网络插件初始化 / 首页版心与搜索 /
+#         无障碍 / 对比度（含悬停态）
+#   改 CSS 颜色、加代码栅栏语言、动图片引用、调整 index.html 脚本顺序后都务必跑一次
 node scripts/site-regression.js
+
+# ⚠️ 本地通过 ≠ 线上正常
+#   本站存在「本地必过、线上必挂」的缺陷类别（历史实例：defer 脚本顺序导致
+#   docsify 在插件注册完成前初始化，线上插件集体失效，而本地因磁盘 IO 极快、
+#   不给事件循环留空档而侥幸正常）。故站点级改动在推送后，应对线上再跑一次：
+SITE_BASE=https://wychmod.github.io/ node scripts/site-regression.js --no-viewports
 
 # 重建 Prism 语法组件合并包（改了 docs/assets/js/prism-*.js 之后必须执行）
 node scripts/build-prism-bundle.js
