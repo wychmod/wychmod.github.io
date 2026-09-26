@@ -770,6 +770,39 @@ window.$docsify.plugins = (…||[]).concat(fn)      // toc
 断言 48 项：48 PASS / 0 FAIL          （--no-viewports）
 ```
 
+### 11.9 线上复验时又暴露的一个探针假象
+
+修复上线后对线上跑回归，8 个 FAIL 降到 **1 个**：
+
+```
+[FAIL] mermaid 全部渲染  — 0/0 SVG, 残留 pre=0
+```
+
+但 `0/0` 且 `残留 pre=0` 本身就是可疑信号 —— 若是渲染失败，应为「有容器、无 SVG」。
+单独用探针实测，线上 mermaid **完全正常**：
+
+```
+线上:  mermaid 块数 = 9,  已渲染 SVG = 9,  残留 pre = 0
+```
+
+**原因是探针的固定等待不够**：mermaid 10.9.3 的 ESM 会按需拉取 **15+ 个分包**，
+线上首访可达数秒，而脚本里写死的是 `waitForTimeout(4500)`。线上比本地慢，
+于是在渲染完成前就取了数。
+
+修法与同类问题一致 —— **把「固定等待」改为「轮询直到条件成立或超时」**（最长 30 秒）：
+
+```js
+let mm = await page.evaluate(mmProbe);
+for (let i = 0; i < 30 && !(mm.containers > 0 && mm.svgs === mm.containers); i++) {
+  await page.waitForTimeout(1000);
+  mm = await page.evaluate(mmProbe);
+}
+```
+
+这已经是本项目的**第四次**同类教训：**探针里的固定等待时间一律不可靠**，
+必须改为条件轮询。前三次分别是固定等待导致的 Gitalk 宽度误测、mermaid 按需加载误判、
+以及 11.1 的「怀疑只是慢」。
+
 ---
 
 *注：本报告所有数据来自 Playwright 真机渲染实测（Chromium，本地 `http.server`）。测量时须以**目录形式**访问（`http://127.0.0.1:PORT/`）—— 写成 `/index.html` 会让 docsify 把文档路径解析为 `/index.html/md/...`，全站文档 404，此时量到的"正文宽 412px"等数字全是 404 页的形态，属典型误测陷阱。*

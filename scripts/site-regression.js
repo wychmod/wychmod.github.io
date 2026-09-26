@@ -307,13 +307,19 @@ const CONTRAST_PROBE = (sel) => {
       'open=' + opened.visible + ' aria=' + opened.expanded + ' focus回=' + closed.focused);
 
     // mermaid
+    // 注意: 固定等待对线上不够 —— mermaid 10.9.3 的 ESM 会拉 15+ 个分包,
+    // 线上首访可达数秒。故改为「轮询直到渲染完成或超时」, 避免把慢误报成失败。
     await page.goto(BASE + PAGES[2].path, { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(4500);
-    const mm = await page.evaluate(() => ({
+    const mmProbe = () => ({
       containers: document.querySelectorAll('.mermaid').length,
       svgs: document.querySelectorAll('svg[id^="mermaid"], .mermaid svg').length,
       leftoverPre: document.querySelectorAll('pre[data-lang="mermaid"]').length
-    }));
+    });
+    let mm = await page.evaluate(mmProbe);
+    for (let i = 0; i < 30 && !(mm.containers > 0 && mm.svgs === mm.containers); i++) {
+      await page.waitForTimeout(1000);
+      mm = await page.evaluate(mmProbe);
+    }
     check('mermaid 全部渲染', mm.containers > 0 && mm.svgs === mm.containers && mm.leftoverPre === 0,
       mm.svgs + '/' + mm.containers + ' SVG, 残留 pre=' + mm.leftoverPre);
 
