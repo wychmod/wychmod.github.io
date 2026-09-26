@@ -345,6 +345,11 @@ node scripts/site-regression.js
 #   不给事件循环留空档而侥幸正常）。故站点级改动在推送后，应对线上再跑一次：
 SITE_BASE=https://wychmod.github.io/ node scripts/site-regression.js --no-viewports
 
+# ⚠️ 写探针一律用「条件轮询」，不要用固定等待
+#   本地磁盘 IO 快、线上首访慢，固定等待在线上必然偏短，会把「还没做完」误报成失败。
+#   本站已因此误报 4 次（Gitalk 宽度 / mermaid 渲染 / 代码高亮 / 「怀疑只是慢」）。
+#   写法：先取一次，再循环「条件不成立则等 1s 重取」，上限 20–30 秒。
+
 # 重建 Prism 语法组件合并包（改了 docs/assets/js/prism-*.js 之后必须执行）
 node scripts/build-prism-bundle.js
 

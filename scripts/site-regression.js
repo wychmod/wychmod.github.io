@@ -264,8 +264,10 @@ const CONTRAST_PROBE = (sel) => {
     const ins = instrument(page);
 
     await page.goto(BASE + PAGES[1].path, { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(3200);
-    const art = await page.evaluate(() => {
+    /* 概要统计。全部改用条件轮询: 固定等待在线上不可靠 —— docsify 要先取回 markdown
+       再渲染, Prism 的 highlightAll 还在 requestAnimationFrame 之后才跑;
+       线上首访比本地慢得多, 写死 3200ms 会在高亮完成前取数 (曾据此误报「未高亮: java」)。 */
+    const artProbe = () => {
       const blocks = Array.from(document.querySelectorAll('pre > code'));
       const SKIP = ['text', 'mermaid', 'undefined', 'md', 'markdown', 'plaintext', 'lang-', ''];
       const unhighlighted = [];
@@ -281,10 +283,16 @@ const CONTRAST_PROBE = (sel) => {
         copyButtons: document.querySelectorAll('.docsify-copy-code-button').length,
         unhighlighted: Array.from(new Set(unhighlighted)),
         tocLinks: document.querySelectorAll('.toc-nav a').length,
-        articleMaxW: getComputedStyle(document.querySelector('article.markdown-section') || document.querySelector('#main')).maxWidth,
         prismKeys: Object.keys((window.Prism && window.Prism.languages) || {}).length
       };
-    });
+    };
+    let art = await page.evaluate(artProbe);
+    for (let i = 0; i < 20; i++) {
+      const ready = art.unhighlighted.length === 0 && art.copyButtons > 0 && art.tocLinks > 0;
+      if (ready) break;
+      await page.waitForTimeout(1000);
+      art = await page.evaluate(artProbe);
+    }
     check('代码块全部高亮', art.unhighlighted.length === 0, art.codeBlocks + ' 块, Prism ' + art.prismKeys + ' 语言' + (art.unhighlighted.length ? ', 未高亮: ' + art.unhighlighted.join(',') : ''));
     check('复制按钮覆盖全部代码块', art.copyButtons === art.codeBlocks, art.copyButtons + '/' + art.codeBlocks);
     check('侧栏 TOC 生成', art.tocLinks > 0, art.tocLinks + ' 条');
