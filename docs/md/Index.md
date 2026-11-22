@@ -258,7 +258,7 @@
     <span class="sm-domain-num">10</span>
     <span class="sm-domain-body">
       <span class="sm-domain-title"><i class="sm-dot" style="background:var(--kg-8)" aria-hidden="true"></i>项目实战</span>
-      <span class="sm-domain-desc">手写 Spring、自动化测试平台、FlowHub 导出中心等从 0 复刻系列，先架构后实现。</span>
+      <span class="sm-domain-desc">手写 Spring、自动化测试平台、FlowHub 导出中心、空气扑克、DSH 任务派发插件等从 0 复刻系列，先架构后实现。</span>
     </span>
     <span class="sm-domain-arrow" aria-hidden="true">↓</span>
   </summary>
@@ -303,6 +303,21 @@
     <li><a href="#/md/10-项目实战/03-空气扑克/08-质量保障、发布与传播.md">质量保障、发布与传播</a><span>测试门禁 / 浏览器回归 / 性能优化 / 分享宣传</span></li>
     <li><a href="#/md/10-项目实战/03-空气扑克/09-亮点、适用场景与推荐结论.md">亮点、适用场景与推荐结论</a><span>十条亮点 / 可迁移模式 / 适用人群 / 推荐</span></li>
     <li><a href="#/md/10-项目实战/03-空气扑克/10-开发史、弯路与成本.md">开发史、弯路与成本</a><span>五个阶段 / 九次弯路 / 134 个会话 / 9 亿 tokens</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/00-项目全景与阅读地图.md">DSH 任务派发插件：项目全景与阅读地图</a><span>定位 / 边界 / 全景架构 / 演进时间轴 / 阅读路径</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/01-从单文件到最小闭环.md">从单文件到最小闭环</a><span>853 行 / 八条链路 / 任务即会话 / pump 缺陷</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/02-让后台可见-看板与同源HTTP.md">让后台可见：看板与同源 HTTP</a><span>快照拍平 / 不打包模块 / 三层栅栏 / 诊断入口</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/03-工作区模型.md">工作区模型</a><span>归属 vs 目录 / 四级解析 / 歧义治理 / 自动归档</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/04-输入框变成指挥台.md">输入框变成指挥台</a><span>派发目标 / @ 工作区 / 打分 / 模式开关</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/05-正确性攻坚.md">正确性攻坚</a><span>六个 P0 / 三类 P1 / 十条自查</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/06-路由模式与提示词契约.md">路由模式与提示词契约</a><span>两起事故 / 两条契约 / 结构性约束</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/07-记忆治理-权威源与投影.md">记忆治理：权威源与投影</a><span>准入分级 / 单条预算 / 合并窗口 / 退休留痕</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/08-看板重装与统计口径.md">看板重装与统计口径</a><span>三段式 / 五个 chip / 两套口径 / 不编造指标</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/09-三种连续性.md">三种连续性</a><span>计划 / 依赖 / 复用 / 候选工具 / 正反例</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/10-工程收口与对外发布.md">工程收口与对外发布</a><span>A1–A7 / 三闸门 / 包边界 / 一次回退</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/11-会话里的卡片与分隔线.md">会话里的卡片与分隔线</a><span>三阶段 / 四段式 / L0–L3 / 认领顺序</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/12-安全纵深与最后三修.md">安全纵深与最后三修</a><span>三层准入 / 无损 JSON / fail-closed / 503</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/13-亮点、适用场景与推荐结论.md">亮点、适用场景与推荐结论</a><span>十条亮点 / 可迁移模式 / 适用地图 / 推荐结论</span></li>
+    <li><a href="#/md/10-项目实战/04-DSH任务派发插件/14-复核记录.md">复核记录</a><span>三个真实缺陷 / 六处文档漂移 / 二十项逐条复核</span></li>
   </ul>
 </details>
 <!-- 11 在线工具箱 -->
