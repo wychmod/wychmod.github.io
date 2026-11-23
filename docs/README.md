@@ -18,7 +18,7 @@
       <span class="home-recent-num"></span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">DSH 任务派发插件：项目全景与阅读地图</h3>
-        <p class="home-recent-excerpt">15 篇拆解一个 DSH 派发插件：主会话派活、子会话干活、报告自己回来、过程看得见。</p>
+        <p class="home-recent-excerpt">19 篇拆解一个 DSH 派发插件：从怎么装上，到主会话派活、子会话干活、报告自己回来、过程看得见。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-9)">项目实战</span>
