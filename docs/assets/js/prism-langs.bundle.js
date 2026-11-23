@@ -366,12 +366,12 @@ Prism.languages.vim={string:/"(?:[^"\\\r\n]|\\.)*"|'(?:[^'\r\n]|'')*'/,comment:/
 
   var SKIP = ['text', 'mermaid', 'none', 'plaintext', 'md', 'markdown'];
 
-  /** 找出「声明了语言、但还没有 token」的块，用显式 grammar 重新着色。 */
+  /** 对每个「grammar 存在、且还没重绘过」的块，用纯文本重绘一次。 */
   function repaint() {
     var blocks = document.querySelectorAll('pre > code');
     for (var i = 0; i < blocks.length; i += 1) {
       var el = blocks[i];
-      // 已重试过的块不再碰：grammar 正常但产出 0 token 时不该无限重试。
+      // 每个块只重绘一次：既防 MutationObserver 自激，也保证幂等。
       if (el.getAttribute('data-hl-retry') === '1') continue;
       var m = /(?:lang|language)-([^\s]+)/.exec(el.className || '');
       var lang = m ? m[1].toLowerCase() : '';
@@ -380,14 +380,17 @@ Prism.languages.vim={string:/"(?:[^"\\\r\n]|\\.)*"|'(?:[^'\r\n]|'')*'/,comment:/
       var grammar = Prism.languages[lang];
       // 语言没注册：补也白补。
       if (!grammar) continue;
-      // 已经有 token：说明高亮过了，别重复套。
-      if (el.querySelector('.token')) continue;
 
+      // 输入一律取纯文本，不读已有的 token 结构：即使 docsify 先染错了
+      // （类名为 lang-java 的块被当成 markup），这里也能覆写成正确结果。
       var text = el.textContent;
       if (!text || !text.trim()) continue;
       el.setAttribute('data-hl-retry', '1');
       try {
-        el.innerHTML = Prism.highlight(text, grammar, lang);
+        var html = Prism.highlight(text, grammar, lang);
+        // 只有真的产出 token 才写回：否则会把已有的错误染色换成「无从判断」，
+        // 而保持原样至少还能让人看出「这块没配对」。
+        if (html.indexOf('class="token') >= 0) el.innerHTML = html;
       } catch (error) {
         // 单块失败不影响其它块；标记已置，不会重试。
       }

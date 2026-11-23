@@ -74,17 +74,22 @@ const ORDER = [
  *   微任务里就把已渲染的块补上，不依赖任何时序假设。
  *
  * 补偿做什么
- *   只对「声明了语言、但还没有 token」的块重新着一次色。已经高亮的块不动。
+ *   对「声明了语言、grammar 已注册」的块，一律基于**纯文本**重绘一次。
  *
- *   ⚠️ 必须自己调 `Prism.highlight()` 而不是 `Prism.highlightElement()`：
- *   docsify 生成的类名有两种形态——多数块是 `language-java`，但也有块只有
- *   `lang-java`（缺 `language-` 前缀）。`highlightElement()` 靠类名猜语言，
- *   遇到后者会猜不到、退回 markup 语法，结果把 `<Runnable>` 当成 HTML 标签
- *   染成 `tag` token——**看起来"有 token 了"，其实是错的**，比不着色更糟。
- *   所以这里显式取 grammar、显式调 `highlight(text, grammar, lang)`。
+ *   ⚠️ 不能用「有没有 token」当「要不要补」的判据。线上实测出现过这种块：
+ *   docsify 先按类名猜语言，`lang-java` 猜不出就退回 markup，把
+ *   `<Runnable>` 染成 `tag` token——**有 token，但全是错的**。此时若因为
+ *   「已经有 token」跳过补偿，就把错误染色留下了。所以判据只能是
+ *   「grammar 存在 + 还没重绘过」，重绘输入一律取 textContent（纯文本），
+ *   这样无论之前被染成什么样，结果都正确；`Prism.highlight` 对纯文本是
+ *   幂等的，重复调用不会套娃。
  *
- *   同时打 `data-hl-retry` 标记：grammar 正常但产出 0 个 token 的块（纯注释等）
- *   不会被反复重试，避免 MutationObserver 自激。
+ *   ⚠️ 也必须自己调 `Prism.highlight(text, grammar, lang)` 而不是
+ *   `Prism.highlightElement()`：后者靠类名猜语言，遇到 `lang-java` 形态
+ *   会猜不到、退回 markup 语法——这正是上面那个错误染色的来源。
+ *
+ *   同时打 `data-hl-retry` 标记：保证每个块只重绘一次，避免
+ *   MutationObserver 自激（重绘会改 DOM，改 DOM 会再触发观察器）。
  */
 const TAIL = `
 /* ===== 竞态补偿: docsify 可能早于本包初始化, 已渲染的块需要补一次高亮 ===== */
@@ -93,12 +98,12 @@ const TAIL = `
 
   var SKIP = ['text', 'mermaid', 'none', 'plaintext', 'md', 'markdown'];
 
-  /** 找出「声明了语言、但还没有 token」的块，用显式 grammar 重新着色。 */
+  /** 对每个「grammar 存在、且还没重绘过」的块，用纯文本重绘一次。 */
   function repaint() {
     var blocks = document.querySelectorAll('pre > code');
     for (var i = 0; i < blocks.length; i += 1) {
       var el = blocks[i];
-      // 已重试过的块不再碰：grammar 正常但产出 0 token 时不该无限重试。
+      // 每个块只重绘一次：既防 MutationObserver 自激，也保证幂等。
       if (el.getAttribute('data-hl-retry') === '1') continue;
       var m = /(?:lang|language)-([^\\s]+)/.exec(el.className || '');
       var lang = m ? m[1].toLowerCase() : '';
@@ -107,14 +112,17 @@ const TAIL = `
       var grammar = Prism.languages[lang];
       // 语言没注册：补也白补。
       if (!grammar) continue;
-      // 已经有 token：说明高亮过了，别重复套。
-      if (el.querySelector('.token')) continue;
 
+      // 输入一律取纯文本，不读已有的 token 结构：即使 docsify 先染错了
+      // （类名为 lang-java 的块被当成 markup），这里也能覆写成正确结果。
       var text = el.textContent;
       if (!text || !text.trim()) continue;
       el.setAttribute('data-hl-retry', '1');
       try {
-        el.innerHTML = Prism.highlight(text, grammar, lang);
+        var html = Prism.highlight(text, grammar, lang);
+        // 只有真的产出 token 才写回：否则会把已有的错误染色换成「无从判断」，
+        // 而保持原样至少还能让人看出「这块没配对」。
+        if (html.indexOf('class="token') >= 0) el.innerHTML = html;
       } catch (error) {
         // 单块失败不影响其它块；标记已置，不会重试。
       }
