@@ -358,3 +358,58 @@ Prism.languages.vim={string:/"(?:[^"\\\r\n]|\\.)*"|'(?:[^'\r\n]|'')*'/,comment:/
   alias('pyhton', 'python');
   alias('pythpn', 'python');
 })(window.Prism);
+;
+
+/* ===== 竞态补偿: docsify 可能早于本包初始化, 已渲染的块需要补一次高亮 ===== */
+(function (Prism) {
+  if (!Prism || typeof Prism.highlight !== 'function') return;
+
+  var SKIP = ['text', 'mermaid', 'none', 'plaintext', 'md', 'markdown'];
+
+  /** 找出「声明了语言、但还没有 token」的块，用显式 grammar 重新着色。 */
+  function repaint() {
+    var blocks = document.querySelectorAll('pre > code');
+    for (var i = 0; i < blocks.length; i += 1) {
+      var el = blocks[i];
+      // 已重试过的块不再碰：grammar 正常但产出 0 token 时不该无限重试。
+      if (el.getAttribute('data-hl-retry') === '1') continue;
+      var m = /(?:lang|language)-([^\s]+)/.exec(el.className || '');
+      var lang = m ? m[1].toLowerCase() : '';
+      // 没声明语言 / 纯文本 / mermaid 容器：本来就不该着色。
+      if (!lang || SKIP.indexOf(lang) >= 0) continue;
+      var grammar = Prism.languages[lang];
+      // 语言没注册：补也白补。
+      if (!grammar) continue;
+      // 已经有 token：说明高亮过了，别重复套。
+      if (el.querySelector('.token')) continue;
+
+      var text = el.textContent;
+      if (!text || !text.trim()) continue;
+      el.setAttribute('data-hl-retry', '1');
+      try {
+        el.innerHTML = Prism.highlight(text, grammar, lang);
+      } catch (error) {
+        // 单块失败不影响其它块；标记已置，不会重试。
+      }
+    }
+  }
+
+  // ① 本包执行时立刻补一次（覆盖「docsify 已经渲染完」的情形）。
+  repaint();
+
+  // ② hash 路由切换后补一次（docsify 会在 hashchange 后异步取 markdown 再渲染）。
+  window.addEventListener('hashchange', function () { setTimeout(repaint, 0); });
+
+  // ③ 兜住「本包执行时正文还没渲染」的情形。
+  //    ⚠️ 观察点必须挂在 document.body 而不是 .markdown-section：本包在
+  //    defer 队列里执行时，docsify 可能还没把 .markdown-section 建出来，
+  //    挂在它上面会直接装不上观察器（此时 body 一定已存在）。
+  //    只观察 4 秒即自行断开，不做常驻观察。
+  if (typeof MutationObserver === 'function' && document.body) {
+    var observer = new MutationObserver(function () { repaint(); });
+    observer.observe(document.body, { childList: true, subtree: true });
+    var stop = function () { observer.disconnect(); clearTimeout(timer); };
+    var timer = setTimeout(stop, 4000);
+    window.addEventListener('hashchange', stop, { once: true });
+  }
+})(window.Prism);

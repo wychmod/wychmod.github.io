@@ -271,15 +271,30 @@ const CONTRAST_PROBE = (sel) => {
       const blocks = Array.from(document.querySelectorAll('pre > code'));
       const SKIP = ['text', 'mermaid', 'undefined', 'md', 'markdown', 'plaintext', 'lang-', ''];
       const unhighlighted = [];
+      let painted = 0;
       blocks.forEach((el) => {
         const m = /(?:lang|language)-([^\s]+)/.exec(el.className);
         const lang = m ? m[1] : '';
         if (SKIP.includes(lang)) return;
         if (el.textContent.trim().length === 0) return;
+        const grammar = window.Prism && window.Prism.languages && window.Prism.languages[lang];
+        // ⚠️ 判据不是「token 数为 0 就算漏」——`docker save --help` 这种单行命令
+        // 语法上本就没有可着色元素，用 token>0 判会把它们误报成未着色（本站
+        // 2026-09 曾据此得出「54 个 shell 块未着色」的荒谬结论）。
+        // 正确判据：该 grammar 对该文本**本应**产出多少 token；本应为 0 就跳过。
+        let expected = 0;
+        if (grammar) {
+          try {
+            expected = (window.Prism.highlight(el.textContent, grammar, lang).match(/class=.token/g) || []).length;
+          } catch (error) { expected = 0; }
+        }
+        if (expected === 0) return;
+        painted += 1;
         if (el.querySelectorAll('.token').length === 0) unhighlighted.push(lang);
       });
       return {
         codeBlocks: blocks.length,
+        painted,
         copyButtons: document.querySelectorAll('.docsify-copy-code-button').length,
         unhighlighted: Array.from(new Set(unhighlighted)),
         tocLinks: document.querySelectorAll('.toc-nav a').length,
@@ -293,7 +308,7 @@ const CONTRAST_PROBE = (sel) => {
       await page.waitForTimeout(1000);
       art = await page.evaluate(artProbe);
     }
-    check('代码块全部高亮', art.unhighlighted.length === 0, art.codeBlocks + ' 块, Prism ' + art.prismKeys + ' 语言' + (art.unhighlighted.length ? ', 未高亮: ' + art.unhighlighted.join(',') : ''));
+    check('代码块全部高亮', art.unhighlighted.length === 0, art.painted + ' 块应有 token, Prism ' + art.prismKeys + ' 语言' + (art.unhighlighted.length ? ', 未高亮: ' + art.unhighlighted.join(',') : ''));
     check('复制按钮覆盖全部代码块', art.copyButtons === art.codeBlocks, art.copyButtons + '/' + art.codeBlocks);
     check('侧栏 TOC 生成', art.tocLinks > 0, art.tocLinks + ' 条');
 

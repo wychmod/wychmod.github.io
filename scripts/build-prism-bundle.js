@@ -17,6 +17,7 @@
  *      依赖(如 jsx 依赖 javascript、别名文件必须在组件之后), 顺序错了会静默失效。
  *   2. 组件文件之间以 ";" + 换行 分隔, 避免个别文件缺尾分号导致语法粘连。
  *   3. 合并包由本脚本生成, 不要手工编辑 prism-langs.bundle.js。
+ *   4. 合并包尾部**必须**带竞态补偿段(TAIL, 见下)。原因放在那段注释里。
  */
 
 'use strict';
@@ -48,6 +49,99 @@ const ORDER = [
   'prism-aliases.js'
 ];
 
+/**
+ * 竞态补偿段（追加在合并包最末尾）——**这段不能删，也不该被"清理"**。
+ *
+ * 故障形态（2026-11-23 线上实测）
+ *   本站脚本全部 defer。docsify.min.js 末尾是
+ *     if (readyState === 'complete' || 'interactive') setTimeout(init, 0)
+ *   —— 它**不等**后面的 defer 脚本。线上一次实测的时序：
+ *
+ *     docsify.min.js   608 → 3118ms   ← 执行时 readyState 已是 interactive
+ *     prism bundle     608 → 3566ms   ← 比它晚 448ms 才执行
+ *
+ *   init 的回调正好落在两者之间：docsify 渲染 markdown 时 `Prism.languages.java`
+ *   还不存在 → 静默不着色（docsify 对未注册语言不报错）。同一个页面重载 3 次，
+ *   实测 1 次正常、2 次未高亮。
+ *
+ *   ⚠️ 与 index.html 里那条"顺序是硬约束"是**同一个坑的两种形态**：那条管的是
+ *   插件注册，这条管的是语法注册。两者都源自"docsify 不等 defer"。
+ *
+ * 为什么补偿放在这里而不是 index.html
+ *   放 index.html 要在 docsify.min.js 之后再插一个 <script>，但那解决不了问题：
+ *   defer 脚本按文档顺序执行，补偿脚本会在 prism bundle 之后、却仍可能在 init
+ *   回调之前/之后不确定。放在**合并包尾部**则保证一件事：语言注册完的同一个
+ *   微任务里就把已渲染的块补上，不依赖任何时序假设。
+ *
+ * 补偿做什么
+ *   只对「声明了语言、但还没有 token」的块重新着一次色。已经高亮的块不动。
+ *
+ *   ⚠️ 必须自己调 `Prism.highlight()` 而不是 `Prism.highlightElement()`：
+ *   docsify 生成的类名有两种形态——多数块是 `language-java`，但也有块只有
+ *   `lang-java`（缺 `language-` 前缀）。`highlightElement()` 靠类名猜语言，
+ *   遇到后者会猜不到、退回 markup 语法，结果把 `<Runnable>` 当成 HTML 标签
+ *   染成 `tag` token——**看起来"有 token 了"，其实是错的**，比不着色更糟。
+ *   所以这里显式取 grammar、显式调 `highlight(text, grammar, lang)`。
+ *
+ *   同时打 `data-hl-retry` 标记：grammar 正常但产出 0 个 token 的块（纯注释等）
+ *   不会被反复重试，避免 MutationObserver 自激。
+ */
+const TAIL = `
+/* ===== 竞态补偿: docsify 可能早于本包初始化, 已渲染的块需要补一次高亮 ===== */
+(function (Prism) {
+  if (!Prism || typeof Prism.highlight !== 'function') return;
+
+  var SKIP = ['text', 'mermaid', 'none', 'plaintext', 'md', 'markdown'];
+
+  /** 找出「声明了语言、但还没有 token」的块，用显式 grammar 重新着色。 */
+  function repaint() {
+    var blocks = document.querySelectorAll('pre > code');
+    for (var i = 0; i < blocks.length; i += 1) {
+      var el = blocks[i];
+      // 已重试过的块不再碰：grammar 正常但产出 0 token 时不该无限重试。
+      if (el.getAttribute('data-hl-retry') === '1') continue;
+      var m = /(?:lang|language)-([^\\s]+)/.exec(el.className || '');
+      var lang = m ? m[1].toLowerCase() : '';
+      // 没声明语言 / 纯文本 / mermaid 容器：本来就不该着色。
+      if (!lang || SKIP.indexOf(lang) >= 0) continue;
+      var grammar = Prism.languages[lang];
+      // 语言没注册：补也白补。
+      if (!grammar) continue;
+      // 已经有 token：说明高亮过了，别重复套。
+      if (el.querySelector('.token')) continue;
+
+      var text = el.textContent;
+      if (!text || !text.trim()) continue;
+      el.setAttribute('data-hl-retry', '1');
+      try {
+        el.innerHTML = Prism.highlight(text, grammar, lang);
+      } catch (error) {
+        // 单块失败不影响其它块；标记已置，不会重试。
+      }
+    }
+  }
+
+  // ① 本包执行时立刻补一次（覆盖「docsify 已经渲染完」的情形）。
+  repaint();
+
+  // ② hash 路由切换后补一次（docsify 会在 hashchange 后异步取 markdown 再渲染）。
+  window.addEventListener('hashchange', function () { setTimeout(repaint, 0); });
+
+  // ③ 兜住「本包执行时正文还没渲染」的情形。
+  //    ⚠️ 观察点必须挂在 document.body 而不是 .markdown-section：本包在
+  //    defer 队列里执行时，docsify 可能还没把 .markdown-section 建出来，
+  //    挂在它上面会直接装不上观察器（此时 body 一定已存在）。
+  //    只观察 4 秒即自行断开，不做常驻观察。
+  if (typeof MutationObserver === 'function' && document.body) {
+    var observer = new MutationObserver(function () { repaint(); });
+    observer.observe(document.body, { childList: true, subtree: true });
+    var stop = function () { observer.disconnect(); clearTimeout(timer); };
+    var timer = setTimeout(stop, 4000);
+    window.addEventListener('hashchange', stop, { once: true });
+  }
+})(window.Prism);
+`;
+
 function main() {
   const missing = ORDER.filter((f) => !fs.existsSync(path.join(JS_DIR, f)));
   if (missing.length) {
@@ -71,7 +165,7 @@ function main() {
     return '/* ===== ' + f + ' ===== */\n' + src;
   }).join('\n;\n');
 
-  const out = banner + body + '\n';
+  const out = banner + body + '\n;\n' + TAIL;
   const outPath = path.join(JS_DIR, OUT_NAME);
   fs.writeFileSync(outPath, out, 'utf8');
 
