@@ -18,7 +18,7 @@
       <span class="home-recent-num"></span>
       <div class="home-recent-main">
         <h3 class="home-recent-title">DSH 任务派发插件：项目全景与阅读地图</h3>
-        <p class="home-recent-excerpt">19 篇拆解一个 DSH 派发插件：从怎么装上，到主会话派活、子会话干活、报告自己回来、过程看得见。</p>
+        <p class="home-recent-excerpt">21 篇拆解一个 DSH 派发插件：从怎么装上，到主会话派活、子会话干活、报告自己回来、过程看得见。</p>
       </div>
       <div class="home-recent-meta">
         <span class="home-recent-cat" style="--cat-color:var(--kg-9)">项目实战</span>
@@ -400,6 +400,8 @@
         <li><a href="#/md/10-项目实战/04-DSH任务派发插件/14-复核记录.md">复核记录</a><span>三个真实缺陷 / 六处文档漂移 / 二十项确认无误</span></li>
         <li><a href="#/md/10-项目实战/04-DSH任务派发插件/15-常见故障排查.md">常见故障排查</a><span>三个入口 / 看板 401·403·503 / 状态不对 / 卡片异常 / 12 错误码速查</span></li>
         <li><a href="#/md/10-项目实战/04-DSH任务派发插件/16-十工具速查与配置项.md">十工具速查与 47 个配置项</a><span>10 工具参数与返回 / 47 键分组清单 / 六个易错参数</span></li>
+        <li><a href="#/md/10-项目实战/04-DSH任务派发插件/17-每任务目录与prepare命令.md">每任务目录与 prepare 命令</a><span>三个「在哪里」/ 目录名拼法 / git worktree 接线 / 失败不重试</span></li>
+        <li><a href="#/md/10-项目实战/04-DSH任务派发插件/18-文案层-把事实变成人话.md">文案层：把事实变成人话</a><span>四段式分工 / 短标签剥噪 / 需要你判据 / 32 条文案契约</span></li>
       </ul>
     </details>
     <!-- 11 在线工具箱 -->
