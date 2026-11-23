@@ -332,19 +332,31 @@ const CONTRAST_PROBE = (sel) => {
     // mermaid
     // 注意: 固定等待对线上不够 —— mermaid 10.9.3 的 ESM 会拉 15+ 个分包,
     // 线上首访可达数秒。故改为「轮询直到渲染完成或超时」, 避免把慢误报成失败。
-    await page.goto(BASE + PAGES[2].path, { waitUntil: 'domcontentloaded' });
+    //
+    // ⚠️ 必须用**新的 context**（不只是新 page）。实测：同一个 context 里开第二个
+    // page 访问 mermaid 页，`window.mermaid` 会一直是 undefined（模块 import 被
+    // 上一页的加载状态带住），27MB ESM 分包一个都不下 —— 探针读到 9 个容器 0 个
+    // SVG，看起来像「渲染失败」，其实是测试装置的问题。换新 context 立刻正常。
+    // 这一条与「探针一律用条件轮询」是同一类教训：先把装置的不确定性排掉，再判站点。
+    const mmCtx = await browser.newContext({ viewport: { width: 1600, height: 1000 } });
+    const mmPage = await mmCtx.newPage();
+    await mmPage.goto(BASE + PAGES[2].path, { waitUntil: 'domcontentloaded' });
     const mmProbe = () => ({
       containers: document.querySelectorAll('.mermaid').length,
       svgs: document.querySelectorAll('svg[id^="mermaid"], .mermaid svg').length,
-      leftoverPre: document.querySelectorAll('pre[data-lang="mermaid"]').length
+      leftoverPre: document.querySelectorAll('pre[data-lang="mermaid"]').length,
+      // 把「实际落在哪一页」也带出来：docsify 是 SPA，探针读到上一页的 DOM 时
+      // 容器数会是 0，与「渲染失败」看起来一样。有 h1 就能一眼分辨。
+      h1: (document.querySelector('.markdown-section h1') || {}).textContent || '(无 h1)'
     });
-    let mm = await page.evaluate(mmProbe);
+    let mm = await mmPage.evaluate(mmProbe);
     for (let i = 0; i < 30 && !(mm.containers > 0 && mm.svgs === mm.containers); i++) {
-      await page.waitForTimeout(1000);
-      mm = await page.evaluate(mmProbe);
+      await mmPage.waitForTimeout(1000);
+      mm = await mmPage.evaluate(mmProbe);
     }
     check('mermaid 全部渲染', mm.containers > 0 && mm.svgs === mm.containers && mm.leftoverPre === 0,
-      mm.svgs + '/' + mm.containers + ' SVG, 残留 pre=' + mm.leftoverPre);
+      mm.svgs + '/' + mm.containers + ' SVG, 残留 pre=' + mm.leftoverPre + ', 实际页=' + mm.h1);
+    await mmCtx.close();
 
     // mermaid 按需加载：无图表页不应请求 ESM 包（用已确认无 mermaid 容器的大写栅栏页）
     const p2 = await ctx.newPage();
